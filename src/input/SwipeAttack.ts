@@ -4,10 +4,12 @@ import { ParticleSystem } from "@babylonjs/core/Particles/particleSystem";
 import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { Vector3, Color4 } from "@babylonjs/core/Maths/math";
 import { InputManager, SwipeData } from "./InputManager";
+import { AssetManager } from "../core/AssetManager";
 
 /**
  * Swipe Attack Gesture System
  * Detects right-side swipes and spawns motion trail particles.
+ * Loads swipe trail texture from AssetManager (placeholder graceful fallback).
  */
 export class SwipeAttack {
       private scene: Scene;
@@ -44,8 +46,19 @@ export class SwipeAttack {
       }
 
       private createTrailSystem(): void {
-            this.trailParticles = new ParticleSystem("swipeTrail", 200, this.scene);
-            this.trailParticles.particleTexture = this.createTrailTexture();
+            this.trailParticles = new ParticleSystem("swipeTrail", 300, this.scene);
+
+            // Try loading trail texture from AssetManager, fallback to procedural
+            AssetManager.loadTexture(this.scene, "assets/ui/swipe_trail.ktx2").then((tex) => {
+                  if (tex && this.trailParticles) {
+                        this.trailParticles.particleTexture = tex;
+                        console.log("[SwipeAttack] Trail texture loaded from asset ✓");
+                  } else if (this.trailParticles) {
+                        this.trailParticles.particleTexture = this.createTrailTexture();
+                        console.log("[SwipeAttack] Using procedural trail texture (fallback)");
+                  }
+            });
+
             this.trailParticles.emitter = Vector3.Zero();
             this.trailParticles.minLifeTime = 0.15;
             this.trailParticles.maxLifeTime = 0.4;
