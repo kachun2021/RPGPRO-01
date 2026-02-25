@@ -37,6 +37,8 @@ export class HUD {
 
      /** Callback to toggle character sheet */
      public onCharacterButton: (() => void) | null = null;
+     /** Callback to toggle inventory sheet */
+     public onInventoryButton: (() => void) | null = null;
 
      constructor(private scene: Scene) {
           // Render at ideal size for super crisp text on mobile displays
@@ -413,6 +415,10 @@ export class HUD {
                if (item.id === "character") {
                     btn.onPointerClickObservable.add(() => {
                          if (this.onCharacterButton) this.onCharacterButton();
+                    });
+               } else if (item.id === "inventory") {
+                    btn.onPointerClickObservable.add(() => {
+                         if (this.onInventoryButton) this.onInventoryButton();
                     });
                }
                sidebar.addControl(btn);

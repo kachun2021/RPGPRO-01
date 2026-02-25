@@ -144,7 +144,7 @@ export class Merchant {
             this.promptPlane.position.y = 4.2;
             this.promptPlane.parent = this.root;
             this.promptPlane.billboardMode = Mesh.BILLBOARDMODE_ALL;
-            this.promptPlane.isPickable = false;
+            this.promptPlane.isPickable = true;
             this.promptPlane.isVisible = false;
 
             this.promptUI = AdvancedDynamicTexture.CreateForMesh(this.promptPlane, 320, 48);
@@ -164,6 +164,11 @@ export class Merchant {
             prompt.fontFamily = "'Inter', sans-serif";
             prompt.fontWeight = "600";
             bg.addControl(prompt);
+
+            bg.isPointerBlocker = true;
+            bg.onPointerClickObservable.add(() => {
+                  this.onInteract.notifyObservers();
+            });
       }
 
       public update(dt: number, playerPos: Vector3): void {

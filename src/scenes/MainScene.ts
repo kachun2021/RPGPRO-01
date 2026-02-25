@@ -28,6 +28,9 @@ import { Player } from "../entities/Player";
 import { CharacterPanel } from "../ui/CharacterPanel";
 import { MonsterManager } from "../entities/MonsterManager";
 import { CombatSystem } from "../combat/CombatSystem";
+import { InventoryPanel } from "../ui/InventoryPanel";
+import { ShopPanel } from "../ui/ShopPanel";
+import { Merchant } from "../entities/Merchant";
 
 export class MainScene {
      private scene: Scene;
@@ -41,8 +44,11 @@ export class MainScene {
      private world!: ProceduralWorld;
      private player!: Player;
      private characterPanel!: CharacterPanel;
+     private inventoryPanel!: InventoryPanel;
+     private shopPanel!: ShopPanel;
      private monsterManager!: MonsterManager;
      private combatSystem!: CombatSystem;
+     private merchant!: Merchant;
 
      constructor(
           private engine: AbstractEngine,
@@ -139,8 +145,28 @@ export class MainScene {
 
           // Wire HUD Character button to toggle CharacterPanel
           this.hud.onCharacterButton = () => {
+               if (this.inventoryPanel.getIsOpen()) this.inventoryPanel.hide();
+               if (this.shopPanel.getIsOpen()) this.shopPanel.hide();
                this.characterPanel.toggle();
           };
+
+          // Build UI Panels and wire buttons
+          this.inventoryPanel = new InventoryPanel(this.scene, this.player.inventory, this.player);
+          this.shopPanel = new ShopPanel(this.scene, this.player, this.player.inventory);
+
+          this.hud.onInventoryButton = () => {
+               if (this.characterPanel.getIsOpen()) this.characterPanel.hide();
+               if (this.shopPanel.getIsOpen()) this.shopPanel.hide();
+               this.inventoryPanel.toggle();
+          };
+
+          // Setup Merchant NPC
+          this.merchant = new Merchant(this.scene, new Vector3(8, 0, 8));
+          this.merchant.onInteract.add(() => {
+               if (this.characterPanel.getIsOpen()) this.characterPanel.hide();
+               if (this.inventoryPanel.getIsOpen()) this.inventoryPanel.hide();
+               this.shopPanel.toggle();
+          });
 
           // Bind player stats to HUD dynamic updates
           this.player.onStatsChanged.add((stats) => {
@@ -597,9 +623,11 @@ export class MainScene {
                this.player.update(dt);
           }
 
-          // Update monster AI
+          // Update monster AI & NPCs
           if (this.monsterManager && this.player) {
-               this.monsterManager.update(dt, this.player.getPosition());
+               const pPos = this.player.getPosition();
+               this.monsterManager.update(dt, pPos);
+               if (this.merchant) this.merchant.update(dt, pPos);
           }
 
           // Update combat system (monster attacks + drops + auto-battle)
