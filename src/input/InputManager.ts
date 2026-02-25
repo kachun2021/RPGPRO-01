@@ -42,6 +42,7 @@ export class InputManager {
       constructor(private scene: Scene) {
             this.canvas = scene.getEngine().getRenderingCanvas()!;
             this.setupListeners();
+            this.setupKeyboard();
             console.log("[InputManager] Initialized ✓");
       }
 
@@ -202,5 +203,56 @@ export class InputManager {
             this.onSwipeAttack.clear();
             this.onTap.clear();
             this.onCameraDrag.clear();
+      }
+
+      // ── WASD / Arrow key support for desktop ────────────────────────────
+      private keysDown = new Set<string>();
+      public readonly onKeyboardMove = new Observable<Vector2>();
+
+      private setupKeyboard(): void {
+            window.addEventListener("keydown", (e) => {
+                  const key = e.key.toLowerCase();
+                  if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)) {
+                        e.preventDefault();
+                        const wasEmpty = this.keysDown.size === 0;
+                        this.keysDown.add(key);
+                        if (wasEmpty && this.onJoystickStart) {
+                              this.onJoystickStart(-2, 0, 0);
+                        }
+                  }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                  const key = e.key.toLowerCase();
+                  this.keysDown.delete(key);
+                  if (this.keysDown.size === 0 && this.onJoystickEnd) {
+                        this.onJoystickEnd(-2);
+                  }
+            });
+
+            // Emit keyboard direction every frame
+            this.scene.onBeforeRenderObservable.add(() => {
+                  if (this.keysDown.size === 0) return;
+
+                  let dx = 0, dy = 0;
+                  if (this.keysDown.has("w") || this.keysDown.has("arrowup")) dy = -1;
+                  if (this.keysDown.has("s") || this.keysDown.has("arrowdown")) dy = 1;
+                  if (this.keysDown.has("a") || this.keysDown.has("arrowleft")) dx = -1;
+                  if (this.keysDown.has("d") || this.keysDown.has("arrowright")) dx = 1;
+
+                  const len = Math.sqrt(dx * dx + dy * dy);
+                  if (len > 0) {
+                        dx /= len;
+                        dy /= len;
+                  }
+
+                  // Emit direct keyboard direction for PortraitCamera
+                  this.onKeyboardMove.notifyObservers(new Vector2(dx, dy));
+
+                  // Also simulate joystick move for visual feedback
+                  if (this.onJoystickMove) {
+                        this.onJoystickMove(-2, dx * 100, dy * 100);
+                  }
+            });
       }
 }

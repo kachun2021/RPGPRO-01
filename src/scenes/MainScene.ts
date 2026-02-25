@@ -9,6 +9,7 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { PBRMaterial } from "@babylonjs/core/Materials/PBR/pbrMaterial";
 import { Texture } from "@babylonjs/core/Materials/Textures/texture";
+import { DynamicTexture } from "@babylonjs/core/Materials/Textures/dynamicTexture";
 import { VolumetricLightScatteringPostProcess } from "@babylonjs/core/PostProcesses/volumetricLightScatteringPostProcess";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import { GlowLayer } from "@babylonjs/core/Layers/glowLayer";
@@ -23,6 +24,10 @@ import { SwipeAttack } from "../input/SwipeAttack";
 import { PortraitCamera } from "../input/PortraitCamera";
 import { AssetManager } from "../core/AssetManager";
 import { ProceduralWorld } from "../world/ProceduralWorld";
+import { Player } from "../entities/Player";
+import { CharacterPanel } from "../ui/CharacterPanel";
+import { MonsterManager } from "../entities/MonsterManager";
+import { CombatSystem } from "../combat/CombatSystem";
 
 export class MainScene {
      private scene: Scene;
@@ -34,17 +39,22 @@ export class MainScene {
      private swipeAttack!: SwipeAttack;
      private portraitCamera!: PortraitCamera;
      private world!: ProceduralWorld;
+     private player!: Player;
+     private characterPanel!: CharacterPanel;
+     private monsterManager!: MonsterManager;
+     private combatSystem!: CombatSystem;
 
      constructor(
           private engine: AbstractEngine,
           private canvas: HTMLCanvasElement
      ) {
           this.scene = new Scene(this.engine);
-          this.scene.clearColor = new Color4(0.04, 0, 0.03, 1);
-          this.scene.ambientColor = new Color3(0.05, 0.01, 0.02);
+          // Darker but not pure black — slight navy/indigo tint instead of pure red
+          this.scene.clearColor = new Color4(0.02, 0.01, 0.04, 1);
+          this.scene.ambientColor = new Color3(0.15, 0.1, 0.12);
           this.scene.fogMode = Scene.FOGMODE_EXP2;
-          this.scene.fogDensity = 0.006;
-          this.scene.fogColor = new Color3(0.12, 0.02, 0.04);
+          this.scene.fogDensity = 0.002;
+          this.scene.fogColor = new Color3(0.08, 0.04, 0.06);
      }
 
      public async init(): Promise<void> {
@@ -56,6 +66,17 @@ export class MainScene {
 
           console.log("[Scene] Creating skybox...");
           this.createSkybox();
+
+          console.log("[Scene] Creating player character...");
+          this.player = new Player(this.scene);
+          this.player.setPosition(new Vector3(0, 0, 0));
+          // Point camera at player's torso/head
+          this.camera.target = this.player.root.position.clone();
+          this.camera.target.y += 1.8;
+
+          // Create a simple visible floor ground that's always there
+          console.log("[Scene] Creating base ground plane...");
+          this.createVisibleGround();
 
           console.log("[Scene] Initializing Procedural Chunk World...");
           this.world = new ProceduralWorld(this.scene);
@@ -79,7 +100,8 @@ export class MainScene {
 
           console.log("[Scene] Applying crimson grading...");
           try {
-               CrimsonGrading.apply(this.scene, this.camera);
+               // Reduced further to avoid crushing dark terrain visibility
+               CrimsonGrading.apply(this.scene, this.camera, 0.1);
           } catch (e) {
                console.warn("[Scene] Crimson grading failed (non-fatal):", e);
           }
@@ -91,17 +113,73 @@ export class MainScene {
                console.warn("[Scene] Post-processing failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Creating HUD...");
-          this.hud = new HUD(this.scene);
-
           console.log("[Scene] Setting up input system...");
           try {
                this.inputManager = new InputManager(this.scene);
-               this.joystick = new TouchJoystick(this.scene, this.inputManager);
+               this.joystick = new TouchJoystick(this.scene);
                this.swipeAttack = new SwipeAttack(this.scene, this.inputManager);
                this.portraitCamera = new PortraitCamera(this.scene, this.camera, this.joystick);
+               // Connect player to joystick movement
+               if (this.player) {
+                    this.portraitCamera.setPlayerTarget(this.player.root);
+                    // Wire up walking animation
+                    this.portraitCamera.onMovingChanged = (moving: boolean) => {
+                         if (this.player) this.player.setMoving(moving);
+                    };
+               }
           } catch (e) {
                console.warn("[Scene] Input system failed (non-fatal):", e);
+          }
+
+          console.log("[Scene] Creating HUD...");
+          this.hud = new HUD(this.scene);
+
+          console.log("[Scene] Creating Character Panel...");
+          this.characterPanel = new CharacterPanel(this.scene, this.player);
+
+          // Wire HUD Character button to toggle CharacterPanel
+          this.hud.onCharacterButton = () => {
+               this.characterPanel.toggle();
+          };
+
+          // Bind player stats to HUD dynamic updates
+          this.player.onStatsChanged.add((stats) => {
+               this.hud.updateFromStats(stats);
+          });
+          // Initial HUD update from player stats
+          this.hud.updateFromStats(this.player.getStats());
+
+          // ── Phase 5: Monster AI & Combat System ──
+          console.log("[Scene] Setting up Monster AI & Combat...");
+          try {
+               this.monsterManager = new MonsterManager(this.scene);
+               this.combatSystem = new CombatSystem(this.scene, this.monsterManager, this.player);
+
+               // Wire swipe attacks → combat system (legacy gesture)
+               this.inputManager.onSwipeAttack.add((swipe) => {
+                    const playerPos = this.player.getPosition();
+                    this.combatSystem.processSwipeAttack(playerPos, swipe.direction, 4);
+               });
+
+               // Wire HUD skill buttons → SkillSystem
+               this.hud.onSkillUse.add((skillId) => {
+                    this.combatSystem.skillSystem.useSkill(skillId);
+               });
+
+               // Wire HUD AUTO toggle → CombatSystem auto-battle
+               this.hud.onAutoBattleToggle.add((active) => {
+                    this.combatSystem.autoBattle = active;
+                    console.log(`[Scene] Auto-Battle: ${active ? 'ON' : 'OFF'}`);
+               });
+
+               // Wire item collection → HUD update (via player.onStatsChanged already bound)
+               this.combatSystem.onItemCollected.add((reward) => {
+                    console.log(`[Scene] Collected ${reward.type}: +${reward.amount}`);
+               });
+
+               console.log("[Scene] Monster & Combat system ready ✓");
+          } catch (e) {
+               console.warn("[Scene] Monster/Combat setup failed (non-fatal):", e);
           }
 
           console.log("[Scene] Init complete ✓");
@@ -116,11 +194,11 @@ export class MainScene {
                "mainCam",
                -Math.PI / 2,    // alpha - behind character
                Math.PI / 3.2,   // beta - slightly above
-               25,              // radius
-               new Vector3(0, 3, 0),
+               18,              // radius - closer to see character
+               new Vector3(0, 2, 0),
                this.scene
           );
-          this.camera.lowerRadiusLimit = 10;
+          this.camera.lowerRadiusLimit = 8;
           this.camera.upperRadiusLimit = 50;
           this.camera.lowerBetaLimit = 0.3;
           this.camera.upperBetaLimit = Math.PI / 2.2;
@@ -134,36 +212,38 @@ export class MainScene {
      }
 
      private setupLighting(): void {
-          // Ambient — bright enough to see everything
+          // ── Hemispheric ambient — the KEY light for overall visibility ──
           const ambient = new HemisphericLight("ambient", new Vector3(0, 1, 0), this.scene);
-          ambient.intensity = 0.45;
-          ambient.diffuse = new Color3(0.4, 0.15, 0.18);
-          ambient.groundColor = new Color3(0.12, 0.04, 0.06);
+          ambient.intensity = 1.4;
+          // Desaturated warm+cool — NOT pure red
+          ambient.diffuse = new Color3(0.7, 0.55, 0.6);
+          ambient.groundColor = new Color3(0.35, 0.22, 0.28);
+          ambient.specular = new Color3(0.35, 0.3, 0.35);
 
-          // Blood Moon directional (main shadow caster)
+          // ── Blood Moon directional (main shadow caster) ──
           const moonLight = new DirectionalLight("moonLight", new Vector3(-0.5, -1, 0.3), this.scene);
-          moonLight.intensity = 2.0;
-          moonLight.diffuse = new Color3(0.85, 0.2, 0.15);
-          moonLight.specular = new Color3(1, 0.3, 0.2);
+          moonLight.intensity = 1.8;
+          moonLight.diffuse = new Color3(0.9, 0.35, 0.25);
+          moonLight.specular = new Color3(1, 0.4, 0.3);
           moonLight.position = new Vector3(20, 40, -20);
 
           // Shadow generator
           this.shadowGen = new ShadowGenerator(1024, moonLight);
           this.shadowGen.useBlurExponentialShadowMap = true;
           this.shadowGen.blurKernel = 16;
-          this.shadowGen.darkness = 0.4;
+          this.shadowGen.darkness = 0.35;
 
-          // Crimson rim point light
-          const rimLight = new PointLight("rimLight", new Vector3(0, 15, -10), this.scene);
-          rimLight.intensity = 1.2;
-          rimLight.diffuse = new Color3(1, 0.2, 0.12);
-          rimLight.range = 80;
+          // ── Crimson fill light (near player area) ──
+          const fillLight = new PointLight("fillLight", new Vector3(0, 10, 0), this.scene);
+          fillLight.intensity = 1.0;
+          fillLight.diffuse = new Color3(0.8, 0.45, 0.35);
+          fillLight.range = 60;
 
-          // Secondary fill light for ground visibility
-          const fillLight = new PointLight("fillLight", new Vector3(0, 8, 0), this.scene);
-          fillLight.intensity = 0.5;
-          fillLight.diffuse = new Color3(0.6, 0.12, 0.1);
-          fillLight.range = 50;
+          // ── Secondary cool accent for contrast ──
+          const coolFill = new PointLight("coolFill", new Vector3(5, 6, -8), this.scene);
+          coolFill.intensity = 0.4;
+          coolFill.diffuse = new Color3(0.3, 0.35, 0.6);
+          coolFill.range = 40;
      }
 
      private createSkybox(): void {
@@ -227,23 +307,24 @@ export class MainScene {
           canvas.height = size;
           const ctx = canvas.getContext("2d")!;
 
-          // Dark sky gradient
+          // Dark sky gradient — deeper mixed colours (indigo → dark wine → horizon glow)
           const grad = ctx.createLinearGradient(0, 0, 0, size);
-          grad.addColorStop(0, "#020005");
-          grad.addColorStop(0.3, "#050010");
-          grad.addColorStop(0.6, "#120008");
-          grad.addColorStop(0.85, "#1a0510");
-          grad.addColorStop(1, "#2a0815");
+          grad.addColorStop(0, "#020008");
+          grad.addColorStop(0.25, "#060012");
+          grad.addColorStop(0.5, "#100010");
+          grad.addColorStop(0.75, "#1a0818");
+          grad.addColorStop(0.9, "#2a0c1a");
+          grad.addColorStop(1, "#351222");
           ctx.fillStyle = grad;
           ctx.fillRect(0, 0, size, size);
 
           // Subtle stars
-          for (let i = 0; i < 120; i++) {
+          for (let i = 0; i < 200; i++) {
                const x = Math.random() * size;
-               const y = Math.random() * size * 0.6;
+               const y = Math.random() * size * 0.7;
                const r = Math.random() * 1.5 + 0.3;
-               const brightness = Math.random() * 0.4 + 0.1;
-               ctx.fillStyle = `rgba(255, ${180 + Math.random() * 75}, ${160 + Math.random() * 95}, ${brightness})`;
+               const brightness = Math.random() * 0.5 + 0.15;
+               ctx.fillStyle = `rgba(255, ${200 + Math.random() * 55}, ${180 + Math.random() * 75}, ${brightness})`;
                ctx.beginPath();
                ctx.arc(x, y, r, 0, Math.PI * 2);
                ctx.fill();
@@ -252,70 +333,79 @@ export class MainScene {
           return Texture.LoadFromDataString("skyGradient", canvas.toDataURL(), this.scene);
      }
 
-     private createGround(): void {
-          const ground = MeshBuilder.CreateGround("ground", {
-               width: 200,
-               height: 200,
-               subdivisions: 64,
-          }, this.scene);
+     private createGodRays(): void {
+          const godRayEmitter = MeshBuilder.CreateSphere("godRayEmitter", { diameter: 3, segments: 16 }, this.scene);
+          godRayEmitter.position = new Vector3(-60, 80, -100);
+          const emitterMat = new StandardMaterial("godRayEmitterMat", this.scene);
+          emitterMat.disableLighting = true;
+          emitterMat.emissiveColor = new Color3(0.9, 0.15, 0.08);
+          emitterMat.diffuseColor = new Color3(0, 0, 0);
+          emitterMat.specularColor = new Color3(0, 0, 0);
+          godRayEmitter.material = emitterMat;
 
-          const groundMat = new PBRMaterial("groundMat", this.scene);
-          groundMat.albedoColor = new Color3(0.06, 0.04, 0.045);
-          groundMat.metallic = 0.1;
-          groundMat.roughness = 0.92;
-          groundMat.emissiveColor = new Color3(0.02, 0.005, 0.008);
-          groundMat.ambientColor = new Color3(0.03, 0.01, 0.015);
-
-          // Asynchronously load darkstone PBR from AssetManager (normal, metallic workflow mapping)
-          AssetManager.loadPBRTexture(this.scene, "assets/textures/ground/darkstone.ktx2").then((tex) => {
-               if (tex && tex.name !== "") {
-                    tex.uScale = 30;
-                    tex.vScale = 30;
-                    groundMat.bumpTexture = tex; // Treating it as bump map or multi-map packed
-                    groundMat.bumpTexture.level = 0.8;
-               } else {
-                    // Fallback normal map logic
-                    const bumpTex = this.createProceduralNormalMap();
-                    if (bumpTex) {
-                         groundMat.bumpTexture = bumpTex;
-                         bumpTex.uScale = 30;
-                         bumpTex.vScale = 30;
-                         groundMat.bumpTexture.level = 0.6;
-                    }
-               }
-          });
-
-          ground.material = groundMat;
-          ground.receiveShadows = true;
-
-          // Scatter dark gothic props
-          this.scatterProps();
+          const godRays = new VolumetricLightScatteringPostProcess(
+               "godRays",
+               1.0,
+               this.camera,
+               godRayEmitter,
+               60,
+               Texture.BILINEAR_SAMPLINGMODE,
+               this.engine,
+               false
+          );
+          godRays.exposure = 0.2;
+          godRays.decay = 0.97;
+          godRays.weight = 0.4;
+          godRays.density = 0.7;
      }
 
-     private createProceduralNormalMap(): Texture | null {
-          const size = 512;
-          const canvas = document.createElement("canvas");
-          canvas.width = size;
-          canvas.height = size;
-          const ctx = canvas.getContext("2d");
-          if (!ctx) return null;
+     private createAtmosphericProps(): void {
+          // Ground fog planes
+          for (let i = 0; i < 10; i++) {
+               const fog = MeshBuilder.CreatePlane(`fogPlane_${i}`, {
+                    width: 40 + Math.random() * 20,
+                    height: 3 + Math.random() * 3,
+               }, this.scene);
+               fog.position.y = 0.3 + Math.random() * 1.5;
+               fog.position.x = (Math.random() - 0.5) * 100;
+               fog.position.z = (Math.random() - 0.5) * 100;
+               fog.rotation.y = Math.random() * Math.PI * 2;
+               fog.billboardMode = 2;
 
-          const imageData = ctx.createImageData(size, size);
-          for (let y = 0; y < size; y++) {
-               for (let x = 0; x < size; x++) {
-                    const i = (y * size + x) * 4;
-                    const n1 = Math.sin(x * 0.05) * Math.cos(y * 0.05) * 0.5 + 0.5;
-                    const n2 = Math.sin(x * 0.13 + 1.7) * Math.cos(y * 0.11 + 2.3) * 0.3;
-                    const n3 = Math.random() * 0.2;
-                    const val = (n1 + n2 + n3) * 0.5;
-                    imageData.data[i] = 128 + (val - 0.5) * 60;
-                    imageData.data[i + 1] = 128 + (val - 0.5) * 60;
-                    imageData.data[i + 2] = 200 + Math.random() * 55;
-                    imageData.data[i + 3] = 255;
-               }
+               const fogMat = new StandardMaterial(`fogMat_${i}`, this.scene);
+               fogMat.disableLighting = true;
+               fogMat.emissiveColor = new Color3(0.12, 0.05, 0.08);
+               fogMat.alpha = 0.05 + Math.random() * 0.05;
+               fogMat.diffuseColor = new Color3(0, 0, 0);
+               fogMat.specularColor = new Color3(0, 0, 0);
+               fog.material = fogMat;
           }
-          ctx.putImageData(imageData, 0, 0);
-          return Texture.LoadFromDataString("groundNormal", canvas.toDataURL(), this.scene);
+
+          // Distant mountain silhouettes
+          for (let i = 0; i < 8; i++) {
+               const mtn = MeshBuilder.CreateCylinder(`mountain_${i}`, {
+                    height: 15 + Math.random() * 30,
+                    diameterTop: 0.5 + Math.random() * 3,
+                    diameterBottom: 12 + Math.random() * 15,
+                    tessellation: 5 + Math.floor(Math.random() * 4),
+               }, this.scene);
+
+               const angle = (i / 8) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+               const dist = 80 + Math.random() * 20;
+               mtn.position.x = Math.cos(angle) * dist;
+               mtn.position.z = Math.sin(angle) * dist;
+               mtn.position.y = 5;
+
+               const mat = new StandardMaterial(`mtnMat_${i}`, this.scene);
+               mat.disableLighting = true;
+               mat.emissiveColor = new Color3(0.04, 0.015, 0.025);
+               mat.diffuseColor = new Color3(0, 0, 0);
+               mat.specularColor = new Color3(0, 0, 0);
+               mtn.material = mat;
+          }
+
+          // Scatter gothic props (pillars, rocks, arches)
+          this.scatterProps();
      }
 
      private scatterProps(): void {
@@ -338,10 +428,10 @@ export class MainScene {
                pillar.rotation.z = (Math.random() - 0.5) * 0.15;
 
                const mat = new PBRMaterial(`pillarMat_${i}`, this.scene);
-               mat.albedoColor = new Color3(0.04, 0.03, 0.035);
+               mat.albedoColor = new Color3(0.08, 0.06, 0.07);
                mat.metallic = 0.05;
                mat.roughness = 0.95;
-               mat.emissiveColor = new Color3(0.01, 0.003, 0.005);
+               mat.emissiveColor = new Color3(0.01, 0.005, 0.008);
                pillar.material = mat;
                this.shadowGen.addShadowCaster(pillar);
           }
@@ -362,7 +452,7 @@ export class MainScene {
                rock.rotation.y = Math.random() * Math.PI * 2;
 
                const mat = new PBRMaterial(`rockMat_${i}`, this.scene);
-               mat.albedoColor = new Color3(0.05 + Math.random() * 0.03, 0.03, 0.035);
+               mat.albedoColor = new Color3(0.1 + Math.random() * 0.05, 0.07, 0.08);
                mat.metallic = 0.0;
                mat.roughness = 0.98;
                rock.material = mat;
@@ -386,84 +476,12 @@ export class MainScene {
                arch.rotation.z = (Math.random() - 0.5) * 0.2;
 
                const mat = new PBRMaterial(`archMat_${i}`, this.scene);
-               mat.albedoColor = new Color3(0.035, 0.025, 0.03);
+               mat.albedoColor = new Color3(0.07, 0.05, 0.06);
                mat.metallic = 0.1;
                mat.roughness = 0.9;
-               mat.emissiveColor = new Color3(0.008, 0.002, 0.004);
+               mat.emissiveColor = new Color3(0.01, 0.003, 0.006);
                arch.material = mat;
                this.shadowGen.addShadowCaster(arch);
-          }
-     }
-
-     private createGodRays(): void {
-          const godRayEmitter = MeshBuilder.CreateSphere("godRayEmitter", { diameter: 3, segments: 16 }, this.scene);
-          godRayEmitter.position = new Vector3(-60, 80, -100);
-          const emitterMat = new StandardMaterial("godRayEmitterMat", this.scene);
-          emitterMat.disableLighting = true;
-          emitterMat.emissiveColor = new Color3(0.9, 0.15, 0.08);
-          emitterMat.diffuseColor = new Color3(0, 0, 0);
-          emitterMat.specularColor = new Color3(0, 0, 0);
-          godRayEmitter.material = emitterMat;
-
-          const godRays = new VolumetricLightScatteringPostProcess(
-               "godRays",
-               1.0,
-               this.camera,
-               godRayEmitter,
-               60,
-               Texture.BILINEAR_SAMPLINGMODE,
-               this.engine,
-               false
-          );
-          godRays.exposure = 0.25;
-          godRays.decay = 0.97;
-          godRays.weight = 0.5;
-          godRays.density = 0.8;
-     }
-
-     private createAtmosphericProps(): void {
-          // Ground fog planes
-          for (let i = 0; i < 10; i++) {
-               const fog = MeshBuilder.CreatePlane(`fogPlane_${i}`, {
-                    width: 40 + Math.random() * 20,
-                    height: 3 + Math.random() * 3,
-               }, this.scene);
-               fog.position.y = 0.3 + Math.random() * 1.5;
-               fog.position.x = (Math.random() - 0.5) * 100;
-               fog.position.z = (Math.random() - 0.5) * 100;
-               fog.rotation.y = Math.random() * Math.PI * 2;
-               fog.billboardMode = 2;
-
-               const fogMat = new StandardMaterial(`fogMat_${i}`, this.scene);
-               fogMat.disableLighting = true;
-               fogMat.emissiveColor = new Color3(0.15, 0.02, 0.04);
-               fogMat.alpha = 0.06 + Math.random() * 0.06;
-               fogMat.diffuseColor = new Color3(0, 0, 0);
-               fogMat.specularColor = new Color3(0, 0, 0);
-               fog.material = fogMat;
-          }
-
-          // Distant mountain silhouettes
-          for (let i = 0; i < 8; i++) {
-               const mtn = MeshBuilder.CreateCylinder(`mountain_${i}`, {
-                    height: 15 + Math.random() * 30,
-                    diameterTop: 0.5 + Math.random() * 3,
-                    diameterBottom: 12 + Math.random() * 15,
-                    tessellation: 5 + Math.floor(Math.random() * 4),
-               }, this.scene);
-
-               const angle = (i / 8) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
-               const dist = 80 + Math.random() * 20;
-               mtn.position.x = Math.cos(angle) * dist;
-               mtn.position.z = Math.sin(angle) * dist;
-               mtn.position.y = 5;
-
-               const mat = new StandardMaterial(`mtnMat_${i}`, this.scene);
-               mat.disableLighting = true;
-               mat.emissiveColor = new Color3(0.04, 0.008, 0.015);
-               mat.diffuseColor = new Color3(0, 0, 0);
-               mat.specularColor = new Color3(0, 0, 0);
-               mtn.material = mat;
           }
      }
 
@@ -472,8 +490,8 @@ export class MainScene {
 
           // Bloom — lighter, to not bleed into UI
           pipeline.bloomEnabled = true;
-          pipeline.bloomThreshold = 0.6;
-          pipeline.bloomWeight = 0.15;
+          pipeline.bloomThreshold = 0.65;
+          pipeline.bloomWeight = 0.12;
           pipeline.bloomKernel = 32;
           pipeline.bloomScale = 0.3;
 
@@ -482,19 +500,19 @@ export class MainScene {
 
           // Film grain — very subtle
           pipeline.grainEnabled = true;
-          pipeline.grain.intensity = 8;
+          pipeline.grain.intensity = 6;
           pipeline.grain.animated = true;
 
-          // Vignette — softer
+          // Vignette — minimal (CrimsonGrading already adds one)
           pipeline.imageProcessing.vignetteEnabled = true;
-          pipeline.imageProcessing.vignetteWeight = 1.0;
-          pipeline.imageProcessing.vignetteColor = new Color4(0.06, 0, 0.02, 1);
-          pipeline.imageProcessing.vignetteStretch = 0.4;
+          pipeline.imageProcessing.vignetteWeight = 0.3;
+          pipeline.imageProcessing.vignetteColor = new Color4(0.04, 0.01, 0.03, 1);
+          pipeline.imageProcessing.vignetteStretch = 0.5;
 
           // Tone mapping & exposure (ACES)
           pipeline.imageProcessing.toneMappingEnabled = true;
           pipeline.imageProcessing.toneMappingType = 1;
-          pipeline.imageProcessing.exposure = 1.5;
+          pipeline.imageProcessing.exposure = 1.6;
           pipeline.imageProcessing.contrast = 1.2;
 
           // Color curves
@@ -502,14 +520,103 @@ export class MainScene {
 
           // Glow layer — reduced to not haze over everything
           const glow = new GlowLayer("glow", this.scene);
-          glow.intensity = 0.3;
+          glow.intensity = 0.25;
           glow.blurKernelSize = 16;
      }
 
+     private createVisibleGround(): void {
+          // Large ground plane with bright procedural texture
+          const ground = MeshBuilder.CreateGround("baseGround", {
+               width: 600, height: 600, subdivisions: 48
+          }, this.scene);
+          ground.position.y = -0.5; // Slightly below procedural chunks to prevent Z-fighting
+          ground.receiveShadows = true;
+
+          const mat = new StandardMaterial("baseGroundMat", this.scene);
+          mat.diffuseColor = new Color3(0.45, 0.28, 0.32);
+          mat.specularColor = new Color3(0.08, 0.06, 0.07);
+          // HIGH emissive to survive all post-processing layers
+          mat.emissiveColor = new Color3(0.22, 0.1, 0.14);
+
+          // Procedural grid texture for movement perception
+          const texSize = 512;
+          const dynTex = new DynamicTexture("groundGridTex", texSize, this.scene, true);
+          const ctx = dynTex.getContext();
+
+          // Base earth tone
+          ctx.fillStyle = "#3d2228";
+          ctx.fillRect(0, 0, texSize, texSize);
+
+          // Grid lines — visible enough to perceive movement
+          ctx.strokeStyle = "rgba(200, 120, 130, 0.35)";
+          ctx.lineWidth = 1.5;
+          const gridStep = texSize / 16;
+          for (let i = 0; i <= 16; i++) {
+               const pos = i * gridStep;
+               ctx.beginPath(); ctx.moveTo(pos, 0); ctx.lineTo(pos, texSize); ctx.stroke();
+               ctx.beginPath(); ctx.moveTo(0, pos); ctx.lineTo(texSize, pos); ctx.stroke();
+          }
+
+          // Noise splotches for terrain variation
+          for (let i = 0; i < 250; i++) {
+               const x = Math.random() * texSize;
+               const y = Math.random() * texSize;
+               const r = 2 + Math.random() * 10;
+               const b = Math.floor(30 + Math.random() * 40);
+               ctx.fillStyle = `rgba(${b + 20}, ${b}, ${b + 8}, 0.35)`;
+               ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+          }
+
+          // Crack detail
+          ctx.strokeStyle = "rgba(120, 60, 70, 0.2)";
+          ctx.lineWidth = 0.5;
+          for (let i = 0; i < 30; i++) {
+               ctx.beginPath();
+               const sx = Math.random() * texSize;
+               const sy = Math.random() * texSize;
+               ctx.moveTo(sx, sy);
+               ctx.lineTo(sx + (Math.random() - 0.5) * 60, sy + (Math.random() - 0.5) * 60);
+               ctx.stroke();
+          }
+
+          dynTex.update();
+          mat.diffuseTexture = dynTex;
+          (mat.diffuseTexture as DynamicTexture).uScale = 6;
+          (mat.diffuseTexture as DynamicTexture).vScale = 6;
+
+          ground.material = mat;
+          this.shadowGen.addShadowCaster(ground);
+          console.log("[Scene] Base ground plane created ✓");
+     }
+
      public render(): void {
+          const dt = this.engine.getDeltaTime() / 1000;
+
+          // Update player animation
+          if (this.player) {
+               this.player.update(dt);
+          }
+
+          // Update monster AI
+          if (this.monsterManager && this.player) {
+               this.monsterManager.update(dt, this.player.getPosition());
+          }
+
+          // Update combat system (monster attacks + drops + auto-battle)
+          if (this.combatSystem) {
+               this.combatSystem.update(dt);
+
+               // Update HUD skill cooldown overlays
+               const skills = ["atk", "dodge", "skill1", "skill2", "ult"];
+               for (const id of skills) {
+                    const state = this.combatSystem.skillSystem.getSkillState(id);
+                    this.hud.updateSkillCooldown(id, state.cooldownRemaining, state.cooldownTotal);
+               }
+          }
+
           if (this.world && this.camera) {
-               // Assuming player model is at camera target, feed target position to the chunk manager
-               this.world.update(this.camera.target);
+               const playerPos = this.player ? this.player.getPosition() : this.camera.target;
+               this.world.update(playerPos);
           }
           this.scene.render();
      }

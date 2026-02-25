@@ -3,14 +3,14 @@ import { Vector2 } from "@babylonjs/core/Maths/math.vector";
 import { Observable } from "@babylonjs/core/Misc/observable";
 import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
 import { Ellipse } from "@babylonjs/gui/2D/controls/ellipse";
-import { Image } from "@babylonjs/gui/2D/controls/image";
 import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
 import { Control } from "@babylonjs/gui/2D/controls/control";
-import { InputManager } from "./InputManager";
 
 /**
- * Premium Virtual Joystick — HD resolution (idealHeight 1624)
- * Loads optional sprite texture, full visual feedback.
+ * Premium Virtual Joystick — Mobile-first Touch Input
+ * Uses CAPTURE-PHASE DOM pointer events so our handler fires
+ * BEFORE BabylonJS engine's own pointer handlers.
+ * Document-level move/up for global drag tracking.
  */
 export class TouchJoystick {
       public readonly onMove = new Observable<Vector2>();
@@ -19,36 +19,36 @@ export class TouchJoystick {
       private outerRing!: Ellipse;
       private innerKnob!: Ellipse;
       private glowRing!: Ellipse;
-      private knobSprite!: Image | null;
 
       private centerX = 0;
       private centerY = 0;
-      private maxRadius = 100;
+      private maxRadius = 60;
       private active = false;
+      private activePointerId = -1;
       private currentDir = Vector2.Zero();
-
-      // Sizes (in 1624 ideal units)
-      private outerSize = 230;
-      private knobSize = 95;
       private pulsePhase = 0;
 
-      constructor(
-            private scene: Scene,
-            private inputManager: InputManager
-      ) {
+      private outerSize = 230;
+      private knobSize = 95;
+
+      constructor(private scene: Scene) {
             this.ui = AdvancedDynamicTexture.CreateFullscreenUI("joystickUI", true, scene);
             this.ui.idealHeight = 1624;
             this.ui.renderAtIdealSize = false;
 
             this.createVisuals();
-            this.bindInput();
+            this.bindPointerEvents();
             this.startIdlePulse();
 
-            console.log("[TouchJoystick] Initialized ✓");
+            console.log("[TouchJoystick] Mobile joystick initialized ✓");
       }
 
+      // ═══════════════════════════════════════════════════════════════
+      // ── VISUALS ───────────────────────────────────────────────────
+      // ═══════════════════════════════════════════════════════════════
+
       private createVisuals(): void {
-            // Glow ring (behind outer ring)
+            // Glow ring
             this.glowRing = new Ellipse("joyGlow");
             this.glowRing.width = `${this.outerSize + 24}px`;
             this.glowRing.height = `${this.outerSize + 24}px`;
@@ -59,9 +59,10 @@ export class TouchJoystick {
             this.glowRing.color = "rgba(255, 60, 40, 0.0)";
             this.glowRing.thickness = 4;
             this.glowRing.background = "transparent";
+            this.glowRing.isHitTestVisible = false;
             this.ui.addControl(this.glowRing);
 
-            // Outer ring (base)
+            // Outer ring
             this.outerRing = new Ellipse("joyOuter");
             this.outerRing.width = `${this.outerSize}px`;
             this.outerRing.height = `${this.outerSize}px`;
@@ -72,9 +73,9 @@ export class TouchJoystick {
             this.outerRing.background = "rgba(15, 2, 8, 0.6)";
             this.outerRing.color = "rgba(255, 80, 60, 0.35)";
             this.outerRing.thickness = 3;
+            this.outerRing.isHitTestVisible = false;
             this.ui.addControl(this.outerRing);
 
-            // Directional notch markers
             this.addDirectionIndicators();
 
             // Inner knob
@@ -84,26 +85,17 @@ export class TouchJoystick {
             this.innerKnob.background = "rgba(255, 80, 60, 0.5)";
             this.innerKnob.color = "rgba(255, 100, 70, 0.75)";
             this.innerKnob.thickness = 3;
+            this.innerKnob.isHitTestVisible = false;
             this.outerRing.addControl(this.innerKnob);
 
-            // Joystick sprite overlay
-            this.knobSprite = new Image("joySprite", "assets/ui/joystick.png");
-            this.knobSprite.width = `${this.knobSize - 14}px`;
-            this.knobSprite.height = `${this.knobSize - 14}px`;
-            this.knobSprite.stretch = Image.STRETCH_UNIFORM;
-            this.knobSprite.alpha = 0.85;
-            this.knobSprite.onImageLoadedObservable.add(() => {
-                  console.log("[TouchJoystick] Joystick sprite loaded ✓");
-            });
-            this.innerKnob.addControl(this.knobSprite);
-
-            // Center dot (fallback when sprite missing)
+            // Center dot
             const centerDot = new Ellipse("joyCenterDot");
             centerDot.width = "20px";
             centerDot.height = "20px";
             centerDot.background = "rgba(255, 150, 100, 0.6)";
             centerDot.color = "rgba(255, 200, 150, 0.4)";
             centerDot.thickness = 2;
+            centerDot.isHitTestVisible = false;
             this.innerKnob.addControl(centerDot);
       }
 
@@ -121,14 +113,12 @@ export class TouchJoystick {
                   arrow.color = "rgba(255, 100, 70, 0.2)";
                   arrow.verticalAlignment = d.vAlign;
                   arrow.horizontalAlignment = d.hAlign;
-                  if (d.name === "left" || d.name === "right") {
-                        arrow.left = d.left;
-                  }
+                  if (d.name === "left" || d.name === "right") arrow.left = d.left;
                   arrow.top = d.top;
+                  arrow.isHitTestVisible = false;
                   this.outerRing.addControl(arrow);
             }
 
-            // Ring tick marks (8 cardinal/diagonal)
             for (let i = 0; i < 8; i++) {
                   const tick = new Ellipse(`joyTick_${i}`);
                   tick.width = "7px";
@@ -136,6 +126,7 @@ export class TouchJoystick {
                   tick.background = "rgba(255, 100, 70, 0.12)";
                   tick.color = "transparent";
                   tick.thickness = 0;
+                  tick.isHitTestVisible = false;
                   const angle = (i / 8) * Math.PI * 2;
                   const r = this.outerSize / 2 - 18;
                   tick.left = `${Math.cos(angle) * r}px`;
@@ -144,24 +135,51 @@ export class TouchJoystick {
             }
       }
 
-      private bindInput(): void {
-            this.inputManager.onJoystickStart = (_id: number, x: number, y: number) => {
-                  this.active = true;
-                  this.centerX = x;
-                  this.centerY = y;
+      // ═══════════════════════════════════════════════════════════════
+      // ── POINTER EVENTS (CAPTURE PHASE — fires before BabylonJS) ──
+      // ═══════════════════════════════════════════════════════════════
 
+      private isInJoystickZone(x: number, y: number): boolean {
+            const canvas = this.scene.getEngine().getRenderingCanvas()!;
+            const w = canvas.clientWidth;
+            const h = canvas.clientHeight;
+            // Left 40%, bottom 35% of the screen
+            return x < w * 0.4 && y > h * 0.65;
+      }
+
+      private bindPointerEvents(): void {
+            const canvas = this.scene.getEngine().getRenderingCanvas()!;
+
+            // CAPTURE phase on canvas — fires BEFORE BabylonJS bubble-phase handlers
+            canvas.addEventListener("pointerdown", (e: PointerEvent) => {
+                  if (this.active) return;
+                  if (!this.isInJoystickZone(e.clientX, e.clientY)) return;
+
+                  this.active = true;
+                  this.activePointerId = e.pointerId;
+                  this.centerX = e.clientX;
+                  this.centerY = e.clientY;
+
+                  // MaxRadius in screen pixels
+                  const scale = canvas.clientHeight / 1624;
+                  this.maxRadius = (this.outerSize / 2) * scale;
+
+                  // Visual feedback
                   this.glowRing.color = "rgba(255, 60, 40, 0.35)";
                   this.outerRing.color = "rgba(255, 80, 60, 0.65)";
                   this.outerRing.background = "rgba(25, 4, 12, 0.7)";
                   this.innerKnob.scaleX = 1.08;
                   this.innerKnob.scaleY = 1.08;
-            };
 
-            this.inputManager.onJoystickMove = (_id: number, x: number, y: number) => {
-                  if (!this.active) return;
+                  console.log(`[Joystick] DOWN id=${e.pointerId} (${e.clientX},${e.clientY})`);
+            }, { capture: true, passive: false });
 
-                  let dx = x - this.centerX;
-                  let dy = y - this.centerY;
+            // DOCUMENT-level move — tracks drag globally even outside canvas
+            document.addEventListener("pointermove", (e: PointerEvent) => {
+                  if (!this.active || e.pointerId !== this.activePointerId) return;
+
+                  let dx = e.clientX - this.centerX;
+                  let dy = e.clientY - this.centerY;
                   const dist = Math.sqrt(dx * dx + dy * dy);
 
                   if (dist > this.maxRadius) {
@@ -172,31 +190,45 @@ export class TouchJoystick {
                   this.currentDir.x = dx / this.maxRadius;
                   this.currentDir.y = dy / this.maxRadius;
 
-                  this.innerKnob.left = `${dx}px`;
-                  this.innerKnob.top = `${dy}px`;
+                  // Move inner knob (screen px → ideal px)
+                  const scale = canvas.clientHeight / 1624;
+                  this.innerKnob.left = `${dx / scale}px`;
+                  this.innerKnob.top = `${dy / scale}px`;
 
                   const intensity = Math.min(dist / this.maxRadius, 1);
-                  const glowAlpha = (0.15 + intensity * 0.4).toFixed(2);
-                  this.glowRing.color = `rgba(255, 60, 40, ${glowAlpha})`;
+                  this.glowRing.color = `rgba(255, 60, 40, ${(0.15 + intensity * 0.4).toFixed(2)})`;
 
                   this.onMove.notifyObservers(this.currentDir.clone());
-            };
+            }, { capture: true, passive: true });
 
-            this.inputManager.onJoystickEnd = (_id: number) => {
-                  this.active = false;
-                  this.currentDir.x = 0;
-                  this.currentDir.y = 0;
-                  this.innerKnob.left = "0px";
-                  this.innerKnob.top = "0px";
+            // DOCUMENT-level up
+            document.addEventListener("pointerup", (e: PointerEvent) => {
+                  if (e.pointerId !== this.activePointerId) return;
+                  console.log(`[Joystick] UP id=${e.pointerId}`);
+                  this.resetJoystick();
+            }, { capture: true });
 
-                  this.glowRing.color = "rgba(255, 60, 40, 0.0)";
-                  this.outerRing.color = "rgba(255, 80, 60, 0.35)";
-                  this.outerRing.background = "rgba(15, 2, 8, 0.6)";
-                  this.innerKnob.scaleX = 1.0;
-                  this.innerKnob.scaleY = 1.0;
+            document.addEventListener("pointercancel", (e: PointerEvent) => {
+                  if (e.pointerId !== this.activePointerId) return;
+                  this.resetJoystick();
+            }, { capture: true });
+      }
 
-                  this.onMove.notifyObservers(Vector2.Zero());
-            };
+      private resetJoystick(): void {
+            this.active = false;
+            this.activePointerId = -1;
+            this.currentDir.x = 0;
+            this.currentDir.y = 0;
+            this.innerKnob.left = "0px";
+            this.innerKnob.top = "0px";
+
+            this.glowRing.color = "rgba(255, 60, 40, 0.0)";
+            this.outerRing.color = "rgba(255, 80, 60, 0.35)";
+            this.outerRing.background = "rgba(15, 2, 8, 0.6)";
+            this.innerKnob.scaleX = 1.0;
+            this.innerKnob.scaleY = 1.0;
+
+            this.onMove.notifyObservers(Vector2.Zero());
       }
 
       private startIdlePulse(): void {

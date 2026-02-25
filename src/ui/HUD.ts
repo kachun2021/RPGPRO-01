@@ -1,235 +1,163 @@
 import { Scene } from "@babylonjs/core/scene";
+import { Observable } from "@babylonjs/core/Misc/observable";
 import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
 import { StackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
 import { Rectangle } from "@babylonjs/gui/2D/controls/rectangle";
 import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
 import { Button } from "@babylonjs/gui/2D/controls/button";
 import { Ellipse } from "@babylonjs/gui/2D/controls/ellipse";
-import { Image } from "@babylonjs/gui/2D/controls/image";
 import { Control } from "@babylonjs/gui/2D/controls/control";
+import { PlayerStats } from "../entities/Player";
 
 /**
- * Premium Vertical HUD — Dark Gothic Fantasy
- * idealHeight = 1624 (iPhone 14 Pro portrait native)
- * All sizes are tuned for crisp HD rendering on modern phones.
- *
- * Layout:
- * ┌─────────────────────────────────┐
- * │  [Avatar+Stats]  [Location] [≡] │
- * │  [EXP][Currency]        [🗺]   │
- * │                    [Events]     │
- * │                    [Rankings]   │
- * │                    [Faction]    │
- * │                    [Shop]       │
- * │                    [Mail]       │
- * │                    [Quest]      │
- * │                       [AUTO]    │
- * │  [🕹]          [⚡][❄][🔥][⚔]  │
- * │                   [💨] [☄]     │
- * └─────────────────────────────────┘
+ * Premium Vertical HUD — Genshin/Wuthering Waves Aesthetic
+ * - Minimalist glassmorphic panels
+ * - Inter & Cinzel fonts for crisp high-end typography
+ * - Curved bottom-right combat layout
+ * - Ultra-thin stat bars
  */
 export class HUD {
      private ui: AdvancedDynamicTexture;
+     private hpFill!: Rectangle;
+     private mpFill!: Rectangle;
+     private hpLabel!: TextBlock;
+     private mpLabel!: TextBlock;
+     private expFill!: Rectangle;
+     private levelText!: TextBlock;
+     private goldText!: TextBlock;
+     private gemsText!: TextBlock;
+
+     // Skill system observables
+     public readonly onSkillUse = new Observable<string>();
+     public readonly onAutoBattleToggle = new Observable<boolean>();
+
+     // Cooldown overlays per skill button
+     private skillCDOverlays = new Map<string, Rectangle>();
+     private skillCDTexts = new Map<string, TextBlock>();
+
+     /** Callback to toggle character sheet */
+     public onCharacterButton: (() => void) | null = null;
 
      constructor(private scene: Scene) {
+          // Render at ideal size for super crisp text on mobile displays
           this.ui = AdvancedDynamicTexture.CreateFullscreenUI("hud", true, scene);
           this.ui.idealHeight = 1624;
           this.ui.renderAtIdealSize = false;
+          this.ui.isForeground = true;
 
           this.createTopBar();
           this.createAvatarPanel();
-          this.createExpBar();
-          this.createRightSidebar();
-          this.createBottomBar();
-          this.createMinimap();
           this.createCurrencyBar();
+          this.createMinimap();
+          this.createRightSidebar();
+          this.createExpBar();
+          this.createBottomBar();
           this.createNotificationBadge();
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── TOP BAR: Location + Menu ─────────────────────────────────────
+     // ── TOP BAR: Location & Atmosphere ────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createTopBar(): void {
-          const topBar = new Rectangle("topBar");
-          topBar.width = "100%";
-          topBar.height = "96px";
-          topBar.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          topBar.background = "rgba(10, 0, 8, 0.92)";
-          topBar.color = "transparent";
-          topBar.thickness = 0;
-          this.ui.addControl(topBar);
-
-          // Bottom accent line
-          const topAccent = new Rectangle("topAccent");
-          topAccent.width = "100%";
-          topAccent.height = "2px";
-          topAccent.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          topAccent.top = "96px";
-          topAccent.background = "rgba(255, 60, 40, 0.18)";
-          topAccent.color = "transparent";
-          topAccent.thickness = 0;
-          this.ui.addControl(topAccent);
-
-          // ── Location Bar (top-center, ornate) ──────────────────────
           const locationBar = new Rectangle("locationBar");
-          locationBar.width = "380px";
-          locationBar.height = "56px";
+          locationBar.width = "440px";
+          locationBar.height = "90px";
           locationBar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
           locationBar.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          locationBar.top = "18px";
-          locationBar.background = "rgba(100, 12, 18, 0.5)";
-          locationBar.color = "rgba(255, 80, 60, 0.55)";
-          locationBar.thickness = 1.5;
-          locationBar.cornerRadius = 28;
+          locationBar.top = "60px";
+          locationBar.thickness = 0;
           this.ui.addControl(locationBar);
 
-          const locLeft = new TextBlock("locLeftOrn", "◆");
-          locLeft.color = "rgba(255, 80, 60, 0.5)";
-          locLeft.fontSize = 14;
-          locLeft.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          locLeft.left = "18px";
-          locationBar.addControl(locLeft);
-
-          const locRight = new TextBlock("locRightOrn", "◆");
-          locRight.color = "rgba(255, 80, 60, 0.5)";
-          locRight.fontSize = 14;
-          locRight.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          locRight.left = "-18px";
-          locationBar.addControl(locRight);
-
-          const locationText = new TextBlock("locationText", "⚔ Ashen Wasteland");
-          locationText.color = "#ffaa77";
-          locationText.fontSize = 24;
-          locationText.fontFamily = "'Georgia', serif";
-          locationText.fontWeight = "bold";
-          locationText.shadowColor = "rgba(0,0,0,0.95)";
-          locationText.shadowBlur = 5;
+          const locationText = new TextBlock("locationText", "Ashen Wasteland");
+          locationText.color = "#ffffff";
+          locationText.fontSize = 32;
+          locationText.fontFamily = "'Cinzel', serif";
+          locationText.fontWeight = "700";
+          locationText.shadowColor = "rgba(0,0,0,0.8)";
+          locationText.shadowBlur = 6;
+          locationText.shadowOffsetX = 1;
+          locationText.shadowOffsetY = 2;
           locationBar.addControl(locationText);
 
-          // ── Menu Button (top-right) ─────────────────────────────────
-          const menuBtn = Button.CreateSimpleButton("menuBtn", "☰");
-          menuBtn.width = "76px";
-          menuBtn.height = "76px";
-          menuBtn.color = "#ff6644";
-          menuBtn.fontSize = 38;
-          menuBtn.background = "rgba(100, 12, 18, 0.6)";
-          menuBtn.cornerRadius = 18;
-          menuBtn.thickness = 2;
-          menuBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          menuBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          menuBtn.top = "10px";
-          menuBtn.left = "-10px";
-          this.addPressAnimation(menuBtn);
-          menuBtn.onPointerClickObservable.add(() => {
-               console.log("[HUD] Menu pressed");
-          });
-          this.ui.addControl(menuBtn);
+          const subText = new TextBlock("subText", "EXPLORATION REGION");
+          subText.color = "rgba(255, 255, 255, 0.6)";
+          subText.fontSize = 14;
+          subText.fontFamily = "'Inter', sans-serif";
+          subText.fontWeight = "600";
+          subText.top = "28px";
+          locationBar.addControl(subText);
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── AVATAR + HP/MP/STAMINA (top-left) ────────────────────────────
+     // ── AVATAR PANEL: Minimalist Stats ───────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createAvatarPanel(): void {
           const panel = new Rectangle("avatarPanel");
-          panel.width = "360px";
-          panel.height = "165px";
+          panel.width = "380px";
+          panel.height = "120px";
           panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          panel.top = "10px";
-          panel.left = "10px";
-          panel.background = "rgba(12, 2, 6, 0.88)";
-          panel.color = "rgba(255, 80, 60, 0.4)";
-          panel.thickness = 2;
-          panel.cornerRadius = 20;
+          panel.top = "40px";
+          panel.left = "30px";
+          panel.thickness = 0;
           this.ui.addControl(panel);
 
-          // Avatar glow ring
-          const avatarGlow = new Ellipse("avatarGlow");
-          avatarGlow.width = "72px";
-          avatarGlow.height = "72px";
-          avatarGlow.color = "rgba(255, 60, 40, 0.2)";
-          avatarGlow.thickness = 4;
-          avatarGlow.background = "transparent";
-          avatarGlow.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          avatarGlow.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          avatarGlow.left = "8px";
-          avatarGlow.top = "8px";
-          panel.addControl(avatarGlow);
-
+          // Avatar circular frame (Glass effect)
           const avatarFrame = new Ellipse("avatarFrame");
-          avatarFrame.width = "64px";
-          avatarFrame.height = "64px";
-          avatarFrame.color = "#ff5533";
+          avatarFrame.width = "90px";
+          avatarFrame.height = "90px";
+          avatarFrame.color = "rgba(255, 255, 255, 0.6)";
           avatarFrame.thickness = 3;
-          avatarFrame.background = "rgba(100, 12, 18, 0.75)";
+          avatarFrame.background = "rgba(10, 10, 15, 0.7)";
           avatarFrame.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           avatarFrame.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          avatarFrame.left = "12px";
-          avatarFrame.top = "12px";
+          avatarFrame.left = "0px";
+          avatarFrame.top = "0px";
           panel.addControl(avatarFrame);
 
-          const avatarText = new TextBlock("avatarTxt", "🗡");
-          avatarText.fontSize = 28;
+          const avatarText = new TextBlock("avatarTxt", "👤");
+          avatarText.fontSize = 42;
           avatarFrame.addControl(avatarText);
 
-          // Level badge
+          // Level badge overlapping bottom-right of avatar
           const levelBadge = new Ellipse("levelBadge");
-          levelBadge.width = "28px";
-          levelBadge.height = "28px";
-          levelBadge.color = "#ff5533";
+          levelBadge.width = "36px";
+          levelBadge.height = "36px";
+          levelBadge.color = "rgba(255,255,255,0.9)";
           levelBadge.thickness = 2;
-          levelBadge.background = "rgba(180, 25, 18, 0.95)";
+          levelBadge.background = "#2a2a35";
           levelBadge.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           levelBadge.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          levelBadge.left = "56px";
-          levelBadge.top = "56px";
+          levelBadge.left = "60px";
+          levelBadge.top = "58px";
           panel.addControl(levelBadge);
 
           const levelText = new TextBlock("levelNum", "1");
           levelText.color = "#fff";
-          levelText.fontSize = 14;
-          levelText.fontWeight = "bold";
-          levelText.shadowColor = "rgba(0,0,0,0.9)";
-          levelText.shadowBlur = 3;
+          levelText.fontSize = 16;
+          levelText.fontFamily = "'Inter', sans-serif";
+          levelText.fontWeight = "700";
           levelBadge.addControl(levelText);
+          this.levelText = levelText;
 
           // Player name
-          const nameText = new TextBlock("playerName", "Dark Knight");
-          nameText.color = "#ffe0cc";
-          nameText.fontSize = 22;
-          nameText.height = "26px";
-          nameText.resizeToFit = true;
-          nameText.fontFamily = "'Georgia', serif";
-          nameText.fontWeight = "bold";
-          nameText.shadowColor = "rgba(0,0,0,0.95)";
-          nameText.shadowBlur = 5;
+          const nameText = new TextBlock("playerName", "Wanderer");
+          nameText.color = "#ffffff";
+          nameText.fontSize = 26;
+          nameText.fontFamily = "'Inter', sans-serif";
+          nameText.fontWeight = "600";
+          nameText.shadowColor = "rgba(0,0,0,0.6)";
+          nameText.shadowBlur = 4;
           nameText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           nameText.left = "95px";
-          nameText.top = "12px";
+          nameText.top = "8px";
           panel.addControl(nameText);
 
-          // Server / Faction tag
-          const serverTag = new TextBlock("serverTag", "S1 · Crimson Order");
-          serverTag.color = "rgba(255, 160, 130, 0.7)";
-          serverTag.fontSize = 14;
-          serverTag.height = "20px";
-          serverTag.resizeToFit = true;
-          serverTag.fontFamily = "'Georgia', serif";
-          serverTag.shadowColor = "rgba(0,0,0,0.8)";
-          serverTag.shadowBlur = 3;
-          serverTag.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          serverTag.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          serverTag.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          serverTag.left = "95px";
-          serverTag.top = "38px";
-          panel.addControl(serverTag);
-
-          // Status Bars (HP, MP, ST) properly spaced below the name
-          this.createStatusBar(panel, "hp", "HP", 85, "#c4302b", "#8b1a18", "95px", "65px", "250px");
-          this.createStatusBar(panel, "mp", "MP", 60, "#3355cc", "#1a2b66", "95px", "95px", "250px");
-          this.createStatusBar(panel, "sta", "ST", 100, "#55aa30", "#2d5518", "95px", "125px", "250px");
+          // HP & MP Bars
+          this.createStatusBar(panel, "hp", "HP", 100, "#73d13d", "105px", "46px", "240px");
+          this.createStatusBar(panel, "mp", "MP", 100, "#40a9ff", "105px", "68px", "220px");
      }
 
      private createStatusBar(
@@ -238,20 +166,19 @@ export class HUD {
           label: string,
           percent: number,
           fillColor: string,
-          bgGlow: string,
           left: string,
           top: string,
           width: string
      ): void {
           const container = new Rectangle(`${id}BarContainer`);
           container.width = width;
-          container.height = "26px";
+          container.height = "14px";
           container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           container.left = left;
           container.top = top;
-          container.background = "rgba(0, 0, 0, 0.75)";
-          container.color = `${bgGlow}44`;
+          container.background = "rgba(0, 0, 0, 0.6)";
+          container.color = "rgba(255, 255, 255, 0.15)";
           container.thickness = 1;
           container.cornerRadius = 7;
           parent.addControl(container);
@@ -266,448 +193,413 @@ export class HUD {
           fill.cornerRadius = 7;
           container.addControl(fill);
 
-          // Shimmer highlight
-          const shimmer = new Rectangle(`${id}Shimmer`);
-          shimmer.width = "40%";
-          shimmer.height = "35%";
-          shimmer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          shimmer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          shimmer.background = "rgba(255,255,255,0.06)";
-          shimmer.color = "transparent";
-          shimmer.thickness = 0;
-          shimmer.cornerRadius = 5;
-          fill.addControl(shimmer);
-
-          const text = new TextBlock(`${id}Label`, `${label} ${percent}%`);
+          // Value overlay (shifted right)
+          const text = new TextBlock(`${id}Label`, `${percent}%`);
+          text.fontFamily = "'Inter', sans-serif";
           text.color = "#ffffff";
-          text.fontSize = 16;
-          text.fontWeight = "bold";
-          text.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-          text.shadowColor = "rgba(0,0,0,1.0)";
-          text.shadowBlur = 5;
+          text.fontSize = 13;
+          text.fontWeight = "700";
+          text.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+          text.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+          text.left = `${parseInt(width) + 8}px`; // display next to bar
+          text.top = "-2px";
+          text.shadowColor = "rgba(0,0,0,0.8)";
+          text.shadowBlur = 2;
           container.addControl(text);
+
+          if (id === "hp") { this.hpFill = fill; this.hpLabel = text; }
+          if (id === "mp") { this.mpFill = fill; this.mpLabel = text; }
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── EXP BAR ──────────────────────────────────────────────────────
+     // ── BOTTOM EXP BAR ────────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createExpBar(): void {
           const expContainer = new Rectangle("expBarContainer");
-          expContainer.width = "360px";
-          expContainer.height = "18px";
-          expContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          expContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          expContainer.left = "10px";
-          expContainer.top = "172px";
-          expContainer.background = "rgba(0, 0, 0, 0.6)";
-          expContainer.color = "rgba(255, 200, 100, 0.3)";
-          expContainer.thickness = 1;
-          expContainer.cornerRadius = 9;
+          expContainer.width = "100%";
+          expContainer.height = "4px";
+          expContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+          expContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+          expContainer.background = "rgba(0, 0, 0, 0.4)";
+          expContainer.thickness = 0;
           this.ui.addControl(expContainer);
 
           const expFill = new Rectangle("expFill");
           expFill.width = "35%";
           expFill.height = "100%";
           expFill.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          expFill.background = "rgba(255, 180, 60, 0.7)";
-          expFill.color = "transparent";
+          expFill.background = "#faad14";
           expFill.thickness = 0;
-          expFill.cornerRadius = 9;
           expContainer.addControl(expFill);
 
-          const expLabel = new TextBlock("expLabel", "EXP 350/1000");
-          expLabel.color = "rgba(255, 220, 150, 0.9)";
-          expLabel.fontSize = 13;
-          expLabel.fontWeight = "bold";
-          expLabel.shadowColor = "rgba(0,0,0,0.9)";
-          expLabel.shadowBlur = 3;
-          expContainer.addControl(expLabel);
+          this.expFill = expFill;
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── CURRENCY BAR ─────────────────────────────────────────────────
+     // ── CURRENCY ──────────────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createCurrencyBar(): void {
           const currencyPanel = new StackPanel("currencyPanel");
-          currencyPanel.width = "350px";
-          currencyPanel.height = "34px";
+          currencyPanel.width = "300px";
+          currencyPanel.height = "40px";
           currencyPanel.isVertical = false;
-          currencyPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+          currencyPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
           currencyPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          currencyPanel.left = "10px";
-          currencyPanel.top = "196px";
+          currencyPanel.left = "-20px";
+          currencyPanel.top = "40px";
           this.ui.addControl(currencyPanel);
 
           const currencies = [
-               { icon: "💰", value: "12.5K", color: "#ffcc44" },
-               { icon: "💎", value: "340", color: "#88ccff" },
-               { icon: "⚡", value: "80/80", color: "#ff8844" },
+               { id: "gold", icon: "🪙", color: "#faad14" },
+               { id: "gems", icon: "💠", color: "#69c0ff" },
           ];
 
           for (const c of currencies) {
-               const item = new Rectangle(`currency_${c.icon}`);
-               item.width = "114px";
-               item.height = "30px";
-               item.background = "rgba(12, 2, 6, 0.75)";
-               item.color = "rgba(255, 80, 60, 0.2)";
+               const item = new Rectangle(`currency_${c.id}`);
+               item.width = "130px";
+               item.height = "40px";
+               item.background = "rgba(0, 0, 0, 0.55)";
+               item.color = "rgba(255, 255, 255, 0.15)";
                item.thickness = 1;
-               item.cornerRadius = 7;
+               item.cornerRadius = 20;
                currencyPanel.addControl(item);
 
-               const txt = new TextBlock(`currTxt_${c.icon}`, `${c.icon} ${c.value}`);
-               txt.color = c.color;
-               txt.fontSize = 16;
-               txt.fontWeight = "bold";
-               txt.shadowColor = "rgba(0,0,0,0.95)";
-               txt.shadowBlur = 4;
+               const txt = new TextBlock(`currTxt_${c.id}`, `${c.icon} 0`);
+               txt.color = "#ffffff";
+               txt.fontSize = 18;
+               txt.fontFamily = "'Inter', sans-serif";
+               txt.fontWeight = "600";
                item.addControl(txt);
+
+               if (c.id === "gold") this.goldText = txt;
+               if (c.id === "gems") this.gemsText = txt;
           }
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── RIGHT SIDEBAR ────────────────────────────────────────────────
+     // ── MINIMAP ───────────────────────────────────────────────────────
+     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     private createMinimap(): void {
+          const mapContainer = new Ellipse("minimapContainer");
+          mapContainer.width = "200px";
+          mapContainer.height = "200px";
+          mapContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+          mapContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+          mapContainer.left = "-20px";
+          mapContainer.top = "100px";
+          mapContainer.background = "rgba(20, 25, 30, 0.7)";
+          mapContainer.color = "rgba(255, 255, 255, 0.45)";
+          mapContainer.thickness = 3;
+          this.ui.addControl(mapContainer);
+
+          const playerArrow = new TextBlock("playerArrow", "➤");
+          playerArrow.color = "#ffffff";
+          playerArrow.fontSize = 30;
+          playerArrow.rotation = -Math.PI / 4;
+          mapContainer.addControl(playerArrow);
+
+          const nTxt = new TextBlock("compassN", "N");
+          nTxt.fontFamily = "'Inter', sans-serif";
+          nTxt.color = "rgba(255,255,255,0.9)";
+          nTxt.fontSize = 16;
+          nTxt.fontWeight = "700";
+          nTxt.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+          nTxt.top = "10px";
+          mapContainer.addControl(nTxt);
+     }
+
+     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     // ── RIGHT SIDEBAR ─────────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createRightSidebar(): void {
           const sidebar = new StackPanel("rightSidebar");
-          sidebar.width = "86px";
+          sidebar.width = "100px";
           sidebar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
           sidebar.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-          sidebar.left = "-8px";
-          sidebar.top = "50px";
+          sidebar.left = "-16px";
+          sidebar.top = "-50px";
           sidebar.isVertical = true;
-          sidebar.spacing = 8;
+          sidebar.spacing = 16;
           this.ui.addControl(sidebar);
 
           const icons = [
-               { id: "events", icon: "📅", label: "Events", badge: "!" },
-               { id: "rankings", icon: "🏆", label: "Rank", badge: "" },
-               { id: "faction", icon: "⚔", label: "Guild", badge: "" },
-               { id: "shop", icon: "🛒", label: "Shop", badge: "3" },
-               { id: "mail", icon: "📧", label: "Mail", badge: "5" },
-               { id: "quest", icon: "📜", label: "Quest", badge: "" },
+               { id: "character", icon: "✦", badge: "" },
+               { id: "inventory", icon: "🎒", badge: "!" },
+               { id: "quests", icon: "📜", badge: "" },
+               { id: "gacha", icon: "🌟", badge: "1" },
           ];
 
           for (const item of icons) {
-               const btn = this.createSidebarButton(item.id, item.icon, item.label, item.badge);
+               const btn = this.createSidebarButton(item.id, item.icon, item.badge);
+               btn.isPointerBlocker = true;
+               if (item.id === "character") {
+                    btn.onPointerClickObservable.add(() => {
+                         if (this.onCharacterButton) this.onCharacterButton();
+                    });
+               }
                sidebar.addControl(btn);
           }
      }
 
-     private createSidebarButton(id: string, icon: string, label: string, badge: string): Rectangle {
+     private createSidebarButton(id: string, icon: string, badge: string): Rectangle {
           const container = new Rectangle(`sidebar_${id}`);
-          container.width = "82px";
-          container.height = "88px";
-          container.background = "rgba(100, 12, 18, 0.45)";
-          container.color = "rgba(255, 80, 60, 0.35)";
-          container.thickness = 1.5;
-          container.cornerRadius = 14;
+          container.width = "72px";
+          container.height = "72px";
+          container.background = "rgba(10, 10, 15, 0.65)";
+          container.color = "rgba(255, 255, 255, 0.35)";
+          container.thickness = 2;
+          container.cornerRadius = 36;
 
           const iconText = new TextBlock(`${id}Icon`, icon);
-          iconText.fontSize = 32;
-          iconText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          iconText.top = "10px";
+          iconText.fontSize = 36;
+          iconText.color = "#ffffff";
           container.addControl(iconText);
-
-          const labelText = new TextBlock(`${id}Label`, label);
-          labelText.color = "#ffccbb";
-          labelText.fontSize = 16;
-          labelText.fontWeight = "bold";
-          labelText.shadowColor = "rgba(0,0,0,0.95)";
-          labelText.shadowBlur = 4;
-          labelText.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          labelText.top = "-8px";
-          container.addControl(labelText);
 
           if (badge) {
                const badgeCircle = new Ellipse(`${id}Badge`);
-               badgeCircle.width = "28px";
-               badgeCircle.height = "28px";
-               badgeCircle.background = "#e03030";
-               badgeCircle.color = "#ff6644";
-               badgeCircle.thickness = 1.5;
+               badgeCircle.width = "24px";
+               badgeCircle.height = "24px";
+               badgeCircle.background = "#ff4d4f";
+               badgeCircle.color = "transparent";
                badgeCircle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
                badgeCircle.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-               badgeCircle.left = "6px";
-               badgeCircle.top = "-6px";
+               badgeCircle.left = "4px";
+               badgeCircle.top = "-4px";
                container.addControl(badgeCircle);
 
-               const badgeText = new TextBlock(`${id}BadgeTxt`, badge);
-               badgeText.color = "#ffffff";
-               badgeText.fontSize = 15;
-               badgeText.fontWeight = "bold";
-               badgeText.shadowColor = "rgba(0,0,0,0.8)";
-               badgeText.shadowBlur = 3;
-               badgeCircle.addControl(badgeText);
+               if (badge !== "!") {
+                    const badgeText = new TextBlock(`${id}BadgeTxt`, badge);
+                    badgeText.color = "#ffffff";
+                    badgeText.fontFamily = "'Inter', sans-serif";
+                    badgeText.fontSize = 14;
+                    badgeText.fontWeight = "700";
+                    badgeCircle.addControl(badgeText);
+               }
           }
+
+          container.onPointerDownObservable.add(() => { container.scaleX = 0.9; container.scaleY = 0.9; });
+          container.onPointerUpObservable.add(() => { container.scaleX = 1.0; container.scaleY = 1.0; });
 
           return container;
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── BOTTOM BAR: Skills + Auto-Battle ─────────────────────────────
+     // ── COMBAT SKILLS (Ultra Premium Curved Layout) ─────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createBottomBar(): void {
           const bottomBg = new Rectangle("bottomBg");
           bottomBg.width = "100%";
-          bottomBg.height = "280px";
+          bottomBg.height = "350px";
           bottomBg.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          bottomBg.background = "rgba(8, 0, 6, 0.78)";
-          bottomBg.color = "transparent";
+          bottomBg.background = "transparent";
           bottomBg.thickness = 0;
           this.ui.addControl(bottomBg);
 
-          const bottomAccent = new Rectangle("bottomAccent");
-          bottomAccent.width = "100%";
-          bottomAccent.height = "2px";
-          bottomAccent.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          bottomAccent.top = "-280px";
-          bottomAccent.background = "rgba(255, 60, 40, 0.12)";
-          bottomAccent.color = "transparent";
-          bottomAccent.thickness = 0;
-          this.ui.addControl(bottomAccent);
-
-          this.createSkillButtons();
-
-          // Auto-Battle toggle
-          const autoBg = new Rectangle("autoBg");
-          autoBg.width = "112px";
-          autoBg.height = "52px";
-          autoBg.cornerRadius = 26;
-          autoBg.background = "rgba(100, 12, 18, 0.5)";
-          autoBg.color = "rgba(255, 80, 60, 0.45)";
-          autoBg.thickness = 1.5;
-          autoBg.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          autoBg.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          autoBg.left = "-16px";
-          autoBg.top = "-286px";
-          this.ui.addControl(autoBg);
-
-          const autoBtn = Button.CreateSimpleButton("autoBtn", "⚙ AUTO");
-          autoBtn.width = "108px";
+          // Add Auto Battle toggle cleanly
+          const autoBtn = new Rectangle("autoBtn");
+          autoBtn.width = "120px";
           autoBtn.height = "48px";
-          autoBtn.color = "#ff6644";
-          autoBtn.fontSize = 20;
-          autoBtn.fontFamily = "'Georgia', serif";
-          autoBtn.fontWeight = "bold";
-          autoBtn.background = "transparent";
+          autoBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+          autoBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+          autoBtn.left = "-30px";
+          autoBtn.top = "-300px";
+          autoBtn.background = "rgba(10, 10, 15, 0.65)";
+          autoBtn.color = "rgba(255, 255, 255, 0.4)";
+          autoBtn.thickness = 2;
           autoBtn.cornerRadius = 24;
-          autoBtn.thickness = 0;
-          autoBg.addControl(autoBtn);
+          this.ui.addControl(autoBtn);
+
+          const autoTxt = new TextBlock("autoTxt", "⚙ AUTO");
+          autoTxt.fontFamily = "'Inter', sans-serif";
+          autoTxt.fontSize = 18;
+          autoTxt.fontWeight = "700";
+          autoTxt.color = "rgba(255, 255, 255, 0.7)";
+          autoBtn.addControl(autoTxt);
 
           let autoActive = false;
-          this.addPressAnimation(autoBtn);
           autoBtn.onPointerClickObservable.add(() => {
                autoActive = !autoActive;
-               autoBg.background = autoActive ? "rgba(255, 80, 60, 0.5)" : "rgba(100, 12, 18, 0.5)";
-               autoBtn.color = autoActive ? "#ffffff" : "#ff6644";
-               console.log(`[HUD] Auto-Battle: ${autoActive ? "ON" : "OFF"}`);
+               autoBtn.background = autoActive ? "rgba(255, 255, 255, 0.9)" : "rgba(10, 10, 15, 0.5)";
+               autoTxt.color = autoActive ? "#000000" : "rgba(255, 255, 255, 0.7)";
+               this.onAutoBattleToggle.notifyObservers(autoActive);
           });
 
-          // Speed toggle
-          const speedBtn = Button.CreateSimpleButton("speedBtn", "×1");
-          speedBtn.width = "64px";
-          speedBtn.height = "40px";
-          speedBtn.color = "rgba(255, 180, 140, 0.7)";
-          speedBtn.fontSize = 18;
-          speedBtn.background = "rgba(100, 12, 18, 0.4)";
-          speedBtn.cornerRadius = 20;
-          speedBtn.thickness = 1;
-          speedBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          speedBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          speedBtn.left = "-136px";
-          speedBtn.top = "-292px";
-          let speedFast = false;
-          this.addPressAnimation(speedBtn);
-          speedBtn.onPointerClickObservable.add(() => {
-               speedFast = !speedFast;
-               (speedBtn.textBlock as TextBlock).text = speedFast ? "×2" : "×1";
-               speedBtn.color = speedFast ? "#ffcc44" : "rgba(255, 180, 140, 0.7)";
-               console.log(`[HUD] Speed: ${speedFast ? "2x" : "1x"}`);
-          });
-          this.ui.addControl(speedBtn);
+          this.createSkillButtons();
      }
 
      private createSkillButtons(): void {
-          // Main attack (large)
-          const atkGlow = new Ellipse("atkGlow");
-          atkGlow.width = "146px";
-          atkGlow.height = "146px";
-          atkGlow.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          atkGlow.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          atkGlow.left = "-118px";
-          atkGlow.top = "-62px";
-          atkGlow.background = "transparent";
-          atkGlow.color = "rgba(255, 60, 40, 0.12)";
-          atkGlow.thickness = 4;
-          this.ui.addControl(atkGlow);
+          const baseRight = -40;
+          const baseBot = -60;
 
+          // Main attack 
           const atkBtn = new Ellipse("atkBtn");
-          atkBtn.width = "130px";
-          atkBtn.height = "130px";
+          atkBtn.width = "150px";
+          atkBtn.height = "150px";
           atkBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
           atkBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          atkBtn.left = "-126px";
-          atkBtn.top = "-70px";
-          atkBtn.background = "rgba(255, 50, 35, 0.3)";
-          atkBtn.color = "rgba(255, 80, 60, 0.75)";
+          atkBtn.left = `${baseRight}px`;
+          atkBtn.top = `${baseBot}px`;
+          atkBtn.background = "rgba(20, 20, 25, 0.55)";
+          atkBtn.color = "rgba(255, 255, 255, 0.45)";
           atkBtn.thickness = 3;
           this.ui.addControl(atkBtn);
 
-          const atkIcon = new TextBlock("atkIcon", "⚔");
-          atkIcon.fontSize = 52;
+          const atkInner = new Ellipse("atkInner");
+          atkInner.width = "128px";
+          atkInner.height = "128px";
+          atkInner.background = "rgba(255, 255, 255, 0.12)";
+          atkInner.thickness = 0;
+          atkBtn.addControl(atkInner);
+
+          const atkIcon = new TextBlock("atkIcon", "⚔️");
+          atkIcon.fontSize = 58;
           atkBtn.addControl(atkIcon);
 
-          const atkLabel = new TextBlock("atkLabel", "ATK");
-          atkLabel.color = "rgba(255, 200, 160, 0.5)";
-          atkLabel.fontSize = 13;
-          atkLabel.fontWeight = "bold";
-          atkLabel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-          atkLabel.top = "-8px";
-          atkBtn.addControl(atkLabel);
+          // Cooldown overlay for ATK
+          this.addCooldownOverlay(atkBtn, "atk");
 
-          // Skills
+          atkBtn.onPointerDownObservable.add(() => { atkBtn.scaleX = 0.9; atkBtn.scaleY = 0.9; atkBtn.background = "rgba(255, 255, 255, 0.2)"; });
+          atkBtn.onPointerUpObservable.add(() => { atkBtn.scaleX = 1; atkBtn.scaleY = 1; atkBtn.background = "rgba(20, 20, 25, 0.4)"; });
+          atkBtn.onPointerClickObservable.add(() => { this.onSkillUse.notifyObservers("atk"); });
+
+          // Curved Skills
           const skills = [
-               { id: "skill1", icon: "🔥", label: "Flame", x: -30, y: -216, cd: "3s" },
-               { id: "skill2", icon: "❄", label: "Frost", x: -240, y: -100, cd: "" },
-               { id: "skill3", icon: "⚡", label: "Storm", x: -240, y: -216, cd: "8s" },
-               { id: "dodge", icon: "💨", label: "Dodge", x: -30, y: -100, cd: "" },
-               { id: "ult", icon: "☄", label: "ULT", x: -135, y: -216, cd: "25s" },
+               { id: "dodge", icon: "💨", r: 120, angle: 165 },
+               { id: "skill1", icon: "⚡", r: 150, angle: 120 },
+               { id: "skill2", icon: "❄️", r: 150, angle: 80 },
+               { id: "ult", icon: "💥", r: 130, angle: 30 },  // Ultimate
           ];
 
           for (const s of skills) {
+               const rad = s.angle * Math.PI / 180;
+               const btnSize = s.id === "ult" ? 105 : 90;
+               const targetLeft = baseRight - (Math.cos(rad) * s.r);
+               const targetTop = baseBot - (Math.sin(rad) * s.r);
+
                const btn = new Ellipse(`${s.id}Btn`);
-               btn.width = "90px";
-               btn.height = "90px";
+               btn.width = `${btnSize}px`;
+               btn.height = `${btnSize}px`;
                btn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
                btn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-               btn.left = `${s.x}px`;
-               btn.top = `${s.y}px`;
-               btn.background = "rgba(100, 12, 18, 0.35)";
-               btn.color = "rgba(255, 80, 60, 0.45)";
-               btn.thickness = 2;
+               btn.left = `${targetLeft}px`;
+               btn.top = `${targetTop}px`;
+               btn.background = s.id === "ult" ? "rgba(250, 173, 20, 0.35)" : "rgba(20, 20, 25, 0.6)";
+               btn.color = s.id === "ult" ? "rgba(250, 173, 20, 0.7)" : "rgba(255, 255, 255, 0.35)";
+               btn.thickness = 2.5;
                this.ui.addControl(btn);
 
                const icon = new TextBlock(`${s.id}Icon`, s.icon);
-               icon.fontSize = 34;
-               icon.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-               icon.top = "12px";
+               icon.fontSize = s.id === "ult" ? 46 : 38;
                btn.addControl(icon);
 
-               const skillLabel = new TextBlock(`${s.id}SkillLabel`, s.label);
-               skillLabel.color = "rgba(255, 180, 160, 0.6)";
-               skillLabel.fontSize = 13;
-               skillLabel.fontWeight = "bold";
-               skillLabel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-               skillLabel.top = "-6px";
-               btn.addControl(skillLabel);
+               // Cooldown overlay
+               this.addCooldownOverlay(btn, s.id);
 
-               if (s.cd) {
-                    const cd = new TextBlock(`${s.id}CD`, s.cd);
-                    cd.color = "rgba(255, 255, 255, 0.45)";
-                    cd.fontSize = 14;
-                    cd.fontWeight = "bold";
-                    cd.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-                    cd.shadowColor = "rgba(0,0,0,0.95)";
-                    cd.shadowBlur = 4;
-                    btn.addControl(cd);
-               }
+               btn.onPointerDownObservable.add(() => { btn.scaleX = 0.9; btn.scaleY = 0.9; btn.background = "rgba(255,255,255,0.2)"; });
+               btn.onPointerUpObservable.add(() => { btn.scaleX = 1; btn.scaleY = 1; btn.background = s.id === "ult" ? "rgba(250, 173, 20, 0.2)" : "rgba(20, 20, 25, 0.45)"; });
+               btn.onPointerClickObservable.add(() => { this.onSkillUse.notifyObservers(s.id); });
           }
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── MINIMAP ──────────────────────────────────────────────────────
+     // ── COOLDOWN OVERLAY ──────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     private createMinimap(): void {
-          const mapContainer = new Rectangle("minimapContainer");
-          mapContainer.width = "130px";
-          mapContainer.height = "130px";
-          mapContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-          mapContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          mapContainer.left = "-8px";
-          mapContainer.top = "94px";
-          mapContainer.background = "rgba(12, 2, 6, 0.82)";
-          mapContainer.color = "rgba(255, 80, 60, 0.4)";
-          mapContainer.thickness = 2;
-          mapContainer.cornerRadius = 65;
-          this.ui.addControl(mapContainer);
+     private addCooldownOverlay(parent: Ellipse, skillId: string): void {
+          const overlay = new Rectangle(`cd_${skillId}`);
+          overlay.width = "100%";
+          overlay.height = "0%"; // grows from bottom
+          overlay.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+          overlay.background = "rgba(0, 0, 0, 0.65)";
+          overlay.color = "transparent";
+          overlay.thickness = 0;
+          overlay.isVisible = false;
+          overlay.isHitTestVisible = false;
+          parent.addControl(overlay);
+          this.skillCDOverlays.set(skillId, overlay);
 
-          const mapLabel = new TextBlock("mapLabel", "🗺");
-          mapLabel.fontSize = 38;
-          mapLabel.color = "rgba(255, 180, 160, 0.45)";
-          mapContainer.addControl(mapLabel);
+          const cdText = new TextBlock(`cdTxt_${skillId}`, "");
+          cdText.color = "#ffffff";
+          cdText.fontSize = 22;
+          cdText.fontFamily = "'Inter', sans-serif";
+          cdText.fontWeight = "700";
+          cdText.isVisible = false;
+          cdText.isHitTestVisible = false;
+          parent.addControl(cdText);
+          this.skillCDTexts.set(skillId, cdText);
+     }
 
-          const playerDot = new Ellipse("playerDot");
-          playerDot.width = "10px";
-          playerDot.height = "10px";
-          playerDot.background = "#ff5533";
-          playerDot.color = "#ff8866";
-          playerDot.thickness = 2;
-          mapContainer.addControl(playerDot);
+     public updateSkillCooldown(skillId: string, remaining: number, total: number): void {
+          const overlay = this.skillCDOverlays.get(skillId);
+          const text = this.skillCDTexts.get(skillId);
+          if (!overlay || !text) return;
 
-          const compass = new TextBlock("compass", "N");
-          compass.color = "rgba(255, 80, 60, 0.85)";
-          compass.fontSize = 16;
-          compass.fontWeight = "bold";
-          compass.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          compass.top = "10px";
-          mapContainer.addControl(compass);
-
-          const cardinals = [
-               { char: "E", hAlign: Control.HORIZONTAL_ALIGNMENT_RIGHT, vAlign: Control.VERTICAL_ALIGNMENT_CENTER, left: "-10px", top: "0px" },
-               { char: "W", hAlign: Control.HORIZONTAL_ALIGNMENT_LEFT, vAlign: Control.VERTICAL_ALIGNMENT_CENTER, left: "10px", top: "0px" },
-               { char: "S", hAlign: Control.HORIZONTAL_ALIGNMENT_CENTER, vAlign: Control.VERTICAL_ALIGNMENT_BOTTOM, left: "0px", top: "-10px" },
-          ];
-          for (const c of cardinals) {
-               const txt = new TextBlock(`compass_${c.char}`, c.char);
-               txt.color = "rgba(255, 80, 60, 0.35)";
-               txt.fontSize = 13;
-               txt.fontWeight = "bold";
-               txt.horizontalAlignment = c.hAlign;
-               txt.verticalAlignment = c.vAlign;
-               txt.left = c.left;
-               txt.top = c.top;
-               mapContainer.addControl(txt);
+          if (remaining <= 0) {
+               overlay.isVisible = false;
+               text.isVisible = false;
+          } else {
+               const pct = Math.min(100, (remaining / total) * 100);
+               overlay.isVisible = true;
+               overlay.height = `${pct}%`;
+               text.isVisible = true;
+               text.text = remaining >= 1 ? `${Math.ceil(remaining)}` : "";
           }
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── NOTIFICATION BADGE ───────────────────────────────────────────
+     // ── DYNAMIC UPDATES ───────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     public updateFromStats(s: PlayerStats): void {
+          const hpPct = Math.max(0, Math.min(100, Math.round((s.hp / s.maxHp) * 100)));
+          const mpPct = Math.max(0, Math.min(100, Math.round((s.mp / s.maxMp) * 100)));
+          const expPct = Math.max(0, Math.min(100, Math.round((s.exp / s.maxExp) * 100)));
+
+          if (this.hpFill) this.hpFill.width = `${hpPct}%`;
+          if (this.mpFill) this.mpFill.width = `${mpPct}%`;
+          if (this.hpLabel) this.hpLabel.text = `${hpPct}%`;
+          if (this.mpLabel) this.mpLabel.text = `${mpPct}%`;
+          if (this.expFill) this.expFill.width = `${expPct}%`;
+          if (this.levelText) this.levelText.text = `${s.level}`;
+          if (this.goldText) this.goldText.text = `🪙 ${(s.gold / 1000).toFixed(1)}K`;
+          if (this.gemsText) this.gemsText.text = `💠 ${s.gems}`;
+     }
+
      private createNotificationBadge(): void {
           const notifBar = new Rectangle("notifBar");
-          notifBar.width = "330px";
-          notifBar.height = "48px";
+          notifBar.width = "400px";
+          notifBar.height = "60px";
           notifBar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
           notifBar.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          notifBar.top = "82px";
-          notifBar.background = "rgba(180, 25, 18, 0.45)";
-          notifBar.color = "rgba(255, 80, 60, 0.45)";
+          notifBar.top = "120px";
+          notifBar.background = "rgba(0, 0, 0, 0.6)";
+          notifBar.color = "rgba(255, 255, 255, 0.1)";
           notifBar.thickness = 1;
-          notifBar.cornerRadius = 24;
-          notifBar.alpha = 0.95;
+          notifBar.cornerRadius = 8;
+          notifBar.alpha = 0;
           this.ui.addControl(notifBar);
 
-          const notifText = new TextBlock("notifText", "🔥 Blood Moon Rising Event!");
-          notifText.color = "#ffcc88";
-          notifText.fontSize = 17;
-          notifText.fontWeight = "bold";
-          notifText.fontFamily = "'Georgia', serif";
+          const icon = new TextBlock("nIcon", "✨");
+          icon.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+          icon.fontSize = 28;
+          icon.left = "15px";
+          notifBar.addControl(icon);
+
+          const notifText = new TextBlock("notifText", "Unlocked: Resonance Nexus");
+          notifText.color = "#ffffff";
+          notifText.fontSize = 18;
+          notifText.fontFamily = "'Inter', sans-serif";
+          notifText.fontWeight = "600";
+          notifText.left = "20px";
           notifBar.addControl(notifText);
 
-          setTimeout(() => { notifBar.alpha = 0; }, 5000);
-     }
-
-     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     // ── UTILITY ──────────────────────────────────────────────────────
-     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     private addPressAnimation(btn: Button): void {
-          btn.onPointerDownObservable.add(() => {
-               btn.scaleX = 0.92;
-               btn.scaleY = 0.92;
-          });
-          btn.onPointerUpObservable.add(() => {
-               btn.scaleX = 1.0;
-               btn.scaleY = 1.0;
+          let t = 0;
+          this.scene.onBeforeRenderObservable.add(() => {
+               if (t < 60) {
+                    notifBar.alpha = Math.min(1, t / 30);
+                    notifBar.top = `${120 + (1 - notifBar.alpha) * 20}px`;
+               } else if (t > 150) {
+                    notifBar.alpha = Math.max(0, 1 - (t - 150) / 30);
+               }
+               t++;
           });
      }
 }
