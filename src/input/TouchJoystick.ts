@@ -36,7 +36,7 @@ export class TouchJoystick {
             private scene: Scene,
             private inputManager: InputManager
       ) {
-            this.ui = AdvancedDynamicTexture.CreateFullscreenUI("joystickUI", false, scene);
+            this.ui = AdvancedDynamicTexture.CreateFullscreenUI("joystickUI", true, scene);
             this.ui.idealHeight = 1624;
             this.ui.renderAtIdealSize = false;
 

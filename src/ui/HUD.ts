@@ -98,10 +98,12 @@ export class HUD {
           locationBar.addControl(locRight);
 
           const locationText = new TextBlock("locationText", "⚔ Ashen Wasteland");
-          locationText.color = "#ff6644";
+          locationText.color = "#ffaa77";
           locationText.fontSize = 24;
           locationText.fontFamily = "'Georgia', serif";
           locationText.fontWeight = "bold";
+          locationText.shadowColor = "rgba(0,0,0,0.95)";
+          locationText.shadowBlur = 5;
           locationBar.addControl(locationText);
 
           // ── Menu Button (top-right) ─────────────────────────────────
@@ -129,8 +131,8 @@ export class HUD {
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createAvatarPanel(): void {
           const panel = new Rectangle("avatarPanel");
-          panel.width = "350px";
-          panel.height = "180px";
+          panel.width = "360px";
+          panel.height = "165px";
           panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           panel.top = "10px";
@@ -143,83 +145,91 @@ export class HUD {
 
           // Avatar glow ring
           const avatarGlow = new Ellipse("avatarGlow");
-          avatarGlow.width = "112px";
-          avatarGlow.height = "112px";
+          avatarGlow.width = "72px";
+          avatarGlow.height = "72px";
           avatarGlow.color = "rgba(255, 60, 40, 0.2)";
           avatarGlow.thickness = 4;
           avatarGlow.background = "transparent";
           avatarGlow.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           avatarGlow.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          avatarGlow.left = "5px";
-          avatarGlow.top = "5px";
+          avatarGlow.left = "8px";
+          avatarGlow.top = "8px";
           panel.addControl(avatarGlow);
 
           const avatarFrame = new Ellipse("avatarFrame");
-          avatarFrame.width = "100px";
-          avatarFrame.height = "100px";
+          avatarFrame.width = "64px";
+          avatarFrame.height = "64px";
           avatarFrame.color = "#ff5533";
           avatarFrame.thickness = 3;
           avatarFrame.background = "rgba(100, 12, 18, 0.75)";
           avatarFrame.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           avatarFrame.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          avatarFrame.left = "11px";
-          avatarFrame.top = "11px";
+          avatarFrame.left = "12px";
+          avatarFrame.top = "12px";
           panel.addControl(avatarFrame);
 
           const avatarText = new TextBlock("avatarTxt", "🗡");
-          avatarText.fontSize = 42;
+          avatarText.fontSize = 28;
           avatarFrame.addControl(avatarText);
 
           // Level badge
           const levelBadge = new Ellipse("levelBadge");
-          levelBadge.width = "42px";
-          levelBadge.height = "42px";
+          levelBadge.width = "28px";
+          levelBadge.height = "28px";
           levelBadge.color = "#ff5533";
           levelBadge.thickness = 2;
           levelBadge.background = "rgba(180, 25, 18, 0.95)";
           levelBadge.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           levelBadge.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          levelBadge.left = "76px";
-          levelBadge.top = "86px";
+          levelBadge.left = "56px";
+          levelBadge.top = "56px";
           panel.addControl(levelBadge);
 
           const levelText = new TextBlock("levelNum", "1");
           levelText.color = "#fff";
-          levelText.fontSize = 18;
+          levelText.fontSize = 14;
           levelText.fontWeight = "bold";
+          levelText.shadowColor = "rgba(0,0,0,0.9)";
+          levelText.shadowBlur = 3;
           levelBadge.addControl(levelText);
 
           // Player name
           const nameText = new TextBlock("playerName", "Dark Knight");
-          nameText.color = "#ffd0b8";
-          nameText.fontSize = 24;
+          nameText.color = "#ffe0cc";
+          nameText.fontSize = 22;
+          nameText.height = "26px";
+          nameText.resizeToFit = true;
           nameText.fontFamily = "'Georgia', serif";
           nameText.fontWeight = "bold";
+          nameText.shadowColor = "rgba(0,0,0,0.95)";
+          nameText.shadowBlur = 5;
           nameText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          nameText.left = "125px";
+          nameText.left = "95px";
           nameText.top = "12px";
           panel.addControl(nameText);
 
           // Server / Faction tag
           const serverTag = new TextBlock("serverTag", "S1 · Crimson Order");
-          serverTag.color = "rgba(255, 150, 120, 0.6)";
-          serverTag.fontSize = 15;
+          serverTag.color = "rgba(255, 160, 130, 0.7)";
+          serverTag.fontSize = 14;
+          serverTag.height = "20px";
+          serverTag.resizeToFit = true;
           serverTag.fontFamily = "'Georgia', serif";
+          serverTag.shadowColor = "rgba(0,0,0,0.8)";
+          serverTag.shadowBlur = 3;
           serverTag.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           serverTag.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           serverTag.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          serverTag.left = "125px";
-          serverTag.top = "40px";
+          serverTag.left = "95px";
+          serverTag.top = "38px";
           panel.addControl(serverTag);
 
-          // HP Bar
-          this.createStatusBar(panel, "hp", "HP", 85, "#c4302b", "#8b1a18", "125px", "62px", "210px");
-          // MP Bar
-          this.createStatusBar(panel, "mp", "MP", 60, "#3355cc", "#1a2b66", "125px", "92px", "210px");
-          // Stamina Bar
-          this.createStatusBar(panel, "sta", "ST", 100, "#55aa30", "#2d5518", "125px", "122px", "210px");
+          // Status Bars (HP, MP, ST) properly spaced below the name
+          this.createStatusBar(panel, "hp", "HP", 85, "#c4302b", "#8b1a18", "95px", "65px", "250px");
+          this.createStatusBar(panel, "mp", "MP", 60, "#3355cc", "#1a2b66", "95px", "95px", "250px");
+          this.createStatusBar(panel, "sta", "ST", 100, "#55aa30", "#2d5518", "95px", "125px", "250px");
      }
 
      private createStatusBar(
@@ -240,7 +250,7 @@ export class HUD {
           container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           container.left = left;
           container.top = top;
-          container.background = "rgba(0, 0, 0, 0.7)";
+          container.background = "rgba(0, 0, 0, 0.75)";
           container.color = `${bgGlow}44`;
           container.thickness = 1;
           container.cornerRadius = 7;
@@ -270,11 +280,11 @@ export class HUD {
 
           const text = new TextBlock(`${id}Label`, `${label} ${percent}%`);
           text.color = "#ffffff";
-          text.fontSize = 15;
+          text.fontSize = 16;
           text.fontWeight = "bold";
           text.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-          text.shadowColor = "rgba(0,0,0,0.95)";
-          text.shadowBlur = 4;
+          text.shadowColor = "rgba(0,0,0,1.0)";
+          text.shadowBlur = 5;
           container.addControl(text);
      }
 
@@ -283,12 +293,12 @@ export class HUD {
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createExpBar(): void {
           const expContainer = new Rectangle("expBarContainer");
-          expContainer.width = "350px";
+          expContainer.width = "360px";
           expContainer.height = "18px";
           expContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           expContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           expContainer.left = "10px";
-          expContainer.top = "196px";
+          expContainer.top = "172px";
           expContainer.background = "rgba(0, 0, 0, 0.6)";
           expContainer.color = "rgba(255, 200, 100, 0.3)";
           expContainer.thickness = 1;
@@ -325,7 +335,7 @@ export class HUD {
           currencyPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           currencyPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           currencyPanel.left = "10px";
-          currencyPanel.top = "220px";
+          currencyPanel.top = "196px";
           this.ui.addControl(currencyPanel);
 
           const currencies = [
@@ -346,10 +356,10 @@ export class HUD {
 
                const txt = new TextBlock(`currTxt_${c.icon}`, `${c.icon} ${c.value}`);
                txt.color = c.color;
-               txt.fontSize = 15;
+               txt.fontSize = 16;
                txt.fontWeight = "bold";
-               txt.shadowColor = "rgba(0,0,0,0.8)";
-               txt.shadowBlur = 3;
+               txt.shadowColor = "rgba(0,0,0,0.95)";
+               txt.shadowBlur = 4;
                item.addControl(txt);
           }
      }
@@ -393,15 +403,17 @@ export class HUD {
           container.cornerRadius = 14;
 
           const iconText = new TextBlock(`${id}Icon`, icon);
-          iconText.fontSize = 30;
+          iconText.fontSize = 32;
           iconText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
           iconText.top = "10px";
           container.addControl(iconText);
 
           const labelText = new TextBlock(`${id}Label`, label);
-          labelText.color = "rgba(255, 180, 160, 0.85)";
-          labelText.fontSize = 14;
+          labelText.color = "#ffccbb";
+          labelText.fontSize = 16;
           labelText.fontWeight = "bold";
+          labelText.shadowColor = "rgba(0,0,0,0.95)";
+          labelText.shadowBlur = 4;
           labelText.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
           labelText.top = "-8px";
           container.addControl(labelText);
@@ -420,9 +432,11 @@ export class HUD {
                container.addControl(badgeCircle);
 
                const badgeText = new TextBlock(`${id}BadgeTxt`, badge);
-               badgeText.color = "#fff";
-               badgeText.fontSize = 14;
+               badgeText.color = "#ffffff";
+               badgeText.fontSize = 15;
                badgeText.fontWeight = "bold";
+               badgeText.shadowColor = "rgba(0,0,0,0.8)";
+               badgeText.shadowBlur = 3;
                badgeCircle.addControl(badgeText);
           }
 

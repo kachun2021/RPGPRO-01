@@ -22,6 +22,7 @@ import { TouchJoystick } from "../input/TouchJoystick";
 import { SwipeAttack } from "../input/SwipeAttack";
 import { PortraitCamera } from "../input/PortraitCamera";
 import { AssetManager } from "../core/AssetManager";
+import { ProceduralWorld } from "../world/ProceduralWorld";
 
 export class MainScene {
      private scene: Scene;
@@ -32,6 +33,7 @@ export class MainScene {
      private joystick!: TouchJoystick;
      private swipeAttack!: SwipeAttack;
      private portraitCamera!: PortraitCamera;
+     private world!: ProceduralWorld;
 
      constructor(
           private engine: AbstractEngine,
@@ -55,8 +57,8 @@ export class MainScene {
           console.log("[Scene] Creating skybox...");
           this.createSkybox();
 
-          console.log("[Scene] Creating ground...");
-          this.createGround();
+          console.log("[Scene] Initializing Procedural Chunk World...");
+          this.world = new ProceduralWorld(this.scene);
 
           console.log("[Scene] Creating god rays...");
           try {
@@ -468,44 +470,47 @@ export class MainScene {
      private setupPostProcessing(): void {
           const pipeline = new DefaultRenderingPipeline("defaultPipeline", true, this.scene, [this.camera]);
 
-          // Bloom
+          // Bloom — lighter, to not bleed into UI
           pipeline.bloomEnabled = true;
-          pipeline.bloomThreshold = 0.4;
-          pipeline.bloomWeight = 0.3;
-          pipeline.bloomKernel = 64;
-          pipeline.bloomScale = 0.5;
+          pipeline.bloomThreshold = 0.6;
+          pipeline.bloomWeight = 0.15;
+          pipeline.bloomKernel = 32;
+          pipeline.bloomScale = 0.3;
 
-          // Chromatic aberration (subtle)
-          pipeline.chromaticAberrationEnabled = true;
-          pipeline.chromaticAberration.aberrationAmount = 5;
+          // Chromatic aberration — DISABLED (destroys text clarity)
+          pipeline.chromaticAberrationEnabled = false;
 
-          // Film grain (subtle)
+          // Film grain — very subtle
           pipeline.grainEnabled = true;
-          pipeline.grain.intensity = 3;
+          pipeline.grain.intensity = 8;
           pipeline.grain.animated = true;
 
-          // Vignette (lighter)
+          // Vignette — softer
           pipeline.imageProcessing.vignetteEnabled = true;
-          pipeline.imageProcessing.vignetteWeight = 1.5;
-          pipeline.imageProcessing.vignetteColor = new Color4(0.08, 0, 0.02, 1);
-          pipeline.imageProcessing.vignetteStretch = 0.3;
+          pipeline.imageProcessing.vignetteWeight = 1.0;
+          pipeline.imageProcessing.vignetteColor = new Color4(0.06, 0, 0.02, 1);
+          pipeline.imageProcessing.vignetteStretch = 0.4;
 
-          // Tone mapping & exposure (ACES) — brighter
+          // Tone mapping & exposure (ACES)
           pipeline.imageProcessing.toneMappingEnabled = true;
           pipeline.imageProcessing.toneMappingType = 1;
-          pipeline.imageProcessing.exposure = 1.6;
-          pipeline.imageProcessing.contrast = 1.3;
+          pipeline.imageProcessing.exposure = 1.5;
+          pipeline.imageProcessing.contrast = 1.2;
 
           // Color curves
           pipeline.imageProcessing.colorCurvesEnabled = true;
 
-          // Glow layer
+          // Glow layer — reduced to not haze over everything
           const glow = new GlowLayer("glow", this.scene);
-          glow.intensity = 0.6;
-          glow.blurKernelSize = 32;
+          glow.intensity = 0.3;
+          glow.blurKernelSize = 16;
      }
 
      public render(): void {
+          if (this.world && this.camera) {
+               // Assuming player model is at camera target, feed target position to the chunk manager
+               this.world.update(this.camera.target);
+          }
           this.scene.render();
      }
 
