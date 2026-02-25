@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0a0008" />
+  <meta name="description" content="Dark Gothic Fantasy Open World RPG - Blood Moon Chronicles" />
+  <title>Blood Moon Chronicles — Dark Gothic RPG</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0a0008;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #gameCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+      touch-action: none;
+    }
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center bottom, #1a0011 0%, #0a0008 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease-out;
+    }
+    #loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loading-title {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      color: #c4302b;
+      text-shadow: 0 0 30px rgba(196, 48, 43, 0.6), 0 0 60px rgba(196, 48, 43, 0.3);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .loading-bar-container {
+      width: 60%;
+      max-width: 300px;
+      height: 3px;
+      background: rgba(196, 48, 43, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8b1a1a, #c4302b, #ff4444);
+      box-shadow: 0 0 10px rgba(196, 48, 43, 0.8);
+      border-radius: 2px;
+      transition: width 0.3s ease-out;
+    }
+    .loading-text {
+      font-family: 'Georgia', serif;
+      font-size: 12px;
+      color: rgba(196, 48, 43, 0.5);
+      letter-spacing: 3px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <div class="loading-title">Blood Moon</div>
+    <div class="loading-bar-container">
+      <div class="loading-bar-fill" id="loadingBar"></div>
+    </div>
+    <div class="loading-text">ENTERING THE DARK REALM...</div>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

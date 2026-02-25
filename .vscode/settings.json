@@ -1,0 +1,6 @@
+{
+     "files.autoSave": "onFocusChange",
+     "editor.tabSize": 6,
+     "editor.wordWrap": "on",
+     "editor.allowVariableFontsInAccessibilityMode": true
+}
