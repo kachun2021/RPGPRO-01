@@ -8,6 +8,7 @@ import { DropItem, DropReward } from "../entities/DropItem";
 import { PickupParticles } from "../particles/PickupParticles";
 import { SkillSystem } from "./SkillSystem";
 import { FloatingDamage } from "./FloatingDamage";
+import { ItemDatabase } from "../systems/ItemDatabase";
 
 export interface DamageEvent {
       target: "player" | "monster";
@@ -55,9 +56,15 @@ export class CombatSystem {
             this.skillSystem = new SkillSystem(scene, player, monsterManager);
             this.floatingDmg = new FloatingDamage(scene);
 
-            // Listen for monster deaths → spawn drops
+            // Listen for monster deaths → spawn drops + loot
             this.monsterManager.onMonsterDeath.add(({ monster, position }) => {
                   this.spawnDrops(position, monster.stats.goldDrop, monster.stats.expDrop);
+                  // Random item drop
+                  if (Math.random() < 0.6) {
+                        const item = ItemDatabase.getRandomDrop();
+                        this.player.inventory.addItem(item.id, 1);
+                        console.log(`[Combat] Loot drop: ${item.icon} ${item.name} (${item.rarity})`);
+                  }
             });
 
             console.log("[CombatSystem] Initialized with SkillSystem + Auto-Battle ✓");

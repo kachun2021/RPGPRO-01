@@ -8,6 +8,7 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { Vector3, Color3 } from "@babylonjs/core/Maths/math";
 import { Observable } from "@babylonjs/core/Misc/observable";
 import { AssetManager } from "../core/AssetManager";
+import { Inventory } from "../systems/Inventory";
 
 // ── Data Interfaces ─────────────────────────────────────────────
 export interface PlayerStats {
@@ -61,6 +62,7 @@ export class Player {
       private idleTime = 0;
       private walkTime = 0;
       private moving = false;
+      public readonly inventory: Inventory;
 
       // Procedural meshes
       private bodyMesh!: Mesh;
@@ -91,6 +93,7 @@ export class Player {
             this.scene = scene;
             this.root = new TransformNode("player_root", scene);
             this.root.position = new Vector3(0, 0, 0);
+            this.inventory = new Inventory(30);
             this.buildCharacter();
             this.tryLoadGLB();
       }

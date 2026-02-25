@@ -64,7 +64,7 @@ export class HUD {
           locationBar.height = "90px";
           locationBar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
           locationBar.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          locationBar.top = "60px";
+          locationBar.top = "12px";
           locationBar.thickness = 0;
           this.ui.addControl(locationBar);
 
@@ -93,71 +93,74 @@ export class HUD {
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createAvatarPanel(): void {
           const panel = new Rectangle("avatarPanel");
-          panel.width = "380px";
-          panel.height = "120px";
+          panel.width = "420px";
+          panel.height = "100px";
           panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          panel.top = "40px";
-          panel.left = "30px";
-          panel.thickness = 0;
+          panel.top = "70px";
+          panel.left = "16px";
+          panel.background = "rgba(0, 0, 0, 0.5)";
+          panel.color = "rgba(255, 255, 255, 0.15)";
+          panel.thickness = 1;
+          panel.cornerRadius = 16;
           this.ui.addControl(panel);
 
-          // Avatar circular frame (Glass effect)
+          // Avatar circular frame
           const avatarFrame = new Ellipse("avatarFrame");
-          avatarFrame.width = "90px";
-          avatarFrame.height = "90px";
-          avatarFrame.color = "rgba(255, 255, 255, 0.6)";
-          avatarFrame.thickness = 3;
-          avatarFrame.background = "rgba(10, 10, 15, 0.7)";
+          avatarFrame.width = "70px";
+          avatarFrame.height = "70px";
+          avatarFrame.color = "rgba(255, 255, 255, 0.5)";
+          avatarFrame.thickness = 2;
+          avatarFrame.background = "rgba(30, 30, 40, 0.9)";
           avatarFrame.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          avatarFrame.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          avatarFrame.left = "0px";
-          avatarFrame.top = "0px";
+          avatarFrame.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+          avatarFrame.left = "14px";
           panel.addControl(avatarFrame);
 
           const avatarText = new TextBlock("avatarTxt", "👤");
-          avatarText.fontSize = 42;
+          avatarText.fontSize = 34;
           avatarFrame.addControl(avatarText);
 
-          // Level badge overlapping bottom-right of avatar
+          // Level badge
           const levelBadge = new Ellipse("levelBadge");
-          levelBadge.width = "36px";
-          levelBadge.height = "36px";
-          levelBadge.color = "rgba(255,255,255,0.9)";
+          levelBadge.width = "28px";
+          levelBadge.height = "28px";
+          levelBadge.color = "rgba(255,255,255,0.8)";
           levelBadge.thickness = 2;
-          levelBadge.background = "#2a2a35";
+          levelBadge.background = "#1a1a2e";
           levelBadge.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-          levelBadge.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          levelBadge.left = "60px";
-          levelBadge.top = "58px";
+          levelBadge.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+          levelBadge.left = "62px";
+          levelBadge.top = "-4px";
           panel.addControl(levelBadge);
 
           const levelText = new TextBlock("levelNum", "1");
           levelText.color = "#fff";
-          levelText.fontSize = 16;
+          levelText.fontSize = 14;
           levelText.fontFamily = "'Inter', sans-serif";
           levelText.fontWeight = "700";
           levelBadge.addControl(levelText);
           this.levelText = levelText;
 
-          // Player name
+          // Player name — positioned clearly right of avatar
           const nameText = new TextBlock("playerName", "Wanderer");
           nameText.color = "#ffffff";
-          nameText.fontSize = 26;
+          nameText.fontSize = 22;
           nameText.fontFamily = "'Inter', sans-serif";
-          nameText.fontWeight = "600";
-          nameText.shadowColor = "rgba(0,0,0,0.6)";
+          nameText.fontWeight = "700";
+          nameText.shadowColor = "rgba(0,0,0,0.7)";
           nameText.shadowBlur = 4;
           nameText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
           nameText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          nameText.left = "95px";
-          nameText.top = "8px";
+          nameText.left = "100px";
+          nameText.top = "12px";
           panel.addControl(nameText);
 
-          // HP & MP Bars
-          this.createStatusBar(panel, "hp", "HP", 100, "#73d13d", "105px", "46px", "240px");
-          this.createStatusBar(panel, "mp", "MP", 100, "#40a9ff", "105px", "68px", "220px");
+          // HP Bar
+          this.createStatusBar(panel, "hp", "HP", 100, "#73d13d", "100px", "42px", "200px");
+          // MP Bar
+          this.createStatusBar(panel, "mp", "MP", 100, "#40a9ff", "100px", "64px", "180px");
      }
 
      private createStatusBar(
@@ -245,8 +248,8 @@ export class HUD {
           currencyPanel.isVertical = false;
           currencyPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
           currencyPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          currencyPanel.left = "-20px";
-          currencyPanel.top = "40px";
+          currencyPanel.left = "-16px";
+          currencyPanel.top = "12px";
           this.ui.addControl(currencyPanel);
 
           const currencies = [
@@ -280,32 +283,107 @@ export class HUD {
      // ── MINIMAP ───────────────────────────────────────────────────────
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      private createMinimap(): void {
+          // Outer wrapper for collapse/expand
+          const mapWrapper = new Rectangle("minimapWrapper");
+          mapWrapper.width = "130px";
+          mapWrapper.height = "170px";
+          mapWrapper.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+          mapWrapper.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+          mapWrapper.left = "-10px";
+          mapWrapper.top = "50px";
+          mapWrapper.thickness = 0;
+          this.ui.addControl(mapWrapper);
+
+          // Main circular minimap
           const mapContainer = new Ellipse("minimapContainer");
-          mapContainer.width = "200px";
-          mapContainer.height = "200px";
-          mapContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+          mapContainer.width = "110px";
+          mapContainer.height = "110px";
+          mapContainer.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
           mapContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          mapContainer.left = "-20px";
-          mapContainer.top = "100px";
-          mapContainer.background = "rgba(20, 25, 30, 0.7)";
-          mapContainer.color = "rgba(255, 255, 255, 0.45)";
-          mapContainer.thickness = 3;
-          this.ui.addControl(mapContainer);
+          mapContainer.top = "0px";
+          mapContainer.background = "rgba(10, 12, 18, 0.75)";
+          mapContainer.color = "rgba(255, 255, 255, 0.35)";
+          mapContainer.thickness = 2;
+          mapWrapper.addControl(mapContainer);
 
-          const playerArrow = new TextBlock("playerArrow", "➤");
-          playerArrow.color = "#ffffff";
-          playerArrow.fontSize = 30;
-          playerArrow.rotation = -Math.PI / 4;
-          mapContainer.addControl(playerArrow);
+          // Compass ring (outer)
+          const compassRing = new Ellipse("compassRing");
+          compassRing.width = "122px";
+          compassRing.height = "122px";
+          compassRing.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+          compassRing.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+          compassRing.top = "-6px";
+          compassRing.color = "rgba(255, 255, 255, 0.12)";
+          compassRing.thickness = 1;
+          compassRing.background = "transparent";
+          mapWrapper.addControl(compassRing);
 
-          const nTxt = new TextBlock("compassN", "N");
-          nTxt.fontFamily = "'Inter', sans-serif";
-          nTxt.color = "rgba(255,255,255,0.9)";
-          nTxt.fontSize = 16;
-          nTxt.fontWeight = "700";
-          nTxt.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-          nTxt.top = "10px";
-          mapContainer.addControl(nTxt);
+          // Player dot
+          const playerDot = new Ellipse("playerDot");
+          playerDot.width = "10px";
+          playerDot.height = "10px";
+          playerDot.background = "#ffffff";
+          playerDot.color = "rgba(255,255,255,0.6)";
+          playerDot.thickness = 2;
+          mapContainer.addControl(playerDot);
+
+          // Direction indicator
+          const dirArrow = new TextBlock("dirArrow", "▲");
+          dirArrow.color = "#73d13d";
+          dirArrow.fontSize = 14;
+          dirArrow.top = "-16px";
+          mapContainer.addControl(dirArrow);
+
+          // Compass letters
+          const compassData = [
+               { id: "N", vAlign: Control.VERTICAL_ALIGNMENT_TOP, hAlign: Control.HORIZONTAL_ALIGNMENT_CENTER, t: "6px", l: "0px" },
+               { id: "S", vAlign: Control.VERTICAL_ALIGNMENT_BOTTOM, hAlign: Control.HORIZONTAL_ALIGNMENT_CENTER, t: "-6px", l: "0px" },
+               { id: "E", vAlign: Control.VERTICAL_ALIGNMENT_CENTER, hAlign: Control.HORIZONTAL_ALIGNMENT_RIGHT, t: "0px", l: "-6px" },
+               { id: "W", vAlign: Control.VERTICAL_ALIGNMENT_CENTER, hAlign: Control.HORIZONTAL_ALIGNMENT_LEFT, t: "0px", l: "6px" },
+          ];
+          for (const c of compassData) {
+               const txt = new TextBlock(`compass_${c.id}`, c.id);
+               txt.fontFamily = "'Inter', sans-serif";
+               txt.color = c.id === "N" ? "rgba(255,100,100,0.9)" : "rgba(255,255,255,0.5)";
+               txt.fontSize = c.id === "N" ? 14 : 11;
+               txt.fontWeight = "700";
+               txt.verticalAlignment = c.vAlign;
+               txt.horizontalAlignment = c.hAlign;
+               txt.top = c.t;
+               txt.left = c.l;
+               mapContainer.addControl(txt);
+          }
+
+          // Toggle / collapse button 
+          const toggleBtn = new Rectangle("mapToggle");
+          toggleBtn.width = "58px";
+          toggleBtn.height = "28px";
+          toggleBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+          toggleBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+          toggleBtn.top = "118px";
+          toggleBtn.background = "rgba(0, 0, 0, 0.5)";
+          toggleBtn.color = "rgba(255, 255, 255, 0.2)";
+          toggleBtn.thickness = 1;
+          toggleBtn.cornerRadius = 14;
+          toggleBtn.isPointerBlocker = true;
+          mapWrapper.addControl(toggleBtn);
+
+          const toggleTxt = new TextBlock("mapToggleTxt", "▲ MAP");
+          toggleTxt.fontFamily = "'Inter', sans-serif";
+          toggleTxt.fontSize = 10;
+          toggleTxt.fontWeight = "700";
+          toggleTxt.color = "rgba(255, 255, 255, 0.6)";
+          toggleBtn.addControl(toggleTxt);
+
+          let mapExpanded = true;
+          toggleBtn.onPointerClickObservable.add(() => {
+               mapExpanded = !mapExpanded;
+               mapContainer.isVisible = mapExpanded;
+               compassRing.isVisible = mapExpanded;
+               toggleTxt.text = mapExpanded ? "▲ MAP" : "▼ MAP";
+               toggleBtn.top = mapExpanded ? "118px" : "0px";
+               mapWrapper.height = mapExpanded ? "170px" : "36px";
+          });
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -316,8 +394,8 @@ export class HUD {
           sidebar.width = "100px";
           sidebar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
           sidebar.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-          sidebar.left = "-16px";
-          sidebar.top = "-50px";
+          sidebar.left = "-12px";
+          sidebar.top = "80px";
           sidebar.isVertical = true;
           sidebar.spacing = 16;
           this.ui.addControl(sidebar);
