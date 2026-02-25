@@ -6,8 +6,11 @@ import { Rectangle } from "@babylonjs/gui/2D/controls/rectangle";
 import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
 import { Button } from "@babylonjs/gui/2D/controls/button";
 import { Ellipse } from "@babylonjs/gui/2D/controls/ellipse";
+import { Container } from "@babylonjs/gui/2D/controls/container";
 import { Control } from "@babylonjs/gui/2D/controls/control";
+import { Image } from "@babylonjs/gui/2D/controls/image";
 import { PlayerStats } from "../entities/Player";
+import { AssetManager } from "../core/AssetManager";
 
 /**
  * Premium Vertical HUD — Genshin/Wuthering Waves Aesthetic
@@ -39,6 +42,8 @@ export class HUD {
      public onCharacterButton: (() => void) | null = null;
      /** Callback to toggle inventory sheet */
      public onInventoryButton: (() => void) | null = null;
+     /** Callback to toggle shop sheet */
+     public onShopButton: (() => void) | null = null;
 
      constructor(private scene: Scene) {
           // Render at ideal size for super crisp text on mobile displays
@@ -55,6 +60,18 @@ export class HUD {
           this.createExpBar();
           this.createBottomBar();
           this.createNotificationBadge();
+     }
+
+     /** Helper to asynchronously load GUI icons and place them in a container */
+     private async loadIcon(parent: Container, name: string, fallback: string, size = 64): Promise<void> {
+          const url = await AssetManager.getUITextureUrl(`assets/ui/${name}.png`, fallback, size, size);
+          const bgImg = new Image(`img_${name}`, url);
+          bgImg.populateNinePatchSlicesFromImage = true;
+          bgImg.stretch = Image.STRETCH_UNIFORM;
+          // Clear old text if present
+          const children = (parent as any).children || [];
+          children.forEach((c: any) => { if (c.name.includes("Txt")) c.dispose(); });
+          parent.addControl(bgImg);
      }
 
      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -119,9 +136,7 @@ export class HUD {
           avatarFrame.left = "14px";
           panel.addControl(avatarFrame);
 
-          const avatarText = new TextBlock("avatarTxt", "👤");
-          avatarText.fontSize = 34;
-          avatarFrame.addControl(avatarText);
+          this.loadIcon(avatarFrame, "avatar", "👤", 64);
 
           // Level badge
           const levelBadge = new Ellipse("levelBadge");
@@ -420,6 +435,10 @@ export class HUD {
                     btn.onPointerClickObservable.add(() => {
                          if (this.onInventoryButton) this.onInventoryButton();
                     });
+               } else if (item.id === "gacha") {
+                    btn.onPointerClickObservable.add(() => {
+                         if (this.onShopButton) this.onShopButton();
+                    });
                }
                sidebar.addControl(btn);
           }
@@ -434,10 +453,7 @@ export class HUD {
           container.thickness = 2;
           container.cornerRadius = 36;
 
-          const iconText = new TextBlock(`${id}Icon`, icon);
-          iconText.fontSize = 36;
-          iconText.color = "#ffffff";
-          container.addControl(iconText);
+          this.loadIcon(container, id, icon, 56);
 
           if (badge) {
                const badgeCircle = new Ellipse(`${id}Badge`);
@@ -535,9 +551,7 @@ export class HUD {
           atkInner.thickness = 0;
           atkBtn.addControl(atkInner);
 
-          const atkIcon = new TextBlock("atkIcon", "⚔️");
-          atkIcon.fontSize = 58;
-          atkBtn.addControl(atkIcon);
+          this.loadIcon(atkBtn, "atk", "⚔️", 96);
 
           // Cooldown overlay for ATK
           this.addCooldownOverlay(atkBtn, "atk");
@@ -572,9 +586,7 @@ export class HUD {
                btn.thickness = 2.5;
                this.ui.addControl(btn);
 
-               const icon = new TextBlock(`${s.id}Icon`, s.icon);
-               icon.fontSize = s.id === "ult" ? 46 : 38;
-               btn.addControl(icon);
+               this.loadIcon(btn, s.id, s.icon, s.id === "ult" ? 64 : 48);
 
                // Cooldown overlay
                this.addCooldownOverlay(btn, s.id);

@@ -102,4 +102,43 @@ export class AssetManager {
                   return null;
             }
       }
+
+      /**
+       * Get a GUI Image source URL. If the file exists, returns the URL.
+       * If it doesn't exist, generates a 2D canvas with the fallbackText and returns a Base64 data URI.
+       */
+      public static async getUITextureUrl(url: string, fallbackText: string, width = 64, height = 64): Promise<string> {
+            const exists = await this.fileExists(url);
+            if (exists) return url;
+
+            console.warn(`[AssetManager] UI Texture missing: ${url}. Generating fallback '${fallbackText}'.`);
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+                  // Background
+                  ctx.fillStyle = "rgba(30, 30, 40, 0.85)";
+                  ctx.beginPath();
+                  if (ctx.roundRect) {
+                        ctx.roundRect(0, 0, width, height, 12);
+                  } else {
+                        ctx.rect(0, 0, width, height);
+                  }
+                  ctx.fill();
+
+                  // Border
+                  ctx.strokeStyle = "rgba(250, 173, 20, 0.5)";
+                  ctx.lineWidth = 2;
+                  ctx.stroke();
+
+                  // Text
+                  ctx.fillStyle = "#faad14";
+                  ctx.font = `600 ${Math.floor(width * 0.35)}px Inter, sans-serif`;
+                  ctx.textAlign = "center";
+                  ctx.textBaseline = "middle";
+                  ctx.fillText(fallbackText, width / 2, height / 2);
+            }
+            return canvas.toDataURL("image/png");
+      }
 }

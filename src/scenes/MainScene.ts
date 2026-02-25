@@ -48,7 +48,6 @@ export class MainScene {
      private shopPanel!: ShopPanel;
      private monsterManager!: MonsterManager;
      private combatSystem!: CombatSystem;
-     private merchant!: Merchant;
 
      constructor(
           private engine: AbstractEngine,
@@ -160,13 +159,11 @@ export class MainScene {
                this.inventoryPanel.toggle();
           };
 
-          // Setup Merchant NPC
-          this.merchant = new Merchant(this.scene, new Vector3(8, 0, 8));
-          this.merchant.onInteract.add(() => {
+          this.hud.onShopButton = () => {
                if (this.characterPanel.getIsOpen()) this.characterPanel.hide();
                if (this.inventoryPanel.getIsOpen()) this.inventoryPanel.hide();
                this.shopPanel.toggle();
-          });
+          };
 
           // Bind player stats to HUD dynamic updates
           this.player.onStatsChanged.add((stats) => {
@@ -627,7 +624,6 @@ export class MainScene {
           if (this.monsterManager && this.player) {
                const pPos = this.player.getPosition();
                this.monsterManager.update(dt, pPos);
-               if (this.merchant) this.merchant.update(dt, pPos);
           }
 
           // Update combat system (monster attacks + drops + auto-battle)
