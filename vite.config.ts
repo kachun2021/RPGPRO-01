@@ -19,7 +19,6 @@ export default defineConfig({
                     manualChunks: {
                          babylon: [
                               "@babylonjs/core",
-                              "@babylonjs/gui",
                               "@babylonjs/materials",
                               "@babylonjs/loaders",
                          ],
