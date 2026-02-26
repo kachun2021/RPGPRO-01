@@ -1,263 +1,206 @@
 import { Scene } from "@babylonjs/core/scene";
-import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
-import { Rectangle } from "@babylonjs/gui/2D/controls/rectangle";
-import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
-import { ScrollViewer } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewer";
-import { StackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
-import { Control } from "@babylonjs/gui/2D/controls/control";
 import { Inventory, InventorySlot } from "../systems/Inventory";
 import { ItemDatabase, ItemDef, RARITY_COLORS, RARITY_BG } from "../systems/ItemDatabase";
 import { Player } from "../entities/Player";
 
 /**
- * InventoryPanel — Full-screen Dark Abyss 5×6 grid overlay
- * Deep dark panels with purple electric borders
+ * Premium DOM-based Inventory Panel
+ * 5x6 Grid with Glassmorphism and CSS transitions
  */
 export class InventoryPanel {
-      private ui: AdvancedDynamicTexture;
-      private panel!: Rectangle;
-      private gridContainer!: Rectangle;
-      private detailPanel!: Rectangle;
-      private detailName!: TextBlock;
-      private detailDesc!: TextBlock;
-      private detailStats!: TextBlock;
-      private detailPrice!: TextBlock;
-      private selectedItem: ItemDef | null = null;
-      private slotCells: Rectangle[] = [];
       private isOpen = false;
+      private container: HTMLElement;
+      private rootDiv: HTMLElement;
+
+      private gridContainer!: HTMLElement;
+      private detailPanel!: HTMLElement;
+      private detailName!: HTMLElement;
+      private detailDesc!: HTMLElement;
+      private detailStats!: HTMLElement;
+      private detailPrice!: HTMLElement;
+
+      private useBtn!: HTMLElement;
+      private sellBtn!: HTMLElement;
+      private closeBtn!: HTMLElement;
+
+      private selectedItem: ItemDef | null = null;
+      private selectedIndex: number = -1;
 
       constructor(private scene: Scene, private inventory: Inventory, private player: Player) {
-            this.ui = AdvancedDynamicTexture.CreateFullscreenUI("inventoryUI", true, scene);
-            // removed renderAtIdealSize
-            this.ui.isForeground = true;
-            this.buildPanel();
+            this.container = document.getElementById("ui-layer") || document.body;
+            this.injectCSS();
+
+            this.rootDiv = document.createElement("div");
+            this.rootDiv.className = "inv-panel-root";
+            this.container.appendChild(this.rootDiv);
+
+            this.buildDOM();
             this.inventory.onChanged.add(() => this.refreshGrid());
-            this.hide();
+            this.hide(); // Start hidden
       }
 
-      private buildPanel(): void {
-            // Backdrop
-            this.panel = new Rectangle("invPanel");
-            this.panel.width = "100%";
-            this.panel.height = "100%";
-            this.panel.background = "rgba(4, 4, 8, 0.96)";
-            this.panel.thickness = 0;
-            this.ui.addControl(this.panel);
-
-            // Header
-            const header = new TextBlock("invHeader", "🎒 INVENTORY");
-            header.color = "#e2e8f0";
-            header.fontSize = 32;
-            header.fontFamily = "'Cinzel', serif";
-            header.fontWeight = "700";
-            header.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            header.top = "60px";
-            header.shadowColor = "rgba(120, 60, 255, 0.5)";
-            header.shadowBlur = 10;
-            this.panel.addControl(header);
-
-            // Close button
-            const closeBtn = new Rectangle("invClose");
-            closeBtn.width = "48px";
-            closeBtn.height = "48px";
-            closeBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-            closeBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            closeBtn.top = "55px";
-            closeBtn.left = "-20px";
-            closeBtn.background = "rgba(120, 90, 255, 0.12)";
-            closeBtn.color = "rgba(168, 85, 247, 0.4)";
-            closeBtn.thickness = 1;
-            closeBtn.cornerRadius = 24;
-            this.panel.addControl(closeBtn);
-
-            const closeTxt = new TextBlock("closeX", "✕");
-            closeTxt.color = "#ffffff";
-            closeTxt.fontSize = 24;
-            closeBtn.addControl(closeTxt);
-            closeBtn.onPointerClickObservable.add(() => this.hide());
-
-            // Grid area (5×6)
-            this.gridContainer = new Rectangle("invGrid");
-            this.gridContainer.width = "480px";
-            this.gridContainer.height = "600px";
-            this.gridContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.gridContainer.top = "130px";
-            this.gridContainer.thickness = 0;
-            this.panel.addControl(this.gridContainer);
-
-            this.createGrid();
-
-            // Detail panel (bottom)
-            this.detailPanel = new Rectangle("invDetail");
-            this.detailPanel.width = "480px";
-            this.detailPanel.height = "280px";
-            this.detailPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            this.detailPanel.top = "-80px";
-            this.detailPanel.background = "rgba(8, 8, 14, 0.92)";
-            this.detailPanel.color = "rgba(120, 90, 255, 0.25)";
-            this.detailPanel.thickness = 1.5;
-            this.detailPanel.cornerRadius = 16;
-            this.detailPanel.isVisible = false;
-            this.panel.addControl(this.detailPanel);
-
-            this.detailName = new TextBlock("detName", "");
-            this.detailName.color = "#e2e8f0";
-            this.detailName.fontSize = 24;
-            this.detailName.fontFamily = "'Inter', sans-serif";
-            this.detailName.fontWeight = "700";
-            this.detailName.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.detailName.top = "20px";
-            this.detailPanel.addControl(this.detailName);
-
-            this.detailDesc = new TextBlock("detDesc", "");
-            this.detailDesc.color = "rgba(255,255,255,0.7)";
-            this.detailDesc.fontSize = 16;
-            this.detailDesc.fontFamily = "'Inter', sans-serif";
-            this.detailDesc.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.detailDesc.top = "55px";
-            this.detailDesc.textWrapping = true;
-            this.detailDesc.width = "440px";
-            this.detailPanel.addControl(this.detailDesc);
-
-            this.detailStats = new TextBlock("detStats", "");
-            this.detailStats.color = "#22d3ee";
-            this.detailStats.fontSize = 16;
-            this.detailStats.fontFamily = "'Inter', sans-serif";
-            this.detailStats.fontWeight = "600";
-            this.detailStats.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.detailStats.top = "95px";
-            this.detailPanel.addControl(this.detailStats);
-
-            this.detailPrice = new TextBlock("detPrice", "");
-            this.detailPrice.color = "#fbbf24";
-            this.detailPrice.fontSize = 16;
-            this.detailPrice.fontFamily = "'Inter', sans-serif";
-            this.detailPrice.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.detailPrice.top = "125px";
-            this.detailPanel.addControl(this.detailPrice);
-
-            // Use / Sell buttons
-            const useBtn = new Rectangle("useBtn");
-            useBtn.width = "140px";
-            useBtn.height = "44px";
-            useBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            useBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            useBtn.left = "30px";
-            useBtn.top = "-20px";
-            useBtn.background = "rgba(34, 211, 238, 0.2)";
-            useBtn.color = "rgba(34, 211, 238, 0.5)";
-            useBtn.thickness = 1.5;
-            useBtn.cornerRadius = 22;
-            this.detailPanel.addControl(useBtn);
-
-            const useTxt = new TextBlock("useTxt", "⚡ USE");
-            useTxt.color = "#22d3ee";
-            useTxt.fontSize = 16;
-            useTxt.fontFamily = "'Inter', sans-serif";
-            useTxt.fontWeight = "700";
-            useBtn.addControl(useTxt);
-            useBtn.onPointerClickObservable.add(() => this.useSelectedItem());
-
-            const sellBtn = new Rectangle("sellBtn");
-            sellBtn.width = "140px";
-            sellBtn.height = "44px";
-            sellBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-            sellBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            sellBtn.left = "-30px";
-            sellBtn.top = "-20px";
-            sellBtn.background = "rgba(251, 191, 36, 0.15)";
-            sellBtn.color = "rgba(251, 191, 36, 0.4)";
-            sellBtn.thickness = 1.5;
-            sellBtn.cornerRadius = 22;
-            this.detailPanel.addControl(sellBtn);
-
-            const sellTxt = new TextBlock("sellTxt", "🪙 SELL");
-            sellTxt.color = "#fbbf24";
-            sellTxt.fontSize = 16;
-            sellTxt.fontFamily = "'Inter', sans-serif";
-            sellTxt.fontWeight = "700";
-            sellBtn.addControl(sellTxt);
-            sellBtn.onPointerClickObservable.add(() => this.sellSelectedItem());
+      private injectCSS() {
+            if (document.getElementById("inv-styles")) return;
+            const style = document.createElement("style");
+            style.id = "inv-styles";
+            style.textContent = `
+            .inv-panel-root { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; pointer-events: none; z-index: 55; transition: background 0.3s; font-family: 'Inter', sans-serif;}
+            .inv-panel-root.open { pointer-events: auto; background: rgba(2, 2, 6, 0.85); }
+            
+            .inv-container { width: 92%; max-width: 500px; height: 90%; background: rgba(10, 10, 16, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(120, 90, 255, 0.25); border-radius: 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; transform: scale(0.95); opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1); position: relative; overflow: hidden; }
+            .inv-panel-root.open .inv-container { transform: scale(1); opacity: 1; }
+            
+            .inv-header { height: 70px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(120, 90, 255, 0.15) 0%, transparent 100%); border-bottom: 1px solid rgba(120, 90, 255, 0.15); }
+            .inv-title { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: #e2e8f0; text-shadow: 0 2px 8px rgba(120,90,255,0.6); letter-spacing: 2px;}
+            
+            .inv-content { flex: 1; display: flex; flex-direction: column; padding: 16px; gap: 16px; overflow-y: auto; }
+            .inv-content::-webkit-scrollbar { width: 4px; }
+            .inv-content::-webkit-scrollbar-thumb { background: rgba(120,90,255,0.4); border-radius: 4px; }
+            
+            .inv-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px inset rgba(255,255,255,0.05);}
+            .inv-slot { aspect-ratio: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; display: flex; justify-content: center; align-items: center; position: relative; cursor: pointer; transition: all 0.2s; user-select: none; }
+            .inv-slot:hover { border-color: rgba(120,90,255,0.6); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(120,90,255,0.2); }
+            .inv-slot.selected { border: 2px solid #a855f7; box-shadow: 0 0 16px rgba(168,85,247,0.5); transform: scale(0.95); }
+            
+            .inv-slot-icon { font-size: 32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); pointer-events: none;}
+            .inv-slot-qty { position: absolute; bottom: 2px; right: 6px; font-size: 13px; font-weight: 800; color: #fff; text-shadow: 0 1px 3px #000, 0 -1px 1px #000, 1px 0 1px #000, -1px 0 1px #000; pointer-events: none; }
+            
+            .inv-detail { background: rgba(6, 6, 12, 0.7); border: 1px solid rgba(120, 90, 255, 0.2); border-radius: 16px; padding: 20px; display: none; flex-direction: column; gap: 12px; animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1); }
+            .inv-detail.active { display: flex; }
+            @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+            
+            .det-name { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+            .det-desc { font-size: 14px; color: rgba(226,232,240,0.7); line-height: 1.4; }
+            .det-stats { font-size: 14px; color: #22d3ee; font-weight: 600; background: rgba(34,211,238,0.1); padding: 8px 12px; border-radius: 8px; display: inline-block;}
+            .det-price { font-size: 14px; color: #fbbf24; font-weight: 600; }
+            
+            .det-actions { display: flex; gap: 12px; margin-top: 8px; }
+            .btn-use { flex: 1; padding: 12px; background: rgba(34, 211, 238, 0.15); border: 1px solid #22d3ee; border-radius: 20px; color: #22d3ee; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+            .btn-use:active { transform: scale(0.95); background: rgba(34,211,238,0.3); }
+            .btn-sell { flex: 1; padding: 12px; background: rgba(251, 191, 36, 0.15); border: 1px solid #fbbf24; border-radius: 20px; color: #fbbf24; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+            .btn-sell:active { transform: scale(0.95); background: rgba(251,191,36,0.3); }
+            
+            .btn-close { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s; font-size: 20px;}
+            .btn-close:active { transform: scale(0.9); background: rgba(255,255,255,0.2); }
+        `;
+            document.head.appendChild(style);
       }
 
-      private createGrid(): void {
-            const cols = 5, rows = 6;
-            const cellSize = 88, gap = 8;
-            const totalW = cols * (cellSize + gap);
-            const totalH = rows * (cellSize + gap);
-            const offsetX = -(totalW / 2) + cellSize / 2;
-            const offsetY = -(totalH / 2) + cellSize / 2;
+      private buildDOM() {
+            this.rootDiv.innerHTML = `
+            <div class="inv-container">
+                <button class="btn-close" id="inv-btn-close">✕</button>
+                <div class="inv-header">
+                    <div class="inv-title">🎒 INVENTORY</div>
+                </div>
+                
+                <div class="inv-content">
+                    <div class="inv-grid" id="inv-grid">
+                        <!-- Slots injected via JS -->
+                    </div>
+                    
+                    <div class="inv-detail" id="inv-detail">
+                        <div class="det-name" id="det-name">---</div>
+                        <div class="det-desc" id="det-desc">---</div>
+                        <div class="det-stats" id="det-stats">---</div>
+                        <div class="det-price" id="det-price">---</div>
+                        <div class="det-actions">
+                            <button class="btn-use" id="btn-use">⚡ USE</button>
+                            <button class="btn-sell" id="btn-sell">🪙 SELL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
 
-            for (let row = 0; row < rows; row++) {
-                  for (let col = 0; col < cols; col++) {
-                        const idx = row * cols + col;
-                        const cell = new Rectangle(`invSlot_${idx}`);
-                        cell.width = `${cellSize}px`;
-                        cell.height = `${cellSize}px`;
-                        cell.left = `${offsetX + col * (cellSize + gap)}px`;
-                        cell.top = `${offsetY + row * (cellSize + gap)}px`;
-                        cell.background = "rgba(255, 255, 255, 0.05)";
-                        cell.color = "rgba(255, 255, 255, 0.15)";
-                        cell.thickness = 1;
-                        cell.cornerRadius = 10;
-                        this.gridContainer.addControl(cell);
-                        this.slotCells.push(cell);
+            this.gridContainer = document.getElementById("inv-grid")!;
+            this.detailPanel = document.getElementById("inv-detail")!;
+            this.detailName = document.getElementById("det-name")!;
+            this.detailDesc = document.getElementById("det-desc")!;
+            this.detailStats = document.getElementById("det-stats")!;
+            this.detailPrice = document.getElementById("det-price")!;
+            this.useBtn = document.getElementById("btn-use")!;
+            this.sellBtn = document.getElementById("btn-sell")!;
+            this.closeBtn = document.getElementById("inv-btn-close")!;
 
-                        cell.onPointerClickObservable.add(() => this.selectSlot(idx));
-                  }
+            // Generate 30 slots (5x6)
+            for (let i = 0; i < 30; i++) {
+                  const slot = document.createElement("div");
+                  slot.className = "inv-slot";
+                  slot.id = `inv-slot-${i}`;
+
+                  const icon = document.createElement("div");
+                  icon.className = "inv-slot-icon";
+                  icon.id = `inv-icon-${i}`;
+
+                  const qty = document.createElement("div");
+                  qty.className = "inv-slot-qty";
+                  qty.id = `inv-qty-${i}`;
+
+                  slot.appendChild(icon);
+                  slot.appendChild(qty);
+                  this.gridContainer.appendChild(slot);
+
+                  slot.addEventListener("pointerdown", () => this.selectSlot(i));
             }
+
+            this.closeBtn.addEventListener("pointerdown", () => this.hide());
+            this.rootDiv.addEventListener("pointerdown", (e) => {
+                  if (e.target === this.rootDiv) this.hide();
+            });
+
+            this.useBtn.addEventListener("pointerdown", () => this.useSelectedItem());
+            this.sellBtn.addEventListener("pointerdown", () => this.sellSelectedItem());
       }
 
       private refreshGrid(): void {
             const slots = this.inventory.getAllSlots();
-            for (let i = 0; i < this.slotCells.length; i++) {
-                  const cell = this.slotCells[i];
-                  // Clear existing children (keep only cell itself)
-                  while (cell.children.length > 0) {
-                        cell.removeControl(cell.children[0]);
-                  }
+            for (let i = 0; i < 30; i++) {
+                  const slotEl = document.getElementById(`inv-slot-${i}`);
+                  const iconEl = document.getElementById(`inv-icon-${i}`);
+                  const qtyEl = document.getElementById(`inv-qty-${i}`);
+                  if (!slotEl || !iconEl || !qtyEl) continue;
 
-                  const slot = i < slots.length ? slots[i] : null;
-                  if (!slot) {
-                        cell.background = "rgba(255, 255, 255, 0.05)";
-                        cell.color = "rgba(255, 255, 255, 0.15)";
+                  const memSlot = i < slots.length ? slots[i] : null;
+                  if (!memSlot) {
+                        slotEl.style.background = "rgba(255,255,255,0.05)";
+                        slotEl.style.borderColor = "rgba(255,255,255,0.1)";
+                        slotEl.classList.remove("selected");
+                        iconEl.innerText = "";
+                        qtyEl.innerText = "";
                         continue;
                   }
 
-                  const def = ItemDatabase.get(slot.itemId);
+                  const def = ItemDatabase.get(memSlot.itemId);
                   if (!def) continue;
 
-                  cell.background = RARITY_BG[def.rarity];
-                  cell.color = RARITY_COLORS[def.rarity] + "88";
+                  slotEl.style.background = RARITY_BG[def.rarity];
+                  slotEl.style.borderColor = `${RARITY_COLORS[def.rarity]}66`;
 
-                  // Item icon
-                  const icon = new TextBlock(`icon_${i}`, def.icon);
-                  icon.fontSize = 36;
-                  icon.top = "-6px";
-                  cell.addControl(icon);
-
-                  // Quantity badge
-                  if (slot.quantity > 1) {
-                        const qty = new TextBlock(`qty_${i}`, `x${slot.quantity}`);
-                        qty.color = "#e2e8f0";
-                        qty.fontSize = 14;
-                        qty.fontFamily = "'Inter', sans-serif";
-                        qty.fontWeight = "700";
-                        qty.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-                        qty.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-                        qty.left = "-6px";
-                        qty.top = "-4px";
-                        qty.shadowColor = "rgba(0,0,0,0.9)";
-                        qty.shadowBlur = 3;
-                        cell.addControl(qty);
+                  if (i === this.selectedIndex) {
+                        slotEl.classList.add("selected");
+                  } else {
+                        slotEl.classList.remove("selected");
                   }
+
+                  iconEl.innerText = def.icon;
+                  qtyEl.innerText = memSlot.quantity > 1 ? `x${memSlot.quantity}` : "";
             }
       }
 
       private selectSlot(index: number): void {
             const slot = this.inventory.getSlot(index);
+
+            // Remove class from old selection
+            if (this.selectedIndex >= 0) {
+                  const old = document.getElementById(`inv-slot-${this.selectedIndex}`);
+                  if (old) old.classList.remove("selected");
+            }
+
+            this.selectedIndex = index;
+
             if (!slot) {
-                  this.detailPanel.isVisible = false;
+                  this.detailPanel.classList.remove("active");
                   this.selectedItem = null;
                   return;
             }
@@ -265,25 +208,29 @@ export class InventoryPanel {
             const def = ItemDatabase.get(slot.itemId);
             if (!def) return;
 
+            const el = document.getElementById(`inv-slot-${index}`);
+            if (el) el.classList.add("selected");
+
             this.selectedItem = def;
-            this.detailPanel.isVisible = true;
-            this.detailName.text = `${def.icon} ${def.name}`;
-            this.detailName.color = RARITY_COLORS[def.rarity];
-            this.detailDesc.text = def.description;
+            this.detailPanel.classList.add("active");
+
+            this.detailName.innerHTML = `<span style="color:${RARITY_COLORS[def.rarity]}">${def.icon} ${def.name}</span>`;
+            this.detailDesc.innerText = def.description;
 
             const statsArr: string[] = [];
             if (def.stats?.atk) statsArr.push(`ATK +${def.stats.atk}`);
             if (def.stats?.def) statsArr.push(`DEF +${def.stats.def}`);
             if (def.stats?.hp) statsArr.push(`HP +${def.stats.hp}`);
             if (def.stats?.mp) statsArr.push(`MP +${def.stats.mp}`);
-            this.detailStats.text = statsArr.join("  ·  ");
 
-            this.detailPrice.text = `Sell: 🪙 ${def.sellPrice}`;
-
-            // Highlight selected cell
-            for (let i = 0; i < this.slotCells.length; i++) {
-                  this.slotCells[i].thickness = i === index ? 2.5 : 1;
+            if (statsArr.length > 0) {
+                  this.detailStats.style.display = "inline-block";
+                  this.detailStats.innerText = statsArr.join("  ·  ");
+            } else {
+                  this.detailStats.style.display = "none";
             }
+
+            this.detailPrice.innerText = `Sell: 🪙 ${def.sellPrice}`;
       }
 
       private useSelectedItem(): void {
@@ -299,11 +246,12 @@ export class InventoryPanel {
                   this.inventory.removeItem(def.id, 1);
 
                   if (!this.inventory.hasItem(def.id)) {
-                        this.detailPanel.isVisible = false;
+                        this.detailPanel.classList.remove("active");
                         this.selectedItem = null;
+                        this.selectedIndex = -1;
                   }
             } else {
-
+                  // Equipment logic could go here if implemented
             }
       }
 
@@ -314,23 +262,29 @@ export class InventoryPanel {
                   this.player.addGold(def.sellPrice);
 
                   if (!this.inventory.hasItem(def.id)) {
-                        this.detailPanel.isVisible = false;
+                        this.detailPanel.classList.remove("active");
                         this.selectedItem = null;
+                        this.selectedIndex = -1;
                   }
             }
       }
 
       public show(): void {
             this.isOpen = true;
-            this.panel.isVisible = true;
+            this.rootDiv.classList.add("open");
             this.refreshGrid();
       }
 
       public hide(): void {
             this.isOpen = false;
-            this.panel.isVisible = false;
-            this.detailPanel.isVisible = false;
+            this.rootDiv.classList.remove("open");
+            this.detailPanel.classList.remove("active");
             this.selectedItem = null;
+            if (this.selectedIndex >= 0) {
+                  const old = document.getElementById(`inv-slot-${this.selectedIndex}`);
+                  if (old) old.classList.remove("selected");
+                  this.selectedIndex = -1;
+            }
       }
 
       public toggle(): void {
@@ -342,6 +296,6 @@ export class InventoryPanel {
       }
 
       public dispose(): void {
-            this.ui.dispose();
+            this.rootDiv.remove();
       }
 }
