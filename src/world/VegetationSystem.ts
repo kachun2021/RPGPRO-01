@@ -1,127 +1,159 @@
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
-import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import type { Mesh } from "@babylonjs/core/Meshes/mesh";
+import type { InstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
 import type { Scene } from "@babylonjs/core/scene";
 import { TerrainGenerator } from "./TerrainGenerator";
 
-const MAX_PER_CHUNK = 35; // ≤875 total across 5×5 visible chunks (within memory budget)
+const MAX_PER_CHUNK = 30; // max items per chunk (instances are cheap)
+
+// ── Shared base meshes (created once, reused as instances) ──────────────────
+// Key: scene uid → base meshes so we support multiple scenes in tests
+interface BaseMeshSet {
+      trunk: Mesh;
+      canopy: Mesh;
+      rock: Mesh;
+      crystal: Mesh;
+}
+
+const _baseMeshCache = new WeakMap<Scene, BaseMeshSet>();
+
+function _getOrCreateBases(scene: Scene): BaseMeshSet {
+      if (_baseMeshCache.has(scene)) return _baseMeshCache.get(scene)!;
+
+      // ── Trunk ──────────────────────────────────────────────────────────────
+      const trunk = MeshBuilder.CreateCylinder("__vegTrunk", {
+            height: 1, diameterTop: 0.2, diameterBottom: 0.45, tessellation: 6,
+      }, scene);
+      const trunkMat = new StandardMaterial("__vegTrunkMat", scene);
+      trunkMat.diffuseColor = new Color3(0.22, 0.12, 0.08);
+      trunkMat.emissiveColor = new Color3(0.04, 0.015, 0.01);
+      trunkMat.specularColor = Color3.Black();
+      trunk.material = trunkMat;
+      trunk.setEnabled(false); // hide base, only instances are visible
+
+      // ── Canopy ─────────────────────────────────────────────────────────────
+      const canopy = MeshBuilder.CreateSphere("__vegCanopy", { diameter: 1, segments: 4 }, scene);
+      const canopyMat = new StandardMaterial("__vegCanopyMat", scene);
+      canopyMat.diffuseColor = new Color3(0.20, 0.10, 0.30);
+      canopyMat.emissiveColor = new Color3(0.06, 0.02, 0.10);
+      canopyMat.specularColor = Color3.Black();
+      canopy.material = canopyMat;
+      canopy.setEnabled(false);
+
+      // ── Rock ───────────────────────────────────────────────────────────────
+      const rock = MeshBuilder.CreateBox("__vegRock", { width: 1, height: 0.6, depth: 1 }, scene);
+      const rockMat = new StandardMaterial("__vegRockMat", scene);
+      rockMat.diffuseColor = new Color3(0.24, 0.15, 0.30);
+      rockMat.emissiveColor = new Color3(0.025, 0.01, 0.035);
+      rockMat.specularColor = new Color3(0.06, 0.05, 0.10);
+      rock.material = rockMat;
+      rock.setEnabled(false);
+
+      // ── Crystal ────────────────────────────────────────────────────────────
+      const crystal = MeshBuilder.CreateCylinder("__vegCrystal", {
+            height: 1, diameterTop: 0.05, diameterBottom: 0.3, tessellation: 5,
+      }, scene);
+      const crystalMat = new StandardMaterial("__vegCrystalMat", scene);
+      crystalMat.diffuseColor = new Color3(0.28, 0.08, 0.60);
+      crystalMat.emissiveColor = new Color3(0.45, 0.10, 0.90);
+      crystalMat.alpha = 0.82;
+      crystalMat.specularColor = new Color3(0.5, 0.3, 0.9);
+      crystal.material = crystalMat;
+      crystal.setEnabled(false);
+
+      const set: BaseMeshSet = { trunk, canopy, rock, crystal };
+      _baseMeshCache.set(scene, set);
+      return set;
+}
+
+export interface VegInstance {
+      instances: InstancedMesh[];
+}
 
 /**
- * VegetationSystem — placeholder trees/rocks per chunk.
- * ✅ 修復：Y 軸對齊地形高度（不再浮空或插入地面）
- * ✅ 改善：樹木有樹冠，提供更豐富的層次感
+ * VegetationSystem — 全場景共用 4 個材質 + createInstance()
+ * ✅ LAG 修復：材質數 ~2500 → 4，徹底消除 GC 壓力
+ * chunk dispose 只需 .dispose() instances，不銷毀材質
  */
 export class VegetationSystem {
-      /**
-       * Populate a chunk with random vegetation items.
-       * Returns array of created meshes (for disposal).
-       */
-      static populate(scene: Scene, ground: Mesh, cx: number, cz: number): Mesh[] {
-            const items: Mesh[] = [];
-            const rng = VegetationSystem._seededRng(cx, cz);
-            const count = 5 + Math.floor(rng() * MAX_PER_CHUNK); // min 5 per chunk
+      static populate(scene: Scene, _ground: Mesh, cx: number, cz: number): InstancedMesh[] {
+            const bases = _getOrCreateBases(scene);
+            const instances: InstancedMesh[] = [];
+            const rng = _seededRng(cx, cz);
+
+            const count = 5 + Math.floor(rng() * MAX_PER_CHUNK);
             const chunkSize = 128;
             const worldX = cx * chunkSize + chunkSize / 2;
             const worldZ = cz * chunkSize + chunkSize / 2;
 
             for (let i = 0; i < count; i++) {
-                  const localX = (rng() - 0.5) * chunkSize;
-                  const localZ = (rng() - 0.5) * chunkSize;
-                  const type = rng(); // 0-0.55 = tree, 0.55-0.8 = rock, 0.8-1.0 = crystal
+                  const lx = (rng() - 0.5) * chunkSize;
+                  const lz = (rng() - 0.5) * chunkSize;
+                  const wx = worldX + lx;
+                  const wz = worldZ + lz;
+                  const gy = TerrainGenerator.getHeightAt(wx, wz);
+                  const t = rng();
 
-                  // ✅ 修復：從 TerrainGenerator 獲取準確的地形高度
-                  const wx = worldX + localX;
-                  const wz = worldZ + localZ;
-                  const terrainY = TerrainGenerator.getHeightAt(wx, wz);
+                  if (t < 0.50) {
+                        // ── Tree ─────────────────────────────────────
+                        const h = 2.2 + rng() * 2.8;
+                        const ti = bases.trunk.createInstance(`trk_${cx}_${cz}_${i}`);
+                        ti.position.set(wx, gy + h * 0.5, wz);
+                        ti.scaling.set(1, h, 1);
+                        ti.rotation.y = rng() * Math.PI * 2;
+                        ti.setEnabled(true);
+                        instances.push(ti);
 
-                  if (type < 0.55) {
-                        // ── Tree (trunk + canopy) ──────────────────
-                        const treeHeight = 2.0 + rng() * 3.0;
-                        const trunk = MeshBuilder.CreateCylinder(
-                              `tree_${cx}_${cz}_${i}`,
-                              { height: treeHeight, diameterTop: 0.2, diameterBottom: 0.45, tessellation: 6 },
-                              scene
-                        );
-                        const trunkMat = new StandardMaterial(`trunkMat_${cx}_${cz}_${i}`, scene);
-                        trunkMat.diffuseColor = new Color3(0.22, 0.12, 0.08); // 深棕色樹幹
-                        trunkMat.emissiveColor = new Color3(0.03, 0.01, 0.01);
-                        trunkMat.specularColor = Color3.Black();
-                        trunk.material = trunkMat;
-                        trunk.position.set(wx, terrainY + treeHeight / 2, wz);
-                        trunk.rotation.y = rng() * Math.PI * 2;
+                        const cs = 1.4 + rng() * 1.2;
+                        const ci = bases.canopy.createInstance(`cnp_${cx}_${cz}_${i}`);
+                        ci.position.set(wx, gy + h + cs * 0.35, wz);
+                        ci.scaling.setAll(cs);
+                        ci.setEnabled(true);
+                        instances.push(ci);
 
-                        // Canopy (sphere on top)
-                        const canopySize = 1.4 + rng() * 1.2;
-                        const canopy = MeshBuilder.CreateSphere(
-                              `canopy_${cx}_${cz}_${i}`,
-                              { diameter: canopySize, segments: 5 },
-                              scene
-                        );
-                        const canopyMat = new StandardMaterial(`canopyMat_${cx}_${cz}_${i}`, scene);
-                        canopyMat.diffuseColor = new Color3(0.18 + rng() * 0.12, 0.10 + rng() * 0.08, 0.28 + rng() * 0.1);
-                        canopyMat.emissiveColor = new Color3(0.04, 0.02, 0.06); // 微弱魔法光
-                        canopyMat.specularColor = Color3.Black();
-                        canopy.material = canopyMat;
-                        canopy.position.set(wx, terrainY + treeHeight + canopySize * 0.4, wz);
-
-                        trunk.metadata = { isPlaceholder: true, specId: "vegetation" };
-                        canopy.metadata = { isPlaceholder: true, specId: "vegetation" };
-                        items.push(trunk, canopy);
-
-                  } else if (type < 0.8) {
-                        // ── Rock ──────────────────────────────────
-                        const s = 0.5 + rng() * 1.2;
-                        const rock = MeshBuilder.CreateBox(
-                              `rock_${cx}_${cz}_${i}`,
-                              { width: s, height: s * (0.5 + rng() * 0.4), depth: s * (0.6 + rng() * 0.4) },
-                              scene
-                        );
-                        const rockMat = new StandardMaterial(`rockMat_${cx}_${cz}_${i}`, scene);
-                        // 灰紫岩石，符合暗黑奇幻色調
-                        rockMat.diffuseColor = new Color3(0.22 + rng() * 0.1, 0.15 + rng() * 0.06, 0.28 + rng() * 0.08);
-                        rockMat.emissiveColor = new Color3(0.02, 0.01, 0.03);
-                        rockMat.specularColor = new Color3(0.08, 0.06, 0.12); // 稍微反光的岩石
-                        rock.material = rockMat;
-                        rock.position.set(wx, terrainY + (s * 0.3), wz);
-                        rock.rotation.y = rng() * Math.PI * 2;
-                        rock.rotation.x = (rng() - 0.5) * 0.3; // 帶點傾斜更自然
-                        rock.metadata = { isPlaceholder: true, specId: "vegetation" };
-                        items.push(rock);
+                  } else if (t < 0.78) {
+                        // ── Rock ─────────────────────────────────────
+                        const s = 0.55 + rng() * 1.1;
+                        const ri = bases.rock.createInstance(`rck_${cx}_${cz}_${i}`);
+                        ri.position.set(wx, gy + s * 0.28, wz);
+                        ri.scaling.set(s, s * (0.55 + rng() * 0.35), s * (0.65 + rng() * 0.35));
+                        ri.rotation.y = rng() * Math.PI * 2;
+                        ri.rotation.x = (rng() - 0.5) * 0.25;
+                        ri.setEnabled(true);
+                        instances.push(ri);
 
                   } else {
-                        // ── Crystal (暗黑奇幻特有！發光水晶) ─────────
-                        const ch = 0.8 + rng() * 1.5;
-                        const crystal = MeshBuilder.CreateCylinder(
-                              `crystal_${cx}_${cz}_${i}`,
-                              { height: ch, diameterTop: 0.05, diameterBottom: 0.3, tessellation: 5 },
-                              scene
-                        );
-                        const crystalMat = new StandardMaterial(`crystalMat_${cx}_${cz}_${i}`, scene);
-                        crystalMat.diffuseColor = new Color3(0.3, 0.1, 0.6);
-                        crystalMat.emissiveColor = new Color3(0.4, 0.1, 0.8); // 紫色發光！
-                        crystalMat.alpha = 0.85;
-                        crystalMat.specularColor = new Color3(0.5, 0.3, 0.9);
-                        crystal.material = crystalMat;
-                        crystal.position.set(wx, terrainY + ch / 2, wz);
-                        crystal.rotation.y = rng() * Math.PI * 2;
-                        crystal.rotation.z = (rng() - 0.5) * 0.5; // 傾斜水晶
-                        crystal.metadata = { isPlaceholder: true, specId: "vegetation" };
-                        items.push(crystal);
+                        // ── Crystal (暗黑奇幻特有) ─────────────────────
+                        const ch = 0.9 + rng() * 1.6;
+                        const xyi = bases.crystal.createInstance(`cry_${cx}_${cz}_${i}`);
+                        xyi.position.set(wx, gy + ch * 0.5, wz);
+                        xyi.scaling.set(1, ch, 1);
+                        xyi.rotation.y = rng() * Math.PI * 2;
+                        xyi.rotation.z = (rng() - 0.5) * 0.55;
+                        xyi.setEnabled(true);
+                        instances.push(xyi);
                   }
             }
 
-            return items;
+            return instances;
       }
 
-      /** Deterministic seeded RNG per chunk (so chunks regenerate identically) */
-      private static _seededRng(cx: number, cz: number): () => number {
-            let seed = cx * 374761393 + cz * 668265263 + 12345;
-            return () => {
-                  seed = (seed ^ (seed >> 13)) * 1274126177;
-                  seed = seed ^ (seed >> 16);
-                  return (seed & 0x7fffffff) / 0x7fffffff;
-            };
+      /** Dispose all instances for a chunk (does NOT dispose shared materials) */
+      static disposeChunk(instances: InstancedMesh[]): void {
+            for (const inst of instances) {
+                  inst.dispose();
+            }
       }
+}
+
+// ── Seeded RNG (same hash as before for determinism) ─────────────────────────
+function _seededRng(cx: number, cz: number): () => number {
+      let seed = cx * 374761393 + cz * 668265263 + 12345;
+      return () => {
+            seed = (seed ^ (seed >> 13)) * 1274126177;
+            seed = seed ^ (seed >> 16);
+            return (seed & 0x7fffffff) / 0x7fffffff;
+      };
 }

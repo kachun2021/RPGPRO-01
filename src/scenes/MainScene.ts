@@ -19,6 +19,12 @@ import { BarrierSystem } from "../world/BarrierSystem";
 import { PhantomPresence } from "../world/PhantomPresence";
 import { ZoneEffects } from "../world/ZoneEffects";
 import { PvPZoneVisuals } from "../world/PvPZoneVisuals";
+// ── Prompt 5 ──────────────────────────────────────────────
+import { CombatSystem } from "../combat/CombatSystem";
+import { SkillManager } from "../combat/SkillManager";
+import { FloatingDamage } from "../combat/FloatingDamage";
+import { MonsterManager } from "../entities/MonsterManager";
+import { DropSystem } from "../entities/DropItem";
 
 export class MainScene {
       private _scene!: Scene;
@@ -34,6 +40,12 @@ export class MainScene {
       private _phantom!: PhantomPresence;
       private _zoneEffects!: ZoneEffects;
       private _pvpVisuals!: PvPZoneVisuals;
+      // P5
+      private _combatSystem!: CombatSystem;
+      private _skillManager!: SkillManager;
+      private _floatingDamage!: FloatingDamage;
+      private _monsterManager!: MonsterManager;
+      private _dropSystem!: DropSystem;
 
       constructor(
             private readonly engine: AbstractEngine,
@@ -105,7 +117,22 @@ export class MainScene {
             this._pvpVisuals = new PvPZoneVisuals();
             this._pvpVisuals.init();
 
-            // TODO: Prompt 5 will add CombatSystem + SkillManager + Monsters
+            // ── Prompt 5: Combat System ────────────────────────────────
+            this._combatSystem = new CombatSystem();
+            this._floatingDamage = new FloatingDamage(this._scene);
+            this._dropSystem = new DropSystem(this._scene);
+            this._monsterManager = new MonsterManager(this._scene, this._dropSystem, this._floatingDamage);
+            this._monsterManager.setCombatSystem(this._combatSystem);
+
+            this._skillManager = new SkillManager(this._scene, this._combatSystem);
+            this._skillManager.init();
+
+            // Store in Registry for global access
+            Registry.floatingDamage = this._floatingDamage;
+            Registry.dropSystem = this._dropSystem;
+
+            // Defer initial monster spawn until next frame (player is ready)
+            setTimeout(() => this._monsterManager.initialSpawn(), 100);
       }
 
       private _buildSkybox(): void {
@@ -192,19 +219,16 @@ export class MainScene {
             this.engine.runRenderLoop(() => {
                   _frameCount++;
                   try {
-                        const dt = Math.min(this._scene.getEngine().getDeltaTime() / 1000, 0.05); // cap dt at 50ms
-
+                        const dt = Math.min(this._scene.getEngine().getDeltaTime() / 1000, 0.05);
                         // Input → Player
                         const dir = this._joystick.getDirection();
                         this._player.setMoveDirection(dir);
                         this._player.update(dt);
-
-                        // DEBUG: every 90 frames (~1.5s at 60fps)
-                        if (_frameCount % 90 === 0) {
-                              const p = this._player.position;
-                              console.log(`[Move] frame=${_frameCount} dir=(${dir.x.toFixed(2)},${dir.z.toFixed(2)}) pos=(${p.x.toFixed(2)},${p.z.toFixed(2)}) dt=${dt.toFixed(3)}`);
-                        }
-
+                        // P5: Skill + Combat
+                        this._skillManager?.update(dt);
+                        this._monsterManager?.update(dt);
+                        this._floatingDamage?.update(dt);
+                        this._dropSystem?.update(dt);
                   } catch (e) {
                         console.error("[RenderLoop] Input/Player error:", e);
                   }
@@ -249,12 +273,15 @@ export class MainScene {
             this._omniOrb?.dispose();
             this._compass?.dispose();
             this._pvpVisuals?.dispose();
-            this._zoneEffects?.dispose();
-            this._phantom?.dispose();
             this._barrierSystem?.dispose();
-            this._camera?.dispose();
+            this._phantom?.dispose();
+            this._zoneEffects?.dispose();
             this._chunkLoader?.dispose();
-            this._player?.dispose();
+            // P5
+            this._skillManager?.dispose();
+            this._monsterManager?.dispose();
+            this._floatingDamage?.dispose();
+            this._dropSystem?.dispose();
             this._scene?.dispose();
       }
 }
