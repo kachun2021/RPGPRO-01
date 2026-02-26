@@ -29,9 +29,9 @@ export class AssetManager {
        * Tries to load the asset, if 404 falls back to a procedural or empty texture gracefully.
        */
       public static loadSkybox(scene: Scene, path: string): CubeTexture {
-            console.log(`[AssetManager] Loading Skybox: ${path}`);
+
             const skyTexture = new CubeTexture(path, scene, undefined, false, undefined, () => {
-                  console.log(`[AssetManager] Skybox loaded successfully: ${path}`);
+
             }, (msg, exception) => {
                   console.warn(`[AssetManager] Could not load Skybox from ${path}. Using fallback.`, msg, exception);
             });
@@ -51,9 +51,9 @@ export class AssetManager {
             }
 
             return new Promise((resolve) => {
-                  console.log(`[AssetManager] Loading PBR Texture: ${path}`);
+
                   const tex = new Texture(path, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE, () => {
-                        console.log(`[AssetManager] PBR Texture loaded successfully: ${path}`);
+
                         resolve(tex);
                   }, (msg, exception) => {
                         console.warn(`[AssetManager] Could not load PBR mapping from ${path}.`, msg, exception);
@@ -93,9 +93,9 @@ export class AssetManager {
             }
 
             try {
-                  console.log(`[AssetManager] Loading Mesh: ${path}${fileName}`);
+
                   const result = await SceneLoader.ImportMeshAsync("", path, fileName, scene);
-                  console.log(`[AssetManager] Mesh loaded successfully: ${fileName}`);
+
                   return result.meshes;
             } catch (e) {
                   console.warn(`[AssetManager] Failed to load mesh: ${path}${fileName}`, e);

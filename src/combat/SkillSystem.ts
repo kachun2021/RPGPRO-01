@@ -71,7 +71,7 @@ export class SkillSystem {
                   this.cooldowns.set(def.id, 0);
             }
 
-            console.log("[SkillSystem] Initialized with 5 skills ✓");
+
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -105,7 +105,7 @@ export class SkillSystem {
                   this.activateDodge();
                   this.vfx.playEffect("dash", playerPos);
                   this.onSkillUsed.notifyObservers({ skillId, damage: 0, hitCount: 0 });
-                  console.log(`[Skill] ${def.name} — dodge activated!`);
+
                   return true;
             }
 
@@ -149,9 +149,9 @@ export class SkillSystem {
             this.onSkillUsed.notifyObservers({ skillId, damage: totalDmg, hitCount });
 
             if (hitCount > 0) {
-                  console.log(`[Skill] ${def.name} → ${hitCount} hits, ${totalDmg} total dmg`);
+
             } else {
-                  console.log(`[Skill] ${def.name} — no targets in range`);
+
             }
 
             return true;

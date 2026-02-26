@@ -43,7 +43,7 @@ export class InputManager {
             this.canvas = scene.getEngine().getRenderingCanvas()!;
             this.setupListeners();
             this.setupKeyboard();
-            console.log("[InputManager] Initialized ✓");
+
       }
 
       private setupListeners(): void {
@@ -130,7 +130,7 @@ export class InputManager {
                                     startPos: new Vector2(data.startX, data.startY),
                                     endPos: new Vector2(t.clientX, t.clientY),
                               });
-                              console.log(`[Input] Swipe attack! dir=(${dir.x.toFixed(2)},${dir.y.toFixed(2)}) vel=${(dist / dt).toFixed(1)}`);
+
                         } else if (dist < this.tapThreshold) {
                               // Tap
                               this.onTap.notifyObservers({
@@ -194,7 +194,7 @@ export class InputManager {
                               startPos: new Vector2(this.mouseStartX, this.mouseStartY),
                               endPos: new Vector2(e.clientX, e.clientY),
                         });
-                        console.log(`[Input] Mouse swipe! dir=(${dir.x.toFixed(2)},${dir.y.toFixed(2)})`);
+
                   }
             }
       }

@@ -5,6 +5,7 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { DynamicTexture } from "@babylonjs/core/Materials/Textures/dynamicTexture";
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
+import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
 
 interface Chunk {
       x: number;
@@ -20,12 +21,12 @@ interface Chunk {
 export class ProceduralWorld {
       private chunks: Map<string, Chunk> = new Map();
       private chunkSize: number = 64;
-      private renderDistance: number = 3;
+      private renderDistance: number = 2;
 
       private sharedMaterial: StandardMaterial | null = null;
 
       constructor(private scene: Scene) {
-            console.log("[ProceduralWorld] Initializing Open World Gen...");
+
             this.prepareAssets();
       }
 
@@ -38,7 +39,7 @@ export class ProceduralWorld {
             this.sharedMaterial.backFaceCulling = true;
 
             // Procedural grid texture for visual ground reference and movement perception
-            const texSize = 512;
+            const texSize = 256;
             const dynTex = new DynamicTexture("groundTex", texSize, this.scene, true);
             const ctx = dynTex.getContext();
 
@@ -91,7 +92,7 @@ export class ProceduralWorld {
             (this.sharedMaterial.diffuseTexture as DynamicTexture).uScale = 4;
             (this.sharedMaterial.diffuseTexture as DynamicTexture).vScale = 4;
 
-            console.log("[ProceduralWorld] Procedural ground material ready ✓");
+
       }
 
       public update(playerPosition: Vector3): void {
@@ -136,7 +137,7 @@ export class ProceduralWorld {
             const mesh = MeshBuilder.CreateGround(`chunk_${key}`, {
                   width: this.chunkSize,
                   height: this.chunkSize,
-                  subdivisions: 24
+                  subdivisions: 6
             }, this.scene);
 
             // Apply heightmap (Perlin noise approximation)
@@ -154,12 +155,10 @@ export class ProceduralWorld {
                   }
                   mesh.setVerticesData("position", positions);
 
-                  // Force normal recomputation
+                  // Recompute normals synchronously (no dynamic import)
                   const normals: number[] = [];
-                  import("@babylonjs/core/Meshes/mesh.vertexData").then(({ VertexData }) => {
-                        VertexData.ComputeNormals(positions, mesh.getIndices()!, normals);
-                        mesh.setVerticesData("normal", normals);
-                  });
+                  VertexData.ComputeNormals(positions, mesh.getIndices()!, normals);
+                  mesh.setVerticesData("normal", normals);
             }
 
             mesh.position.x = cx * this.chunkSize;

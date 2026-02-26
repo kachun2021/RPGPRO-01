@@ -3,16 +3,17 @@ import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import { Vector2, Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { TransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { TouchJoystick } from "./TouchJoystick";
+import { InputManager } from "./InputManager";
 
 /**
  * Portrait Camera Controller — Mobile-First
- * - Moves the player entity via touch joystick
+ * - Moves the player entity via touch joystick AND keyboard (WASD)
  * - Camera follows the player smoothly
  * - Portrait-optimised angle
  */
 export class PortraitCamera {
       private camera: ArcRotateCamera;
-      private moveSpeed = 12; // world units per second
+      private moveSpeed = 15; // world units per second (was 12, feels snappier)
       private smoothing = 0.12;
       private followTarget = new Vector3(0, 2, 0);
       private playerTarget: TransformNode | null = null;
@@ -25,18 +26,19 @@ export class PortraitCamera {
       constructor(
             private scene: Scene,
             camera: ArcRotateCamera,
-            private joystick: TouchJoystick
+            private joystick: TouchJoystick,
+            private inputManager?: InputManager
       ) {
             this.camera = camera;
 
             // Lock camera to portrait-friendly angle
             this.camera.alpha = -Math.PI / 2;
-            this.camera.beta = Math.PI / 2.2;
-            this.camera.radius = 12;
+            this.camera.beta = Math.PI / 2.4;
+            this.camera.radius = 22;
 
             // Portrait limits
-            this.camera.lowerRadiusLimit = 8;
-            this.camera.upperRadiusLimit = 25;
+            this.camera.lowerRadiusLimit = 12;
+            this.camera.upperRadiusLimit = 40;
             this.camera.lowerBetaLimit = Math.PI / 4;
             this.camera.upperBetaLimit = Math.PI / 1.9;
             this.camera.lowerAlphaLimit = null;
@@ -50,12 +52,19 @@ export class PortraitCamera {
                   this.currentJoystickDir.copyFrom(dir);
             });
 
+            // Subscribe to keyboard direction (WASD / arrows)
+            if (this.inputManager) {
+                  this.inputManager.onKeyboardMove.add((dir: Vector2) => {
+                        this.currentJoystickDir.copyFrom(dir);
+                  });
+            }
+
             // Register update loop
             this.scene.onBeforeRenderObservable.add(() => {
                   this.update();
             });
 
-            console.log("[PortraitCamera] Mobile portrait camera initialized ✓");
+
       }
 
       /** Attach a player transform node so the joystick moves the player */
@@ -63,7 +72,7 @@ export class PortraitCamera {
             this.playerTarget = node;
             this.followTarget.copyFrom(node.position);
             this.followTarget.y = node.position.y + 1.8;
-            console.log("[PortraitCamera] Player target connected ✓");
+
       }
 
       private update(): void {
@@ -78,31 +87,36 @@ export class PortraitCamera {
             }
 
             if (this.playerTarget && this.isMoving) {
-                  // Convert 2D joystick → 3D world movement relative to camera angle
-                  const forward = new Vector3(
-                        Math.sin(this.camera.alpha),
-                        0,
-                        Math.cos(this.camera.alpha)
-                  );
-                  const right = new Vector3(
-                        Math.sin(this.camera.alpha + Math.PI / 2),
-                        0,
-                        Math.cos(this.camera.alpha + Math.PI / 2)
-                  );
+                  // ── Derive directions from camera's ACTUAL view matrix ──
+                  // This is bulletproof — works regardless of alpha/beta values
+                  const camForward = this.camera.getDirection(Vector3.Forward());
+                  const camRight = this.camera.getDirection(Vector3.Right());
 
-                  const movement = forward.scale(-this.currentJoystickDir.y * this.moveSpeed * dt)
-                        .add(right.scale(this.currentJoystickDir.x * this.moveSpeed * dt));
+                  // Project onto XZ plane (we only move horizontally)
+                  const fwdX = camForward.x;
+                  const fwdZ = camForward.z;
+                  const rgtX = camRight.x;
+                  const rgtZ = camRight.z;
 
-                  this.playerTarget.position.addInPlace(movement);
+                  // Joystick: x positive=screen-right, y positive=screen-down
+                  const joyX = this.currentJoystickDir.x;
+                  const joyY = -this.currentJoystickDir.y;  // negate: screen-up → forward
 
-                  // Rotate player to face movement direction (smooth)
-                  if (movement.length() > 0.001) {
-                        const targetAngle = Math.atan2(movement.x, movement.z);
+                  const moveX = (fwdX * joyY + rgtX * joyX) * this.moveSpeed * dt;
+                  const moveZ = (fwdZ * joyY + rgtZ * joyX) * this.moveSpeed * dt;
+
+                  this.playerTarget.position.x += moveX;
+                  this.playerTarget.position.z += moveZ;
+
+                  // Rotate player to face movement direction
+                  const moveMagnitude = Math.sqrt(moveX * moveX + moveZ * moveZ);
+                  if (moveMagnitude > 0.001) {
+                        const targetAngle = Math.atan2(moveX, moveZ);
                         let currentY = this.playerTarget.rotation.y;
                         let diff = targetAngle - currentY;
                         while (diff > Math.PI) diff -= Math.PI * 2;
                         while (diff < -Math.PI) diff += Math.PI * 2;
-                        this.playerTarget.rotation.y += diff * 0.18;
+                        this.playerTarget.rotation.y += diff * 0.35;
                   }
             }
 

@@ -23,7 +23,7 @@ export class SwipeAttack {
             });
 
             this.createTrailSystem();
-            console.log("[SwipeAttack] Initialized ✓");
+
       }
 
       private onSwipe(data: SwipeData): void {
@@ -39,7 +39,7 @@ export class SwipeAttack {
 
             // Scale damage by velocity
             const damageMultiplier = Math.min(data.velocity * 2, 3.0);
-            console.log(`[SwipeAttack] ${attackType} | velocity=${data.velocity.toFixed(2)} | dmg×${damageMultiplier.toFixed(1)}`);
+
 
             // Trigger trail effect
             this.spawnTrail(data);
@@ -52,10 +52,10 @@ export class SwipeAttack {
             AssetManager.loadTexture(this.scene, "assets/ui/swipe_trail.ktx2").then((tex) => {
                   if (tex && this.trailParticles) {
                         this.trailParticles.particleTexture = tex;
-                        console.log("[SwipeAttack] Trail texture loaded from asset ✓");
+
                   } else if (this.trailParticles) {
                         this.trailParticles.particleTexture = this.createTrailTexture();
-                        console.log("[SwipeAttack] Using procedural trail texture (fallback)");
+
                   }
             });
 

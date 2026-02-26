@@ -10,8 +10,8 @@ import { ItemDatabase, ItemDef, RARITY_COLORS, RARITY_BG } from "../systems/Item
 import { Player } from "../entities/Player";
 
 /**
- * InventoryPanel — Full-screen glassmorphic 5×6 grid overlay
- * Matches the Genshin/Wuthering Waves aesthetic
+ * InventoryPanel — Full-screen Dark Abyss 5×6 grid overlay
+ * Deep dark panels with purple electric borders
  */
 export class InventoryPanel {
       private ui: AdvancedDynamicTexture;
@@ -28,8 +28,7 @@ export class InventoryPanel {
 
       constructor(private scene: Scene, private inventory: Inventory, private player: Player) {
             this.ui = AdvancedDynamicTexture.CreateFullscreenUI("inventoryUI", true, scene);
-            this.ui.idealHeight = 1624;
-            this.ui.renderAtIdealSize = true;
+            // removed renderAtIdealSize
             this.ui.isForeground = true;
             this.buildPanel();
             this.inventory.onChanged.add(() => this.refreshGrid());
@@ -41,20 +40,20 @@ export class InventoryPanel {
             this.panel = new Rectangle("invPanel");
             this.panel.width = "100%";
             this.panel.height = "100%";
-            this.panel.background = "rgba(5, 5, 10, 0.92)";
+            this.panel.background = "rgba(4, 4, 8, 0.96)";
             this.panel.thickness = 0;
             this.ui.addControl(this.panel);
 
             // Header
             const header = new TextBlock("invHeader", "🎒 INVENTORY");
-            header.color = "#ffffff";
+            header.color = "#e2e8f0";
             header.fontSize = 32;
             header.fontFamily = "'Cinzel', serif";
             header.fontWeight = "700";
             header.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             header.top = "60px";
-            header.shadowColor = "rgba(0,0,0,0.8)";
-            header.shadowBlur = 6;
+            header.shadowColor = "rgba(120, 60, 255, 0.5)";
+            header.shadowBlur = 10;
             this.panel.addControl(header);
 
             // Close button
@@ -65,8 +64,8 @@ export class InventoryPanel {
             closeBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             closeBtn.top = "55px";
             closeBtn.left = "-20px";
-            closeBtn.background = "rgba(255,255,255,0.1)";
-            closeBtn.color = "rgba(255,255,255,0.3)";
+            closeBtn.background = "rgba(120, 90, 255, 0.12)";
+            closeBtn.color = "rgba(168, 85, 247, 0.4)";
             closeBtn.thickness = 1;
             closeBtn.cornerRadius = 24;
             this.panel.addControl(closeBtn);
@@ -94,15 +93,15 @@ export class InventoryPanel {
             this.detailPanel.height = "280px";
             this.detailPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             this.detailPanel.top = "-80px";
-            this.detailPanel.background = "rgba(15, 15, 25, 0.8)";
-            this.detailPanel.color = "rgba(255,255,255,0.15)";
-            this.detailPanel.thickness = 1;
+            this.detailPanel.background = "rgba(8, 8, 14, 0.92)";
+            this.detailPanel.color = "rgba(120, 90, 255, 0.25)";
+            this.detailPanel.thickness = 1.5;
             this.detailPanel.cornerRadius = 16;
             this.detailPanel.isVisible = false;
             this.panel.addControl(this.detailPanel);
 
             this.detailName = new TextBlock("detName", "");
-            this.detailName.color = "#ffffff";
+            this.detailName.color = "#e2e8f0";
             this.detailName.fontSize = 24;
             this.detailName.fontFamily = "'Inter', sans-serif";
             this.detailName.fontWeight = "700";
@@ -121,7 +120,7 @@ export class InventoryPanel {
             this.detailPanel.addControl(this.detailDesc);
 
             this.detailStats = new TextBlock("detStats", "");
-            this.detailStats.color = "#73d13d";
+            this.detailStats.color = "#22d3ee";
             this.detailStats.fontSize = 16;
             this.detailStats.fontFamily = "'Inter', sans-serif";
             this.detailStats.fontWeight = "600";
@@ -130,7 +129,7 @@ export class InventoryPanel {
             this.detailPanel.addControl(this.detailStats);
 
             this.detailPrice = new TextBlock("detPrice", "");
-            this.detailPrice.color = "#faad14";
+            this.detailPrice.color = "#fbbf24";
             this.detailPrice.fontSize = 16;
             this.detailPrice.fontFamily = "'Inter', sans-serif";
             this.detailPrice.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
@@ -145,14 +144,14 @@ export class InventoryPanel {
             useBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             useBtn.left = "30px";
             useBtn.top = "-20px";
-            useBtn.background = "rgba(115, 209, 61, 0.3)";
-            useBtn.color = "rgba(115, 209, 61, 0.6)";
+            useBtn.background = "rgba(34, 211, 238, 0.2)";
+            useBtn.color = "rgba(34, 211, 238, 0.5)";
             useBtn.thickness = 1.5;
             useBtn.cornerRadius = 22;
             this.detailPanel.addControl(useBtn);
 
             const useTxt = new TextBlock("useTxt", "⚡ USE");
-            useTxt.color = "#73d13d";
+            useTxt.color = "#22d3ee";
             useTxt.fontSize = 16;
             useTxt.fontFamily = "'Inter', sans-serif";
             useTxt.fontWeight = "700";
@@ -166,14 +165,14 @@ export class InventoryPanel {
             sellBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             sellBtn.left = "-30px";
             sellBtn.top = "-20px";
-            sellBtn.background = "rgba(250, 173, 20, 0.2)";
-            sellBtn.color = "rgba(250, 173, 20, 0.5)";
+            sellBtn.background = "rgba(251, 191, 36, 0.15)";
+            sellBtn.color = "rgba(251, 191, 36, 0.4)";
             sellBtn.thickness = 1.5;
             sellBtn.cornerRadius = 22;
             this.detailPanel.addControl(sellBtn);
 
             const sellTxt = new TextBlock("sellTxt", "🪙 SELL");
-            sellTxt.color = "#faad14";
+            sellTxt.color = "#fbbf24";
             sellTxt.fontSize = 16;
             sellTxt.fontFamily = "'Inter', sans-serif";
             sellTxt.fontWeight = "700";
@@ -239,8 +238,8 @@ export class InventoryPanel {
 
                   // Quantity badge
                   if (slot.quantity > 1) {
-                        const qty = new TextBlock(`qty_${i}`, `${slot.quantity}`);
-                        qty.color = "#ffffff";
+                        const qty = new TextBlock(`qty_${i}`, `x${slot.quantity}`);
+                        qty.color = "#e2e8f0";
                         qty.fontSize = 14;
                         qty.fontFamily = "'Inter', sans-serif";
                         qty.fontWeight = "700";
@@ -298,13 +297,13 @@ export class InventoryPanel {
                         this.player.setStats({ mp: Math.min(s.maxMp, s.mp + def.stats.mp) });
                   }
                   this.inventory.removeItem(def.id, 1);
-                  console.log(`[Inventory] Used ${def.name}`);
+
                   if (!this.inventory.hasItem(def.id)) {
                         this.detailPanel.isVisible = false;
                         this.selectedItem = null;
                   }
             } else {
-                  console.log(`[Inventory] Cannot use ${def.type} items directly`);
+
             }
       }
 
@@ -313,7 +312,7 @@ export class InventoryPanel {
             const def = this.selectedItem;
             if (this.inventory.removeItem(def.id, 1)) {
                   this.player.addGold(def.sellPrice);
-                  console.log(`[Inventory] Sold ${def.name} for 🪙${def.sellPrice}`);
+
                   if (!this.inventory.hasItem(def.id)) {
                         this.detailPanel.isVisible = false;
                         this.selectedItem = null;

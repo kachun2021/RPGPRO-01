@@ -5,7 +5,7 @@ import { Vector3, Color4 } from "@babylonjs/core/Maths/math";
 
 export class AshParticleSystem {
      public static create(scene: Scene): ParticleSystem {
-          const ps = new ParticleSystem("ashParticles", 2000, scene);
+          const ps = new ParticleSystem("ashParticles", 800, scene);
 
           // Generate particle texture procedurally
           ps.particleTexture = AshParticleSystem.createAshTexture(scene);
@@ -20,7 +20,7 @@ export class AshParticleSystem {
           ps.maxLifeTime = 10;
 
           // Emission rate
-          ps.emitRate = 150;
+          ps.emitRate = 60;
 
           // Size
           ps.minSize = 0.02;
@@ -66,14 +66,14 @@ export class AshParticleSystem {
           ps.start();
 
           // Secondary system: slower, larger ash flakes
-          const ps2 = new ParticleSystem("ashFlakes", 500, scene);
+          const ps2 = new ParticleSystem("ashFlakes", 200, scene);
           ps2.particleTexture = ps.particleTexture;
           ps2.emitter = Vector3.Zero();
           ps2.minEmitBox = new Vector3(-40, 0, -40);
           ps2.maxEmitBox = new Vector3(40, 2, 40);
           ps2.minLifeTime = 6;
           ps2.maxLifeTime = 14;
-          ps2.emitRate = 40;
+          ps2.emitRate = 15;
           ps2.minSize = 0.05;
           ps2.maxSize = 0.2;
           ps2.direction1 = new Vector3(-0.5, 0.8, -0.5);

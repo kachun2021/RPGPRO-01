@@ -30,7 +30,7 @@ import { MonsterManager } from "../entities/MonsterManager";
 import { CombatSystem } from "../combat/CombatSystem";
 import { InventoryPanel } from "../ui/InventoryPanel";
 import { ShopPanel } from "../ui/ShopPanel";
-import { Merchant } from "../entities/Merchant";
+
 
 export class MainScene {
      private scene: Scene;
@@ -63,16 +63,13 @@ export class MainScene {
      }
 
      public async init(): Promise<void> {
-          console.log("[Scene] Setting up camera...");
           this.setupCamera();
 
-          console.log("[Scene] Setting up lighting...");
           this.setupLighting();
 
-          console.log("[Scene] Creating skybox...");
           this.createSkybox();
 
-          console.log("[Scene] Creating player character...");
+
           this.player = new Player(this.scene);
           this.player.setPosition(new Vector3(0, 0, 0));
           // Point camera at player's torso/head
@@ -80,50 +77,48 @@ export class MainScene {
           this.camera.target.y += 1.8;
 
           // Create a simple visible floor ground that's always there
-          console.log("[Scene] Creating base ground plane...");
           this.createVisibleGround();
 
-          console.log("[Scene] Initializing Procedural Chunk World...");
           this.world = new ProceduralWorld(this.scene);
 
-          console.log("[Scene] Creating god rays...");
+
           try {
-               this.createGodRays();
+               this.createGodRays(); // Restored
           } catch (e) {
                console.warn("[Scene] God rays failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Creating atmospheric props...");
+
           this.createAtmosphericProps();
 
-          console.log("[Scene] Creating ash particles...");
+
           try {
                AshParticleSystem.create(this.scene);
           } catch (e) {
                console.warn("[Scene] Ash particles failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Applying crimson grading...");
+
           try {
-               // Reduced further to avoid crushing dark terrain visibility
-               CrimsonGrading.apply(this.scene, this.camera, 0.1);
+               // Minimal intensity for atmosphere without crushing visibility or perf
+               CrimsonGrading.apply(this.scene, this.camera, 0.05);
           } catch (e) {
                console.warn("[Scene] Crimson grading failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Setting up post-processing...");
+
           try {
                this.setupPostProcessing();
           } catch (e) {
                console.warn("[Scene] Post-processing failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Setting up input system...");
+
           try {
                this.inputManager = new InputManager(this.scene);
                this.joystick = new TouchJoystick(this.scene);
                this.swipeAttack = new SwipeAttack(this.scene, this.inputManager);
-               this.portraitCamera = new PortraitCamera(this.scene, this.camera, this.joystick);
+               this.portraitCamera = new PortraitCamera(this.scene, this.camera, this.joystick, this.inputManager);
                // Connect player to joystick movement
                if (this.player) {
                     this.portraitCamera.setPlayerTarget(this.player.root);
@@ -136,10 +131,10 @@ export class MainScene {
                console.warn("[Scene] Input system failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Creating HUD...");
+
           this.hud = new HUD(this.scene);
 
-          console.log("[Scene] Creating Character Panel...");
+
           this.characterPanel = new CharacterPanel(this.scene, this.player);
 
           // Wire HUD Character button to toggle CharacterPanel
@@ -173,7 +168,7 @@ export class MainScene {
           this.hud.updateFromStats(this.player.getStats());
 
           // ── Phase 5: Monster AI & Combat System ──
-          console.log("[Scene] Setting up Monster AI & Combat...");
+
           try {
                this.monsterManager = new MonsterManager(this.scene);
                this.combatSystem = new CombatSystem(this.scene, this.monsterManager, this.player);
@@ -192,24 +187,24 @@ export class MainScene {
                // Wire HUD AUTO toggle → CombatSystem auto-battle
                this.hud.onAutoBattleToggle.add((active) => {
                     this.combatSystem.autoBattle = active;
-                    console.log(`[Scene] Auto-Battle: ${active ? 'ON' : 'OFF'}`);
+
                });
 
                // Wire item collection → HUD update (via player.onStatsChanged already bound)
                this.combatSystem.onItemCollected.add((reward) => {
-                    console.log(`[Scene] Collected ${reward.type}: +${reward.amount}`);
+
                });
 
-               console.log("[Scene] Monster & Combat system ready ✓");
+
           } catch (e) {
                console.warn("[Scene] Monster/Combat setup failed (non-fatal):", e);
           }
 
-          console.log("[Scene] Init complete ✓");
+
 
           // Ensure scene is ready
           await this.scene.whenReadyAsync();
-          console.log("[Scene] Scene ready ✓");
+
      }
 
      private setupCamera(): void {
@@ -251,9 +246,9 @@ export class MainScene {
           moonLight.position = new Vector3(20, 40, -20);
 
           // Shadow generator
-          this.shadowGen = new ShadowGenerator(1024, moonLight);
+          this.shadowGen = new ShadowGenerator(512, moonLight);
           this.shadowGen.useBlurExponentialShadowMap = true;
-          this.shadowGen.blurKernel = 16;
+          this.shadowGen.blurKernel = 8;
           this.shadowGen.darkness = 0.35;
 
           // ── Crimson fill light (near player area) ──
@@ -368,18 +363,18 @@ export class MainScene {
 
           const godRays = new VolumetricLightScatteringPostProcess(
                "godRays",
-               1.0,
+               0.5,
                this.camera,
                godRayEmitter,
-               60,
+               40,
                Texture.BILINEAR_SAMPLINGMODE,
                this.engine,
                false
           );
-          godRays.exposure = 0.2;
+          godRays.exposure = 0.18;
           godRays.decay = 0.97;
-          godRays.weight = 0.4;
-          godRays.density = 0.7;
+          godRays.weight = 0.35;
+          godRays.density = 0.6;
      }
 
      private createAtmosphericProps(): void {
@@ -511,46 +506,44 @@ export class MainScene {
      private setupPostProcessing(): void {
           const pipeline = new DefaultRenderingPipeline("defaultPipeline", true, this.scene, [this.camera]);
 
-          // Bloom — lighter, to not bleed into UI
+          // Bloom — minimal to avoid UI bleed and save GPU
           pipeline.bloomEnabled = true;
-          pipeline.bloomThreshold = 0.65;
-          pipeline.bloomWeight = 0.12;
-          pipeline.bloomKernel = 32;
-          pipeline.bloomScale = 0.3;
+          pipeline.bloomThreshold = 0.8;
+          pipeline.bloomWeight = 0.06;
+          pipeline.bloomKernel = 16;
+          pipeline.bloomScale = 0.25;
 
           // Chromatic aberration — DISABLED (destroys text clarity)
           pipeline.chromaticAberrationEnabled = false;
 
-          // Film grain — very subtle
-          pipeline.grainEnabled = true;
-          pipeline.grain.intensity = 6;
-          pipeline.grain.animated = true;
+          // Film grain — DISABLED (biggest source of UI text blur)
+          pipeline.grainEnabled = false;
 
           // Vignette — minimal (CrimsonGrading already adds one)
           pipeline.imageProcessing.vignetteEnabled = true;
-          pipeline.imageProcessing.vignetteWeight = 0.3;
+          pipeline.imageProcessing.vignetteWeight = 0.25;
           pipeline.imageProcessing.vignetteColor = new Color4(0.04, 0.01, 0.03, 1);
           pipeline.imageProcessing.vignetteStretch = 0.5;
 
           // Tone mapping & exposure (ACES)
           pipeline.imageProcessing.toneMappingEnabled = true;
           pipeline.imageProcessing.toneMappingType = 1;
-          pipeline.imageProcessing.exposure = 1.6;
-          pipeline.imageProcessing.contrast = 1.2;
+          pipeline.imageProcessing.exposure = 1.5;
+          pipeline.imageProcessing.contrast = 1.15;
 
           // Color curves
           pipeline.imageProcessing.colorCurvesEnabled = true;
 
-          // Glow layer — reduced to not haze over everything
+          // Glow layer — lowered for perf and clarity
           const glow = new GlowLayer("glow", this.scene);
-          glow.intensity = 0.25;
-          glow.blurKernelSize = 16;
+          glow.intensity = 0.1;
+          glow.blurKernelSize = 4;
      }
 
      private createVisibleGround(): void {
           // Large ground plane with bright procedural texture
           const ground = MeshBuilder.CreateGround("baseGround", {
-               width: 600, height: 600, subdivisions: 48
+               width: 600, height: 600, subdivisions: 16
           }, this.scene);
           ground.position.y = -0.5; // Slightly below procedural chunks to prevent Z-fighting
           ground.receiveShadows = true;
@@ -609,7 +602,7 @@ export class MainScene {
 
           ground.material = mat;
           this.shadowGen.addShadowCaster(ground);
-          console.log("[Scene] Base ground plane created ✓");
+
      }
 
      public render(): void {

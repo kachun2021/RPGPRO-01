@@ -33,14 +33,13 @@ export class TouchJoystick {
 
       constructor(private scene: Scene) {
             this.ui = AdvancedDynamicTexture.CreateFullscreenUI("joystickUI", true, scene);
-            this.ui.idealHeight = 1624;
-            this.ui.renderAtIdealSize = false;
+            // removed renderAtIdealSize to prevent blocking global resolution
 
             this.createVisuals();
             this.bindPointerEvents();
             this.startIdlePulse();
 
-            console.log("[TouchJoystick] Mobile joystick initialized ✓");
+
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -56,7 +55,7 @@ export class TouchJoystick {
             this.glowRing.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             this.glowRing.left = "22px";
             this.glowRing.top = "-32px";
-            this.glowRing.color = "rgba(255, 60, 40, 0.0)";
+            this.glowRing.color = "rgba(168, 85, 247, 0.0)";
             this.glowRing.thickness = 4;
             this.glowRing.background = "transparent";
             this.glowRing.isHitTestVisible = false;
@@ -70,8 +69,8 @@ export class TouchJoystick {
             this.outerRing.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             this.outerRing.left = "34px";
             this.outerRing.top = "-44px";
-            this.outerRing.background = "rgba(15, 2, 8, 0.6)";
-            this.outerRing.color = "rgba(255, 80, 60, 0.35)";
+            this.outerRing.background = "rgba(10, 6, 20, 0.7)";
+            this.outerRing.color = "rgba(140, 90, 255, 0.35)";
             this.outerRing.thickness = 3;
             this.outerRing.isHitTestVisible = false;
             this.ui.addControl(this.outerRing);
@@ -82,8 +81,8 @@ export class TouchJoystick {
             this.innerKnob = new Ellipse("joyKnob");
             this.innerKnob.width = `${this.knobSize}px`;
             this.innerKnob.height = `${this.knobSize}px`;
-            this.innerKnob.background = "rgba(255, 80, 60, 0.5)";
-            this.innerKnob.color = "rgba(255, 100, 70, 0.75)";
+            this.innerKnob.background = "rgba(168, 85, 247, 0.5)";
+            this.innerKnob.color = "rgba(192, 132, 252, 0.75)";
             this.innerKnob.thickness = 3;
             this.innerKnob.isHitTestVisible = false;
             this.outerRing.addControl(this.innerKnob);
@@ -92,8 +91,8 @@ export class TouchJoystick {
             const centerDot = new Ellipse("joyCenterDot");
             centerDot.width = "20px";
             centerDot.height = "20px";
-            centerDot.background = "rgba(255, 150, 100, 0.6)";
-            centerDot.color = "rgba(255, 200, 150, 0.4)";
+            centerDot.background = "rgba(200, 160, 255, 0.6)";
+            centerDot.color = "rgba(220, 190, 255, 0.4)";
             centerDot.thickness = 2;
             centerDot.isHitTestVisible = false;
             this.innerKnob.addControl(centerDot);
@@ -110,7 +109,7 @@ export class TouchJoystick {
             for (const d of dirs) {
                   const arrow = new TextBlock(`joyArrow_${d.name}`, d.char);
                   arrow.fontSize = 16;
-                  arrow.color = "rgba(255, 100, 70, 0.2)";
+                  arrow.color = "rgba(192, 132, 252, 0.2)";
                   arrow.verticalAlignment = d.vAlign;
                   arrow.horizontalAlignment = d.hAlign;
                   if (d.name === "left" || d.name === "right") arrow.left = d.left;
@@ -123,7 +122,7 @@ export class TouchJoystick {
                   const tick = new Ellipse(`joyTick_${i}`);
                   tick.width = "7px";
                   tick.height = "7px";
-                  tick.background = "rgba(255, 100, 70, 0.12)";
+                  tick.background = "rgba(192, 132, 252, 0.12)";
                   tick.color = "transparent";
                   tick.thickness = 0;
                   tick.isHitTestVisible = false;
@@ -165,13 +164,13 @@ export class TouchJoystick {
                   this.maxRadius = (this.outerSize / 2) * scale;
 
                   // Visual feedback
-                  this.glowRing.color = "rgba(255, 60, 40, 0.35)";
-                  this.outerRing.color = "rgba(255, 80, 60, 0.65)";
-                  this.outerRing.background = "rgba(25, 4, 12, 0.7)";
+                  this.glowRing.color = "rgba(168, 85, 247, 0.35)";
+                  this.outerRing.color = "rgba(140, 90, 255, 0.65)";
+                  this.outerRing.background = "rgba(14, 8, 28, 0.8)";
                   this.innerKnob.scaleX = 1.08;
                   this.innerKnob.scaleY = 1.08;
 
-                  console.log(`[Joystick] DOWN id=${e.pointerId} (${e.clientX},${e.clientY})`);
+
             }, { capture: true, passive: false });
 
             // DOCUMENT-level move — tracks drag globally even outside canvas
@@ -190,13 +189,12 @@ export class TouchJoystick {
                   this.currentDir.x = dx / this.maxRadius;
                   this.currentDir.y = dy / this.maxRadius;
 
-                  // Move inner knob (screen px → ideal px)
-                  const scale = canvas.clientHeight / 1624;
-                  this.innerKnob.left = `${dx / scale}px`;
-                  this.innerKnob.top = `${dy / scale}px`;
+                  // Move inner knob (1:1 screen px)
+                  this.innerKnob.left = `${dx}px`;
+                  this.innerKnob.top = `${dy}px`;
 
                   const intensity = Math.min(dist / this.maxRadius, 1);
-                  this.glowRing.color = `rgba(255, 60, 40, ${(0.15 + intensity * 0.4).toFixed(2)})`;
+                  this.glowRing.color = `rgba(168, 85, 247, ${(0.15 + intensity * 0.4).toFixed(2)})`;
 
                   this.onMove.notifyObservers(this.currentDir.clone());
             }, { capture: true, passive: true });
@@ -204,7 +202,7 @@ export class TouchJoystick {
             // DOCUMENT-level up
             document.addEventListener("pointerup", (e: PointerEvent) => {
                   if (e.pointerId !== this.activePointerId) return;
-                  console.log(`[Joystick] UP id=${e.pointerId}`);
+
                   this.resetJoystick();
             }, { capture: true });
 
@@ -222,9 +220,9 @@ export class TouchJoystick {
             this.innerKnob.left = "0px";
             this.innerKnob.top = "0px";
 
-            this.glowRing.color = "rgba(255, 60, 40, 0.0)";
-            this.outerRing.color = "rgba(255, 80, 60, 0.35)";
-            this.outerRing.background = "rgba(15, 2, 8, 0.6)";
+            this.glowRing.color = "rgba(168, 85, 247, 0.0)";
+            this.outerRing.color = "rgba(140, 90, 255, 0.35)";
+            this.outerRing.background = "rgba(10, 6, 20, 0.7)";
             this.innerKnob.scaleX = 1.0;
             this.innerKnob.scaleY = 1.0;
 
@@ -236,7 +234,7 @@ export class TouchJoystick {
                   if (this.active) return;
                   this.pulsePhase += 0.02;
                   const pulse = Math.sin(this.pulsePhase) * 0.08 + 0.35;
-                  this.outerRing.color = `rgba(255, 80, 60, ${pulse.toFixed(2)})`;
+                  this.outerRing.color = `rgba(140, 90, 255, ${pulse.toFixed(2)})`;
             });
       }
 

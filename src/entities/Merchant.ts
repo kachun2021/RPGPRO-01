@@ -116,7 +116,7 @@ export class Merchant {
             if (meshes && meshes.length > 0) {
                   this.root.getChildMeshes().forEach(m => m.isVisible = false);
                   meshes.forEach(m => { m.parent = this.root; m.isVisible = true; });
-                  console.log("[Merchant] GLB loaded ✓");
+
             }
       }
 

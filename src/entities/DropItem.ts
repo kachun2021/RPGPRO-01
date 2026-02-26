@@ -99,7 +99,7 @@ export class DropItem {
             if (meshes && meshes.length > 0) {
                   this.mesh.isVisible = false;
                   meshes.forEach(m => { m.parent = this.root; });
-                  console.log("[DropItem] GLB coin loaded ✓");
+
             }
       }
 

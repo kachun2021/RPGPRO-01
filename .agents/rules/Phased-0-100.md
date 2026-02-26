@@ -13,3 +13,4 @@ trigger: always_on
 每次完成100%後BACKUP到GITHUB
 user EMAIL:prokc2018@gmail.com
 地址:https://github.com/kachun2021/AI-RPGPRO
+遊戲專案 d:\AI-RPGGAME

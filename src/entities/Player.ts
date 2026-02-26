@@ -264,7 +264,7 @@ export class Player {
                   "base.glb"
             );
             if (meshes && meshes.length > 0) {
-                  console.log("[Player] GLB model loaded, replacing procedural mesh ✓");
+
                   this.glbMeshes = meshes;
                   // Hide procedural meshes
                   this.root.getChildMeshes().forEach(m => m.isVisible = false);
@@ -274,7 +274,7 @@ export class Player {
                         m.isVisible = true;
                   });
             } else {
-                  console.log("[Player] GLB not available, using procedural character ✓");
+
             }
       }
 
@@ -381,11 +381,11 @@ export class Player {
             AssetManager.loadTexture(this.scene, `assets/textures/player/helmet_${helmetId}.ktx2`).then((tex) => {
                   if (tex) {
                         this.helmetMat.albedoTexture = tex;
-                        console.log(`[Player] Helmet texture loaded: helmet_${helmetId}.ktx2 ✓`);
+
                   }
             });
 
-            console.log(`[Player] Equipped helmet: ${helmetId} ✓`);
+
             this.onEquipmentChanged.notifyObservers({ ...this.equipment });
             return helmetId;
       }
@@ -432,7 +432,7 @@ export class Player {
             this.stats.atk += 15;
             this.stats.def += 10;
             this.stats.maxExp = Math.floor(this.stats.maxExp * 1.5);
-            console.log(`[Player] LEVEL UP! Now Lv.${this.stats.level} | ATK:${this.stats.atk} DEF:${this.stats.def} ✓`);
+
       }
 
       public takeDamage(amount: number): void {

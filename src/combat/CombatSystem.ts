@@ -63,17 +63,17 @@ export class CombatSystem {
                   if (Math.random() < 0.6) {
                         const item = ItemDatabase.getRandomDrop();
                         this.player.inventory.addItem(item.id, 1);
-                        console.log(`[Combat] Loot drop: ${item.icon} ${item.name} (${item.rarity})`);
+
                   }
             });
 
-            console.log("[CombatSystem] Initialized with SkillSystem + Auto-Battle ✓");
+
       }
 
       public toggleAutoBattle(): void {
             this.autoBattle = !this.autoBattle;
             this.onAutoBattleChanged.notifyObservers(this.autoBattle);
-            console.log(`[Combat] Auto-Battle: ${this.autoBattle ? "ON" : "OFF"}`);
+
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -233,7 +233,7 @@ export class CombatSystem {
                   this.drops.push(hpDrop);
             }
 
-            console.log(`[CombatSystem] Spawned ${goldCount} gold + 1 exp drops`);
+
       }
 
       private collectReward(reward: DropReward, position: Vector3): void {

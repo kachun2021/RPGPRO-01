@@ -21,7 +21,7 @@ export class MonsterManager {
 
       constructor(scene: Scene) {
             this.scene = scene;
-            console.log("[MonsterManager] Initialized ✓");
+
       }
 
       public update(dt: number, playerPos: Vector3): void {
@@ -64,11 +64,11 @@ export class MonsterManager {
                         monster: m,
                         position: m.getPosition()
                   });
-                  console.log(`[MonsterManager] Kill #${this.killCount}: ${m.name}`);
+
             });
 
             this.monsters.push(monster);
-            console.log(`[MonsterManager] Spawned ${monster.name} (${this.monsters.length}/${this.maxMonsters})`);
+
       }
 
       /**

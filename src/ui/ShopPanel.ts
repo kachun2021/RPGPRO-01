@@ -12,7 +12,7 @@ import { Player } from "../entities/Player";
 
 /**
  * ShopPanel — Buy/Sell overlay with tabs
- * Glassmorphic aesthetic matching the HUD and Inventory
+ * Dark Abyss theme with purple-gold accents
  */
 export class ShopPanel {
       private ui: AdvancedDynamicTexture;
@@ -26,8 +26,7 @@ export class ShopPanel {
 
       constructor(private scene: Scene, private player: Player, private inventory: Inventory) {
             this.ui = AdvancedDynamicTexture.CreateFullscreenUI("shopUI", true, scene);
-            this.ui.idealHeight = 1624;
-            this.ui.renderAtIdealSize = true;
+            // removed renderAtIdealSize
             this.ui.isForeground = true;
             this.buildPanel();
             this.hide();
@@ -37,25 +36,25 @@ export class ShopPanel {
             this.panel = new Rectangle("shopPanel");
             this.panel.width = "100%";
             this.panel.height = "100%";
-            this.panel.background = "rgba(5, 5, 10, 0.94)";
+            this.panel.background = "rgba(4, 4, 8, 0.96)";
             this.panel.thickness = 0;
             this.ui.addControl(this.panel);
 
             // Header
             const header = new TextBlock("shopHeader", "🛒 MERCHANT SHOP");
-            header.color = "#faad14";
+            header.color = "#c084fc";
             header.fontSize = 30;
             header.fontFamily = "'Cinzel', serif";
             header.fontWeight = "700";
             header.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             header.top = "60px";
-            header.shadowColor = "rgba(0,0,0,0.8)";
-            header.shadowBlur = 6;
+            header.shadowColor = "rgba(120, 60, 255, 0.5)";
+            header.shadowBlur = 10;
             this.panel.addControl(header);
 
             // Gold display
             this.goldDisplay = new TextBlock("shopGold", "🪙 0");
-            this.goldDisplay.color = "#faad14";
+            this.goldDisplay.color = "#fbbf24";
             this.goldDisplay.fontSize = 22;
             this.goldDisplay.fontFamily = "'Inter', sans-serif";
             this.goldDisplay.fontWeight = "600";
@@ -73,8 +72,8 @@ export class ShopPanel {
             closeBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             closeBtn.top = "55px";
             closeBtn.left = "20px";
-            closeBtn.background = "rgba(255,255,255,0.1)";
-            closeBtn.color = "rgba(255,255,255,0.3)";
+            closeBtn.background = "rgba(120, 90, 255, 0.12)";
+            closeBtn.color = "rgba(168, 85, 247, 0.4)";
             closeBtn.thickness = 1;
             closeBtn.cornerRadius = 24;
             this.panel.addControl(closeBtn);
@@ -87,7 +86,7 @@ export class ShopPanel {
 
             // Feedback text (e.g. "Not enough gold!")
             this.feedbackText = new TextBlock("shopFeedback", "");
-            this.feedbackText.color = "#ff4d4f";
+            this.feedbackText.color = "#f87171";
             this.feedbackText.fontSize = 18;
             this.feedbackText.fontFamily = "'Inter', sans-serif";
             this.feedbackText.fontWeight = "600";
@@ -103,7 +102,7 @@ export class ShopPanel {
             scroll.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             scroll.top = "140px";
             scroll.barSize = 6;
-            scroll.barColor = "rgba(255,255,255,0.3)";
+            scroll.barColor = "rgba(120, 90, 255, 0.3)";
             scroll.thickness = 0;
             this.panel.addControl(scroll);
 
@@ -151,7 +150,7 @@ export class ShopPanel {
 
                   // Description
                   const desc = new TextBlock(`sDesc_${item.id}`, item.description);
-                  desc.color = "rgba(255,255,255,0.55)";
+                  desc.color = "rgba(148, 163, 184, 0.7)";
                   desc.fontSize = 14;
                   desc.fontFamily = "'Inter', sans-serif";
                   desc.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -169,7 +168,7 @@ export class ShopPanel {
                   if (item.stats?.mp) statsArr.push(`MP+${item.stats.mp}`);
                   if (statsArr.length) {
                         const stats = new TextBlock(`sStat_${item.id}`, statsArr.join(" "));
-                        stats.color = "#73d13d";
+                        stats.color = "#22d3ee";
                         stats.fontSize = 13;
                         stats.fontFamily = "'Inter', sans-serif";
                         stats.fontWeight = "600";
@@ -187,14 +186,14 @@ export class ShopPanel {
                   buyBtn.height = "38px";
                   buyBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
                   buyBtn.left = "-12px";
-                  buyBtn.background = "rgba(250, 173, 20, 0.25)";
-                  buyBtn.color = "rgba(250, 173, 20, 0.6)";
+                  buyBtn.background = "rgba(192, 132, 252, 0.2)";
+                  buyBtn.color = "rgba(192, 132, 252, 0.5)";
                   buyBtn.thickness = 1.5;
                   buyBtn.cornerRadius = 19;
                   row.addControl(buyBtn);
 
                   const price = new TextBlock(`sPrice_${item.id}`, `🪙 ${item.price}`);
-                  price.color = "#faad14";
+                  price.color = "#fbbf24";
                   price.fontSize = 15;
                   price.fontFamily = "'Inter', sans-serif";
                   price.fontWeight = "700";
@@ -222,7 +221,7 @@ export class ShopPanel {
             this.updateGold();
             this.showFeedback(`Purchased ${item.name}!`, "#73d13d");
             this.onPurchase.notifyObservers({ itemId: item.id, price: item.price });
-            console.log(`[Shop] Bought ${item.name} for 🪙${item.price}`);
+
       }
 
       private showFeedback(msg: string, color: string): void {

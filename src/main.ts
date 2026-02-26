@@ -32,14 +32,11 @@ class Game {
           const loadingBar = document.getElementById("loadingBar") as HTMLElement;
           const setProgress = (pct: number) => {
                if (loadingBar) loadingBar.style.width = `${pct}%`;
-               console.log(`[Loading] ${pct}%`);
           };
 
           setProgress(10);
 
           // Try WebGPU first, fallback to WebGL2
-          // Force high-DPI rendering
-          const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap at 2x for perf
           let engineType = "WebGL2";
           try {
                const webgpu = new WebGPUEngine(this.canvas, {
@@ -48,19 +45,18 @@ class Game {
                     stencil: true,
                });
                await webgpu.initAsync();
-               webgpu.setHardwareScalingLevel(1 / dpr);
+               // Do NOT use setHardwareScalingLevel with adaptToDeviceRatio. It squares the multiplier.
                this.engine = webgpu;
                engineType = "WebGPU";
           } catch (e) {
                console.warn("[Engine] WebGPU failed, falling back to WebGL2:", e);
                this.engine = new Engine(this.canvas, true, {
-                    adaptToDeviceRatio: true,
-                    antialias: true,
                     stencil: true,
-               });
-               this.engine.setHardwareScalingLevel(1 / dpr);
+                    preserveDrawingBuffer: true,
+               }, true); // 4th arg is adaptToDeviceRatio
+               // Do NOT use setHardwareScalingLevel(1/dpr) here either.
           }
-          console.log(`[Engine] ${engineType} initialized ✓`);
+
 
           setProgress(30);
 
@@ -76,9 +72,7 @@ class Game {
           // Create the main blood moon scene
           try {
                this.mainScene = new MainScene(this.engine, this.canvas);
-               console.log("[Game] MainScene constructed, calling init...");
                await this.mainScene.init();
-               console.log("[Game] MainScene init complete ✓");
           } catch (e) {
                console.error("[Game] Scene init failed:", e);
                throw e;
@@ -115,6 +109,12 @@ class Game {
 
      private handleResize(): void {
           this.engine.resize();
+          // Force Super Sampling Anti-Aliasing (SSAA)
+          // Desktop monitors (devicePixelRatio=1) will now render internally at 2x resolution
+          // Mobile Retina screens (devicePixelRatio=2 or 3) will render at their 2x/3x resolution
+          // This ensures perfect smoothness on the 3D models and character edges at all times.
+          const dpr = Math.max(window.devicePixelRatio || 1, 2.0);
+          this.engine.setHardwareScalingLevel(1 / Math.min(dpr, 3.0));
      }
 }
 

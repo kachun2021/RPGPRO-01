@@ -9,9 +9,9 @@ import { Control } from "@babylonjs/gui/2D/controls/control";
 import { Player, PlayerStats, EquipmentSlots } from "../entities/Player";
 
 /**
- * Vertical Character Panel — Premium Modern RPG
+ * Vertical Character Panel — Dark Abyss Theme
  * Full-screen overlay showing stats, equipment, and gear swap.
- * Slides in from right with minimalist glassmorphic style.
+ * Slides in from right with deep dark panels and purple accents.
  */
 export class CharacterPanel {
       private ui: AdvancedDynamicTexture;
@@ -36,7 +36,6 @@ export class CharacterPanel {
 
       constructor(private scene: Scene, private player: Player) {
             this.ui = AdvancedDynamicTexture.CreateFullscreenUI("charPanel", true, scene);
-            this.ui.idealHeight = 1624;
             this.ui.renderAtIdealSize = false;
             this.ui.isForeground = true;
 
@@ -44,7 +43,7 @@ export class CharacterPanel {
             this.bindPlayerData();
             this.hide(); // Start hidden
 
-            console.log("[CharacterPanel] Initialized ✓");
+
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -56,7 +55,7 @@ export class CharacterPanel {
             this.backdrop = new Rectangle("charBackdrop");
             this.backdrop.width = "100%";
             this.backdrop.height = "100%";
-            this.backdrop.background = "rgba(0, 0, 0, 0.65)";
+            this.backdrop.background = "rgba(2, 2, 6, 0.82)";
             this.backdrop.color = "transparent";
             this.backdrop.thickness = 0;
             this.backdrop.isPointerBlocker = true;
@@ -66,9 +65,9 @@ export class CharacterPanel {
             this.container = new Rectangle("charContainer");
             this.container.width = "90%";
             this.container.height = "88%";
-            this.container.background = "rgba(16, 20, 28, 0.95)";
-            this.container.color = "rgba(255, 255, 255, 0.15)";
-            this.container.thickness = 1;
+            this.container.background = "rgba(8, 8, 14, 0.96)";
+            this.container.color = "rgba(120, 90, 255, 0.25)";
+            this.container.thickness = 1.5;
             this.container.cornerRadius = 24;
             this.container.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             this.backdrop.addControl(this.container);
@@ -85,14 +84,14 @@ export class CharacterPanel {
             header.width = "100%";
             header.height = "80px";
             header.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            header.background = "rgba(255, 255, 255, 0.03)";
+            header.background = "rgba(120, 90, 255, 0.05)";
             header.color = "transparent";
             header.thickness = 0;
             header.cornerRadius = 24;
             this.container.addControl(header);
 
             const title = new TextBlock("charTitle", "CHARACTER");
-            title.color = "#ffffff";
+            title.color = "#e2e8f0";
             title.fontSize = 28;
             title.fontFamily = "'Cinzel', serif";
             title.fontWeight = "700";
@@ -107,7 +106,7 @@ export class CharacterPanel {
             accent.height = "1px";
             accent.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             accent.top = "80px";
-            accent.background = "rgba(255, 255, 255, 0.1)";
+            accent.background = "rgba(120, 90, 255, 0.2)";
             accent.color = "transparent";
             accent.thickness = 0;
             this.container.addControl(accent);
@@ -120,8 +119,8 @@ export class CharacterPanel {
             previewArea.height = "160px";
             previewArea.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             previewArea.top = "105px";
-            previewArea.background = "rgba(0, 0, 0, 0.3)";
-            previewArea.color = "rgba(255, 255, 255, 0.1)";
+            previewArea.background = "rgba(6, 6, 12, 0.6)";
+            previewArea.color = "rgba(120, 90, 255, 0.15)";
             previewArea.thickness = 1;
             previewArea.cornerRadius = 16;
             this.container.addControl(previewArea);
@@ -130,9 +129,9 @@ export class CharacterPanel {
             const avatar = new Ellipse("charAvatarLg");
             avatar.width = "90px";
             avatar.height = "90px";
-            avatar.color = "rgba(255, 255, 255, 0.6)";
+            avatar.color = "rgba(168, 85, 247, 0.6)";
             avatar.thickness = 2;
-            avatar.background = "rgba(30, 30, 40, 0.9)";
+            avatar.background = "rgba(14, 10, 28, 0.95)";
             avatar.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
             avatar.left = "20px";
             previewArea.addControl(avatar);
@@ -144,7 +143,7 @@ export class CharacterPanel {
 
             // Name
             const name = new TextBlock("charName", "Wanderer");
-            name.color = "#ffffff";
+            name.color = "#e2e8f0";
             name.fontSize = 24;
             name.fontFamily = "'Inter', sans-serif";
             name.fontWeight = "700";
@@ -174,7 +173,7 @@ export class CharacterPanel {
 
             // Level badge (large)
             this.levelText = new TextBlock("charLevel", "Lv.1");
-            this.levelText.color = "#faad14";
+            this.levelText.color = "#c084fc";
             this.levelText.fontSize = 20;
             this.levelText.fontFamily = "'Inter', sans-serif";
             this.levelText.fontWeight = "700";
@@ -193,8 +192,8 @@ export class CharacterPanel {
             expContainer.height = "16px";
             expContainer.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             expContainer.top = "-12px";
-            expContainer.background = "rgba(0, 0, 0, 0.5)";
-            expContainer.color = "rgba(255, 255, 255, 0.1)";
+            expContainer.background = "rgba(6, 4, 14, 0.7)";
+            expContainer.color = "rgba(120, 90, 255, 0.15)";
             expContainer.thickness = 1;
             expContainer.cornerRadius = 8;
             previewArea.addControl(expContainer);
@@ -203,7 +202,7 @@ export class CharacterPanel {
             this.expFill.width = "35%";
             this.expFill.height = "100%";
             this.expFill.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            this.expFill.background = "#faad14";
+            this.expFill.background = "#c084fc";
             this.expFill.color = "transparent";
             this.expFill.thickness = 0;
             this.expFill.cornerRadius = 8;
@@ -228,14 +227,14 @@ export class CharacterPanel {
             statsPanel.height = "200px";
             statsPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             statsPanel.top = "280px";
-            statsPanel.background = "rgba(0, 0, 0, 0.3)";
-            statsPanel.color = "rgba(255, 255, 255, 0.1)";
+            statsPanel.background = "rgba(6, 6, 12, 0.6)";
+            statsPanel.color = "rgba(120, 90, 255, 0.15)";
             statsPanel.thickness = 1;
             statsPanel.cornerRadius = 16;
             this.container.addControl(statsPanel);
 
             const statsTitle = new TextBlock("statsTitle", "Combat Stats");
-            statsTitle.color = "#ffffff";
+            statsTitle.color = "#e2e8f0";
             statsTitle.fontSize = 16;
             statsTitle.fontFamily = "'Inter', sans-serif";
             statsTitle.fontWeight = "700";
@@ -248,11 +247,11 @@ export class CharacterPanel {
 
             // Stats grid: 2 columns
             const stats = [
-                  { id: "hp", label: "HP", color: "#73d13d" },
-                  { id: "mp", label: "MP", color: "#40a9ff" },
-                  { id: "sta", label: "STA", color: "#faad14" },
-                  { id: "atk", label: "ATK", color: "#ff4d4f" },
-                  { id: "def", label: "DEF", color: "#ffffff" },
+                  { id: "hp", label: "HP", color: "#ef4444" },
+                  { id: "mp", label: "MP", color: "#818cf8" },
+                  { id: "sta", label: "STA", color: "#c084fc" },
+                  { id: "atk", label: "ATK", color: "#f87171" },
+                  { id: "def", label: "DEF", color: "#e2e8f0" },
             ];
 
             const refs: Record<string, TextBlock> = {};
@@ -294,14 +293,14 @@ export class CharacterPanel {
             equipPanel.height = "290px";
             equipPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             equipPanel.top = "475px";
-            equipPanel.background = "rgba(0, 0, 0, 0.3)";
-            equipPanel.color = "rgba(255, 255, 255, 0.1)";
+            equipPanel.background = "rgba(6, 6, 12, 0.6)";
+            equipPanel.color = "rgba(120, 90, 255, 0.15)";
             equipPanel.thickness = 1;
             equipPanel.cornerRadius = 16;
             this.container.addControl(equipPanel);
 
             const equipTitle = new TextBlock("equipTitle", "Equipment");
-            equipTitle.color = "#ffffff";
+            equipTitle.color = "#e2e8f0";
             equipTitle.fontSize = 16;
             equipTitle.fontFamily = "'Inter', sans-serif";
             equipTitle.fontWeight = "700";
@@ -330,8 +329,8 @@ export class CharacterPanel {
                   slotBg.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
                   slotBg.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
                   slotBg.top = yPos;
-                  slotBg.background = "rgba(20, 25, 30, 0.6)";
-                  slotBg.color = "rgba(255, 255, 255, 0.05)";
+                  slotBg.background = "rgba(14, 12, 28, 0.7)";
+                  slotBg.color = "rgba(120, 90, 255, 0.1)";
                   slotBg.thickness = 1;
                   slotBg.cornerRadius = 10;
                   equipPanel.addControl(slotBg);
@@ -346,7 +345,7 @@ export class CharacterPanel {
 
                   // Label
                   const label = new TextBlock(`equip_${s.id}_label`, s.label);
-                  label.color = "rgba(255, 255, 255, 0.4)";
+                  label.color = "rgba(148, 163, 184, 0.6)";
                   label.fontSize = 12;
                   label.fontFamily = "'Inter', sans-serif";
                   label.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -360,7 +359,7 @@ export class CharacterPanel {
 
                   // Value text
                   const value = new TextBlock(`equip_${s.id}_value`, "---");
-                  value.color = "#ffffff";
+                  value.color = "#e2e8f0";
                   value.fontSize = 16;
                   value.fontFamily = "'Inter', sans-serif";
                   value.fontWeight = "600";
@@ -379,11 +378,11 @@ export class CharacterPanel {
                         const swapBtn = Button.CreateSimpleButton(`swap_${s.id}`, "⟲ Swap");
                         swapBtn.width = "80px";
                         swapBtn.height = "36px";
-                        swapBtn.color = "#1890ff";
+                        swapBtn.color = "#a855f7";
                         swapBtn.fontSize = 14;
                         swapBtn.fontFamily = "'Inter', sans-serif";
                         swapBtn.fontWeight = "700";
-                        swapBtn.background = "rgba(24, 144, 255, 0.15)";
+                        swapBtn.background = "rgba(168, 85, 247, 0.15)";
                         swapBtn.cornerRadius = 8;
                         swapBtn.thickness = 1;
                         swapBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
@@ -401,7 +400,7 @@ export class CharacterPanel {
                         });
                         swapBtn.onPointerClickObservable.add(() => {
                               const newHelmet = this.player.cycleHelmet();
-                              console.log(`[CharacterPanel] Helmet swapped to: ${newHelmet}`);
+
                         });
 
                         // Helmet name under value
@@ -423,7 +422,7 @@ export class CharacterPanel {
             closeBtn.fontSize = 16;
             closeBtn.fontFamily = "'Inter', sans-serif";
             closeBtn.fontWeight = "700";
-            closeBtn.background = "rgba(255, 255, 255, 0.1)";
+            closeBtn.background = "rgba(120, 90, 255, 0.12)";
             closeBtn.cornerRadius = 25;
             closeBtn.thickness = 1;
             closeBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
@@ -490,13 +489,13 @@ export class CharacterPanel {
             // Refresh on open
             this.refreshStats(this.player.getStats());
             this.refreshEquipment(this.player.getEquipment());
-            console.log("[CharacterPanel] Opened ✓");
+
       }
 
       public hide(): void {
             this.isOpen = false;
             this.backdrop.isVisible = false;
-            console.log("[CharacterPanel] Closed ✓");
+
       }
 
       public toggle(): void {

@@ -184,7 +184,7 @@ export class Monster {
             if (meshes && meshes.length > 0) {
                   this.root.getChildMeshes().forEach(m => m.isVisible = false);
                   meshes.forEach(m => { m.parent = this.root; m.isVisible = true; });
-                  console.log(`[Monster] GLB loaded: ${names[typeIdx]}.glb ✓`);
+
             }
       }
 
@@ -423,7 +423,7 @@ export class Monster {
                   this.state = MonsterState.DEAD;
                   this.deathTimer = 0;
                   this.onDeath.notifyObservers(this);
-                  console.log(`[Monster] ${this.name} defeated! ✓`);
+
                   return true; // died
             }
             return false;
