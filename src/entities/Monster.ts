@@ -2,15 +2,10 @@ import { Scene } from "@babylonjs/core/scene";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { TransformNode } from "@babylonjs/core/Meshes/transformNode";
-import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { PBRMaterial } from "@babylonjs/core/Materials/PBR/pbrMaterial";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { Vector3, Color3 } from "@babylonjs/core/Maths/math";
 import { Observable } from "@babylonjs/core/Misc/observable";
-import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
-import { Rectangle } from "@babylonjs/gui/2D/controls/rectangle";
-import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
-import { Control } from "@babylonjs/gui/2D/controls/control";
 import { AssetManager } from "../core/AssetManager";
 
 // ── AI States ───────────────────────────────────────────────────
@@ -44,6 +39,7 @@ const MONSTER_TYPES = [
 /**
  * Monster Entity — Dark Gothic RPG
  * Procedural demon mesh with AI state machine
+ * Replaces Babylon GUI HP Bar with DOM element tracking 3D position
  */
 export class Monster {
       public root: TransformNode;
@@ -66,12 +62,9 @@ export class Monster {
       private patrolTimer = 0;
       private spawnPos: Vector3;
 
-      // HP Bar (world-space billboard)
-      private hpBarUI!: AdvancedDynamicTexture;
-      private hpFill!: Rectangle;
-      private hpBg!: Rectangle;
-      private hpNameText!: TextBlock;
-      private hpPlane!: Mesh;
+      // HP Bar (DOM-based)
+      private hpContainer!: HTMLElement;
+      private hpFill!: HTMLElement;
 
       // Hit flash
       private hitFlashTime = 0;
@@ -189,54 +182,79 @@ export class Monster {
       }
 
       // ═══════════════════════════════════════════════════════════════
-      // ── HP BAR (World-Space Billboard) ────────────────────────────
+      // ── HP BAR (DOM-Based) ─────────────────────────────────────────
       // ═══════════════════════════════════════════════════════════════
 
       private createHPBar(): void {
-            this.hpPlane = MeshBuilder.CreatePlane("monHpPlane", { width: 2, height: 0.3 }, this.scene);
-            this.hpPlane.position.y = 3.2;
-            this.hpPlane.parent = this.root;
-            this.hpPlane.billboardMode = Mesh.BILLBOARDMODE_ALL;
+            const uiLayer = document.getElementById("ui-layer") || document.body;
 
-            this.hpBarUI = AdvancedDynamicTexture.CreateForMesh(this.hpPlane, 256, 40);
+            this.hpContainer = document.createElement("div");
+            this.hpContainer.style.position = "absolute";
+            this.hpContainer.style.width = "80px";
+            this.hpContainer.style.pointerEvents = "none";
+            this.hpContainer.style.transform = "translate(-50%, -100%)";
+            this.hpContainer.style.zIndex = "5";
 
-            this.hpBg = new Rectangle("monHpBg");
-            this.hpBg.width = "240px";
-            this.hpBg.height = "16px";
-            this.hpBg.background = "rgba(0,0,0,0.8)";
-            this.hpBg.color = "rgba(255,60,40,0.4)";
-            this.hpBg.thickness = 1;
-            this.hpBg.cornerRadius = 4;
-            this.hpBarUI.addControl(this.hpBg);
+            const nameEl = document.createElement("div");
+            nameEl.innerText = this.name;
+            nameEl.style.color = "#ffcc88";
+            nameEl.style.fontSize = "11px";
+            nameEl.style.fontWeight = "bold";
+            nameEl.style.textAlign = "center";
+            nameEl.style.textShadow = "0 1px 2px #000, 1px 0 2px #000, -1px 0 2px #000, 0 -1px 2px #000";
+            nameEl.style.marginBottom = "2px";
 
-            this.hpFill = new Rectangle("monHpFill");
-            this.hpFill.width = "100%";
-            this.hpFill.height = "100%";
-            this.hpFill.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            this.hpFill.background = "#cc2222";
-            this.hpFill.color = "transparent";
-            this.hpFill.thickness = 0;
-            this.hpFill.cornerRadius = 4;
-            this.hpBg.addControl(this.hpFill);
+            const bgEl = document.createElement("div");
+            bgEl.style.width = "100%";
+            bgEl.style.height = "6px";
+            bgEl.style.background = "rgba(0,0,0,0.8)";
+            bgEl.style.border = "1px solid rgba(255,60,40,0.4)";
+            bgEl.style.borderRadius = "3px";
+            bgEl.style.overflow = "hidden";
 
-            this.hpNameText = new TextBlock("monName", this.name);
-            this.hpNameText.color = "#ffcc88";
-            this.hpNameText.fontSize = 12;
-            this.hpNameText.fontWeight = "bold";
-            this.hpNameText.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this.hpNameText.top = "-14px";
-            this.hpNameText.shadowColor = "rgba(0,0,0,0.9)";
-            this.hpNameText.shadowBlur = 3;
-            this.hpBarUI.addControl(this.hpNameText);
+            this.hpFill = document.createElement("div");
+            this.hpFill.style.width = "100%";
+            this.hpFill.style.height = "100%";
+            this.hpFill.style.background = "#cc2222";
+            this.hpFill.style.transition = "width 0.2s ease-out, background 0.2s";
+
+            bgEl.appendChild(this.hpFill);
+            this.hpContainer.appendChild(nameEl);
+            this.hpContainer.appendChild(bgEl);
+
+            uiLayer.appendChild(this.hpContainer);
+            this.updateHPBarPosition();
+      }
+
+      private updateHPBarPosition(): void {
+            if (!this.hpContainer || this.disposed) return;
+
+            const engine = this.scene.getEngine();
+            const screenPos = Vector3.Project(
+                  this.root.position.add(new Vector3(0, 3.2 * this.scaleFactor, 0)),
+                  this.root.getWorldMatrix(),
+                  this.scene.getTransformMatrix(),
+                  this.scene.activeCamera!.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
+            );
+
+            // Only show if in front of camera
+            if (screenPos.z >= 0 && screenPos.z <= 1) {
+                  this.hpContainer.style.display = "block";
+                  this.hpContainer.style.left = `${screenPos.x}px`;
+                  this.hpContainer.style.top = `${screenPos.y}px`;
+            } else {
+                  this.hpContainer.style.display = "none";
+            }
       }
 
       private updateHPBar(): void {
+            if (this.disposed || !this.hpFill) return;
             const pct = Math.max(0, this.stats.hp / this.stats.maxHp);
-            this.hpFill.width = `${Math.round(pct * 100)}%`;
+            this.hpFill.style.width = `${Math.round(pct * 100)}%`;
 
-            if (pct > 0.5) this.hpFill.background = "#cc2222";
-            else if (pct > 0.2) this.hpFill.background = "#cc8822";
-            else this.hpFill.background = "#cc2222";
+            if (pct > 0.5) this.hpFill.style.background = "#cc2222";
+            else if (pct > 0.2) this.hpFill.style.background = "#cc8822";
+            else this.hpFill.style.background = "#cc2222";
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -246,6 +264,9 @@ export class Monster {
       public update(dt: number, playerPos: Vector3): void {
             if (this.disposed) return;
             this.animTime += dt;
+
+            // Constantly update HP bar 2D position based on 3D root
+            this.updateHPBarPosition();
 
             // Hit flash decay
             if (this.hitFlashTime > 0) {
@@ -424,6 +445,9 @@ export class Monster {
                   this.deathTimer = 0;
                   this.onDeath.notifyObservers(this);
 
+                  // Hide HP bar on death
+                  if (this.hpContainer) this.hpContainer.style.display = "none";
+
                   return true; // died
             }
             return false;
@@ -444,8 +468,11 @@ export class Monster {
       public dispose(): void {
             if (this.disposed) return;
             this.disposed = true;
-            this.hpBarUI.dispose();
-            this.hpPlane.dispose();
+
+            if (this.hpContainer && this.hpContainer.parentNode) {
+                  this.hpContainer.parentNode.removeChild(this.hpContainer);
+            }
+
             this.root.getChildMeshes().forEach(m => m.dispose());
             this.root.dispose();
             this.onDeath.clear();
