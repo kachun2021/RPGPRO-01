@@ -116,14 +116,10 @@ export class Player {
             this.root.metadata = { isPlaceholder: true, specId: "player_model" };
       }
 
-      // ── Movement (called from joystick / WASD) ─────────
+      // ── Movement (called every frame from MainScene render loop) ─────────
+      /** Set move direction from joystick/WASD — called every frame from MainScene */
       setMoveDirection(dir: Vector3): void {
-            this._moveDir = dir;
-            if (dir.lengthSquared() > 0.01 && this._state === this.idleState) {
-                  this.switchState(this.manualState);
-            } else if (dir.lengthSquared() < 0.01 && this._state === this.manualState) {
-                  this.switchState(this.idleState);
-            }
+            this._moveDir.copyFrom(dir);
       }
 
       applyMovement(dt: number): void {
@@ -171,6 +167,12 @@ export class Player {
 
       // ── Update loop ─────────────────────
       update(dt: number): void {
+            // ✅ 修復：移動直接在 update() 執行，不再待 state machine 切換
+            // State machine 保留給 P6 Auto-Grind AI 使用
+            if (this._moveDir.lengthSquared() > 0.01) {
+                  this.applyMovement(dt);
+            }
+            // Also call state update (for P6 AI systems, currently noop)
             this._state.update(this, dt);
       }
 

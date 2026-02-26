@@ -188,34 +188,60 @@ export class MainScene {
       }
 
       render(): void {
+            let _frameCount = 0;
             this.engine.runRenderLoop(() => {
-                  const dt = this._scene.getEngine().getDeltaTime() / 1000;
+                  _frameCount++;
+                  try {
+                        const dt = Math.min(this._scene.getEngine().getDeltaTime() / 1000, 0.05); // cap dt at 50ms
 
-                  // Input → Player
-                  const dir = this._joystick.getDirection();
-                  this._player.setMoveDirection(dir);
-                  this._player.update(dt);
+                        // Input → Player
+                        const dir = this._joystick.getDirection();
+                        this._player.setMoveDirection(dir);
+                        this._player.update(dt);
 
-                  // World systems
-                  this._chunkLoader.update();
-                  this._worldManager.update();
-                  this._barrierSystem.update();
-                  this._phantom.update(dt);
-                  this._zoneEffects.update();
+                        // DEBUG: every 90 frames (~1.5s at 60fps)
+                        if (_frameCount % 90 === 0) {
+                              const p = this._player.position;
+                              console.log(`[Move] frame=${_frameCount} dir=(${dir.x.toFixed(2)},${dir.z.toFixed(2)}) pos=(${p.x.toFixed(2)},${p.z.toFixed(2)}) dt=${dt.toFixed(3)}`);
+                        }
 
-                  // Camera follow
-                  this._camera.update(this._player.position, dt);
+                  } catch (e) {
+                        console.error("[RenderLoop] Input/Player error:", e);
+                  }
 
-                  // HUD + compass + PvP refresh (every 3 frames)
-                  if (this._scene.getFrameId() % 3 === 0) {
-                        this._hud.update();
-                        this._compass.update();
-                        this._pvpVisuals.update();
+                  try {
+                        // World systems
+                        this._chunkLoader.update();
+                        this._worldManager.update();
+                        this._barrierSystem.update();
+                        this._phantom?.update(this._scene.getEngine().getDeltaTime() / 1000);
+                        this._zoneEffects.update();
+                  } catch (e) {
+                        console.error("[RenderLoop] World error:", e);
+                  }
+
+                  try {
+                        // Camera follow
+                        this._camera.update(this._player.position, this._scene.getEngine().getDeltaTime() / 1000);
+                  } catch (e) {
+                        console.error("[RenderLoop] Camera error:", e);
+                  }
+
+                  try {
+                        // HUD + compass + PvP refresh (every 3 frames)
+                        if (_frameCount % 3 === 0) {
+                              this._hud.update();
+                              this._compass.update();
+                              this._pvpVisuals?.update();
+                        }
+                  } catch (e) {
+                        console.error("[RenderLoop] UI error:", e);
                   }
 
                   this._scene.render();
             });
       }
+
 
       dispose(): void {
             this._joystick?.dispose();
