@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 功能完整性與立即可玩驗證（Prompt 7 最終收尾）
+description: 功能完整性與立即可玩驗證（Prompt 12 最終收尾）
 ---
 
+// turbo-all
 # 功能完整性與立即可玩驗證（/complete）
 
 對應 **Prompt 7 最終收尾**，配合 /perf 使用：先優化後驗收

@@ -3,6 +3,7 @@ trigger: model_decision
 description: 資源生成與替換（GLB/KTX2/紋理/音效）
 ---
 
+// turbo-all
 # 資源生成與替換（/asset-gen）
 
 嚴格遵守 GEMINI.md 全局規則。

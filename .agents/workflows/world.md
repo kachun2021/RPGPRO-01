@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 開放世界與程序化地圖生成（Prompt 2 / 15–30%）
+description: 開放世界與程序化地圖生成（Prompt 3, 4 / 16–32%）
 ---
 
+// turbo-all
 # 開放世界與程序化地圖生成（/world）
 
 對應 **Prompt 2（15–30%）**：WorldManager + 6區域 + 結界 + Phantom Presence

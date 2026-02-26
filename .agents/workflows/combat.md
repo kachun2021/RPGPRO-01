@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 元素戰鬥系統設計與實作（Prompt 3 / 30–45%）
+description: 元素戰鬥系統設計與實作（Prompt 5, 6 / 32–48%）
 ---
 
+// turbo-all
 # 元素戰鬥系統設計與實作（/combat）
 
 對應 **Prompt 3（30–45%）**：CombatSystem + SmartGrindAI + SkillManager

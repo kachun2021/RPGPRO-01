@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 多人同步與 Firebase 整合（Prompt 5 / 60–75%）
+description: 多人同步與 Firebase 整合（Prompt 9 / 64–72%）
 ---
 
+// turbo-all
 # 多人同步與 Firebase 整合（/multi）
 
 對應 **Prompt 5（60–75%）**：PvP 3模式 + NetworkManager + Firebase 陣營戰

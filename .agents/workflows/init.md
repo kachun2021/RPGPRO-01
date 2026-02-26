@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 場景與功能階段化初始化（Prompt 1 / 0–15%）
+description: 場景與功能階段化初始化（Prompt 1, 2 / 0–16%）
 ---
 
+// turbo-all
 # 場景與功能階段化初始化（/init）
 
 對應 **Prompt 1（0–15%）**：EngineManager + Player + ChunkLoader + HUD

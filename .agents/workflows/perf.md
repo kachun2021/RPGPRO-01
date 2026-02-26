@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: 效能優化與 Live Ops 熱更新（Prompt 7 / 90–100%）
+description: 效能優化與 Live Ops 熱更新（Prompt 12 / 88–100%）
 ---
 
+// turbo-all
 # 效能優化與 Live Ops 熱更（/perf）
 
 對應 **Prompt 7（90–100%）**：Diegetic光環 + 性能最終優化 + Mock資料驗收

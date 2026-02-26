@@ -1,8 +1,9 @@
 ---
 trigger: model_decision
-description: Babylon 與 DOM 混合 UI 實現（Prompt 4 / 45–60% 及 Prompt 6 / 75–90%）
+description: Babylon 與 DOM 混合 UI 實現（Prompt 7, 8, 10, 11 / 48–88%）
 ---
 
+// turbo-all
 # Babylon 與 DOM 混合 UI 實現（/mixed）
 
 對應 **Prompt 4（45–60%）**：PetSystem + InventorySystem + WhisperMenu

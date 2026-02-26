@@ -3,6 +3,7 @@ trigger: model_decision
 description: 無衝突更新與 Registry 整合
 ---
 
+// turbo-all
 # 無衝突更新與 Registry 整合（/update）
 
 適用於：純修 bug、重構、不新增功能的程式碼修改
