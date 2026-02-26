@@ -5,6 +5,7 @@ import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import type { Mesh } from "@babylonjs/core/Meshes/mesh";
 import type { Scene } from "@babylonjs/core/scene";
 import { Registry } from "../core/Registry";
+import { TerrainGenerator } from "../world/TerrainGenerator";
 
 // ── Interfaces ──────────────────────────────────────────────────────────────
 export interface PlayerStats {
@@ -67,7 +68,7 @@ export class Player {
       private _head!: Mesh;
       private _scene: Scene;
       private _moveDir = Vector3.Zero();
-      private _speed = 6;
+      private _speed = 10; // 提升：6→9km/s — 適合幾百米級大世界探索
 
       // ── State machine ───────
       private _state: IPlayerState;
@@ -83,25 +84,33 @@ export class Player {
       }
 
       private _buildPlaceholder(): void {
-            // Root pivot
+            // ── Root pivot (Capsule body) ────────────────────
             this.root = MeshBuilder.CreateCapsule("playerBody", {
-                  height: 1.6, radius: 0.3, tessellation: 12, subdivisions: 1,
+                  height: 1.8, radius: 0.35, tessellation: 14, subdivisions: 1,
             }, this._scene);
-            this.root.position.y = 0.8;
+
+            // ✅ 修復：起始 Y 位置考慮地形高度
+            const startTerrainY = TerrainGenerator.getHeightAt(0, 0);
+            this.root.position.y = startTerrainY + 0.9; // capsule half-height
 
             const mat = new StandardMaterial("playerMat", this._scene);
-            mat.diffuseColor = new Color3(0.15, 0.05, 0.35);
-            mat.emissiveColor = new Color3(0.48, 0.25, 0.89); // #7B3FE4 微光
-            mat.specularColor = Color3.Black();
+            mat.diffuseColor = new Color3(0.18, 0.06, 0.40);   // 深紫色身體
+            mat.emissiveColor = new Color3(0.55, 0.22, 1.0);   // 強化 emissive — 暴敎紫光！
+            mat.specularColor = new Color3(0.3, 0.2, 0.6);     // 增加閃亮感
             this.root.material = mat;
 
             // Head
             this._head = MeshBuilder.CreateSphere("playerHead", {
-                  diameter: 0.5, segments: 8,
+                  diameter: 0.55, segments: 8,
             }, this._scene);
-            this._head.position.y = 1.2;
+            this._head.position.y = 1.1; // relative to root capsule center
             this._head.parent = this.root;
-            this._head.material = mat;
+
+            const headMat = new StandardMaterial("playerHeadMat", this._scene);
+            headMat.diffuseColor = new Color3(0.22, 0.09, 0.45);
+            headMat.emissiveColor = new Color3(0.6, 0.25, 1.0); // 頭部更亮光灕
+            headMat.specularColor = new Color3(0.4, 0.25, 0.7);
+            this._head.material = headMat;
 
             // Metadata for asset replacement
             this.root.metadata = { isPlaceholder: true, specId: "player_model" };
@@ -120,7 +129,13 @@ export class Player {
       applyMovement(dt: number): void {
             if (this._moveDir.lengthSquared() < 0.01) return;
             const move = this._moveDir.normalize().scale(this._speed * dt);
-            this.root.position.addInPlace(move);
+            this.root.position.x += move.x;
+            this.root.position.z += move.z;
+
+            // ✅ 修復：增量重調 Y 高度跟隨地形
+            const terrainY = TerrainGenerator.getHeightAt(this.root.position.x, this.root.position.z);
+            this.root.position.y = terrainY + 0.9; // capsule half-height offset
+
             // Face movement direction
             const angle = Math.atan2(this._moveDir.x, this._moveDir.z);
             this.root.rotation.y = angle;

@@ -9,7 +9,7 @@ import { VegetationSystem } from "./VegetationSystem";
 import { Registry } from "../core/Registry";
 
 const CHUNK_SIZE = 128;
-const VIEW_RANGE = 1; // 3×3 grid (range=1 means -1..+1)
+const VIEW_RANGE = 2; // 5×5 grid — 640m visible range for better immersion
 
 export interface ChunkData {
       key: string;
@@ -80,10 +80,10 @@ export class ChunkLoader {
             // Get zone color for this position
             const zone = WorldManager.getZoneAt(worldX, worldZ);
 
-            // Ground mesh
+            // Ground mesh — 16 subdivisions for visible terrain relief
             const ground = MeshBuilder.CreateGround(
                   `chunk_${key}`,
-                  { width: CHUNK_SIZE, height: CHUNK_SIZE, subdivisions: 2 },
+                  { width: CHUNK_SIZE, height: CHUNK_SIZE, subdivisions: 16 },
                   this._scene
             );
             ground.position.x = worldX;
@@ -92,18 +92,20 @@ export class ChunkLoader {
             // Apply terrain height via TerrainGenerator
             TerrainGenerator.applyHeight(ground, cx, cz);
 
-            // Zone-colored material
+            // Zone-colored material — brighter diffuse + subtle emissive = visible colors
             const mat = new StandardMaterial(`chunkMat_${key}`, this._scene);
             const [r, g, b] = zone.colorRGB;
             // Add slight noise variation per chunk
             const noise = (this._hashChunk(cx, cz) % 20 - 10) / 200;
-            mat.diffuseColor = new Color3(
-                  Math.max(0, r + noise),
-                  Math.max(0, g + noise),
-                  Math.max(0, b + noise)
-            );
-            mat.specularColor = Color3.Black();
+            const dr = Math.min(0.85, Math.max(0.15, r + noise));
+            const dg = Math.min(0.85, Math.max(0.15, g + noise));
+            const db = Math.min(0.85, Math.max(0.15, b + noise));
+            mat.diffuseColor = new Color3(dr, dg, db);
+            // Add subtle emissive so zone color is always visible even in low light
+            mat.emissiveColor = new Color3(dr * 0.15, dg * 0.15, db * 0.15);
+            mat.specularColor = new Color3(0.05, 0.05, 0.1); // tiny specular for wet-ground feel
             ground.material = mat;
+            ground.receiveShadows = true;
             ground.metadata = { isPlaceholder: true, specId: "terrain_texture" };
 
             // Vegetation
