@@ -30,6 +30,8 @@ export class Pet {
       public stats: PetStats;
       public gender: Gender;
       public slotIndex = -1; // -1 = not active
+      public nickname: string; // editable display name
+      public isDead = false;
 
       private _scene: Scene;
       private _seriesColor: Color3;
@@ -38,6 +40,7 @@ export class Pet {
             this._scene = scene;
             this.def = def;
             this.gender = gender;
+            this.nickname = def.name;
             this._seriesColor = SERIES_COLORS[def.series];
 
             // Stats from base (8-dimension)
@@ -111,6 +114,28 @@ export class Pet {
 
       get isActive(): boolean {
             return this.slotIndex >= 0;
+      }
+
+      /** Display name (nickname or default) */
+      get displayName(): string {
+            return this.nickname || this.def.name;
+      }
+
+      /** Kill pet (fainted) */
+      kill(): void {
+            this.isDead = true;
+            this.stats.hp = 0;
+      }
+
+      /** Revive pet to full HP */
+      revive(): void {
+            this.isDead = false;
+            this.stats.hp = this.stats.maxHp;
+      }
+
+      /** Revival cost = level * 10 gold */
+      get revivalCost(): number {
+            return this.stats.level * 10;
       }
 
       dispose(): void {

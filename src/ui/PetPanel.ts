@@ -19,6 +19,12 @@ export class PetPanel {
       private _page = 0;
       private _dragPet: Pet | null = null;
 
+      // Sub-panel callbacks
+      public onOpenFusion: (() => void) | null = null;
+      public onOpenEncyclopedia: (() => void) | null = null;
+      public onOpenRename: ((pet: Pet) => void) | null = null;
+      public onOpenRevival: (() => void) | null = null;
+
       constructor(pm: PetManager, enc: PetEncyclopedia, eq: PetEquipment, buff: PetBuff) {
             this._pm = pm;
             this._enc = enc;
@@ -49,7 +55,7 @@ export class PetPanel {
             // ── TITLE ──
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>怪物信息</span>';
+            title.innerHTML = '<span>🐾 寵物信息</span>';
             // Close btn
             const closeBtn = document.createElement('span');
             closeBtn.style.cssText = 'cursor:pointer;font-size:14px;margin-left:auto';
@@ -239,6 +245,27 @@ export class PetPanel {
                   }
                   this._el.appendChild(buffSec);
             }
+
+            // ── ACTION BUTTONS ──
+            const actionBar = document.createElement('div');
+            actionBar.style.cssText = 'display:flex;gap:6px;padding:6px 8px;justify-content:center;border-top:1px solid rgba(160,130,80,0.15)';
+
+            const actions = [
+                  { label: '⚗️ 合成', cb: () => this.onOpenFusion?.() },
+                  { label: '📖 圖鑑', cb: () => this.onOpenEncyclopedia?.() },
+                  { label: '✏️ 更名', cb: () => { if (this._sel) this.onOpenRename?.(this._sel); } },
+                  { label: '💀 復活', cb: () => this.onOpenRevival?.() },
+            ];
+
+            for (const a of actions) {
+                  const btn = document.createElement('button');
+                  btn.className = 'btn-gold';
+                  btn.style.cssText = 'padding:4px 10px;font-size:10px;flex:1';
+                  btn.textContent = a.label;
+                  btn.addEventListener('click', a.cb);
+                  actionBar.appendChild(btn);
+            }
+            this._el.appendChild(actionBar);
       }
 
       private _makeSlot(w: number, h: number, isDeploy: boolean): HTMLDivElement {

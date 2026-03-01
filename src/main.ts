@@ -13,6 +13,9 @@ import { PetEquipment } from './pets/PetEquipment';
 import { PetBuff } from './pets/PetBuff';
 import { PetPanel } from './ui/PetPanel';
 import { FusionPanel } from './ui/FusionPanel';
+import { EncyclopediaPanel } from './ui/EncyclopediaPanel';
+import { RenamePanel } from './ui/RenamePanel';
+import { RevivalPanel } from './ui/RevivalPanel';
 import { ChatBox } from './ui/ChatBox';
 import { Minimap } from './ui/Minimap';
 import { SkillBar } from './ui/SkillBar';
@@ -79,12 +82,34 @@ async function bootstrap(): Promise<void> {
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
 
-      // 14. Pet Panel (Stone Age Monster Info)
+      // 14. Pet Panel
       const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
 
-      // 15. Fusion Panel
+      // 15. Sub-Panels (Fusion / Encyclopedia / Rename / Revival)
       const fusionPanel = new FusionPanel(petManager);
+      const encyclopediaPanel = new EncyclopediaPanel(encyclopedia);
+      const renamePanel = new RenamePanel();
+      const revivalPanel = new RevivalPanel(petManager);
+
       panelManager.register('fusion', fusionPanel.element);
+      panelManager.register('encyclopedia', encyclopediaPanel.element);
+      panelManager.register('rename', renamePanel.element);
+      panelManager.register('revival', revivalPanel.element);
+
+      // Wire PetPanel action buttons → sub-panels
+      petPanel.onOpenFusion = () => {
+            fusionPanel.refresh();
+            panelManager.open('fusion');
+      };
+      petPanel.onOpenEncyclopedia = () => {
+            encyclopediaPanel.open();
+      };
+      petPanel.onOpenRename = (pet) => {
+            renamePanel.openFor(pet, () => petPanel.refresh());
+      };
+      petPanel.onOpenRevival = () => {
+            revivalPanel.open(() => petPanel.refresh());
+      };
 
       // Wire nav buttons
       hud.getNavButton('nav-pet')?.addEventListener('click', () => {
