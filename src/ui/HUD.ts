@@ -84,10 +84,11 @@ export class HUD {
             const wrapper = document.createElement('div');
             wrapper.className = 'hud-portrait';
 
-            const size = 58;
-            const r = 25;
+            const size = 50;
+            const r = 22;
             const cx = size / 2;
             const cy = size / 2;
+            const sw = 4;
 
             // Inner circle
             const inner = document.createElement('div');
@@ -101,14 +102,14 @@ export class HUD {
             svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
             svg.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none';
 
-            // HP: left arc (180→360 = bottom-left to top-left)
-            const hpBg = this._arc(cx, cy, r, 180, 360, 'rgba(255,255,255,0.08)', 5);
-            const hpFill = this._arc(cx, cy, r, 180, 360, '#E74C3C', 5);
+            // HP: left arc (red)
+            const hpBg = this._arc(cx, cy, r, 180, 360, 'rgba(255,255,255,0.1)', sw);
+            const hpFill = this._arc(cx, cy, r, 180, 360, '#E74C3C', sw);
             hpFill.classList.add('hp-arc');
 
-            // MP: right arc (0→180 = top-right to bottom-right)
-            const mpBg = this._arc(cx, cy, r, 0, 180, 'rgba(255,255,255,0.08)', 5);
-            const mpFill = this._arc(cx, cy, r, 0, 180, '#3498DB', 5);
+            // MP: right arc (blue)
+            const mpBg = this._arc(cx, cy, r, 0, 180, 'rgba(255,255,255,0.1)', sw);
+            const mpFill = this._arc(cx, cy, r, 0, 180, '#3498DB', sw);
             mpFill.classList.add('mp-arc');
 
             svg.appendChild(hpBg);
@@ -139,7 +140,7 @@ export class HUD {
       private _setArc(el: HTMLDivElement, cls: string, pct: number, s: number, e: number): void {
             const arc = el.querySelector(`.${cls}`) as SVGPathElement | null;
             if (!arc) return;
-            const total = Math.PI * 25 * (e - s) / 180;
+            const total = Math.PI * 22 * (e - s) / 180;
             const fill = total * Math.max(0, Math.min(1, pct));
             arc.setAttribute('stroke-dasharray', `${fill} ${total}`);
       }
