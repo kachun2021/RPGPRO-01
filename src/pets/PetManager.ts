@@ -7,7 +7,7 @@ import { PET_DEFS, PetSeries, type Gender } from './PetData';
 export class PetManager {
       public owned: Pet[] = [];
       public active: Pet[] = []; // max 3
-      public readonly MAX_OWNED = 20;
+      public readonly MAX_OWNED = 100;
       public readonly MAX_ACTIVE = 3;
 
       private _scene: Scene;

@@ -2,17 +2,20 @@ export enum PetEquipSlot {
       Head = 'Head',
       Body = 'Body',
       Claw = 'Claw',
+      Ring = 'Ring',
+      Necklace = 'Necklace',
+      Boots = 'Boots',
 }
 
 export interface PetEquipItem {
       id: string;
       name: string;
       slot: PetEquipSlot;
-      stats: { atk?: number; def?: number; hp?: number; spd?: number };
+      stats: { atk?: number; def?: number; hp?: number; spd?: number; str?: number; agi?: number };
       icon: string;
 }
 
-/** Preset equipment items */
+/** 6 slots, each can be locked (default) and unlocked via shop item */
 export const PET_EQUIP_ITEMS: PetEquipItem[] = [
       { id: 'helm_iron', name: 'Iron Helm', slot: PetEquipSlot.Head, stats: { def: 3 }, icon: 'equip_head.png' },
       { id: 'helm_gold', name: 'Golden Crown', slot: PetEquipSlot.Head, stats: { def: 5, atk: 2 }, icon: 'equip_head.png' },
@@ -20,15 +23,36 @@ export const PET_EQUIP_ITEMS: PetEquipItem[] = [
       { id: 'armor_plate', name: 'Plate Armor', slot: PetEquipSlot.Body, stats: { def: 8, hp: 20 }, icon: 'equip_body.png' },
       { id: 'claw_sharp', name: 'Sharp Claws', slot: PetEquipSlot.Claw, stats: { atk: 5 }, icon: 'equip_claw.png' },
       { id: 'claw_flame', name: 'Flame Talons', slot: PetEquipSlot.Claw, stats: { atk: 8, spd: 1 }, icon: 'equip_claw.png' },
+      { id: 'ring_power', name: 'Power Ring', slot: PetEquipSlot.Ring, stats: { str: 5, atk: 3 }, icon: 'equip_ring.png' },
+      { id: 'neck_guard', name: 'Guard Amulet', slot: PetEquipSlot.Necklace, stats: { def: 4, hp: 15 }, icon: 'equip_neck.png' },
+      { id: 'boots_wind', name: 'Wind Boots', slot: PetEquipSlot.Boots, stats: { agi: 4, spd: 2 }, icon: 'equip_boots.png' },
 ];
 
 /** petId → slot → equipped itemId */
 type EquipMap = Map<string, Map<PetEquipSlot, string>>;
 
+/** petId → Set of unlocked slots */
+type UnlockMap = Map<string, Set<PetEquipSlot>>;
+
 export class PetEquipment {
       private _equipped: EquipMap = new Map();
+      private _unlocked: UnlockMap = new Map();
+
+      /** Check if a slot is unlocked for a pet */
+      isSlotUnlocked(petId: string, slot: PetEquipSlot): boolean {
+            return this._unlocked.get(petId)?.has(slot) ?? false;
+      }
+
+      /** Unlock a slot via shop item */
+      unlockSlot(petId: string, slot: PetEquipSlot): void {
+            if (!this._unlocked.has(petId)) {
+                  this._unlocked.set(petId, new Set());
+            }
+            this._unlocked.get(petId)!.add(slot);
+      }
 
       equip(petId: string, slot: PetEquipSlot, itemId: string): boolean {
+            if (!this.isSlotUnlocked(petId, slot)) return false;
             const item = PET_EQUIP_ITEMS.find(i => i.id === itemId);
             if (!item || item.slot !== slot) return false;
 
@@ -53,7 +77,6 @@ export class PetEquipment {
             return PET_EQUIP_ITEMS.find(i => i.id === itemId) || null;
       }
 
-      /** Get total stat bonuses from all equipped items */
       getTotalBonus(petId: string): { atk: number; def: number; hp: number; spd: number } {
             const bonus = { atk: 0, def: 0, hp: 0, spd: 0 };
             const petMap = this._equipped.get(petId);

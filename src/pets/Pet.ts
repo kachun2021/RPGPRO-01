@@ -7,9 +7,13 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { PetSeries, SERIES_COLORS, type PetDef, type Gender } from './PetData';
 
+/** Stone Age 8-dimension stats */
 export interface PetStats {
       hp: number; maxHp: number;
-      atk: number; def: number; spd: number;
+      mp: number; maxMp: number;
+      str: number; agi: number; acc: number; luk: number;
+      atkMin: number; atkMax: number;
+      hitRate: number; dodgeRate: number; element: number;
       level: number; exp: number;
 }
 
@@ -36,29 +40,29 @@ export class Pet {
             this.gender = gender;
             this._seriesColor = SERIES_COLORS[def.series];
 
-            // Stats from base
+            // Stats from base (8-dimension)
+            const b = def.baseStats;
             this.stats = {
-                  hp: def.baseStats.hp,
-                  maxHp: def.baseStats.hp,
-                  atk: def.baseStats.atk,
-                  def: def.baseStats.def,
-                  spd: def.baseStats.spd,
-                  level: def.baseLevel,
-                  exp: 0,
+                  hp: b.hp, maxHp: b.hp,
+                  mp: b.mp, maxMp: b.mp,
+                  str: b.str, agi: b.agi, acc: b.acc, luk: b.luk,
+                  atkMin: b.atkMin, atkMax: b.atkMax,
+                  hitRate: b.hitRate, dodgeRate: b.dodgeRate, element: b.element,
+                  level: def.baseLevel, exp: 0,
             };
 
             // Root
             this.root = new TransformNode(`pet_${def.id}`, scene);
             this.root.position = Vector3.Zero();
 
-            // Body sphere (normal proportion, 0.6 unit tall)
+            // Body sphere
             const body = MeshBuilder.CreateSphere(`pet_body_${def.id}`, {
                   diameter: 0.6, segments: 12,
             }, scene);
             body.position.y = 0.4;
             body.parent = this.root;
 
-            // Head sphere (small)
+            // Head sphere
             const head = MeshBuilder.CreateSphere(`pet_head_${def.id}`, {
                   diameter: 0.3, segments: 10,
             }, scene);

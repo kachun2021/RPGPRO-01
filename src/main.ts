@@ -8,11 +8,14 @@ import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
 import { PanelManager } from './ui/PanelManager';
 import { PetManager } from './pets/PetManager';
-import { PetControlBar } from './ui/PetControlBar';
 import { PetEncyclopedia } from './pets/PetEncyclopedia';
 import { PetEquipment } from './pets/PetEquipment';
+import { PetBuff } from './pets/PetBuff';
 import { PetPanel } from './ui/PetPanel';
 import { FusionPanel } from './ui/FusionPanel';
+import { ChatBox } from './ui/ChatBox';
+import { Minimap } from './ui/Minimap';
+import { SkillBar } from './ui/SkillBar';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -34,7 +37,7 @@ async function bootstrap(): Promise<void> {
       const player = new Player(Registry.scene, mainScene.shadowGenerator);
       Registry.player = player;
 
-      // 5. Camera (replace MainScene's default camera)
+      // 5. Camera
       const landscapeCamera = new LandscapeCamera(Registry.scene, engineManager.canvas);
       Registry.scene.activeCamera = landscapeCamera.camera;
       mainScene.camera.dispose();
@@ -44,60 +47,63 @@ async function bootstrap(): Promise<void> {
       petManager.giveStarterPets();
       Registry.petManager = petManager;
 
-      // 7. Pet Control Bar
-      const petControlBar = new PetControlBar();
-      petControlBar.updateSlots(petManager);
-
-      // 8. Pet Encyclopedia + Equipment (P4)
+      // 7. Pet Encyclopedia + Equipment + Buff
       const encyclopedia = new PetEncyclopedia();
-      // Register starter pets
       for (const pet of petManager.owned) {
             encyclopedia.register(pet.def.id);
       }
       const petEquipment = new PetEquipment();
+      const petBuff = new PetBuff();
       Registry.petEncyclopedia = encyclopedia;
       Registry.petEquipment = petEquipment;
 
-      // 9. Input
+      // 8. Input
       const joystick = new TouchJoystick();
 
-      // 10. HUD
+      // 9. HUD (Stone Age: 4 portraits + 10 nav buttons)
       const hud = new HUD();
       hud.updateStats(player.stats);
+      hud.updatePets(petManager);
       Registry.hud = hud;
 
-      // 11. PanelManager
+      // 10. Minimap
+      const minimap = new Minimap();
+
+      // 11. Skill Bar (F1-F8)
+      const skillBar = new SkillBar();
+
+      // 12. Chat Box
+      const chatBox = new ChatBox();
+
+      // 13. PanelManager
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
 
-      // 12. Panels (P4)
+      // 14. Pet Panel (Stone Age Monster Info)
+      const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
+
+      // 15. Fusion Panel
       const fusionPanel = new FusionPanel(petManager);
       panelManager.register('fusion', fusionPanel.element);
 
-      const petPanel = new PetPanel(petManager, encyclopedia, () => {
-            panelManager.open('fusion');
-            fusionPanel.refresh();
-      });
-      panelManager.register('pet', petPanel.element);
-
       // Wire nav buttons
       hud.getNavButton('nav-pet')?.addEventListener('click', () => {
-            panelManager.toggle('pet');
+            petPanel.toggle();
             petPanel.refresh();
       });
-      // Other nav buttons — future prompts
-      for (const id of ['nav-char', 'nav-bag', 'nav-quest', 'nav-shop', 'nav-chat', 'nav-settings']) {
+      hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
+      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-skill', 'nav-community', 'nav-quest', 'nav-map']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
 
-      // 13. Fade out loading screen
+      // 16. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
       if (loadingScreen) {
             loadingScreen.classList.add('fade-out');
             setTimeout(() => loadingScreen.remove(), 1000);
       }
 
-      // 14. Game loop
+      // 17. Game loop
       let lastTime = performance.now();
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
@@ -114,15 +120,18 @@ async function bootstrap(): Promise<void> {
             // Update pets
             petManager.update(dt, player.position);
 
-            // Update HUD
+            // Update HUD portraits
             hud.updateStats(player.stats);
-            petControlBar.updateSlots(petManager);
+            hud.updatePets(petManager);
+
+            // Update minimap coordinates
+            minimap.updatePosition(player.position.x, player.position.z);
       });
 
-      // 15. Start render loop
+      // 18. Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P4 Ready — Fusion + Encyclopedia + Equipment');
+      console.log('[Fantasy Pet Online] Stone Age UI Ready — Portraits + Minimap + SkillBar + Chat + Monster Info');
 }
 
 bootstrap().catch(err => {
