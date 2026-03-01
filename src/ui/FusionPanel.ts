@@ -174,6 +174,7 @@ export class FusionPanel {
 
       private _executeFusion(): void {
             if (this._slot1Idx < 0 || this._slot2Idx < 0) return;
+            if (this._slot1Idx === this._slot2Idx) return;
 
             const p1 = this._petManager.owned[this._slot1Idx];
             const p2 = this._petManager.owned[this._slot2Idx];
@@ -182,20 +183,32 @@ export class FusionPanel {
 
             const result = PetFusion.fuse(p1, p2, recipe, false);
 
+            // Helper: safely remove a pet from owned (recall if active first)
+            const removePet = (idx: number) => {
+                  const pet = this._petManager.owned[idx];
+                  if (pet.isActive) {
+                        const activeIdx = this._petManager.active.indexOf(pet);
+                        if (activeIdx >= 0) this._petManager.recall(activeIdx);
+                  }
+                  pet.dispose();
+                  this._petManager.owned.splice(idx, 1);
+            };
+
             if (result.success) {
                   // Success animation
                   this._el.style.boxShadow = '0 0 40px rgba(232,201,106,0.5)';
                   this._rateEl.textContent = `✨ Success! ${PET_DEFS.find(d => d.id === result.resultId)?.name} Lv.${result.newLevel}`;
                   this._rateEl.style.color = '#2ECC71';
 
-                  // Add new pet, remove secondary
+                  // Add new pet
                   if (result.resultId) {
                         this._petManager.addPet(result.resultId, p2.gender);
                   }
-                  // Remove secondary (higher index first to avoid shift)
-                  const removeIdx = Math.max(this._slot1Idx, this._slot2Idx);
-                  this._petManager.owned[removeIdx].dispose();
-                  this._petManager.owned.splice(removeIdx, 1);
+
+                  // Remove secondary (always slot2), handle index shift
+                  // If slot2 > slot1, remove slot2 first (no shift needed for slot1)
+                  // If slot2 < slot1, removing slot2 shifts slot1 down by 1
+                  removePet(this._slot2Idx);
 
                   setTimeout(() => { this._el.style.boxShadow = ''; }, 1500);
             } else {
@@ -205,9 +218,8 @@ export class FusionPanel {
                   this._rateEl.textContent = `💥 Failed! ${p1.def.name} -${result.primaryLevelDrop} levels`;
                   this._rateEl.style.color = '#E74C3C';
 
-                  // Remove secondary
-                  this._petManager.owned[this._slot2Idx].dispose();
-                  this._petManager.owned.splice(this._slot2Idx, 1);
+                  // Remove secondary (consumed on fail)
+                  removePet(this._slot2Idx);
 
                   setTimeout(() => {
                         this._el.style.animation = '';

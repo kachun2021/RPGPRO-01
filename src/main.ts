@@ -58,19 +58,19 @@ async function bootstrap(): Promise<void> {
       Registry.petEncyclopedia = encyclopedia;
       Registry.petEquipment = petEquipment;
 
-      // 8. Input
+      // 9. Input
       const joystick = new TouchJoystick();
 
-      // 7. HUD
+      // 10. HUD
       const hud = new HUD();
       hud.updateStats(player.stats);
       Registry.hud = hud;
 
-      // 8. PanelManager
+      // 11. PanelManager
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
 
-      // 11. Panels (P4)
+      // 12. Panels (P4)
       const fusionPanel = new FusionPanel(petManager);
       panelManager.register('fusion', fusionPanel.element);
 
@@ -90,14 +90,14 @@ async function bootstrap(): Promise<void> {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
 
-      // 10. Fade out loading screen
+      // 13. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
       if (loadingScreen) {
             loadingScreen.classList.add('fade-out');
             setTimeout(() => loadingScreen.remove(), 1000);
       }
 
-      // 11. Game loop
+      // 14. Game loop
       let lastTime = performance.now();
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
@@ -119,7 +119,7 @@ async function bootstrap(): Promise<void> {
             petControlBar.updateSlots(petManager);
       });
 
-      // 14. Start render loop
+      // 15. Start render loop
       engineManager.startRenderLoop();
 
       console.log('[Fantasy Pet Online] P4 Ready — Fusion + Encyclopedia + Equipment');
