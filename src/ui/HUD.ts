@@ -92,7 +92,6 @@ export class HUD {
             // Inner circle
             const inner = document.createElement('div');
             inner.className = 'hud-portrait-inner';
-            inner.style.borderColor = borderColor;
             inner.innerHTML = `<span style="font-size:10px;color:#ddd;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.8)">${label}</span>`;
 
             // SVG for HP (red, left half) + MP (blue, right half)
@@ -160,12 +159,10 @@ export class HUD {
                   const inner = w.querySelector('.hud-portrait-inner') as HTMLDivElement;
                   if (pet) {
                         const c = SERIES_COLORS[pet.def.series];
-                        inner.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
                         inner.innerHTML = `<span style="font-size:9px;color:#ddd;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.8)">${pet.def.name.substring(0, 3)}</span>`;
                         this._setArc(w, 'hp-arc', pet.stats.hp / pet.stats.maxHp, 180, 360);
                         this._setArc(w, 'mp-arc', pet.stats.mp / pet.stats.maxMp, 0, 180);
                   } else {
-                        inner.style.borderColor = '#444';
                         inner.innerHTML = '<span style="font-size:10px;color:#555">—</span>';
                         this._setArc(w, 'hp-arc', 0, 180, 360);
                         this._setArc(w, 'mp-arc', 0, 0, 180);
