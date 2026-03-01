@@ -9,6 +9,10 @@ import { HUD } from './ui/HUD';
 import { PanelManager } from './ui/PanelManager';
 import { PetManager } from './pets/PetManager';
 import { PetControlBar } from './ui/PetControlBar';
+import { PetEncyclopedia } from './pets/PetEncyclopedia';
+import { PetEquipment } from './pets/PetEquipment';
+import { PetPanel } from './ui/PetPanel';
+import { FusionPanel } from './ui/FusionPanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -44,6 +48,16 @@ async function bootstrap(): Promise<void> {
       const petControlBar = new PetControlBar();
       petControlBar.updateSlots(petManager);
 
+      // 8. Pet Encyclopedia + Equipment (P4)
+      const encyclopedia = new PetEncyclopedia();
+      // Register starter pets
+      for (const pet of petManager.owned) {
+            encyclopedia.register(pet.def.id);
+      }
+      const petEquipment = new PetEquipment();
+      Registry.petEncyclopedia = encyclopedia;
+      Registry.petEquipment = petEquipment;
+
       // 8. Input
       const joystick = new TouchJoystick();
 
@@ -56,13 +70,24 @@ async function bootstrap(): Promise<void> {
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
 
-      // 9. Wire nav buttons to PanelManager (toggle placeholders for now)
-      const navIds = ['nav-char', 'nav-bag', 'nav-quest', 'nav-pet', 'nav-shop', 'nav-chat', 'nav-settings'];
-      for (const id of navIds) {
-            hud.getNavButton(id)?.addEventListener('click', () => {
-                  console.log(`[Nav] ${id} clicked`);
-                  // Panels implemented in later prompts
-            });
+      // 11. Panels (P4)
+      const fusionPanel = new FusionPanel(petManager);
+      panelManager.register('fusion', fusionPanel.element);
+
+      const petPanel = new PetPanel(petManager, encyclopedia, () => {
+            panelManager.open('fusion');
+            fusionPanel.refresh();
+      });
+      panelManager.register('pet', petPanel.element);
+
+      // Wire nav buttons
+      hud.getNavButton('nav-pet')?.addEventListener('click', () => {
+            panelManager.toggle('pet');
+            petPanel.refresh();
+      });
+      // Other nav buttons — future prompts
+      for (const id of ['nav-char', 'nav-bag', 'nav-quest', 'nav-shop', 'nav-chat', 'nav-settings']) {
+            hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
 
       // 10. Fade out loading screen
@@ -97,7 +122,7 @@ async function bootstrap(): Promise<void> {
       // 14. Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P3 Ready — Pets + 8 Series + 3 Active');
+      console.log('[Fantasy Pet Online] P4 Ready — Fusion + Encyclopedia + Equipment');
 }
 
 bootstrap().catch(err => {

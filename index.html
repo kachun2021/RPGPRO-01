@@ -243,6 +243,112 @@
       object-fit: contain;
     }
 
+    /* ===== TABS ===== */
+    .tab-row {
+      display: flex;
+      border-bottom: 1px solid rgba(180, 200, 255, 0.08);
+      padding: 0;
+      gap: 0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 4px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.45);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      color: rgba(200, 195, 185, 0.7);
+    }
+
+    .tab-btn.active {
+      color: #E8C96A;
+      border-bottom-color: #E8C96A;
+    }
+
+    /* ===== PET CARDS ===== */
+    .pet-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(180, 200, 255, 0.05);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pet-card:hover {
+      background: rgba(232, 201, 106, 0.04);
+      border-color: rgba(232, 201, 106, 0.12);
+    }
+
+    .pet-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .pet-card-name {
+      font-weight: 600;
+      color: #ECE8E0;
+      font-size: 13px;
+    }
+
+    .pet-card-level {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    /* ===== GOLD BUTTON ===== */
+    .btn-gold {
+      background: linear-gradient(180deg, #E8C96A 0%, #C4993D 100%);
+      color: #0A0E1A;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(232, 201, 106, 0.25);
+      transition: all 0.12s;
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 4px 16px rgba(232, 201, 106, 0.4);
+    }
+
+    .btn-gold:active {
+      transform: scale(0.95);
+      filter: brightness(0.88);
+    }
+
+    /* ===== SHAKE ANIMATION ===== */
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      25% {
+        transform: translate(calc(-50% + 4px), -50%) scale(1);
+      }
+
+      75% {
+        transform: translate(calc(-50% - 4px), -50%) scale(1);
+      }
+    }
+
     /* ===== CENTERED PANEL ===== */
     .panel {
       position: fixed;

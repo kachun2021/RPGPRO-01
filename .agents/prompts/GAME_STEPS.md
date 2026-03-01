@@ -390,7 +390,7 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 
 ---
 
-## Prompt 4/15：🐾 PEF 合成 + 圖鑑 + 寵物裝備（20–27%）
+## ✅ Prompt 4/15：🐾 PEF 合成 + 圖鑑 + 寵物裝備（20–27%）— DONE
 
 **新建（5 檔案）：**
 

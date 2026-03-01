@@ -16,8 +16,10 @@ export class Registry {
       // Player (P2)
       static player: any = null;
 
-      // Pets (P3)
+      // Pets (P3-P4)
       static petManager: any = null;
+      static petEncyclopedia: any = null;
+      static petEquipment: any = null;
 
       // Combat (P5)
       static combatSystem: any = null;
