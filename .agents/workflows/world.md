@@ -1,13 +1,13 @@
----
+﻿---
 trigger: model_decision
-description: 區域制世界地圖與傳送系統（Prompt 5 / 27–33%）
+description: 區域制世界地圖與傳送系統（Prompt 6 / 35–42%）
 ---
 
 // turbo-all
 # 區域制世界地圖（/world）
 
-對應 **Prompt 5**：ZoneManager + 17 區域 + 傳送系統
-**原神風格**，每區獨特光照/天空/PBR材質。
+對應 **Prompt 6**：ZoneManager + 17 區域 + 傳送系統
+**Stone Age Premium Dark**，每區獨特光照/天空/PBR材質。
 **區域傳送制**（走到傳送門→載入新區域），不是無縫串流。
 
 ---

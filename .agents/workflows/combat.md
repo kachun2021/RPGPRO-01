@@ -13,7 +13,9 @@ Covers **P5**(combat+skills+monsters+Boss), **P8**(equipment+enhance+resonance),
 ## P5 Combat + Monsters + Boss
 
 - CombatSystem + 8-element counters 1.5x/0.7x
-- SkillManager: 12 skills, right-side arc 4 buttons + CD conic-gradient
+- SkillManager: 12 skills, **8 vertical F1-F8 dark slots** (right side)
+  - `dark-skill-slot` 44×44px, keyboard F1-F8 hotkeys
+  - CD conic-gradient mask overlay
 - FloatingDamage Billboard + counter colors
 - Monster + MonsterManager: normal mobs + **Boss monsters**
 - Boss: 2x size, gold name, special AI (charge/spin/summon), 5min respawn
@@ -41,3 +43,4 @@ Covers **P5**(combat+skills+monsters+Boss), **P8**(equipment+enhance+resonance),
 - Skill effects: GPUParticleSystem
 - Normal death: 0.5s shrink
 - Boss death: 1s explosion + gold GPUParticle debris
+- All UI panels: `sa-panel` dark premium theme

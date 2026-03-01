@@ -1,4 +1,4 @@
----
+﻿---
 trigger: model_decision
 description: 資源生成與替換（GLB/KTX2/紋理/音效）
 ---
@@ -16,14 +16,14 @@ GLB 3D 模型 P15 後由用戶統一替換。
 | 規則 | 說明 |
 |------|------|
 | **獨立生成** | 每個資源獨立一次 generate_image（禁止堆疊） |
-| **Prompt 格式** | `"Single [類型]: [描述], on dark bg (#0A0E1A), [尺寸]px, Genshin Impact anime RPG style, clean edges, no text"` |
+| **Prompt 格式** | `"Single [類型]: [描述], on dark bg rgba(20,16,30), [尺寸]px, Stone Age fantasy MMO RPG style, clean edges, no text"` |
 | **尺寸** | 圖標 128×128px，紋理 512×512px，天空 1024×512px |
 | **立即替換** | 生成 → Copy-Item → `src/assets/` → 代碼中替換 emoji |
-| **風格** | 原神風格：柔和金色、深夜藍底、anime RPG |
+| **風格** | Stone Age Premium Dark：柔和金色、深紫暗底、fantasy RPG |
 
 ## 完整資源清單（~86 張）
 
-### 場景紋理（22 張）
+### 場景紋理（12 張）
 | 資源 | Step | 規格 |
 |------|------|------|
 | grass diffuse/normal | P1 | 512px tileable |
@@ -38,7 +38,7 @@ GLB 3D 模型 P15 後由用戶統一替換。
 ### UI 圖標（49 張）
 | 資源 | Step | 數量 |
 |------|------|------|
-| 導航列 | P2 | 7 |
+| 導航欄 | P2 | 7 |
 | 貨幣(金/鑽) | P2 | 2 |
 | HUD 框 | P2 | 1 |
 | 系列圖標 | P3 | 8 |
@@ -61,9 +61,9 @@ GLB 3D 模型 P15 後由用戶統一替換。
 | 強化光效 | P8 |
 | 共鳴藥水 | P8 |
 | 套裝效果 | P8 |
-| 任務！/？ | P9 |
+| 任務!/?標 | P9 |
 | 對話框 | P9 |
-| 完成勾 | P9 |
+| 完成✓ | P9 |
 | 覺醒光環 | P10 |
 | 轉生圖標 | P10 |
 

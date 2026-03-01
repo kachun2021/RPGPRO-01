@@ -44,79 +44,127 @@
 ```
 src/
 ├── core/          <- EngineManager, Registry, AssetLoader, SaveSystem, OrientationManager, PerformanceOptimizer
-├── pets/          <- Pet, PetManager, PetData, PetAI, PetFusion, PetEncyclopedia, PetEquipment
+├── pets/          <- Pet, PetManager, PetData, PetAI, PetFusion, PetEncyclopedia, PetEquipment, PetBuff
 ├── entities/      <- Player, Monster, MonsterManager, DropItem, NPC
 ├── combat/        <- CombatSystem, SkillManager, ElementSystem, FloatingDamage, AutoGrind, PvPSystem
 ├── world/         <- ZoneManager, ZoneDefinitions, ZoneRenderer, TeleportSystem, VegetationSystem, MapUnlockSystem
 ├── systems/       <- Inventory, QuestManager, ShopManager, EquipmentSystem, ResonanceSystem, EnhanceSystem, StatAllocation, SkillTree, AwakeningSystem, RebirthSystem, TechTree, TradeMarket, TransformSystem
 ├── network/       <- NetworkManager, RemotePlayerManager, PlayerInterpolation, GuildManager, PartyManager, FriendManager
 ├── input/         <- TouchJoystick, LandscapeCamera
-├── ui/            <- HUD, PanelManager, panels, ChatSystem, AFKPanel, ZoneTransition...
+├── ui/            <- HUD, Minimap, PanelManager, PetPanel, FusionPanel, SkillBar, ChatBox, AFKPanel, ZoneTransition...
 ├── assets/icons/  <- generate_image individual icons
 ├── assets/textures/ <- generate_image terrain textures
 └── main.ts        <- entry point
 ```
 
-## 9. Visual Design System (Genshin Impact Style)
+## 9. Visual Design System — Stone Age Premium Dark Theme
 
 ### Color System
 ```css
---bg-deep:     #0A0E1A;
---bg-panel:    rgba(15,20,40,0.85);
---border-glow: rgba(180,200,255,0.15);
---accent-gold: #E8C96A;
---accent-blue: #7BA4DB;
---text-primary: #ECE8E0;
---text-dim:    rgba(200,195,185,0.5);
---hp-bar:      #C0392B;
---mp-bar:      #2E86C1;
---success:     #27AE60;
---danger:      #E74C3C;
+--bg-deep:      rgba(20,16,30,0.95);     /* 深紫黑背景 */
+--bg-panel:     rgba(25,20,38,0.94);     /* 面板背景 */
+--bg-section:   rgba(20,16,30,0.6);      /* 格子/槽位背景 */
+--border-gold:  rgba(160,130,80,0.3);    /* 金色邊框 */
+--border-hover: rgba(232,201,106,0.4);   /* hover 金色 */
+--accent-gold:  rgba(232,201,106,0.9);   /* 金色主強調 */
+--accent-dim:   rgba(200,195,185,0.5);   /* 次要文字 */
+--text-primary: rgba(220,215,200,0.8);   /* 主文字 */
+--text-label:   rgba(232,201,106,0.8);   /* 標籤金字 */
+--hp-bar:       #E74C3C;                 /* HP 紅 */
+--mp-bar:       #3498DB;                 /* MP 藍 */
+--success:      #27AE60;
+--danger:       #E74C3C;
 ```
 
 ### Fonts
 ```css
-font-family: 'Cinzel', serif;     /* titles */
+font-family: 'Cinzel', serif;     /* titles, zone names */
 font-family: 'Inter', sans-serif; /* body/numbers */
 ```
 
 ### Landscape 5-Zone Layout
 ```
 +--------------------------------------------------+
-| A Top(44px): HP/MP/Lv/Gold/Diamond/ZoneName       |
+| A Minimap(150px)  ←── 3D Scene ──→  Portraits(4) |
+|   zone+coords+canvas              SVG arc HP/MP   |
 +--------+-----------------------------+-----------+
-|B Stick |   C Center 3D Scene         |D Skill+Pet|
-|(120px) |                             |  (100px)  |
+|        |   C Center 3D Scene         |D SkillBar |
+|        |                             | F1-F8 dark|
 +--------+-----------------------------+-----------+
-| E Bottom(48px): Char/Bag/Quest/Pet/Shop/Chat/Set  |
+| ChatBox(280px)  ── Nav Bar (10 btn dark glass) ── |
 +--------------------------------------------------+
 ```
 
-### Panel System (Center Popup)
-- All panels = center popup (NOT slide-in)
-- Dark backdrop overlay (.panel-backdrop)
-- scale(0.9->1) + opacity(0->1) animation
-- PanelManager exclusive management
-- Panel CSS: multi-layer glass + gold title lines + custom scrollbar
+### Portrait System (SVG Arc Rings)
+- 4 floating circles (Player + 3 Pets), **no background frame**
+- Each portrait: 50×50px container, 36×36px inner dark circle
+- HP = **red arc** (#E74C3C) on **left** half (180°→360°)
+- MP = **blue arc** (#3498DB) on **right** half (0°→180°)
+- SVG arc: r=22, strokeWidth=4, stroke-dasharray for fill %
+- Inner circle: `border: none`, `background: radial-gradient(dark purple)`
 
-### Panel CSS Template
+### Nav Bar (Bottom)
+- Dark glass: `rgba(25,20,35,0.92)` bg, gold border
+- 10 buttons: emoji icon + text label, flex-column
+- Gold text `rgba(232,201,106,0.85)`, hover brightens to `#FFD700`
+
+### Panel System
+- **PetPanel**: right-side slide-in, 45% width, dark premium
+- **Other panels**: center popup with backdrop
+- All panels: `sa-panel` class — `rgba(25,20,38,0.94)` bg
+- Title: `sa-panel-title` — dark gradient + gold text
+- Sections: `sa-sec` — transparent bg + subtle gold border-bottom
+- Tags: `sa-tag` / `sa-tag-active` — dark bg with gold text
+- Close button: top-right × with hover red effect
+
+### Panel CSS Template (All Panels)
 ```css
-.panel {
-  background: linear-gradient(135deg, rgba(10,14,30,0.92), rgba(20,28,55,0.88));
-  border: 1px solid rgba(180,200,255,0.12);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
+.sa-panel {
+  background: linear-gradient(180deg, rgba(25,20,38,0.94), rgba(15,12,25,0.96));
+  border: 1px solid rgba(160,130,80,0.3);
+  border-radius: 6px;
+  box-shadow: 2px 2px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+  pointer-events: auto; overflow: hidden; max-height: 85vh;
 }
+.sa-panel-title {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: linear-gradient(180deg, rgba(40,30,55,0.9), rgba(25,20,38,0.95));
+  color: rgba(232,201,106,0.9); font-weight: 700; font-size: 13px;
+  border-bottom: 1px solid rgba(160,130,80,0.2);
+}
+.sa-sec { padding: 3px 8px; border-bottom: 1px solid rgba(160,130,80,0.15); }
+.sa-tag {
+  background: rgba(160,130,80,0.12); border: 1px solid rgba(160,130,80,0.25);
+  color: rgba(200,195,185,0.6); border-radius: 3px; cursor: pointer;
+}
+.sa-tag-active {
+  background: rgba(160,130,80,0.25); color: rgba(232,201,106,0.9);
+}
+/* Slots (skill/equip/pet/buff) */
+.dark-slot {
+  background: rgba(20,16,30,0.6); border: 1px solid rgba(160,130,80,0.2);
+  border-radius: 4px;
+}
+.dark-slot:hover { border-color: rgba(232,201,106,0.4); }
+/* Gold action button */
 .btn-gold {
   background: linear-gradient(180deg, #E8C96A, #C4993D);
-  color: #0A0E1A; border-radius: 8px; font-weight: 600;
+  color: #0A0E1A; border: none; border-radius: 6px;
+  font-weight: 700; cursor: pointer;
 }
 ```
+
+### Minimap
+- Dark glass container: `rgba(20,16,30,0.88)` bg, gold border
+- Zone name: Cinzel font, gold color
+- Coordinates: Inter font, dim text
+- Canvas grid: subtle gold lines, glowing player dot
 
 ### Animation Specs
 ```
-Panel open: scale(0.9)->scale(1) + opacity 0->1, 0.25s cubic-bezier
+Panel open: translateX(100%) → 0, 0.3s ease-out (slide-in panels)
+           OR scale(0.92) → scale(1) + opacity, 0.25s (center popups)
 Panel close: reverse 0.2s
 Button press: scale(0.92), 0.1s
 Skill CD: conic-gradient mask
@@ -125,17 +173,17 @@ Orientation switch: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)
 
 ## 10. generate_image Rules
 1. **Each asset = one independent generate_image call** (no sprite sheets)
-2. Prompt includes: "Genshin Impact anime RPG style" + background #0A0E1A + exact size
-3. After generation: Copy to src/assets/ and replace emoji in code immediately
+2. Prompt style: **"Stone Age fantasy MMO RPG style"** + dark bg `rgba(20,16,30)` + exact size
+3. After generation: Copy to src/assets/ and replace placeholder in code immediately
 4. Total ~80 individual images (see ASSET_PROMPTS.md)
 5. Must use exact prompts from `.agents/prompts/ASSET_PROMPTS.md`
 
-## 11. 15-Step Development Map (Optimized Order)
+## 11. 15-Step Development Map
 
 | Step | Progress | Core Module |
 |------|----------|-------------|
 | P1 | 0-7% | Engine + PBR Scene + Post-processing |
-| P2 | 7-13% | Player + HUD + Joystick + Camera |
+| P2 | 7-13% | Player + HUD (SVG portraits) + Joystick + Camera |
 | P3 | 13-20% | 8 Pet Series + PetManager + 3 Active |
 | P4 | 20-27% | PEF Fusion + Encyclopedia + Pet Equipment |
 | P5 | 27-35% | Combat + Element Counters + Skills + Monsters |
@@ -165,7 +213,7 @@ Counter 1.5x / Resisted 0.7x / Neutral 1.0x
 - Protection items prevent destruction
 
 ### Pet Management
-- Max carry 20, max active 3
+- Max carry **100**, max active 3
 - Core egg drop rate 0.1%, needs NPC to hatch
 - Pet skills auto-upgrade with level
 
@@ -196,7 +244,7 @@ const engine = await (async () => {
 | Post-processing | SSAO + Bloom + FXAA + Color Grading |
 | Sky | HDR gradient + cloud color temp |
 | Terrain | PBR (diffuse + normal) |
-| UI | Genshin-level glass panels + animations |
+| UI | Stone Age premium dark panels + SVG arc portraits |
 | Assets | generate_image individual -> immediate replacement |
 
 ## 16. Resource Replacement Table
@@ -218,5 +266,32 @@ const engine = await (async () => {
 ## 17. Asset Prompt Library
 All exact prompts defined in `.agents/prompts/ASSET_PROMPTS.md`
 Must use exact prompts from that file when calling generate_image.
+
+## 18. UI Component Reference (Current Implementation)
+
+### HUD Portraits (`src/ui/HUD.ts`)
+- 4 floating circles: container=50px, inner=36px, no border
+- SVG arcs: r=22, sw=4, HP red left, MP blue right
+- `stroke-dasharray` controls fill percentage
+
+### Minimap (`src/ui/Minimap.ts`)
+- Dark glass container with canvas + zone text
+- Player dot with radial gradient glow
+
+### Nav Bar (in `HUD.ts`)
+- 10 buttons: BOOK/商店/角色/寵物/物品/技能/社區/任務/地圖/系統
+- Emoji icons + text, dark glass bar
+
+### Skill Bar (`src/ui/SkillBar.ts`)
+- 8 vertical slots (F1-F8), dark glass container
+- Right side, below portraits
+
+### Chat Box (`src/ui/ChatBox.ts`)
+- 3 channels: System/World/Guild
+- Dark glass, bottom-left
+
+### Pet Panel (`src/ui/PetPanel.ts`)
+- Right slide-in, drag-and-drop deploy/recall
+- 3 vertical deploy slots + 5-col storage grid
 
 See delegate.md for automatic workflow routing.
