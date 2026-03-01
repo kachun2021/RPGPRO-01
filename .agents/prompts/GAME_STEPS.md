@@ -289,7 +289,7 @@ const skyMat = new BackgroundMaterial("skyMat", scene);
 
 ---
 
-## Prompt 2/15：角色 + 原神 HUD + 搖桿 + 相機（7–13%）
+## ✅ Prompt 2/15：角色 + 原神 HUD + 搖桿 + 相機（7–13%）— DONE
 
 **新建（5 檔案）：**
 

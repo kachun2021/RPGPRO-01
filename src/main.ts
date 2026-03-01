@@ -2,6 +2,11 @@ import { EngineManager } from './core/EngineManager';
 import { Registry } from './core/Registry';
 import { OrientationManager } from './core/OrientationManager';
 import { MainScene } from './scenes/MainScene';
+import { Player } from './entities/Player';
+import { LandscapeCamera } from './input/LandscapeCamera';
+import { TouchJoystick } from './input/TouchJoystick';
+import { HUD } from './ui/HUD';
+import { PanelManager } from './ui/PanelManager';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -19,17 +24,65 @@ async function bootstrap(): Promise<void> {
       const mainScene = new MainScene(engineManager);
       await mainScene.build();
 
-      // 4. Fade out loading screen
+      // 4. Player
+      const player = new Player(Registry.scene, mainScene.shadowGenerator);
+      Registry.player = player;
+
+      // 5. Camera (replace MainScene's default camera)
+      const landscapeCamera = new LandscapeCamera(Registry.scene, engineManager.canvas);
+      Registry.scene.activeCamera = landscapeCamera.camera;
+      mainScene.camera.dispose();
+
+      // 6. Input
+      const joystick = new TouchJoystick();
+
+      // 7. HUD
+      const hud = new HUD();
+      hud.updateStats(player.stats);
+      Registry.hud = hud;
+
+      // 8. PanelManager
+      const panelManager = new PanelManager();
+      Registry.panelManager = panelManager;
+
+      // 9. Wire nav buttons to PanelManager (toggle placeholders for now)
+      const navIds = ['nav-char', 'nav-bag', 'nav-quest', 'nav-pet', 'nav-shop', 'nav-chat', 'nav-settings'];
+      for (const id of navIds) {
+            hud.getNavButton(id)?.addEventListener('click', () => {
+                  console.log(`[Nav] ${id} clicked`);
+                  // Panels implemented in later prompts
+            });
+      }
+
+      // 10. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
       if (loadingScreen) {
             loadingScreen.classList.add('fade-out');
             setTimeout(() => loadingScreen.remove(), 1000);
       }
 
-      // 5. Start render loop
+      // 11. Game loop
+      let lastTime = performance.now();
+      Registry.scene.onBeforeRenderObservable.add(() => {
+            const now = performance.now();
+            const dt = (now - lastTime) / 1000;
+            lastTime = now;
+
+            // Joystick → Player movement
+            player.setMoveDirection(joystick.direction);
+            player.update(dt);
+
+            // Camera follow
+            landscapeCamera.update(dt, player.position);
+
+            // Update HUD
+            hud.updateStats(player.stats);
+      });
+
+      // 12. Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P1 Ready — PBR + Shadow + Bloom + SSAO + ACES');
+      console.log('[Fantasy Pet Online] P2 Ready — Player + HUD + Joystick + Camera');
 }
 
 bootstrap().catch(err => {

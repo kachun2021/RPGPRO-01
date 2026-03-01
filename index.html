@@ -125,6 +125,150 @@
       font-weight: 500;
     }
 
+    /* ===== HUD TOP BAR ===== */
+    .hud-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 44px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .hud-hp {
+      width: 120px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .hud-hp-fill {
+      height: 100%;
+      border-radius: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #C0392B, #E74C3C);
+      box-shadow: 0 0 6px rgba(231, 76, 60, 0.4);
+      transition: width 0.3s;
+    }
+
+    .hud-mp {
+      width: 100px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .hud-mp-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #2471A3, #3498DB);
+      box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+      transition: width 0.3s;
+    }
+
+    .hud-stat {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: #ECE8E0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .hud-gold {
+      color: #E8C96A;
+      font-weight: 600;
+    }
+
+    .hud-zone {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      color: rgba(232, 201, 106, 0.7);
+      margin-left: auto;
+    }
+
+    /* ===== BOTTOM NAV BAR ===== */
+    .hud-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(180, 200, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(232, 201, 106, 0.08);
+      border-color: rgba(232, 201, 106, 0.15);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.9);
+    }
+
+    .nav-btn.active {
+      background: rgba(232, 201, 106, 0.12);
+      border-color: rgba(232, 201, 106, 0.25);
+    }
+
+    .nav-btn img {
+      width: 22px;
+      height: 22px;
+      opacity: 0.7;
+      filter: brightness(1.2);
+      object-fit: contain;
+    }
+
+    /* ===== CENTERED PANEL ===== */
+    .panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      opacity: 0;
+      z-index: 300;
+      background: rgba(15, 20, 40, 0.92);
+      border: 1px solid rgba(180, 200, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s;
+      max-width: 85vw;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .panel.open {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
     /* Panel Backdrop */
     .panel-backdrop {
       position: absolute;
