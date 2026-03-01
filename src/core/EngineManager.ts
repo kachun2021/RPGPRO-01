@@ -1,65 +1,80 @@
-import { Engine } from "@babylonjs/core/Engines/engine";
-import { WebGPUEngine } from "@babylonjs/core/Engines/webgpuEngine";
-import type { AbstractEngine } from "@babylonjs/core/Engines/abstractEngine";
+import { Engine } from '@babylonjs/core/Engines/engine';
+import { WebGPUEngine } from '@babylonjs/core/Engines/webgpuEngine';
+import { Scene } from '@babylonjs/core/scene';
 
 export class EngineManager {
-      private static _engine: AbstractEngine;
-      private static _canvas: HTMLCanvasElement;
+      public engine!: Engine | WebGPUEngine;
+      public canvas!: HTMLCanvasElement;
+      private _scene: Scene | null = null;
 
-      static get engine(): AbstractEngine {
-            return EngineManager._engine;
-      }
+      async init(): Promise<void> {
+            this.canvas = document.getElementById('renderCanvas') as HTMLCanvasElement;
+            if (!this.canvas) {
+                  this.canvas = document.createElement('canvas');
+                  this.canvas.id = 'renderCanvas';
+                  this.canvas.style.width = '100%';
+                  this.canvas.style.height = '100%';
+                  this.canvas.style.position = 'absolute';
+                  this.canvas.style.top = '0';
+                  this.canvas.style.left = '0';
+                  this.canvas.style.outline = 'none';
+                  this.canvas.style.touchAction = 'none';
+                  document.body.appendChild(this.canvas);
+            }
 
-      static async init(canvas: HTMLCanvasElement): Promise<AbstractEngine> {
-            EngineManager._canvas = canvas;
-
-            // WebGPU 優先 → WebGL2 自動 fallback
-            EngineManager._engine = await (async () => {
+            // WebGPU -> WebGL2 fallback
+            this.engine = await (async () => {
                   try {
-                        const gpu = new WebGPUEngine(canvas, {
+                        const gpu = new WebGPUEngine(this.canvas, {
                               adaptToDeviceRatio: true,
                               antialias: true,
                         });
                         await gpu.initAsync();
-                        console.log("[Engine] WebGPU ✅");
+                        console.log('[EngineManager] WebGPU initialized');
                         return gpu;
                   } catch {
-                        console.log("[Engine] WebGL2 fallback");
-                        return new Engine(canvas, true, {
+                        console.log('[EngineManager] WebGPU unavailable, falling back to WebGL2');
+                        return new Engine(this.canvas, true, {
                               adaptToDeviceRatio: true,
                               antialias: true,
                         });
                   }
             })();
 
-            EngineManager._setupResize();
-            EngineManager._lockPortrait();
+            this.engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
 
-            return EngineManager._engine;
-      }
-
-      private static _setupResize(): void {
-            const onResize = () => EngineManager._engine.resize();
-            window.addEventListener("resize", onResize);
-            window.addEventListener("orientationchange", () => {
-                  setTimeout(onResize, 200);
+            // Resize handler
+            window.addEventListener('resize', () => {
+                  this.engine.resize();
             });
-      }
 
-      private static _lockPortrait(): void {
+            // Try landscape lock
             try {
-                  const ori = screen.orientation as ScreenOrientation & { lock?: (o: string) => Promise<void> };
-                  if (ori?.lock) {
-                        ori.lock("portrait").catch(() => {
-                              // 桌面瀏覽器不支援，忽略
-                        });
-                  }
+                  await (screen.orientation as any).lock('landscape');
             } catch {
-                  // 靜默失敗
+                  // Not supported on all browsers
             }
       }
 
-      static dispose(): void {
-            EngineManager._engine?.dispose();
+      get scene(): Scene | null {
+            return this._scene;
+      }
+
+      set scene(s: Scene | null) {
+            this._scene = s;
+      }
+
+      startRenderLoop(): void {
+            this.engine.runRenderLoop(() => {
+                  if (this._scene) {
+                        this._scene.render();
+                  }
+            });
+      }
+
+      dispose(): void {
+            this.engine.stopRenderLoop();
+            this._scene?.dispose();
+            this.engine.dispose();
       }
 }

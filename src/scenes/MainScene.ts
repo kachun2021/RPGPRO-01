@@ -1,287 +1,188 @@
-import { Scene } from "@babylonjs/core/scene";
-import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
-import { DirectionalLight } from "@babylonjs/core/Lights/directionalLight";
-import { Vector3 } from "@babylonjs/core/Maths/math.vector";
-import { Color3, Color4 } from "@babylonjs/core/Maths/math.color";
-import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
-import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
-import type { AbstractEngine } from "@babylonjs/core/Engines/abstractEngine";
-import { Registry } from "../core/Registry";
-import { Player } from "../entities/Player";
-import { HUD } from "../ui/HUD";
-import { OmniOrb } from "../ui/OmniOrb";
-import { MiniCompass } from "../ui/MiniCompass";
-import { TouchJoystick } from "../input/TouchJoystick";
-import { PortraitCamera } from "../input/PortraitCamera";
-import { WorldManager } from "../world/WorldManager";
-import { ChunkLoader } from "../world/ChunkLoader";
-import { BarrierSystem } from "../world/BarrierSystem";
-import { PhantomPresence } from "../world/PhantomPresence";
-import { ZoneEffects } from "../world/ZoneEffects";
-import { PvPZoneVisuals } from "../world/PvPZoneVisuals";
-// ── Prompt 5 ──────────────────────────────────────────────
-import { CombatSystem } from "../combat/CombatSystem";
-import { SkillManager } from "../combat/SkillManager";
-import { FloatingDamage } from "../combat/FloatingDamage";
-import { MonsterManager } from "../entities/MonsterManager";
-import { DropSystem } from "../entities/DropItem";
+import { Scene } from '@babylonjs/core/scene';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
+import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
+import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
+import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
+import { DefaultRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline';
+import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
+import { ImageProcessingConfiguration } from '@babylonjs/core/Materials/imageProcessingConfiguration';
+
+// Side effects - required for shadows, post-processing, SSAO
+import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
+import '@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderPipelineManagerSceneComponent';
+import '@babylonjs/core/Rendering/depthRendererSceneComponent';
+import '@babylonjs/core/Rendering/prePassRendererSceneComponent';
+import '@babylonjs/core/Rendering/geometryBufferRendererSceneComponent';
+
+import type { EngineManager } from '../core/EngineManager';
+import { Registry } from '../core/Registry';
 
 export class MainScene {
-      private _scene!: Scene;
-      private _player!: Player;
-      private _hud!: HUD;
-      private _omniOrb!: OmniOrb;
-      private _compass!: MiniCompass;
-      private _joystick!: TouchJoystick;
-      private _camera!: PortraitCamera;
-      private _worldManager!: WorldManager;
-      private _chunkLoader!: ChunkLoader;
-      private _barrierSystem!: BarrierSystem;
-      private _phantom!: PhantomPresence;
-      private _zoneEffects!: ZoneEffects;
-      private _pvpVisuals!: PvPZoneVisuals;
-      // P5
-      private _combatSystem!: CombatSystem;
-      private _skillManager!: SkillManager;
-      private _floatingDamage!: FloatingDamage;
-      private _monsterManager!: MonsterManager;
-      private _dropSystem!: DropSystem;
+      public scene!: Scene;
+      public camera!: ArcRotateCamera;
+      public sun!: DirectionalLight;
+      public shadowGenerator!: ShadowGenerator;
 
-      constructor(
-            private readonly engine: AbstractEngine,
-            private readonly canvas: HTMLCanvasElement
-      ) { }
+      private _engineManager: EngineManager;
 
-      async init(): Promise<void> {
-            // ── Scene ───────────────────────────────────────────
-            this._scene = new Scene(this.engine);
-            this._scene.clearColor = new Color4(0.04, 0.01, 0.09, 1); // 深紫，比純黑明顯
-            Registry.scene = this._scene;
-            Registry.engine = this.engine;
-
-            // ── Ambient Light ──────────────────────────────────
-            const light = new HemisphericLight(
-                  "ambientLight", new Vector3(0, 1, 0), this._scene
-            );
-            light.intensity = 1.1;                              // 稍微提亮
-            light.diffuse = new Color3(0.7, 0.5, 1.0);         // 更明亮的紫白調
-            light.groundColor = new Color3(0.2, 0.08, 0.3);    // 暗紫補光從地面反射
-            light.specular = new Color3(0.3, 0.2, 0.5);        // 增加材質閃亮感
-
-            // ── Directional Light (月光) — 提供陰影立體感 ─────────
-            const moonLight = new DirectionalLight(
-                  "moonLight", new Vector3(-0.5, -1, -0.5), this._scene
-            );
-            moonLight.intensity = 0.6;                         // 月光強度
-            moonLight.diffuse = new Color3(0.55, 0.45, 0.85);  // 冷紫月光
-            moonLight.specular = new Color3(0.2, 0.15, 0.4);
-
-            // ── Skybox ──────────────────────────────────────────
-            this._buildSkybox();
-
-            // ── Player ──────────────────────────────────────────
-            this._player = new Player(this._scene);
-
-            // ── World (6 zones + chunks) ────────────────────────
-            this._worldManager = new WorldManager();
-            this._worldManager.init();
-            this._chunkLoader = new ChunkLoader(this._scene);
-
-            // ── Camera ──────────────────────────────────────────
-            this._camera = new PortraitCamera(this._scene, this.canvas);
-            this._scene.activeCamera = this._camera.camera;
-
-            // ── Input ───────────────────────────────────────────
-            this._joystick = new TouchJoystick();
-            this._joystick.init();
-
-            // ── UI ──────────────────────────────────────────────
-            this._hud = new HUD();
-            this._hud.init();
-
-            this._omniOrb = new OmniOrb();
-            this._omniOrb.init();
-
-            this._compass = new MiniCompass();
-            this._compass.init();
-
-            // ── P4: Barrier + Phantom + ZoneEffects + PvP visuals ───
-            this._barrierSystem = new BarrierSystem(this._scene);
-            this._barrierSystem.init();
-
-            this._phantom = new PhantomPresence(this._scene);
-            this._phantom.init();
-
-            this._zoneEffects = new ZoneEffects(this._scene);
-
-            this._pvpVisuals = new PvPZoneVisuals();
-            this._pvpVisuals.init();
-
-            // ── Prompt 5: Combat System ────────────────────────────────
-            this._combatSystem = new CombatSystem();
-            this._floatingDamage = new FloatingDamage(this._scene);
-            this._dropSystem = new DropSystem(this._scene);
-            this._monsterManager = new MonsterManager(this._scene, this._dropSystem, this._floatingDamage);
-            this._monsterManager.setCombatSystem(this._combatSystem);
-
-            this._skillManager = new SkillManager(this._scene, this._combatSystem);
-            this._skillManager.init();
-
-            // Store in Registry for global access
-            Registry.floatingDamage = this._floatingDamage;
-            Registry.dropSystem = this._dropSystem;
-
-            // Defer initial monster spawn until next frame (player is ready)
-            setTimeout(() => this._monsterManager.initialSpawn(), 100);
+      constructor(engineManager: EngineManager) {
+            this._engineManager = engineManager;
       }
 
-      private _buildSkybox(): void {
-            // ── 主天空盒 ──────────────────────────────────────
-            const skybox = MeshBuilder.CreateBox("skyBox", { size: 1800 }, this._scene);
-            const skyMat = new StandardMaterial("skyMat", this._scene);
-            skyMat.backFaceCulling = false;
+      async build(): Promise<void> {
+            this.scene = new Scene(this._engineManager.engine);
+            this.scene.clearColor = new Color4(0.04, 0.055, 0.1, 1); // #0A0E1A
+
+            // --- Camera ---
+            this.camera = new ArcRotateCamera('cam', -Math.PI / 2, 1.1, 14, new Vector3(0, 0.5, 0), this.scene);
+            this.camera.lowerBetaLimit = 0.5;
+            this.camera.upperBetaLimit = 1.4;
+            this.camera.lowerRadiusLimit = 8;
+            this.camera.upperRadiusLimit = 25;
+            this.camera.panningSensibility = 0; // disable pan
+            this.camera.attachControl(this._engineManager.canvas, true);
+            // Only right-click rotate (cast needed — property exists at runtime)
+            (this.camera.inputs.attached.pointers as any).buttons = [1];
+
+            // --- Sunlight + Shadows ---
+            this.sun = new DirectionalLight('sun', new Vector3(-0.5, -1, -0.3), this.scene);
+            this.sun.intensity = 1.8;
+            this.sun.diffuse = new Color3(1.0, 0.95, 0.85); // warm sun
+            this.sun.position = new Vector3(30, 50, 30);
+
+            this.shadowGenerator = new ShadowGenerator(2048, this.sun);
+            this.shadowGenerator.usePercentageCloserFiltering = true;
+            this.shadowGenerator.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
+
+            // --- Ambient Light ---
+            const hemi = new HemisphericLight('hemi', Vector3.Up(), this.scene);
+            hemi.intensity = 0.8;
+            hemi.diffuse = new Color3(0.7, 0.8, 1.0);     // sky blue
+            hemi.groundColor = new Color3(0.3, 0.25, 0.2); // earth brown
+
+            // PBR environment — use ambient + direct lighting (no env texture in dev)
+            this.scene.ambientColor = new Color3(0.25, 0.25, 0.3);
+
+            // --- PBR Ground ---
+            const ground = MeshBuilder.CreateGround('ground', {
+                  width: 200,
+                  height: 200,
+                  subdivisions: 32,
+            }, this.scene);
+
+            const groundMat = new PBRMaterial('groundMat', this.scene);
+
+            const grassDiffuse = new Texture('assets/textures/grass_diffuse.png', this.scene);
+            grassDiffuse.uScale = 16;
+            grassDiffuse.vScale = 16;
+            groundMat.albedoTexture = grassDiffuse;
+
+            const grassNormal = new Texture('assets/textures/grass_normal.png', this.scene);
+            grassNormal.uScale = 16;
+            grassNormal.vScale = 16;
+            groundMat.bumpTexture = grassNormal;
+
+            groundMat.roughness = 0.85;
+            groundMat.metallic = 0.0;
+            groundMat.environmentIntensity = 0.6;
+            groundMat.ambientColor = new Color3(0.3, 0.35, 0.25);
+            groundMat.directIntensity = 1.5;
+
+            ground.material = groundMat;
+            ground.receiveShadows = true;
+
+            // --- Post-Processing Pipeline ---
+            const pipeline = new DefaultRenderingPipeline('pipeline', true, this.scene, [this.camera]);
+
+            // Bloom
+            pipeline.bloomEnabled = true;
+            pipeline.bloomThreshold = 0.7;
+            pipeline.bloomWeight = 0.3;
+            pipeline.bloomKernel = 64;
+
+            // FXAA
+            pipeline.fxaaEnabled = true;
+
+            // Tone Mapping
+            pipeline.imageProcessingEnabled = true;
+            pipeline.imageProcessing.toneMappingEnabled = true;
+            pipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
+            pipeline.imageProcessing.exposure = 1.2;
+            pipeline.imageProcessing.contrast = 1.2;
+
+            // SSAO deferred to P15 (WebGPU compatibility)
+
+            // --- Sky Gradient (procedural) ---
+            this._createSkyGradient();
+
+            // --- Visible Markers (P1 debug — removed in P2) ---
+            this._createMarkers();
+
+            // Register
+            Registry.scene = this.scene;
+            this._engineManager.scene = this.scene;
+
+            console.log('[MainScene] PBR scene built: shadow + bloom + ACES');
+      }
+
+      private _createSkyGradient(): void {
+            // Sky sphere — render INSIDE face only, behind everything
+            const sky = MeshBuilder.CreateSphere('sky', {
+                  diameter: 500, segments: 16,
+                  sideOrientation: 1, // BACKSIDE — render interior
+            }, this.scene);
+            const skyMat = new PBRMaterial('skyMat', this.scene);
+            skyMat.albedoColor = new Color3(0.15, 0.2, 0.35);
+            skyMat.emissiveColor = new Color3(0.08, 0.12, 0.25);
+            skyMat.roughness = 1.0;
+            skyMat.metallic = 0.0;
             skyMat.disableLighting = true;
-            // 深紫色天空 — 明顯可見，帶有神秘感
-            skyMat.emissiveColor = new Color3(0.10, 0.03, 0.22);
-            skybox.material = skyMat;
-            skybox.metadata = { isPlaceholder: true, specId: "skybox_cubetexture" };
-
-            // ── 星星層（程序化點光源群） ─────────────────────────
-            this._buildStarfield();
-
-            // ── 月亮（平面 billboard） ────────────────────────────
-            this._buildMoon();
+            skyMat.disableDepthWrite = true;
+            sky.material = skyMat;
+            sky.isPickable = false;
+            sky.infiniteDistance = true;
+            sky.renderingGroupId = 0;
       }
 
-      /** 程序化星空 — 300顆隨機白點在天球內側（用 createInstance 確保相容性） */
-      private _buildStarfield(): void {
-            const count = 300;
-            // 簡單偽隨機
-            const rng = (s: number): number => {
-                  s = (s ^ (s >> 13)) * 1274126177;
-                  s = s ^ (s >> 16);
-                  return (s & 0x7fffffff) / 0x7fffffff;
-            };
+      private _createMarkers(): void {
+            // 4 emissive pillars at corners — confirms scene is rendering
+            const colors = [
+                  new Color3(0.3, 0.8, 0.4),   // green
+                  new Color3(0.9, 0.6, 0.2),   // gold
+                  new Color3(0.3, 0.5, 0.9),   // blue
+                  new Color3(0.8, 0.3, 0.5),   // pink
+            ];
+            const positions = [
+                  new Vector3(-5, 1, -5),
+                  new Vector3(5, 1, -5),
+                  new Vector3(-5, 1, 5),
+                  new Vector3(5, 1, 5),
+            ];
 
-            // 基礎星星 mesh（只渲染一次，後續全是 instance）
-            const star = MeshBuilder.CreateSphere("starBase", { diameter: 2.8, segments: 2 }, this._scene);
-            const starMat = new StandardMaterial("starMat", this._scene);
-            starMat.disableLighting = true;
-            starMat.emissiveColor = new Color3(0.95, 0.88, 1.0); // 藍白星光
-            star.material = starMat;
-            // 隱藏原始 mesh，只顯示 instances
-            star.setEnabled(false);
+            for (let i = 0; i < 4; i++) {
+                  const pillar = MeshBuilder.CreateCylinder(`marker_${i}`, {
+                        height: 2, diameter: 0.6,
+                  }, this.scene);
+                  pillar.position = positions[i];
 
-            for (let i = 0; i < count; i++) {
-                  const r = rng(i * 7 + 1);
-                  const theta = rng(i * 7 + 2) * Math.PI * 2;
-                  const phi = Math.acos(1 - rng(i * 7 + 3) * 0.85); // upper hemisphere
-                  const rad = 800 + rng(i * 7 + 4) * 50;
+                  const mat = new PBRMaterial(`markerMat_${i}`, this.scene);
+                  mat.albedoColor = colors[i];
+                  mat.emissiveColor = colors[i].scale(0.4);
+                  mat.roughness = 0.5;
+                  mat.metallic = 0.1;
+                  pillar.material = mat;
 
-                  const x = rad * Math.sin(phi) * Math.cos(theta);
-                  const y = Math.abs(rad * Math.cos(phi)) + 50; // always above horizon
-                  const z = rad * Math.sin(phi) * Math.sin(theta);
-
-                  // Size variation for depth illusion
-                  const sz = 0.5 + rng(i * 7 + 5) * 1.8;
-
-                  const inst = star.createInstance(`star_${i}`);
-                  inst.position.set(x, y, z);
-                  inst.scaling.setAll(sz);
-                  inst.setEnabled(true);
+                  this.shadowGenerator.addShadowCaster(pillar);
+                  pillar.receiveShadows = true;
             }
       }
 
-      /** 月亮 billboard — 明亮可見，帶光暈 */
-      private _buildMoon(): void {
-            const moon = MeshBuilder.CreateDisc("moon", { radius: 18, tessellation: 32 }, this._scene);
-            moon.position = new Vector3(-300, 450, -600);
-            moon.billboardMode = 7; // BILLBOARD_ALL
-
-            const moonMat = new StandardMaterial("moonMat", this._scene);
-            moonMat.disableLighting = true;
-            moonMat.emissiveColor = new Color3(0.85, 0.78, 1.0);  // 帶紫的月白光
-            moon.material = moonMat;
-
-            // 月暈光圈（外圈半透明）
-            const halo = MeshBuilder.CreateDisc("moonHalo", { radius: 32, tessellation: 32 }, this._scene);
-            halo.position = new Vector3(-300, 450, -601);
-            halo.billboardMode = 7;
-            const haloMat = new StandardMaterial("moonHaloMat", this._scene);
-            haloMat.disableLighting = true;
-            haloMat.emissiveColor = new Color3(0.4, 0.3, 0.7);
-            haloMat.alpha = 0.25;
-            halo.material = haloMat;
-      }
-
-      render(): void {
-            let _frameCount = 0;
-            this.engine.runRenderLoop(() => {
-                  _frameCount++;
-                  try {
-                        const dt = Math.min(this._scene.getEngine().getDeltaTime() / 1000, 0.05);
-                        // Input → Player
-                        const dir = this._joystick.getDirection();
-                        this._player.setMoveDirection(dir);
-                        this._player.update(dt);
-                        // P5: Skill + Combat
-                        this._skillManager?.update(dt);
-                        this._monsterManager?.update(dt);
-                        this._floatingDamage?.update(dt);
-                        this._dropSystem?.update(dt);
-                  } catch (e) {
-                        console.error("[RenderLoop] Input/Player error:", e);
-                  }
-
-                  try {
-                        // World systems
-                        this._chunkLoader.update();
-                        this._worldManager.update();
-                        this._barrierSystem.update();
-                        this._phantom?.update(this._scene.getEngine().getDeltaTime() / 1000);
-                        this._zoneEffects.update();
-                  } catch (e) {
-                        console.error("[RenderLoop] World error:", e);
-                  }
-
-                  try {
-                        // Camera follow
-                        this._camera.update(this._player.position, this._scene.getEngine().getDeltaTime() / 1000);
-                  } catch (e) {
-                        console.error("[RenderLoop] Camera error:", e);
-                  }
-
-                  try {
-                        // HUD + compass + PvP refresh (every 3 frames)
-                        if (_frameCount % 3 === 0) {
-                              this._hud.update();
-                              this._compass.update();
-                              this._pvpVisuals?.update();
-                        }
-                  } catch (e) {
-                        console.error("[RenderLoop] UI error:", e);
-                  }
-
-                  this._scene.render();
-            });
-      }
-
-
       dispose(): void {
-            this._joystick?.dispose();
-            this._hud?.dispose();
-            this._omniOrb?.dispose();
-            this._compass?.dispose();
-            this._pvpVisuals?.dispose();
-            this._barrierSystem?.dispose();
-            this._phantom?.dispose();
-            this._zoneEffects?.dispose();
-            this._chunkLoader?.dispose();
-            // P5
-            this._skillManager?.dispose();
-            this._monsterManager?.dispose();
-            this._floatingDamage?.dispose();
-            this._dropSystem?.dispose();
-            this._scene?.dispose();
+            this.scene.dispose();
       }
 }

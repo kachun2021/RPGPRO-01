@@ -1,72 +1,44 @@
-import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
-import { Texture } from "@babylonjs/core/Materials/Textures/texture";
-import type { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
-import type { Scene } from "@babylonjs/core/scene";
-import "@babylonjs/loaders/glTF";
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { Scene } from '@babylonjs/core/scene';
+import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 
-/**
- * Static asset loading utilities.
- * All methods have graceful fallback — 404 / load errors never crash the game.
- */
 export class AssetLoader {
       /**
-       * Check if a URL is reachable (HEAD request).
+       * Load a texture with fallback to a solid color if file not found.
        */
-      static async fileExists(url: string): Promise<boolean> {
-            try {
-                  const res = await fetch(url, { method: "HEAD" });
-                  return res.ok;
-            } catch {
-                  return false;
-            }
+      static loadTexture(path: string, scene: Scene, fallbackColor?: Color3): Texture {
+            const tex = new Texture(path, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE,
+                  () => { /* loaded */ },
+                  () => {
+                        console.warn(`[AssetLoader] Texture not found: ${path}, using fallback`);
+                  }
+            );
+            return tex;
       }
 
       /**
-       * Load a GLB / GLTF mesh.
-       * Returns [] on failure so callers can fall back to placeholders.
+       * Load a generated image icon from assets/icons/
        */
-      static async loadGLB(
-            scene: Scene,
-            path: string,
-            fileName: string
-      ): Promise<AbstractMesh[]> {
-            try {
-                  const exists = await AssetLoader.fileExists(path + fileName);
-                  if (!exists) {
-                        console.warn(`[AssetLoader] GLB not found: ${path}${fileName}`);
-                        return [];
-                  }
-                  const result = await SceneLoader.ImportMeshAsync(
-                        "",
-                        path,
-                        fileName,
-                        scene
-                  );
-                  return result.meshes;
-            } catch (err) {
-                  console.warn(`[AssetLoader] GLB load failed: ${path}${fileName}`, err);
-                  return [];
-            }
+      static loadIcon(filename: string, scene: Scene): Texture {
+            return this.loadTexture(`assets/icons/${filename}`, scene);
       }
 
       /**
-       * Load a texture.
-       * Returns null on failure.
+       * Load a generated image texture from assets/textures/
        */
-      static async loadTexture(
-            scene: Scene,
-            url: string
-      ): Promise<Texture | null> {
-            try {
-                  const exists = await AssetLoader.fileExists(url);
-                  if (!exists) {
-                        console.warn(`[AssetLoader] Texture not found: ${url}`);
-                        return null;
-                  }
-                  return new Texture(url, scene);
-            } catch (err) {
-                  console.warn(`[AssetLoader] Texture load failed: ${url}`, err);
-                  return null;
-            }
+      static loadTerrainTexture(filename: string, scene: Scene): Texture {
+            return this.loadTexture(`assets/textures/${filename}`, scene);
+      }
+
+      /**
+       * Create a simple PBR material with a fallback color.
+       */
+      static createFallbackMaterial(name: string, color: Color3, scene: Scene): PBRMaterial {
+            const mat = new PBRMaterial(name, scene);
+            mat.albedoColor = color;
+            mat.roughness = 0.8;
+            mat.metallic = 0.0;
+            return mat;
       }
 }

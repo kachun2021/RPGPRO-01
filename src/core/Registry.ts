@@ -1,66 +1,53 @@
-import type { AbstractEngine } from "@babylonjs/core/Engines/abstractEngine";
-import type { Scene } from "@babylonjs/core/scene";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnySystem = any;
+import { Scene } from '@babylonjs/core/scene';
+import type { EngineManager } from './EngineManager';
 
 /**
- * Global singleton data bus.
- * Pure data container — NO business logic.
+ * Global static registry — filled progressively by each Step.
+ * All systems register themselves here for cross-module access.
  */
 export class Registry {
-      // ── Engine ─────────────────────────────────────────
-      static engine: AbstractEngine | null = null;
-      static scene: Scene | null = null;
+      // Core
+      static engineManager: EngineManager;
+      static scene: Scene;
 
-      // ── Entities ───────────────────────────────────────
-      static player: AnySystem = null;
+      // Orientation
+      static orientation: 'landscape' | 'portrait' = 'landscape';
 
-      // ── World ──────────────────────────────────────────
-      static chunkLoader: AnySystem = null;
-      static currentZone: string = "起始幽暗森林";
-      static unlockedZones: string[] = ["起始幽暗森林"];
+      // Player (P2)
+      static player: any = null;
 
-      // ── Combat (P5) ────────────────────────────────────
-      static combatSystem: AnySystem = null;
-      static skillManager: AnySystem = null;
-      static monsters: AnySystem[] = [];   // Monster[]
-      static monsterManager: AnySystem = null;
-      static floatingDamage: AnySystem = null;
-      static dropSystem: AnySystem = null;
+      // Pets (P3)
+      static petManager: any = null;
 
-      // ── AI (P6) ────────────────────────────────────────
-      static aiSystem: AnySystem = null;
-      static pvpMode: "peace" | "plunder" | "arena" = "peace";
+      // Combat (P5)
+      static combatSystem: any = null;
+      static monsterManager: any = null;
 
-      // ── Progression ────────────────────────────────────
-      static totalKills: number = 0;
+      // World (P6)
+      static zoneManager: any = null;
+      static currentZoneId: string = 'starter_meadow';
 
-      // ── Systems ────────────────────────────────────────
-      static inventory: AnySystem = null;
-      static questManager: AnySystem = null;
-      static shopManager: AnySystem = null;
+      // Systems (P7+)
+      static inventory: any = null;
+      static questManager: any = null;
+      static equipmentSystem: any = null;
 
-      // ── Network ────────────────────────────────────────
-      static petManager: AnySystem = null;
-      static networkManager: AnySystem = null;
+      // Network (P11)
+      static networkManager: any = null;
 
-      // ── UI ─────────────────────────────────────────────
-      static panelManager: AnySystem = null;
+      // UI (P2)
+      static hud: any = null;
+      static panelManager: any = null;
 
-      static reset(): void {
-            Registry.engine = Registry.scene = Registry.player = null;
-            Registry.chunkLoader = null;
-            Registry.currentZone = "起始幽暗森林";
-            Registry.unlockedZones = ["起始幽暗森林"];
-            Registry.combatSystem = Registry.skillManager = null;
-            Registry.monsters = [];
-            Registry.monsterManager = Registry.floatingDamage = Registry.dropSystem = null;
-            Registry.aiSystem = null;
-            Registry.pvpMode = "peace";
-            Registry.totalKills = 0;
-            Registry.inventory = Registry.questManager = Registry.shopManager = null;
-            Registry.petManager = Registry.networkManager = null;
-            Registry.panelManager = null;
+      // Callbacks
+      private static _orientationCallbacks: Array<(o: 'landscape' | 'portrait') => void> = [];
+
+      static onOrientationChange(cb: (o: 'landscape' | 'portrait') => void): void {
+            this._orientationCallbacks.push(cb);
+      }
+
+      static setOrientation(o: 'landscape' | 'portrait'): void {
+            this.orientation = o;
+            this._orientationCallbacks.forEach(cb => cb(o));
       }
 }

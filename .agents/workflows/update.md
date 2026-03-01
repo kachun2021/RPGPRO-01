@@ -4,42 +4,40 @@ description: 無衝突更新與 Registry 整合
 ---
 
 // turbo-all
-# 無衝突更新與 Registry 整合（/update）
+# 無衝突更新（/update）
 
-適用於：純修 bug、重構、不新增功能的程式碼修改
-嚴格遵守 GEMINI.md 全局規則：Babylon.js 8.x+ 唯一框架，禁止 Three.js/R3F。
-
-**注意：若任務包含功能關鍵字（戰鬥/地圖/多人/效能），優先選對應 WORKFLOW，而非 /update**
+適用於：修 bug、重構、不新增功能的程式碼修改。
 
 ---
 
-## 執行步驟
+## 前置檢查
 
-### 1. 0–20% 分析對標
-掃描所有 `src/` 現有檔案與 `Registry.ts`：
-- 確認 bug 所在模塊（core / entities / combat / world / ui / network）
-- 確認修改範圍（最小化原則）
-- 確認是否影響其他模塊的 Registry 連接
+1. 確認修改不影響 PetManager/CombatSystem/Registry 的核心接口
+2. 確認修改不違反效能底線（perf.md 規則）
+3. 確認修改不破壞橫向/直向雙模式
 
-### 2. 20–40% 設計
-- 規劃最小變更範圍（避免牽連其他模塊）
-- 確認 Registry 更新項目
-- 確認 dispose() 鏈不受影響
+## 更新流程
 
-### 3. 40–60% 程式碼修改
-- 直接修改現有檔案，**絕不新建重複邏輯**
-- 更新所有相關 import
-- 若涉及 Firebase schema，同步更新 network/NetworkManager.ts
+### 1. 分析（20%）
+- 定位 bug 或重構範圍
+- 確認受影響模塊清單
 
-### 4. 60–80% 集成測試
-- 確認修改後無新增衝突
-- 熱更新正常（Firebase Remote Config 仍然生效）
-- 垂直模式無異常（portrait 鎖定不受影響）
-- 記憶體無異常增長
+### 2. 修改（50%）
+- 最小化修改範圍
+- 保持模塊化（禁止跨模塊巨型修改）
+- 更新 Registry 如需要
 
-### 5. 80–100% 立即可玩步驟 + 報告
-現在 `npm run dev` → 垂直模式 → 確認更新後功能正常運作。
+### 3. 驗證（30%）
+- TypeScript 編譯通過：`npm run typecheck`
+- 橫向模式正常
+- 直向 AFK 模式正常
+- 被修改功能手動測試
+- 記憶體確認 ≤ 110MB
 
-效能預估：更新後無明顯掉幀（預期 FPS 變化 < 2fps）。
+## 回應格式
 
-**資源狀態：本次更新不涉及資源替換（如有請觸發 /asset-gen）**
+```
+🔧 修改範圍：[受影響模塊]
+📊 效能預估：[FPS] fps / [記憶體] MB
+✅ 測試結果：[通過/失敗]
+```

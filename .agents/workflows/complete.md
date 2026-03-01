@@ -1,72 +1,50 @@
 ---
 trigger: model_decision
-description: 功能完整性與立即可玩驗證（Prompt 12 最終收尾）
+description: 功能完整性與立即可玩驗證（Prompt 15 最終收尾）
 ---
 
 // turbo-all
-# 功能完整性與立即可玩驗證（/complete）
+# 功能完整性驗證（/complete）
 
-對應 **Prompt 7 最終收尾**，配合 /perf 使用：先優化後驗收
-嚴格遵守 GEMINI.md 全局規則：Babylon.js 8.x+ 唯一框架。
-
----
-
-## 最終驗收清單（7個Prompt全部必須通過）
-
-| Prompt | 功能 | 驗收條件 |
-|--------|------|---------|
-| Prompt 1 | 引擎+移動+Omni-Orb | WebGPU 啟動，WASD+搖桿移動，Omni-Orb 徑向選單 |
-| Prompt 2 | 開放世界 6 區域 | 穿越5個Chunk無卡頓，結界效果，Phantom腳印 |
-| Prompt 3 | 戰鬥+Smart AI | AI自動刷怪，元素特效，磁吸拾取0.6s |
-| Prompt 4 | 寵物+背包+Whisper | 寵物跟隨，背包一鍵操作，Whisper 2秒消失 |
-| Prompt 5 | PvP+陣營戰 | 3模式光環切換，Firebase同步，陣營戰入口 |
-| Prompt 6 | 養成+聊天 | 科技樹10層，聊天氣泡3D，UI從底部滑入 |
-| Prompt 7 | 最終優化 | Diegetic光環，≥60fps，≤110MB，所有資源正式 |
+對應 **Prompt 15** 最終收尾。25 項驗收清單。
 
 ---
 
-## 執行步驟
+## 25 項最終驗收
 
-### 1. 0–20% 分析對標
-逐項檢查 7 個 Prompt 的功能是否已全部在 Registry 中正確註冊：
-- `Registry.scene` ← Babylon.js Scene 實例
-- `Registry.player` ← Player 實體
-- `Registry.combatSystem` ← 戰鬥系統
-- `Registry.networkManager` ← Firebase 連接
-- `Registry.chunkLoader` ← Chunk 管理
+| # | 項目 | 預期 | 驗證方法 |
+|---|------|------|---------|
+| 1 | 冷啟動 | ≤1.2s | 計時器 |
+| 2 | 搖桿（橫向左拇指） | 60fps | FPS counter |
+| 3 | 3寵物跟隨+出戰 | 系列色正確 | 目視 |
+| 4 | PEF合成成功/失敗 | 邏輯完整 | 測試用例 |
+| 5 | 寵物圖鑑八大系列 | 40種列表 | 面板開啟 |
+| 6 | 八元素相剋倍率 | 1.5x/0.7x | Console log |
+| 7 | 技能一/二階 | CD+SP | 操作測試 |
+| 8 | 17地圖切換 | 不同色調 | 傳送測試 |
+| 9 | 世界地圖面板 | 解鎖/傳送 | 面板操作 |
+| 10 | 怪物HP條+浮動傷害 | Billboard | 目視 |
+| 11 | AUTO刷怪 | 自動循環 | AFK 1分鐘 |
+| 12 | 直向AFK模式 | 掛機統計 | 旋轉手機 |
+| 13 | 裝備8部位 | Boss/PVP | 穿戴測試 |
+| 14 | 共鳴+強化 | 成功率 | 多次操作 |
+| 15 | 任務25章 | 地圖解鎖 | 推進測試 |
+| 16 | NPC對話 | 任務接取 | 觸控 NPC |
+| 17 | 背包Grid | 4分類 | 物品整理 |
+| 18 | 交易所 | 上架/購買 | Mock 測試 |
+| 19 | 五維配點 | +/-操作 | 分配測試 |
+| 20 | 覺醒+轉生 | 獎勵正確 | 條件達成 |
+| 21 | PVP 3模式 | 切換 | 模式切換 |
+| 22 | 公會+組隊 | 經驗加成 | Mock 測試 |
+| 23 | 商城11分類 | 購買 | 金幣/鑽石 |
+| 24 | 存檔 | 關閉恢復 | 重開測試 |
+| 25 | 記憶體 | ≤110MB | DevTools |
 
-### 2. 20–40% 設計邊緣案例清單
+## 驗證流程
 
-- Safari WebGL2 fallback（iPhone 不支援 WebGPU 情況）
-- Firebase 斷線時本地狀態不丟失
-- 陣營戰結束後 Eclipse Rift → 回主世界 Chunk 恢復
-- 記憶體峰值（50人PvP同屏 + 大量GPUParticle）
-- Prompt 5 死亡復活不中斷 AutoGrind 狀態機
-
-### 3. 40–60% 補齊缺口
-補齊缺少的：
-- Registry 中未連接的系統
-- dispose() 遺漏（用 Babylon.js Inspector 掃描）
-- 事件監聽器未清理（頁面切換時 memory leak）
-
-### 4. 60–80% 完整流程測試
-在 Antigravity 內建瀏覽器跑完整閉環：
-1. 冷啟動 → 幽暗森林（≤1.2s）
-2. Smart Grind AI → 自動刷怪 → 磁吸拾取
-3. 背包一鍵合成 → Whisper Menu 出現消失
-4. PvP 模式切換 → 光環即時改變
-5. 陣營戰入口 → 傳送 → PvP → 復活
-6. Diegetic 光環根據模式顯示正確符文
-
-### 5. 80–100% 最終報告
-
-現在 `npm run dev` → 垂直模式 → F5 後立即：
-- 可進行戰鬥、移動、開啟選單、切換PvP模式
-- 效能：≥60fps / ≤110MB / 首畫面≤1.2s
-
-**最終資源確認：**
-- ✅ 所有 ★★★★★ 資源已替換正式 GLB
-- ✅ 所有 ★★★★☆ 資源已替換 KTX2
-- ✅ 所有 placeholder dispose() 已清理
-- ✅ Firebase Schema 非 Mock
-- ✅ Live Ops chunk 分離完成
+1. `npm run build` — 零錯誤
+2. `npm run dev` — 開啟橫向
+3. 逐項測試 25 項
+4. 旋轉為直向 — AFK 模式
+5. 效能 Profile — FPS + 記憶體
+6. 截圖/錄影存檔

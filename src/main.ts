@@ -1,56 +1,37 @@
-import { EngineManager } from "./core/EngineManager";
-import { MainScene } from "./scenes/MainScene";
+import { EngineManager } from './core/EngineManager';
+import { Registry } from './core/Registry';
+import { OrientationManager } from './core/OrientationManager';
+import { MainScene } from './scenes/MainScene';
 
-// ── Loading screen helpers ──────────────────────────────────────────────────
-function setLoadingProgress(pct: number, text: string): void {
-      const bar = document.getElementById("loadingBar");
-      const label = document.querySelector(".loading-text") as HTMLElement | null;
-      if (bar) bar.style.width = `${pct}%`;
-      if (label) label.textContent = text;
-}
+async function bootstrap(): Promise<void> {
+      console.log('[Fantasy Pet Online] Starting...');
 
-function hideLoadingScreen(): void {
-      const screen = document.getElementById("loading-screen");
-      if (!screen) return;
-      screen.style.transition = "opacity 0.8s ease-out";
-      screen.style.opacity = "0";
-      setTimeout(() => { screen.style.display = "none"; }, 850);
-}
+      // 1. Engine
+      const engineManager = new EngineManager();
+      await engineManager.init();
+      Registry.engineManager = engineManager;
 
-// ── Boot ────────────────────────────────────────────────────────────────────
-window.addEventListener("DOMContentLoaded", async () => {
-      const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-      if (!canvas) {
-            console.error("[Boot] #gameCanvas not found");
-            return;
+      // 2. Orientation
+      const orientationManager = new OrientationManager();
+      orientationManager.init();
+
+      // 3. Scene
+      const mainScene = new MainScene(engineManager);
+      await mainScene.build();
+
+      // 4. Fade out loading screen
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => loadingScreen.remove(), 1000);
       }
 
-      try {
-            setLoadingProgress(10, "INITIALISING ENGINE...");
+      // 5. Start render loop
+      engineManager.startRenderLoop();
 
-            // 1. Engine
-            const engine = await EngineManager.init(canvas);
-            setLoadingProgress(30, "BUILDING WORLD...");
+      console.log('[Fantasy Pet Online] P1 Ready — PBR + Shadow + Bloom + SSAO + ACES');
+}
 
-            // 2. Scene
-            const mainScene = new MainScene(engine, canvas);
-            await mainScene.init();
-            setLoadingProgress(90, "ENTERING THE PHANTOM DOMINION...");
-
-            // 3. Render loop
-            mainScene.render();
-            setLoadingProgress(100, "READY");
-
-            // 4. Hide loading screen
-            setTimeout(hideLoadingScreen, 400);
-
-            // 5. FPS monitor every 3s
-            setInterval(() => {
-                  console.log(`[FPS] ${engine.getFps().toFixed(1)}`);
-            }, 3000);
-
-      } catch (err) {
-            console.error("[Boot] Fatal error:", err);
-            setLoadingProgress(0, "ERROR — CHECK CONSOLE");
-      }
+bootstrap().catch(err => {
+      console.error('[Fantasy Pet Online] Fatal error:', err);
 });
