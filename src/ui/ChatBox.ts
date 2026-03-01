@@ -1,119 +1,111 @@
-type Channel = 'system' | 'world' | 'guild';
-
-interface ChatMessage {
-      channel: Channel;
-      text: string;
-      timestamp: number;
-}
-
-const CHANNEL_COLORS: Record<Channel, string> = {
-      system: '#FFD700',
-      world: '#AACCFF',
-      guild: '#88FF88',
-};
-
+/**
+ * ChatBox — Dark premium theme, 3 channels
+ */
 export class ChatBox {
       private _el: HTMLDivElement;
-      private _msgList: HTMLDivElement;
+      private _messages: HTMLDivElement;
       private _input: HTMLInputElement;
-      private _messages: ChatMessage[] = [];
-      private _currentChannel: Channel = 'system';
+      private _channel = 'system';
+      private _msgList: Array<{ ch: string; text: string }> = [];
       private _collapsed = false;
-      private _toggleBtn: HTMLDivElement;
 
       constructor() {
+            const uiLayer = document.getElementById('ui-layer')!;
+
             this._el = document.createElement('div');
             this._el.id = 'chatBox';
-            this._el.className = 'sa-frame sa-collapsible interactive';
+            this._el.className = 'interactive';
             Object.assign(this._el.style, {
-                  position: 'fixed', left: '8px', bottom: '56px',
-                  width: '320px', zIndex: '150',
+                  position: 'fixed', left: '10px', bottom: '44px', zIndex: '150',
+                  width: '280px',
+                  background: 'linear-gradient(180deg, rgba(20,16,30,0.88), rgba(12,10,20,0.92))',
+                  border: '1px solid rgba(160,130,80,0.25)',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+                  overflow: 'hidden',
             });
 
-            // Toggle button
-            this._toggleBtn = document.createElement('div');
-            this._toggleBtn.className = 'sa-toggle-btn';
-            this._toggleBtn.textContent = '▼ Chat';
-            this._toggleBtn.addEventListener('click', () => this._toggleCollapse());
-            this._el.appendChild(this._toggleBtn);
+            // Toggle header
+            const header = document.createElement('div');
+            header.style.cssText = 'padding:3px 8px;cursor:pointer;font-size:10px;color:rgba(232,201,106,0.6);border-bottom:1px solid rgba(160,130,80,0.15)';
+            header.textContent = '▼ Chat';
+            header.addEventListener('click', () => {
+                  this._collapsed = !this._collapsed;
+                  body.style.display = this._collapsed ? 'none' : '';
+                  header.textContent = this._collapsed ? '▶ Chat' : '▼ Chat';
+            });
+            this._el.appendChild(header);
 
-            // Content wrapper
-            const content = document.createElement('div');
-            content.id = 'chatContent';
+            const body = document.createElement('div');
 
             // Channel tabs
             const tabs = document.createElement('div');
-            tabs.className = 'sa-chat-tabs';
-            for (const ch of ['system', 'world', 'guild'] as Channel[]) {
+            tabs.style.cssText = 'display:flex;gap:10px;padding:3px 8px;border-bottom:1px solid rgba(160,130,80,0.12)';
+            for (const ch of ['System', 'World', 'Guild']) {
                   const tab = document.createElement('span');
-                  tab.className = 'sa-chat-tab';
-                  tab.textContent = ch.charAt(0).toUpperCase() + ch.slice(1);
-                  tab.style.color = CHANNEL_COLORS[ch];
+                  tab.style.cssText = `font-size:10px;font-weight:600;cursor:pointer;color:${ch.toLowerCase() === this._channel ? 'rgba(232,201,106,0.9)' : 'rgba(200,195,185,0.4)'}`;
+                  tab.textContent = ch;
                   tab.addEventListener('click', () => {
-                        this._currentChannel = ch;
-                        this._render();
+                        this._channel = ch.toLowerCase();
+                        tabs.querySelectorAll('span').forEach(s => (s as HTMLElement).style.color = 'rgba(200,195,185,0.4)');
+                        tab.style.color = 'rgba(232,201,106,0.9)';
+                        this._renderMessages();
                   });
                   tabs.appendChild(tab);
             }
-            content.appendChild(tabs);
+            body.appendChild(tabs);
 
-            // Message list
-            this._msgList = document.createElement('div');
-            this._msgList.className = 'sa-chat-messages';
-            content.appendChild(this._msgList);
+            // Messages
+            this._messages = document.createElement('div');
+            this._messages.style.cssText = 'height:80px;overflow-y:auto;padding:3px 8px;scrollbar-width:none';
+            body.appendChild(this._messages);
 
             // Input row
             const inputRow = document.createElement('div');
-            inputRow.className = 'sa-chat-input-row';
+            inputRow.style.cssText = 'display:flex;gap:4px;padding:3px 6px;border-top:1px solid rgba(160,130,80,0.12)';
+
             this._input = document.createElement('input');
-            this._input.className = 'sa-chat-input';
+            this._input.type = 'text';
             this._input.placeholder = 'Type a message...';
-            this._input.addEventListener('keydown', (e) => {
-                  if (e.key === 'Enter' && this._input.value.trim()) {
-                        this.addMessage(this._currentChannel, this._input.value.trim());
-                        this._input.value = '';
-                  }
-            });
-            const sendBtn = document.createElement('button');
-            sendBtn.className = 'sa-btn-sm';
+            this._input.className = 'dark-chat-input';
+
+            const sendBtn = document.createElement('div');
+            sendBtn.className = 'dark-btn-sm';
             sendBtn.textContent = 'Send';
-            sendBtn.addEventListener('click', () => {
-                  if (this._input.value.trim()) {
-                        this.addMessage(this._currentChannel, this._input.value.trim());
-                        this._input.value = '';
-                  }
-            });
+            sendBtn.addEventListener('click', () => this._send());
+            this._input.addEventListener('keydown', (e) => { if (e.key === 'Enter') this._send(); });
+
             inputRow.appendChild(this._input);
             inputRow.appendChild(sendBtn);
-            content.appendChild(inputRow);
+            body.appendChild(inputRow);
 
-            this._el.appendChild(content);
-            document.getElementById('ui-layer')?.appendChild(this._el);
+            this._el.appendChild(body);
+            uiLayer.appendChild(this._el);
 
-            // Add some default system messages
+            // Initial messages
             this.addMessage('system', 'Welcome to Fantasy Pet Online!');
-            this.addMessage('system', 'Use WASD to move your character.');
+            this.addMessage('system', 'Use WASD to move your character');
       }
 
-      addMessage(channel: Channel, text: string): void {
-            this._messages.push({ channel, text, timestamp: Date.now() });
-            if (this._messages.length > 50) this._messages.shift();
-            this._render();
+      addMessage(channel: string, text: string): void {
+            this._msgList.push({ ch: channel, text });
+            if (this._msgList.length > 50) this._msgList.shift();
+            if (channel === this._channel) this._renderMessages();
       }
 
-      private _render(): void {
-            const filtered = this._messages.filter(m => m.channel === this._currentChannel);
-            this._msgList.innerHTML = filtered.map(m =>
-                  `<div style="font-size:11px;color:${CHANNEL_COLORS[m.channel]};padding:2px 0">${m.text}</div>`
+      private _renderMessages(): void {
+            const filtered = this._msgList.filter(m => m.ch === this._channel);
+            this._messages.innerHTML = filtered.map(m =>
+                  `<div style="font-size:10px;color:rgba(220,215,200,0.7);padding:1px 0">${m.text}</div>`
             ).join('');
-            this._msgList.scrollTop = this._msgList.scrollHeight;
+            this._messages.scrollTop = this._messages.scrollHeight;
       }
 
-      private _toggleCollapse(): void {
-            this._collapsed = !this._collapsed;
-            const content = this._el.querySelector('#chatContent') as HTMLElement;
-            content.style.display = this._collapsed ? 'none' : '';
-            this._toggleBtn.textContent = this._collapsed ? '▶ Chat' : '▼ Chat';
+      private _send(): void {
+            const text = this._input.value.trim();
+            if (!text) return;
+            this.addMessage(this._channel, text);
+            this._input.value = '';
       }
 
       dispose(): void { this._el.remove(); }
