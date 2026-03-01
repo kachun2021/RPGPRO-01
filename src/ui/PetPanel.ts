@@ -180,7 +180,7 @@ export class PetPanel {
             // Tab pages
             const totalPages = Math.ceil(this._petManager.owned.length / ITEMS_PER_PAGE) || 1;
             const tabs = document.createElement('div');
-            tabs.style.cssText = 'display:flex;gap:2px;margin-bottom:4px';
+            tabs.style.cssText = 'display:flex;gap:2px;margin-bottom:6px';
             for (let p = 0; p < Math.min(totalPages, 8); p++) {
                   const tab = document.createElement('span');
                   tab.className = `sa-tag ${p === this._storagePage ? 'sa-tag-active' : ''}`;
@@ -191,35 +191,45 @@ export class PetPanel {
             }
             section.appendChild(tabs);
 
-            // Grid: left 3 = deploy slots, right = storage
-            const grid = document.createElement('div');
-            grid.className = 'sa-pet-grid';
+            // Layout: LEFT = 3 deploy slots vertical | RIGHT = storage grid
+            const layout = document.createElement('div');
+            layout.style.cssText = 'display:flex;gap:6px;align-items:flex-start';
 
-            // Deploy slots (3)
+            // LEFT: 3 Deploy slots (vertical column)
+            const deployCol = document.createElement('div');
+            deployCol.style.cssText = 'display:flex;flex-direction:column;gap:3px;border:2px solid #C4993D;border-radius:4px;padding:3px;background:#E8D5B0';
             for (let i = 0; i < 3; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'sa-pet-slot sa-pet-slot-deploy';
+                  slot.style.cssText = 'width:42px;height:42px';
                   const pet = this._petManager.active[i];
                   if (pet) {
                         const c = SERIES_COLORS[pet.def.series];
                         slot.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
-                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:28px;height:28px" alt="${pet.def.name}">`;
-                        slot.title = `${pet.def.name} (Click to recall)`;
+                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:30px;height:30px" alt="${pet.def.name}">`;
+                        slot.title = `${pet.def.name} Lv.${pet.stats.level} (Click to recall)`;
                         slot.addEventListener('click', () => {
                               const activeIdx = this._petManager.active.indexOf(pet);
                               if (activeIdx >= 0) this._petManager.recall(activeIdx);
                               this._render();
                         });
                   }
-                  grid.appendChild(slot);
+                  deployCol.appendChild(slot);
             }
+            layout.appendChild(deployCol);
 
-            // Storage slots (paged)
+            // RIGHT: Storage grid (5 columns)
+            const gridWrap = document.createElement('div');
+            gridWrap.style.cssText = 'flex:1;border:2px solid #8B7355;border-radius:4px;padding:3px;background:#D4C4A0';
+            const grid = document.createElement('div');
+            grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:2px';
+
             const start = this._storagePage * ITEMS_PER_PAGE;
             const inactive = this._petManager.owned.filter(p => !p.isActive);
-            for (let i = 0; i < ITEMS_PER_PAGE; i++) {
+            for (let i = 0; i < 20; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'sa-pet-slot';
+                  slot.style.cssText = 'width:auto;height:38px';
                   const pet = inactive[start + i];
                   if (pet) {
                         slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:28px;height:28px" alt="${pet.def.name}">`;
@@ -233,7 +243,10 @@ export class PetPanel {
                   }
                   grid.appendChild(slot);
             }
-            section.appendChild(grid);
+            gridWrap.appendChild(grid);
+            layout.appendChild(gridWrap);
+
+            section.appendChild(layout);
             this._el.appendChild(section);
       }
 
