@@ -49,22 +49,22 @@ export class HUD {
             });
 
             const navItems = [
-                  { id: 'nav-book', label: 'BOOK' },
-                  { id: 'nav-shop', label: '商店' },
-                  { id: 'nav-char', label: '角色' },
-                  { id: 'nav-pet', label: '寵物' },
-                  { id: 'nav-bag', label: '物品' },
-                  { id: 'nav-skill', label: '技能' },
-                  { id: 'nav-community', label: '社區' },
-                  { id: 'nav-quest', label: '任務' },
-                  { id: 'nav-map', label: '地圖' },
-                  { id: 'nav-settings', label: '系統' },
+                  { id: 'nav-book', label: 'BOOK', icon: '📖' },
+                  { id: 'nav-shop', label: '商店', icon: '🏪' },
+                  { id: 'nav-char', label: '角色', icon: '🧑' },
+                  { id: 'nav-pet', label: '寵物', icon: '🐾' },
+                  { id: 'nav-bag', label: '物品', icon: '🎒' },
+                  { id: 'nav-skill', label: '技能', icon: '⚡' },
+                  { id: 'nav-community', label: '社區', icon: '👥' },
+                  { id: 'nav-quest', label: '任務', icon: '📜' },
+                  { id: 'nav-map', label: '地圖', icon: '🗺️' },
+                  { id: 'nav-settings', label: '系統', icon: '⚙️' },
             ];
             for (const item of navItems) {
                   const btn = document.createElement('div');
                   btn.className = 'sa-nav-btn';
                   btn.id = item.id;
-                  btn.textContent = item.label;
+                  btn.innerHTML = `<span style="font-size:16px;line-height:1">${item.icon}</span><span style="font-size:9px">${item.label}</span>`;
                   btn.addEventListener('pointerdown', () => {
                         btn.style.background = '#6B4E2A';
                         setTimeout(() => btn.style.background = '', 120);

@@ -4,276 +4,256 @@ import type { PetEquipment } from '../pets/PetEquipment';
 import { PetEquipSlot } from '../pets/PetEquipment';
 import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
-import { PET_DEFS, SERIES_ICONS, SERIES_COLORS, PetSeries } from '../pets/PetData';
+import { SERIES_ICONS, SERIES_COLORS } from '../pets/PetData';
 
-const ITEMS_PER_PAGE = 14;
+const STORAGE_COLS = 5;
+const STORAGE_ROWS = 4;
 
 export class PetPanel {
       private _el: HTMLDivElement;
-      private _petManager: PetManager;
-      private _encyclopedia: PetEncyclopedia;
-      private _equipment: PetEquipment;
-      private _petBuff: PetBuff;
-      private _selectedPet: Pet | null = null;
-      private _storagePage = 0;
+      private _pm: PetManager;
+      private _enc: PetEncyclopedia;
+      private _eq: PetEquipment;
+      private _buff: PetBuff;
+      private _sel: Pet | null = null;
+      private _page = 0;
+      private _dragPet: Pet | null = null;
 
-      constructor(petManager: PetManager, encyclopedia: PetEncyclopedia, equipment: PetEquipment, petBuff: PetBuff) {
-            this._petManager = petManager;
-            this._encyclopedia = encyclopedia;
-            this._equipment = equipment;
-            this._petBuff = petBuff;
+      constructor(pm: PetManager, enc: PetEncyclopedia, eq: PetEquipment, buff: PetBuff) {
+            this._pm = pm;
+            this._enc = enc;
+            this._eq = eq;
+            this._buff = buff;
 
             this._el = document.createElement('div');
             this._el.id = 'petPanel';
             this._el.className = 'sa-panel';
             Object.assign(this._el.style, {
-                  position: 'fixed', right: '80px', top: '50%', transform: 'translateY(-50%)',
-                  width: '360px', zIndex: '300', display: 'none',
+                  position: 'fixed', right: '70px', top: '50%', transform: 'translateY(-50%)',
+                  width: '340px', zIndex: '300', display: 'none', overflow: 'hidden',
             });
 
             document.getElementById('ui-layer')?.appendChild(this._el);
-            if (this._petManager.active.length > 0) {
-                  this._selectedPet = this._petManager.active[0];
-            }
+            if (this._pm.active.length > 0) this._sel = this._pm.active[0];
       }
 
       get element(): HTMLElement { return this._el; }
-
-      open(): void {
-            this._el.style.display = '';
-            this._render();
-      }
-
-      close(): void {
-            this._el.style.display = 'none';
-      }
-
-      toggle(): void {
-            if (this._el.style.display === 'none') this.open();
-            else this.close();
-      }
+      open(): void { this._el.style.display = ''; this._render(); }
+      close(): void { this._el.style.display = 'none'; }
+      toggle(): void { this._el.style.display === 'none' ? this.open() : this.close(); }
 
       private _render(): void {
-            const pet = this._selectedPet;
+            const pet = this._sel;
             this._el.innerHTML = '';
 
-            // ── TITLE BAR ──
-            const titleBar = document.createElement('div');
-            titleBar.className = 'sa-panel-title';
-            titleBar.innerHTML = `<span>怪物信息</span>`;
-
-            // Close button
+            // ── TITLE ──
+            const title = document.createElement('div');
+            title.className = 'sa-panel-title';
+            title.innerHTML = '<span>怪物信息</span>';
+            // Close btn
             const closeBtn = document.createElement('span');
-            closeBtn.style.cssText = 'cursor:pointer;font-size:14px;color:#8B7355';
+            closeBtn.style.cssText = 'cursor:pointer;font-size:14px;margin-left:auto';
             closeBtn.textContent = '✕';
             closeBtn.addEventListener('click', () => this.close());
-            titleBar.appendChild(closeBtn);
-
-            // Active pet mini-portraits
+            // Active mini portraits
             const minis = document.createElement('div');
-            minis.style.cssText = 'display:flex;gap:3px;margin-left:auto;margin-right:8px';
+            minis.style.cssText = 'display:flex;gap:2px;margin-left:auto;margin-right:6px';
             for (let i = 0; i < 3; i++) {
-                  const p = this._petManager.active[i];
-                  const mini = document.createElement('div');
-                  mini.className = 'sa-mini-portrait';
+                  const p = this._pm.active[i];
+                  const m = document.createElement('div');
+                  m.className = 'sa-mini-portrait';
                   if (p) {
                         const c = SERIES_COLORS[p.def.series];
-                        mini.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
-                        mini.style.cursor = 'pointer';
-                        mini.innerHTML = `<img src="assets/icons/${SERIES_ICONS[p.def.series]}" style="width:18px;height:18px" alt="">`;
-                        mini.addEventListener('click', () => { this._selectedPet = p; this._render(); });
+                        m.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
+                        m.title = p.def.name;
+                        m.addEventListener('click', () => { this._sel = p; this._render(); });
                   }
-                  minis.appendChild(mini);
+                  minis.appendChild(m);
             }
-            titleBar.appendChild(minis);
-            this._el.appendChild(titleBar);
+            title.appendChild(minis);
+            title.appendChild(closeBtn);
+            this._el.appendChild(title);
 
             if (!pet) {
-                  this._el.innerHTML += '<div style="text-align:center;padding:40px;color:#8B7355">No pet selected</div>';
-                  this._renderStorage();
-                  return;
+                  const empty = document.createElement('div');
+                  empty.style.cssText = 'text-align:center;padding:20px;color:#8B7355;font-size:12px';
+                  empty.textContent = 'No pet selected';
+                  this._el.appendChild(empty);
+                  this._renderBottom(); return;
             }
 
-            // ── PET INFO HEADER ──
+            // ── INFO ROW: name + portrait ──
             const info = document.createElement('div');
-            info.className = 'sa-section';
-            const seriesName = pet.def.series;
-            info.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:start">
-        <div>
-          <div style="font-weight:700;color:#5C3D1A;font-size:13px">[${seriesName}] ${pet.def.name}</div>
-          <div style="display:flex;gap:4px;margin-top:4px">
-            <span class="sa-tag">种族</span>
-            <span class="sa-tag sa-tag-active">${seriesName}</span>
-          </div>
-        </div>
-        <div class="sa-pet-portrait-lg" style="border-color:rgb(${Math.round(SERIES_COLORS[pet.def.series].r * 255)},${Math.round(SERIES_COLORS[pet.def.series].g * 255)},${Math.round(SERIES_COLORS[pet.def.series].b * 255)})">
-          <img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:36px;height:36px" alt="">
-        </div>
+            info.className = 'sa-sec';
+            info.style.cssText = 'display:flex;justify-content:space-between;align-items:center';
+            info.innerHTML = `<div>
+      <div style="font-weight:700;color:#5C3D1A;font-size:12px">[${pet.def.series}] ${pet.def.name}</div>
+      <div style="display:flex;gap:3px;margin-top:3px">
+        <span class="sa-tag">种族</span><span class="sa-tag sa-tag-active">${pet.def.series}</span>
       </div>
-    `;
+    </div>`;
+            const portrait = document.createElement('div');
+            portrait.className = 'sa-pet-portrait-lg';
+            const c = SERIES_COLORS[pet.def.series];
+            portrait.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
+            info.appendChild(portrait);
             this._el.appendChild(info);
 
-            // ── LEVEL + HP/MP ──
-            const stats1 = document.createElement('div');
-            stats1.className = 'sa-section';
-            const expPct = pet.stats.exp > 0 ? ((pet.stats.exp / (pet.stats.level * 100)) * 100).toFixed(1) : '0.0';
-            stats1.innerHTML = `
-      <div class="sa-stat-row"><span class="sa-stat-label">LV</span><span class="sa-stat-val">${pet.stats.level}</span>
-        <span class="sa-stat-label" style="margin-left:12px">EXP</span><span class="sa-stat-val">${expPct}%</span></div>
-      <div class="sa-stat-row"><span class="sa-stat-label">HP</span><span class="sa-stat-val">${pet.stats.hp}/${pet.stats.maxHp}</span>
-        <span class="sa-stat-label" style="margin-left:12px">MP</span><span class="sa-stat-val">${pet.stats.mp}/${pet.stats.maxMp}</span></div>
+            // ── STATS COMPACT ──
+            const s = pet.stats;
+            const stats = document.createElement('div');
+            stats.className = 'sa-sec';
+            stats.innerHTML = `
+      <div class="sa-sr"><b class="sa-sl">LV</b><span class="sa-sv">${s.level}</span><b class="sa-sl">EXP</b><span class="sa-sv">${s.exp > 0 ? ((s.exp / (s.level * 100)) * 100).toFixed(1) : '0.0'}%</span></div>
+      <div class="sa-sr"><b class="sa-sl">HP</b><span class="sa-sv">${s.hp}/${s.maxHp}</span><b class="sa-sl">MP</b><span class="sa-sv">${s.mp}/${s.maxMp}</span></div>
+      <div class="sa-sr"><b class="sa-sl">力量</b><span class="sa-sv">${s.str}</span><b class="sa-sl">攻撃力</b><span class="sa-sv">${s.atkMin}~${s.atkMax}</span></div>
+      <div class="sa-sr"><b class="sa-sl">敏捷</b><span class="sa-sv">${s.agi}</span><b class="sa-sl">命中率</b><span class="sa-sv">${s.hitRate}</span></div>
+      <div class="sa-sr"><b class="sa-sl">準確</b><span class="sa-sv">${s.acc}</span><b class="sa-sl">回避率</b><span class="sa-sv">${s.dodgeRate}</span></div>
+      <div class="sa-sr"><b class="sa-sl">幸運</b><span class="sa-sv">${s.luk}</span><b class="sa-sl">屬性</b><span class="sa-sv">${s.element}</span></div>
     `;
-            this._el.appendChild(stats1);
+            this._el.appendChild(stats);
 
-            // ── 8 DIMENSION STATS ──
-            const stats2 = document.createElement('div');
-            stats2.className = 'sa-section';
-            stats2.innerHTML = `
-      <div class="sa-stat-grid">
-        <div class="sa-stat-row"><span class="sa-stat-label">力 量</span><span class="sa-stat-val">${pet.stats.str}</span>
-          <span class="sa-stat-label">攻撃力</span><span class="sa-stat-val">${pet.stats.atkMin}~${pet.stats.atkMax}</span></div>
-        <div class="sa-stat-row"><span class="sa-stat-label">敏 捷</span><span class="sa-stat-val">${pet.stats.agi}</span>
-          <span class="sa-stat-label">命中率</span><span class="sa-stat-val">${pet.stats.hitRate}</span></div>
-        <div class="sa-stat-row"><span class="sa-stat-label">準 確</span><span class="sa-stat-val">${pet.stats.acc}</span>
-          <span class="sa-stat-label">回避率</span><span class="sa-stat-val">${pet.stats.dodgeRate}</span></div>
-        <div class="sa-stat-row"><span class="sa-stat-label">幸 運</span><span class="sa-stat-val">${pet.stats.luk}</span>
-          <span class="sa-stat-label">屬 性</span><span class="sa-stat-val">${pet.stats.element}</span></div>
-      </div>
-    `;
-            this._el.appendChild(stats2);
-
-            // ── 6 EQUIPMENT SLOTS ──
-            const equipSection = document.createElement('div');
-            equipSection.className = 'sa-section';
-            equipSection.style.cssText = 'display:flex;gap:4px;justify-content:center';
-            const slots = Object.values(PetEquipSlot);
-            for (const slot of slots) {
-                  const slotEl = document.createElement('div');
-                  slotEl.className = 'sa-equip-slot';
-                  const isUnlocked = this._equipment.isSlotUnlocked(pet.def.id, slot);
-                  const equipped = this._equipment.getEquipped(pet.def.id, slot);
-                  if (!isUnlocked) {
-                        slotEl.innerHTML = '<span style="font-size:16px;font-weight:700;color:#8B7355">X</span>';
-                        slotEl.title = `${slot} — Locked (Shop unlock)`;
-                  } else if (equipped) {
-                        slotEl.innerHTML = `<span style="font-size:9px;color:#5C3D1A">${equipped.name.substring(0, 4)}</span>`;
-                        slotEl.style.borderColor = '#C4993D';
-                  } else {
-                        slotEl.innerHTML = '<span style="font-size:9px;color:#AAA">Empty</span>';
-                  }
-                  equipSection.appendChild(slotEl);
+            // ── 6 EQUIPMENT ──
+            const eqSec = document.createElement('div');
+            eqSec.className = 'sa-sec';
+            eqSec.style.cssText = 'display:flex;gap:3px;justify-content:center;padding:4px 8px';
+            for (const slot of Object.values(PetEquipSlot)) {
+                  const el = document.createElement('div');
+                  el.className = 'sa-equip-slot';
+                  el.style.cssText = 'width:36px;height:36px';
+                  const unlocked = this._eq.isSlotUnlocked(pet.def.id, slot);
+                  if (!unlocked) el.innerHTML = '<span style="font-size:14px;font-weight:700;color:#8B7355">X</span>';
+                  else el.innerHTML = '<span style="font-size:8px;color:#AAA">—</span>';
+                  el.title = `${slot}${unlocked ? '' : ' (Locked)'}`;
+                  eqSec.appendChild(el);
             }
-            this._el.appendChild(equipSection);
+            this._el.appendChild(eqSec);
 
-            // ── PET STORAGE ──
-            this._renderStorage();
-
-            // ── 5 BUFF SLOTS ──
-            this._renderBuffSlots(pet);
+            this._renderBottom();
       }
 
-      private _renderStorage(): void {
-            const section = document.createElement('div');
-            section.className = 'sa-section';
+      /** Bottom: deploy(left) + storage(right) + buff row */
+      private _renderBottom(): void {
+            // ── DEPLOY + STORAGE with drag-drop ──
+            const sec = document.createElement('div');
+            sec.className = 'sa-sec';
+            sec.style.cssText = 'padding:4px 6px';
 
-            // Tab pages
-            const totalPages = Math.ceil(this._petManager.owned.length / ITEMS_PER_PAGE) || 1;
+            // Tabs
+            const inactive = this._pm.owned.filter(p => !p.isActive);
+            const totalPages = Math.ceil(inactive.length / (STORAGE_COLS * STORAGE_ROWS)) || 1;
             const tabs = document.createElement('div');
-            tabs.style.cssText = 'display:flex;gap:2px;margin-bottom:6px';
+            tabs.style.cssText = 'display:flex;gap:2px;margin-bottom:4px';
             for (let p = 0; p < Math.min(totalPages, 8); p++) {
-                  const tab = document.createElement('span');
-                  tab.className = `sa-tag ${p === this._storagePage ? 'sa-tag-active' : ''}`;
-                  tab.textContent = `${p + 1}`;
-                  tab.style.cursor = 'pointer';
-                  tab.addEventListener('click', () => { this._storagePage = p; this._render(); });
-                  tabs.appendChild(tab);
+                  const t = document.createElement('span');
+                  t.className = `sa-tag ${p === this._page ? 'sa-tag-active' : ''}`;
+                  t.textContent = `${p + 1}`;
+                  t.style.cursor = 'pointer';
+                  t.addEventListener('click', () => { this._page = p; this._render(); });
+                  tabs.appendChild(t);
             }
-            section.appendChild(tabs);
+            sec.appendChild(tabs);
 
-            // Layout: LEFT = 3 deploy slots vertical | RIGHT = storage grid
+            // Layout flex: deploy | storage
             const layout = document.createElement('div');
-            layout.style.cssText = 'display:flex;gap:6px;align-items:flex-start';
+            layout.style.cssText = 'display:flex;gap:4px';
 
-            // LEFT: 3 Deploy slots (vertical column)
+            // LEFT: 3 deploy vertical
             const deployCol = document.createElement('div');
-            deployCol.style.cssText = 'display:flex;flex-direction:column;gap:3px;border:2px solid #C4993D;border-radius:4px;padding:3px;background:#E8D5B0';
+            deployCol.style.cssText = 'display:flex;flex-direction:column;gap:2px;border:2px solid #C4993D;border-radius:3px;padding:2px;background:#E8D5B0';
             for (let i = 0; i < 3; i++) {
-                  const slot = document.createElement('div');
-                  slot.className = 'sa-pet-slot sa-pet-slot-deploy';
-                  slot.style.cssText = 'width:42px;height:42px';
-                  const pet = this._petManager.active[i];
+                  const slot = this._makeSlot(36, 36, true);
+                  const pet = this._pm.active[i];
                   if (pet) {
-                        const c = SERIES_COLORS[pet.def.series];
-                        slot.style.borderColor = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
-                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:30px;height:30px" alt="${pet.def.name}">`;
-                        slot.title = `${pet.def.name} Lv.${pet.stats.level} (Click to recall)`;
-                        slot.addEventListener('click', () => {
-                              const activeIdx = this._petManager.active.indexOf(pet);
-                              if (activeIdx >= 0) this._petManager.recall(activeIdx);
-                              this._render();
-                        });
+                        slot.style.borderColor = this._cssColor(pet);
+                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" style="width:26px;height:26px;pointer-events:none" alt="">`;
+                        slot.draggable = true;
+                        slot.addEventListener('dragstart', (e) => { this._dragPet = pet; e.dataTransfer!.effectAllowed = 'move'; });
                   }
+                  // Drop: storage→deploy
+                  slot.addEventListener('dragover', (e) => { e.preventDefault(); slot.style.boxShadow = '0 0 6px #C4993D'; });
+                  slot.addEventListener('dragleave', () => { slot.style.boxShadow = ''; });
+                  slot.addEventListener('drop', (e) => {
+                        e.preventDefault(); slot.style.boxShadow = '';
+                        if (this._dragPet && !this._dragPet.isActive) {
+                              const idx = this._pm.owned.indexOf(this._dragPet);
+                              if (idx >= 0) this._pm.deploy(idx);
+                              this._dragPet = null; this._render();
+                        }
+                  });
+                  // Click fallback
+                  if (pet) slot.addEventListener('click', () => { this._sel = pet; this._render(); });
                   deployCol.appendChild(slot);
             }
             layout.appendChild(deployCol);
 
-            // RIGHT: Storage grid (5 columns)
+            // RIGHT: storage grid
             const gridWrap = document.createElement('div');
-            gridWrap.style.cssText = 'flex:1;border:2px solid #8B7355;border-radius:4px;padding:3px;background:#D4C4A0';
-            const grid = document.createElement('div');
-            grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:2px';
+            gridWrap.style.cssText = 'flex:1;border:2px solid #8B7355;border-radius:3px;padding:2px;background:#D4C4A0';
+            // Drop zone for recall (entire grid)
+            gridWrap.addEventListener('dragover', (e) => { e.preventDefault(); });
+            gridWrap.addEventListener('drop', (e) => {
+                  e.preventDefault();
+                  if (this._dragPet && this._dragPet.isActive) {
+                        const ai = this._pm.active.indexOf(this._dragPet);
+                        if (ai >= 0) this._pm.recall(ai);
+                        this._dragPet = null; this._render();
+                  }
+            });
 
-            const start = this._storagePage * ITEMS_PER_PAGE;
-            const inactive = this._petManager.owned.filter(p => !p.isActive);
-            for (let i = 0; i < 20; i++) {
-                  const slot = document.createElement('div');
-                  slot.className = 'sa-pet-slot';
-                  slot.style.cssText = 'width:auto;height:38px';
+            const grid = document.createElement('div');
+            grid.style.cssText = `display:grid;grid-template-columns:repeat(${STORAGE_COLS},1fr);gap:2px`;
+            const start = this._page * STORAGE_COLS * STORAGE_ROWS;
+            for (let i = 0; i < STORAGE_COLS * STORAGE_ROWS; i++) {
+                  const slot = this._makeSlot(0, 32, false);
+                  slot.style.width = 'auto';
                   const pet = inactive[start + i];
                   if (pet) {
-                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" style="width:28px;height:28px" alt="${pet.def.name}">`;
-                        slot.title = `${pet.def.name} Lv.${pet.stats.level} (Click: view / Dbl: deploy)`;
-                        slot.addEventListener('click', () => { this._selectedPet = pet; this._render(); });
-                        slot.addEventListener('dblclick', () => {
-                              const ownedIdx = this._petManager.owned.indexOf(pet);
-                              if (ownedIdx >= 0) this._petManager.deploy(ownedIdx);
-                              this._render();
-                        });
+                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" style="width:24px;height:24px;pointer-events:none" alt="">`;
+                        slot.draggable = true;
+                        slot.title = `${pet.def.name} Lv.${pet.stats.level}`;
+                        slot.addEventListener('dragstart', (e) => { this._dragPet = pet; e.dataTransfer!.effectAllowed = 'move'; });
+                        slot.addEventListener('click', () => { this._sel = pet; this._render(); });
                   }
                   grid.appendChild(slot);
             }
             gridWrap.appendChild(grid);
             layout.appendChild(gridWrap);
+            sec.appendChild(layout);
+            this._el.appendChild(sec);
 
-            section.appendChild(layout);
-            this._el.appendChild(section);
-      }
-
-      private _renderBuffSlots(pet: Pet): void {
-            const section = document.createElement('div');
-            section.className = 'sa-section';
-            section.style.cssText = 'display:flex;gap:4px;justify-content:center';
-
-            const slots = this._petBuff.getSlots(pet.def.id);
-            for (let i = 0; i < 5; i++) {
-                  const slotEl = document.createElement('div');
-                  slotEl.className = 'sa-buff-slot';
-                  const buff = slots[i];
-                  if (buff) {
-                        const mins = Math.ceil(buff.remainingMs / 60000);
-                        slotEl.innerHTML = `<span style="font-size:8px;color:#5C3D1A">${buff.def.name.substring(0, 3)}</span>
-          <span style="font-size:7px;color:#8B7355">${mins}m</span>`;
-                        slotEl.title = `${buff.def.description} — ${mins}min left`;
+            // ── 5 BUFF SLOTS ──
+            if (this._sel) {
+                  const buffSec = document.createElement('div');
+                  buffSec.className = 'sa-sec';
+                  buffSec.style.cssText = 'display:flex;gap:3px;justify-content:center;padding:3px 6px';
+                  const slots = this._buff.getSlots(this._sel.def.id);
+                  for (let i = 0; i < 5; i++) {
+                        const el = this._makeSlot(32, 32, false);
+                        const b = slots[i];
+                        if (b) {
+                              const m = Math.ceil(b.remainingMs / 60000);
+                              el.innerHTML = `<span style="font-size:7px;color:#5C3D1A">${b.def.name.substring(0, 3)}</span><span style="font-size:6px;color:#8B7355">${m}m</span>`;
+                        }
+                        buffSec.appendChild(el);
                   }
-                  section.appendChild(slotEl);
+                  this._el.appendChild(buffSec);
             }
-            this._el.appendChild(section);
       }
 
-      refresh(): void {
-            if (this._el.style.display !== 'none') this._render();
+      private _makeSlot(w: number, h: number, isDeploy: boolean): HTMLDivElement {
+            const el = document.createElement('div');
+            el.className = isDeploy ? 'sa-pet-slot sa-pet-slot-deploy' : 'sa-pet-slot';
+            if (w) el.style.width = w + 'px';
+            if (h) el.style.height = h + 'px';
+            return el;
       }
 
+      private _cssColor(pet: Pet): string {
+            const c = SERIES_COLORS[pet.def.series];
+            return `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
+      }
+
+      refresh(): void { if (this._el.style.display !== 'none') this._render(); }
       dispose(): void { this._el.remove(); }
 }
