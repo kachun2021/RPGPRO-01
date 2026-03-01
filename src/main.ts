@@ -7,6 +7,8 @@ import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
 import { PanelManager } from './ui/PanelManager';
+import { PetManager } from './pets/PetManager';
+import { PetControlBar } from './ui/PetControlBar';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -33,7 +35,16 @@ async function bootstrap(): Promise<void> {
       Registry.scene.activeCamera = landscapeCamera.camera;
       mainScene.camera.dispose();
 
-      // 6. Input
+      // 6. Pets
+      const petManager = new PetManager(Registry.scene, mainScene.shadowGenerator);
+      petManager.giveStarterPets();
+      Registry.petManager = petManager;
+
+      // 7. Pet Control Bar
+      const petControlBar = new PetControlBar();
+      petControlBar.updateSlots(petManager);
+
+      // 8. Input
       const joystick = new TouchJoystick();
 
       // 7. HUD
@@ -75,14 +86,18 @@ async function bootstrap(): Promise<void> {
             // Camera follow
             landscapeCamera.update(dt, player.position);
 
+            // Update pets
+            petManager.update(dt, player.position);
+
             // Update HUD
             hud.updateStats(player.stats);
+            petControlBar.updateSlots(petManager);
       });
 
-      // 12. Start render loop
+      // 14. Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P2 Ready — Player + HUD + Joystick + Camera');
+      console.log('[Fantasy Pet Online] P3 Ready — Pets + 8 Series + 3 Active');
 }
 
 bootstrap().catch(err => {

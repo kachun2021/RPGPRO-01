@@ -348,7 +348,7 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 
 ---
 
-## Prompt 3/15：🐾 八大系列 + PetManager + 3出戰（13–20%）
+## ✅ Prompt 3/15：🐾 八大系列 + PetManager + 3出戰（13–20%）— DONE
 
 **新建（5 檔案）：**
 
