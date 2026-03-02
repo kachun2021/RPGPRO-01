@@ -27,6 +27,11 @@ import { FloatingDamage } from './combat/FloatingDamage';
 import { MonsterManager } from './entities/MonsterManager';
 import { EggDropSystem } from './systems/EggDropSystem';
 import { CombatLoop } from './combat/CombatLoop';
+// P6 Zone World
+import { ZoneManager } from './world/ZoneManager';
+import { TeleportSystem } from './world/TeleportSystem';
+import { ZoneTransition } from './ui/ZoneTransition';
+import { WorldMapPanel } from './ui/WorldMapPanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -104,7 +109,7 @@ async function bootstrap(): Promise<void> {
 
       // 13d. Monster Manager
       const monsterManager = new MonsterManager(Registry.scene, mainScene.shadowGenerator);
-      monsterManager.spawnForZone();
+      // NOTE: Don't spawn here — ZoneManager.buildInitialZone() handles it
       Registry.monsterManager = monsterManager;
 
       // 13e. Egg Drop System
@@ -145,6 +150,29 @@ async function bootstrap(): Promise<void> {
       });
       document.getElementById('ui-layer')?.appendChild(autoGrindBtn);
 
+      // ── P6 Zone System ──
+      const zoneTransition = new ZoneTransition();
+      const zoneManager = new ZoneManager(Registry.scene, mainScene.shadowGenerator);
+      const worldMapPanel = new WorldMapPanel(zoneManager);
+      const teleportSystem = new TeleportSystem(zoneManager, () => player.position);
+
+      // Wire zone manager dependencies
+      zoneManager.wire({
+            monsterManager,
+            transition: zoneTransition,
+            minimap,
+            onPlayerReset: (x, z) => {
+                  player.position.x = x;
+                  player.position.z = z;
+                  player.position.y = 0;
+                  player.combatTarget = null;
+                  combatLoop.clearTarget();
+            },
+      });
+
+      // Build initial zone (Starter Meadow)
+      await zoneManager.buildInitialZone('starter_meadow');
+
       // 14. PanelManager
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
@@ -184,9 +212,12 @@ async function bootstrap(): Promise<void> {
             petPanel.refresh();
       });
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-community', 'nav-quest', 'nav-map']) {
+      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-community', 'nav-quest']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-map')?.addEventListener('click', () => {
+            worldMapPanel.toggle();
+      });
       hud.getNavButton('nav-skill')?.addEventListener('click', () => {
             skillPanel.toggle();
       });
@@ -229,12 +260,15 @@ async function bootstrap(): Promise<void> {
 
             // Update minimap coordinates
             minimap.updatePosition(player.position.x, player.position.z);
+
+            // P6: Teleport gate proximity check
+            teleportSystem.update(dt);
       });
 
       // Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P5 Combat Ready — Monsters + Skills + Projectiles + EggDrop');
+      console.log('[Fantasy Pet Online] P6 Zone World Ready — 17 Zones + Teleport + WorldMap');
 }
 
 bootstrap().catch(err => {

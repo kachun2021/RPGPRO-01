@@ -49,52 +49,21 @@ export class MainScene {
             // Only right-click rotate (cast needed — property exists at runtime)
             (this.camera.inputs.attached.pointers as any).buttons = [1];
 
-            // --- Sunlight + Shadows ---
-            this.sun = new DirectionalLight('sun', new Vector3(-0.5, -1, -0.3), this.scene);
+            // --- Shadow Generator (needs a temporary light, ZoneRenderer will create the real one) ---
+            this.sun = new DirectionalLight('main_sun', new Vector3(-0.5, -1, -0.3), this.scene);
             this.sun.intensity = 1.8;
-            this.sun.diffuse = new Color3(1.0, 0.95, 0.85); // warm sun
+            this.sun.diffuse = new Color3(1.0, 0.95, 0.85);
             this.sun.position = new Vector3(30, 50, 30);
 
             this.shadowGenerator = new ShadowGenerator(2048, this.sun);
             this.shadowGenerator.usePercentageCloserFiltering = true;
             this.shadowGenerator.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
 
-            // --- Ambient Light ---
-            const hemi = new HemisphericLight('hemi', Vector3.Up(), this.scene);
-            hemi.intensity = 0.8;
-            hemi.diffuse = new Color3(0.7, 0.8, 1.0);     // sky blue
-            hemi.groundColor = new Color3(0.3, 0.25, 0.2); // earth brown
-
-            // PBR environment — use ambient + direct lighting (no env texture in dev)
+            // PBR environment
             this.scene.ambientColor = new Color3(0.25, 0.25, 0.3);
 
-            // --- PBR Ground ---
-            const ground = MeshBuilder.CreateGround('ground', {
-                  width: 200,
-                  height: 200,
-                  subdivisions: 32,
-            }, this.scene);
-
-            const groundMat = new PBRMaterial('groundMat', this.scene);
-
-            const grassDiffuse = new Texture('assets/textures/grass_diffuse.png', this.scene);
-            grassDiffuse.uScale = 16;
-            grassDiffuse.vScale = 16;
-            groundMat.albedoTexture = grassDiffuse;
-
-            const grassNormal = new Texture('assets/textures/grass_normal.png', this.scene);
-            grassNormal.uScale = 16;
-            grassNormal.vScale = 16;
-            groundMat.bumpTexture = grassNormal;
-
-            groundMat.roughness = 0.85;
-            groundMat.metallic = 0.0;
-            groundMat.environmentIntensity = 0.6;
-            groundMat.ambientColor = new Color3(0.3, 0.35, 0.25);
-            groundMat.directIntensity = 1.5;
-
-            ground.material = groundMat;
-            ground.receiveShadows = true;
+            // NOTE: Ground + Zone lights are now created by ZoneRenderer per-zone.
+            // ZoneManager.buildInitialZone() must be called after this.
 
             // --- Post-Processing Pipeline ---
             const pipeline = new DefaultRenderingPipeline('pipeline', true, this.scene, [this.camera]);
@@ -115,19 +84,11 @@ export class MainScene {
             pipeline.imageProcessing.exposure = 1.2;
             pipeline.imageProcessing.contrast = 1.2;
 
-            // SSAO deferred to P15 (WebGPU compatibility)
-
-            // --- Sky Gradient (procedural) ---
-            this._createSkyGradient();
-
-            // --- Debug Markers removed (P5) ---
-            // this._createMarkers();
-
             // Register
             Registry.scene = this.scene;
             this._engineManager.scene = this.scene;
 
-            console.log('[MainScene] PBR scene built: shadow + bloom + ACES');
+            console.log('[MainScene] Scene shell built: camera + shadow + bloom + ACES (terrain via ZoneRenderer)');
       }
 
       private _createSkyGradient(): void {
