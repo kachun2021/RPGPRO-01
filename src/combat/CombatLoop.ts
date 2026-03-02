@@ -11,6 +11,9 @@ import type { PetManager } from '../pets/PetManager';
 import type { Pet } from '../pets/Pet';
 import { PET_DEFS, PetSeries } from '../pets/PetData';
 import type { SkillBar } from '../ui/SkillBar';
+import type { DropTable } from '../systems/DropTable';
+import type { DropItemManager } from '../entities/DropItem';
+import type { Inventory } from '../systems/Inventory';
 
 /**
  * CombatLoop - orchestrates combat flow:
@@ -30,6 +33,11 @@ export class CombatLoop {
       private _eggDropSystem: EggDropSystem;
       private _petManager: PetManager;
       private _skillBar: SkillBar | null = null;
+
+      // P7: Drop system references
+      private _dropTable: DropTable | null = null;
+      private _dropItemManager: DropItemManager | null = null;
+      private _inventory: Inventory | null = null;
 
       private _target: Monster | null = null;
       private _autoGrind = false;
@@ -84,6 +92,13 @@ export class CombatLoop {
       /** Connect SkillBar for CD visualization */
       setSkillBar(bar: SkillBar): void {
             this._skillBar = bar;
+      }
+
+      /** P7: Connect drop system */
+      setDropSystem(dropTable: DropTable, dropItemManager: DropItemManager, inventory: Inventory): void {
+            this._dropTable = dropTable;
+            this._dropItemManager = dropItemManager;
+            this._inventory = inventory;
       }
 
       // -- Pointer Pick --
@@ -320,12 +335,29 @@ export class CombatLoop {
       private _handleMonsterDeath(monster: Monster): void {
             console.log('[Combat] Killed:', monster.def.name);
 
+            // Track kill stats
+            if (this._inventory) {
+                  this._inventory.totalKills++;
+                  this._inventory.totalExpGained += monster.def.level * 10;
+            }
+
+            // P5: Egg drop
             const eggId = this._eggDropSystem.rollDrop(monster.def.eggDropRate, monster.def.eggPetId);
             if (eggId) {
                   this._eggDropSystem.announce(this._playerName, eggId);
                   const gender = Math.random() > 0.5 ? 'male' : 'female';
                   this._petManager.addPet(eggId, gender as any);
                   console.log('[Combat] Egg dropped!', eggId);
+            }
+
+            // P7: Drop items
+            if (this._dropTable && this._dropItemManager) {
+                  const isBoss = monster.def.isBoss;
+                  const drops = this._dropTable.rollDrops(monster.def.level, isBoss);
+                  if (drops.length > 0) {
+                        this._dropItemManager.spawnDrops(drops, monster.root.position);
+                        console.log(`[Combat] Dropped ${drops.length} items`);
+                  }
             }
 
             if (this._target === monster) {

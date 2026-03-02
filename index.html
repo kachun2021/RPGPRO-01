@@ -1173,6 +1173,247 @@
     .wmp-teleport-footer-btn:active:not(:disabled) {
       transform: scale(0.97);
     }
+
+    /* ===== P7: INVENTORY PANEL ===== */
+    .inv-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 400px !important;
+      max-height: 80vh !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
+    }
+
+    .inv-gold {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(232, 201, 106, 0.8);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .inv-tabs {
+      display: flex;
+      gap: 3px;
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.15);
+      background: rgba(30, 25, 45, 0.5);
+    }
+
+    .inv-tab {
+      flex: 1;
+      padding: 4px 0;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      background: rgba(20, 16, 30, 0.6);
+      color: rgba(200, 195, 185, 0.5);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .inv-tab:hover {
+      color: rgba(232, 201, 106, 0.7);
+      border-color: rgba(160, 130, 80, 0.35);
+    }
+
+    .inv-tab-active {
+      background: rgba(160, 130, 80, 0.2) !important;
+      color: rgba(232, 201, 106, 0.9) !important;
+      border-color: rgba(232, 201, 106, 0.5) !important;
+    }
+
+    .inv-sort-btn {
+      padding: 4px 8px;
+      font-size: 9px;
+      font-weight: 600;
+      background: rgba(160, 130, 80, 0.15);
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      color: rgba(200, 195, 185, 0.5);
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .inv-sort-btn:hover {
+      color: rgba(232, 201, 106, 0.7);
+    }
+
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+      padding: 8px;
+      overflow-y: auto;
+      max-height: calc(80vh - 80px);
+    }
+
+    .inv-slot {
+      aspect-ratio: 1;
+      background: rgba(20, 16, 30, 0.6);
+      border: 1px solid rgba(160, 130, 80, 0.15);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: default;
+    }
+
+    .inv-slot-filled {
+      cursor: pointer;
+    }
+
+    .inv-slot-filled:hover {
+      border-color: rgba(232, 201, 106, 0.4);
+      background: rgba(160, 130, 80, 0.1);
+    }
+
+    .inv-icon {
+      font-size: 20px;
+    }
+
+    .inv-qty {
+      position: absolute;
+      bottom: 2px;
+      right: 3px;
+      font-size: 8px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.7);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Tooltip */
+    .inv-tooltip {
+      position: absolute;
+      background: rgba(15, 12, 25, 0.96);
+      border: 1px solid rgba(160, 130, 80, 0.4);
+      border-radius: 5px;
+      padding: 8px 10px;
+      z-index: 310;
+      min-width: 150px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .inv-tt-name {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .inv-tt-rarity {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.4);
+      margin-bottom: 4px;
+    }
+
+    .inv-tt-desc {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .inv-tt-qty {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.4);
+      margin-bottom: 6px;
+    }
+
+    .inv-tt-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .inv-tt-btn {
+      flex: 1;
+      padding: 4px 0;
+      font-size: 9px;
+      font-weight: 700;
+      border: 1px solid rgba(160, 130, 80, 0.3);
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      background: rgba(160, 130, 80, 0.12);
+      color: rgba(200, 195, 185, 0.6);
+      transition: all 0.15s;
+    }
+
+    .inv-tt-btn:hover {
+      background: rgba(160, 130, 80, 0.25);
+      color: rgba(232, 201, 106, 0.9);
+    }
+
+    .inv-discard-btn:hover {
+      background: rgba(200, 50, 50, 0.3) !important;
+      color: #E74C3C !important;
+    }
+
+    /* ===== P7: AFK PANEL ===== */
+    .afk-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 300px !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
+    }
+
+    .afk-body {
+      padding: 8px 12px;
+    }
+
+    .afk-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.08);
+    }
+
+    .afk-label {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.6);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .afk-value {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.85);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .afk-dps .afk-value {
+      color: #E74C3C;
+    }
+
+    /* ===== P7: PICKUP TEXT ===== */
+    .pickup-text {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      pointer-events: none;
+      z-index: 250;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.8s;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .pickup-text.show {
+      opacity: 1;
+      transform: translate(-50%, -30px);
+    }
   </style>
 </head>
 

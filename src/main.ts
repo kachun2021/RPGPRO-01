@@ -32,6 +32,12 @@ import { ZoneManager } from './world/ZoneManager';
 import { TeleportSystem } from './world/TeleportSystem';
 import { ZoneTransition } from './ui/ZoneTransition';
 import { WorldMapPanel } from './ui/WorldMapPanel';
+// P7 Drops + Inventory
+import { DropTable } from './systems/DropTable';
+import { DropItemManager } from './entities/DropItem';
+import { Inventory } from './systems/Inventory';
+import { InventoryPanel } from './ui/InventoryPanel';
+import { AFKPanel } from './ui/AFKPanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -131,6 +137,13 @@ async function bootstrap(): Promise<void> {
       );
       combatLoop.setSkillBar(skillBar);
 
+      // P7: Drop + Inventory system
+      const inventory = new Inventory();
+      const dropTable = new DropTable();
+      const dropItemManager = new DropItemManager(Registry.scene, inventory);
+      combatLoop.setDropSystem(dropTable, dropItemManager, inventory);
+      Registry.inventory = inventory;
+
       // Wire monster damage to player
       monsterManager.onDamagePlayer = (dmg: number, monName: string) => {
             const actualDmg = Math.max(1, dmg - player.stats.def * 0.5);
@@ -211,10 +224,19 @@ async function bootstrap(): Promise<void> {
             petPanel.toggle();
             petPanel.refresh();
       });
+      // P7: Inventory Panel
+      const inventoryPanel = new InventoryPanel(inventory);
+
+      // P7: AFK Panel
+      const afkPanel = new AFKPanel(inventory);
+
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-community', 'nav-quest']) {
+      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-community', 'nav-quest']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-bag')?.addEventListener('click', () => {
+            inventoryPanel.toggle();
+      });
       hud.getNavButton('nav-map')?.addEventListener('click', () => {
             worldMapPanel.toggle();
       });
@@ -263,12 +285,15 @@ async function bootstrap(): Promise<void> {
 
             // P6: Teleport gate proximity check
             teleportSystem.update(dt);
+
+            // P7: Drop item pickup
+            dropItemManager.update(dt, player.position);
       });
 
       // Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P6 Zone World Ready — 17 Zones + Teleport + WorldMap');
+      console.log('[Fantasy Pet Online] P7 Ready — AUTO + Drops + Inventory + AFK');
 }
 
 bootstrap().catch(err => {
