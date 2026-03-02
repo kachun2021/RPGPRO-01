@@ -882,60 +882,296 @@
       /* positioned by JS */
     }
 
-    /* ===== WORLD MAP PANEL ===== */
-    .zone-card {
-      background: rgba(20, 16, 30, 0.6);
-      border: 1px solid rgba(160, 130, 80, 0.2);
-      border-radius: 4px;
-      padding: 6px 8px;
-      transition: border-color 0.2s, background 0.2s;
+    /* ===== WORLD MAP PANEL (Premium Split) ===== */
+    .wmp-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 680px !important;
+      max-height: 80vh !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
     }
 
-    .zone-card:hover:not(.zone-locked) {
-      border-color: rgba(232, 201, 106, 0.4);
-      background: rgba(160, 130, 80, 0.12);
+    .wmp-body {
+      display: flex;
+      height: calc(80vh - 36px);
+      overflow: hidden;
     }
 
-    .zone-current {
-      border-color: rgba(232, 201, 106, 0.5) !important;
+    /* Left column: zone list */
+    .wmp-list {
+      width: 260px;
+      min-width: 260px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-right: 1px solid rgba(160, 130, 80, 0.15);
+      padding: 4px 0;
+    }
+
+    .wmp-zone-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 8px;
+      gap: 6px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.08);
+      transition: background 0.15s;
+    }
+
+    .wmp-zone-row:hover {
+      background: rgba(160, 130, 80, 0.08);
+    }
+
+    .wmp-selected {
       background: rgba(160, 130, 80, 0.15) !important;
+      border-left: 2px solid rgba(232, 201, 106, 0.7);
     }
 
-    .zone-locked {
-      opacity: 0.4;
-      cursor: default !important;
+    .wmp-current {
+      background: rgba(160, 130, 80, 0.1);
     }
 
-    .zone-card-header {
+    .wmp-locked {
+      opacity: 0.35;
+    }
+
+    .wmp-zone-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wmp-zone-top {
       display: flex;
       align-items: center;
       gap: 4px;
-      margin-bottom: 2px;
     }
 
-    .zone-card-emoji {
-      font-size: 14px;
+    .wmp-zone-emoji {
+      font-size: 13px;
     }
 
-    .zone-card-name {
+    .wmp-zone-name {
       font-family: 'Inter', sans-serif;
       font-size: 11px;
       font-weight: 700;
-      color: rgba(220, 215, 200, 0.8);
+      color: rgba(220, 215, 200, 0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .zone-card-info {
+    .wmp-zone-lv {
       font-size: 9px;
+      color: rgba(200, 195, 185, 0.45);
+      font-family: 'Inter', sans-serif;
+      margin-top: 1px;
+    }
+
+    .wmp-here {
+      font-size: 10px;
+      margin-left: 2px;
+    }
+
+    .wmp-lock {
+      font-size: 9px;
+      opacity: 0.5;
+      margin-left: 2px;
+    }
+
+    /* Teleport button */
+    .wmp-teleport-btn {
+      flex-shrink: 0;
+      padding: 3px 8px;
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: linear-gradient(180deg, rgba(232, 201, 106, 0.85), rgba(196, 153, 61, 0.9));
+      color: #0A0E1A;
+      white-space: nowrap;
+      transition: transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .wmp-teleport-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(232, 201, 106, 0.3);
+    }
+
+    .wmp-teleport-btn:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    .wmp-btn-disabled {
+      background: rgba(60, 50, 70, 0.6) !important;
+      color: rgba(200, 195, 185, 0.35) !important;
+      cursor: default !important;
+      box-shadow: none !important;
+    }
+
+    /* Right column: zone detail */
+    .wmp-detail {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 12px;
+    }
+
+    .wmp-detail-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: rgba(200, 195, 185, 0.3);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .wmp-detail-header {
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.2);
+      margin-bottom: 6px;
+    }
+
+    .wmp-detail-title {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      letter-spacing: 1px;
+      text-shadow: 0 1px 6px rgba(232, 201, 106, 0.2);
+    }
+
+    .wmp-detail-sub {
+      font-size: 10px;
       color: rgba(200, 195, 185, 0.5);
+      margin-top: 2px;
+    }
+
+    .wmp-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.75);
+      margin: 8px 0 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.12);
+    }
+
+    /* Monster table */
+    .wmp-monster-table {
+      font-size: 10px;
       font-family: 'Inter', sans-serif;
     }
 
-    .zone-here {
-      color: rgba(232, 201, 106, 0.8);
+    .wmp-mt-header {
+      display: grid;
+      grid-template-columns: 1fr 36px 52px 44px;
+      gap: 4px;
+      padding: 2px 4px;
+      color: rgba(200, 195, 185, 0.4);
+      font-size: 9px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.1);
     }
 
-    .zone-lock {
-      color: rgba(200, 195, 185, 0.3);
+    .wmp-mt-row {
+      display: grid;
+      grid-template-columns: 1fr 36px 52px 44px;
+      gap: 4px;
+      padding: 3px 4px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.05);
+      color: rgba(220, 215, 200, 0.7);
+      transition: background 0.1s;
+    }
+
+    .wmp-mt-row:hover {
+      background: rgba(160, 130, 80, 0.06);
+    }
+
+    .wmp-mt-boss {
+      background: rgba(232, 201, 106, 0.06) !important;
+      border-left: 2px solid rgba(232, 201, 106, 0.4);
+    }
+
+    .wmp-mt-boss .wmp-mt-name {
+      color: rgba(232, 201, 106, 0.85);
+      font-weight: 700;
+    }
+
+    .wmp-aggro {
+      color: #E74C3C !important;
+    }
+
+    .wmp-passive {
+      color: rgba(39, 174, 96, 0.8) !important;
+    }
+
+    .wmp-mt-lv {
+      text-align: center;
+    }
+
+    .wmp-mt-egg {
+      text-align: center;
+      color: rgba(232, 201, 106, 0.6);
+    }
+
+    /* Drop list */
+    .wmp-drop-list {
+      font-size: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .wmp-drop-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 4px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.05);
+      color: rgba(220, 215, 200, 0.6);
+    }
+
+    .wmp-drop-boss {
+      background: rgba(232, 201, 106, 0.06);
+      border-left: 2px solid rgba(232, 201, 106, 0.3);
+    }
+
+    .wmp-drop-rate {
+      color: rgba(232, 201, 106, 0.6);
+      font-weight: 600;
+    }
+
+    /* Footer teleport button */
+    .wmp-detail-footer {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .wmp-teleport-footer-btn {
+      width: 100%;
+      padding: 8px 0;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: linear-gradient(180deg, #E8C96A, #C4993D);
+      color: #0A0E1A;
+      letter-spacing: 1px;
+      transition: transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 12px rgba(232, 201, 106, 0.15);
+    }
+
+    .wmp-teleport-footer-btn:hover:not(:disabled) {
+      transform: scale(1.02);
+      box-shadow: 0 3px 12px rgba(232, 201, 106, 0.3);
+    }
+
+    .wmp-teleport-footer-btn:active:not(:disabled) {
+      transform: scale(0.97);
     }
   </style>
 </head>
