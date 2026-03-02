@@ -120,8 +120,8 @@ export class MainScene {
             // --- Sky Gradient (procedural) ---
             this._createSkyGradient();
 
-            // --- Visible Markers (P1 debug — removed in P2) ---
-            this._createMarkers();
+            // --- Debug Markers removed (P5) ---
+            // this._createMarkers();
 
             // Register
             Registry.scene = this.scene;

@@ -10,9 +10,9 @@ Before executing, announce: "I'm using /xxx for this task"
 | Priority | Keywords | WORKFLOW |
 |----------|----------|----------|
 | 1 | FPS, memory, WebGPU, Snapshot, Live Ops, GPU, frame drop, performance | /perf |
-| 2 | pet, fusion, PEF, encyclopedia, 8 series, egg, pet AI, pet equipment, counter | /pet |
+| 2 | pet, fusion, PEF, encyclopedia, 8 series, egg, pet follow, pet equipment, counter | /pet |
 | 3 | map, world, zone, teleport, biome, terrain | /world |
-| 4 | combat, skill, element, damage, Boss, hit stop, cooldown, counter, monster, grind, mob | /combat |
+| 4 | combat, skill, element, damage, Boss, hit stop, cooldown, counter, monster, grind, mob, projectile, auto-skill, egg drop, aggressive, passive | /combat |
 | 5 | equipment, enhance, resonance, set bonus, wear, dismantle | /combat |
 | 6 | stat allocation, awakening, rebirth, skill tree, five stats | /combat |
 | 7 | multiplayer, sync, Firebase, matchmaking, anti-cheat, PvP, guild, party, friend, same-map | /multi |

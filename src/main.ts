@@ -19,6 +19,14 @@ import { RevivalPanel } from './ui/RevivalPanel';
 import { ChatBox } from './ui/ChatBox';
 import { Minimap } from './ui/Minimap';
 import { SkillBar } from './ui/SkillBar';
+import { SkillPanel } from './ui/SkillPanel';
+// P5 Combat
+import { CombatSystem } from './combat/CombatSystem';
+import { ProjectileSystem } from './combat/ProjectileSystem';
+import { FloatingDamage } from './combat/FloatingDamage';
+import { MonsterManager } from './entities/MonsterManager';
+import { EggDropSystem } from './systems/EggDropSystem';
+import { CombatLoop } from './combat/CombatLoop';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -72,13 +80,72 @@ async function bootstrap(): Promise<void> {
       // 10. Minimap
       const minimap = new Minimap();
 
-      // 11. Skill Bar (F1-F8)
+      // 11. Skill Bar (F1-F5 player + P1-P3 pets)
       const skillBar = new SkillBar();
+      skillBar.setPetManager(petManager);
+
+      // 11b. Skill Panel (config sub-panel)
+      const skillPanel = new SkillPanel(skillBar, petManager);
 
       // 12. Chat Box
       const chatBox = new ChatBox();
 
-      // 13. PanelManager
+      // ── P5 Combat Systems ──
+
+      // 13a. Combat System
+      const combatSystem = new CombatSystem();
+      Registry.combatSystem = combatSystem;
+
+      // 13b. Projectile System (ranged pet attacks)
+      const projectileSystem = new ProjectileSystem(Registry.scene);
+
+      // 13c. Floating Damage Numbers
+      const floatingDamage = new FloatingDamage();
+
+      // 13d. Monster Manager
+      const monsterManager = new MonsterManager(Registry.scene, mainScene.shadowGenerator);
+      monsterManager.spawnForZone();
+      Registry.monsterManager = monsterManager;
+
+      // 13e. Egg Drop System
+      const eggDropSystem = new EggDropSystem();
+
+      // 13f. Combat Loop (orchestrates attack flow + auto-grind)
+      const combatLoop = new CombatLoop(
+            Registry.scene,
+            combatSystem,
+            projectileSystem,
+            floatingDamage,
+            monsterManager,
+            eggDropSystem,
+            petManager,
+            () => player.position,
+            (pos) => { player.combatTarget = pos; },
+            () => player.stats.atk,
+            'Player',
+      );
+      combatLoop.setSkillBar(skillBar);
+
+      // Wire monster damage to player
+      monsterManager.onDamagePlayer = (dmg: number, monName: string) => {
+            const actualDmg = Math.max(1, dmg - player.stats.def * 0.5);
+            player.stats.hp = Math.max(0, player.stats.hp - actualDmg);
+            console.log('[Combat] ' + monName + ' hit player for ' + Math.round(actualDmg));
+      };
+
+      // Auto-grind toggle button
+      const autoGrindBtn = document.createElement('button');
+      autoGrindBtn.id = 'auto-grind-btn';
+      autoGrindBtn.className = 'interactive auto-grind-btn';
+      autoGrindBtn.textContent = 'AUTO';
+      autoGrindBtn.addEventListener('click', () => {
+            combatLoop.toggleAutoGrind();
+            autoGrindBtn.classList.toggle('active', combatLoop.isAutoGrind);
+            autoGrindBtn.textContent = combatLoop.isAutoGrind ? 'AUTO ON' : 'AUTO';
+      });
+      document.getElementById('ui-layer')?.appendChild(autoGrindBtn);
+
+      // 14. PanelManager
       const panelManager = new PanelManager();
       Registry.panelManager = panelManager;
 
@@ -117,9 +184,12 @@ async function bootstrap(): Promise<void> {
             petPanel.refresh();
       });
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-skill', 'nav-community', 'nav-quest', 'nav-map']) {
+      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-bag', 'nav-community', 'nav-quest', 'nav-map']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-skill')?.addEventListener('click', () => {
+            skillPanel.toggle();
+      });
 
       // 16. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
@@ -128,7 +198,7 @@ async function bootstrap(): Promise<void> {
             setTimeout(() => loadingScreen.remove(), 1000);
       }
 
-      // 17. Game loop
+      // Game loop
       let lastTime = performance.now();
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
@@ -145,6 +215,14 @@ async function bootstrap(): Promise<void> {
             // Update pets
             petManager.update(dt, player.position);
 
+            // P5: Update combat systems
+            projectileSystem.update(dt);
+            monsterManager.update(dt, player.position);
+            combatLoop.update(dt);
+
+            // Update skill bar CD overlays
+            skillBar.update(dt);
+
             // Update HUD portraits
             hud.updateStats(player.stats);
             hud.updatePets(petManager);
@@ -153,10 +231,10 @@ async function bootstrap(): Promise<void> {
             minimap.updatePosition(player.position.x, player.position.z);
       });
 
-      // 18. Start render loop
+      // Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] Stone Age UI Ready — Portraits + Minimap + SkillBar + Chat + Monster Info');
+      console.log('[Fantasy Pet Online] P5 Combat Ready — Monsters + Skills + Projectiles + EggDrop');
 }
 
 bootstrap().catch(err => {

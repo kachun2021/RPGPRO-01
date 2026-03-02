@@ -297,3 +297,33 @@ Must use exact prompts from that file when calling generate_image.
 - 3 vertical deploy slots + 5-col storage grid
 
 See delegate.md for automatic workflow routing.
+
+## 19. Combat System Rules
+
+### Pet Attack Types
+- `attackType: 'melee'` → pet runs to monster (2m range), physical strike
+- `attackType: 'ranged'` → pet stays at 6-8m, shoots projectile sphere
+- Projectile: series-colored emissive sphere, 15 units/s travel
+- Pets follow player's selected target (no independent AI)
+
+### Monster Behavior (CHM Data)
+- 主動式 (aggressive) = attacks player within 8m detection range
+- 被動式 (passive) = only retaliates when attacked
+- Boss = 3600s respawn, +5 levels above zone average, gold nameplate
+
+### Auto-Skill Queue
+- Player + each pet has configurable skill rotation
+- UI: SkillPanel → drag skills into priority order
+- Engine: check queue top → if CD ready + MP sufficient → cast → next
+- Toggle: auto-cast ON/OFF per entity
+
+### Egg Drop Announcements
+- Drop rate: 0.1% (normal) / 5% (boss)
+- Full-screen gold text: "[Player] obtained [Pet] Egg!"
+- Zone-wide notification to all players
+- Egg → NPC hatch required
+
+### Combat Data Sources
+- Monster spawn tables: `tables/Monster_Spawns.md` (147 zones)
+- Fusion recipes: `tables/Fusion_Recipes.md` (8 MixMon series)
+- Levels range: Lv1 (starter) to Lv200+ (endgame)

@@ -15,7 +15,7 @@ description: 寵物系統開發（Prompt 3, 4 / 13–27%）— 核心系統
 - PetData：八大系列 + 相剋表 + 40種定義
 - PetManager：**100攜帶** + 3出戰 + 蛋掉落0.1%
 - Pet：正常比例 placeholder + 系列色 + lerp跟隨
-- PetAI：克制優先 + 技能骨架
+- PetFollowSystem：跟隨玩家選定目標 + 近攻/遠攻 + 無獨立AI
 - HUD portraits：SVG arc HP/MP 圈（右上 4 個浮動圈）
 
 ## P4 深度 ✅

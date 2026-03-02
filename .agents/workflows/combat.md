@@ -12,16 +12,17 @@ Covers **P5**(combat+skills+monsters+Boss), **P8**(equipment+enhance+resonance),
 
 ## P5 Combat + Monsters + Boss
 
-- CombatSystem + 8-element counters 1.5x/0.7x
+- CombatSystem (no pet AI, player selects target), ProjectileSystem (ranged pets shoot emissive spheres, melee run up)
+- AutoSkillConfig: Configurable skill queue for player and each pet + Toggle ON/OFF
 - SkillManager: 12 skills, **8 vertical F1-F8 dark slots** (right side)
   - `dark-skill-slot` 44×44px, keyboard F1-F8 hotkeys
   - CD conic-gradient mask overlay
-- FloatingDamage Billboard + counter colors
-- Monster + MonsterManager: normal mobs + **Boss monsters**
-  - **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
+- FloatingDamage Billboard + counter colors (1.5x/0.7x)
+- Monster + MonsterManager: behavior types Aggressive/Passive (主動/被動)
+  - **CHM 數據源**：`tables/Monster_Spawns.md`（147 區域怪物分佈表）
   - 每區域怪物列表含系列/等級/出現率，映射到 17 區域系統
-- Boss: 2x size, gold name, special AI (charge/spin/summon), 5min respawn
-- Boss drops: equipment recipes + rare eggs (5%)
+- Boss: 2x size, gold name, +5 levels, 3600s respawn
+- EggDropSystem: 0.1%/5% drop rate + Full-screen announcement ("🥚 [Player] obtained [Pet] Egg!")
 - generate_image: 12 skill icons + 4 combat effects (individual)
 
 ## P8 Equipment

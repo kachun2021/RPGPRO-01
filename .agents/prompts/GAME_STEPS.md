@@ -368,9 +368,12 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 - 跟隨玩家：`Vector3.Lerp(pos, target + offset, 4*dt)`
 - 三寵物環繞偏移：`offset[0]=(-1.5,0,-1)` / `[1]=(1.5,0,-1)` / `[2]=(0,0,-2)`
 
-### 4. `src/pets/PetAI.ts`（≤100行）
-- 攻擊最近目標 / 克制系列優先
+### 4. `src/pets/PetFollowSystem.ts`（≤100行）
+- 跟隨玩家，攻擊玩家選定的目標
+- 近攻寵物：移動到目標 2m 內攻擊
+- 遠攻寵物：保持 6-8m 距離，發射投射物球體
 - 1.2s 攻擊間隔
+- ⚠️ 寵物沒有獨立 AI — 完全由玩家操控目標
 
 ### 5. `src/ui/PetControlBar.ts`（≤100行）
 - 右側 3 個格：`position:absolute; right:8px; top:50%; transform:translateY(-50%)`
@@ -435,63 +438,63 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 ## Prompt 5/15：⚔️ 戰鬥+元素+技能+怪物+Boss（27–35%）
 
 ### 1. `src/combat/CombatSystem.ts`（≤200行）
-```typescript
-// 傷害公式
-damage = (atk * skillMultiplier - def * 0.5) * elementModifier * (0.9 + Math.random() * 0.2);
-// 暴擊：10% 機率 × 1.5
-if (Math.random() < 0.1) { damage *= 1.5; isCrit = true; }
-```
+- 傷害公式：`damage = (atk * skillMultiplier - def * 0.5) * elementModifier * (0.9 + Math.random() * 0.2)`
+- 目標選擇：玩家點擊怪物 → 所有出戰寵物跟隨攻擊
+- 攻擊循環：1.2s 間隔，近攻=跑向目標攻擊，遠攻=保持距離發射投射物
+- 克制：1.5x / 取消：0.7x 
 
 ### 2. `src/combat/SkillManager.ts`（≤250行）
 - 12 技能定義 JSON：`{ id, name, type:'attack'|'defense'|'magic', mpCost, cooldown, multiplier, icon }`
-- 右側弧形 4 技能按鈕 CSS：
-```css
-.skill-bar { position:absolute; right:8px; bottom:80px; display:flex; flex-direction:column; gap:8px; }
-.skill-btn { width:48px; height:48px; border-radius:50%; position:relative;
-  background:rgba(10,14,30,0.8); border:2px solid rgba(180,200,255,0.15);
-  cursor:pointer; overflow:hidden; }
-.skill-btn img { width:32px; height:32px; position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%); }
-.skill-btn .cd-overlay { position:absolute; inset:0; border-radius:50%;
-  background:conic-gradient(rgba(0,0,0,0.7) var(--cd-pct), transparent 0); }
-.skill-btn .mp-cost { position:absolute; bottom:-2px; right:-2px;
-  font-size:9px; color:#3498DB; background:rgba(0,0,0,0.6); padding:1px 4px;
-  border-radius:4px; }
-```
-- **技能圖標用 `<img src="assets/icons/skill_X.png">`**
+- **自動技能隊列 (AutoSkillConfig)**：
+  - 玩家與每隻寵物可獨立設定技能施放順序（在技能/角色面板設定）
+  - 戰鬥中自動按順序檢查：若 CD OK 且 MP 足夠則施展
+  - 特定條件覆蓋：HP < 30% 優先使用回血技能
+- 支援 Toggle 切換個別角色/寵物的自動施法 ON/OFF
 
-### 3. `src/combat/FloatingDamage.ts`（≤80行）
+### 3. `src/combat/ProjectileSystem.ts`（≤80行）⭐新增
+- 遠攻寵物專用：發射系列色發光的投射物球體 (Emissive Sphere)
+- 軌跡：直線飛向目標，飛行速度 15 units/s
+- 擊中：觸發傷害結算 + 銷毀球體 + 小爆炸粒子特效
+
+### 4. `src/combat/FloatingDamage.ts`（≤80行）
 - Billboard 浮動文字 + 上飄 + 縮放動畫
 - 顏色分類：暴擊=#E8C96A 大字 / 普攻=#ECE8E0 / 克制=#27AE60 / 被克=#E74C3C
+- 支援顯示 "Parry" / "Miss" 文字
 
-### 4. `src/combat/ElementSystem.ts`（≤60行）
+### 5. `src/combat/ElementSystem.ts`（≤60行）
 - `getModifier(atk, def)` → 1.5/0.7/1.0
 
-### 5. `src/entities/Monster.ts`（≤250行）
+### 6. `src/entities/Monster.ts`（≤250行）
+- 行為模式 (CHM MapMon 數據)：
+  - **主動式 (Aggressive)**：8m 內偵測到玩家主動攻擊
+  - **被動式 (Passive)**：被攻擊後才反擊
 - **普通怪物**：球體 body + 小角/觸角 placeholder
-- **Boss 怪物**：2x 大小 + 金色名字 + 特殊 AI（衝鋒/旋轉攻擊/召喚小怪）
+- **Boss 怪物**：2x 大小 + 金色名字
 - PBR 材質 + 系列色 `emissiveColor`（Boss emissive 更強 0.5）
 - Billboard HP 條：普怪=紅條 / Boss=金框紅條+名字+等級
 - 死亡動畫：普怪 0.5s 縮小 / Boss 1s 爆炸 + GPUParticle 金色碎片
-- Boss 掉落：Boss套裝裝備書 + 稀有核心蛋（5% 機率）
 
-### 6. `src/entities/MonsterManager.ts`（≤150行）
-- 根據當前區域 `monsterConfig` 生成普通怪 + Boss
-- **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
-  - 每個 MapMon 檔包含區域→怪物列表（系列/等級/出現率）
-  - 映射到我們的 17 區域系統
-- 普通怪最多 10 隻，15s respawn
-- **區域 Boss**：每區域 1 隻，5min respawn，全屏提示「Boss 出現！」
-- Boss 配置 JSON：`{ id, name, series, level, hp, skills[], drops[], respawnSec }`
+### 7. `src/entities/MonsterManager.ts`（≤150行）
+- 生成邏輯基於 `tables/Monster_Spawns.md` (CHM數據)
+- 根據當前區域配置等級與出現機率配置生成
+- 普通怪最多 10 隻，60s respawn
+- **區域 Boss**：每區域 1 隻，3600s respawn
+- Boss 專屬掉落：Boss套裝裝備書 + 核心蛋 (高機率)
 
-### 7. `src/ui/SkillBar.ts`（≤80行）
-- 右側 4 格弧形排列
+### 8. `src/systems/EggDropSystem.ts`（≤60行）⭐新增
+- 掉落機率：普怪 0.1%，Boss 5%
+- 全屏公告推播：「🥚 [玩家名] 幸運地獲得了 [寵物名] 的蛋！」
+- 掉落時帶有特殊金色 GPUParticle 爆發視覺效果
+
+### 9. `src/ui/SkillBar.ts`（≤80行）
+- 右側 4 格弧形排列 (或 F1-F8 垂直排列)
+- 自動施法啟用時：外框顯示呼吸燈光暈效
 - CD 旋轉遮罩 `conic-gradient`
 - 點擊觸發技能 + 0.1s scale 回彈
 
 **generate_image（16 張，ASSET_PROMPTS #28-#43）**
 
-**驗收：** 技能施放 + 元素相剋 + 浮動傷害 + Boss 出現+擊殺+掉落
+**驗收：** 技能施放 + 自動技能隊列 + 遠攻投射物 + 元素相剋 + 浮動傷害 + Boss出現+掉蛋全屏公告
 
 ---
 

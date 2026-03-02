@@ -24,6 +24,9 @@ export class Player {
       private _scene: Scene;
       private _moveDirection = Vector3.Zero();
 
+      /** Combat: walk toward this target position */
+      public combatTarget: Vector3 | null = null;
+
       constructor(scene: Scene, shadowGenerator: ShadowGenerator) {
             this._scene = scene;
 
@@ -88,12 +91,23 @@ export class Player {
       }
 
       update(dt: number): void {
-            if (this._moveDirection.lengthSquared() > 0.01) {
-                  const move = this._moveDirection.scale(this.speed * dt);
+            let moveDir = this._moveDirection.clone();
+
+            // Combat target: walk toward monster if no joystick input
+            if (this.combatTarget && moveDir.lengthSquared() < 0.01) {
+                  const toTarget = this.combatTarget.subtract(this.root.position);
+                  toTarget.y = 0;
+                  if (toTarget.length() > 1.0) {
+                        moveDir = toTarget.normalizeToNew();
+                  }
+            }
+
+            if (moveDir.lengthSquared() > 0.01) {
+                  const move = moveDir.normalizeToNew().scale(this.speed * dt);
                   this.root.position.addInPlace(move);
 
                   // Rotate to face movement direction
-                  const angle = Math.atan2(this._moveDirection.x, this._moveDirection.z);
+                  const angle = Math.atan2(moveDir.x, moveDir.z);
                   this.root.rotation.y = angle;
             }
       }
