@@ -34,11 +34,13 @@ export class CombatLoop {
       private _target: Monster | null = null;
       private _autoGrind = false;
 
-      // Player skill CDs (5 slots, F1-F5)
-      private _playerSkillCDs: number[] = [0, 0, 0, 0, 0];
+      // Sequential skill queue: player
+      private _playerNextIdx = 0;   // which F slot to cast next (0-4)
+      private _playerWaitCD = 0;    // global wait: must reach 0 before next cast
 
-      // Pet skill CDs (3 slots, P1-P3)
-      private _petSkillCDs: number[] = [0, 0, 0];
+      // Sequential skill queue: pets
+      private _petNextIdx = 0;      // which P slot to cast next (0-2)
+      private _petWaitCD = 0;       // global wait: must reach 0 before next cast
 
       // Player references
       private _getPlayerPos: () => Vector3;
@@ -178,36 +180,37 @@ export class CombatLoop {
       // -- Cooldown System --
 
       private _tickCooldowns(dt: number): void {
-            for (let i = 0; i < 5; i++) {
-                  if (this._playerSkillCDs[i] > 0) {
-                        this._playerSkillCDs[i] = Math.max(0, this._playerSkillCDs[i] - dt);
-                  }
+            if (this._playerWaitCD > 0) {
+                  this._playerWaitCD = Math.max(0, this._playerWaitCD - dt);
             }
-            for (let i = 0; i < 3; i++) {
-                  if (this._petSkillCDs[i] > 0) {
-                        this._petSkillCDs[i] = Math.max(0, this._petSkillCDs[i] - dt);
-                  }
+            if (this._petWaitCD > 0) {
+                  this._petWaitCD = Math.max(0, this._petWaitCD - dt);
             }
       }
 
-      // -- Player Skill Queue --
+      // -- Player Skill Queue (Sequential: F1 → wait CD → F2 → wait CD → ...) --
 
       private _tryPlayerSkill(): void {
             if (!this._target) return;
+            if (this._playerWaitCD > 0) return; // still waiting for current skill CD
 
             const equipped = this._skillBar?.getEquipped() ?? [];
 
-            // Scan F1→F5, cast first off-CD skill
-            for (let i = 0; i < 5; i++) {
-                  if (this._playerSkillCDs[i] > 0) continue;
-                  const skill = equipped[i] ?? SKILL_DEFS[i];
+            // Try current slot, skip empty slots
+            let attempts = 0;
+            while (attempts < 5) {
+                  const idx = this._playerNextIdx;
+                  const skill = equipped[idx] ?? SKILL_DEFS[idx];
+                  this._playerNextIdx = (this._playerNextIdx + 1) % 5;
+                  attempts++;
+
                   if (!skill) continue;
 
-                  // Start CD
-                  this._playerSkillCDs[i] = skill.cooldown;
+                  // Cast this skill
+                  this._playerWaitCD = skill.cooldown;
 
                   // Trigger UI CD on SkillBar
-                  this._skillBar?.triggerPlayerCD(i, skill.cooldown);
+                  this._skillBar?.triggerPlayerCD(idx, skill.cooldown);
 
                   // Perform attack with skill multiplier
                   const result = this._combatSystem.calculateDamage(
@@ -220,38 +223,46 @@ export class CombatLoop {
 
                   const died = this._target.takeDamage(result.damage);
                   this._showDamageAtMonster(this._target, result.damage, result.type);
-
                   if (died) this._handleMonsterDeath(this._target);
-                  return; // Only cast ONE player skill per frame
+
+                  console.log(`[Skill] Player cast: ${skill.name} (F${idx + 1}), CD: ${skill.cooldown}s`);
+                  return;
             }
       }
 
-      // -- Pet Skill Queue --
+      // -- Pet Skill Queue (Sequential: P1 → wait CD → P2 → wait CD → ...) --
 
       private _tryPetSkills(): void {
             if (!this._target) return;
+            if (this._petWaitCD > 0) return; // still waiting for current pet skill CD
 
             const activePets = this._petManager.active;
+            if (activePets.length === 0) return;
 
-            // Scan P1→P3, cast first off-CD pet skill
-            for (let i = 0; i < Math.min(activePets.length, 3); i++) {
-                  if (this._petSkillCDs[i] > 0) continue;
-                  const pet = activePets[i];
+            // Try current slot, skip dead pets
+            let attempts = 0;
+            while (attempts < 3) {
+                  const idx = this._petNextIdx;
+                  this._petNextIdx = (this._petNextIdx + 1) % Math.min(activePets.length, 3);
+                  attempts++;
+
+                  if (idx >= activePets.length) continue;
+                  const pet = activePets[idx];
                   if (pet.isDead) continue;
 
                   const petDef = PET_DEFS.find(d => d.id === pet.def.id);
                   const skill = petDef?.skills?.[0];
                   if (!skill) continue;
 
-                  // Start CD
-                  this._petSkillCDs[i] = skill.cooldown;
+                  // Set global pet wait CD
+                  this._petWaitCD = skill.cooldown;
 
                   // Trigger UI CD on SkillBar
-                  this._skillBar?.triggerPetCD(i, skill.cooldown);
+                  this._skillBar?.triggerPetCD(idx, skill.cooldown);
 
-                  // Perform pet attack with skill damage as base
+                  // Perform pet attack
                   const atk = pet.stats.atkMin + Math.random() * (pet.stats.atkMax - pet.stats.atkMin);
-                  const skillMult = skill.damage / 10; // skill damage as multiplier
+                  const skillMult = skill.damage / 10;
                   const result = this._combatSystem.calculateDamage(
                         atk, this._target.def.def, skillMult,
                         pet.def.series, this._target.def.series,
@@ -271,11 +282,14 @@ export class CombatLoop {
                               },
                         );
                   } else {
+                        // Melee: direct damage, no projectile
                         const died = this._target.takeDamage(result.damage);
                         this._showDamageAtMonster(this._target, result.damage, result.type);
                         if (died) this._handleMonsterDeath(this._target);
                   }
-                  return; // Only cast ONE pet skill per frame
+
+                  console.log(`[Skill] Pet ${pet.def.name} cast: ${skill.name} (P${idx + 1}), CD: ${skill.cooldown}s`);
+                  return;
             }
       }
 
