@@ -465,7 +465,7 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 - `getModifier(atk, def)` → 1.5/0.7/1.0
 
 ### 6. `src/entities/Monster.ts`（≤250行）
-- 行為模式 (CHM MapMon 數據)：
+- 行為模式 (基於 `tables/Monster_Spawns.md` 數據)：
   - **主動式 (Aggressive)**：8m 內偵測到玩家主動攻擊
   - **被動式 (Passive)**：被攻擊後才反擊
 - **普通怪物**：球體 body + 小角/觸角 placeholder
@@ -502,9 +502,9 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 
 ### 區域系統核心邏輯
 
-> **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
-> 每個 MapMon 檔包含區域 ID → 怪物列表（系列/等級/螢幕描繪）。
-> 簡化映射：147 CHM 區域 → 我們的 17 區域。
+> **數據源**：`tables/Monster_Spawns.md`（怪物分佈表）及 `tables/Fusion_Recipes.md`（融合配方表）
+> Monster_Spawns 包含 147 個區域的怪物列表（系列/等級/行為/掉落）。
+> 簡化映射：147 區域 → 我們的 17 區域。
 
 ```typescript
 async travelTo(zoneId: string) {

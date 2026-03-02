@@ -18,14 +18,14 @@ export class PetManager {
             this._shadowGen = shadowGen;
       }
 
-      /** Give 3 starter pets + 2 fusion test ingredients */
+      /** Give 3 ranged starter pets + 2 fusion test ingredients */
       giveStarterPets(): void {
             const starters = [
+                  { id: 'd_draco', gender: 'male' as Gender },     // Dragon, ranged
+                  { id: 'r_birdco', gender: 'female' as Gender },  // Bird, ranged
+                  { id: 'd_imon', gender: 'male' as Gender },      // Dragon, ranged
+                  // Fusion test ingredients
                   { id: 'p_flowco', gender: 'male' as Gender },
-                  { id: 'b_beasco', gender: 'female' as Gender },
-                  { id: 'r_birdco', gender: 'male' as Gender },
-                  // Test fusion ingredients: p_flowco + d_draco → r_thunderbird (test recipe)
-                  { id: 'd_draco', gender: 'male' as Gender },
                   { id: 'p_manglock', gender: 'female' as Gender },
             ];
 
