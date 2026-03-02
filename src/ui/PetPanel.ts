@@ -218,7 +218,12 @@ export class PetPanel {
                         slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" style="width:24px;height:24px;pointer-events:none" alt="">`;
                         slot.draggable = true;
                         slot.title = `${pet.def.name} Lv.${pet.stats.level}`;
-                        slot.addEventListener('dragstart', (e) => { this._dragPet = pet; e.dataTransfer!.effectAllowed = 'move'; });
+                        slot.addEventListener('dragstart', (e) => {
+                              this._dragPet = pet;
+                              e.dataTransfer!.effectAllowed = 'move';
+                              const ownedIdx = this._pm.owned.indexOf(pet);
+                              e.dataTransfer!.setData('text/pet-index', String(ownedIdx));
+                        });
                         slot.addEventListener('click', () => { this._sel = pet; this._render(); });
                   }
                   grid.appendChild(slot);

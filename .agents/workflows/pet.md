@@ -18,15 +18,16 @@ description: 寵物系統開發（Prompt 3, 4 / 13–27%）— 核心系統
 - PetAI：克制優先 + 技能骨架
 - HUD portraits：SVG arc HP/MP 圈（右上 4 個浮動圈）
 
-## P4 深度
+## P4 深度 ✅
 
-- PetFusion：30+配方 + 成功/失敗
+- PetFusion：CHM MixMon 數據驅動，per-pet fusionRecipes（findRecipes API）
+- PetData：40 寵物含 nameCN / acquisition(egg_drop|fusion) / fusionRecipes / SERIES_EMOJI
+- FusionPanel：**Mix Master 風格獨立中心彈窗**（點擊格位→選擇列表）
 - PetEncyclopedia：40種收集
 - PetEquipment：3欄位
 - PetPanel：**右側滑入 sa-panel**（drag-and-drop 部署/召回）
   - 3 垂直出戰格 + 5列倉庫網格
   - sa-sl/sa-sv 金色標籤 stat 顯示
-- FusionPanel：合成動畫
 
 ## generate_image（獨立生成）
 

@@ -18,6 +18,8 @@ Covers **P5**(combat+skills+monsters+Boss), **P8**(equipment+enhance+resonance),
   - CD conic-gradient mask overlay
 - FloatingDamage Billboard + counter colors
 - Monster + MonsterManager: normal mobs + **Boss monsters**
+  - **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
+  - 每區域怪物列表含系列/等級/出現率，映射到 17 區域系統
 - Boss: 2x size, gold name, special AI (charge/spin/summon), 5min respawn
 - Boss drops: equipment recipes + rare eggs (5%)
 - generate_image: 12 skill icons + 4 combat effects (individual)

@@ -357,7 +357,7 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 ### 2. `src/pets/PetManager.ts`（≤200行）
 - `owned: Pet[]` 最多 100 隻
 - `active: Pet[]` 最多 3 隻出戰
-- `giveStarterPets()` — 給 3 隻初始寵物（Plant/Beast/Bird 各一）
+- `giveStarterPets()` — 給 3 隻初始寵物（Plant:`p_flowco`/Beast:`b_dinocat`/Bird:`r_redpig`）
 - `deploy(index)` / `recall(index)` 出戰管理
 - `update(dt)` — 更新所有出戰寵物 AI + 位置
 
@@ -391,11 +391,13 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 
 **新建（5 檔案）：**
 
-### 1. `src/pets/PetFusion.ts`（≤180行）
-- 30+ 配方 JSON：`{ parent1Series, parent2Series, resultId, minLevel }`
-- 成功率公式：`base 60% + (parentLevel-minLevel)*2%`，cap 95%
+### 1. `src/pets/PetFusion.ts`（≤80行）
+- 基於 CHM MixMon 數據：`findRecipes(pet1, pet2)` 搜索 PET_DEFS 中 fusionRecipes
+- 每隻 fusion 寵物在 PetData 中定義 `fusionRecipes: [{ main, sub }]`
+- 支持雙向匹配（main↔sub 互換）
+- 成功率公式：`base 60% + (avgLevel - resultBaseLevel)*2%`，cap 95%
 - 失敗：副寵消失 + 主寵降 3-6 級
-- 保護道具 ID check
+- 保護道具 checkbox（保護石）
 
 ### 2. `src/pets/PetEncyclopedia.ts`（≤100行）
 - 全 40 種 Map<id, { discovered, count }>
@@ -415,12 +417,14 @@ update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt);
 - 裝備區：6 個裝備格 + Buff 格
 - 點擊倉庫寵物 → 顯示詳細資訊
 
-### 5. `src/ui/FusionPanel.ts`（≤120行）
-- 兩個寵物選擇格 + 箭頭(fusion_arrow.png) + 結果格
-- 成功率百分比 + 金色進度條
-- 合成按鈕 `.btn-gold`
-- 成功：fusion_success.png 爆發特效 + 金色粒子
-- 失敗：紅色震動 + 裂紋效果
+### 5. `src/ui/FusionPanel.ts`（≤240行）
+**Mix Master 風格獨立中心彈窗：**
+- 兩個 80×80 可點擊寵物格位（主寵/副寵）+ 寵物選擇列表
+- 成功率百分比 + 顏色編碼（≥60% 綠 / ≥30% 黃 / <30% 紅）
+- 合成結果預覽（nameCN + baseLevel）
+- 保護石 checkbox + GP 標示
+- 成功：✨ 閃光 overlay / 失敗：💥 震動 overlay
+- 動畫：scale(0.92)→1 + opacity 0.25s
 
 **generate_image（5 張，ASSET_PROMPTS #23-#27）**
 
@@ -473,6 +477,9 @@ if (Math.random() < 0.1) { damage *= 1.5; isCrit = true; }
 
 ### 6. `src/entities/MonsterManager.ts`（≤150行）
 - 根據當前區域 `monsterConfig` 生成普通怪 + Boss
+- **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
+  - 每個 MapMon 檔包含區域→怪物列表（系列/等級/出現率）
+  - 映射到我們的 17 區域系統
 - 普通怪最多 10 隻，15s respawn
 - **區域 Boss**：每區域 1 隻，5min respawn，全屏提示「Boss 出現！」
 - Boss 配置 JSON：`{ id, name, series, level, hp, skills[], drops[], respawnSec }`
@@ -491,6 +498,11 @@ if (Math.random() < 0.1) { damage *= 1.5; isCrit = true; }
 ## Prompt 6/15：🗺️ 區域世界 + 傳送（35–42%）
 
 ### 區域系統核心邏輯
+
+> **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表）
+> 每個 MapMon 檔包含區域 ID → 怪物列表（系列/等級/螢幕描繪）。
+> 簡化映射：147 CHM 區域 → 我們的 17 區域。
+
 ```typescript
 async travelTo(zoneId: string) {
   zoneTransition.show(zoneDef.name);

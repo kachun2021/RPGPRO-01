@@ -15,6 +15,7 @@ description: 區域制世界地圖與傳送系統（Prompt 6 / 35–42%）
 ## 強制規範
 
 - 17 區域定義必須與 GAME_STEPS.md 區域表一致
+- **CHM 數據源**：`chm_extracted/MapMon/*.htm`（147 區域怪物分佈表→映射到 17 區域）
 - 每區域有獨特 PBR 材質色調/光照色溫/天空漸層
 - 區域切換 dispose → rebuild < 500ms
 - 區域解鎖綁定主線任務章節

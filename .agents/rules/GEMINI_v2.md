@@ -180,23 +180,23 @@ Orientation switch: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)
 
 ## 11. 15-Step Development Map
 
-| Step | Progress | Core Module |
-|------|----------|-------------|
-| P1 | 0-7% | Engine + PBR Scene + Post-processing |
-| P2 | 7-13% | Player + HUD (SVG portraits) + Joystick + Camera |
-| P3 | 13-20% | 8 Pet Series + PetManager + 3 Active |
-| P4 | 20-27% | PEF Fusion + Encyclopedia + Pet Equipment |
-| P5 | 27-35% | Combat + Element Counters + Skills + Monsters |
-| P6 | 35-42% | Zone World + Teleport + Monster Spawning |
-| P7 | 42-49% | AUTO Grind + Drops + Inventory |
-| P8 | 49-56% | Equipment + Enhance + Resonance |
-| P9 | 56-63% | Quests 25 Chapters + NPC |
-| P10 | 63-70% | Stat Allocation + Skill Tree + Awakening + Rebirth |
-| P11 | 70-77% | Firebase + Same-Map Multiplayer + Social |
-| P12 | 77-84% | PVP + Guild + Party |
-| P13 | 84-90% | Shop + Tech Tree + Transform |
-| P14 | 90-95% | All UI + Chat + AFK + Trade Market |
-| P15 | 95-100% | Tutorial + Save + Performance + Polish |
+| Step | Progress | Core Module | Status |
+|------|----------|-------------|--------|
+| P1 | 0-7% | Engine + PBR Scene + Post-processing | ✅ DONE |
+| P2 | 7-13% | Player + HUD (SVG portraits) + Joystick + Camera | ✅ DONE |
+| P3 | 13-20% | 8 Pet Series + PetManager + 3 Active | ✅ DONE |
+| P4 | 20-27% | PEF Fusion + Encyclopedia + Pet Equipment | ✅ DONE |
+| P5 | 27-35% | Combat + Element Counters + Skills + Monsters | |
+| P6 | 35-42% | Zone World + Teleport + Monster Spawning | |
+| P7 | 42-49% | AUTO Grind + Drops + Inventory | |
+| P8 | 49-56% | Equipment + Enhance + Resonance | |
+| P9 | 56-63% | Quests 25 Chapters + NPC | |
+| P10 | 63-70% | Stat Allocation + Skill Tree + Awakening + Rebirth | |
+| P11 | 70-77% | Firebase + Same-Map Multiplayer + Social | |
+| P12 | 77-84% | PVP + Guild + Party | |
+| P13 | 84-90% | Shop + Tech Tree + Transform | |
+| P14 | 90-95% | All UI + Chat + AFK + Trade Market | |
+| P15 | 95-100% | Tutorial + Save + Performance + Polish | |
 
 ## 12. Pet System Core Rules
 
@@ -207,10 +207,12 @@ Plant -> Dragon -> Beast -> Insect -> Metal -> Mystery -> Demon -> Bird -> Plant
 Counter 1.5x / Resisted 0.7x / Neutral 1.0x
 
 ### PEF Fusion
-- Male + Female, each at base level
+- Per-pet `fusionRecipes` in PetData.ts: `[{ main, sub }]` ingredient pairs from CHM MixMon data
+- `findRecipes(pet1, pet2)` searches PET_DEFS, checks both directions (main↔sub swap)
+- FusionPanel: **Mix Master-style center popup** (click 80×80 slots → select from list)
 - New pet level = floor((parentA_Lv + parentB_Lv)/2) + random(1,6)
 - Failure: secondary pet destroyed + primary loses 3-6 levels
-- Protection items prevent destruction
+- Protection items (checkbox in FusionPanel) prevent destruction
 
 ### Pet Management
 - Max carry **100**, max active 3

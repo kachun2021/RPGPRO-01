@@ -91,7 +91,7 @@ async function bootstrap(): Promise<void> {
       const renamePanel = new RenamePanel();
       const revivalPanel = new RevivalPanel(petManager);
 
-      panelManager.register('fusion', fusionPanel.element);
+      // FusionPanel manages itself (own backdrop + open/close), NOT via PanelManager
       panelManager.register('encyclopedia', encyclopediaPanel.element);
       panelManager.register('rename', renamePanel.element);
       panelManager.register('revival', revivalPanel.element);
@@ -99,7 +99,7 @@ async function bootstrap(): Promise<void> {
       // Wire PetPanel action buttons → sub-panels
       petPanel.onOpenFusion = () => {
             fusionPanel.refresh();
-            panelManager.open('fusion');
+            fusionPanel.open();
       };
       petPanel.onOpenEncyclopedia = () => {
             encyclopediaPanel.open();
