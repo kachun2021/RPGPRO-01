@@ -49,6 +49,7 @@ import { QuestManager } from './systems/QuestManager';
 import { NPCManager } from './entities/NPC';
 import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel } from './ui/DialoguePanel';
+import { CommunityPanel } from './ui/CommunityPanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -262,10 +263,15 @@ async function bootstrap(): Promise<void> {
       // Combined Inventory + Equipment panel (needs equipSystem + enhanceSystem)
       const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem);
 
+      const communityPanel = new CommunityPanel();
+
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-community']) {
+      for (const id of ['nav-book', 'nav-shop']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-community')?.addEventListener('click', () => {
+            communityPanel.toggle();
+      });
       hud.getNavButton('nav-quest')?.addEventListener('click', () => {
             questPanel.toggle();
       });
