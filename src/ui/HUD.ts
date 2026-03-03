@@ -82,7 +82,7 @@ export class HUD {
 
       private _createPortrait(label: string, borderColor: string): HTMLDivElement {
             const wrapper = document.createElement('div');
-            wrapper.className = 'hud-portrait';
+            wrapper.className = 'hud-portrait interactive';
 
             // EXP bar above portrait
             const expBar = document.createElement('div');
@@ -196,6 +196,10 @@ export class HUD {
       }
 
       getNavButton(id: string): HTMLElement | null { return document.getElementById(id); }
+
+      getPortrait(index: number): HTMLElement | undefined {
+            return this._portraits[index];
+      }
 
       private _togglePortraits(): void {
             this._collapsed = !this._collapsed;

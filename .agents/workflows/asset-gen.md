@@ -7,7 +7,7 @@ description: 資源生成與替換（GLB/KTX2/紋理/音效）
 # 資源生成與替換（/asset-gen）
 
 開發期間用 `generate_image` 即時生成 2D 素材。
-GLB 3D 模型 P15 後由用戶統一替換。
+GLB 3D 模型 P10 後由用戶統一替換。
 
 ---
 
@@ -26,48 +26,48 @@ GLB 3D 模型 P15 後由用戶統一替換。
 ### 場景紋理（12 張）
 | 資源 | Step | 規格 |
 |------|------|------|
-| grass diffuse/normal | P1 | 512px tileable |
-| sky gradient | P1 | 1024×512 |
-| 5 biome diffuse | P6 | 512px |
-| 5 biome normal | P6 | 512px |
-| teleport portal | P6 | 256px |
-| zone loading bg | P6 | 1280×720 |
-| worldmap parchment | P6 | 800×500 |
-| water diffuse | P6 | 512px |
+| grass diffuse/normal | 已完成 | 512px tileable |
+| sky gradient | 已完成 | 1024×512 |
+| 5 biome diffuse | P2 | 512px |
+| 5 biome normal | P2 | 512px |
+| teleport portal | P2 | 256px |
+| zone loading bg | P2 | 1280×720 |
+| worldmap parchment | P2 | 800×500 |
+| water diffuse | P2 | 512px |
 
 ### UI 圖標（49 張）
 | 資源 | Step | 數量 |
 |------|------|------|
-| 導航欄 | P2 | 7 |
-| 貨幣(金/鑽) | P2 | 2 |
-| HUD 框 | P2 | 1 |
-| 系列圖標 | P3 | 8 |
-| 寵物頭像框 | P3 | 1 |
+| 導航欄 | 已完成 | 7 |
+| 貨幣(金/鑽) | 已完成 | 2 |
+| HUD 框 | 已完成 | 1 |
+| 系列圖標 | 已完成 | 8 |
+| 寵物頭像框 | 已完成 | 1 |
 | 裝備(頭/身/爪) | P4 | 3 |
-| 合成(箭頭/成功) | P4 | 2 |
-| 技能圖標 | P5 | 12 |
-| 元素克制 | P5 | 2 |
-| 怪物HP框 | P5 | 1 |
-| 暴擊裝飾 | P5 | 1 |
-| 稀有度框×4 | P7 | 4 |
-| AUTO 圖標 | P7 | 1 |
-| 商城分類 | P13 | 7 |
+| 合成(箭頭/成功) | 已完成 | 2 |
+| 技能圖標 | P1 | 12 |
+| 元素克制 | P1 | 2 |
+| 怪物HP框 | P1 | 1 |
+| 暴擊裝飾 | P1 | 1 |
+| 稀有度框×4 | P4 | 4 |
+| AUTO 圖標 | P1 | 1 |
+| 商城分類 | P8 | 7 |
 
 ### 效果（15 張）
 | 資源 | Step |
 |------|------|
-| AFK 背景 | P7 |
-| 掉落光效 | P7 |
-| 強化光效 | P8 |
-| 共鳴藥水 | P8 |
-| 套裝效果 | P8 |
-| 任務!/?標 | P9 |
-| 對話框 | P9 |
-| 完成✓ | P9 |
-| 覺醒光環 | P10 |
-| 轉生圖標 | P10 |
+| AFK 背景 | P9 |
+| 掉落光效 | P1 |
+| 強化光效 | P4 |
+| 共鳴藥水 | P4 |
+| 套裝效果 | P4 |
+| 任務!/?標 | P5 |
+| 對話框 | P5 |
+| 完成✓ | P5 |
+| 覺醒光環 | P3 |
+| 轉生圖標 | P3 |
 
-## GLB 替換（P15 後）
+## GLB 替換（P10 後）
 
 | 資源 | Placeholder |
 |------|------------|

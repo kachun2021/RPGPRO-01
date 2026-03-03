@@ -250,6 +250,17 @@ async function bootstrap(): Promise<void> {
             petPanel.refresh();
       });
 
+      // Wire portraits
+      hud.getPortrait(0)?.addEventListener('click', () => {
+            characterPanel.toggle();
+      });
+      for (let i = 1; i <= 3; i++) {
+            hud.getPortrait(i)?.addEventListener('click', () => {
+                  petPanel.toggle();
+                  petPanel.refresh();
+            });
+      }
+
       // P7: AFK Panel
       const afkPanel = new AFKPanel(inventory);
 
