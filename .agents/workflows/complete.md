@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: 功能完整性與立即可玩驗證（Prompt 15 最終收尾）
+description: 存檔+音效+引導+效能收尾（P10 最終 / 90–100%）
 ---
 
 // turbo-all

@@ -1,6 +1,6 @@
 ﻿---
 trigger: model_decision
-description: Babylon + DOM UI (Prompt 2, 7, 9, 13, 14 / HUD + panels)
+description: UI + Quest + Shop + Events + AFK (P5, P8, P9 / 40-90%)
 ---
 
 // turbo-all

@@ -1,13 +1,14 @@
-﻿# Fantasy Pet Online — 15步開發指令集（Stone Age Premium Dark · Production v5）
-# 每個 Step 包含：精確 Babylon.js 配置 / CSS 規範 / 動畫參數 / 資源整合
+﻿# Fantasy Pet Online — 10步開發指令集（Stone Age Premium Dark · Production v6）
+# 基於代碼審計重設計 — 從現有 60 個 TS 文件出發，不重寫已完成功能
+# 每步 80% 預定義 + 20% 用戶反饋空間
 
 ---
 
 ## 全局品質基準
 
-### 渲染管線（每 Step 維持）
+### 渲染管線（已建立，後續維持）
 ```typescript
-// DefaultRenderingPipeline — 必須在 P1 建立，後續不得移除
+// DefaultRenderingPipeline — P1 已建立，後續不得移除
 pipeline.bloomEnabled = true;
 pipeline.bloomThreshold = 0.7;
 pipeline.bloomWeight = 0.3;
@@ -23,24 +24,22 @@ const ssao = new SSAO2RenderingPipeline("ssao", scene, { ssaoRatio: 0.5, blurRat
 ssao.radius = 2.0; ssao.totalStrength = 0.8; ssao.base = 0.1;
 ```
 
-### 光照基準
+### 光照基準（已建立）
 ```typescript
 const sun = new DirectionalLight("sun", new Vector3(-0.5, -1, -0.3), scene);
 sun.intensity = 1.8;
-sun.diffuse = new Color3(1.0, 0.95, 0.85);  // 暖陽
+sun.diffuse = new Color3(1.0, 0.95, 0.85);
 const shadowGen = new ShadowGenerator(2048, sun);
 shadowGen.usePercentageCloserFiltering = true;
 shadowGen.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
-// 環境光
 const hemi = new HemisphericLight("hemi", new Vector3(0,1,0), scene);
 hemi.intensity = 0.4;
-hemi.diffuse = new Color3(0.7, 0.8, 1.0);     // 天空藍
-hemi.groundColor = new Color3(0.3, 0.25, 0.2); // 大地棕
+hemi.diffuse = new Color3(0.7, 0.8, 1.0);
+hemi.groundColor = new Color3(0.3, 0.25, 0.2);
 ```
 
 ### CSS 面板模板（所有面板共用 — Stone Age Premium Dark）
 ```css
-/* 面板主體 */
 .sa-panel {
   background: linear-gradient(180deg, rgba(25,20,38,0.94), rgba(15,12,25,0.96));
   border: 1px solid rgba(160,130,80,0.3);
@@ -48,834 +47,343 @@ hemi.groundColor = new Color3(0.3, 0.25, 0.2); // 大地棕
   box-shadow: 2px 2px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
   pointer-events: auto; overflow: hidden; max-height: 85vh;
 }
-
-/* 面板標題欄 */
 .sa-panel-title {
   display: flex; align-items: center; gap: 8px;
-  padding: 6px 12px;
+  padding: 6px 12px; position: relative;
   background: linear-gradient(180deg, rgba(40,30,55,0.9), rgba(25,20,38,0.95));
   color: rgba(232,201,106,0.9); font-weight: 700; font-size: 13px;
   border-bottom: 1px solid rgba(160,130,80,0.2);
-  border-radius: 5px 5px 0 0;
 }
-
-/* 面板段落 */
-.sa-sec { padding: 3px 8px; border-bottom: 1px solid rgba(160,130,80,0.15); }
-
-/* 標籤 */
-.sa-tag {
-  display: inline-block; padding: 2px 8px;
-  font-size: 10px; font-weight: 600;
-  background: rgba(160,130,80,0.12); border: 1px solid rgba(160,130,80,0.25);
-  border-radius: 3px; color: rgba(200,195,185,0.6); cursor: pointer;
-}
-.sa-tag-active {
-  background: rgba(160,130,80,0.25);
-  color: rgba(232,201,106,0.9);
-  border-color: rgba(160,130,80,0.4);
-}
-
-/* 關閉按鈕 */
 .panel-close {
-  position: absolute; top: 8px; right: 10px;
-  width: 24px; height: 24px; border-radius: 50%;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(160,130,80,0.15);
-  color: rgba(200,195,185,0.6); font-size: 13px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: rgba(200,195,185,0.5);
+  cursor: pointer; border-radius: 4px; transition: all 0.15s;
 }
-.panel-close:hover { background: rgba(255,80,80,0.15); color: #ff6b6b; }
-
-/* 金色操作按鈕 */
+.panel-close:hover { color: #E74C3C; background: rgba(231,76,60,0.15); }
 .btn-gold {
-  background: linear-gradient(180deg, #E8C96A 0%, #C4993D 100%);
+  background: linear-gradient(180deg, #E8C96A, #C4993D);
   color: #0A0E1A; border: none; border-radius: 6px;
-  padding: 8px 20px; font-family: 'Inter', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  box-shadow: 0 3px 12px rgba(232,201,106,0.25);
+  font-weight: 700; cursor: pointer;
 }
-.btn-gold:hover { box-shadow: 0 4px 16px rgba(232,201,106,0.4); }
-.btn-gold:active { transform: scale(0.95); filter: brightness(0.88); }
-
-/* 列表卡片 */
-.list-card {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 12px; margin: 3px 8px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(160,130,80,0.08);
-  border-radius: 6px; cursor: pointer;
-}
-.list-card:hover { background: rgba(232,201,106,0.04); border-color: rgba(232,201,106,0.12); }
-
-/* 格子/槽位 */
 .dark-slot {
   background: rgba(20,16,30,0.6);
   border: 1px solid rgba(160,130,80,0.2); border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.12s;
 }
-.dark-slot:hover { border-color: rgba(232,201,106,0.4); background: rgba(232,201,106,0.06); }
-
-/* 自定義滾動條 */
-.panel-body { overflow-y: auto; max-height: calc(85vh - 80px); padding: 8px 0; }
-.panel-body::-webkit-scrollbar { width: 3px; }
-.panel-body::-webkit-scrollbar-track { background: transparent; }
-.panel-body::-webkit-scrollbar-thumb { background: rgba(160,130,80,0.15); border-radius: 2px; }
-
-/* Tooltip 浮動卡 */
-.tooltip {
-  position: absolute; z-index: 500; padding: 10px 12px;
-  background: rgba(15,12,25,0.95); border: 1px solid rgba(232,201,106,0.2);
-  border-radius: 6px; max-width: 220px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  font-size: 11px; color: rgba(220,215,200,0.8);
-}
-```
-
-### HUD CSS 基準（P2 建立 — SVG Arc 肖像圈 + 暗色導航）
-```css
-/* 肖像圈 — 浮動，無背景 */
-.hud-portrait { position: relative; width: 50px; height: 50px; }
-.hud-portrait-inner {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 36px; height: 36px; border-radius: 50%; border: none;
-  background: radial-gradient(circle, rgba(30,25,40,0.9), rgba(15,12,25,0.95));
-  display: flex; align-items: center; justify-content: center;
-}
-/* SVG arc: r=22, sw=4, HP=#E74C3C left(180-360), MP=#3498DB right(0-180) */
-
-/* 導航欄 — 暗色玻璃 */
-.sa-nav-btn {
-  padding: 5px 10px; font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600;
-  color: rgba(232,201,106,0.85); background: transparent;
-  border: none; border-right: 1px solid rgba(196,153,61,0.2);
-  display: flex; flex-direction: column; align-items: center; gap: 1px;
-  cursor: pointer; transition: all 0.12s;
-}
-.sa-nav-btn:hover { background: rgba(196,153,61,0.15); color: #FFD700; }
-
-/* 小地圖 — 暗色容器 + canvas */
-#minimap {
-  background: linear-gradient(180deg, rgba(20,16,30,0.88), rgba(12,10,20,0.92));
-  border: 1px solid rgba(160,130,80,0.3); border-radius: 6px;
-}
-
-/* 技能欄 — 暗色 F1-F8 */
-.dark-skill-slot {
-  width: 44px; height: 44px;
-  background: rgba(20,16,30,0.6);
-  border: 1px solid rgba(160,130,80,0.2); border-radius: 4px;
-}
-
-/* 聊天 — 暗色輸入 */
-.dark-chat-input {
-  background: rgba(15,12,25,0.5); color: rgba(220,215,200,0.8);
-  border: 1px solid rgba(160,130,80,0.2); border-radius: 4px;
-}
+.dark-slot:hover { border-color: rgba(232,201,106,0.4); }
 ```
 
 ---
 
-## ✅ Prompt 1/15：引擎 + PBR 場景 + 後處理（0–7%）— DONE
+## 已完成基礎（不可破壞）
 
-清空 `src/` 重建。
-
-**新建（6 檔案）：**
-
-### 1. `src/core/EngineManager.ts`（≤120行）
-- WebGPUEngine → WebGL2 fallback（見全局規範）
-- `canvas.style.width = '100%'` 全屏
-- `engine.setHardwareScalingLevel(1 / window.devicePixelRatio)`
-- 監聽 resize → `engine.resize()`
-- `screen.orientation.lock('landscape')` 嘗試鎖定
-
-### 2. `src/core/Registry.ts`（≤100行）
-- 全局靜態 class，後續 Step 逐步填入
-
-### 3. `src/core/AssetLoader.ts`（≤120行）
-- `static async loadTexture(path, scene)` — 帶 fallback placeholder 色
-- `static async loadGLB(path, scene)` — 找不到時返回 null
-- `static loadGeneratedImage(filename)` — 返回 `assets/icons/${filename}` 或 `assets/textures/${filename}`
-
-### 4. `src/core/OrientationManager.ts`（≤100行）
-- 監聽 `orientationchange` + `resize`
-- 橫向 = 完整模式，直向 = AFK 模式
-- `Registry.orientation` 更新 + 通知回調
-
-### 5. `src/scenes/MainScene.ts`（≤200行）
-**精確配置（必須完全匹配）：**
-```typescript
-// 背景
-scene.clearColor = new Color4(0.04, 0.055, 0.1, 1); // #0A0E1A
-
-// 太陽光 + 陰影
-const sun = new DirectionalLight("sun", new Vector3(-0.5, -1, -0.3), scene);
-sun.intensity = 1.8;
-sun.diffuse = new Color3(1.0, 0.95, 0.85);
-sun.position = new Vector3(30, 50, 30);
-const shadowGen = new ShadowGenerator(2048, sun);
-shadowGen.usePercentageCloserFiltering = true;
-
-// 環境光
-const hemi = new HemisphericLight("hemi", Vector3.Up(), scene);
-hemi.intensity = 0.4;
-hemi.diffuse = new Color3(0.7, 0.8, 1.0);
-hemi.groundColor = new Color3(0.3, 0.25, 0.2);
-
-// 地面 PBR
-const ground = MeshBuilder.CreateGround("ground", { width: 200, height: 200, subdivisions: 32 }, scene);
-const groundMat = new PBRMaterial("groundMat", scene);
-groundMat.albedoTexture = new Texture("assets/textures/grass_diffuse.png", scene);
-groundMat.bumpTexture = new Texture("assets/textures/grass_normal.png", scene);
-groundMat.roughness = 0.9;
-groundMat.metallic = 0.0;
-groundMat.albedoTexture.uScale = groundMat.albedoTexture.vScale = 16;
-groundMat.bumpTexture.uScale = groundMat.bumpTexture.vScale = 16;
-ground.material = groundMat;
-ground.receiveShadows = true;
-shadowGen.addShadowCaster(ground);
-
-// 後處理
-const pipeline = new DefaultRenderingPipeline("pipeline", true, scene);
-pipeline.bloomEnabled = true;
-pipeline.bloomThreshold = 0.7;
-pipeline.bloomWeight = 0.3;
-pipeline.bloomKernel = 64;
-pipeline.fxaaEnabled = true;
-pipeline.imageProcessingEnabled = true;
-pipeline.imageProcessing.toneMappingEnabled = true;
-pipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
-pipeline.imageProcessing.exposure = 1.1;
-pipeline.imageProcessing.contrast = 1.15;
-
-// 天空 — 漸層 ShaderMaterial 或 skybox
-const skyMat = new BackgroundMaterial("skyMat", scene);
-// ...使用 sky_gradient.png 作為反射貼圖
-```
-
-### 6. `src/main.ts`（≤60行）
-
-**generate_image（3 張，用 ASSET_PROMPTS.md #1-#3 原文）**
-→ `src/assets/textures/grass_diffuse.png`
-→ `src/assets/textures/grass_normal.png`
-→ `src/assets/textures/sky_gradient.png`
-
-**驗收要求（截圖比對）：**
-- [x] PBR 草地：紋理清晰、uv 不拉伸（uScale=vScale=16）
-- [x] 陰影：DirectionalLight 投射到地面
-- [x] Bloom：高亮區域有柔和光暈
-- [x] 天空：漸層色（深藍→白），非純黑
-- [x] ACES tone mapping：色彩飽和但不過曝
-- [x] Console 零錯誤
+| 模組 | 文件數 | 狀態 |
+|------|--------|------|
+| Core (Engine/Registry/AssetLoader/Orientation) | 4 | ✅ |
+| Scene (MainScene) | 1 | ✅ |
+| Input (Joystick/Camera) | 2 | ✅ |
+| Player | 1 | ✅ |
+| Pets (Data/Manager/Pet/AI/Fusion/Encyclopedia/Equipment/Buff) | 8 | ✅ |
+| Combat (CombatSystem/ElementSystem/FloatingDamage/ProjectileSystem) | 4 | ✅ |
+| HUD/Minimap/SkillBar/ChatBox/NavBar | 5 | ✅ |
+| PetPanel/FusionPanel/EncyclopediaPanel/RenamePanel/RevivalPanel | 5 | ✅ |
+| InventoryPanel (含裝備穿脫) | 1 | ✅ |
+| QuestPanel (CHM風格)/QuestTracker/DialoguePanel (CHM風格) | 3 | ✅ |
+| CommunityPanel (好友/隊伍/公會) | 1 | ✅ |
+| WorldMapPanel/ZoneTransition/TeleportSystem | 3 | ✅ |
+| Inventory/EggDropSystem | 2 | ✅ |
 
 ---
 
-## ✅ Prompt 2/15：角色 + Premium Dark HUD + 搖桿 + 相機（7–13%）— DONE
+## P1/10：⚔️ 戰鬥完善 + 技能系統 + Boss 機制（0-10%）
 
-**新建（5 檔案）：**
+**目標**: 戰鬥系統完全可玩 — 自動技能、CD 旋轉、Boss 掉落
 
-### 1. `src/entities/Player.ts`（≤250行）
-- **正常人體比例** capsule（身高 1.8 單位，肩寬 0.5）
-- PBR 材質：`albedoColor = new Color3(0.3, 0.35, 0.5)` 深藍盔甲色
-- `shadowGen.addShadowCaster(playerMesh)` 投射陰影
-- PlayerStats：`{ hp:100, maxHp:100, mp:50, maxMp:50, atk:10, def:5, level:1, exp:0, gold:500, diamond:10 }`
-- `setMoveDirection(dir)` 用 `copyFrom()` + `normalizeToNew()` 避免突變
-- 移動速度 6.0
+**完善現有（不重寫）：**
 
-### 2. `src/ui/HUD.ts`（≤200行）
-**使用全局 HUD CSS（見上方基準），精確佈局：**
-- 右上：4 個浮動 SVG arc 肖像圈（Player + 3 Pet），HP 紅弧左半(180-360°) + MP 藍弧右半(0-180°)
-  - 容器 50×50px，內圈 36×36px，SVG arc r=22 sw=4
-  - `stroke-dasharray` 控制 HP/MP 填充百分比
-- 左上：Minimap 暗色容器（zone 名 + 座標 + canvas 網格 + 玩家光點）
-- 底部：10 個導航按鈕（暗色玻璃條，emoji icon + 文字標籤）
-  - 按鈕 id：`nav-book, nav-shop, nav-char, nav-pet, nav-bag, nav-skill, nav-community, nav-quest, nav-map, nav-settings`
-- `updateStats(stats)` 更新 SVG arc / `updatePets(petManager)` 更新寵物肖像
-- `getNavButton(id)` API
+### [MODIFY] `src/combat/CombatLoop.ts`
+- 加入 **AutoSkillConfig**: 每個實體 (玩家+寵物) 可設定技能施放優先順序
+- 檢查隊列頂部：CD OK + MP 足夠 → 自動施展 → 下一個
+- HP < 30% 時優先回血技能
+- Toggle: auto-cast ON/OFF per entity
 
-### 2b. `src/ui/Minimap.ts`（≤100行）
-- 暗色容器 150px 寬，zone 名(Cinzel金字) + 座標(Inter灰字) + canvas 網格
-- `updatePosition(x,z)` 更新坐標 + 玩家光點
+### [MODIFY] `src/ui/SkillBar.ts`
+- CD 旋轉遮罩 `conic-gradient` 動畫
+- 技能綁定：點擊/F1-F8 觸發，0.1s scale 回彈
+- 自動施法啟用時：外框呼吸光暈
 
-### 2c. `src/ui/SkillBar.ts`（≤80行）
-- 右側暗色容器，8 個 F1-F8 槽位（`dark-skill-slot` 44×44px）
-- 鍵盤 F1-F8 快捷鍵 + 可折疊
+### [MODIFY] `src/ui/SkillPanel.ts`
+- 技能列表 + 升級按鈕 (花費 SP)
+- 拖放技能到 SkillBar 綁定
+- 顯示 MP Cost / CD / Multiplier
 
-### 2d. `src/ui/ChatBox.ts`（≤120行）
-- 左下暗色容器 280px 寬，3 頻道（System/World/Guild）
-- 暗色輸入框（`dark-chat-input`）+ Send 按鈕
+### [MODIFY] `src/entities/Monster.ts`
+- Boss 金色名牌 + 2x 尺寸
+- Boss 死亡: 1s 爆炸 + 金色粒子
 
-### 3. `src/ui/PanelManager.ts`（≤120行）
-**必須使用全局面板 CSS（見上方基準）：**
-- `register({ id, element })` + `open(id)` + `close()` + `toggle(id)`
-- open: 加 `.open` class + `.panel-backdrop.show`
-- close: 移除 class
-- 互斥：同時只能開一個面板
-- backdrop 點擊 → close
+### [MODIFY] `src/entities/MonsterManager.ts`
+- Boss 3600s respawn 計時器
+- Boss 專屬掉落邏輯
 
-### 4. `src/input/TouchJoystick.ts`（≤120行）
-- 左側 120px 虛擬圓搖桿
-- CSS：半透明圓 + 內圓 drag
-- WASD fallback：keydown/keyup → direction Vector3
-- `get direction(): Vector3` 返回歸一化方向
+### [MODIFY] `src/systems/DropTable.ts`
+- Boss 套裝掉落配置
+- 區域限定掉落
 
-### 5. `src/input/LandscapeCamera.ts`（≤100行）
-```typescript
-camera = new ArcRotateCamera("cam", -Math.PI/2, 1.1, 14, Vector3.Zero(), scene);
-camera.lowerBetaLimit = 0.5;
-camera.upperBetaLimit = 1.4;
-camera.lowerRadiusLimit = 8;
-camera.upperRadiusLimit = 25;
-camera.panningSensibility = 0;     // 禁止平移
-camera.inputs.attached.pointers.buttons = [1]; // 只右鍵旋轉
-// lerp 跟隨
-update(dt) { camera.target = Vector3.Lerp(camera.target, player.position, 5*dt); }
-```
+### [MODIFY] `src/ui/PanelManager.ts`
+- 全面啟用面板互斥邏輯
 
-**generate_image（10 張，用 ASSET_PROMPTS.md #4-#13 原文）**
-→ 7 個 `nav_*.png` + `coin_gold.png` + `gem_diamond.png` + `hud_frame.png`
-→ 生成後立即在 HUD.ts 中用 `<img>` 替換
+**用戶反饋空間 (20%)**: 技能名稱/效果調整、Boss 難度/掉落率
 
-**驗收：**
-- [x] 搖桿移動流暢 60fps
-- [x] 角色投射陰影到 PBR 地面
-- [x] HUD 頂部條：漸層背景 + HP/MP 條 + 金色文字
-- [x] 底部 7 個按鈕用 generate_image 圖標（非 emoji）
-- [x] 點擊按鈕有 scale(0.9) 反饋
+**驗收**: 自動技能循環 + CD 旋轉 + Boss 金名牌+respawn + 面板互斥
 
 ---
 
-## ✅ Prompt 3/15：🐾 八大系列 + PetManager + 3出戰（13–20%）— DONE
+## P2/10：🗺️ 世界地圖完善 + 怪物數據整合（10-20%）
 
-**新建（5 檔案）：**
+**目標**: 17 區域完整可切換，怪物等級正確
 
-### 1. `src/pets/PetData.ts`（≤200行）
-- 八大系列 enum + COUNTER_MAP（Plant→Dragon→Beast→Insect→Metal→Mystery→Demon→Bird→Plant）
-- 每系列 5 種寵物 JSON：`{ id, name, series, baseStats, skills[], gender, baseLevel }`
-- 共 40 種初始定義
+### [MODIFY] `src/world/ZoneDefinitions.ts`
+- 完整 17 區域怪物等級映射 (對照 Monster_Spawns.md)
+- 每區域配置：minLevel, maxLevel, bossId, bossLevel
 
-### 2. `src/pets/PetManager.ts`（≤200行）
-- `owned: Pet[]` 最多 100 隻
-- `active: Pet[]` 最多 3 隻出戰
-- `giveStarterPets()` — 給 3 隻初始寵物（Plant:`p_flowco`/Beast:`b_dinocat`/Bird:`r_redpig`）
-- `deploy(index)` / `recall(index)` 出戰管理
-- `update(dt)` — 更新所有出戰寵物 AI + 位置
+### [MODIFY] `src/world/ZoneMonsterData.ts`
+- CHM 數據完整整合 (147區域→17區域映射)
+- 每區域怪物種類+出現率
 
-### 3. `src/pets/Pet.ts`（≤150行）
-- **正常比例** placeholder（球體 body + 小球 head，非 Q 版 cone）
-- `PBRMaterial` + 系列色 `emissiveColor`（發光邊緣效果）
-- `emissiveIntensity = 0.3` 柔和發光
-- 跟隨玩家：`Vector3.Lerp(pos, target + offset, 4*dt)`
-- 三寵物環繞偏移：`offset[0]=(-1.5,0,-1)` / `[1]=(1.5,0,-1)` / `[2]=(0,0,-2)`
+### [MODIFY] `src/world/ZoneManager.ts`
+- 區域切換時 NPC 正確重生 (spawnForZone)
+- 確保 DropItem 清理
 
-### 4. `src/pets/PetFollowSystem.ts`（≤100行）
-- 跟隨玩家，攻擊玩家選定的目標
-- 近攻寵物：移動到目標 2m 內攻擊
-- 遠攻寵物：保持 6-8m 距離，發射投射物球體
-- 1.2s 攻擊間隔
-- ⚠️ 寵物沒有獨立 AI — 完全由玩家操控目標
+### [MODIFY] `src/world/ZoneRenderer.ts`
+- 各區域不同地形 PBR 顏色/光照
 
-### 5. `src/ui/PetControlBar.ts`（≤100行）
-- 右側 3 個格：`position:absolute; right:8px; top:50%; transform:translateY(-50%)`
-- 每格 42×42px，`border: 2px solid [series_color]`，半透明 PBR 風格背景
-- 圓弧形 HP 條（conic-gradient 或 SVG arc）
-- **系列圖標用 `<img src="assets/icons/series_X.png">`**
+**generate_image**: 5 biome × diffuse+normal = 10 張 terrain textures
 
-**generate_image（9 張，用 ASSET_PROMPTS.md #14-#22）**
+**用戶反饋空間**: 區域難度曲線、地圖連接、NPC 位置
 
-**驗收：**
-- [x] 3 寵物環繞跟隨，有 emissive 發光邊緣
-- [x] 右側控制列用 generate_image 系列圖標（非 emoji）
-- [x] 系列色邊框正確（Plant 綠/Dragon 橙/…）
+**驗收**: 17 區域傳送 + 不同光照/地形 + 怪物等級正確
 
 ---
 
-## ✅ Prompt 4/15：🐾 PEF 合成 + 圖鑑 + 寵物裝備（20–27%）— DONE
+## P3/10：📊 角色成長 — 五維配點 + 技能樹 + 覺醒 + 轉生（20-30%）
 
-**新建（5 檔案）：**
+**目標**: 角色有完整成長體系
 
-### 1. `src/pets/PetFusion.ts`（≤80行）
-- 基於 CHM MixMon 數據：`findRecipes(pet1, pet2)` 搜索 PET_DEFS 中 fusionRecipes
-- 每隻 fusion 寵物在 PetData 中定義 `fusionRecipes: [{ main, sub }]`
-- 支持雙向匹配（main↔sub 互換）
-- 成功率公式：`base 60% + (avgLevel - resultBaseLevel)*2%`，cap 95%
-- 失敗：副寵消失 + 主寵降 3-6 級
-- 保護道具 checkbox（保護石）
-
-### 2. `src/pets/PetEncyclopedia.ts`（≤100行）
-- 全 40 種 Map<id, { discovered, count }>
-- `register(id)` / `isDiscovered(id)` / `discoveredCount` / `totalCount`
-
-### 3. `src/pets/PetEquipment.ts`（≤80行）
-- 3 欄位 enum：Head/Body/Claw
-- `equip(petId, slot, itemId)` / `unequip(petId, slot)`
-- 裝備效果：`{atk:+5, def:+3}` 加到寵物 stats
-
-### 4. `src/ui/PetPanel.ts`（≤280行）
-**右側滑入面板（`sa-panel` 暗色主題），拖放操作：**
-- HTML5 drag-and-drop：倉庫格→出戰格=部署，出戰格→倉庫區=召回
-- 左側：3 個垂直出戰格（deploy slots），金色邊框
-- 右側：5 列倉庫網格（`sa-pet-slot` 暗色格子）
-- 上方：寵物資訊（名字+系列+等級+LV/HP/MP/力量/敏捷 stats，`sa-sl`/`sa-sv` 金色標籤）
-- 裝備區：6 個裝備格 + Buff 格
-- 點擊倉庫寵物 → 顯示詳細資訊
-
-### 5. `src/ui/FusionPanel.ts`（≤240行）
-**Mix Master 風格獨立中心彈窗：**
-- 兩個 80×80 可點擊寵物格位（主寵/副寵）+ 寵物選擇列表
-- 成功率百分比 + 顏色編碼（≥60% 綠 / ≥30% 黃 / <30% 紅）
-- 合成結果預覽（nameCN + baseLevel）
-- 保護石 checkbox + GP 標示
-- 成功：✨ 閃光 overlay / 失敗：💥 震動 overlay
-- 動畫：scale(0.92)→1 + opacity 0.25s
-
-**generate_image（5 張，ASSET_PROMPTS #23-#27）**
-
-**驗收：** 4Tab 面板 + 合成成功/失敗 + 圖鑑 + 裝備穿戴 + 寵物變身機械形態
-
----
-
-## Prompt 5/15：⚔️ 戰鬥+元素+技能+怪物+Boss（27–35%）
-
-### 1. `src/combat/CombatSystem.ts`（≤200行）
-- 傷害公式：`damage = (atk * skillMultiplier - def * 0.5) * elementModifier * (0.9 + Math.random() * 0.2)`
-- 目標選擇：玩家點擊怪物 → 所有出戰寵物跟隨攻擊
-- 攻擊循環：1.2s 間隔，近攻=跑向目標攻擊，遠攻=保持距離發射投射物
-- 克制：1.5x / 取消：0.7x 
-
-### 2. `src/combat/SkillManager.ts`（≤250行）
-- 12 技能定義 JSON：`{ id, name, type:'attack'|'defense'|'magic', mpCost, cooldown, multiplier, icon }`
-- **自動技能隊列 (AutoSkillConfig)**：
-  - 玩家與每隻寵物可獨立設定技能施放順序（在技能/角色面板設定）
-  - 戰鬥中自動按順序檢查：若 CD OK 且 MP 足夠則施展
-  - 特定條件覆蓋：HP < 30% 優先使用回血技能
-- 支援 Toggle 切換個別角色/寵物的自動施法 ON/OFF
-
-### 3. `src/combat/ProjectileSystem.ts`（≤80行）⭐新增
-- 遠攻寵物專用：發射系列色發光的投射物球體 (Emissive Sphere)
-- 軌跡：直線飛向目標，飛行速度 15 units/s
-- 擊中：觸發傷害結算 + 銷毀球體 + 小爆炸粒子特效
-
-### 4. `src/combat/FloatingDamage.ts`（≤80行）
-- Billboard 浮動文字 + 上飄 + 縮放動畫
-- 顏色分類：暴擊=#E8C96A 大字 / 普攻=#ECE8E0 / 克制=#27AE60 / 被克=#E74C3C
-- 支援顯示 "Parry" / "Miss" 文字
-
-### 5. `src/combat/ElementSystem.ts`（≤60行）
-- `getModifier(atk, def)` → 1.5/0.7/1.0
-
-### 6. `src/entities/Monster.ts`（≤250行）
-- 行為模式 (基於 `tables/Monster_Spawns.md` 數據)：
-  - **主動式 (Aggressive)**：8m 內偵測到玩家主動攻擊
-  - **被動式 (Passive)**：被攻擊後才反擊
-- **普通怪物**：球體 body + 小角/觸角 placeholder
-- **Boss 怪物**：2x 大小 + 金色名字
-- PBR 材質 + 系列色 `emissiveColor`（Boss emissive 更強 0.5）
-- Billboard HP 條：普怪=紅條 / Boss=金框紅條+名字+等級
-- 死亡動畫：普怪 0.5s 縮小 / Boss 1s 爆炸 + GPUParticle 金色碎片
-
-### 7. `src/entities/MonsterManager.ts`（≤150行）
-- 生成邏輯基於 `tables/Monster_Spawns.md` (CHM數據)
-- 根據當前區域配置等級與出現機率配置生成
-- 普通怪最多 10 隻，60s respawn
-- **區域 Boss**：每區域 1 隻，3600s respawn
-- Boss 專屬掉落：Boss套裝裝備書 + 核心蛋 (高機率)
-
-### 8. `src/systems/EggDropSystem.ts`（≤60行）⭐新增
-- 掉落機率：普怪 0.1%，Boss 5%
-- 全屏公告推播：「🥚 [玩家名] 幸運地獲得了 [寵物名] 的蛋！」
-- 掉落時帶有特殊金色 GPUParticle 爆發視覺效果
-
-### 9. `src/ui/SkillBar.ts`（≤80行）
-- 右側 4 格弧形排列 (或 F1-F8 垂直排列)
-- 自動施法啟用時：外框顯示呼吸燈光暈效
-- CD 旋轉遮罩 `conic-gradient`
-- 點擊觸發技能 + 0.1s scale 回彈
-
-**generate_image（16 張，ASSET_PROMPTS #28-#43）**
-
-**驗收：** 技能施放 + 自動技能隊列 + 遠攻投射物 + 元素相剋 + 浮動傷害 + Boss出現+掉蛋全屏公告
-
----
-
-## Prompt 6/15：🗺️ 區域世界 + 傳送（35–42%）
-
-### 區域系統核心邏輯
-
-> **數據源**：`tables/Monster_Spawns.md`（怪物分佈表）及 `tables/Fusion_Recipes.md`（融合配方表）
-> Monster_Spawns 包含 147 個區域的怪物列表（系列/等級/行為/掉落）。
-> 簡化映射：147 區域 → 我們的 17 區域。
-
-```typescript
-async travelTo(zoneId: string) {
-  zoneTransition.show(zoneDef.name);
-  currentZone.dispose();
-  const zone = new ZoneRenderer(scene, zoneDef);
-  await zone.build();
-  player.position = zoneDef.spawnPoint;
-  monsterManager.spawnForZone(zoneDef);
-  zoneTransition.hide();
-}
-```
-
-### ZoneRenderer 精確配置
-```typescript
-sun.diffuse = Color3.FromHexString(zoneDef.sunColor);
-sun.intensity = zoneDef.sunIntensity;
-hemi.diffuse = Color3.FromHexString(zoneDef.ambientColor);
-groundMat.albedoTexture = new Texture(`assets/textures/terrain_${zoneDef.biome}_diffuse.png`);
-groundMat.bumpTexture = new Texture(`assets/textures/terrain_${zoneDef.biome}_normal.png`);
-```
-
-### ZoneTransition CSS
-```css
-.zone-transition { position:absolute; inset:0; z-index:1000;
-  background:#0A0E1A; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  opacity:0; visibility:hidden; transition:opacity 0.4s; }
-.zone-transition.show { opacity:1; visibility:visible; }
-.zone-transition-name { font-family:'Cinzel',serif; font-size:28px;
-  color:#E8C96A; letter-spacing:3px; margin-bottom:20px; }
-.zone-transition-bar { width:200px; height:3px; background:rgba(255,255,255,0.1);
-  border-radius:2px; overflow:hidden; }
-.zone-transition-fill { height:100%; width:0%;
-  background:linear-gradient(90deg,#E8C96A,#7BA4DB);
-  transition:width 0.3s; }
-```
-
-**generate_image（14 張，ASSET_PROMPTS #44-#57）**
-
-**驗收：** 傳送門切換 + 不同區域光照 + Boss spawn + 世界地圖面板
-
----
-
-## Prompt 7/15：📦 AUTO+掉落+背包（42–49%）
-
-**新建（6 檔案）：**
-
-### 1. `src/combat/AutoGrind.ts`（≤150行）
-- 自動找最近怪 → 移動到 3m 內 → 攻擊 → 拾取 → 循環
-- AUTO 按鈕（`auto_icon.png`）+ toggle on/off
-- 指定目標功能：點擊怪物鎖定
-- 變身中迴避主動怪邏輯
-
-### 2. `src/entities/DropItem.ts`（≤100行）
-- Y 軸旋轉 0.5 rad/s + 金色 GPUParticle 光效
-- 2m 磁吸拾取 + 0.3s Lerp 飛入
-- 分類：核心蛋/裝備書/金幣/材料/稀有道具
-
-### 3. `src/systems/DropTable.ts`（≤100行）⭐新增
-- **掉落表 JSON**：每區域+每怪物獨立掉落配置
-```typescript
-interface DropEntry {
-  itemId: string; type: 'egg'|'equipment'|'gold'|'material'|'recipe';
-  chance: number;  // 0.001 ~ 1.0
-  minQty: number; maxQty: number;
-  zoneRestrict?: string[];  // 地圖限定掉落
-}
-```
-- 核心蛋掉落率 0.1%（Boss 5%）
-- 裝備書：特定地圖限定（如 141 級裝在 潔西帕遺跡）
-- Boss 專屬掉落：套裝裝備書
-
-### 4. `src/systems/Inventory.ts`（≤150行）
-- 背包 Grid：6 列 × N 行
-- 堆疊（材料/消耗品 max 99）+ 自動整理
-- 分類 Tab：裝備/消耗/材料/任務道具
-
-### 5. `src/ui/InventoryPanel.ts`（≤200行）
-- 居中面板 4Tab + 6 列 Grid
-- 稀有度色框（`rarity_*.png`）：灰/藍/紫/金
-- 長按 0.5s → Tooltip 浮動卡（道具名+描述+數值）
-- 操作選單：使用/穿戴/分解/上架
-
-### 6. `src/ui/AFKPanel.ts`（≤100行）
-- 直向 AFK 統計：擊殺數/經驗/金幣/DPS/效率 + 數字跳動動畫
-- `afk_bg.png` 背景
-
-**generate_image（7 張，ASSET_PROMPTS #58-#64）**
-
-**驗收：** AUTO 刷怪循環 + Boss掉落套裝 + 磁吸拾取 + 背包 Grid + 稀有度框 + AFK
-
----
-
-## Prompt 8/15：⚔️ 裝備+強化+共鳴（49–56%）
-
-**新建（5 檔案）：**
-
-### 1. `src/systems/EquipmentSystem.ts`（≤200行）
-- 8 部位：頭/鎧/手/鞋/手鐲/戒/項/武器
-- Boss 套裝（寵物加傷 +15%/+25%/+35% 按 2/4/6 件）
-- PVP 套裝（減傷 +10%/+20%/+30%）
-- 裝備等級分段：Lv.141/150/160/170/180
-
-### 2. `src/systems/ResonanceSystem.ts`（≤100行）
-- 共鳴藥水 + 裝備 → 對應系寵物攻防提升
-- 多階段效果 JSON：`{ series, level, atkBonus, defBonus }`
-
-### 3. `src/systems/EnhanceSystem.ts`（≤80行）
-- 強化 +1~+10 成功率：`[90,80,70,60,50,40,30,20,15,10]`
-- 失敗降 1 級（+0 不降）
-- 保護道具防降級
-
-### 4. `src/ui/EquipmentPanel.ts`（≤180行）
-- 人形佈局 8 格 + 角色中央預覽
-- 裝備卡片 Tooltip：名字+等級+套裝+數值
-- 操作：穿戴/分解/強化
-
-### 5. `src/ui/ResonancePanel.ts`（≤80行）
-- 選裝備 + 選藥水 → 效果預覽 → 確認
-
-**generate_image（3 張，ASSET_PROMPTS #65-#67）**
-
-**驗收：** 裝備穿戴 + 套裝2/4/6件效果 + 強化成功/失敗 + 共鳴加成
-
----
-
-## Prompt 9/15：📜 任務 25 章 + NPC + 換寵（56–63%）
-
-**新建（5 檔案）：**
-
-### 1. `src/systems/QuestManager.ts`（≤250行）
-- 主線 25 章 JSON（每 5 章解鎖新地圖）
-- 支線任務（殺怪/收集）
-- 每日任務（3 個/天，重置 00:00）
-- **換寵任務**：特定 NPC 用指定寵物交換稀有寵物 ⭐新增
-- 進度 localStorage 持久化
-
-### 2. `src/entities/NPC.ts`（≤120行）
-- NPC 分類：合成師/商人/技能師/任務NPC/**換寵NPC** ⭐
-- Billboard ！/？ 標記（`quest_exclamation.png`/`quest_question.png`）
-- 碰撞觸發對話
-
-### 3. `src/ui/QuestPanel.ts`（≤150行）
-- 居中面板 3Tab：主線/支線/每日
-- 進度條 + 獎勵預覽卡
-- 導航按鈕：點擊自動尋路到目標
-
-### 4. `src/ui/DialoguePanel.ts`（≤100行）
-- NPC 名字 + 肖像框（generate_image 或 placeholder 色塊）
-- 打字機效果 30ms/字
-- 按鈕：接受/拒絕/下一頁
-- 換寵介面：顯示「交出 [寵物A] → 獲得 [寵物B]」
-
-### 5. _(修改)_ `MapUnlockSystem.ts` — 完成主線 5/10/15/20/25 章解鎖新區域
-
-**generate_image（4 張，ASSET_PROMPTS #68-#71）**
-
-**驗收：** 任務推進 + NPC 對話 + 地圖解鎖 + 換寵任務完成
-
----
-
-## Prompt 10/15：📊 五維配點 + 技能樹 + 覺醒 + 轉生（63–70%）
-
-**新建（6 檔案）：**
-
-### 1. `src/systems/StatAllocation.ts`（≤100行）
+### [NEW] `src/systems/StatAllocation.ts`（≤100行）
 - 五維：力(str)/敏(agi)/準(acc)/智(int)/屬(attr)
 - 升級每獲 5 點，轉生額外 3 點
-- 衍生公式：`atk=str*2.5` / `def=acc*1.5` / `hp=str*10+acc*5` / `mp=int*8` / `dodge=agi*0.3%`
+- 衍生：`atk=str*2.5 / def=acc*1.5 / hp=str*10+acc*5 / mp=int*8 / dodge=agi*0.3%`
 
-### 2. `src/systems/SkillTree.ts`（≤120行）
-- 3 列（攻擊/防禦/魔法）+ 一階→二階前置鎖定
+### [NEW] `src/systems/SkillTree.ts`（≤120行）
+- 3 列（攻擊/防禦/魔法）+ 一階→二階前置鎖
 - SP 分配：每級 +1 SP
-- 二階技能：一階需練滿 + 到特定地圖 NPC 學習
+- 二階需一階滿 + 特定地圖 NPC
 
-### 3. `src/systems/AwakeningSystem.ts`（≤80行）
-- 條件：Lv>=50 + 主線 15 章完成 + 布魯邁 NPC 對話
-- 獎勵：+10 屬性點 + +5 SP + 解鎖沉默廢墟 + 角色光環
-- 光環效果：ShaderMaterial 圓環 + `awakening_aura.png` 紋理
+### [NEW] `src/systems/AwakeningSystem.ts`（≤80行）
+- 條件：Lv>=50 + 主線 15 章 + NPC
+- 獎勵：+10 屬性點 + +5 SP + 光環
 
-### 4. `src/systems/RebirthSystem.ts`（≤80行）
+### [NEW] `src/systems/RebirthSystem.ts`（≤80行）
 - 條件：覺醒後 + Lv>=80
-- 重置 Lv.1，獲得永久 +3 全屬性點/次
-- 可重複轉生，累積優勢
+- 重置 Lv.1，永久 +3 全屬性/次
 
-### 5. `src/ui/CharacterPanel.ts`（≤250行）
-- 居中面板 4Tab：屬性/技能/裝備/共鳴
-- 五維雷達圖（SVG pentagon）+ +/- 按鈕
-- 技能樹（3 列橫向排列 + 前置連線）
-- 裝備 Tab → 開啟 EquipmentPanel
+### [MODIFY] `src/ui/CharacterPanel.ts`
+- 五維雷達圖 (SVG pentagon) + +/- 按鈕
+- 技能樹 Tab (3列橫向+前置連線)
+- 覺醒/轉生條件顯示
 
-### 6. `src/ui/AwakeningPanel.ts`（≤60行）
-- 覺醒條件清單（已達成=綠✓/未達=灰✗）
-- 獎勵預覽 + 確認按鈕
+**用戶反饋空間**: 五維數值、技能效果、覺醒獎勵
 
-**generate_image（2 張，ASSET_PROMPTS #72-#73）**
-
-**驗收：** 配點 + 技能樹學習 + 覺醒光環 + 轉生+永久屬性
+**驗收**: 配點→屬性變化 + 技能樹學習 + 覺醒光環 + 轉生
 
 ---
 
-## Prompt 11/15：🔗 Firebase + 多人同屏 + 社交（70–77%）
+## P4/10：📦 裝備完善 + 強化 + 共鳴 + 套裝（30-40%）
 
-**新建（5 檔案）：**
+**目標**: 裝備系統完全可用
 
-### 1. `src/network/NetworkManager.ts`（≤200行）
-- Firebase RTDB 直連 + Mock 模式（localStorage 模擬）
-- Delta sync 100ms（自己） / 200ms（遠端）
-- 斷線重連 + `onDisconnect()` 清理
+### [MODIFY] `src/systems/EquipmentSystem.ts`
+- 套裝效果：Boss 套 2/4/6 件 → 寵傷 +15%/+25%/+35%
+- PVP 套：減傷 +10%/+20%/+30%
+- 裝備等級分段：Lv.141/150/160/170/180
 
-### 2. `src/network/RemotePlayerManager.ts`（≤150行）
-- 監聽 `zones/$zoneId/players` → 渲染遠端玩家
-- 最多同時 20 個（超過取最近距離）
-- 遠端玩家 Billboard：名字 + 等級 + 公會名
-- 遠端寵物簡化渲染（系列色球體）
+### [MODIFY] `src/systems/EnhanceSystem.ts`
+- 保護道具防降級 (checkbox)
+- 失敗 -1 級 (+0 不降)
+- 強化特效：成功閃光/失敗震動
 
-### 3. `src/network/PlayerInterpolation.ts`（≤80行）
-- 100ms delta → 線性插值平滑移動
-- 距離 > 50m → 低精度 placeholder
+### [MODIFY] `src/systems/ResonanceSystem.ts`
+- 實際加成計算：`{ series, level, atkBonus, defBonus }`
+- 藥水消耗
 
-### 4. `src/network/FriendManager.ts`（≤80行）
-- 好友列表 + Firebase Presence（在線/離線/擺攤/練功）
-- 私聊 `chat/$pair`
+### [MODIFY] `src/ui/ResonancePanel.ts`
+- 選裝備+選藥水→效果預覽→確認按鈕
+- 接入 ResonanceSystem 真實邏輯
 
-### 5. `src/network/SecurityRules.ts`（≤100行）
-- 生成 `database.rules.json`
-- 寫入檢查：等級 ≤ 180 / 金幣上限 / 屬性點 ≤ 等級×5
+### [MODIFY] `src/ui/InventoryPanel.ts`
+- 道具使用功能 (消耗品)
+- 分解功能 (裝備→材料)
 
-**驗收：** Mock 模式同步 + 遠端玩家渲染 + 好友列表 + 在線狀態
+**用戶反饋空間**: 強化成功率、套裝名/效果、共鳴種類
 
----
-
-## Prompt 12/15：⚔️ PVP + 公會 + 組隊（77–84%）
-
-**新建（5 檔案）：**
-
-### 1. `src/combat/PvPSystem.ts`（≤120行）
-- 3 模式：和平(不可攻擊) / PK(野外自由PK) / 競技(1v1匹配)
-- PVP 套裝減傷生效
-- 擊殺獎勵 + 死亡懲罰（掉金幣 10%）
-
-### 2. `src/network/GuildManager.ts`（≤150行）
-- 創建：Lv30 + 100 萬 GP
-- 成員管理：會長/副會長/成員
-- 公會倉庫：Firebase `guilds/$id/storage`
-- 留言板：`guilds/$id/board`
-
-### 3. `src/network/PartyManager.ts`（≤100行）
-- 8 人隊 + 經驗加成（2 人+25% ~ 8 人+100%）
-- 成員 HP 頂部小格顯示
-
-### 4. `src/ui/SocialPanel.ts`（≤150行）
-- 居中面板 3Tab：好友/公會/組隊
-- 好友：在線狀態圖標 + 私聊按鈕
-- 公會：成員列表 + 留言板 + 倉庫入口
-
-### 5. `src/ui/GuildPanel.ts`（≤100行）
-- 公會詳情 + 成員排列 + 申請管理
-
-**驗收：** PVP 切換 + 公會創建 + 組隊邀請 + 經驗加成
+**驗收**: 套裝 2/4/6 件效果 + 強化成功/失 + 共鳴加成 + 分解
 
 ---
 
-## Prompt 13/15：🛒 商城 + 科技樹 + 變身 + 時裝（84–90%）
+## P5/10：📜 任務擴充 25 章 + NPC 商店 + 技能學習（40-50%）
 
-**新建（7 檔案）：**
+**目標**: 任務系統完整可推進
 
-### 1. `src/systems/PaymentManager.ts`（≤100行）
-- Capacitor IAP（Android）+ Web Mock
+### [MODIFY] `src/systems/QuestManager.ts`
+- 擴充至 25 章主線 (每 5 章解鎖新地圖)
+- 10+ 支線任務
+- 每日 3 任務 (00:00 重置)
+- 換寵任務
 
-### 2. `src/systems/ShopManager.ts`（≤200行）
-- 金幣商店 7 分類：武器/防具/飾品/藥水/寵糧/卷軸/時裝 ⭐含時裝
-- 鑽石商店：皮膚/背包擴充/經驗卡
-- 泡點商城：在線積分累積兌換
-- 充值 5 檔（$0.99~$49.99）
+### [MODIFY] `src/entities/NPC.ts`
+- 商人 NPC: 開啟 ShopPanel
+- 技能導師 NPC: 開啟 SkillPanel (學習)
+- 換寵 NPC: 對話→交換
 
-### 3. `src/systems/TechTree.ts`（≤100行）
-- 10 層公會科技 + 殺怪/捐獻解鎖
-- 公會全員加成
+### [NEW] `src/systems/ShopManager.ts`（≤200行）
+- NPC 商店：武器/防具/飾品/藥水/寵糧/卷軸
+- 買賣邏輯 (金幣扣除/增加)
 
-### 4. `src/systems/TransformSystem.ts`（≤100行）
-- 變身鎧甲：角色 Mesh 替換 + 能力提升
-- **變身後迴避主動怪**：Monster AI 排除變身玩家 ⭐
-- 限時 + 商城購買
-
-### 5. `src/systems/CostumeSystem.ts`（≤80行）⭐新增
-- 時裝/服飾系統：純外觀不影響數值
-- 商城購買 + 穿戴管理
-- 開發期 placeholder 色彩替換
-
-### 6. `src/ui/ShopPanel.ts`（≤200行）
-- 居中面板 + 左分類 Tab 右商品 Grid
-- 價格（金幣/鑽石圖標 + 數值）
+### [NEW] `src/ui/ShopPanel.ts`（≤200行）
+- 左分類 Tab + 右商品 Grid
+- 價格 (金幣圖標+數值)
 - 購買確認彈窗
 
-### 7. `src/ui/TechTreePanel.ts`（≤120行）
-- 10 層橫向滾動（scroll-snap）
-- 節點圓 40px + 金色連接線
+### [MODIFY] `src/ui/DialoguePanel.ts`
+- 商人→開 ShopPanel, 技能師→開 SkillPanel
 
-**generate_image（7 張，ASSET_PROMPTS #74-#80）**
+**用戶反饋空間**: 任務劇情、商品列表、任務獎勵
 
-**驗收：** 商城購買 + Mock 充值 + 時裝穿戴 + 科技樹 + 變身迴避怪物
+**驗收**: 25 章推進 + NPC 買賣 + 技能學習 + 換寵
 
 ---
 
-## Prompt 14/15：💬 聊天 + 設定 + AFK + 活動系統（90–95%）
+## P6/10：🔗 Firebase + 多人同屏 + 社交（50-60%）
 
-**新建（5 檔案）：**
+**目標**: 同區域可見其他玩家
 
-### 1. `src/ui/ChatSystem.ts`（≤150行）
-- 底部展開 40% 高 + 4Tab：世界/公會/組隊/私聊
-- Firebase `chat/$channel/$msgId`
+### [NEW] `src/network/NetworkManager.ts`（≤200行）
+- Firebase RTDB + Mock 模式 (localStorage)
+- Delta sync 100ms(己)/200ms(遠)
+- onDisconnect() 清理
+
+### [NEW] `src/network/RemotePlayerManager.ts`（≤150行）
+- 監聽 `zones/$zoneId/players` → 渲染遠端 (max 20)
+- Billboard: 名字+等級+公會
+
+### [NEW] `src/network/PlayerInterpolation.ts`（≤80行）
+- 100ms delta → 線性插值
+
+### [NEW] `src/network/FriendManager.ts`（≤80行）
+- 好友列表 + Presence (在線/離線)
+- 私聊 `chat/$pair`
+
+### [NEW] `src/network/SecurityRules.ts`（≤100行）
+- database.rules.json
+
+### [MODIFY] `src/ui/CommunityPanel.ts`
+- 接入 Firebase 好友真實數據
+
+**用戶反饋空間**: 同步頻率、遠端渲染、社交優先級
+
+**驗收**: Mock 同步 + 遠端玩家 + 好友列表+在線狀態
+
+---
+
+## P7/10：⚔️ PVP + 公會 + 組隊（60-70%）
+
+### [NEW] `src/combat/PvPSystem.ts`（≤120行）
+- 3 模式：和平/PK/競技
+- 擊殺獎勵 + 死亡掉金 10%
+
+### [NEW] `src/network/GuildManager.ts`（≤150行）
+- 創建 Lv30+100萬GP / 成員管理 / 倉庫 / 留言板
+
+### [NEW] `src/network/PartyManager.ts`（≤100行）
+- 8 人隊 + 經驗加成 (2人+25%~8人+100%)
+
+### [MODIFY] `src/ui/CommunityPanel.ts`
+- 接入公會/組隊真實數據
+
+**用戶反饋空間**: PVP 規則、公會功能、死亡懲罰
+
+**驗收**: PVP 切換 + 公會創建 + 組隊邀請
+
+---
+
+## P8/10：🛒 商城 + 科技樹 + 變身（70-80%）
+
+### [MODIFY] `src/systems/ShopManager.ts`
+- 鑽石商店 + 泡點商城 + 充值
+
+### [NEW] `src/systems/TechTree.ts`（≤100行）
+- 10 層公會科技 + 殺怪/捐獻解鎖
+
+### [NEW] `src/systems/TransformSystem.ts`（≤100行）
+- 變身鎧甲 + Mesh 替換 + 能力提升
+- 限時 + 迴避主動怪
+
+### [NEW] `src/ui/TechTreePanel.ts`（≤120行）
+- 10 層橫向 scroll-snap + 節點連線
+
+### [MODIFY] `src/ui/ShopPanel.ts`
+- 多分類 (金幣/鑽石/泡點)
+
+**用戶反饋空間**: 商品定價、科技效果、變身外觀
+
+**驗收**: 商城購買 + 科技樹 + 變身
+
+---
+
+## P9/10：💬 聊天完善 + 設定 + AFK + 活動（80-90%）
+
+### [MODIFY] `src/ui/ChatBox.ts`
+- Firebase 世界/公會/私聊 4 頻道
 - 頭頂氣泡 Billboard 3s fade
 
-### 2. `src/ui/SettingsPanel.ts`（≤100行）
-- 居中面板：畫質(高/中/低) + BGM/SFX 音量滑桿 + 存檔/讀檔 + 登出
+### [MODIFY] `src/ui/AFKPanel.ts`
+- 接入真實數據：擊殺/經驗/金幣/DPS
 
-### 3. `src/ui/OrientationUI.ts`（≤80行）
-- 橫→直 AFK 過渡動畫 0.4s
-- 直向 AFK：迷你狀態 + 掛機統計 + 有限操作
+### [NEW] `src/ui/SettingsPanel.ts`（≤100行）
+- 畫質(高/中/低) + 音量滑桿 + 存檔/讀檔
 
-### 4. `src/systems/EventManager.ts`（≤120行）⭐新增
-- **活動系統**：Live Ops JSON 驅動
-- 世界 Boss 活動（定時刷新全服 Boss）
-- 限時探險地圖（咆哮牧場/彩虹島 開放時間控制）
-- 賽季活動 + 節日活動
-- 活動 Banner 通知 UI
+### [NEW] `src/systems/EventManager.ts`（≤120行）
+- 世界 Boss 活動 + 限時地圖
+- Live Ops JSON 驅動
 
-### 5. `src/ui/TransformPanel.ts`（≤60行）
-- 變身選擇 + 效果預覽 + 確認
+**用戶反饋空間**: 聊天功能、活動類型、AFK 獎勵
 
-**驗收：** 聊天 4 頻道 + 設定生效 + AFK 切換 + 活動系統 Banner
+**驗收**: 聊天 4 頻道 + 設定生效 + AFK 統計 + 活動 Banner
 
 ---
 
-## Prompt 15/15：🎓 引導 + 存檔 + 音效 + 效能收尾（95–100%）
+## P10/10：🎓 存檔 + 音效 + 引導 + 效能收尾（90-100%）
 
-**新建（7 檔案）：**
+### [NEW] `src/core/SaveSystem.ts`（≤120行）
+- localStorage: stats/inventory/pets/quests/settings/position
+- 30s 自動存 + Firebase 同步
 
-### 1. `capacitor.config.ts`（≤20行）
+### [NEW] `src/core/AudioManager.ts`（≤120行）
+- BGM 每區域 + SFX 攻擊/技能/拾取/UI
+- 音量控制 + 靜音 toggle
 
-### 2. `src/core/SaveSystem.ts`（≤120行）
-- localStorage：playerStats/inventory/pets/quests/settings/position
-- 30s 自動存 + Firebase 同步（有網路時）
+### [NEW] `src/core/PerformanceOptimizer.ts`（≤80行）
+- FPS<55 → 降解析度
+- GPUParticle 限制 + 畫質自調
 
-### 3. `src/core/PerformanceOptimizer.ts`（≤80行）
-- FPS<55 → 降解析度 `engine.setHardwareScalingLevel(2)`
-- GPUParticle 限制 + 畫質自動調整
+### [NEW] `src/ui/TutorialOverlay.ts`（≤100行）
+- 4 步引導：搖桿→攻擊→寵物→合成
+- 聚焦遮罩 + 箭頭
 
-### 4. `src/core/AudioManager.ts`（≤120行）⭐新增
-- **BGM 系統**：每區域獨立背景音樂 URL + crossfade 切換
-- **SFX 系統**：攻擊/技能/暴擊/撿取/UI點擊/合成/升級/Boss出現
-- 音量控制（0~1 滑桿）+ 靜音 toggle
-- Web Audio API + Babylon.js Sound
-- 開發期用免費音效佔位
+### [NEW] `src/ui/LevelUpEffect.ts`（≤60行）
+- 金色粒子爆發 + LEVEL UP 大字
 
-### 5. `src/core/NotificationManager.ts`（≤60行）⭐新增
-- **離線獎勵**：記錄離線時間 → 回來後發放掛機獎勵
-- **推播預留**：Service Worker 接口（寵物蛋孵化/活動開始/Boss刷新）
-
-### 6. `src/ui/TutorialOverlay.ts`（≤100行）
-- 4 步新手引導：搖桿→攻擊→寵物→合成
-- 聚焦遮罩 + 箭頭指向
-- 新手禮包：Lv.0/10/20/30/60 自動彈出
-
-### 7. `src/ui/LevelUpEffect.ts`（≤60行）
-- 升級金色 GPUParticle 爆發 + 「LEVEL UP!」大字
-- 振動反饋 `navigator.vibrate(200)`
-
-**最終 25 項驗收：**
+**驗收 (最終 25 項)**:
 | # | 項目 | 預期 |
 |---|------|------|
 | 1 | 冷啟動 | ≤1.2s |
@@ -886,39 +394,20 @@ interface DropEntry {
 | 6 | 元素相剋 | 1.5x/0.7x |
 | 7 | 技能 | CD+SP |
 | 8 | 17 區域傳送 | 不同光照 |
-| 9 | 世界地圖 | 傳送 |
-| 10 | 普怪+Boss | HP+傷害+掉落 |
-| 11 | AUTO | 循環 |
-| 12 | AFK | 統計 |
-| 13 | 裝備 8 部位 | Boss/PVP 套裝 |
-| 14 | 強化+共鳴 | 成功率 |
-| 15 | 任務 25 章 | 解鎖 |
-| 16 | NPC+換寵 | 對話+交換 |
-| 17 | 背包 Grid | 稀有度框 |
-| 18 | 交易所 | 上架 |
-| 19 | 配點 | 五維 |
-| 20 | 覺醒+轉生 | 光環+永久屬性 |
-| 21 | 多人同屏 | ≤20人 |
-| 22 | PVP+公會 | 3模式 |
-| 23 | 商城+時裝 | 購買+穿戴 |
-| 24 | 音效 BGM/SFX | 每區域不同 |
-| 25 | 存檔+離線獎勵 | 關閉恢復 |
-| 26 | 活動系統 | 世界Boss+限時 |
-| 27 | 記憶體 | ≤110MB |
-
----
-
-## 完成後品質等級
-
-P1-P15 全部完成後，遊戲應達到：
-- ✅ PBR 地形紋理 5 biome × diffuse+normal
-- ✅ DirectionalLight 陰影 + SSAO + Bloom + ACES tone mapping
-- ✅ 所有 UI 圖標 = generate_image 精緻圖（非 emoji）
-- ✅ 所有面板 = 多層玻璃 + 金線裝飾 + scale 動畫
-- ✅ 17 區域各有獨特光照/天空/PBR/BGM
-- ✅ 同區域可見其他玩家（≤20人 Firebase）
-- ✅ Boss 怪物 + 套裝掉落 + 世界 Boss 活動
-- ✅ 音效系統 BGM + SFX
-- ✅ 活動系統 + 離線獎勵
-- ✅ 時裝/服飾 + 換寵任務
-- ✅ 60fps / ≤110MB / 區域切換<500ms
+| 9 | 普怪+Boss | HP+傷害+掉落 |
+| 10 | AUTO | 循環 |
+| 11 | AFK | 統計 |
+| 12 | 裝備 8 部位 | Boss/PVP 套裝 |
+| 13 | 強化+共鳴 | 成功率 |
+| 14 | 任務 25 章 | 解鎖 |
+| 15 | NPC+換寵 | 對話+交換 |
+| 16 | 背包 Grid | 稀有度框 |
+| 17 | 配點 | 五維 |
+| 18 | 覺醒+轉生 | 光環+永久屬性 |
+| 19 | 多人同屏 | ≤20人 |
+| 20 | PVP+公會 | 3模式 |
+| 21 | 商城 | 購買 |
+| 22 | 音效 BGM/SFX | 每區域不同 |
+| 23 | 存檔+離線 | 關閉恢復 |
+| 24 | 活動系統 | 世界Boss+限時 |
+| 25 | 記憶體 | ≤110MB |

@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Combat + Equipment + Progression (Prompt 5, 8, 10 / 27-70%)
+description: Combat + Skills + Equipment + Stats (P1, P3, P4 / 0-40%)
 ---
 
 // turbo-all

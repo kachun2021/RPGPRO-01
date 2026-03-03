@@ -1,6 +1,6 @@
 ﻿---
 trigger: model_decision
-description: 區域制世界地圖與傳送系統（Prompt 6 / 35–42%）
+description: 區域世界完善+怪物數據整合（P2 / 10–20%）
 ---
 
 // turbo-all
