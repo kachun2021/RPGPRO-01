@@ -8,7 +8,7 @@ const TAB_LABELS: { id: Tab; label: string; icon: string }[] = [
 ];
 
 const STATUS_ICONS: Record<QuestStatus, string> = {
-      locked: '🔒', available: '📌', active: '⚡', complete: '✅',
+      locked: '🔒', available: '📌', active: '⚡', complete: '✅', claimed: '🏆',
 };
 
 /**

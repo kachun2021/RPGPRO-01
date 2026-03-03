@@ -25,6 +25,10 @@ const NPC_TYPE_COLORS: Record<NPCType, Color3> = {
       pet_trader: new Color3(0.8, 0.3, 0.6),
 };
 
+const NPC_TYPE_ICONS: Record<NPCType, string> = {
+      merchant: '🛒', skill_master: '📖', quest: '❗', pet_trader: '🔄',
+};
+
 /** All NPC definitions (no 合成師 — fusion is in UI) */
 export const NPC_DEFS: NPCDef[] = [
       {
@@ -46,14 +50,22 @@ export const NPC_DEFS: NPCDef[] = [
 ];
 
 /**
- * NPC — 3D entity in the world with billboard marker and collision detection.
+ * NPC — 3D entity with billboard marker + click-to-interact prompt bubble.
+ * 
+ * Market standard design:
+ * - Billboard icon (❗/🛒/📖/🔄) always visible above NPC head
+ * - When player is within 3m: show small "💬 對話" prompt bubble near NPC
+ * - Player clicks the prompt bubble OR the NPC mesh to open dialogue
+ * - Dialogue does NOT auto-open on proximity
  */
 export class NPC {
       readonly def: NPCDef;
       readonly root: TransformNode;
       readonly mesh: Mesh;
       private _marker!: HTMLDivElement;
+      private _promptBubble!: HTMLDivElement;
       private _scene: Scene;
+      private _inRange = false;
 
       constructor(scene: Scene, def: NPCDef) {
             this._scene = scene;
@@ -68,6 +80,8 @@ export class NPC {
             }, scene);
             this.mesh.parent = this.root;
             this.mesh.position.y = 1.1;
+            this.mesh.isPickable = true; // Enable click picking
+            this.mesh.metadata = { npcId: def.id }; // Tag for click detection
 
             const mat = new StandardMaterial(`npc_mat_${def.id}`, scene);
             mat.diffuseColor = def.color;
@@ -75,67 +89,96 @@ export class NPC {
             mat.specularColor = Color3.Black();
             this.mesh.material = mat;
 
-            // DOM billboard marker
             this._createMarker();
+            this._createPromptBubble();
       }
 
+      /** Billboard icon always visible above NPC head */
       private _createMarker(): void {
             this._marker = document.createElement('div');
             this._marker.className = 'npc-marker';
             this._marker.innerHTML = `
-                  <div class="npc-marker-icon">${this.def.type === 'quest' ? '❗' : this.def.type === 'pet_trader' ? '🔄' : this.def.type === 'merchant' ? '🛒' : '📖'}</div>
+                  <div class="npc-marker-icon">${NPC_TYPE_ICONS[this.def.type]}</div>
                   <div class="npc-marker-name">${this.def.name}</div>
             `;
             document.getElementById('ui-layer')?.appendChild(this._marker);
       }
 
-      /** Update billboard position to screen coords */
-      updateBillboard(scene: Scene): void {
-            if (!scene.activeCamera) { this._marker.style.display = 'none'; return; }
-            const engine = scene.getEngine();
-            const cam = scene.activeCamera;
-            const viewport = cam.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight());
-            const worldPos = this.root.position.add(new Vector3(0, 2.8, 0));
+      /** Small clickable prompt bubble — only shown when player is in range */
+      private _createPromptBubble(): void {
+            this._promptBubble = document.createElement('div');
+            this._promptBubble.className = 'npc-prompt';
+            this._promptBubble.innerHTML = `💬 對話`;
+            this._promptBubble.style.display = 'none';
+            // Make it pointer-interactive
+            this._promptBubble.style.pointerEvents = 'auto';
+            this._promptBubble.style.cursor = 'pointer';
+            document.getElementById('ui-layer')?.appendChild(this._promptBubble);
+      }
 
-            const pos = Vector3.Project(
-                  worldPos,
-                  Matrix.IdentityReadOnly,
-                  scene.getTransformMatrix(),
-                  viewport,
-            );
+      get promptBubble(): HTMLDivElement { return this._promptBubble; }
+      get inRange(): boolean { return this._inRange; }
 
-            if (pos.z < 0 || pos.z > 1) {
+      /** Update billboard + prompt positions to screen coords */
+      updateBillboard(scene: Scene, playerPos: Vector3): void {
+            if (!scene.activeCamera) {
                   this._marker.style.display = 'none';
+                  this._promptBubble.style.display = 'none';
                   return;
             }
 
-            this._marker.style.display = 'block';
-            this._marker.style.left = `${pos.x}px`;
-            this._marker.style.top = `${pos.y}px`;
-      }
+            const engine = scene.getEngine();
+            const cam = scene.activeCamera;
+            const viewport = cam.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight());
 
-      /** Check if player is within interaction range */
-      isInRange(playerPos: Vector3, range: number = 3): boolean {
+            // Billboard above head
+            const headPos = this.root.position.add(new Vector3(0, 2.8, 0));
+            const screenHead = Vector3.Project(headPos, Matrix.IdentityReadOnly, scene.getTransformMatrix(), viewport);
+
+            if (screenHead.z < 0 || screenHead.z > 1) {
+                  this._marker.style.display = 'none';
+                  this._promptBubble.style.display = 'none';
+                  this._inRange = false;
+                  return;
+            }
+
+            // Show billboard icon
+            this._marker.style.display = 'block';
+            this._marker.style.left = `${screenHead.x}px`;
+            this._marker.style.top = `${screenHead.y}px`;
+
+            // Check range for prompt bubble
             const dx = this.root.position.x - playerPos.x;
             const dz = this.root.position.z - playerPos.z;
-            return Math.sqrt(dx * dx + dz * dz) < range;
+            this._inRange = Math.sqrt(dx * dx + dz * dz) < 3.5;
+
+            if (this._inRange) {
+                  // Show prompt bubble at NPC body level
+                  const bodyPos = this.root.position.add(new Vector3(0, 2.0, 0));
+                  const screenBody = Vector3.Project(bodyPos, Matrix.IdentityReadOnly, scene.getTransformMatrix(), viewport);
+                  this._promptBubble.style.display = 'block';
+                  this._promptBubble.style.left = `${screenBody.x}px`;
+                  this._promptBubble.style.top = `${screenBody.y}px`;
+            } else {
+                  this._promptBubble.style.display = 'none';
+            }
       }
 
       dispose(): void {
             this.mesh.dispose();
             this.root.dispose();
             this._marker.remove();
+            this._promptBubble.remove();
       }
 }
 
 /**
- * NPCManager — Manages all NPCs in the current zone.
+ * NPCManager — Manages all NPCs. Click-to-interact, NOT auto-trigger.
  */
 export class NPCManager {
       private _scene: Scene;
       private _npcs: NPC[] = [];
       private _onInteract: ((npc: NPC) => void) | null = null;
-      private _interactCooldown = 0;
 
       set onInteract(cb: ((npc: NPC) => void) | null) { this._onInteract = cb; }
 
@@ -148,21 +191,30 @@ export class NPCManager {
             this.despawnAll();
             const defs = NPC_DEFS.filter(d => d.zoneId === zoneId);
             for (const def of defs) {
-                  this._npcs.push(new NPC(this._scene, def));
+                  const npc = new NPC(this._scene, def);
+                  // Click on prompt bubble → interact
+                  npc.promptBubble.addEventListener('click', () => {
+                        this._onInteract?.(npc);
+                  });
+                  this._npcs.push(npc);
             }
-      }
 
-      /** Update billboards and check proximity */
-      update(dt: number, playerPos: Vector3): void {
-            this._interactCooldown = Math.max(0, this._interactCooldown - dt);
-
-            for (const npc of this._npcs) {
-                  npc.updateBillboard(this._scene);
-
-                  if (this._interactCooldown <= 0 && npc.isInRange(playerPos)) {
-                        this._interactCooldown = 2; // 2s cooldown between interactions
+            // Also support clicking on NPC mesh directly
+            this._scene.onPointerObservable.add((info) => {
+                  if (info.type !== 4) return; // POINTERDOWN = 4
+                  const hit = info.pickInfo;
+                  if (!hit?.hit || !hit.pickedMesh?.metadata?.npcId) return;
+                  const npc = this._npcs.find(n => n.def.id === hit.pickedMesh!.metadata.npcId);
+                  if (npc && npc.inRange) {
                         this._onInteract?.(npc);
                   }
+            });
+      }
+
+      /** Update billboard positions — NO auto-trigger */
+      update(_dt: number, playerPos: Vector3): void {
+            for (const npc of this._npcs) {
+                  npc.updateBillboard(this._scene, playerPos);
             }
       }
 

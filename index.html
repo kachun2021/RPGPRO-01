@@ -1884,6 +1884,39 @@
       white-space: nowrap;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
+
+    .npc-prompt {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(232, 201, 106, 0.9), rgba(196, 153, 61, 0.9));
+      color: #0A0E1A;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      animation: npc-prompt-bounce 1.2s ease-in-out infinite;
+      z-index: 55;
+    }
+
+    @keyframes npc-prompt-bounce {
+
+      0%,
+      100% {
+        transform: translate(-50%, -100%);
+      }
+
+      50% {
+        transform: translate(-50%, calc(-100% - 4px));
+      }
+    }
+
+    .qp-claimed {
+      opacity: 0.5;
+      border-left: 3px solid rgba(200, 195, 185, 0.3);
+    }
   </style>
 </head>
 
