@@ -91,7 +91,8 @@ export class InventoryPanel {
             title.appendChild(closeBtn);
             this._el.appendChild(title);
 
-            // ===== EQUIPMENT SECTION =====
+            // ===== EQUIPMENT SECTION (5-col CHM layout) =====
+            // Col0=bracelet  Col1=head/weapon/boots  Col2=3D preview  Col3=necklace/armor/gloves  Col4=ring
             const equipSection = document.createElement('div');
             equipSection.className = 'inv2-equip-section';
 
@@ -102,47 +103,56 @@ export class InventoryPanel {
             statsBar.innerHTML = `<span>⚔️${statsTotal.atk}</span> <span>🛡️${statsTotal.def}</span> <span>❤️${statsTotal.hp}</span> <span>💧${statsTotal.mp}</span>`;
             equipSection.appendChild(statsBar);
 
-            // Equip grid (4 rows × 3 cols, center = character)
             const grid = document.createElement('div');
             grid.className = 'inv2-equip-grid';
 
-            for (let row = 0; row < EQUIP_LAYOUT.length; row++) {
-                  for (let col = 0; col < 3; col++) {
-                        const slotId = EQUIP_LAYOUT[row][col];
-                        const cell = document.createElement('div');
-
-                        if (slotId === null && col === 1) {
-                              // Center: character preview
-                              cell.className = 'inv2-char-cell';
-                              if (row === 0) {
-                                    cell.innerHTML = `<div class="inv2-char-preview">👤</div>`;
-                                    cell.style.gridRow = '1 / 5';
-                              } else {
-                                    cell.style.display = 'none';
-                              }
-                        } else if (slotId) {
-                              const equip = this._equipSystem.getSlot(slotId);
-                              cell.className = 'inv2-eq-slot';
-                              if (equip) {
-                                    cell.classList.add('inv2-eq-filled');
-                                    cell.innerHTML = `
-                                          <span class="inv2-eq-icon">${equip.icon}</span>
-                                          ${equip.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${equip.enhanceLevel}</span>` : ''}
-                                    `;
-                                    cell.addEventListener('click', () => this._showEquipActions(equip, slotId));
-                              } else {
-                                    cell.innerHTML = `
-                                          <span class="inv2-eq-empty-icon">${SLOT_ICONS[slotId]}</span>
-                                          <span class="inv2-eq-label">${SLOT_LABELS[slotId]}</span>
-                                    `;
-                                    cell.addEventListener('click', () => this._showEquipList(slotId));
-                              }
-                        } else {
-                              cell.className = 'inv2-eq-slot inv2-eq-hidden';
-                        }
-                        grid.appendChild(cell);
+            // Slot builder
+            const mkSlot = (key: EquipSlot | null, locked = false) => {
+                  const c = document.createElement('div');
+                  c.className = 'inv2-eq-slot';
+                  if (locked) {
+                        c.classList.add('inv2-eq-locked');
+                        c.innerHTML = `<span class="inv2-eq-x">✕</span>`;
+                        return c;
                   }
-            }
+                  if (!key) return c;
+                  const eq = this._equipSystem.getSlot(key);
+                  if (eq) {
+                        c.classList.add('inv2-eq-filled');
+                        c.innerHTML = `<span class="inv2-eq-icon">${eq.icon}</span>${eq.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${eq.enhanceLevel}</span>` : ''}`;
+                        c.addEventListener('click', () => this._showEquipActions(eq, key));
+                  } else {
+                        c.innerHTML = `<span class="inv2-eq-ghost">${SLOT_ICONS[key]}</span>`;
+                        c.addEventListener('click', () => this._showEquipList(key));
+                        c.title = SLOT_LABELS[key];
+                  }
+                  return c;
+            };
+
+            // Row 0: bracelet | head | [3D CHAR] | necklace | ring
+            grid.appendChild(mkSlot('bracelet'));
+            grid.appendChild(mkSlot('head'));
+            const charCell = document.createElement('div');
+            charCell.className = 'inv2-char-cell';
+            charCell.style.gridRow = '1 / 4';
+            charCell.style.gridColumn = '3';
+            charCell.innerHTML = `<div class="inv2-char-preview">👤</div>`;
+            grid.appendChild(charCell);
+            grid.appendChild(mkSlot('necklace'));
+            grid.appendChild(mkSlot('ring'));
+
+            // Row 1: X(future bracelet2) | weapon | [spans] | armor | X(future ring2)
+            grid.appendChild(mkSlot(null, true));
+            grid.appendChild(mkSlot('weapon'));
+            grid.appendChild(mkSlot('armor'));
+            grid.appendChild(mkSlot(null, true));
+
+            // Row 2: X(future bracelet3) | boots | [spans] | gloves | X(future ring3)
+            grid.appendChild(mkSlot(null, true));
+            grid.appendChild(mkSlot('boots'));
+            grid.appendChild(mkSlot('gloves'));
+            grid.appendChild(mkSlot(null, true));
+
             equipSection.appendChild(grid);
             this._el.appendChild(equipSection);
 
