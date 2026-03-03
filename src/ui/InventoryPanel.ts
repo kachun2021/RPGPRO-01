@@ -286,17 +286,28 @@ export class InventoryPanel {
       }
 
       private _showEquipList(slot: EquipSlot): void {
-            const available = EQUIP_TEMPLATES.filter(t => t.slot === slot);
-            if (available.length === 0) return;
+            // Map bracelet2/ring2 to base slot for matching
+            const baseSlot = slot.replace(/2$/, '') as EquipSlot;
+
+            // Find equipment items in inventory that match this slot
+            const invItems = this._inventory.getByTab('equipment').filter(i => {
+                  const tmpl = EQUIP_TEMPLATES.find(t => t.id === i.itemId);
+                  return tmpl && (tmpl.slot === baseSlot || tmpl.slot === slot);
+            });
+
+            if (invItems.length === 0) return;
 
             this._tooltip.innerHTML = `
                   <div class="inv-tt-name">選擇裝備 (${SLOT_LABELS[slot]})</div>
-                  ${available.map(t => `
-                        <div class="eq-equip-row" data-id="${t.id}">
-                              <span>${t.icon} ${t.name}</span>
-                              <span style="color:rgba(200,195,185,0.4)">ATK+${t.stats.atk} DEF+${t.stats.def}</span>
-                        </div>
-                  `).join('')}
+                  ${invItems.map(i => {
+                  const tmpl = EQUIP_TEMPLATES.find(t => t.id === i.itemId)!;
+                  return `
+                              <div class="eq-equip-row" data-id="${i.itemId}">
+                                    <span>${i.icon} ${i.name}</span>
+                                    <span style="color:rgba(200,195,185,0.4)">ATK+${tmpl.stats.atk} DEF+${tmpl.stats.def}</span>
+                              </div>
+                        `;
+            }).join('')}
             `;
             this._tooltip.style.display = 'block';
             this._tooltip.style.left = '50%';
@@ -308,7 +319,16 @@ export class InventoryPanel {
                         const id = (row as HTMLElement).dataset.id!;
                         const tmpl = EQUIP_TEMPLATES.find(t => t.id === id);
                         if (tmpl) {
-                              this._equipSystem.equip({ ...tmpl, enhanceLevel: 0 });
+                              const prev = this._equipSystem.equip({ ...tmpl, slot, enhanceLevel: 0 });
+                              this._inventory.removeItem(id, 1);
+                              if (prev) {
+                                    this._inventory.addItem({
+                                          itemId: prev.id, name: prev.name,
+                                          type: 'equipment' as any, rarity: prev.rarity,
+                                          qty: 1, icon: prev.icon,
+                                          description: `ATK+${prev.stats.atk} DEF+${prev.stats.def} HP+${prev.stats.hp} MP+${prev.stats.mp}`,
+                                    });
+                              }
                         }
                         this._tooltip.style.display = 'none';
                         this._render();
@@ -322,14 +342,29 @@ export class InventoryPanel {
             const rarityName: Record<ItemRarity, string> = {
                   common: '普通', uncommon: '優良', rare: '稀有', epic: '史詩', legendary: '傳說',
             };
+            const isEquipment = item.type === 'equipment';
+
+            // Build action buttons based on type
+            let actionsHtml = '';
+            if (isEquipment) {
+                  actionsHtml = `
+                        <button class="inv-tt-btn btn-gold inv-equip-btn">⚔️ 裝備</button>
+                        <button class="inv-tt-btn inv-discard-btn">丟棄</button>
+                  `;
+            } else {
+                  actionsHtml = `
+                        <button class="inv-tt-btn inv-use-btn">使用</button>
+                        <button class="inv-tt-btn inv-discard-btn">丟棄</button>
+                  `;
+            }
+
             this._tooltip.innerHTML = `
                   <div class="inv-tt-name" style="color:${RARITY_BORDER[item.rarity]}">${item.icon} ${item.name}</div>
                   <div class="inv-tt-rarity">${rarityName[item.rarity]}</div>
                   <div class="inv-tt-desc">${item.description}</div>
                   <div class="inv-tt-qty">數量: ${item.qty}</div>
                   <div class="inv-tt-actions">
-                        <button class="inv-tt-btn inv-use-btn">使用</button>
-                        <button class="inv-tt-btn inv-discard-btn">丟棄</button>
+                        ${actionsHtml}
                   </div>
             `;
             this._tooltip.style.display = 'block';
@@ -339,6 +374,28 @@ export class InventoryPanel {
             this._tooltip.style.left = x + 'px';
             this._tooltip.style.top = y + 'px';
             this._tooltip.style.transform = 'none';
+
+            // Equip button (equipment items only)
+            this._tooltip.querySelector('.inv-equip-btn')?.addEventListener('click', () => {
+                  const tmpl = EQUIP_TEMPLATES.find(t => t.id === item.itemId);
+                  if (tmpl) {
+                        const equipDef: EquipDef = { ...tmpl, enhanceLevel: 0 };
+                        const prev = this._equipSystem.equip(equipDef);
+                        // Remove from inventory
+                        this._inventory.removeItem(item.itemId, 1);
+                        // Return previously equipped item to inventory
+                        if (prev) {
+                              this._inventory.addItem({
+                                    itemId: prev.id, name: prev.name,
+                                    type: 'equipment' as any, rarity: prev.rarity,
+                                    qty: 1, icon: prev.icon,
+                                    description: `ATK+${prev.stats.atk} DEF+${prev.stats.def} HP+${prev.stats.hp} MP+${prev.stats.mp}`,
+                              });
+                        }
+                  }
+                  this._tooltip.style.display = 'none';
+                  this._render();
+            });
 
             this._tooltip.querySelector('.inv-use-btn')?.addEventListener('click', () => {
                   this._inventory.removeItem(item.itemId, 1);

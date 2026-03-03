@@ -218,6 +218,15 @@ export class NPCManager {
             }
       }
 
+      /** Get NPC positions for minimap radar */
+      getPositions(): { x: number; z: number; type: string }[] {
+            return this._npcs.map(n => ({
+                  x: n.root.position.x,
+                  z: n.root.position.z,
+                  type: n.def.type,
+            }));
+      }
+
       despawnAll(): void {
             for (const npc of this._npcs) npc.dispose();
             this._npcs = [];

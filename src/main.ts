@@ -318,8 +318,17 @@ async function bootstrap(): Promise<void> {
             hud.updateStats(player.stats);
             hud.updatePets(petManager);
 
-            // Update minimap coordinates
-            minimap.updatePosition(player.position.x, player.position.z);
+            // Update minimap radar (player + monsters + NPCs)
+            minimap.updatePosition(
+                  player.position.x,
+                  player.position.z,
+                  monsterManager.alive.map(m => ({
+                        x: m.root.position.x,
+                        z: m.root.position.z,
+                        isBoss: m.def.isBoss,
+                  })),
+                  npcManager.getPositions(),
+            );
 
             // P6: Teleport gate proximity check
             teleportSystem.update(dt);
