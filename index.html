@@ -1853,81 +1853,128 @@
       width: 100%;
     }
 
-    /* ===== P9: DIALOGUE PANEL ===== */
+    /* ===== P9: DIALOGUE PANEL (CHM style) ===== */
     .dlg-root {
       position: fixed !important;
-      bottom: 60px !important;
+      top: 50% !important;
       left: 50% !important;
-      transform: translateX(-50%) !important;
-      width: 500px !important;
-      max-width: 90vw !important;
+      transform: translate(-50%, -50%) !important;
+      width: 320px !important;
       display: none;
-      gap: 10px;
-      padding: 12px !important;
-      background: linear-gradient(180deg, rgba(25, 20, 38, 0.96), rgba(15, 12, 25, 0.98)) !important;
-      border: 1px solid rgba(160, 130, 80, 0.3) !important;
+      flex-direction: column;
+      background: linear-gradient(180deg, rgba(35, 30, 48, 0.96), rgba(20, 16, 30, 0.98)) !important;
+      border: 2px solid rgba(160, 130, 80, 0.4) !important;
       border-radius: 8px !important;
-      box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5) !important;
-      z-index: 350 !important;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+      z-index: 400 !important;
+      overflow: hidden;
+      pointer-events: auto;
     }
 
-    .dlg-portrait {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      border: 2px solid rgba(160, 130, 80, 0.25);
-    }
-
-    .dlg-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .dlg-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(232, 201, 106, 0.9);
-      font-family: 'Cinzel', serif;
-      margin-bottom: 4px;
-    }
-
-    .dlg-text {
-      font-size: 11px;
-      color: rgba(220, 215, 200, 0.7);
-      min-height: 36px;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.5;
-    }
-
-    .dlg-buttons {
+    /* Title bar */
+    .dlg-header {
       display: flex;
-      gap: 5px;
-      margin-top: 6px;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: linear-gradient(180deg, rgba(50, 40, 65, 0.9), rgba(30, 25, 42, 0.95));
+      border-bottom: 1px solid rgba(160, 130, 80, 0.3);
     }
 
-    .dlg-btn {
-      padding: 4px 12px;
-      font-size: 10px;
-      font-weight: 600;
-      background: rgba(160, 130, 80, 0.12);
-      border: 1px solid rgba(160, 130, 80, 0.25);
-      color: rgba(200, 195, 185, 0.6);
-      border-radius: 4px;
-      cursor: pointer;
+    .dlg-header-icon {
+      font-size: 20px;
+    }
+
+    .dlg-header-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.95);
+      font-family: 'Cinzel', serif;
+      flex: 1;
+    }
+
+    .dlg-header-type {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.4);
       font-family: 'Inter', sans-serif;
+    }
+
+    /* Text body with watermark */
+    .dlg-body {
+      position: relative;
+      padding: 12px 14px;
+      min-height: 100px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .dlg-watermark {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      font-size: 80px;
+      pointer-events: none;
+      opacity: 0.6;
+      user-select: none;
+    }
+
+    .dlg-text-area {
+      font-size: 12px;
+      color: rgba(220, 215, 200, 0.8);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Action buttons (vertical list) */
+    .dlg-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border-top: 1px solid rgba(160, 130, 80, 0.25);
+      background: rgba(15, 12, 22, 0.5);
+    }
+
+    .dlg-action {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(220, 215, 200, 0.7);
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.1);
       transition: all 0.15s;
+      position: relative;
+      padding-left: 20px;
     }
 
-    .dlg-btn:hover {
-      background: rgba(160, 130, 80, 0.25);
-      color: rgba(232, 201, 106, 0.9);
+    .dlg-action::before {
+      content: '▸';
+      position: absolute;
+      left: 8px;
+      color: rgba(160, 130, 80, 0.3);
+      transition: color 0.15s;
     }
 
-    .dlg-accept {
-      background: linear-gradient(180deg, #E8C96A, #C4993D) !important;
-      color: #0A0E1A !important;
-      border: none !important;
+    .dlg-action:hover {
+      background: rgba(160, 130, 80, 0.15);
+      color: rgba(232, 201, 106, 0.95);
+    }
+
+    .dlg-action:hover::before {
+      color: rgba(232, 201, 106, 0.8);
+    }
+
+    .dlg-action-close {
+      color: rgba(200, 195, 185, 0.4);
+      font-size: 11px;
+    }
+
+    .dlg-action-close:hover {
+      color: rgba(220, 180, 180, 0.8);
+      background: rgba(180, 60, 60, 0.12);
     }
 
     /* ===== P9: NPC MARKERS ===== */

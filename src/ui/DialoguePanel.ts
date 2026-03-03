@@ -1,8 +1,19 @@
 import type { NPC } from '../entities/NPC';
 
+const NPC_TYPE_LABELS: Record<string, string> = {
+      merchant: '商人', skill_master: '技能導師', quest: '任務', pet_trader: '寵物商人',
+};
+
+const NPC_TYPE_ICONS: Record<string, string> = {
+      merchant: '😈', skill_master: '🛡️', quest: '❗', pet_trader: '🔄',
+};
+
 /**
- * DialoguePanel — NPC dialogue with typewriter effect + accept/reject/next buttons.
- * Also handles pet exchange UI.
+ * DialoguePanel — CHM-style NPC dialogue popup.
+ * - Title bar with NPC name
+ * - Large text area with watermark portrait
+ * - Action buttons as vertical list at bottom
+ * - Typewriter text effect
  */
 export class DialoguePanel {
       private _el: HTMLDivElement;
@@ -10,21 +21,15 @@ export class DialoguePanel {
       private _typewriterInterval = 0;
       private _currentNpc: NPC | null = null;
       private _dialogueIdx = 0;
+      private _onAction: ((npc: NPC, action: string) => void) | null = null;
+
+      set onAction(cb: ((npc: NPC, action: string) => void) | null) { this._onAction = cb; }
 
       constructor() {
             this._el = document.createElement('div');
             this._el.id = 'dialogue-panel';
             this._el.className = 'dlg-root';
             this._el.style.display = 'none';
-
-            this._el.innerHTML = `
-                  <div class="dlg-portrait" id="dlg-portrait"></div>
-                  <div class="dlg-content">
-                        <div class="dlg-name" id="dlg-name"></div>
-                        <div class="dlg-text" id="dlg-text"></div>
-                        <div class="dlg-buttons" id="dlg-buttons"></div>
-                  </div>
-            `;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
@@ -32,72 +37,110 @@ export class DialoguePanel {
             this._currentNpc = npc;
             this._dialogueIdx = 0;
             this._visible = true;
-            this._el.style.display = 'flex';
-
-            // Set portrait color
-            const portrait = this._el.querySelector('#dlg-portrait') as HTMLDivElement;
-            const c = npc.def.color;
-            portrait.style.background = `radial-gradient(circle, rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}), rgba(20,16,30,0.8))`;
-
-            // Set name
-            (this._el.querySelector('#dlg-name') as HTMLDivElement).textContent = npc.def.name;
-
-            this._showDialogue(0);
+            this._render();
+            this._el.style.display = 'block';
       }
 
-      private _showDialogue(idx: number): void {
+      private _render(): void {
+            if (!this._currentNpc) return;
+            const npc = this._currentNpc;
+            const c = npc.def.color;
+            const rgbStr = `${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}`;
+            const icon = NPC_TYPE_ICONS[npc.def.type] || '👤';
+            const typeLabel = NPC_TYPE_LABELS[npc.def.type] || 'NPC';
+
+            // Build action buttons based on NPC type
+            let actionsHtml = '';
+            switch (npc.def.type) {
+                  case 'merchant':
+                        actionsHtml = `
+                              <div class="dlg-action" data-action="buy">💰 買</div>
+                              <div class="dlg-action" data-action="sell">📦 賣</div>
+                              <div class="dlg-action dlg-action-close" data-action="close">結束對話</div>
+                        `;
+                        break;
+                  case 'skill_master':
+                        actionsHtml = `
+                              <div class="dlg-action" data-action="why">為什麼要學習技能？</div>
+                              <div class="dlg-action" data-action="learn">📖 學習技能</div>
+                              <div class="dlg-action dlg-action-close" data-action="close">結束對話</div>
+                        `;
+                        break;
+                  case 'quest':
+                        actionsHtml = `
+                              <div class="dlg-action" data-action="accept">✅ 接受任務</div>
+                              <div class="dlg-action dlg-action-close" data-action="close">結束對話</div>
+                        `;
+                        break;
+                  case 'pet_trader':
+                        actionsHtml = `
+                              <div class="dlg-action" data-action="trade">🔄 交換寵物</div>
+                              <div class="dlg-action" data-action="view">📋 查看列表</div>
+                              <div class="dlg-action dlg-action-close" data-action="close">結束對話</div>
+                        `;
+                        break;
+                  default:
+                        actionsHtml = `<div class="dlg-action dlg-action-close" data-action="close">結束對話</div>`;
+            }
+
+            this._el.innerHTML = `
+                  <div class="dlg-header">
+                        <span class="dlg-header-icon">${icon}</span>
+                        <span class="dlg-header-name">${npc.def.name}</span>
+                        <span class="dlg-header-type">${typeLabel}</span>
+                  </div>
+                  <div class="dlg-body">
+                        <div class="dlg-watermark" style="color:rgba(${rgbStr},0.08)">${icon}</div>
+                        <div class="dlg-text-area" id="dlg-text"></div>
+                  </div>
+                  <div class="dlg-actions" id="dlg-actions">
+                        ${actionsHtml}
+                  </div>
+            `;
+
+            // Type the current dialogue line
+            this._typeDialogue(this._dialogueIdx);
+
+            // Action button handlers
+            this._el.querySelectorAll('.dlg-action').forEach(btn => {
+                  btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const action = (btn as HTMLElement).dataset.action!;
+                        if (action === 'close') {
+                              this.hide();
+                        } else if (action === 'why') {
+                              // Show extra dialogue
+                              this._dialogueIdx = Math.min(this._dialogueIdx + 1, npc.def.dialogue.length - 1);
+                              this._typeDialogue(this._dialogueIdx);
+                        } else {
+                              this._onAction?.(npc, action);
+                              this.hide();
+                        }
+                  });
+            });
+      }
+
+      private _typeDialogue(idx: number): void {
             if (!this._currentNpc) return;
             const lines = this._currentNpc.def.dialogue;
-            if (idx >= lines.length) { this.hide(); return; }
-
-            this._dialogueIdx = idx;
             const textEl = this._el.querySelector('#dlg-text') as HTMLDivElement;
-            const btnContainer = this._el.querySelector('#dlg-buttons') as HTMLDivElement;
+            if (!textEl) return;
 
-            // Typewriter effect
-            textEl.textContent = '';
-            const text = lines[idx];
+            // Show all previous lines + typewriter for current
+            const prevText = lines.slice(0, idx).join('\n');
+            const currentLine = idx < lines.length ? lines[idx] : '';
+
+            textEl.textContent = prevText ? prevText + '\n' : '';
             let charIdx = 0;
             clearInterval(this._typewriterInterval);
             this._typewriterInterval = window.setInterval(() => {
-                  if (charIdx < text.length) {
-                        textEl.textContent += text[charIdx];
+                  if (charIdx < currentLine.length) {
+                        textEl.textContent += currentLine[charIdx];
                         charIdx++;
                   } else {
                         clearInterval(this._typewriterInterval);
                   }
             }, 30);
-
-            // Buttons
-            btnContainer.innerHTML = '';
-            const isLast = idx >= lines.length - 1;
-
-            if (isLast) {
-                  // Show close button
-                  const closeBtn = document.createElement('button');
-                  closeBtn.className = 'dlg-btn';
-                  closeBtn.textContent = '關閉';
-                  closeBtn.addEventListener('click', () => this.hide());
-                  btnContainer.appendChild(closeBtn);
-
-                  // Show accept for quest NPCs
-                  if (this._currentNpc.def.type === 'quest' || this._currentNpc.def.type === 'pet_trader') {
-                        const acceptBtn = document.createElement('button');
-                        acceptBtn.className = 'dlg-btn dlg-accept';
-                        acceptBtn.textContent = this._currentNpc.def.type === 'pet_trader' ? '🔄 交換' : '✅ 接受';
-                        acceptBtn.addEventListener('click', () => {
-                              console.log(`[NPC] Accepted from ${this._currentNpc?.def.name}`);
-                              this.hide();
-                        });
-                        btnContainer.appendChild(acceptBtn);
-                  }
-            } else {
-                  const nextBtn = document.createElement('button');
-                  nextBtn.className = 'dlg-btn';
-                  nextBtn.textContent = '下一頁 ▶';
-                  nextBtn.addEventListener('click', () => this._showDialogue(idx + 1));
-                  btnContainer.appendChild(nextBtn);
-            }
       }
 
       hide(): void {
@@ -107,5 +150,6 @@ export class DialoguePanel {
             this._currentNpc = null;
       }
 
+      get visible(): boolean { return this._visible; }
       dispose(): void { this.hide(); this._el.remove(); }
 }
