@@ -1666,6 +1666,224 @@
       cursor: default !important;
       border-color: rgba(39, 174, 96, 0.3) !important;
     }
+
+    /* ===== P9: QUEST PANEL ===== */
+    .qp-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 400px !important;
+      max-height: 85vh !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
+    }
+
+    .qp-progress {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+      margin-left: 8px;
+    }
+
+    .qp-body {
+      padding: 6px 8px;
+      overflow-y: auto;
+      max-height: calc(85vh - 80px);
+    }
+
+    .qp-empty {
+      text-align: center;
+      color: rgba(200, 195, 185, 0.3);
+      padding: 20px;
+      font-size: 11px;
+    }
+
+    .qp-card {
+      padding: 8px;
+      margin-bottom: 6px;
+      background: rgba(20, 16, 30, 0.5);
+      border: 1px solid rgba(160, 130, 80, 0.15);
+      border-radius: 5px;
+      transition: border-color 0.15s;
+    }
+
+    .qp-card:hover {
+      border-color: rgba(160, 130, 80, 0.3);
+    }
+
+    .qp-complete {
+      border-left: 3px solid #27AE60;
+    }
+
+    .qp-active {
+      border-left: 3px solid #E8C96A;
+    }
+
+    .qp-locked {
+      opacity: 0.4;
+    }
+
+    .qp-card-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 3px;
+    }
+
+    .qp-status-icon {
+      font-size: 12px;
+    }
+
+    .qp-card-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.8);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .qp-card-desc {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.4);
+      margin-bottom: 4px;
+    }
+
+    .qp-progress-bar {
+      height: 6px;
+      background: rgba(20, 16, 30, 0.6);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .qp-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #E8C96A, #C4993D);
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .qp-progress-text {
+      position: absolute;
+      top: -1px;
+      right: 4px;
+      font-size: 7px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.6);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .qp-rewards {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .qp-claim-btn {
+      margin-top: 4px;
+      padding: 4px 10px;
+      font-size: 10px;
+      width: 100%;
+    }
+
+    /* ===== P9: DIALOGUE PANEL ===== */
+    .dlg-root {
+      position: fixed !important;
+      bottom: 60px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 500px !important;
+      max-width: 90vw !important;
+      display: flex !important;
+      gap: 10px !important;
+      padding: 12px !important;
+      background: linear-gradient(180deg, rgba(25, 20, 38, 0.96), rgba(15, 12, 25, 0.98)) !important;
+      border: 1px solid rgba(160, 130, 80, 0.3) !important;
+      border-radius: 8px !important;
+      box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5) !important;
+      z-index: 350 !important;
+    }
+
+    .dlg-portrait {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid rgba(160, 130, 80, 0.25);
+    }
+
+    .dlg-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dlg-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      font-family: 'Cinzel', serif;
+      margin-bottom: 4px;
+    }
+
+    .dlg-text {
+      font-size: 11px;
+      color: rgba(220, 215, 200, 0.7);
+      min-height: 36px;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+    }
+
+    .dlg-buttons {
+      display: flex;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .dlg-btn {
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(160, 130, 80, 0.12);
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      color: rgba(200, 195, 185, 0.6);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .dlg-btn:hover {
+      background: rgba(160, 130, 80, 0.25);
+      color: rgba(232, 201, 106, 0.9);
+    }
+
+    .dlg-accept {
+      background: linear-gradient(180deg, #E8C96A, #C4993D) !important;
+      color: #0A0E1A !important;
+      border: none !important;
+    }
+
+    /* ===== P9: NPC MARKERS ===== */
+    .npc-marker {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      text-align: center;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .npc-marker-icon {
+      font-size: 18px;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    }
+
+    .npc-marker-name {
+      font-size: 8px;
+      font-weight: 600;
+      color: rgba(232, 201, 106, 0.8);
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 

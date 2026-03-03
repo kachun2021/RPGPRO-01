@@ -638,7 +638,7 @@ interface DropEntry {
 
 ### 1. `src/systems/QuestManager.ts`（≤250行）
 - 主線 25 章 JSON（每 5 章解鎖新地圖）
-- 支線任務（殺怪/收集/護送）
+- 支線任務（殺怪/收集）
 - 每日任務（3 個/天，重置 00:00）
 - **換寵任務**：特定 NPC 用指定寵物交換稀有寵物 ⭐新增
 - 進度 localStorage 持久化

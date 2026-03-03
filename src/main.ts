@@ -44,6 +44,11 @@ import { EnhanceSystem } from './systems/EnhanceSystem';
 import { ResonanceSystem } from './systems/ResonanceSystem';
 import { EquipmentPanel } from './ui/EquipmentPanel';
 import { ResonancePanel } from './ui/ResonancePanel';
+// P9 Quest + NPC
+import { QuestManager } from './systems/QuestManager';
+import { NPCManager } from './entities/NPC';
+import { QuestPanel } from './ui/QuestPanel';
+import { DialoguePanel } from './ui/DialoguePanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -150,6 +155,17 @@ async function bootstrap(): Promise<void> {
       combatLoop.setDropSystem(dropTable, dropItemManager, inventory);
       Registry.inventory = inventory;
 
+      // P9: Quest + NPC system
+      const questManager = new QuestManager();
+      combatLoop.setQuestManager(questManager);
+      const npcManager = new NPCManager(Registry.scene);
+      npcManager.spawnForZone('starter_meadow');
+      const questPanel = new QuestPanel(questManager);
+      const dialoguePanel = new DialoguePanel();
+      npcManager.onInteract = (npc) => {
+            dialoguePanel.openForNpc(npc);
+      };
+
       // Wire monster damage to player
       monsterManager.onDamagePlayer = (dmg: number, monName: string) => {
             const actualDmg = Math.max(1, dmg - player.stats.def * 0.5);
@@ -246,9 +262,12 @@ async function bootstrap(): Promise<void> {
       Registry.equipmentSystem = equipmentSystem;
 
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-community', 'nav-quest']) {
+      for (const id of ['nav-book', 'nav-shop', 'nav-community']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-quest')?.addEventListener('click', () => {
+            questPanel.toggle();
+      });
       hud.getNavButton('nav-char')?.addEventListener('click', () => {
             equipmentPanel.toggle();
       });
@@ -306,12 +325,15 @@ async function bootstrap(): Promise<void> {
 
             // P7: Drop item pickup
             dropItemManager.update(dt, player.position);
+
+            // P9: NPC billboard + proximity
+            npcManager.update(dt, player.position);
       });
 
       // Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P8 Ready — Equipment + Enhance + Resonance');
+      console.log('[Fantasy Pet Online] P9 Ready — Quests + NPCs + Dialogue');
 }
 
 bootstrap().catch(err => {

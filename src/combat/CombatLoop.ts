@@ -14,6 +14,7 @@ import type { SkillBar } from '../ui/SkillBar';
 import type { DropTable } from '../systems/DropTable';
 import type { DropItemManager } from '../entities/DropItem';
 import type { Inventory } from '../systems/Inventory';
+import type { QuestManager } from '../systems/QuestManager';
 
 /**
  * CombatLoop - orchestrates combat flow:
@@ -38,6 +39,9 @@ export class CombatLoop {
       private _dropTable: DropTable | null = null;
       private _dropItemManager: DropItemManager | null = null;
       private _inventory: Inventory | null = null;
+
+      // P9: Quest tracking
+      private _questManager: QuestManager | null = null;
 
       private _target: Monster | null = null;
       private _autoGrind = false;
@@ -102,6 +106,11 @@ export class CombatLoop {
             this._dropTable = dropTable;
             this._dropItemManager = dropItemManager;
             this._inventory = inventory;
+      }
+
+      /** P9: Connect quest manager for kill tracking */
+      setQuestManager(qm: QuestManager): void {
+            this._questManager = qm;
       }
 
       // -- Pointer Pick --
@@ -370,6 +379,9 @@ export class CombatLoop {
                         console.log(`[Combat] Dropped ${drops.length} items`);
                   }
             }
+
+            // P9: Track quest kill
+            this._questManager?.trackKill(monster.def.name, monster.def.isBoss);
 
             if (this._target === monster) {
                   this._target = null;
