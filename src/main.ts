@@ -50,6 +50,7 @@ import { NPCManager } from './entities/NPC';
 import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel } from './ui/DialoguePanel';
 import { CommunityPanel } from './ui/CommunityPanel';
+import { QuestTracker } from './ui/QuestTracker';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -162,6 +163,7 @@ async function bootstrap(): Promise<void> {
       const npcManager = new NPCManager(Registry.scene);
       npcManager.spawnForZone('starter_meadow');
       const questPanel = new QuestPanel(questManager);
+      const questTracker = new QuestTracker(questManager);
       const dialoguePanel = new DialoguePanel();
       npcManager.onInteract = (npc) => {
             dialoguePanel.openForNpc(npc);
