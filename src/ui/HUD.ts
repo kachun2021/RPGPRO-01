@@ -84,6 +84,14 @@ export class HUD {
             const wrapper = document.createElement('div');
             wrapper.className = 'hud-portrait';
 
+            // EXP bar above portrait
+            const expBar = document.createElement('div');
+            expBar.className = 'hud-exp-track';
+            const expFill = document.createElement('div');
+            expFill.className = 'hud-exp-fill';
+            expBar.appendChild(expFill);
+            wrapper.appendChild(expBar);
+
             const size = 50;
             const r = 22;
             const cx = size / 2;
@@ -150,6 +158,11 @@ export class HUD {
             if (!p) return;
             this._setArc(p, 'hp-arc', stats.hp / stats.maxHp, 180, 360);
             this._setArc(p, 'mp-arc', stats.mp / stats.maxMp, 0, 180);
+            // EXP bar
+            const expNeeded = stats.level * 100;
+            const expPct = expNeeded > 0 ? Math.min(1, stats.exp / expNeeded) : 0;
+            const expFill = p.querySelector('.hud-exp-fill') as HTMLDivElement | null;
+            if (expFill) expFill.style.width = `${expPct * 100}%`;
       }
 
       updatePets(petManager: PetManager): void {
@@ -158,15 +171,21 @@ export class HUD {
                   if (!w) continue;
                   const pet = petManager.active[i];
                   const inner = w.querySelector('.hud-portrait-inner') as HTMLDivElement;
+                  const expFill = w.querySelector('.hud-exp-fill') as HTMLDivElement | null;
                   if (pet) {
                         const c = SERIES_COLORS[pet.def.series];
                         inner.innerHTML = `<span style="font-size:9px;color:#ddd;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.8)">${pet.def.name.substring(0, 3)}</span>`;
                         this._setArc(w, 'hp-arc', pet.stats.hp / pet.stats.maxHp, 180, 360);
                         this._setArc(w, 'mp-arc', pet.stats.mp / pet.stats.maxMp, 0, 180);
+                        // Pet EXP bar
+                        const petExpNeeded = pet.stats.level * 80;
+                        const petExpPct = petExpNeeded > 0 ? Math.min(1, (pet.stats.exp ?? 0) / petExpNeeded) : 0;
+                        if (expFill) expFill.style.width = `${petExpPct * 100}%`;
                   } else {
-                        inner.innerHTML = '<span style="font-size:10px;color:#555">—</span>';
+                        inner.innerHTML = '<span style="font-size:10px;color:#555">\u2014</span>';
                         this._setArc(w, 'hp-arc', 0, 180, 360);
                         this._setArc(w, 'mp-arc', 0, 0, 180);
+                        if (expFill) expFill.style.width = '0%';
                   }
             }
       }

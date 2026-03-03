@@ -56,6 +56,8 @@ export class InventoryPanel {
       private _equipSystem: EquipmentSystem;
       private _enhanceSystem: EnhanceSystem;
       private _tooltip!: HTMLDivElement;
+      private _page = 0;
+      private readonly SLOTS_PER_PAGE = 15;
 
       constructor(inventory: Inventory, equipSystem: EquipmentSystem, enhanceSystem: EnhanceSystem) {
             this._inventory = inventory;
@@ -173,18 +175,23 @@ export class InventoryPanel {
                   btn.textContent = `${t.icon} ${t.label}`;
                   btn.addEventListener('click', () => {
                         this._currentTab = t.id;
+                        this._page = 0;
                         this._render();
                   });
                   tabBar.appendChild(btn);
             }
             this._el.appendChild(tabBar);
 
-            // ===== ITEM GRID (5 columns) =====
+            // ===== ITEM GRID (5 columns, paginated) =====
+            const allItems = this._inventory.getByTab(this._currentTab);
+            const totalPages = Math.max(1, Math.ceil(allItems.length / this.SLOTS_PER_PAGE));
+            if (this._page >= totalPages) this._page = totalPages - 1;
+            const pageStart = this._page * this.SLOTS_PER_PAGE;
+            const items = allItems.slice(pageStart, pageStart + this.SLOTS_PER_PAGE);
+
             const itemGrid = document.createElement('div');
             itemGrid.className = 'inv2-item-grid';
-            const items = this._inventory.getByTab(this._currentTab);
-            const slotCount = Math.max(15, Math.ceil(items.length / 5) * 5);
-            for (let i = 0; i < slotCount; i++) {
+            for (let i = 0; i < this.SLOTS_PER_PAGE; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'inv2-item-slot';
                   if (i < items.length) {
@@ -200,6 +207,29 @@ export class InventoryPanel {
                   itemGrid.appendChild(slot);
             }
             this._el.appendChild(itemGrid);
+
+            // ===== PAGE NAV =====
+            if (totalPages > 1 || allItems.length > this.SLOTS_PER_PAGE) {
+                  const pageNav = document.createElement('div');
+                  pageNav.className = 'inv2-page-nav';
+                  const prevBtn = document.createElement('button');
+                  prevBtn.className = 'inv2-page-btn';
+                  prevBtn.textContent = '◀';
+                  prevBtn.disabled = this._page <= 0;
+                  prevBtn.addEventListener('click', () => { this._page--; this._render(); });
+                  const nextBtn = document.createElement('button');
+                  nextBtn.className = 'inv2-page-btn';
+                  nextBtn.textContent = '▶';
+                  nextBtn.disabled = this._page >= totalPages - 1;
+                  nextBtn.addEventListener('click', () => { this._page++; this._render(); });
+                  const label = document.createElement('span');
+                  label.className = 'inv2-page-label';
+                  label.textContent = `${this._page + 1} / ${totalPages}`;
+                  pageNav.appendChild(prevBtn);
+                  pageNav.appendChild(label);
+                  pageNav.appendChild(nextBtn);
+                  this._el.appendChild(pageNav);
+            }
 
             // ===== GOLD BAR =====
             const goldBar = document.createElement('div');
@@ -238,7 +268,16 @@ export class InventoryPanel {
             });
 
             this._tooltip.querySelector('.inv2-unequip-btn')?.addEventListener('click', () => {
-                  this._equipSystem.unequip(slot);
+                  const removed = this._equipSystem.unequip(slot);
+                  // Return unequipped item to inventory
+                  if (removed) {
+                        this._inventory.addItem({
+                              itemId: removed.id, name: removed.name,
+                              type: 'equipment' as any, rarity: removed.rarity,
+                              qty: 1, icon: removed.icon,
+                              description: `ATK+${removed.stats.atk} DEF+${removed.stats.def} HP+${removed.stats.hp} MP+${removed.stats.mp}`,
+                        });
+                  }
                   this._tooltip.style.display = 'none';
                   this._render();
             });

@@ -156,6 +156,64 @@
       overflow: hidden;
     }
 
+    /* EXP bar above each portrait */
+    .hud-exp-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(20, 16, 30, 0.7);
+      border-radius: 3px;
+      border: 1px solid rgba(160, 130, 80, 0.3);
+      margin-bottom: 2px;
+      overflow: hidden;
+    }
+
+    .hud-exp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #C4993D, #E8C96A, #FFD700);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 4px rgba(232, 201, 106, 0.4);
+    }
+
+    /* Bag page navigation */
+    .inv2-page-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 3px 0;
+    }
+
+    .inv2-page-btn {
+      background: rgba(25, 20, 38, 0.8);
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      color: rgba(232, 201, 106, 0.8);
+      border-radius: 3px;
+      width: 24px;
+      height: 20px;
+      font-size: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .inv2-page-btn:hover {
+      border-color: rgba(232, 201, 106, 0.5);
+    }
+
+    .inv2-page-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .inv2-page-label {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+      font-family: 'Inter', sans-serif;
+    }
+
     /* ===== NAV BUTTONS ===== */
     .sa-nav-btn {
       padding: 5px 10px;
