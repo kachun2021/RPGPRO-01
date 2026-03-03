@@ -42,7 +42,7 @@ import { AFKPanel } from './ui/AFKPanel';
 import { EquipmentSystem } from './systems/EquipmentSystem';
 import { EnhanceSystem } from './systems/EnhanceSystem';
 import { ResonanceSystem } from './systems/ResonanceSystem';
-import { EquipmentPanel } from './ui/EquipmentPanel';
+import { CharacterPanel } from './ui/CharacterPanel';
 import { ResonancePanel } from './ui/ResonancePanel';
 // P9 Quest + NPC
 import { QuestManager } from './systems/QuestManager';
@@ -246,8 +246,6 @@ async function bootstrap(): Promise<void> {
             petPanel.toggle();
             petPanel.refresh();
       });
-      // P7: Inventory Panel
-      const inventoryPanel = new InventoryPanel(inventory);
 
       // P7: AFK Panel
       const afkPanel = new AFKPanel(inventory);
@@ -256,10 +254,13 @@ async function bootstrap(): Promise<void> {
       const equipmentSystem = new EquipmentSystem();
       const enhanceSystem = new EnhanceSystem();
       const resonanceSystem = new ResonanceSystem();
-      const equipmentPanel = new EquipmentPanel(equipmentSystem, enhanceSystem, inventory);
+      const characterPanel = new CharacterPanel(player);
       const resonancePanel = new ResonancePanel(resonanceSystem, inventory);
-      equipmentSystem.giveStarterGear(); // Give starter gear
+      equipmentSystem.giveStarterGear();
       Registry.equipmentSystem = equipmentSystem;
+
+      // Combined Inventory + Equipment panel (needs equipSystem + enhanceSystem)
+      const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem);
 
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
       for (const id of ['nav-book', 'nav-shop', 'nav-community']) {
@@ -269,7 +270,7 @@ async function bootstrap(): Promise<void> {
             questPanel.toggle();
       });
       hud.getNavButton('nav-char')?.addEventListener('click', () => {
-            equipmentPanel.toggle();
+            characterPanel.toggle();
       });
       hud.getNavButton('nav-bag')?.addEventListener('click', () => {
             inventoryPanel.toggle();
