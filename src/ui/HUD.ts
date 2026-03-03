@@ -98,6 +98,10 @@ export class HUD {
             const cy = size / 2;
             const sw = 4;
 
+            // Circle container (holds SVG arcs + inner text)
+            const circleBox = document.createElement('div');
+            circleBox.className = 'hud-portrait-circle';
+
             // Inner circle
             const inner = document.createElement('div');
             inner.className = 'hud-portrait-inner';
@@ -125,8 +129,9 @@ export class HUD {
             svg.appendChild(mpBg);
             svg.appendChild(mpFill);
 
-            wrapper.appendChild(svg);
-            wrapper.appendChild(inner);
+            circleBox.appendChild(svg);
+            circleBox.appendChild(inner);
+            wrapper.appendChild(circleBox);
             return wrapper;
       }
 

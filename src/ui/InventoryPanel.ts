@@ -124,10 +124,10 @@ export class InventoryPanel {
                   if (eq) {
                         c.classList.add('inv2-eq-filled');
                         c.innerHTML = `<span class="inv2-eq-icon">${eq.icon}</span>${eq.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${eq.enhanceLevel}</span>` : ''}`;
-                        c.addEventListener('click', () => this._showEquipActions(eq, key));
+                        c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipActions(eq, key); });
                   } else {
                         c.innerHTML = `<span class="inv2-eq-ghost">${SLOT_ICONS[key]}</span>`;
-                        c.addEventListener('click', () => this._showEquipList(key));
+                        c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipList(key); });
                         c.title = SLOT_LABELS[key];
                   }
                   return c;
@@ -202,34 +202,35 @@ export class InventoryPanel {
                               <span class="inv2-item-icon">${item.icon}</span>
                               ${item.qty > 1 ? `<span class="inv2-item-qty">×${item.qty}</span>` : ''}
                         `;
-                        slot.addEventListener('click', (e) => this._showTooltip(item, e));
+                        slot.addEventListener('click', (e) => {
+                              e.stopPropagation();
+                              this._showTooltip(item, e);
+                        });
                   }
                   itemGrid.appendChild(slot);
             }
             this._el.appendChild(itemGrid);
 
-            // ===== PAGE NAV =====
-            if (totalPages > 1 || allItems.length > this.SLOTS_PER_PAGE) {
-                  const pageNav = document.createElement('div');
-                  pageNav.className = 'inv2-page-nav';
-                  const prevBtn = document.createElement('button');
-                  prevBtn.className = 'inv2-page-btn';
-                  prevBtn.textContent = '◀';
-                  prevBtn.disabled = this._page <= 0;
-                  prevBtn.addEventListener('click', () => { this._page--; this._render(); });
-                  const nextBtn = document.createElement('button');
-                  nextBtn.className = 'inv2-page-btn';
-                  nextBtn.textContent = '▶';
-                  nextBtn.disabled = this._page >= totalPages - 1;
-                  nextBtn.addEventListener('click', () => { this._page++; this._render(); });
-                  const label = document.createElement('span');
-                  label.className = 'inv2-page-label';
-                  label.textContent = `${this._page + 1} / ${totalPages}`;
-                  pageNav.appendChild(prevBtn);
-                  pageNav.appendChild(label);
-                  pageNav.appendChild(nextBtn);
-                  this._el.appendChild(pageNav);
-            }
+            // ===== PAGE NAV (always visible) =====
+            const pageNav = document.createElement('div');
+            pageNav.className = 'inv2-page-nav';
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'inv2-page-btn';
+            prevBtn.textContent = '\u25c0';
+            prevBtn.disabled = this._page <= 0;
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); this._page--; this._render(); });
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'inv2-page-btn';
+            nextBtn.textContent = '\u25b6';
+            nextBtn.disabled = this._page >= totalPages - 1;
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); this._page++; this._render(); });
+            const label = document.createElement('span');
+            label.className = 'inv2-page-label';
+            label.textContent = `${this._page + 1} / ${totalPages}`;
+            pageNav.appendChild(prevBtn);
+            pageNav.appendChild(label);
+            pageNav.appendChild(nextBtn);
+            this._el.appendChild(pageNav);
 
             // ===== GOLD BAR =====
             const goldBar = document.createElement('div');
@@ -410,15 +411,16 @@ export class InventoryPanel {
       }
 
       private _bindOutsideClose(): void {
+            // Use mousedown (not click) with 200ms delay to prevent immediate self-close
             setTimeout(() => {
                   const close = (ev: MouseEvent) => {
                         if (!this._tooltip.contains(ev.target as Node)) {
                               this._tooltip.style.display = 'none';
-                              document.removeEventListener('click', close);
+                              document.removeEventListener('mousedown', close);
                         }
                   };
-                  document.addEventListener('click', close);
-            }, 10);
+                  document.addEventListener('mousedown', close);
+            }, 200);
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }

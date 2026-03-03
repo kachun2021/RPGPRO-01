@@ -135,9 +135,18 @@
 
     /* ===== FLOATING PORTRAIT RINGS (no BG) ===== */
     .hud-portrait {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50px;
+    }
+
+    /* Circle area container (SVG + inner are absolute inside this) */
+    .hud-portrait-circle {
       position: relative;
       width: 50px;
       height: 50px;
+      flex-shrink: 0;
     }
 
     .hud-portrait-inner {
@@ -159,12 +168,13 @@
     /* EXP bar above each portrait */
     .hud-exp-track {
       width: 100%;
-      height: 5px;
+      height: 4px;
       background: rgba(20, 16, 30, 0.7);
-      border-radius: 3px;
+      border-radius: 2px;
       border: 1px solid rgba(160, 130, 80, 0.3);
-      margin-bottom: 2px;
+      margin-bottom: 1px;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .hud-exp-fill {
