@@ -47,7 +47,7 @@ export class ProjectileSystem {
 
       /** Spawn a projectile from origin toward target */
       spawn(origin: Vector3, target: Vector3, series: PetSeries, damage: number, onHit: (pos: Vector3) => void): void {
-            const sphere = MeshBuilder.CreateSphere(`proj_${Date.now()}`, { diameter: 0.3, segments: 6 }, this._scene);
+            const sphere = MeshBuilder.CreateSphere(`proj_${Date.now()}`, { diameter: 0.6, segments: 8 }, this._scene);
             sphere.position.copyFrom(origin);
             sphere.position.y += 1.0; // launch from chest height
             sphere.material = this._getMaterial(series);
@@ -55,7 +55,7 @@ export class ProjectileSystem {
             this._projectiles.push({
                   mesh: sphere,
                   target: target.clone(),
-                  speed: 15.0,
+                  speed: 6.0,  // Slower so player can see projectile travel
                   damage,
                   series,
                   onHit,
@@ -66,10 +66,12 @@ export class ProjectileSystem {
       update(dt: number): void {
             for (let i = this._projectiles.length - 1; i >= 0; i--) {
                   const p = this._projectiles[i];
-                  const dir = p.target.subtract(p.mesh.position);
+                  const targetY = p.target.clone();
+                  targetY.y += 0.8; // Target chest height
+                  const dir = targetY.subtract(p.mesh.position);
                   const dist = dir.length();
 
-                  if (dist < 0.5) {
+                  if (dist < 0.6) {
                         // Hit target
                         p.onHit(p.target);
                         p.mesh.dispose();
@@ -78,6 +80,9 @@ export class ProjectileSystem {
                         // Move toward target
                         const move = dir.normalizeToNew().scaleInPlace(p.speed * dt);
                         p.mesh.position.addInPlace(move);
+                        // Slight arc effect
+                        const progress = 1 - (dist / Vector3.Distance(p.mesh.position, targetY));
+                        p.mesh.position.y += Math.sin(progress * Math.PI) * 0.02;
                   }
             }
       }

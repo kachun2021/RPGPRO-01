@@ -50,6 +50,9 @@ export class CombatLoop {
       private _petNextIdx = 0;      // which P slot to cast next (0-2)
       private _petWaitCD = 0;       // global wait: must reach 0 before next cast
 
+      // Retarget cooldown after kill (prevents stutter)
+      private _retargetDelay = 0;
+
       // Player references
       private _getPlayerPos: () => Vector3;
       private _setPlayerTarget: (pos: Vector3 | null) => void;
@@ -154,12 +157,10 @@ export class CombatLoop {
             // Tick all CDs down
             this._tickCooldowns(dt);
 
-            // Auto-grind: find nearest if no target
-            if (this._autoGrind && (!this._target || this._target.isDead)) {
-                  const nearest = this._monsterManager.findClosest(playerPos);
-                  if (nearest && nearest.distanceTo(playerPos) < this.AUTO_DETECT_RANGE) {
-                        this.selectTarget(nearest);
-                  }
+            // Tick retarget delay
+            if (this._retargetDelay > 0) {
+                  this._retargetDelay -= dt;
+                  return; // Brief pause after kill
             }
 
             // Clear dead target
@@ -168,7 +169,16 @@ export class CombatLoop {
                   this._target = null;
                   this._combatSystem.clearTarget();
                   this._setPlayerTarget(null);
+                  this._retargetDelay = 0.4; // 0.4s pause before next target
                   return;
+            }
+
+            // Auto-grind: find nearest if no target
+            if (this._autoGrind && !this._target) {
+                  const nearest = this._monsterManager.findClosest(playerPos);
+                  if (nearest && nearest.distanceTo(playerPos) < this.AUTO_DETECT_RANGE) {
+                        this.selectTarget(nearest);
+                  }
             }
 
             if (!this._target) return;
@@ -176,11 +186,12 @@ export class CombatLoop {
             const targetPos = this._target.root.position;
             const dist = Vector3.Distance(playerPos, targetPos);
 
-            // Keep player walking toward target
-            this._setPlayerTarget(targetPos);
-
             // Only attack if within melee range
-            if (dist > this.MELEE_RANGE) return;
+            if (dist > this.MELEE_RANGE) {
+                  // Walk toward target
+                  this._setPlayerTarget(targetPos);
+                  return;
+            }
 
             // Stop player movement when in range
             this._setPlayerTarget(null);

@@ -29,21 +29,21 @@ export class DropItem {
       private _lerpT = 0;
       private _startPos: Vector3;
 
-      static readonly PICKUP_RANGE = 2.0;
+      static readonly PICKUP_RANGE = 3.0;
       static readonly DESPAWN_TIME = 60;
-      static readonly LERP_DURATION = 0.3;
+      static readonly LERP_DURATION = 0.35;
 
       constructor(scene: Scene, item: DroppedItem, position: Vector3) {
             this._scene = scene;
             this.item = item;
             this._startPos = position.clone();
 
-            // Create small glowing sphere
+            // Create glowing sphere (bigger for visibility)
             this.mesh = MeshBuilder.CreateSphere(`drop_${item.itemId}_${Date.now()}`, {
-                  diameter: 0.4, segments: 8,
+                  diameter: 0.55, segments: 8,
             }, scene);
             this.mesh.position = position.clone();
-            this.mesh.position.y = 0.4;
+            this.mesh.position.y = 0.6; // higher off ground
 
             const mat = new StandardMaterial(`dropMat_${item.itemId}`, scene);
             const col = RARITY_COLORS[item.rarity] ?? RARITY_COLORS.common;
@@ -75,11 +75,13 @@ export class DropItem {
             this.mesh.rotation.y += 0.5 * dt * Math.PI * 2;
 
             // Bob up and down
-            this.mesh.position.y = 0.4 + Math.sin(this._age * 2) * 0.1;
+            this.mesh.position.y = 0.6 + Math.sin(this._age * 2.5) * 0.15;
 
-            // Magnetic pickup
-            const dist = Vector3.Distance(this.mesh.position, playerPos);
-            if (dist < DropItem.PICKUP_RANGE) {
+            // Magnetic pickup — use XZ-plane distance (ignore Y)
+            const dx = this.mesh.position.x - playerPos.x;
+            const dz = this.mesh.position.z - playerPos.z;
+            const distXZ = Math.sqrt(dx * dx + dz * dz);
+            if (distXZ < DropItem.PICKUP_RANGE) {
                   this._pickedUp = true;
                   this._startPos = this.mesh.position.clone();
             }
