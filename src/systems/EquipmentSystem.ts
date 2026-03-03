@@ -5,7 +5,7 @@
 import type { ItemRarity } from './DropTable';
 import type { Inventory } from './Inventory';
 
-export type EquipSlot = 'head' | 'armor' | 'gloves' | 'boots' | 'bracelet' | 'ring' | 'necklace' | 'weapon';
+export type EquipSlot = 'head' | 'armor' | 'gloves' | 'boots' | 'bracelet' | 'bracelet2' | 'ring' | 'ring2' | 'necklace' | 'weapon';
 
 export const EQUIP_SLOTS: { id: EquipSlot; label: string; icon: string }[] = [
       { id: 'weapon', label: '武器', icon: '⚔️' },
@@ -14,7 +14,9 @@ export const EQUIP_SLOTS: { id: EquipSlot; label: string; icon: string }[] = [
       { id: 'gloves', label: '手套', icon: '🧤' },
       { id: 'boots', label: '靴子', icon: '👢' },
       { id: 'bracelet', label: '手鐲', icon: '💍' },
+      { id: 'bracelet2', label: '手鐲2', icon: '💍' },
       { id: 'ring', label: '戒指', icon: '💎' },
+      { id: 'ring2', label: '戒指2', icon: '💎' },
       { id: 'necklace', label: '項鏈', icon: '📿' },
 ];
 

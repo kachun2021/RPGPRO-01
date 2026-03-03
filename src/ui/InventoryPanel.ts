@@ -14,12 +14,14 @@ const RARITY_BORDER: Record<ItemRarity, string> = {
 
 const SLOT_LABELS: Record<EquipSlot, string> = {
       head: '頭', armor: '鎧', weapon: '武', boots: '靴',
-      gloves: '手', ring: '戒', necklace: '項', bracelet: '鐲',
+      gloves: '手', ring: '戒', ring2: '戒', necklace: '項',
+      bracelet: '鐲', bracelet2: '鐲',
 };
 
 const SLOT_ICONS: Record<EquipSlot, string> = {
       head: '🪖', armor: '🛡️', weapon: '⚔️', boots: '👢',
-      gloves: '🧤', ring: '💍', necklace: '📿', bracelet: '⭕',
+      gloves: '🧤', ring: '💎', ring2: '💎', necklace: '📿',
+      bracelet: '⭕', bracelet2: '⭕',
 };
 
 /**
@@ -129,7 +131,7 @@ export class InventoryPanel {
                   return c;
             };
 
-            // Row 0: bracelet | head | [3D CHAR] | necklace | ring
+            // Row 0: bracelet | head | [3D CHAR] | necklace | bracelet2
             grid.appendChild(mkSlot('bracelet'));
             grid.appendChild(mkSlot('head'));
             const charCell = document.createElement('div');
@@ -139,15 +141,15 @@ export class InventoryPanel {
             charCell.innerHTML = `<div class="inv2-char-preview">👤</div>`;
             grid.appendChild(charCell);
             grid.appendChild(mkSlot('necklace'));
-            grid.appendChild(mkSlot('ring'));
+            grid.appendChild(mkSlot('bracelet2'));
 
-            // Row 1: X(future bracelet2) | weapon | [spans] | armor | X(future ring2)
-            grid.appendChild(mkSlot(null, true));
+            // Row 1: ring | weapon | [spans] | armor | ring2
+            grid.appendChild(mkSlot('ring'));
             grid.appendChild(mkSlot('weapon'));
             grid.appendChild(mkSlot('armor'));
-            grid.appendChild(mkSlot(null, true));
+            grid.appendChild(mkSlot('ring2'));
 
-            // Row 2: X(future bracelet3) | boots | [spans] | gloves | X(future ring3)
+            // Row 2: X(locked) | boots | [spans] | gloves | X(locked)
             grid.appendChild(mkSlot(null, true));
             grid.appendChild(mkSlot('boots'));
             grid.appendChild(mkSlot('gloves'));
@@ -181,7 +183,7 @@ export class InventoryPanel {
             const itemGrid = document.createElement('div');
             itemGrid.className = 'inv2-item-grid';
             const items = this._inventory.getByTab(this._currentTab);
-            const slotCount = Math.max(20, Math.ceil(items.length / 5) * 5);
+            const slotCount = Math.max(15, Math.ceil(items.length / 5) * 5);
             for (let i = 0; i < slotCount; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'inv2-item-slot';
