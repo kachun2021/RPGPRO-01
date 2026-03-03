@@ -2,6 +2,7 @@ import { Scene } from '@babylonjs/core/scene';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
@@ -45,6 +46,11 @@ export class Monster {
       private _hpBar: HTMLDivElement | null = null;
       private _scene: Scene;
       private _deathTimer = 0;
+      private _bossFxStarted = false;
+      private _bossExplosion: Mesh | null = null;
+      private _bossParticles: Mesh[] = [];
+      private _bossParticleVel: Vector3[] = [];
+      private _bossFxMat: StandardMaterial | null = null;
 
       constructor(scene: Scene, def: MonsterDef, position: Vector3, shadowGen: ShadowGenerator) {
             this._scene = scene;
@@ -126,6 +132,9 @@ export class Monster {
             }
             if (this.hp <= 0) {
                   this.isDead = true;
+                  if (this.def.isBoss) {
+                        this._startBossDeathFx();
+                  }
                   return true;
             }
             return false;
@@ -224,11 +233,88 @@ export class Monster {
             const t = Math.min(this._deathTimer / duration, 1.0);
             const s = 1.0 - t;
             this.root.scaling.setAll(s);
+            if (this.def.isBoss) {
+                  this._updateBossDeathFx(dt, t);
+            }
+            if (t >= 1.0) {
+                  this._disposeBossDeathFx();
+            }
             return t >= 1.0;
+      }
+
+      private _startBossDeathFx(): void {
+            if (this._bossFxStarted) return;
+            this._bossFxStarted = true;
+
+            const gold = SERIES_COLORS[PetSeries.Beast];
+            const mat = new StandardMaterial(`boss_fx_${Date.now()}`, this._scene);
+            mat.diffuseColor = gold;
+            mat.emissiveColor = gold.scale(1.2);
+            mat.alpha = 0.9;
+            this._bossFxMat = mat;
+
+            const center = this.root.position.add(new Vector3(0, 1.2, 0));
+
+            const explosion = MeshBuilder.CreateSphere(`boss_explosion_${Date.now()}`, {
+                  diameter: 0.5,
+                  segments: 8,
+            }, this._scene);
+            explosion.position.copyFrom(center);
+            explosion.material = mat;
+            this._bossExplosion = explosion;
+
+            for (let i = 0; i < 22; i++) {
+                  const p = MeshBuilder.CreateSphere(`boss_particle_${i}_${Date.now()}`, {
+                        diameter: 0.14,
+                        segments: 4,
+                  }, this._scene);
+                  p.position.copyFrom(center);
+                  p.material = mat;
+
+                  const dir = new Vector3(
+                        Math.random() - 0.5,
+                        Math.random() * 0.8 + 0.2,
+                        Math.random() - 0.5,
+                  ).normalize();
+                  const speed = 3 + Math.random() * 3.5;
+                  this._bossParticles.push(p);
+                  this._bossParticleVel.push(dir.scale(speed));
+            }
+      }
+
+      private _updateBossDeathFx(dt: number, t: number): void {
+            const alpha = Math.max(0, 0.9 * (1.0 - t));
+            if (this._bossFxMat) this._bossFxMat.alpha = alpha;
+
+            if (this._bossExplosion) {
+                  const scale = 1 + t * 6;
+                  this._bossExplosion.scaling.setAll(scale);
+            }
+
+            for (let i = 0; i < this._bossParticles.length; i++) {
+                  const mesh = this._bossParticles[i];
+                  const vel = this._bossParticleVel[i];
+                  vel.y -= 6 * dt;
+                  mesh.position.addInPlace(vel.scale(dt));
+                  mesh.scaling.setAll(Math.max(0.15, 1 - t * 0.8));
+            }
+      }
+
+      private _disposeBossDeathFx(): void {
+            this._bossExplosion?.dispose();
+            this._bossExplosion = null;
+
+            for (const p of this._bossParticles) p.dispose();
+            this._bossParticles.length = 0;
+            this._bossParticleVel.length = 0;
+
+            this._bossFxMat?.dispose();
+            this._bossFxMat = null;
       }
 
       dispose(): void {
             this._hpBar?.remove();
+            this._disposeBossDeathFx();
             this.root.dispose(false, true);
       }
 }

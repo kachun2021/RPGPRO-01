@@ -63,6 +63,7 @@ export class CombatSystem {
       /** Auto-skill queues per entity */
       private _autoQueues = new Map<string, AutoSkillEntry[]>();
       private _autoEnabled = new Map<string, boolean>();
+      private _queueCursor = new Map<string, number>();
 
       constructor() {
             // Initialize player auto-skill with default slash
@@ -122,10 +123,26 @@ export class CombatSystem {
       // ── Auto-Skill Queue ──
 
       setAutoQueue(entityId: string, queue: AutoSkillEntry[]): void {
-            this._autoQueues.set(entityId, queue);
+            this._autoQueues.set(entityId, [...queue]);
             if (!this._cooldowns.has(entityId)) {
                   this._cooldowns.set(entityId, []);
             }
+            const current = this._queueCursor.get(entityId) ?? 0;
+            this._queueCursor.set(entityId, queue.length > 0 ? current % queue.length : 0);
+      }
+
+      getAutoQueue(entityId: string): AutoSkillEntry[] {
+            return [...(this._autoQueues.get(entityId) ?? [])];
+      }
+
+      /** Move queue cursor to a specific slot */
+      setQueueCursor(entityId: string, cursor: number): void {
+            const queue = this._autoQueues.get(entityId) ?? [];
+            if (queue.length === 0) {
+                  this._queueCursor.set(entityId, 0);
+                  return;
+            }
+            this._queueCursor.set(entityId, ((cursor % queue.length) + queue.length) % queue.length);
       }
 
       setAutoEnabled(entityId: string, enabled: boolean): void {
@@ -147,59 +164,36 @@ export class CombatSystem {
             if (!this._autoEnabled.get(entityId)) return null;
 
             // Update cooldowns
-            const cds = this._cooldowns.get(entityId) ?? [];
-            for (const cd of cds) {
-                  cd.remaining = Math.max(0, cd.remaining - dt);
-            }
+            this.tickCooldowns(entityId, dt);
 
             const queue = this._autoQueues.get(entityId);
-            if (!queue) return null;
+            if (!queue || queue.length === 0) return null;
 
             // Priority override: heal if HP < 30%
             if (currentHpPct < 0.3) {
                   const healSkill = queue.find(e => e.enabled && SKILL_DEFS.find(s => s.id === e.skillId)?.type === 'heal');
                   if (healSkill) {
                         const def = SKILL_DEFS.find(s => s.id === healSkill.skillId)!;
-                        if (this._canCast(entityId, def, currentMp)) {
-                              this._startCooldown(entityId, def);
+                        if (this.canCastSkill(entityId, def.id, currentMp, def.mpCost)) {
+                              this.startCooldown(entityId, def.id, def.cooldown);
+                              const healIdx = queue.findIndex(e => e.skillId === healSkill.skillId);
+                              this._advanceCursor(entityId, healIdx, queue.length);
                               return def;
                         }
                   }
             }
 
-            // Normal queue order
-            for (const entry of queue) {
-                  if (!entry.enabled) continue;
-                  const def = SKILL_DEFS.find(s => s.id === entry.skillId);
-                  if (!def) continue;
-                  if (this._canCast(entityId, def, currentMp)) {
-                        this._startCooldown(entityId, def);
-                        return def;
-                  }
-            }
+            // Strict queue-top check: only inspect current cursor
+            const cursor = this._queueCursor.get(entityId) ?? 0;
+            const entry = queue[cursor];
+            if (!entry?.enabled) return null;
+            const def = SKILL_DEFS.find(s => s.id === entry.skillId);
+            if (!def) return null;
+            if (!this.canCastSkill(entityId, def.id, currentMp, def.mpCost)) return null;
+            this.startCooldown(entityId, def.id, def.cooldown);
+            this._advanceCursor(entityId, cursor, queue.length);
+            return def;
 
-            return null;
-      }
-
-      private _canCast(entityId: string, skill: SkillDef, currentMp: number): boolean {
-            if (currentMp < skill.mpCost) return false;
-            const cds = this._cooldowns.get(entityId) ?? [];
-            const cd = cds.find(c => c.skillId === skill.id);
-            return !cd || cd.remaining <= 0;
-      }
-
-      private _startCooldown(entityId: string, skill: SkillDef): void {
-            let cds = this._cooldowns.get(entityId);
-            if (!cds) {
-                  cds = [];
-                  this._cooldowns.set(entityId, cds);
-            }
-            const existing = cds.find(c => c.skillId === skill.id);
-            if (existing) {
-                  existing.remaining = skill.cooldown;
-            } else {
-                  cds.push({ skillId: skill.id, remaining: skill.cooldown });
-            }
       }
 
       /** Get remaining cooldown for a skill */
@@ -208,9 +202,50 @@ export class CombatSystem {
             return cds.find(c => c.skillId === skillId)?.remaining ?? 0;
       }
 
+      tickCooldowns(entityId: string, dt: number): void {
+            const cds = this._cooldowns.get(entityId) ?? [];
+            for (const cd of cds) {
+                  cd.remaining = Math.max(0, cd.remaining - dt);
+            }
+      }
+
+      tickAllCooldowns(dt: number): void {
+            for (const entityId of this._cooldowns.keys()) {
+                  this.tickCooldowns(entityId, dt);
+            }
+      }
+
+      canCastSkill(entityId: string, skillId: string, currentMp: number, mpCost: number): boolean {
+            if (currentMp < mpCost) return false;
+            return this.getCooldown(entityId, skillId) <= 0;
+      }
+
+      startCooldown(entityId: string, skillId: string, duration: number): void {
+            let cds = this._cooldowns.get(entityId);
+            if (!cds) {
+                  cds = [];
+                  this._cooldowns.set(entityId, cds);
+            }
+            const existing = cds.find(c => c.skillId === skillId);
+            if (existing) {
+                  existing.remaining = duration;
+            } else {
+                  cds.push({ skillId, remaining: duration });
+            }
+      }
+
+      private _advanceCursor(entityId: string, currentIndex: number, queueLength: number): void {
+            if (queueLength <= 0) {
+                  this._queueCursor.set(entityId, 0);
+                  return;
+            }
+            this._queueCursor.set(entityId, (currentIndex + 1) % queueLength);
+      }
+
       dispose(): void {
             this._cooldowns.clear();
             this._autoQueues.clear();
             this._autoEnabled.clear();
+            this._queueCursor.clear();
       }
 }

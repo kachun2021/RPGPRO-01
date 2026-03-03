@@ -31,7 +31,7 @@ export class MonsterManager {
       private _shadowGen: ShadowGenerator;
       private _monsters: Monster[] = [];
       private _config: ZoneMonsterConfig;
-      private _spawnTimers = new Map<string, number>();
+      private _respawnTimers: Array<{ def: MonsterDef; remaining: number }> = [];
 
       /** Called when a monster deals damage to the player */
       public onDamagePlayer: OnMonsterDamage | null = null;
@@ -46,7 +46,10 @@ export class MonsterManager {
             };
       }
 
-      spawnForZone(_zoneId?: string): void {
+      spawnForZone(zoneId?: string): void {
+            if (zoneId) {
+                  this._config.zoneId = zoneId;
+            }
             this.despawnAll();
             const defs = this._config.monsters.filter(m => !m.isBoss);
             const spawnCount = Math.min(defs.length, this._config.maxActive);
@@ -94,6 +97,10 @@ export class MonsterManager {
             return this._monsters;
       }
 
+      get currentZoneId(): string {
+            return this._config.zoneId;
+      }
+
       findClosest(pos: Vector3): Monster | null {
             let closest: Monster | null = null;
             let minDist = Infinity;
@@ -116,8 +123,8 @@ export class MonsterManager {
                   if (m.isDead) {
                         const done = m.updateDeath(dt);
                         if (done) {
-                              const respawnId = m.def.id + '_' + Date.now();
-                              this._spawnTimers.set(respawnId, m.def.respawnSec);
+                              const respawnSec = m.def.isBoss ? Math.max(3600, m.def.respawnSec) : m.def.respawnSec;
+                              this._respawnTimers.push({ def: m.def, remaining: respawnSec });
                               m.dispose();
                               this._monsters.splice(i, 1);
                         }
@@ -149,24 +156,20 @@ export class MonsterManager {
             }
 
             // Process respawn timers
-            for (const [key, remaining] of this._spawnTimers) {
-                  const newVal = remaining - dt;
-                  if (newVal <= 0) {
-                        this._spawnTimers.delete(key);
-                        const defs = this._config.monsters;
-                        const def = defs[Math.floor(Math.random() * defs.length)];
-                        this._spawnMonster(def, this._randomPosition());
-                        if (def.isBoss) this._showBossAlert(def.name, def.level);
-                  } else {
-                        this._spawnTimers.set(key, newVal);
-                  }
+            for (let i = this._respawnTimers.length - 1; i >= 0; i--) {
+                  const t = this._respawnTimers[i];
+                  t.remaining -= dt;
+                  if (t.remaining > 0) continue;
+                  this._spawnMonster(t.def, this._randomPosition());
+                  if (t.def.isBoss) this._showBossAlert(t.def.name, t.def.level);
+                  this._respawnTimers.splice(i, 1);
             }
       }
 
       despawnAll(): void {
             for (const m of this._monsters) m.dispose();
             this._monsters.length = 0;
-            this._spawnTimers.clear();
+            this._respawnTimers.length = 0;
       }
 
       dispose(): void {

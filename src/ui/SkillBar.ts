@@ -13,6 +13,7 @@ export class SkillBar {
       private _petSlots: SkillSlot[] = [];
       private _collapsed = false;
       private _petManager: PetManager | null = null;
+      private _globalPlayerLock = 0;
 
       /** Currently equipped player skills (5 slots) */
       private _equipped: (SkillDef | null)[] = [];
@@ -85,14 +86,15 @@ export class SkillBar {
                   this._petSlots.push(slot);
             }
 
-            // Keyboard hotkeys (F1-F5 for player skills)
+            // Keyboard hotkeys (F1-F8)
             window.addEventListener('keydown', (e) => {
-                  const match = e.key.match(/^F(\d)$/);
+                  const match = e.key.match(/^F(\d{1,2})$/);
                   if (match) {
-                        const idx = parseInt(match[1]) - 1;
-                        if (idx >= 0 && idx < 5) {
+                        const idx = parseInt(match[1], 10) - 1;
+                        if (idx >= 0 && idx < 8) {
                               e.preventDefault();
-                              this._onPlayerSlotClick(idx);
+                              if (idx < 5) this._onPlayerSlotClick(idx);
+                              else this._onPetSlotHotkey(idx - 5);
                         }
                   }
             });
@@ -107,15 +109,23 @@ export class SkillBar {
       private _onPlayerSlotClick(idx: number): void {
             const skill = this._equipped[idx];
             if (!skill) return;
+            if (this._globalPlayerLock > 0) return;
             const slot = this._playerSlots[idx];
             if (slot.isOnCooldown) return;
             slot.startCooldown(skill.cooldown);
             slot.flashPress();
+            this._globalPlayerLock = skill.cooldown;
             console.log('[Skill] Cast:', skill.name, `(F${idx + 1})`);
+      }
+
+      private _onPetSlotHotkey(idx: number): void {
+            if (idx < 0 || idx >= this._petSlots.length) return;
+            this._petSlots[idx].flashPress();
       }
 
       /** Update CD overlays + refresh pet slots each frame */
       update(dt: number): void {
+            this._globalPlayerLock = Math.max(0, this._globalPlayerLock - dt);
             for (const slot of this._playerSlots) {
                   slot.update(dt);
             }
@@ -165,6 +175,7 @@ export class SkillBar {
       /** Trigger CD animation on a player slot (called by CombatLoop) */
       triggerPlayerCD(idx: number, duration: number): void {
             if (idx >= 0 && idx < 5) {
+                  this._globalPlayerLock = duration;
                   this._playerSlots[idx].startCooldown(duration);
                   this._playerSlots[idx].flashPress();
             }

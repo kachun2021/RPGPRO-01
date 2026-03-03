@@ -1,6 +1,6 @@
 ﻿---
 trigger: model_decision
-description: 寵物系統開發（Prompt 3, 4 / 13–27%）— 核心系統
+description: 寵物系統開發（P3, P4 / 13–27%）— 核心系統
 ---
 
 // turbo-all

@@ -1,7 +1,7 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Matrix } from '@babylonjs/core/Maths/math.vector';
 import type { Scene } from '@babylonjs/core/scene';
-import { SKILL_DEFS, type CombatSystem } from './CombatSystem';
+import { SKILL_DEFS, type CombatSystem, type SkillDef } from './CombatSystem';
 import type { ProjectileSystem } from './ProjectileSystem';
 import type { FloatingDamage } from './FloatingDamage';
 import type { MonsterManager } from '../entities/MonsterManager';
@@ -9,21 +9,32 @@ import type { Monster } from '../entities/Monster';
 import type { EggDropSystem } from '../systems/EggDropSystem';
 import type { PetManager } from '../pets/PetManager';
 import type { Pet } from '../pets/Pet';
-import { PET_DEFS, PetSeries } from '../pets/PetData';
+import { PetSeries, type PetSkillDef } from '../pets/PetData';
 import type { SkillBar } from '../ui/SkillBar';
 import type { DropTable } from '../systems/DropTable';
 import type { DropItemManager } from '../entities/DropItem';
 import type { Inventory } from '../systems/Inventory';
 import type { QuestManager } from '../systems/QuestManager';
+import { Registry } from '../core/Registry';
+
+interface PlayerQueueEntry {
+      slotIdx: number;
+      skill: SkillDef;
+}
+
+interface PetQueueEntry {
+      slotIdx: number;
+      pet: Pet;
+      skill: PetSkillDef;
+}
 
 /**
- * CombatLoop - orchestrates combat flow:
- * Click/auto-select monster -> walk to target -> player + pets attack -> damage -> death -> egg
+ * CombatLoop orchestrates auto target + auto skill casting + death/drop flow.
  *
- * Auto-Skill Logic:
- * - Player: scan F1→F5, cast first off-CD skill (sequential within player)
- * - Pets: each pet casts their 1 skill on its own CD (sequential within pets, P1→P3)
- * - Player and pets cast independently (parallel between player & pets)
+ * Key behavior for P1:
+ * - Player uses strict queue-top casting (CD/MP not ready => wait, do not skip).
+ * - Pets cast in strict team rotation (P1 -> wait CD -> P2 -> wait CD -> P3).
+ * - HP < 30% gives heal-skill priority for player queue.
  */
 export class CombatLoop {
       private _scene: Scene;
@@ -46,13 +57,14 @@ export class CombatLoop {
       private _target: Monster | null = null;
       private _autoGrind = false;
 
-      // Sequential skill queue: player
-      private _playerNextIdx = 0;   // which F slot to cast next (0-4)
-      private _playerWaitCD = 0;    // global wait: must reach 0 before next cast
+      // Strict queue pointer for player and pets
+      private _playerQueue: PlayerQueueEntry[] = [];
+      private _playerNextIdx = 0;
+      private _playerWaitCD = 0;
 
-      // Sequential skill queue: pets
-      private _petNextIdx = 0;      // which P slot to cast next (0-2)
-      private _petWaitCD = 0;       // global wait: must reach 0 before next cast
+      private _petQueue: PetQueueEntry[] = [];
+      private _petNextIdx = 0;
+      private _petWaitCD = 0;
 
       // Retarget cooldown after kill (prevents stutter)
       private _retargetDelay = 0;
@@ -99,6 +111,7 @@ export class CombatLoop {
       /** Connect SkillBar for CD visualization */
       setSkillBar(bar: SkillBar): void {
             this._skillBar = bar;
+            this._syncAutoSkillConfig();
       }
 
       /** P7: Connect drop system */
@@ -148,9 +161,14 @@ export class CombatLoop {
 
       setAutoGrind(enabled: boolean): void {
             this._autoGrind = enabled;
+
             if (!enabled) {
                   this.clearTarget();
+                  this._playerWaitCD = 0;
+                  this._petWaitCD = 0;
             }
+
+            this._syncAutoSkillConfig();
             console.log('[Combat] Auto-grind:', enabled ? 'ON' : 'OFF');
       }
 
@@ -163,13 +181,14 @@ export class CombatLoop {
       update(dt: number): void {
             const playerPos = this._getPlayerPos();
 
-            // Tick all CDs down
+            this._syncAutoSkillConfig();
             this._tickCooldowns(dt);
+            this._regenMp(dt);
 
             // Tick retarget delay
             if (this._retargetDelay > 0) {
-                  this._retargetDelay -= dt;
-                  return; // Brief pause after kill
+                  this._retargetDelay = Math.max(0, this._retargetDelay - dt);
+                  return;
             }
 
             // Clear dead target
@@ -178,7 +197,7 @@ export class CombatLoop {
                   this._target = null;
                   this._combatSystem.clearTarget();
                   this._setPlayerTarget(null);
-                  this._retargetDelay = 0.4; // 0.4s pause before next target
+                  this._retargetDelay = 0.4;
                   return;
             }
 
@@ -197,7 +216,6 @@ export class CombatLoop {
 
             // Only attack if within melee range
             if (dist > this.MELEE_RANGE) {
-                  // Walk toward target
                   this._setPlayerTarget(targetPos);
                   return;
             }
@@ -205,137 +223,236 @@ export class CombatLoop {
             // Stop player movement when in range
             this._setPlayerTarget(null);
 
-            // ── Auto-Skill: Player (F1→F5, first off-CD) ──
             this._tryPlayerSkill();
-
-            // ── Auto-Skill: Pets (P1→P3, each on own CD) ──
             this._tryPetSkills();
       }
 
-      // -- Cooldown System --
+      // -- Auto Skill Config --
+
+      private _syncAutoSkillConfig(): void {
+            const playerEquipped = this._skillBar?.getEquipped() ?? [];
+            const nextPlayerQueue: PlayerQueueEntry[] = [];
+            const playerAutoQueue: { skillId: string; enabled: boolean }[] = [];
+
+            for (let i = 0; i < playerEquipped.length; i++) {
+                  const skill = playerEquipped[i];
+                  if (!skill) continue;
+                  nextPlayerQueue.push({ slotIdx: i, skill });
+                  playerAutoQueue.push({ skillId: skill.id, enabled: true });
+            }
+
+            if (nextPlayerQueue.length === 0) {
+                  const fallback = SKILL_DEFS.find(s => s.id === 'slash') ?? SKILL_DEFS[0];
+                  if (fallback) {
+                        nextPlayerQueue.push({ slotIdx: -1, skill: fallback });
+                        playerAutoQueue.push({ skillId: fallback.id, enabled: true });
+                  }
+            }
+
+            this._playerQueue = nextPlayerQueue;
+            if (this._playerNextIdx >= this._playerQueue.length) this._playerNextIdx = 0;
+
+            this._combatSystem.setAutoQueue('player', playerAutoQueue);
+            this._combatSystem.setAutoEnabled('player', this._autoGrind);
+
+            for (let i = 0; i < 5; i++) {
+                  const hasSkill = !!playerEquipped[i];
+                  this._skillBar?.setAutoCast(i, this._autoGrind && hasSkill);
+            }
+
+            const activePets = this._petManager.active;
+            const nextPetQueue: PetQueueEntry[] = [];
+
+            for (let i = 0; i < 3; i++) {
+                  const pet = activePets[i];
+                  if (!pet || pet.isDead || pet.def.skills.length === 0) {
+                        this._combatSystem.setAutoQueue(`pet_${i}`, []);
+                        this._combatSystem.setAutoEnabled(`pet_${i}`, false);
+                        continue;
+                  }
+
+                  const skill = pet.def.skills[0];
+                  nextPetQueue.push({ slotIdx: i, pet, skill });
+                  this._combatSystem.setAutoQueue(`pet_${i}`, [{ skillId: skill.id, enabled: true }]);
+                  this._combatSystem.setAutoEnabled(`pet_${i}`, this._autoGrind);
+            }
+
+            this._petQueue = nextPetQueue;
+            if (this._petNextIdx >= this._petQueue.length) this._petNextIdx = 0;
+      }
+
+      // -- Cooldown / MP --
 
       private _tickCooldowns(dt: number): void {
-            if (this._playerWaitCD > 0) {
-                  this._playerWaitCD = Math.max(0, this._playerWaitCD - dt);
+            this._combatSystem.tickAllCooldowns(dt);
+            this._playerWaitCD = Math.max(0, this._playerWaitCD - dt);
+            this._petWaitCD = Math.max(0, this._petWaitCD - dt);
+      }
+
+      private _regenMp(dt: number): void {
+            const player = Registry.player as { stats?: { mp: number; maxMp: number } } | null;
+            if (player?.stats) {
+                  player.stats.mp = Math.min(player.stats.maxMp, player.stats.mp + dt * 4);
             }
-            if (this._petWaitCD > 0) {
-                  this._petWaitCD = Math.max(0, this._petWaitCD - dt);
+
+            for (const pet of this._petManager.active) {
+                  pet.stats.mp = Math.min(pet.stats.maxMp, pet.stats.mp + dt * 2);
             }
       }
 
-      // -- Player Skill Queue (Sequential: F1 → wait CD → F2 → wait CD → ...) --
+      // -- Player Strict Queue --
 
       private _tryPlayerSkill(): void {
             if (!this._target) return;
-            if (this._playerWaitCD > 0) return; // still waiting for current skill CD
+            if (!this._combatSystem.isAutoEnabled('player')) return;
+            if (this._playerQueue.length === 0) return;
+            if (this._playerWaitCD > 0) return;
 
-            const equipped = this._skillBar?.getEquipped() ?? [];
+            const player = Registry.player as {
+                  stats?: { hp: number; maxHp: number; mp: number };
+            } | null;
 
-            // Try current slot, skip empty slots
-            let attempts = 0;
-            while (attempts < 5) {
-                  const idx = this._playerNextIdx;
-                  const skill = equipped[idx] ?? SKILL_DEFS[idx];
-                  this._playerNextIdx = (this._playerNextIdx + 1) % 5;
-                  attempts++;
+            const currentMp = player?.stats?.mp ?? 0;
+            const hp = player?.stats?.hp ?? 100;
+            const maxHp = Math.max(1, player?.stats?.maxHp ?? 100);
+            const hpPct = hp / maxHp;
 
-                  if (!skill) continue;
+            let castQueueIndex = this._playerNextIdx;
 
-                  // Cast this skill
-                  this._playerWaitCD = skill.cooldown;
-
-                  // Trigger UI CD on SkillBar
-                  this._skillBar?.triggerPlayerCD(idx, skill.cooldown);
-
-                  // Perform attack with skill multiplier
-                  const result = this._combatSystem.calculateDamage(
-                        this._playerAtk(),
-                        this._target.def.def,
-                        skill.multiplier,
-                        PetSeries.Plant,
-                        this._target.def.series,
+            // Heal priority if HP < 30%
+            if (hpPct < 0.3) {
+                  const healIdx = this._playerQueue.findIndex(e =>
+                        e.skill.type === 'heal'
+                        && this._combatSystem.canCastSkill('player', e.skill.id, currentMp, e.skill.mpCost),
                   );
+                  if (healIdx >= 0) {
+                        castQueueIndex = healIdx;
+                  }
+            }
 
-                  const died = this._target.takeDamage(result.damage);
-                  this._showDamageAtMonster(this._target, result.damage, result.type);
-                  if (died) this._handleMonsterDeath(this._target);
+            const entry = this._playerQueue[castQueueIndex];
+            if (!entry) return;
 
-                  console.log(`[Skill] Player cast: ${skill.name} (F${idx + 1}), CD: ${skill.cooldown}s`);
+            const skill = entry.skill;
+            if (!this._combatSystem.canCastSkill('player', skill.id, currentMp, skill.mpCost)) {
                   return;
             }
+
+            this._combatSystem.startCooldown('player', skill.id, skill.cooldown);
+            this._playerWaitCD = skill.cooldown;
+            this._playerNextIdx = (castQueueIndex + 1) % this._playerQueue.length;
+            this._combatSystem.setQueueCursor('player', this._playerNextIdx);
+
+            if (player?.stats) {
+                  player.stats.mp = Math.max(0, player.stats.mp - skill.mpCost);
+            }
+
+            this._skillBar?.triggerPlayerCD(entry.slotIdx, skill.cooldown);
+
+            if (skill.type === 'heal') {
+                  const healAmount = Math.round(18 + maxHp * 0.12 * skill.multiplier);
+                  if (player?.stats) {
+                        player.stats.hp = Math.min(player.stats.maxHp, player.stats.hp + healAmount);
+                  }
+                  this._showFloatingAtWorld(this._getPlayerPos().add(new Vector3(0, 1.8, 0)), `+${healAmount}`, 'counter');
+                  console.log(`[Skill] Player cast heal: ${skill.name}`);
+                  return;
+            }
+
+            const result = this._combatSystem.calculateDamage(
+                  this._playerAtk(),
+                  this._target.def.def,
+                  skill.multiplier,
+                  PetSeries.Plant,
+                  this._target.def.series,
+            );
+
+            const died = this._target.takeDamage(result.damage);
+            this._showDamageAtMonster(this._target, result.damage, result.type);
+            if (died) this._handleMonsterDeath(this._target);
+
+            const castSlot = entry.slotIdx >= 0 ? `F${entry.slotIdx + 1}` : 'AUTO';
+            console.log(`[Skill] Player cast: ${skill.name} (${castSlot})`);
       }
 
-      // -- Pet Skill Queue (Sequential: P1 → wait CD → P2 → wait CD → ...) --
+      // -- Pet Strict Team Rotation --
 
       private _tryPetSkills(): void {
             if (!this._target) return;
-            if (this._petWaitCD > 0) return; // still waiting for current pet skill CD
+            if (this._petQueue.length === 0) return;
+            if (this._petWaitCD > 0) return;
 
-            const activePets = this._petManager.active;
-            if (activePets.length === 0) return;
+            const entry = this._petQueue[this._petNextIdx];
+            if (!entry || entry.pet.isDead) return;
 
-            // Try current slot, skip dead pets
-            let attempts = 0;
-            while (attempts < 3) {
-                  const idx = this._petNextIdx;
-                  this._petNextIdx = (this._petNextIdx + 1) % Math.min(activePets.length, 3);
-                  attempts++;
+            const entityId = `pet_${entry.slotIdx}`;
+            if (!this._combatSystem.isAutoEnabled(entityId)) return;
 
-                  if (idx >= activePets.length) continue;
-                  const pet = activePets[idx];
-                  if (pet.isDead) continue;
-
-                  const petDef = PET_DEFS.find(d => d.id === pet.def.id);
-                  const skill = petDef?.skills?.[0];
-                  if (!skill) continue;
-
-                  // Set global pet wait CD
-                  this._petWaitCD = skill.cooldown;
-
-                  // Trigger UI CD on SkillBar
-                  this._skillBar?.triggerPetCD(idx, skill.cooldown);
-
-                  // Perform pet attack
-                  const atk = pet.stats.atkMin + Math.random() * (pet.stats.atkMax - pet.stats.atkMin);
-                  const skillMult = skill.damage / 10;
-                  const result = this._combatSystem.calculateDamage(
-                        atk, this._target.def.def, skillMult,
-                        pet.def.series, this._target.def.series,
-                  );
-
-                  const targetPos = this._target.root.position;
-
-                  if (pet.def.attackType === 'ranged') {
-                        const target = this._target;
-                        this._projectileSystem.spawn(
-                              pet.root.position, targetPos, pet.def.series, result.damage,
-                              () => {
-                                    if (target.isDead) return;
-                                    const died = target.takeDamage(result.damage);
-                                    this._showDamageAtMonster(target, result.damage, result.type);
-                                    if (died) this._handleMonsterDeath(target);
-                              },
-                        );
-                  } else {
-                        // Melee: direct damage, no projectile
-                        const died = this._target.takeDamage(result.damage);
-                        this._showDamageAtMonster(this._target, result.damage, result.type);
-                        if (died) this._handleMonsterDeath(this._target);
-                  }
-
-                  console.log(`[Skill] Pet ${pet.def.name} cast: ${skill.name} (P${idx + 1}), CD: ${skill.cooldown}s`);
+            const mpCost = entry.skill.mpCost ?? 0;
+            const currentMp = entry.pet.stats.mp;
+            if (!this._combatSystem.canCastSkill(entityId, entry.skill.id, currentMp, mpCost)) {
                   return;
             }
+
+            this._combatSystem.startCooldown(entityId, entry.skill.id, entry.skill.cooldown);
+            this._petWaitCD = entry.skill.cooldown;
+            this._petNextIdx = (this._petNextIdx + 1) % this._petQueue.length;
+
+            entry.pet.stats.mp = Math.max(0, entry.pet.stats.mp - mpCost);
+            this._skillBar?.triggerPetCD(entry.slotIdx, entry.skill.cooldown);
+
+            const atk = entry.pet.stats.atkMin + Math.random() * (entry.pet.stats.atkMax - entry.pet.stats.atkMin);
+            const skillMult = Math.max(0.6, entry.skill.damage / 10);
+            const result = this._combatSystem.calculateDamage(
+                  atk,
+                  this._target.def.def,
+                  skillMult,
+                  entry.pet.def.series,
+                  this._target.def.series,
+            );
+
+            if (entry.pet.def.attackType === 'ranged') {
+                  const target = this._target;
+                  this._projectileSystem.spawn(
+                        entry.pet.root.position,
+                        target.root.position,
+                        entry.pet.def.series,
+                        result.damage,
+                        () => {
+                              if (target.isDead) return;
+                              const died = target.takeDamage(result.damage);
+                              this._showDamageAtMonster(target, result.damage, result.type);
+                              if (died) this._handleMonsterDeath(target);
+                        },
+                  );
+            } else {
+                  const died = this._target.takeDamage(result.damage);
+                  this._showDamageAtMonster(this._target, result.damage, result.type);
+                  if (died) this._handleMonsterDeath(this._target);
+            }
+
+            console.log(`[Skill] Pet ${entry.pet.def.name} cast: ${entry.skill.name} (P${entry.slotIdx + 1})`);
       }
 
       // -- Damage Display --
 
-      private _showDamageAtMonster(monster: Monster, damage: number, type: import('./FloatingDamage').DamageType): void {
+      private _showDamageAtMonster(
+            monster: Monster,
+            damage: number,
+            type: import('./FloatingDamage').DamageType,
+      ): void {
+            this._showFloatingAtWorld(monster.root.position.add(new Vector3(0, 1.2, 0)), damage, type);
+      }
+
+      private _showFloatingAtWorld(
+            worldPos: Vector3,
+            value: number | string,
+            type: import('./FloatingDamage').DamageType,
+      ): void {
             const engine = this._scene.getEngine();
             const cam = this._scene.activeCamera;
             if (!cam) return;
 
-            const worldPos = monster.root.position.add(new Vector3(0, 1.2, 0));
             const viewport = cam.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight());
             const screenPos = Vector3.Project(
                   worldPos,
@@ -346,13 +463,14 @@ export class CombatLoop {
 
             const xPct = (screenPos.x / engine.getRenderWidth()) * 100 + (Math.random() - 0.5) * 4;
             const yPct = (screenPos.y / engine.getRenderHeight()) * 100;
-
-            this._floatingDamage.show(xPct, yPct, damage, type);
+            this._floatingDamage.show(xPct, yPct, value, type);
       }
 
       // -- Death --
 
       private _handleMonsterDeath(monster: Monster): void {
+            if (!monster.isDead) return;
+
             console.log('[Combat] Killed:', monster.def.name);
 
             // Track kill stats
@@ -366,14 +484,14 @@ export class CombatLoop {
             if (eggId) {
                   this._eggDropSystem.announce(this._playerName, eggId);
                   const gender = Math.random() > 0.5 ? 'male' : 'female';
-                  this._petManager.addPet(eggId, gender as any);
+                  this._petManager.addPet(eggId, gender as 'male' | 'female');
                   console.log('[Combat] Egg dropped!', eggId);
             }
 
             // P7: Drop items
             if (this._dropTable && this._dropItemManager) {
-                  const isBoss = monster.def.isBoss;
-                  const drops = this._dropTable.rollDrops(monster.def.level, isBoss);
+                  const zoneId = this._monsterManager.currentZoneId;
+                  const drops = this._dropTable.rollDrops(monster.def.level, monster.def.isBoss, zoneId, monster.def.id);
                   if (drops.length > 0) {
                         this._dropItemManager.spawnDrops(drops, monster.root.position);
                         console.log(`[Combat] Dropped ${drops.length} items`);

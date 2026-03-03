@@ -6,7 +6,7 @@ description: 多人同步+Firebase+PVP+公會（P6, P7 / 50–70%）
 // turbo-all
 # 多人同步（/multi）
 
-對應 **Prompt 6**（Firebase底層 + 同屏）和 **Prompt 7**（PVP + 公會 + 組隊）
+對應 **P6**（Firebase底層 + 同屏）和 **P7**（PVP + 公會 + 組隊）
 
 ---
 

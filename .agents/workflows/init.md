@@ -1,12 +1,12 @@
 ﻿---
 trigger: model_decision
-description: 引擎與場景初始化（Prompt 1 / 0–7%）
+description: 引擎與場景初始化（P1 / 0–7%）
 ---
 
 // turbo-all
 # 引擎初始化（/init）
 
-對應 **Prompt 1**：EngineManager + Registry + **Premium Dark 場景**
+對應 **P1**：EngineManager + Registry + **Premium Dark 場景**
 
 ---
 
