@@ -38,6 +38,12 @@ import { DropItemManager } from './entities/DropItem';
 import { Inventory } from './systems/Inventory';
 import { InventoryPanel } from './ui/InventoryPanel';
 import { AFKPanel } from './ui/AFKPanel';
+// P8 Equipment + Enhance + Resonance
+import { EquipmentSystem } from './systems/EquipmentSystem';
+import { EnhanceSystem } from './systems/EnhanceSystem';
+import { ResonanceSystem } from './systems/ResonanceSystem';
+import { EquipmentPanel } from './ui/EquipmentPanel';
+import { ResonancePanel } from './ui/ResonancePanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -230,10 +236,22 @@ async function bootstrap(): Promise<void> {
       // P7: AFK Panel
       const afkPanel = new AFKPanel(inventory);
 
+      // P8: Equipment + Enhance + Resonance
+      const equipmentSystem = new EquipmentSystem();
+      const enhanceSystem = new EnhanceSystem();
+      const resonanceSystem = new ResonanceSystem();
+      const equipmentPanel = new EquipmentPanel(equipmentSystem, enhanceSystem, inventory);
+      const resonancePanel = new ResonancePanel(resonanceSystem, inventory);
+      equipmentSystem.giveStarterGear(); // Give starter gear
+      Registry.equipmentSystem = equipmentSystem;
+
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop', 'nav-char', 'nav-community', 'nav-quest']) {
+      for (const id of ['nav-book', 'nav-shop', 'nav-community', 'nav-quest']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-char')?.addEventListener('click', () => {
+            equipmentPanel.toggle();
+      });
       hud.getNavButton('nav-bag')?.addEventListener('click', () => {
             inventoryPanel.toggle();
       });
@@ -293,7 +311,7 @@ async function bootstrap(): Promise<void> {
       // Start render loop
       engineManager.startRenderLoop();
 
-      console.log('[Fantasy Pet Online] P7 Ready — AUTO + Drops + Inventory + AFK');
+      console.log('[Fantasy Pet Online] P8 Ready — Equipment + Enhance + Resonance');
 }
 
 bootstrap().catch(err => {

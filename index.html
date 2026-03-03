@@ -1414,6 +1414,258 @@
       opacity: 1;
       transform: translate(-50%, -30px);
     }
+
+    /* ===== P8: EQUIPMENT PANEL ===== */
+    .eq-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 380px !important;
+      max-height: 85vh !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
+    }
+
+    .eq-body {
+      padding: 8px;
+      overflow-y: auto;
+      max-height: calc(85vh - 42px);
+    }
+
+    .eq-set-summary {
+      padding: 4px 8px;
+      margin-bottom: 6px;
+      background: rgba(160, 130, 80, 0.08);
+      border-radius: 4px;
+      border: 1px solid rgba(160, 130, 80, 0.15);
+    }
+
+    .eq-set-line {
+      font-size: 10px;
+      color: rgba(232, 201, 106, 0.8);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      padding: 2px 0;
+    }
+
+    .eq-stats-bar {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(200, 195, 185, 0.7);
+      margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .eq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 4px;
+    }
+
+    .eq-cell {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .eq-slot {
+      background: rgba(20, 16, 30, 0.6);
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .eq-slot:hover {
+      border-color: rgba(232, 201, 106, 0.4);
+      background: rgba(160, 130, 80, 0.08);
+    }
+
+    .eq-spacer {
+      background: rgba(20, 16, 30, 0.25);
+      border-radius: 50%;
+      border: 1px dashed rgba(160, 130, 80, 0.1);
+    }
+
+    .eq-item-icon {
+      font-size: 22px;
+    }
+
+    .eq-enhance {
+      position: absolute;
+      bottom: 3px;
+      right: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .eq-empty-icon {
+      font-size: 18px;
+      opacity: 0.3;
+    }
+
+    .eq-slot-label {
+      font-size: 8px;
+      color: rgba(200, 195, 185, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .eq-demo-btn {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 0;
+      font-size: 11px;
+    }
+
+    .eq-action-popup {
+      position: relative;
+      margin-top: 8px;
+      padding: 10px;
+      background: rgba(15, 12, 25, 0.96);
+      border: 1px solid rgba(160, 130, 80, 0.4);
+      border-radius: 5px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .eq-act-title {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .eq-act-stats {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+      margin-bottom: 3px;
+    }
+
+    .eq-act-set {
+      font-size: 9px;
+      color: rgba(232, 201, 106, 0.6);
+      margin-bottom: 3px;
+    }
+
+    .eq-act-enhance-info {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.4);
+      margin-bottom: 6px;
+    }
+
+    .eq-act-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    .eq-equip-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 8px;
+      margin: 2px 0;
+      cursor: pointer;
+      background: rgba(20, 16, 30, 0.5);
+      border-radius: 3px;
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
+    }
+
+    .eq-equip-row:hover {
+      background: rgba(160, 130, 80, 0.15);
+      color: rgba(232, 201, 106, 0.9);
+    }
+
+    /* ===== P8: RESONANCE PANEL ===== */
+    .reso-root {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 360px !important;
+      max-height: 80vh !important;
+      z-index: 300 !important;
+      overflow: hidden !important;
+    }
+
+    .reso-body {
+      padding: 6px 10px;
+      overflow-y: auto;
+      max-height: calc(80vh - 42px);
+    }
+
+    .reso-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.08);
+    }
+
+    .reso-series {
+      font-size: 11px;
+      font-weight: 700;
+      width: 55px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .reso-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .reso-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(60, 50, 70, 0.5);
+      border: 1px solid rgba(160, 130, 80, 0.2);
+    }
+
+    .reso-dot-active {
+      border-color: transparent;
+    }
+
+    .reso-info {
+      flex: 1;
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.5);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .reso-apply-btn {
+      padding: 3px 8px;
+      font-size: 9px;
+      font-weight: 600;
+      background: rgba(160, 130, 80, 0.15);
+      border: 1px solid rgba(160, 130, 80, 0.3);
+      color: rgba(200, 195, 185, 0.6);
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .reso-apply-btn:hover {
+      background: rgba(160, 130, 80, 0.3);
+      color: rgba(232, 201, 106, 0.9);
+    }
+
+    .reso-maxed {
+      background: rgba(39, 174, 96, 0.15) !important;
+      color: rgba(39, 174, 96, 0.7) !important;
+      cursor: default !important;
+      border-color: rgba(39, 174, 96, 0.3) !important;
+    }
   </style>
 </head>
 
