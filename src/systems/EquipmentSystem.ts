@@ -65,6 +65,7 @@ const SET_DEFS: SetBonus[] = [
 
 /** Starter equipment that drops from bosses */
 export const EQUIP_TEMPLATES: Omit<EquipDef, 'enhanceLevel'>[] = [
+      // ── Lv.1 Common Starter ──
       { id: 'iron_sword', name: '鐵劍', slot: 'weapon', level: 1, rarity: 'common', stats: { atk: 8, def: 0, hp: 0, mp: 0 }, icon: '⚔️' },
       { id: 'iron_helm', name: '鐵盔', slot: 'head', level: 1, rarity: 'common', stats: { atk: 0, def: 3, hp: 20, mp: 0 }, icon: '🪖' },
       { id: 'iron_armor', name: '鐵甲', slot: 'armor', level: 1, rarity: 'common', stats: { atk: 0, def: 5, hp: 30, mp: 0 }, icon: '🛡️' },
@@ -73,7 +74,8 @@ export const EQUIP_TEMPLATES: Omit<EquipDef, 'enhanceLevel'>[] = [
       { id: 'bone_bracelet', name: '骨手鐲', slot: 'bracelet', level: 5, rarity: 'uncommon', stats: { atk: 3, def: 1, hp: 0, mp: 10 }, icon: '💍' },
       { id: 'jade_ring', name: '玉戒指', slot: 'ring', level: 5, rarity: 'uncommon', stats: { atk: 4, def: 0, hp: 0, mp: 15 }, icon: '💎' },
       { id: 'wolf_necklace', name: '狼牙項鏈', slot: 'necklace', level: 5, rarity: 'uncommon', stats: { atk: 2, def: 2, hp: 15, mp: 5 }, icon: '📿' },
-      // Boss set pieces
+
+      // ── Lv.30 Boss Set (Epic) ──
       { id: 'boss_sword', name: 'Boss魔劍', slot: 'weapon', level: 30, rarity: 'epic', stats: { atk: 25, def: 0, hp: 0, mp: 10 }, setId: 'boss_set', icon: '⚔️' },
       { id: 'boss_helm', name: 'Boss魔盔', slot: 'head', level: 30, rarity: 'epic', stats: { atk: 0, def: 12, hp: 80, mp: 0 }, setId: 'boss_set', icon: '🪖' },
       { id: 'boss_armor', name: 'Boss魔甲', slot: 'armor', level: 30, rarity: 'epic', stats: { atk: 0, def: 18, hp: 100, mp: 0 }, setId: 'boss_set', icon: '🛡️' },
@@ -82,7 +84,28 @@ export const EQUIP_TEMPLATES: Omit<EquipDef, 'enhanceLevel'>[] = [
       { id: 'boss_bracelet', name: 'Boss魔鐲', slot: 'bracelet', level: 30, rarity: 'epic', stats: { atk: 8, def: 5, hp: 30, mp: 30 }, setId: 'boss_set', icon: '💍' },
       { id: 'boss_ring', name: 'Boss魔戒', slot: 'ring', level: 30, rarity: 'epic', stats: { atk: 12, def: 3, hp: 0, mp: 40 }, setId: 'boss_set', icon: '💎' },
       { id: 'boss_necklace', name: 'Boss魔鏈', slot: 'necklace', level: 30, rarity: 'epic', stats: { atk: 6, def: 6, hp: 60, mp: 20 }, setId: 'boss_set', icon: '📿' },
+
+      // ── Lv.60 PVP Set (Rare) ──
+      { id: 'pvp_sword', name: '鬥技劍', slot: 'weapon', level: 60, rarity: 'rare', stats: { atk: 35, def: 5, hp: 0, mp: 0 }, setId: 'pvp_set', icon: '⚔️' },
+      { id: 'pvp_helm', name: '鬥技盔', slot: 'head', level: 60, rarity: 'rare', stats: { atk: 0, def: 18, hp: 120, mp: 0 }, setId: 'pvp_set', icon: '🪖' },
+      { id: 'pvp_armor', name: '鬥技甲', slot: 'armor', level: 60, rarity: 'rare', stats: { atk: 0, def: 25, hp: 150, mp: 0 }, setId: 'pvp_set', icon: '🛡️' },
+      { id: 'pvp_gloves', name: '鬥技手套', slot: 'gloves', level: 60, rarity: 'rare', stats: { atk: 15, def: 12, hp: 0, mp: 30 }, setId: 'pvp_set', icon: '🧤' },
+      { id: 'pvp_boots', name: '鬥技靴', slot: 'boots', level: 60, rarity: 'rare', stats: { atk: 0, def: 15, hp: 80, mp: 0 }, setId: 'pvp_set', icon: '👢' },
+      { id: 'pvp_necklace', name: '鬥技鏈', slot: 'necklace', level: 60, rarity: 'rare', stats: { atk: 10, def: 10, hp: 80, mp: 30 }, setId: 'pvp_set', icon: '📿' },
+
+      // ── Lv.100 Rare Tier ──
+      { id: 't100_sword', name: '炎龍劍', slot: 'weapon', level: 100, rarity: 'rare', stats: { atk: 50, def: 0, hp: 0, mp: 20 }, icon: '⚔️' },
+      { id: 't100_armor', name: '炎龍甲', slot: 'armor', level: 100, rarity: 'rare', stats: { atk: 0, def: 35, hp: 200, mp: 0 }, icon: '🛡️' },
+
+      // ── Lv.141+ Legendary ──
+      { id: 't141_sword', name: '天罰聖劍', slot: 'weapon', level: 141, rarity: 'legendary', stats: { atk: 80, def: 10, hp: 50, mp: 30 }, icon: '⚔️' },
+      { id: 't141_armor', name: '天罰聖甲', slot: 'armor', level: 141, rarity: 'legendary', stats: { atk: 0, def: 55, hp: 350, mp: 0 }, icon: '🛡️' },
 ];
+
+/** Get equipment templates appropriate for a player level */
+export function getTemplatesForLevel(playerLv: number): Omit<EquipDef, 'enhanceLevel'>[] {
+      return EQUIP_TEMPLATES.filter(t => t.level <= playerLv);
+}
 
 export class EquipmentSystem {
       private _equipped: Map<EquipSlot, EquipDef> = new Map();

@@ -40,8 +40,10 @@ export class SkillBar {
 
             // Toggle header
             const toggle = document.createElement('div');
-            toggle.style.cssText = 'font-size:9px;color:rgba(232,201,106,0.6);text-align:center;cursor:pointer;padding:2px';
+            toggle.style.cssText = 'font-size:9px;color:rgba(232,201,106,0.8);text-align:center;cursor:pointer;padding:3px 4px;border-bottom:1px solid rgba(160,130,80,0.15);transition:color 0.2s';
             toggle.textContent = '\u25BC Skills';
+            toggle.addEventListener('mouseenter', () => { toggle.style.color = '#FFD700'; });
+            toggle.addEventListener('mouseleave', () => { toggle.style.color = 'rgba(232,201,106,0.8)'; });
             toggle.addEventListener('click', () => {
                   this._collapsed = !this._collapsed;
                   const display = this._collapsed ? 'none' : '';

@@ -23,14 +23,8 @@ export class HUD {
             this._topRight.className = 'interactive';
             Object.assign(this._topRight.style, {
                   position: 'fixed', right: '70px', top: '6px', zIndex: '160',
-                  display: 'flex', gap: '4px',
+                  display: 'flex', gap: '4px', alignItems: 'center',
             });
-
-            this._toggleBtn = document.createElement('div');
-            this._toggleBtn.style.cssText = 'position:absolute;left:-14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:10px;color:rgba(255,255,255,0.4)';
-            this._toggleBtn.textContent = '◀';
-            this._toggleBtn.addEventListener('click', () => this._togglePortraits());
-            this._topRight.appendChild(this._toggleBtn);
 
             const labels = ['P', 'Pet1', 'Pet2', 'Pet3'];
             const colors = ['#CC4444', '#8B6B3D', '#8B6B3D', '#8B6B3D'];
@@ -39,6 +33,32 @@ export class HUD {
                   this._portraits.push(p);
                   this._topRight.appendChild(p);
             }
+
+            // Toggle: thin pill matching EXP bar row height, gray transparent
+            this._toggleBtn = document.createElement('div');
+            Object.assign(this._toggleBtn.style, {
+                  width: '14px', height: '50px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', fontSize: '8px',
+                  color: 'rgba(220,215,200,0.6)',
+                  background: 'rgba(20,16,30,0.6)',
+                  border: '1px solid rgba(160,130,80,0.3)',
+                  borderRadius: '3px',
+                  transition: 'background 0.2s, color 0.2s',
+                  userSelect: 'none', flexShrink: '0',
+            });
+            this._toggleBtn.textContent = '▶';
+            this._toggleBtn.addEventListener('mouseenter', () => {
+                  this._toggleBtn.style.background = 'rgba(20,16,30,0.8)';
+                  this._toggleBtn.style.color = 'rgba(232,201,106,0.8)';
+            });
+            this._toggleBtn.addEventListener('mouseleave', () => {
+                  this._toggleBtn.style.background = 'rgba(20,16,30,0.6)';
+                  this._toggleBtn.style.color = 'rgba(220,215,200,0.6)';
+            });
+            this._toggleBtn.addEventListener('click', () => this._togglePortraits());
+            this._topRight.appendChild(this._toggleBtn);
+
             uiLayer.appendChild(this._topRight);
 
             // ── BOTTOM NAV ──
@@ -204,7 +224,7 @@ export class HUD {
       private _togglePortraits(): void {
             this._collapsed = !this._collapsed;
             this._portraits.forEach(p => p.style.display = this._collapsed ? 'none' : '');
-            this._toggleBtn.textContent = this._collapsed ? '▶' : '◀';
+            this._toggleBtn.textContent = this._collapsed ? '◀' : '▶';
       }
 
       dispose(): void { this._topRight.remove(); this._navBar.remove(); }

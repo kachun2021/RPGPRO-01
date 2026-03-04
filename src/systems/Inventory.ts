@@ -104,4 +104,107 @@ export class Inventory {
       }
 
       get count(): number { return this._items.length; }
+
+      // ── P4 additions ──
+
+      /** Check if player has item with sufficient qty */
+      hasItem(itemId: string, qty: number = 1): boolean {
+            const item = this._items.find(i => i.itemId === itemId);
+            return item ? item.qty >= qty : false;
+      }
+
+      /** Spend gold, returns false if insufficient */
+      spendGold(amount: number): boolean {
+            if (this._gold < amount) return false;
+            this._gold -= amount;
+            this._onChange?.();
+            return true;
+      }
+
+      /** Add gold directly */
+      addGold(amount: number): void {
+            this._gold += amount;
+            this._onChange?.();
+      }
+
+      /** Use a consumable item — returns effect description or null */
+      useItem(itemId: string, stats: { hp: number; maxHp: number; mp: number; maxMp: number }): string | null {
+            const item = this._items.find(i => i.itemId === itemId);
+            if (!item || item.type !== 'consumable') return null;
+
+            let effect = '';
+            switch (itemId) {
+                  // From DropTable
+                  case 'hp_potion':
+                        stats.hp = Math.min(stats.hp + 50, stats.maxHp);
+                        effect = 'HP +50';
+                        break;
+                  case 'mp_potion':
+                        stats.mp = Math.min(stats.mp + 30, stats.maxMp);
+                        effect = 'MP +30';
+                        break;
+                  case 'exp_stone':
+                        effect = 'EXP +100';
+                        break;
+                  case 'scroll_atk':
+                        effect = 'ATK +10% (60s)';
+                        break;
+
+                  // From ShopManager (tiered potions)
+                  case 'hp_potion_s':
+                        stats.hp = Math.min(stats.hp + 50, stats.maxHp);
+                        effect = 'HP +50';
+                        break;
+                  case 'hp_potion_m':
+                        stats.hp = Math.min(stats.hp + 150, stats.maxHp);
+                        effect = 'HP +150';
+                        break;
+                  case 'hp_potion_l':
+                        stats.hp = stats.maxHp;
+                        effect = 'HP 全回復';
+                        break;
+                  case 'mp_potion_s':
+                        stats.mp = Math.min(stats.mp + 30, stats.maxMp);
+                        effect = 'MP +30';
+                        break;
+                  case 'mp_potion_m':
+                        stats.mp = Math.min(stats.mp + 80, stats.maxMp);
+                        effect = 'MP +80';
+                        break;
+                  case 'mp_potion_l':
+                        stats.mp = stats.maxMp;
+                        effect = 'MP 全回復';
+                        break;
+                  default:
+                        return null;
+            }
+
+            this.removeItem(itemId, 1);
+            return effect;
+      }
+
+      /** Decompose equipment item into gold + materials */
+      decomposeEquipment(itemId: string): { goldGained: number; materialName: string } | null {
+            const item = this._items.find(i => i.itemId === itemId && i.type === 'equipment');
+            if (!item) return null;
+
+            // Gold based on rarity
+            const goldTable: Record<string, number> = {
+                  common: 20, uncommon: 50, rare: 120, epic: 300, legendary: 800,
+            };
+            const goldGained = goldTable[item.rarity] ?? 20;
+
+            this.removeItem(itemId, 1);
+            this.addGold(goldGained);
+
+            // Add material
+            this.addItem({
+                  itemId: 'essence_shard', name: '精華碎片',
+                  type: 'material', rarity: 'common',
+                  qty: 1, icon: '💎', description: '裝備分解所得的材料',
+            });
+
+            return { goldGained, materialName: '精華碎片' };
+      }
 }
+

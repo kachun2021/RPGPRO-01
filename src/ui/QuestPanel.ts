@@ -1,4 +1,5 @@
-import type { QuestManager, QuestDef, QuestType, QuestStatus } from '../systems/QuestManager';
+import type { QuestManager, QuestDef, QuestType, QuestStatus, QuestReward } from '../systems/QuestManager';
+import { Registry } from '../core/Registry';
 
 type QTab = 'world' | 'general';
 const TAB_LABELS: { id: QTab; label: string; icon: string; types: QuestType[] }[] = [
@@ -12,8 +13,6 @@ const STATUS_ICONS: Record<QuestStatus, string> = {
 
 /**
  * QuestPanel — CHM-style quest info panel with directory + detail view.
- * Tabs: 世界任務 / 一般任務
- * Left: quest directory list. Below: detailed quest info.
  */
 export class QuestPanel {
       private _el: HTMLDivElement;
@@ -26,13 +25,11 @@ export class QuestPanel {
 
       constructor(questManager: QuestManager) {
             this._questManager = questManager;
-
             this._el = document.createElement('div');
             this._el.id = 'quest-panel';
             this._el.className = 'sa-panel qp-root';
             this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
-
             questManager.onChange = () => { if (this._visible) this._render(); };
       }
 
@@ -102,7 +99,6 @@ export class QuestPanel {
                         });
                         directory.appendChild(item);
                   }
-                  // Auto-select first if nothing selected
                   if (!this._selectedQuestId && quests.length > 0) {
                         this._selectedQuestId = quests[0].id;
                   }
@@ -144,7 +140,7 @@ export class QuestPanel {
                         detail.querySelector('.qp-claim-btn')?.addEventListener('click', () => {
                               const reward = this._questManager.claimReward(selectedQuest.id);
                               if (reward) {
-                                    console.log('[Quest] Claimed:', reward);
+                                    this._applyReward(reward);
                                     this._showRewardText(selectedQuest.name, reward);
                               }
                               this._render();
@@ -156,7 +152,51 @@ export class QuestPanel {
             this._el.appendChild(detail);
       }
 
-      private _showRewardText(name: string, reward: any): void {
+      /** Actually apply reward effects to game systems */
+      private _applyReward(reward: QuestReward): void {
+            // Gold
+            if (reward.gold && Registry.inventory?.addGold) {
+                  Registry.inventory.addGold(reward.gold);
+            }
+
+            // EXP tracking + player level-up
+            if (reward.exp) {
+                  if (Registry.inventory) {
+                        Registry.inventory.totalExpGained = (Registry.inventory.totalExpGained ?? 0) + reward.exp;
+                  }
+                  if (Registry.player?.addExp) {
+                        Registry.player.addExp(reward.exp);
+                  }
+            }
+
+            // Increment questChapter for main quests
+            if (Registry.player?.stats) {
+                  const stats = Registry.player.stats;
+                  // Find the chapter number of the quest that was just claimed
+                  const quest = this._questManager.allQuests.find(q =>
+                        q.claimed && q.type === 'main' && q.chapter !== undefined
+                  );
+                  if (quest?.chapter && quest.chapter > (stats.questChapter ?? 0)) {
+                        stats.questChapter = quest.chapter;
+                        console.log(`[Quest] questChapter → ${stats.questChapter}`);
+                  }
+            }
+
+            // Unlock zone (ZoneManager.unlockZone is directly on zoneManager)
+            if (reward.unlockZone && Registry.zoneManager?.unlockZone) {
+                  Registry.zoneManager.unlockZone(reward.unlockZone);
+                  console.log(`[Quest] Unlocked zone: ${reward.unlockZone}`);
+            }
+
+            // Pet reward
+            if (reward.petId && Registry.petManager?.addPet) {
+                  const gender = Math.random() > 0.5 ? 'male' : 'female';
+                  Registry.petManager.addPet(reward.petId, gender);
+                  console.log(`[Quest] Rewarded pet: ${reward.petId}`);
+            }
+      }
+
+      private _showRewardText(name: string, reward: QuestReward): void {
             const el = document.createElement('div');
             el.className = 'pickup-text';
             el.style.color = '#27AE60';

@@ -77,8 +77,10 @@ export class CombatLoop {
 
       /** Melee attack range */
       private readonly MELEE_RANGE = 2.5;
-      /** Auto-grind detection range */
-      private readonly AUTO_DETECT_RANGE = 20;
+      /** Auto-grind detection range (runtime configurable) */
+      private _autoDetectRange = 20;
+      /** Skip boss targets for low-risk AFK */
+      private _skipBossTargets = false;
 
       constructor(
             scene: Scene,
@@ -176,6 +178,23 @@ export class CombatLoop {
             this.setAutoGrind(!this._autoGrind);
       }
 
+      /** Minimal runtime AFK config (low-cost version) */
+      setAutoConfig(config: { detectRange?: number; skipBossTargets?: boolean }): void {
+            if (typeof config.detectRange === 'number' && Number.isFinite(config.detectRange)) {
+                  this._autoDetectRange = Math.max(6, Math.min(60, Math.round(config.detectRange)));
+            }
+            if (typeof config.skipBossTargets === 'boolean') {
+                  this._skipBossTargets = config.skipBossTargets;
+            }
+      }
+
+      getAutoConfig(): { detectRange: number; skipBossTargets: boolean } {
+            return {
+                  detectRange: this._autoDetectRange,
+                  skipBossTargets: this._skipBossTargets,
+            };
+      }
+
       // -- Main Loop --
 
       update(dt: number): void {
@@ -201,10 +220,25 @@ export class CombatLoop {
                   return;
             }
 
+            // Boss safety: if enabled, never keep/lock boss as AFK target
+            if (this._target && this._skipBossTargets && this._target.def.isBoss) {
+                  this.clearTarget();
+            }
+
             // Auto-grind: find nearest if no target
             if (this._autoGrind && !this._target) {
-                  const nearest = this._monsterManager.findClosest(playerPos);
-                  if (nearest && nearest.distanceTo(playerPos) < this.AUTO_DETECT_RANGE) {
+                  let nearest: Monster | null = null;
+                  let minDist = Infinity;
+                  for (const candidate of this._monsterManager.alive) {
+                        if (this._skipBossTargets && candidate.def.isBoss) continue;
+                        const dist = candidate.distanceTo(playerPos);
+                        if (dist < minDist) {
+                              minDist = dist;
+                              nearest = candidate;
+                        }
+                  }
+
+                  if (nearest && minDist < this._autoDetectRange) {
                         this.selectTarget(nearest);
                   }
             }
@@ -473,10 +507,17 @@ export class CombatLoop {
 
             console.log('[Combat] Killed:', monster.def.name);
 
-            // Track kill stats
+            // Track kill stats + award EXP
             if (this._inventory) {
                   this._inventory.totalKills++;
-                  this._inventory.totalExpGained += monster.def.level * 10;
+                  const expGain = monster.def.level * 10;
+                  this._inventory.totalExpGained += expGain;
+
+                  // Award EXP to player for level-up
+                  const player = Registry.player;
+                  if (player?.addExp) {
+                        player.addExp(expGain);
+                  }
             }
 
             // P5: Egg drop
@@ -486,6 +527,15 @@ export class CombatLoop {
                   const gender = Math.random() > 0.5 ? 'male' : 'female';
                   this._petManager.addPet(eggId, gender as 'male' | 'female');
                   console.log('[Combat] Egg dropped!', eggId);
+            }
+
+            // Boss kill announcement
+            if (monster.def.isBoss) {
+                  this._eggDropSystem.announceBossKill(
+                        this._playerName,
+                        monster.def.name + ' Lv.' + monster.def.level,
+                        this._monsterManager.currentZoneId,
+                  );
             }
 
             // P7: Drop items

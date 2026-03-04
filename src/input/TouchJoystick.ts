@@ -18,8 +18,9 @@ export class TouchJoystick {
             Object.assign(this._container.style, {
                   position: 'fixed', left: '16px', bottom: '64px',
                   width: '120px', height: '120px', borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
-                  border: '2px solid rgba(180,200,255,0.1)',
+                  background: 'radial-gradient(circle, rgba(20,16,30,0.5) 0%, rgba(20,16,30,0.3) 100%)',
+                  border: '2px solid rgba(232,201,106,0.25)',
+                  boxShadow: '0 0 12px rgba(0,0,0,0.3), inset 0 0 8px rgba(232,201,106,0.05)',
                   zIndex: '200', touchAction: 'none',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
             });
@@ -28,8 +29,9 @@ export class TouchJoystick {
             this._knob = document.createElement('div');
             Object.assign(this._knob.style, {
                   width: '44px', height: '44px', borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(232,201,106,0.25) 0%, rgba(232,201,106,0.08) 100%)',
-                  border: '1px solid rgba(232,201,106,0.2)',
+                  background: 'radial-gradient(circle, rgba(232,201,106,0.35) 0%, rgba(232,201,106,0.12) 100%)',
+                  border: '1.5px solid rgba(232,201,106,0.3)',
+                  boxShadow: '0 0 6px rgba(232,201,106,0.15)',
                   transition: 'transform 0.05s',
                   pointerEvents: 'none',
             });

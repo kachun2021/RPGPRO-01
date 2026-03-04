@@ -88,14 +88,16 @@ export class ResonancePanel {
                   const btn = row.querySelector('.reso-apply-btn') as HTMLButtonElement;
                   if (level < 5) {
                         btn.addEventListener('click', () => {
-                              const cost = (level + 1) * 200;
-                              if (this._inventory.gold < cost) {
-                                    console.log('[Resonance] Not enough gold');
+                              const goldCost = (level + 1) * 200;
+                              const hasPotion = this._inventory.hasItem('reso_potion');
+                              // Require either potion or just gold
+                              if (!this._inventory.spendGold(goldCost)) {
+                                    this._showResult('❌ 金幣不足', 0);
                                     return;
                               }
-                              (this._inventory as any)._gold -= cost;
+                              if (hasPotion) this._inventory.removeItem('reso_potion', 1);
                               this._resonanceSystem.applyResonance(series);
-                              this._showResult(SERIES_NAMES[series] ?? series, level + 1);
+                              this._showResult(`${SERIES_NAMES[series] ?? series} 共鳴升級至`, level + 1);
                               this._render();
                         });
                   }

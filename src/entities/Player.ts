@@ -114,6 +114,37 @@ export class Player {
             }
       }
 
+      /** EXP required for next level */
+      get expToNext(): number {
+            return this.stats.level * 100;
+      }
+
+      /** Add EXP and auto level-up. Returns { levelsGained } */
+      addExp(amount: number): { levelsGained: number } {
+            let levelsGained = 0;
+            this.stats.exp += amount;
+
+            while (this.stats.exp >= this.expToNext) {
+                  this.stats.exp -= this.expToNext;
+                  this.stats.level++;
+                  levelsGained++;
+
+                  // Base stat growth per level
+                  this.stats.maxHp += 12;
+                  this.stats.maxMp += 6;
+                  this.stats.atk += 2;
+                  this.stats.def += 1;
+
+                  // Full heal on level-up
+                  this.stats.hp = this.stats.maxHp;
+                  this.stats.mp = this.stats.maxMp;
+
+                  console.log(`[Player] Level Up! → Lv.${this.stats.level}`);
+            }
+
+            return { levelsGained };
+      }
+
       dispose(): void {
             this.root.dispose(false, true);
       }

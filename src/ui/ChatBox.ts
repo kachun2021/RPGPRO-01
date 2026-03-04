@@ -7,7 +7,7 @@ export class ChatBox {
       private _input: HTMLInputElement;
       private _channel = 'system';
       private _msgList: Array<{ ch: string; text: string }> = [];
-      private _collapsed = false;
+      private _collapsed = true;  // Start collapsed to avoid blocking
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
@@ -17,7 +17,7 @@ export class ChatBox {
             this._el.className = 'interactive';
             Object.assign(this._el.style, {
                   position: 'fixed', left: '10px', bottom: '44px', zIndex: '150',
-                  width: '280px',
+                  width: '220px',
                   background: 'linear-gradient(180deg, rgba(20,16,30,0.88), rgba(12,10,20,0.92))',
                   border: '1px solid rgba(160,130,80,0.25)',
                   borderRadius: '6px',
@@ -28,7 +28,7 @@ export class ChatBox {
             // Toggle header
             const header = document.createElement('div');
             header.style.cssText = 'padding:3px 8px;cursor:pointer;font-size:10px;color:rgba(232,201,106,0.6);border-bottom:1px solid rgba(160,130,80,0.15)';
-            header.textContent = '▼ Chat';
+            header.textContent = '▶ Chat';
             header.addEventListener('click', () => {
                   this._collapsed = !this._collapsed;
                   body.style.display = this._collapsed ? 'none' : '';
@@ -37,6 +37,7 @@ export class ChatBox {
             this._el.appendChild(header);
 
             const body = document.createElement('div');
+            body.style.display = 'none';  // Start collapsed
 
             // Channel tabs
             const tabs = document.createElement('div');
@@ -57,7 +58,7 @@ export class ChatBox {
 
             // Messages
             this._messages = document.createElement('div');
-            this._messages.style.cssText = 'height:80px;overflow-y:auto;padding:3px 8px;scrollbar-width:none';
+            this._messages.style.cssText = 'height:60px;overflow-y:auto;padding:3px 8px;scrollbar-width:none';
             body.appendChild(this._messages);
 
             // Input row

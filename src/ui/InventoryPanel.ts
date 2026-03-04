@@ -3,6 +3,7 @@ import type { ItemRarity } from '../systems/DropTable';
 import type { EquipmentSystem, EquipSlot, EquipDef } from '../systems/EquipmentSystem';
 import { EQUIP_TEMPLATES } from '../systems/EquipmentSystem';
 import type { EnhanceSystem } from '../systems/EnhanceSystem';
+import type { PlayerStats } from '../entities/Player';
 
 const RARITY_BORDER: Record<ItemRarity, string> = {
       common: 'rgba(160,160,160,0.35)',
@@ -55,14 +56,16 @@ export class InventoryPanel {
       private _inventory: Inventory;
       private _equipSystem: EquipmentSystem;
       private _enhanceSystem: EnhanceSystem;
+      private _playerStats: PlayerStats;
       private _tooltip!: HTMLDivElement;
       private _page = 0;
       private readonly SLOTS_PER_PAGE = 15;
 
-      constructor(inventory: Inventory, equipSystem: EquipmentSystem, enhanceSystem: EnhanceSystem) {
+      constructor(inventory: Inventory, equipSystem: EquipmentSystem, enhanceSystem: EnhanceSystem, playerStats: PlayerStats) {
             this._inventory = inventory;
             this._equipSystem = equipSystem;
             this._enhanceSystem = enhanceSystem;
+            this._playerStats = playerStats;
 
             this._el = document.createElement('div');
             this._el.id = 'inventory-panel';
@@ -77,6 +80,17 @@ export class InventoryPanel {
 
             inventory.onChange = () => { if (this._visible) this._render(); };
             equipSystem.onChange = () => { if (this._visible) this._render(); };
+      }
+
+      /** Show floating feedback text */
+      private _showFeedback(msg: string, color: string): void {
+            const el = document.createElement('div');
+            el.className = 'pickup-text';
+            el.style.color = color;
+            el.textContent = msg;
+            document.getElementById('ui-layer')?.appendChild(el);
+            requestAnimationFrame(() => el.classList.add('show'));
+            setTimeout(() => el.remove(), 2000);
       }
 
       private _render(): void {
@@ -232,6 +246,26 @@ export class InventoryPanel {
             pageNav.appendChild(nextBtn);
             this._el.appendChild(pageNav);
 
+            // ===== SET BONUSES =====
+            const setBonuses = this._equipSystem.getSetBonuses();
+            if (setBonuses.length > 0) {
+                  const setSection = document.createElement('div');
+                  setSection.className = 'inv2-set-section';
+                  for (const { set, count, activeEffects } of setBonuses) {
+                        const setRow = document.createElement('div');
+                        setRow.className = 'inv2-set-row';
+                        setRow.innerHTML = `
+                              <div class="inv2-set-name">🏅 ${set.name} <span class="inv2-set-count">(${count}件)</span></div>
+                              ${activeEffects.map(e => `<div class="inv2-set-effect">✅ ${e}</div>`).join('')}
+                              ${count < 2 ? `<div class="inv2-set-next">2件: ${set.pieces2}</div>` : ''}
+                              ${count >= 2 && count < 4 ? `<div class="inv2-set-next">4件: ${set.pieces4}</div>` : ''}
+                              ${count >= 4 && count < 6 ? `<div class="inv2-set-next">6件: ${set.pieces6}</div>` : ''}
+                        `;
+                        setSection.appendChild(setRow);
+                  }
+                  this._el.appendChild(setSection);
+            }
+
             // ===== GOLD BAR =====
             const goldBar = document.createElement('div');
             goldBar.className = 'inv2-gold-bar';
@@ -242,13 +276,20 @@ export class InventoryPanel {
       private _showEquipActions(equip: EquipDef, slot: EquipSlot): void {
             const rate = this._enhanceSystem.getRate(equip.enhanceLevel);
             const cost = this._enhanceSystem.getCost(equip.enhanceLevel);
+            const hasProtect = this._inventory.hasItem('protect_scroll');
+            const setInfo = equip.setId ? `<div class="inv-tt-set">套裝: ${equip.setId === 'boss_set' ? 'Boss套裝' : 'PVP套裝'}</div>` : '';
 
             this._tooltip.innerHTML = `
                   <div class="inv-tt-name" style="color:rgba(232,201,106,0.9)">${equip.icon} ${equip.name} +${equip.enhanceLevel}</div>
                   <div class="inv-tt-desc">ATK+${equip.stats.atk} DEF+${equip.stats.def} HP+${equip.stats.hp} MP+${equip.stats.mp}</div>
+                  ${setInfo}
                   <div class="inv-tt-rarity">強化 +${equip.enhanceLevel + 1} 成功率: ${Math.round(rate * 100)}% | 費用: ${cost}💰</div>
+                  <div class="inv-tt-protect">
+                        <label><input type="checkbox" id="enh-protect" ${hasProtect ? '' : 'disabled'}>
+                        🛡️ 使用保護卷${hasProtect ? '' : ' (無)'}</label>
+                  </div>
                   <div class="inv-tt-actions">
-                        <button class="inv-tt-btn inv2-enhance-btn btn-gold">⬆️ 強化</button>
+                        <button class="inv-tt-btn inv2-enhance-btn btn-gold"${equip.enhanceLevel >= 10 ? ' disabled' : ''}>⬆️ 強化</button>
                         <button class="inv-tt-btn inv2-unequip-btn">↩️ 卸下</button>
                   </div>
             `;
@@ -258,19 +299,33 @@ export class InventoryPanel {
             this._tooltip.style.transform = 'translate(-50%, -50%)';
 
             this._tooltip.querySelector('.inv2-enhance-btn')?.addEventListener('click', () => {
-                  if (this._inventory.gold < cost) {
-                        console.log('[Enhance] Not enough gold');
+                  if (!this._inventory.spendGold(cost)) {
+                        this._showFeedback('❌ 金幣不足', '#E74C3C');
                         return;
                   }
-                  const result = this._enhanceSystem.enhance(equip);
-                  console.log(`[Enhance] ${result.success ? '✅ Success' : '❌ Failed'} → +${result.newLevel}`);
+                  const useProtect = (this._tooltip.querySelector('#enh-protect') as HTMLInputElement)?.checked ?? false;
+                  if (useProtect) this._inventory.removeItem('protect_scroll', 1);
+                  const result = this._enhanceSystem.enhance(equip, useProtect);
+                  if (result.success) {
+                        this._showFeedback(`✅ 強化成功！+${result.newLevel}`, '#27AE60');
+                        this._el.classList.add('enhance-flash');
+                        setTimeout(() => this._el.classList.remove('enhance-flash'), 400);
+                  } else {
+                        this._showFeedback(
+                              result.protected ? `🛡️ 保護生效！維持 +${result.newLevel}` : `❌ 強化失敗 → +${result.newLevel}`,
+                              result.protected ? '#3498DB' : '#E74C3C',
+                        );
+                        this._el.classList.add('enhance-shake');
+                        setTimeout(() => this._el.classList.remove('enhance-shake'), 400);
+                  }
+                  // Re-open tooltip with updated stats (allow continuous enhance)
                   this._tooltip.style.display = 'none';
                   this._render();
+                  setTimeout(() => this._showEquipActions(equip, slot), 50);
             });
 
             this._tooltip.querySelector('.inv2-unequip-btn')?.addEventListener('click', () => {
                   const removed = this._equipSystem.unequip(slot);
-                  // Return unequipped item to inventory
                   if (removed) {
                         this._inventory.addItem({
                               itemId: removed.id, name: removed.name,
@@ -344,17 +399,23 @@ export class InventoryPanel {
                   common: '普通', uncommon: '優良', rare: '稀有', epic: '史詩', legendary: '傳說',
             };
             const isEquipment = item.type === 'equipment';
+            const isConsumable = item.type === 'consumable';
 
             // Build action buttons based on type
             let actionsHtml = '';
             if (isEquipment) {
                   actionsHtml = `
                         <button class="inv-tt-btn btn-gold inv-equip-btn">⚔️ 裝備</button>
+                        <button class="inv-tt-btn inv-decompose-btn">🔨 分解</button>
+                        <button class="inv-tt-btn inv-discard-btn">丟棄</button>
+                  `;
+            } else if (isConsumable) {
+                  actionsHtml = `
+                        <button class="inv-tt-btn btn-gold inv-use-btn">🧪 使用</button>
                         <button class="inv-tt-btn inv-discard-btn">丟棄</button>
                   `;
             } else {
                   actionsHtml = `
-                        <button class="inv-tt-btn inv-use-btn">使用</button>
                         <button class="inv-tt-btn inv-discard-btn">丟棄</button>
                   `;
             }
@@ -382,9 +443,7 @@ export class InventoryPanel {
                   if (tmpl) {
                         const equipDef: EquipDef = { ...tmpl, enhanceLevel: 0 };
                         const prev = this._equipSystem.equip(equipDef);
-                        // Remove from inventory
                         this._inventory.removeItem(item.itemId, 1);
-                        // Return previously equipped item to inventory
                         if (prev) {
                               this._inventory.addItem({
                                     itemId: prev.id, name: prev.name,
@@ -398,13 +457,31 @@ export class InventoryPanel {
                   this._render();
             });
 
+            // Use consumable
             this._tooltip.querySelector('.inv-use-btn')?.addEventListener('click', () => {
-                  this._inventory.removeItem(item.itemId, 1);
+                  const effect = this._inventory.useItem(item.itemId, this._playerStats);
+                  if (effect) {
+                        this._showFeedback(`✅ ${effect}`, '#27AE60');
+                  }
                   this._tooltip.style.display = 'none';
+                  this._render();
             });
+
+            // Decompose equipment
+            this._tooltip.querySelector('.inv-decompose-btn')?.addEventListener('click', () => {
+                  const result = this._inventory.decomposeEquipment(item.itemId);
+                  if (result) {
+                        this._showFeedback(`🔨 分解獲得 ${result.goldGained}💰 + ${result.materialName}`, '#E8C96A');
+                  }
+                  this._tooltip.style.display = 'none';
+                  this._render();
+            });
+
+            // Discard
             this._tooltip.querySelector('.inv-discard-btn')?.addEventListener('click', () => {
                   this._inventory.removeItem(item.itemId, item.qty);
                   this._tooltip.style.display = 'none';
+                  this._render();
             });
 
             this._bindOutsideClose();

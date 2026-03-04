@@ -56,6 +56,9 @@ import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel } from './ui/DialoguePanel';
 import { CommunityPanel } from './ui/CommunityPanel';
 import { QuestTracker } from './ui/QuestTracker';
+// P5 Shop
+import { ShopManager } from './systems/ShopManager';
+import { ShopPanel } from './ui/ShopPanel';
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
@@ -157,6 +160,10 @@ async function bootstrap(): Promise<void> {
 
       // P7: Drop + Inventory system
       const inventory = new Inventory();
+      inventory.addGold(500); // Starter gold for new players
+      // Starter consumables
+      inventory.addItem({ itemId: 'hp_potion_s', name: 'HP藥水(小)', type: 'consumable', rarity: 'common', qty: 5, icon: '🧪', description: 'HP +50' });
+      inventory.addItem({ itemId: 'mp_potion_s', name: 'MP藥水(小)', type: 'consumable', rarity: 'common', qty: 3, icon: '💧', description: 'MP +30' });
       const dropTable = new DropTable();
       const dropItemManager = new DropItemManager(Registry.scene, inventory);
       combatLoop.setDropSystem(dropTable, dropItemManager, inventory);
@@ -170,8 +177,50 @@ async function bootstrap(): Promise<void> {
       const questPanel = new QuestPanel(questManager);
       const questTracker = new QuestTracker(questManager);
       const dialoguePanel = new DialoguePanel();
+
+      // P5: Shop system
+      const shopManager = new ShopManager();
+      const shopPanel = new ShopPanel(shopManager, inventory);
+
+      // Wire NPC interaction → dialogue
       npcManager.onInteract = (npc) => {
             dialoguePanel.openForNpc(npc);
+      };
+
+      // Wire dialogue actions → panels
+      dialoguePanel.onAction = (_npc, action) => {
+            switch (action) {
+                  case 'buy': shopPanel.show('buy'); break;
+                  case 'sell': shopPanel.show('sell'); break;
+                  case 'learn': skillPanel.show(); break;
+                  case 'accept': questPanel.show(); break;
+                  case 'trade': {
+                        const exchangeQuests = questManager.allQuests.filter(
+                              q => q.type === 'side' && q.objectives.some(o => o.type === 'exchange_pet') && !q.claimed
+                        );
+                        if (exchangeQuests.length === 0) { console.log('[NPC] No pet trade quests'); break; }
+                        const eq = exchangeQuests[0];
+                        const obj = eq.objectives[0];
+                        const hasPet = petManager.owned.some((p: any) => p.def.id === obj.target);
+                        if (!hasPet) { console.log(`[NPC] Need pet '${obj.target}'`); break; }
+                        if (confirm(`交換: 用 ${obj.target} 換取 ${eq.rewards.petId ?? '???'}?`)) {
+                              // Remove traded pet
+                              const idx = petManager.owned.findIndex((p: any) => p.def.id === obj.target);
+                              if (idx >= 0) {
+                                    petManager.owned[idx].dispose();
+                                    petManager.owned.splice(idx, 1);
+                              }
+                              obj.current = obj.required;
+                              const reward = questManager.claimReward(eq.id);
+                              if (reward?.petId) {
+                                    petManager.addPet(reward.petId, Math.random() > 0.5 ? 'male' : 'female');
+                                    console.log(`[NPC] Pet traded! Got ${reward.petId}`);
+                              }
+                        }
+                        break;
+                  }
+                  case 'view': petPanel.toggle(); petPanel.refresh(); break;
+            }
       };
 
       // Wire monster damage to player
@@ -181,17 +230,59 @@ async function bootstrap(): Promise<void> {
             console.log('[Combat] ' + monName + ' hit player for ' + Math.round(actualDmg));
       };
 
-      // Auto-grind toggle button
+      // P7: AFK Panel (low-cost control center + settings)
+      let syncAutoUi = (): void => { };
+      const afkPanel = new AFKPanel(inventory, {
+            onToggleAuto: () => {
+                  combatLoop.toggleAutoGrind();
+                  return combatLoop.isAutoGrind;
+            },
+            onApplyConfig: (settings) => {
+                  combatLoop.setAutoConfig({
+                        detectRange: settings.detectRadius,
+                        skipBossTargets: settings.stopOnBoss,
+                  });
+            },
+            onVisibilityChange: () => syncAutoUi(),
+      });
+      combatLoop.setAutoConfig({
+            detectRange: afkPanel.settings.detectRadius,
+            skipBossTargets: afkPanel.settings.stopOnBoss,
+      });
+
+      // Auto-grind controls: AUTO button + settings icon
+      const autoControls = document.createElement('div');
+      autoControls.className = 'auto-grind-controls';
+
       const autoGrindBtn = document.createElement('button');
       autoGrindBtn.id = 'auto-grind-btn';
       autoGrindBtn.className = 'interactive auto-grind-btn';
       autoGrindBtn.textContent = 'AUTO';
+      const autoSettingsBtn = document.createElement('button');
+      autoSettingsBtn.id = 'auto-settings-btn';
+      autoSettingsBtn.className = 'interactive auto-settings-btn';
+      autoSettingsBtn.textContent = '⚙';
+
+      syncAutoUi = (): void => {
+            const on = combatLoop.isAutoGrind;
+            autoGrindBtn.classList.toggle('active', on);
+            autoGrindBtn.textContent = on ? 'AUTO ON' : 'AUTO';
+            afkPanel.notifyAutoStateChanged(on);
+            autoSettingsBtn.classList.toggle('active', afkPanel.isVisible);
+      };
+
       autoGrindBtn.addEventListener('click', () => {
             combatLoop.toggleAutoGrind();
-            autoGrindBtn.classList.toggle('active', combatLoop.isAutoGrind);
-            autoGrindBtn.textContent = combatLoop.isAutoGrind ? 'AUTO ON' : 'AUTO';
+            syncAutoUi();
       });
-      document.getElementById('ui-layer')?.appendChild(autoGrindBtn);
+      autoSettingsBtn.addEventListener('click', () => {
+            afkPanel.toggle();
+            syncAutoUi();
+      });
+      autoControls.appendChild(autoGrindBtn);
+      autoControls.appendChild(autoSettingsBtn);
+      document.getElementById('ui-layer')?.appendChild(autoControls);
+      syncAutoUi();
 
       // ── P6 Zone System ──
       const zoneTransition = new ZoneTransition();
@@ -268,9 +359,6 @@ async function bootstrap(): Promise<void> {
             });
       }
 
-      // P7: AFK Panel
-      const afkPanel = new AFKPanel(inventory);
-
       // P8: Equipment + Enhance + Resonance
       const equipmentSystem = new EquipmentSystem();
       const enhanceSystem = new EnhanceSystem();
@@ -289,14 +377,17 @@ async function bootstrap(): Promise<void> {
       Registry.equipmentSystem = equipmentSystem;
 
       // Combined Inventory + Equipment panel (needs equipSystem + enhanceSystem)
-      const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem);
+      const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem, player.stats);
 
       const communityPanel = new CommunityPanel();
 
       hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book', 'nav-shop']) {
+      for (const id of ['nav-book']) {
             hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
       }
+      hud.getNavButton('nav-shop')?.addEventListener('click', () => {
+            shopPanel.toggle();
+      });
       hud.getNavButton('nav-community')?.addEventListener('click', () => {
             communityPanel.toggle();
       });
