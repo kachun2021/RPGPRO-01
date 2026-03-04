@@ -9,7 +9,7 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
-import { BIOME_TEXTURES, type ZoneDef } from './ZoneDefinitions';
+import { BIOME_TEXTURES, BIOME_PBR, type ZoneDef } from './ZoneDefinitions';
 
 /**
  * ZoneRenderer — Builds per-zone terrain, lighting, sky, and teleport gate meshes.
@@ -50,25 +50,39 @@ export class ZoneRenderer {
 
             // --- PBR Ground ---
             this._ground = MeshBuilder.CreateGround('zone_ground', {
-                  width: 200, height: 200, subdivisions: 32,
+                  width: 200, height: 200, subdivisions: 16,
             }, this._scene);
             this._ground.receiveShadows = true;
 
             this._groundMat = new PBRMaterial('zone_groundMat', this._scene);
             const texInfo = BIOME_TEXTURES[zoneDef.biome];
+            const pbrInfo = BIOME_PBR[zoneDef.biome];
 
             const diffTex = new Texture(`assets/textures/${texInfo.diffuse}`, this._scene);
-            diffTex.uScale = 16; diffTex.vScale = 16;
+            diffTex.uScale = 10; diffTex.vScale = 10;
+            diffTex.wrapU = Texture.WRAP_ADDRESSMODE;
+            diffTex.wrapV = Texture.WRAP_ADDRESSMODE;
             this._groundMat.albedoTexture = diffTex;
 
             const normTex = new Texture(`assets/textures/${texInfo.normal}`, this._scene);
-            normTex.uScale = 16; normTex.vScale = 16;
+            normTex.uScale = 10; normTex.vScale = 10;
+            normTex.wrapU = Texture.WRAP_ADDRESSMODE;
+            normTex.wrapV = Texture.WRAP_ADDRESSMODE;
+            normTex.level = 0.4;  // soften bump to prevent visible tile-seam grid
             this._groundMat.bumpTexture = normTex;
 
-            this._groundMat.roughness = 0.85;
-            this._groundMat.metallic = 0.02;
+            // Per-biome PBR parameters
+            this._groundMat.roughness = pbrInfo.roughness;
+            this._groundMat.metallic = pbrInfo.metallic;
             this._groundMat.directIntensity = 1.5;
             this._groundMat.ambientColor = Color3.FromHexString(zoneDef.groundColor);
+
+            // Lava biome emissive glow
+            if (pbrInfo.emissiveHex) {
+                  this._groundMat.emissiveColor = Color3.FromHexString(pbrInfo.emissiveHex);
+                  this._groundMat.emissiveIntensity = 0.4;
+            }
+
             this._ground.material = this._groundMat;
 
             // --- Teleport Gates ---

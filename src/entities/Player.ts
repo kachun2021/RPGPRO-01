@@ -13,6 +13,7 @@ export interface PlayerStats {
       atk: number; def: number;
       level: number; exp: number;
       gold: number; diamond: number;
+      questChapter: number;
 }
 
 export class Player {
@@ -75,6 +76,7 @@ export class Player {
                   atk: 10, def: 5,
                   level: 1, exp: 0,
                   gold: 500, diamond: 10,
+                  questChapter: 0,
             };
       }
 

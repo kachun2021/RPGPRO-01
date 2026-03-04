@@ -3,6 +3,8 @@ import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGener
 import { ZoneRenderer } from './ZoneRenderer';
 import { ZONE_DEFS, getZoneDef, type ZoneDef } from './ZoneDefinitions';
 import type { MonsterManager } from '../entities/MonsterManager';
+import type { NPCManager } from '../entities/NPC';
+import type { DropItemManager } from '../entities/DropItem';
 import type { ZoneTransition } from '../ui/ZoneTransition';
 import type { Minimap } from '../ui/Minimap';
 
@@ -16,6 +18,8 @@ export class ZoneManager {
       private _renderer: ZoneRenderer | null = null;
       private _currentZone: ZoneDef;
       private _monsterManager: MonsterManager | null = null;
+      private _npcManager: NPCManager | null = null;
+      private _dropItemManager: DropItemManager | null = null;
       private _transition: ZoneTransition | null = null;
       private _minimap: Minimap | null = null;
       private _onPlayerReset: ((x: number, z: number) => void) | null = null;
@@ -26,15 +30,11 @@ export class ZoneManager {
       constructor(scene: Scene, shadowGen: ShadowGenerator) {
             this._scene = scene;
             this._shadowGen = shadowGen;
-            // Start with starter meadow + main city unlocked
-            this._unlockedZones.add('starter_meadow');
-            this._unlockedZones.add('main_city');
-            this._unlockedZones.add('misty_forest');
-            this._unlockedZones.add('echo_valley');
-            this._unlockedZones.add('iron_ridge');
-            this._unlockedZones.add('coral_beach');
-            this._unlockedZones.add('crystal_caves');
-            // Unlock first 7 zones for testing
+            // TODO: Restore progressive unlock for production
+            // Temporarily unlock ALL zones for testing
+            for (const zone of ZONE_DEFS) {
+                  this._unlockedZones.add(zone.id);
+            }
             this._currentZone = ZONE_DEFS[0]; // starter meadow
       }
 
@@ -44,11 +44,15 @@ export class ZoneManager {
             transition: ZoneTransition;
             minimap: Minimap;
             onPlayerReset: (x: number, z: number) => void;
+            npcManager?: NPCManager;
+            dropItemManager?: DropItemManager;
       }): void {
             this._monsterManager = opts.monsterManager;
             this._transition = opts.transition;
             this._minimap = opts.minimap;
             this._onPlayerReset = opts.onPlayerReset;
+            this._npcManager = opts.npcManager ?? null;
+            this._dropItemManager = opts.dropItemManager ?? null;
       }
 
       get currentZone(): ZoneDef { return this._currentZone; }
@@ -77,6 +81,9 @@ export class ZoneManager {
 
             // Spawn monsters
             this._monsterManager?.spawnForZone(zoneDef.id);
+
+            // Spawn NPCs
+            this._npcManager?.spawnForZone(zoneDef.id);
 
             // Update minimap
             this._minimap?.setZoneName(zoneDef.nameCN);
@@ -110,6 +117,12 @@ export class ZoneManager {
             // 3. Despawn all monsters
             this._monsterManager?.despawnAll();
 
+            // 3b. Despawn NPCs
+            this._npcManager?.despawnAll();
+
+            // 3c. Clear dropped items
+            this._dropItemManager?.despawnAll();
+
             // 4. Dispose old zone renderer
             this._renderer?.dispose();
 
@@ -124,6 +137,9 @@ export class ZoneManager {
 
             // 7. Spawn new monsters
             this._monsterManager?.spawnForZone(zoneDef.id);
+
+            // 7b. Spawn NPCs for new zone
+            this._npcManager?.spawnForZone(zoneDef.id);
 
             // 8. Update minimap
             this._minimap?.setZoneName(zoneDef.nameCN);

@@ -393,8 +393,8 @@
       border: 1px solid rgba(160, 130, 80, 0.2);
       border-radius: 4px 4px 0 0;
       cursor: pointer;
-      user-select: none;
       -webkit-user-select: none;
+      user-select: none;
     }
 
     .qt-header-text {
@@ -2092,8 +2092,8 @@
       font-size: 80px;
       opacity: 0.06;
       pointer-events: none;
-      user-select: none;
       -webkit-user-select: none;
+      user-select: none;
     }
 
     .comm-friend-row {
@@ -2352,6 +2352,7 @@
       font-size: 80px;
       pointer-events: none;
       opacity: 0.6;
+      -webkit-user-select: none;
       user-select: none;
     }
 
@@ -2925,6 +2926,468 @@
       font-weight: 700;
       padding: 1px 6px;
       border-radius: 3px;
+    }
+
+    /* ===== CHARACTER PANEL ===== */
+    .cp-root {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 380px;
+      max-height: 80vh;
+      overflow-y: auto;
+      z-index: 310;
+    }
+
+    .cp-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px 8px;
+      background: rgba(20, 16, 30, 0.5);
+      border-bottom: 1px solid rgba(160, 130, 80, 0.15);
+    }
+
+    .cp-tabs .sa-tag {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      padding: 4px 0;
+      position: relative;
+    }
+
+    .cp-badge {
+      display: inline-block;
+      background: #E74C3C;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 8px;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    .cp-body {
+      padding: 6px 8px;
+    }
+
+    .cp-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.12);
+      margin-bottom: 4px;
+    }
+
+    .cp-portrait {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(160, 130, 80, 0.3);
+      background: radial-gradient(circle, rgba(30, 25, 40, 0.8), rgba(15, 12, 25, 0.95));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cp-portrait-inner {
+      font-size: 22px;
+    }
+
+    .cp-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cp-name {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      margin-bottom: 2px;
+    }
+
+    .cp-row-pair {
+      display: flex;
+      gap: 6px;
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+    }
+
+    .cp-label-sm {
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.6);
+      width: 28px;
+    }
+
+    .cp-val-sm {
+      color: rgba(220, 215, 200, 0.8);
+    }
+
+    .cp-radar {
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .cp-bars {
+      margin-bottom: 4px;
+    }
+
+    .cp-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 2px 0;
+    }
+
+    .cp-bar-label {
+      width: 20px;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.7);
+    }
+
+    .cp-bar-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(20, 16, 30, 0.6);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .cp-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .cp-hp-fill {
+      background: #E74C3C;
+    }
+
+    .cp-mp-fill {
+      background: #3498DB;
+    }
+
+    .cp-bar-val {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.5);
+      min-width: 55px;
+      text-align: right;
+    }
+
+    .cp-stats-section {
+      margin: 4px 0;
+    }
+
+    .cp-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.08);
+    }
+
+    .cp-stat-name {
+      width: 38px;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.75);
+    }
+
+    .cp-stat-val {
+      width: 28px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.9);
+      text-align: center;
+    }
+
+    .cp-btn-minus,
+    .cp-btn-plus {
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      border-radius: 3px;
+      background: rgba(20, 16, 30, 0.6);
+      color: rgba(232, 201, 106, 0.7);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+    }
+
+    .cp-btn-minus:hover,
+    .cp-btn-plus:hover {
+      border-color: rgba(232, 201, 106, 0.5);
+      background: rgba(232, 201, 106, 0.1);
+    }
+
+    .cp-btn-plus:disabled,
+    .cp-btn-minus:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .cp-derived-label {
+      flex: 1;
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+      text-align: right;
+    }
+
+    .cp-points-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+      border-top: 1px solid rgba(160, 130, 80, 0.15);
+    }
+
+    .cp-points-label {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .cp-points-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: #E8C96A;
+    }
+
+    .cp-rebirth-bonus {
+      font-size: 9px;
+      color: #27AE60;
+      font-weight: 600;
+    }
+
+    .cp-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      padding: 4px 0;
+      border-top: 1px solid rgba(160, 130, 80, 0.12);
+    }
+
+    .cp-sum-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+      padding: 1px 4px;
+    }
+
+    .cp-btn-reset {
+      padding: 2px 8px;
+      font-size: 10px;
+      background: rgba(160, 130, 80, 0.12);
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      border-radius: 3px;
+      color: rgba(200, 195, 185, 0.6);
+      cursor: pointer;
+    }
+
+    .cp-btn-reset:hover {
+      border-color: rgba(232, 201, 106, 0.4);
+      color: rgba(232, 201, 106, 0.8);
+    }
+
+    /* ===== SKILL TREE ===== */
+    .st-sp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: rgba(220, 215, 200, 0.8);
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.12);
+      margin-bottom: 6px;
+    }
+
+    .st-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+
+    .st-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .st-col-header {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.8);
+      padding: 3px 0;
+      background: rgba(160, 130, 80, 0.1);
+      border-radius: 3px;
+    }
+
+    .st-node {
+      background: rgba(20, 16, 30, 0.6);
+      border: 1px solid rgba(160, 130, 80, 0.15);
+      border-radius: 4px;
+      padding: 4px 6px;
+      transition: all 0.2s;
+    }
+
+    .st-node.st-available {
+      border-color: rgba(232, 201, 106, 0.35);
+    }
+
+    .st-node.st-partial {
+      border-color: rgba(39, 174, 96, 0.5);
+      background: rgba(39, 174, 96, 0.05);
+    }
+
+    .st-node.st-maxed {
+      border-color: rgba(232, 201, 106, 0.5);
+      background: rgba(232, 201, 106, 0.08);
+    }
+
+    .st-node.st-locked {
+      opacity: 0.5;
+    }
+
+    .st-node-header {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 2px;
+    }
+
+    .st-node-icon {
+      font-size: 14px;
+    }
+
+    .st-node-name {
+      flex: 1;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.8);
+    }
+
+    .st-node-level {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.7);
+    }
+
+    .st-node-effect {
+      font-size: 8px;
+      color: rgba(200, 195, 185, 0.45);
+      margin-bottom: 3px;
+    }
+
+    .st-learn-btn {
+      width: 100%;
+      padding: 2px 0;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .st-learn-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+      background: rgba(100, 80, 50, 0.3);
+      color: rgba(200, 195, 185, 0.4);
+    }
+
+    .st-maxed-label {
+      font-size: 9px;
+      color: #27AE60;
+      text-align: center;
+      display: block;
+    }
+
+    .st-bonuses {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px solid rgba(160, 130, 80, 0.12);
+    }
+
+    .st-bonus-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.7);
+      margin-bottom: 2px;
+    }
+
+    .st-bonus-row {
+      font-size: 9px;
+      color: rgba(39, 174, 96, 0.8);
+      padding: 1px 0;
+    }
+
+    /* ===== GROWTH TAB (Awakening + Rebirth) ===== */
+    .gw-section {
+      padding: 6px 0;
+    }
+
+    .gw-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .gw-desc {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .gw-desc b {
+      color: rgba(232, 201, 106, 0.8);
+    }
+
+    .gw-status {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(200, 195, 185, 0.7);
+      padding: 3px 6px;
+      background: rgba(20, 16, 30, 0.5);
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+
+    .gw-bonus {
+      font-size: 10px;
+      color: #27AE60;
+      font-weight: 600;
+      padding: 2px 6px;
+      margin-bottom: 4px;
+      background: rgba(39, 174, 96, 0.08);
+      border-radius: 3px;
+    }
+
+    .gw-btn {
+      width: 100%;
+      padding: 6px 0;
+      font-size: 12px;
+    }
+
+    .gw-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+      background: rgba(100, 80, 50, 0.3);
+      color: rgba(200, 195, 185, 0.4);
+    }
+
+    .gw-divider {
+      height: 1px;
+      background: rgba(160, 130, 80, 0.15);
+      margin: 6px 0;
     }
   </style>
 </head>

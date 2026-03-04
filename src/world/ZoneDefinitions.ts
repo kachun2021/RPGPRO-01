@@ -86,7 +86,7 @@ export const ZONE_DEFS: ZoneDef[] = [
       // ── Zone 4: Iron Ridge (MapMon014, MapMon006) ──
       {
             id: 'iron_ridge', name: 'Iron Ridge', nameCN: '鐵脊山',
-            biome: 'desert', levelMin: 13, levelMax: 20, isTown: false,
+            biome: 'cave', levelMin: 13, levelMax: 20, isTown: false,
             sunColor: '#F0D0A0', sunIntensity: 2.0,
             ambientColor: '#A08868', skyTop: '#C8A060', skyBottom: '#E8D0A0',
             groundColor: '#8A7050',
@@ -128,7 +128,7 @@ export const ZONE_DEFS: ZoneDef[] = [
       // ── Zone 7: Ember Wastes (MapMon001, MapMon004) ──
       {
             id: 'ember_wastes', name: 'Ember Wastes', nameCN: '燼荒原',
-            biome: 'desert', levelMin: 40, levelMax: 60, isTown: false,
+            biome: 'lava', levelMin: 40, levelMax: 60, isTown: false,
             sunColor: '#F0A060', sunIntensity: 2.0,
             ambientColor: '#804030', skyTop: '#602020', skyBottom: '#C06030',
             groundColor: '#6A4A30',
@@ -181,10 +181,10 @@ export const ZONE_DEFS: ZoneDef[] = [
             ],
             mapMonIds: ['MapMon008', 'MapMon013'],
       },
-      // ── Zone 11: Lava Sanctum ──
+      // ── Zone 11: Lava Sanctum (MapMon042, MapMon043) ──
       {
             id: 'lava_sanctum', name: 'Lava Sanctum', nameCN: '熔岩聖所',
-            biome: 'lava', levelMin: 120, levelMax: 150, isTown: false,
+            biome: 'lava', levelMin: 136, levelMax: 162, isTown: false,
             sunColor: '#F04020', sunIntensity: 1.0,
             ambientColor: '#601010', skyTop: '#200000', skyBottom: '#600808',
             groundColor: '#3A1010',
@@ -192,12 +192,13 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'thunder_plains', position: { x: -80, z: 0 }, label: '← 雷鳴平原' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon042', 'MapMon043'],
       },
       // ── Zone 12-16: Expansion zones (side areas) ──
+      // ── Zone 12: Ancient Ruins (MapMon002, MapMon025, MapMon050, MapMon052) ──
       {
             id: 'ancient_ruins', name: 'Ancient Ruins', nameCN: '遠古遺跡',
-            biome: 'desert', levelMin: 50, levelMax: 70, isTown: false,
+            biome: 'desert', levelMin: 17, levelMax: 46, isTown: false,
             sunColor: '#E0C890', sunIntensity: 1.8,
             ambientColor: '#907050', skyTop: '#A08040', skyBottom: '#D0B880',
             groundColor: '#786048',
@@ -205,11 +206,12 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'main_city', position: { x: -80, z: 0 }, label: '← 主城' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon002', 'MapMon025', 'MapMon050', 'MapMon052'],
       },
+      // ── Zone 13: Moonlit Grove (MapMon031, MapMon038, MapMon066) ──
       {
             id: 'moonlit_grove', name: 'Moonlit Grove', nameCN: '月光林地',
-            biome: 'forest', levelMin: 35, levelMax: 55, isTown: false,
+            biome: 'forest', levelMin: 45, levelMax: 69, isTown: false,
             sunColor: '#A0B0D0', sunIntensity: 0.9,
             ambientColor: '#506080', skyTop: '#1A2040', skyBottom: '#405080',
             groundColor: '#2A4020',
@@ -217,11 +219,12 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'main_city', position: { x: -80, z: 0 }, label: '← 主城' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon031', 'MapMon038', 'MapMon066'],
       },
+      // ── Zone 14: Storm Coast (MapMon033, MapMon035, MapMon036) ──
       {
             id: 'storm_coast', name: 'Storm Coast', nameCN: '風暴海岸',
-            biome: 'beach', levelMin: 70, levelMax: 90, isTown: false,
+            biome: 'beach', levelMin: 47, levelMax: 93, isTown: false,
             sunColor: '#90A0B0', sunIntensity: 1.2,
             ambientColor: '#405060', skyTop: '#303848', skyBottom: '#607080',
             groundColor: '#8A9088',
@@ -229,11 +232,12 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'main_city', position: { x: -80, z: 0 }, label: '← 主城' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon033', 'MapMon035', 'MapMon036'],
       },
+      // ── Zone 15: Dragon Nest (MapMon039, MapMon040) ──
       {
             id: 'dragon_nest', name: 'Dragon Nest', nameCN: '龍巢',
-            biome: 'cave', levelMin: 90, levelMax: 120, isTown: false,
+            biome: 'cave', levelMin: 90, levelMax: 119, isTown: false,
             sunColor: '#C06030', sunIntensity: 0.7,
             ambientColor: '#402020', skyTop: '#100505', skyBottom: '#301010',
             groundColor: '#2A1515',
@@ -241,11 +245,12 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'main_city', position: { x: -80, z: 0 }, label: '← 主城' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon039', 'MapMon040'],
       },
+      // ── Zone 16: Sky Temple (MapMon041, MapMon098) ──
       {
             id: 'sky_temple', name: 'Sky Temple', nameCN: '天空神殿',
-            biome: 'snow', levelMin: 110, levelMax: 140, isTown: false,
+            biome: 'snow', levelMin: 121, levelMax: 165, isTown: false,
             sunColor: '#E0E8FF', sunIntensity: 2.0,
             ambientColor: '#8090C0', skyTop: '#6080D0', skyBottom: '#C0D0F0',
             groundColor: '#B0B8D0',
@@ -253,7 +258,7 @@ export const ZONE_DEFS: ZoneDef[] = [
             gates: [
                   { targetZoneId: 'main_city', position: { x: -80, z: 0 }, label: '← 主城' },
             ],
-            mapMonIds: [],
+            mapMonIds: ['MapMon041', 'MapMon098'],
       },
       // ── Zone 17: Main City (Town, no monsters) ──
       {
@@ -278,14 +283,26 @@ export function getZoneDef(id: string): ZoneDef | undefined {
       return ZONE_DEFS.find(z => z.id === id);
 }
 
-/** Biome to texture filename mapping */
+/** Biome to texture filename mapping — each biome has its own unique texture */
 export const BIOME_TEXTURES: Record<BiomeType, { diffuse: string; normal: string }> = {
       grass: { diffuse: 'terrain_grass_diffuse.png', normal: 'terrain_grass_normal.png' },
       forest: { diffuse: 'terrain_forest_diffuse.png', normal: 'terrain_forest_normal.png' },
       desert: { diffuse: 'terrain_desert_diffuse.png', normal: 'terrain_desert_normal.png' },
       snow: { diffuse: 'terrain_snow_diffuse.png', normal: 'terrain_snow_normal.png' },
       cave: { diffuse: 'terrain_cave_diffuse.png', normal: 'terrain_cave_normal.png' },
-      beach: { diffuse: 'terrain_grass_diffuse.png', normal: 'terrain_grass_normal.png' },  // reuse grass
-      lava: { diffuse: 'terrain_desert_diffuse.png', normal: 'terrain_desert_normal.png' }, // reuse desert
-      town: { diffuse: 'terrain_grass_diffuse.png', normal: 'terrain_grass_normal.png' },  // reuse grass
+      beach: { diffuse: 'terrain_beach_diffuse.png', normal: 'terrain_beach_normal.png' },
+      lava: { diffuse: 'terrain_lava_diffuse.png', normal: 'terrain_lava_normal.png' },
+      town: { diffuse: 'terrain_cave_diffuse.png', normal: 'terrain_cave_normal.png' },
+};
+
+/** Per-biome PBR material parameters for visual differentiation */
+export const BIOME_PBR: Record<BiomeType, { roughness: number; metallic: number; emissiveHex?: string }> = {
+      grass: { roughness: 0.85, metallic: 0.02 },
+      forest: { roughness: 0.88, metallic: 0.03 },
+      desert: { roughness: 0.75, metallic: 0.05 },
+      snow: { roughness: 0.90, metallic: 0.02 },
+      cave: { roughness: 0.95, metallic: 0.15 },
+      beach: { roughness: 0.70, metallic: 0.05 },
+      lava: { roughness: 0.60, metallic: 0.30, emissiveHex: '#401005' },
+      town: { roughness: 0.80, metallic: 0.10 },
 };

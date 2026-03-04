@@ -44,6 +44,11 @@ import { EnhanceSystem } from './systems/EnhanceSystem';
 import { ResonanceSystem } from './systems/ResonanceSystem';
 import { CharacterPanel } from './ui/CharacterPanel';
 import { ResonancePanel } from './ui/ResonancePanel';
+// P10 Character Growth
+import { StatAllocation } from './systems/StatAllocation';
+import { SkillTree } from './systems/SkillTree';
+import { AwakeningSystem } from './systems/AwakeningSystem';
+import { RebirthSystem } from './systems/RebirthSystem';
 // P9 Quest + NPC
 import { QuestManager } from './systems/QuestManager';
 import { NPCManager } from './entities/NPC';
@@ -161,7 +166,7 @@ async function bootstrap(): Promise<void> {
       const questManager = new QuestManager();
       combatLoop.setQuestManager(questManager);
       const npcManager = new NPCManager(Registry.scene);
-      npcManager.spawnForZone('starter_meadow');
+      // NPCs are spawned by ZoneManager.buildInitialZone()
       const questPanel = new QuestPanel(questManager);
       const questTracker = new QuestTracker(questManager);
       const dialoguePanel = new DialoguePanel();
@@ -199,6 +204,8 @@ async function bootstrap(): Promise<void> {
             monsterManager,
             transition: zoneTransition,
             minimap,
+            npcManager,
+            dropItemManager,
             onPlayerReset: (x, z) => {
                   player.position.x = x;
                   player.position.z = z;
@@ -268,7 +275,15 @@ async function bootstrap(): Promise<void> {
       const equipmentSystem = new EquipmentSystem();
       const enhanceSystem = new EnhanceSystem();
       const resonanceSystem = new ResonanceSystem();
-      const characterPanel = new CharacterPanel(player);
+      const statAlloc = new StatAllocation();
+      const skillTree = new SkillTree();
+      const awakeningSystem = new AwakeningSystem();
+      const rebirthSystem = new RebirthSystem();
+      const characterPanel = new CharacterPanel(player, statAlloc, skillTree, awakeningSystem, rebirthSystem);
+      // Apply initial stat allocation
+      statAlloc.applyTo(player.stats);
+      player.stats.hp = player.stats.maxHp;
+      player.stats.mp = player.stats.maxMp;
       const resonancePanel = new ResonancePanel(resonanceSystem, inventory);
       equipmentSystem.giveStarterGear();
       Registry.equipmentSystem = equipmentSystem;
