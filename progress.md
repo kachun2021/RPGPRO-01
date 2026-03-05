@@ -46,3 +46,8 @@ Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、�
   - Fusion: bottom action text shortens in compact mode (`合成機`).
   - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed all scenarios; manual screenshot confirmed Fusion panel opens and uses split layout (`output/web-game/manual-fusion/shot-0.png`).
   - Note: `npm run -s build` still fails due pre-existing firebase package resolution (`Missing "." specifier in "firebase" package`).
+- 2026-03-05 (Fusion inline-style cleanup):
+  - Refactored FusionPanel recipe/tree/result rendering to class-based markup (`fpo-pill`, `fpo-tree-node*`, `fpo-formula-*`, `fpo-result-*`, `fpo-map-chip`, `fpo-ingredient-*`).
+  - Removed remaining `style=`/`style.cssText` usage in Fusion content rendering; retained only required runtime style for panel open/close animation and per-node indent margin.
+  - Refactored bottom GP label, picker icon, slot emoji, protection checkbox, and fusion flash overlay to CSS classes.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed; manual Fusion screenshot verified (`output/web-game/manual-fusion/shot-0.png`).

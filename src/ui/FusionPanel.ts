@@ -399,7 +399,6 @@ export class FusionPanel {
                         const pill = document.createElement('span');
                         pill.className = 'fpo-last-pill';
                         pill.textContent = `已選配方：${last.resultName}`;
-                        pill.style.marginLeft = 'auto';
                         row.appendChild(pill);
 
                         const mainOwned = snapshot.usableById.get(last.recipe.main)?.length ?? 0;
@@ -409,7 +408,7 @@ export class FusionPanel {
 
                         const stock = document.createElement('span');
                         stock.className = 'fpo-stock-pill';
-                        stock.innerHTML = `主 <b style="color:${mainOwned >= needMain ? '#8DE2A7' : '#F7A3A3'}">${mainOwned}/${needMain}</b> · 副 <b style="color:${subOwned >= needSub ? '#8DE2A7' : '#F7A3A3'}">${subOwned}/${needSub}</b>`;
+                        stock.innerHTML = `主 <b class="fpo-stock-num ${this._stockToneClass(mainOwned >= needMain)}">${mainOwned}/${needMain}</b> · 副 <b class="fpo-stock-num ${this._stockToneClass(subOwned >= needSub)}">${subOwned}/${needSub}</b>`;
                         row.appendChild(stock);
                   }
             }
@@ -725,20 +724,12 @@ export class FusionPanel {
       ): HTMLDivElement {
             const compactActionMode = this._isLandscapeFocusMode() || this._isPhoneLandscapeMode();
             const card = document.createElement('div');
-            Object.assign(card.style, {
-                  marginLeft: `${depth * 14}px`,
-                  border: '1px solid rgba(160,130,80,0.2)',
-                  borderRadius: '8px',
-                  background: 'rgba(17,13,27,0.66)',
-                  padding: '8px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '7px',
-            });
+            card.className = 'fpo-tree-node';
+            card.style.marginLeft = `${depth * 14}px`;
 
             const def = this._petDefById.get(resultId);
             if (!def) {
-                  card.innerHTML = `<div style="font-size:11px;color:#F7A3A3">找不到此寵物資料：${this._escapeHtml(resultId)}</div>`;
+                  card.innerHTML = `<div class="fpo-tree-note is-warn">找不到此寵物資料：${this._escapeHtml(resultId)}</div>`;
                   return card;
             }
 
@@ -751,24 +742,24 @@ export class FusionPanel {
             const expanded = depth === 0 || this._treeExpandAll || this._treeExpandedNodes.has(nodeKey);
 
             const title = document.createElement('div');
-            title.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px';
+            title.className = 'fpo-tree-node-head';
 
             const left = document.createElement('div');
-            left.style.cssText = 'display:flex;align-items:center;gap:7px;min-width:0';
+            left.className = 'fpo-tree-node-left';
             left.innerHTML = `
-                  <span style="font-size:18px">${SERIES_EMOJI[def.series] || '🐾'}</span>
-                  <div style="min-width:0">
-                        <div style="font-size:12px;color:#E8C96A;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${def.nameCN}</div>
-                              <div style="font-size:10px;color:rgba(200,195,185,0.5)">Lv.${this._getDefDisplayLevel(def)}</div>
+                  <span class="fpo-tree-node-emoji">${SERIES_EMOJI[def.series] || '🐾'}</span>
+                  <div class="fpo-tree-node-main">
+                        <div class="fpo-tree-node-name">${this._escapeHtml(def.nameCN)}</div>
+                        <div class="fpo-tree-node-level">Lv.${this._getDefDisplayLevel(def)}</div>
                   </div>
             `;
             title.appendChild(left);
 
             const right = document.createElement('div');
-            right.style.cssText = 'display:flex;align-items:center;gap:6px';
+            right.className = 'fpo-tree-node-right';
 
             const status = document.createElement('span');
-            status.style.cssText = `font-size:10px;color:${craftableCount > 0 ? '#27AE60' : '#E74C3C'};font-weight:700;border:1px solid ${craftableCount > 0 ? 'rgba(39,174,96,0.45)' : 'rgba(231,76,60,0.45)'};border-radius:999px;padding:2px 7px;white-space:nowrap`;
+            status.className = `fpo-tree-node-status ${craftableCount > 0 ? 'is-ok' : 'is-warn'}`;
             status.textContent = `${craftableCount}/${entries.length || 1} 可直接合成`;
             right.appendChild(status);
 
@@ -790,7 +781,7 @@ export class FusionPanel {
 
             if (visited.has(resultId)) {
                   const loop = document.createElement('div');
-                  loop.style.cssText = 'font-size:10px;color:rgba(231,76,60,0.75)';
+                  loop.className = 'fpo-tree-note is-warn';
                   loop.textContent = '已偵測到循環路徑，避免重複展開。';
                   card.appendChild(loop);
                   return card;
@@ -798,7 +789,7 @@ export class FusionPanel {
 
             if (entries.length === 0) {
                   const leaf = document.createElement('div');
-                  leaf.style.cssText = 'font-size:11px;color:rgba(200,195,185,0.56)';
+                  leaf.className = 'fpo-tree-note';
                   leaf.textContent = '此寵物目前沒有可用配方（可能為掉落或活動）。';
                   card.appendChild(leaf);
                   return card;
@@ -806,7 +797,7 @@ export class FusionPanel {
 
             if (!expanded && canExpandDepth && hasChildFusion) {
                   const collapsed = document.createElement('div');
-                  collapsed.style.cssText = 'font-size:10px;color:rgba(200,195,185,0.5)';
+                  collapsed.className = 'fpo-tree-note';
                   collapsed.textContent = `此目標共有 ${entries.length} 個配方，點擊展開查看。`;
                   card.appendChild(collapsed);
                   return card;
@@ -830,12 +821,12 @@ export class FusionPanel {
                   const row = document.createElement('div');
                   row.className = 'fpo-tree-row';
                   row.innerHTML = `
-                        <div style="font-size:11px;color:rgba(220,215,200,0.85);min-width:0">
+                        <div class="fpo-tree-recipe">
                               ${this._ingredientLabel(entry.mainDef, entry.mainName, entry.mainBaseLevel)} + ${this._ingredientLabel(entry.subDef, entry.subName, entry.subBaseLevel)}
                         </div>
-                        <div style="display:flex;align-items:center;gap:5px;white-space:nowrap">
-                              ${isRecommended ? '<span style="font-size:10px;color:#2ECC71;font-weight:700;border:1px solid rgba(46,204,113,0.55);border-radius:999px;padding:2px 7px">推薦</span>' : ''}
-                              <span style="font-size:10px;color:${estimate.riskColor};font-weight:700;border:1px solid ${estimate.riskColor}66;border-radius:999px;padding:2px 7px">
+                        <div class="fpo-tree-badges">
+                              ${isRecommended ? '<span class="fpo-pill fpo-pill-rec">推薦</span>' : ''}
+                              <span class="fpo-pill fpo-pill-risk ${this._toneClassByColor(estimate.riskColor)}">
                                     ${estimate.rate === null ? '未知' : `${estimate.rate}%`} · ${estimate.riskLabel}
                               </span>
                         </div>
@@ -888,14 +879,14 @@ export class FusionPanel {
 
             if (visibleEntryCount === 0) {
                   const empty = document.createElement('div');
-                  empty.style.cssText = 'font-size:10px;color:rgba(200,195,185,0.46)';
+                  empty.className = 'fpo-tree-note';
                   empty.textContent = '目前模式下沒有可顯示配方（可關閉「只看推薦」）。';
                   card.appendChild(empty);
             }
 
             if (!canExpandDepth) {
                   const collapsed = document.createElement('div');
-                  collapsed.style.cssText = 'font-size:10px;color:rgba(200,195,185,0.42)';
+                  collapsed.className = 'fpo-tree-note is-dim';
                   collapsed.textContent = '已達展開上限（最多 3 層）。';
                   card.appendChild(collapsed);
             }
@@ -934,50 +925,55 @@ export class FusionPanel {
             const compact = this._isCompactRecipeLayout();
             const focusMode = this._isLandscapeFocusMode();
             const compactActionMode = focusMode || this._isPhoneLandscapeMode();
+            const dropEggToneClass = this._dropEggToneClass(entry.resultDropEgg);
+            const riskToneClass = this._toneClassByColor(estimate.riskColor);
+            const statusToneClass = this._toneClassByColor(statusColor);
+            const mainStockClass = this._stockToneClass(mainCount >= requiredMain);
+            const subStockClass = this._stockToneClass(subCount >= 1);
 
             const formulaGrid = document.createElement('div');
             if (compact) {
                   formulaGrid.className = 'fpo-formula-grid is-compact';
                   formulaGrid.innerHTML = `
-                        <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
-                              <div style="display:flex;align-items:center;gap:8px;min-width:0">
+                        <div class="fpo-formula-compact-left">
+                              <div class="fpo-formula-target">
                                     ${this._seriesIconMarkup(entry.resultDef.series, 28)}
-                                    <div style="min-width:0">
-                                          <div style="font-size:12px;color:#E8C96A;font-weight:700;overflow:hidden;text-overflow:ellipsis">${this._escapeHtml(entry.resultName)}</div>
-                                          <div style="font-size:10px;color:rgba(200,195,185,0.54)">公式目標</div>
+                                    <div class="fpo-formula-target-text">
+                                          <div class="fpo-formula-target-name">${this._escapeHtml(entry.resultName)}</div>
+                                          <div class="fpo-formula-target-sub">公式目標</div>
                                     </div>
                               </div>
-                              <div style="font-size:11px;color:rgba(220,215,200,0.86);line-height:1.45;word-break:break-word">
+                              <div class="fpo-formula-ingredients">
                                     ${this._ingredientLabel(entry.mainDef, entry.mainName, entry.mainBaseLevel)} + ${this._ingredientLabel(entry.subDef, entry.subName, entry.subBaseLevel)}
                               </div>
-                              <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${this._mapBadgeMarkup(entry.resultMapNames)}</div>
+                              <div class="fpo-map-chip-row">${this._mapBadgeMarkup(entry.resultMapNames)}</div>
                         </div>
-                        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
-                              <span style="font-size:11px;color:rgba(220,215,200,0.82);font-weight:700">Lv.${entry.resultBaseLevel}</span>
-                              <span style="font-size:11px;color:${entry.resultDropEgg === true ? '#8DE2A7' : entry.resultDropEgg === false ? '#F7A3A3' : 'rgba(200,195,185,0.7)'};font-weight:700">${dropEggLabel}</span>
-                              <span style="font-size:10px;color:${estimate.riskColor};font-weight:700;border:1px solid ${estimate.riskColor}55;border-radius:999px;padding:2px 7px">${estimate.rate === null ? '未知' : `${estimate.rate}%`} · ${estimate.riskLabel}</span>
-                              <span style="font-size:10px;color:${statusColor};font-weight:700;border:1px solid ${statusColor}55;background:${statusColor}1f;border-radius:999px;padding:2px 7px;white-space:nowrap">${status}</span>
+                        <div class="fpo-formula-compact-right">
+                              <span class="fpo-formula-value">Lv.${entry.resultBaseLevel}</span>
+                              <span class="fpo-formula-value ${dropEggToneClass}">${dropEggLabel}</span>
+                              <span class="fpo-pill ${riskToneClass}">${estimate.rate === null ? '未知' : `${estimate.rate}%`} · ${estimate.riskLabel}</span>
+                              <span class="fpo-pill ${statusToneClass}">${status}</span>
                         </div>
                   `;
             } else {
                   formulaGrid.className = 'fpo-formula-grid is-full';
                   formulaGrid.innerHTML = `
-                        <div style="display:flex;align-items:center;gap:8px;min-width:0">
+                        <div class="fpo-formula-target">
                               ${this._seriesIconMarkup(entry.resultDef.series, 28)}
-                              <div style="min-width:0">
-                                    <div style="font-size:12px;color:#E8C96A;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${this._escapeHtml(entry.resultName)}</div>
-                                    <div style="font-size:10px;color:rgba(200,195,185,0.54)">公式目標</div>
+                              <div class="fpo-formula-target-text">
+                                    <div class="fpo-formula-target-name">${this._escapeHtml(entry.resultName)}</div>
+                                    <div class="fpo-formula-target-sub">公式目標</div>
                               </div>
                         </div>
-                        <div style="font-size:11px;color:rgba(220,215,200,0.86);line-height:1.45;min-width:0;word-break:break-word">
+                        <div class="fpo-formula-ingredients">
                               ${this._ingredientLabel(entry.mainDef, entry.mainName, entry.mainBaseLevel)} + ${this._ingredientLabel(entry.subDef, entry.subName, entry.subBaseLevel)}
                         </div>
-                        <div style="font-size:11px;color:rgba(220,215,200,0.82);font-weight:700">Lv.${entry.resultBaseLevel}</div>
-                        <div style="font-size:11px;color:${entry.resultDropEgg === true ? '#8DE2A7' : entry.resultDropEgg === false ? '#F7A3A3' : 'rgba(200,195,185,0.7)'};font-weight:700">${dropEggLabel}</div>
-                        <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${this._mapBadgeMarkup(entry.resultMapNames)}</div>
-                        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
-                              <span style="font-size:10px;color:${estimate.riskColor};font-weight:700;border:1px solid ${estimate.riskColor}55;border-radius:999px;padding:2px 7px">${estimate.rate === null ? '未知' : `${estimate.rate}%`} · ${estimate.riskLabel}</span>
-                              <span style="font-size:10px;color:${statusColor};font-weight:700;border:1px solid ${statusColor}55;background:${statusColor}1f;border-radius:999px;padding:2px 7px;white-space:nowrap">${status}</span>
+                        <div class="fpo-formula-value">Lv.${entry.resultBaseLevel}</div>
+                        <div class="fpo-formula-value ${dropEggToneClass}">${dropEggLabel}</div>
+                        <div class="fpo-map-chip-row">${this._mapBadgeMarkup(entry.resultMapNames)}</div>
+                        <div class="fpo-formula-pill-row">
+                              <span class="fpo-pill ${riskToneClass}">${estimate.rate === null ? '未知' : `${estimate.rate}%`} · ${estimate.riskLabel}</span>
+                              <span class="fpo-pill ${statusToneClass}">${status}</span>
                         </div>
                   `;
             }
@@ -985,9 +981,9 @@ export class FusionPanel {
 
             const brief = document.createElement('div');
             brief.className = 'fpo-brief-line';
-            brief.innerHTML = `材料庫存：主 <b style="color:${mainCount >= requiredMain ? '#8DE2A7' : '#F7A3A3'}">${mainCount}/${requiredMain}</b> · 副 <b style="color:${subCount >= 1 ? '#8DE2A7' : '#F7A3A3'}">${subCount}/1</b> · 估算：${this._escapeHtml(estimate.summary)}`;
+            brief.innerHTML = `材料庫存：主 <b class="fpo-stock-num ${mainStockClass}">${mainCount}/${requiredMain}</b> · 副 <b class="fpo-stock-num ${subStockClass}">${subCount}/1</b> · 估算：${this._escapeHtml(estimate.summary)}`;
             if (compactActionMode) {
-                  brief.innerHTML = `主 <b style="color:${mainCount >= requiredMain ? '#8DE2A7' : '#F7A3A3'}">${mainCount}/${requiredMain}</b> · 副 <b style="color:${subCount >= 1 ? '#8DE2A7' : '#F7A3A3'}">${subCount}/1</b>`;
+                  brief.innerHTML = `主 <b class="fpo-stock-num ${mainStockClass}">${mainCount}/${requiredMain}</b> · 副 <b class="fpo-stock-num ${subStockClass}">${subCount}/1</b>`;
             }
             card.appendChild(brief);
 
@@ -1136,23 +1132,24 @@ export class FusionPanel {
                         const rate = PetFusion.getSuccessRate(this._mainPet, this._subPet, match.resultDef);
                         const emoji = SERIES_EMOJI[match.resultDef.series] || '🐾';
                         const risk = this._riskInfoFromRate(rate);
+                        const riskToneClass = this._toneClassByColor(risk.color);
                         resultBox.innerHTML = `
-                              <div style="font-size:10px;color:rgba(200,195,185,0.5)">成功率</div>
-                              <div style="font-size:26px;font-weight:700;color:${risk.color}">${rate}%</div>
-                              <div style="font-size:10px;color:${risk.color};font-weight:700">${risk.label}</div>
-                              <div style="margin-top:6px;font-size:12px;color:#E8C96A">${emoji} ${match.resultDef.nameCN}</div>
-                              ${matches.length > 1 ? `<div style="font-size:9px;color:rgba(200,195,185,.45)">另有 ${matches.length - 1} 種可用結果</div>` : ''}
+                              <div class="fpo-result-label">成功率</div>
+                              <div class="fpo-result-rate ${riskToneClass}">${rate}%</div>
+                              <div class="fpo-result-risk ${riskToneClass}">${risk.label}</div>
+                              <div class="fpo-result-name">${emoji} ${this._escapeHtml(match.resultDef.nameCN)}</div>
+                              ${matches.length > 1 ? `<div class="fpo-result-more">另有 ${matches.length - 1} 種可用結果</div>` : ''}
                         `;
                   } else {
                         resultBox.innerHTML = `
-                              <div style="font-size:13px;color:#E74C3C;font-weight:700">無法進行合成</div>
-                              <div style="font-size:10px;color:rgba(200,195,185,0.4);margin-top:3px">請更換主寵/副寵，或回說明書查看可用配方</div>
+                              <div class="fpo-result-fail-title">無法進行合成</div>
+                              <div class="fpo-result-fail-sub">請更換主寵/副寵，或回說明書查看可用配方</div>
                         `;
                   }
             } else {
                   resultBox.innerHTML = `
-                        <div style="font-size:11px;color:rgba(200,195,185,0.35)">合成結果預覽</div>
-                        <div style="font-size:10px;color:rgba(200,195,185,0.25);margin-top:3px">先手動放入主寵與副寵，再開始合成</div>
+                        <div class="fpo-result-placeholder-title">合成結果預覽</div>
+                        <div class="fpo-result-placeholder-sub">先手動放入主寵與副寵，再開始合成</div>
                   `;
             }
             return resultBox;
@@ -1165,7 +1162,7 @@ export class FusionPanel {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.checked = this._hasProtection;
-            Object.assign(checkbox.style, { accentColor: '#E8C96A', cursor: 'pointer' });
+            checkbox.className = 'fpo-protect-check';
             checkbox.addEventListener('change', () => { this._hasProtection = checkbox.checked; });
 
             const label = document.createElement('span');
@@ -1204,7 +1201,7 @@ export class FusionPanel {
                   const row = document.createElement('div');
                   row.className = 'fpo-picker-row';
                   row.innerHTML = `
-                        <span style="font-size:22px">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
+                        <span class="fpo-picker-emoji">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
                         <div class="fpo-picker-main">
                               <div class="fpo-picker-name">${pet.def.nameCN}</div>
                               <div class="fpo-picker-sub">${pet.def.name} · Lv.${pet.stats.level}</div>
@@ -1227,7 +1224,7 @@ export class FusionPanel {
             const compactActionMode = this._isLandscapeFocusMode() || this._isPhoneLandscapeMode();
 
             const left = document.createElement('span');
-            left.innerHTML = '<span style="color:#27AE60;font-weight:700">GP</span>';
+            left.innerHTML = '<span class="fpo-bottom-gp-label">GP</span>';
             left.className = 'fpo-bottom-gp';
             bar.appendChild(left);
 
@@ -1373,6 +1370,25 @@ export class FusionPanel {
             return { label: '高風險', color: '#E74C3C' };
       }
 
+      private _toneClassByColor(color: string): string {
+            const key = color.trim().toUpperCase();
+            if (key === '#27AE60') return 'is-ok';
+            if (key === '#E74C3C') return 'is-warn';
+            if (key === '#F39C12') return 'is-mid';
+            if (key === '#5DADE2') return 'is-info';
+            return 'is-neutral';
+      }
+
+      private _dropEggToneClass(dropEgg: boolean | null): string {
+            if (dropEgg === true) return 'is-ok';
+            if (dropEgg === false) return 'is-warn';
+            return 'is-neutral';
+      }
+
+      private _stockToneClass(hasEnough: boolean): string {
+            return hasEnough ? 'is-ok' : 'is-warn';
+      }
+
       private _buildRecommendedPathKeys(rootResultId: string, snapshot: OwnedSnapshot): Set<string> {
             const keys = new Set<string>();
             const visited = new Set<string>();
@@ -1455,9 +1471,11 @@ export class FusionPanel {
       }
 
       private _ingredientLabel(def: PetDef | null, fallbackName: string, baseLevel?: number): string {
-            const levelTag = Number.isFinite(baseLevel) ? ` <span style="color:rgba(200,195,185,0.58)">Lv.${Math.max(1, Math.floor(baseLevel!))}</span>` : '';
-            if (!def) return `<span style="color:#F7A3A3">[資料缺少] ${this._escapeHtml(fallbackName)}</span>${levelTag}`;
-            return `${SERIES_EMOJI[def.series] || '🐾'} ${this._escapeHtml(def.nameCN)}${levelTag}`;
+            const levelTag = Number.isFinite(baseLevel)
+                  ? ` <span class="fpo-ingredient-level">Lv.${Math.max(1, Math.floor(baseLevel!))}</span>`
+                  : '';
+            if (!def) return `<span class="fpo-ingredient-missing">[資料缺少] ${this._escapeHtml(fallbackName)}</span>${levelTag}`;
+            return `<span class="fpo-ingredient-name">${SERIES_EMOJI[def.series] || '🐾'} ${this._escapeHtml(def.nameCN)}</span>${levelTag}`;
       }
 
       private _normalizeRecipePanelState(_snapshot: OwnedSnapshot): void {
@@ -1797,15 +1815,15 @@ export class FusionPanel {
 
       private _mapBadgeMarkup(maps: string[]): string {
             if (maps.length === 0) {
-                  return '<span style="font-size:10px;color:rgba(200,195,185,0.56);border:1px solid rgba(160,130,80,0.25);border-radius:999px;padding:2px 7px;white-space:nowrap">暫無地圖</span>';
+                  return '<span class="fpo-map-chip is-empty">暫無地圖</span>';
             }
             const chips = maps.slice(0, 3).map(map => `
-                  <span title="${this._escapeHtml(map)}" style="font-size:10px;color:rgba(220,215,200,0.86);border:1px solid rgba(160,130,80,0.26);border-radius:999px;padding:2px 7px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+                  <span class="fpo-map-chip" title="${this._escapeHtml(map)}">
                         ${this._escapeHtml(map)}
                   </span>
             `);
             if (maps.length > 3) {
-                  chips.push(`<span style="font-size:10px;color:rgba(200,195,185,0.62);border:1px solid rgba(160,130,80,0.2);border-radius:999px;padding:2px 7px">+${maps.length - 3}</span>`);
+                  chips.push(`<span class="fpo-map-chip is-more">+${maps.length - 3}</span>`);
             }
             return chips.join('');
       }
@@ -1821,7 +1839,8 @@ export class FusionPanel {
 
       private _seriesIconMarkup(series: PetSeries, size = 24): string {
             const icon = SERIES_ICONS[series];
-            return `<img src="/assets/icons/${icon}" alt="" style="width:${size}px;height:${size}px;object-fit:contain;vertical-align:middle;border-radius:4px;border:1px solid rgba(160,130,80,0.24);background:rgba(12,10,20,0.6);padding:2px" />`;
+            const sizeClass = size >= 28 ? ' is-lg' : '';
+            return `<img src="/assets/icons/${icon}" alt="" class="fpo-series-icon${sizeClass}" />`;
       }
 
       private _getOrCreateExternalDef(name: string, seriesHint: string | null, levelHint: number | null): PetDef {
@@ -1950,7 +1969,7 @@ export class FusionPanel {
 
             if (pet) {
                   slotEl.innerHTML = `
-                        <span style="font-size:36px">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
+                        <span class="fpo-slot-emoji">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
                         <span class="fpo-slot-name">${pet.def.nameCN}</span>
                         <span class="fpo-slot-level">Lv.${pet.stats.level}</span>
                   `;
@@ -2046,22 +2065,11 @@ export class FusionPanel {
 
       private _flashResult(success: boolean, detail: string): void {
             const overlay = document.createElement('div');
-            Object.assign(overlay.style, {
-                  position: 'absolute',
-                  inset: '0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: '10',
-                  background: success
-                        ? 'linear-gradient(180deg, rgba(39,174,96,0.15), rgba(15,12,25,0.95))'
-                        : 'linear-gradient(180deg, rgba(231,76,60,0.15), rgba(15,12,25,0.95))',
-            });
+            overlay.className = `fpo-flash-overlay ${success ? 'is-success' : 'is-fail'}`;
             overlay.innerHTML = `
-                  <div style="font-size:42px">${success ? '✓' : '✕'}</div>
-                  <div style="font-size:18px;font-weight:700;color:${success ? '#27AE60' : '#E74C3C'};margin-top:8px">${success ? '合成成功' : '合成失敗'}</div>
-                  <div style="font-size:12px;color:rgba(200,195,185,0.6);margin-top:6px">${detail}</div>
+                  <div class="fpo-flash-icon">${success ? '✓' : '✕'}</div>
+                  <div class="fpo-flash-title">${success ? '合成成功' : '合成失敗'}</div>
+                  <div class="fpo-flash-detail">${this._escapeHtml(detail)}</div>
             `;
             this._el.appendChild(overlay);
             setTimeout(() => overlay.remove(), 1500);
