@@ -4,3 +4,6 @@ dist
 .DS_Store
 *.chm
 chm_extracted/
+output/
+dev.out.log
+dev.err.log

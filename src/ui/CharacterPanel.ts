@@ -17,6 +17,11 @@ export class CharacterPanel {
       private _visible = false;
       private _player: Player;
       private _tab: TabId = 'stats';
+      private _fitFrameId = 0;
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._scheduleFit();
+      };
 
       // Systems
       private _statAlloc: StatAllocation;
@@ -42,6 +47,7 @@ export class CharacterPanel {
             this._el.className = 'sa-panel cp-root';
             this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
+            window.addEventListener('resize', this._onResize);
       }
 
       // ─── Rendering ───
@@ -85,6 +91,29 @@ export class CharacterPanel {
                   case 'skilltree': this._renderSkillTreeTab(body); break;
                   case 'growth': this._renderGrowthTab(body); break;
             }
+
+            this._scheduleFit();
+      }
+
+      private _scheduleFit(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            this._fitPanelScale();
+            this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
+      }
+
+      private _fitPanelScale(): void {
+            this._el.style.transformOrigin = 'center center';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+
+            const vh = window.innerHeight || 0;
+            const available = Math.max(0, Math.floor(vh * 0.88) - 6);
+            if (available <= 0) return;
+
+            const needed = this._el.scrollHeight;
+            if (needed <= 0 || needed <= available) return;
+
+            const scale = Math.max(0.58, Math.min(1, available / needed));
+            this._el.style.setProperty('transform', `translate(-50%, -50%) scale(${scale})`, 'important');
       }
 
       // ─── Tab 1: Stats ───
@@ -365,7 +394,19 @@ export class CharacterPanel {
       get skillTree(): SkillTree { return this._skillTree; }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._render(); }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      show(): void {
+            this._visible = true;
+            this._el.style.display = 'block';
+            this._render();
+      }
+      hide(): void {
+            this._visible = false;
+            this._el.style.display = 'none';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+      }
+      dispose(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

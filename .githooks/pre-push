@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -e
+
+echo "[pre-push] Running task completion gate: npm run task:done"
+npm run task:done
+echo "[pre-push] PASS"

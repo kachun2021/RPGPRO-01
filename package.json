@@ -8,6 +8,11 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "test:smoke": "powershell -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1",
+    "test:smoke:headed": "powershell -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1 -Headed",
+    "task:done": "powershell -ExecutionPolicy Bypass -File ./scripts/task_done.ps1",
+    "task:done:headed": "powershell -ExecutionPolicy Bypass -File ./scripts/task_done.ps1 -Headed",
+    "hooks:install": "powershell -ExecutionPolicy Bypass -File ./scripts/install_git_hooks.ps1",
     "fusion:export-mdb": "powershell -ExecutionPolicy Bypass -File ./scripts/export_fusion_mdb.ps1",
     "fusion:export-list": "python -X utf8 ./scripts/export_fusion_list_excel.py",
     "fusion:export-all": "npm run fusion:export-mdb && npm run fusion:export-list"

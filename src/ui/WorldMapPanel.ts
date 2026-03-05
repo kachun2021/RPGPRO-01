@@ -161,6 +161,8 @@ const SERIES_MAP_PATTERN = /^(植物|龙系|兽系|虫系|机械|神秘|恶魔|�
 export class WorldMapPanel {
       private _el: HTMLDivElement;
       private _listCol!: HTMLDivElement;
+      private _listFilterCol!: HTMLDivElement;
+      private _listZoneCol!: HTMLDivElement;
       private _detailCol!: HTMLDivElement;
       private _visible = false;
       private _zoneManager: ZoneManager;
@@ -244,6 +246,12 @@ export class WorldMapPanel {
 
             this._listCol = document.createElement('div');
             this._listCol.className = 'wmp-list';
+            this._listFilterCol = document.createElement('div');
+            this._listFilterCol.className = 'wmp-list-controls';
+            this._listZoneCol = document.createElement('div');
+            this._listZoneCol.className = 'wmp-zone-list';
+            this._listCol.appendChild(this._listFilterCol);
+            this._listCol.appendChild(this._listZoneCol);
 
             this._detailCol = document.createElement('div');
             this._detailCol.className = 'wmp-detail';
@@ -256,16 +264,17 @@ export class WorldMapPanel {
 
       private _render(): void {
             this._syncResponsiveMode();
-            this._listCol.innerHTML = '';
+            this._listFilterCol.innerHTML = '';
+            this._listZoneCol.innerHTML = '';
             const currentZoneId = this._zoneManager.currentZone.id;
 
             const searchWrap = document.createElement('div');
-            searchWrap.style.cssText = 'padding:6px 8px;border-bottom:1px solid rgba(160,130,80,0.12);position:sticky;top:0;background:rgba(18,14,28,0.92);z-index:2';
+            searchWrap.className = 'wmp-filter-wrap';
             const searchInput = document.createElement('input');
             searchInput.type = 'search';
             searchInput.placeholder = '搜尋地圖名稱';
             searchInput.value = this._mapSearchKeyword;
-            searchInput.style.cssText = 'width:100%;border:1px solid rgba(160,130,80,0.24);border-radius:6px;background:rgba(12,10,20,0.78);color:rgba(220,215,200,0.9);font-size:11px;padding:6px 8px';
+            searchInput.className = 'wmp-search-input';
             searchInput.addEventListener('input', () => {
                   this._mapSearchKeyword = searchInput.value.trim();
                   this._render();
@@ -273,7 +282,7 @@ export class WorldMapPanel {
             searchWrap.appendChild(searchInput);
 
             const chipsRow = document.createElement('div');
-            chipsRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;margin-top:6px';
+            chipsRow.className = 'wmp-chip-row';
             const regionValues = Array.from(new Set(this._mapSummaries.map(item => item.region))).sort((a, b) => a.localeCompare(b, 'zh-Hant'));
             chipsRow.appendChild(this._buildQuickChip('全部地區', this._regionFilter === 'all', () => {
                   this._regionFilter = 'all';
@@ -288,7 +297,7 @@ export class WorldMapPanel {
             searchWrap.appendChild(chipsRow);
 
             const bandRow = document.createElement('div');
-            bandRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;margin-top:5px';
+            bandRow.className = 'wmp-chip-row';
             const bands: Array<{ key: MapLevelBand; label: string }> = [
                   { key: 'all', label: '全部等級' },
                   { key: '1-30', label: 'Lv.1-30' },
@@ -303,7 +312,7 @@ export class WorldMapPanel {
                   }));
             }
             searchWrap.appendChild(bandRow);
-            this._listCol.appendChild(searchWrap);
+            this._listFilterCol.appendChild(searchWrap);
 
             const mapList = this._filteredMapSummaries();
             if (!this._selectedMapName || !mapList.some(item => item.name === this._selectedMapName)) {
@@ -315,9 +324,9 @@ export class WorldMapPanel {
                   if (map.region !== lastRegion) {
                         lastRegion = map.region;
                         const groupHead = document.createElement('div');
-                        groupHead.style.cssText = 'padding:5px 10px;font-size:10px;font-weight:700;color:rgba(232,201,106,0.85);background:rgba(20,16,30,0.75);border-top:1px solid rgba(160,130,80,0.14);border-bottom:1px solid rgba(160,130,80,0.12)';
+                        groupHead.className = 'wmp-region-head';
                         groupHead.textContent = map.region;
-                        this._listCol.appendChild(groupHead);
+                        this._listZoneCol.appendChild(groupHead);
                   }
 
                   const row = document.createElement('div');
@@ -360,10 +369,10 @@ export class WorldMapPanel {
                         });
                   }
 
-                  if (this._isLandscapeFocusMode() && !teleBtn.disabled) teleBtn.textContent = '傳送';
+                  if ((this._isLandscapeFocusMode() || this._isPhoneLandscapeMode()) && !teleBtn.disabled) teleBtn.textContent = '傳送';
                   row.appendChild(info);
                   row.appendChild(teleBtn);
-                  this._listCol.appendChild(row);
+                  this._listZoneCol.appendChild(row);
             }
 
             if (mapList.length === 0) {
@@ -396,6 +405,8 @@ export class WorldMapPanel {
 
             const minLevel = Math.max(1, this._minLevel);
             const focusMode = this._isLandscapeFocusMode();
+            const compactMode = focusMode || this._isPhoneLandscapeMode();
+            this._detailCol.classList.toggle('is-compact', compactMode);
             const monsters = monstersAll.filter(mon => {
                   if (mon.level < minLevel) return false;
                   if (this._onlyDropEgg && mon.dropEgg !== true) return false;
@@ -421,7 +432,8 @@ export class WorldMapPanel {
             this._detailCol.appendChild(header);
 
             const navRow = document.createElement('div');
-            navRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px';
+            navRow.className = 'wmp-nav-row';
+            if (compactMode) navRow.classList.add('is-compact');
             navRow.innerHTML = `
                   <span class="sa-tag">資料來源：合成器分佈</span>
                   <span class="sa-tag">${zoneDef ? `傳送映射：${this._escapeHtml(zoneDef.nameCN)}${this._teleportModeSuffix(summary.teleportMode)}` : '傳送映射：無'}</span>
@@ -429,21 +441,13 @@ export class WorldMapPanel {
             this._detailCol.appendChild(navRow);
 
             const filterRow = document.createElement('div');
-            filterRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px;padding:7px;border:1px solid rgba(160,130,80,0.18);border-radius:7px;background:rgba(20,16,30,0.55)';
+            filterRow.className = 'wmp-detail-filters';
+            if (compactMode) filterRow.classList.add('is-compact');
             const createToggle = (label: string, active: boolean, onToggle: () => void): HTMLButtonElement => {
                   const btn = document.createElement('button');
                   btn.type = 'button';
                   btn.textContent = label;
-                  btn.style.cssText = `
-                        border-radius:999px;
-                        border:1px solid ${active ? 'rgba(232,201,106,0.56)' : 'rgba(160,130,80,0.24)'};
-                        background:${active ? 'rgba(160,130,80,0.24)' : 'rgba(20,16,30,0.62)'};
-                        color:${active ? 'rgba(232,201,106,0.95)' : 'rgba(200,195,185,0.7)'};
-                        font-size:10px;
-                        font-weight:700;
-                        padding:4px 9px;
-                        cursor:pointer;
-                  `;
+                  btn.className = `wmp-toggle-chip${active ? ' is-active' : ''}`;
                   btn.addEventListener('click', onToggle);
                   return btn;
             };
@@ -457,7 +461,7 @@ export class WorldMapPanel {
             }));
 
             const minWrap = document.createElement('label');
-            minWrap.style.cssText = 'display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(200,195,185,0.7);border:1px solid rgba(160,130,80,0.2);border-radius:999px;padding:4px 8px';
+            minWrap.className = 'wmp-min-level-wrap';
             minWrap.textContent = '最低等級';
             const minInput = document.createElement('input');
             minInput.type = 'number';
@@ -465,7 +469,7 @@ export class WorldMapPanel {
             minInput.max = '300';
             minInput.step = '1';
             minInput.value = String(this._minLevel);
-            minInput.style.cssText = 'width:54px;border:1px solid rgba(160,130,80,0.25);border-radius:5px;background:rgba(12,10,20,0.78);color:rgba(220,215,200,0.88);font-size:10px;padding:2px 4px';
+            minInput.className = 'wmp-min-level-input';
             const applyMin = (): void => {
                   const parsed = Number.parseInt(minInput.value, 10);
                   this._minLevel = Number.isFinite(parsed) ? Math.max(1, parsed) : 1;
@@ -513,13 +517,13 @@ export class WorldMapPanel {
                         const sourceTag = document.createElement('span');
                         sourceTag.className = 'wmp-source-tag';
                         sourceTag.textContent = mon.asIngredientCount > 0 ? `可作素材(${mon.asIngredientCount})` : '暫無合成用途';
-                        if (focusMode) sourceTag.classList.add('is-hidden');
+                        if (compactMode) sourceTag.classList.add('is-hidden');
                         actions.appendChild(sourceTag);
 
                         const bookBtn = document.createElement('button');
                         bookBtn.type = 'button';
                         bookBtn.className = 'wmp-teleport-btn game-btn game-btn-secondary wmp-card-btn';
-                        bookBtn.textContent = focusMode ? '圖鑑' : '查看圖鑑';
+                        bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
                               this._onOpenEncyclopedia?.(mon.name, mapName);
@@ -529,7 +533,7 @@ export class WorldMapPanel {
                         const fusionBtn = document.createElement('button');
                         fusionBtn.type = 'button';
                         fusionBtn.className = 'wmp-teleport-btn game-btn game-btn-primary wmp-card-btn';
-                        fusionBtn.textContent = focusMode ? '可合成' : '查看可合成目標';
+                        fusionBtn.textContent = compactMode ? '合成' : '查看可合成目標';
                         fusionBtn.disabled = mon.asIngredientCount <= 0;
                         if (mon.asIngredientCount <= 0) fusionBtn.classList.add('wmp-btn-disabled');
                         fusionBtn.addEventListener('click', () => {
@@ -584,12 +588,13 @@ export class WorldMapPanel {
                         const recipe = document.createElement('div');
                         recipe.className = 'wmp-card-recipe';
                         recipe.textContent = `${target.mainName} + ${target.subName}`;
+                        if (compactMode) recipe.classList.add('is-hidden');
                         item.appendChild(recipe);
 
                         const bookBtn = document.createElement('button');
                         bookBtn.type = 'button';
                         bookBtn.className = 'wmp-teleport-btn game-btn game-btn-secondary wmp-card-btn';
-                        bookBtn.textContent = focusMode ? '圖鑑' : '查看圖鑑';
+                        bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
                               this._onOpenEncyclopedia?.(target.resultName, mapName);
@@ -598,7 +603,7 @@ export class WorldMapPanel {
                         const btn = document.createElement('button');
                         btn.type = 'button';
                         btn.className = 'wmp-teleport-btn game-btn game-btn-primary wmp-card-btn';
-                        btn.textContent = focusMode ? '配方' : '查看配方';
+                        btn.textContent = compactMode ? '配方' : '查看配方';
                         btn.addEventListener('click', () => {
                               this.hide();
                               this._onOpenFusionByTarget?.(target.resultName, mapName);
@@ -643,7 +648,7 @@ export class WorldMapPanel {
                         this._zoneManager.travelTo(zoneDef.id);
                   });
             }
-            if (focusMode && !teleBtn.disabled) teleBtn.textContent = '傳送';
+            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '傳送';
             footer.appendChild(teleBtn);
             this._detailCol.appendChild(footer);
       }
@@ -679,16 +684,7 @@ export class WorldMapPanel {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.textContent = label;
-            btn.style.cssText = `
-                  border-radius:999px;
-                  border:1px solid ${active ? 'rgba(232,201,106,0.55)' : 'rgba(160,130,80,0.24)'};
-                  background:${active ? 'rgba(160,130,80,0.24)' : 'rgba(20,16,30,0.62)'};
-                  color:${active ? 'rgba(232,201,106,0.95)' : 'rgba(200,195,185,0.72)'};
-                  font-size:10px;
-                  font-weight:700;
-                  padding:3px 8px;
-                  cursor:pointer;
-            `;
+            btn.className = `wmp-quick-chip${active ? ' is-active' : ''}`;
             btn.addEventListener('click', onClick);
             return btn;
       }
@@ -994,8 +990,15 @@ export class WorldMapPanel {
             return w > h && w <= 980 && h <= 560;
       }
 
+      private _isPhoneLandscapeMode(): boolean {
+            const w = window.innerWidth || 0;
+            const h = window.innerHeight || 0;
+            return w > h && h <= 560 && w <= 1280;
+      }
+
       private _syncResponsiveMode(): void {
             this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
+            this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
@@ -1018,3 +1021,4 @@ export class WorldMapPanel {
             this._el.remove();
       }
 }
+

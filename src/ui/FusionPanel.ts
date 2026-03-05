@@ -433,12 +433,20 @@ export class FusionPanel {
             const root = document.createElement('div');
             root.className = 'fpo-recipe-root';
 
-            root.appendChild(this._buildSeriesChips());
+            const split = document.createElement('div');
+            split.className = 'fpo-recipe-split';
+
+            const side = document.createElement('aside');
+            side.className = 'fpo-recipe-side';
+            side.appendChild(this._buildSeriesChips());
             if (this._mainTab === 'tree') {
-                  root.appendChild(this._buildTreeTargetSelector(snapshot));
+                  side.appendChild(this._buildTreeTargetSelector(snapshot));
             } else {
-                  root.appendChild(this._buildRecipeFilterBar());
+                  side.appendChild(this._buildRecipeFilterBar());
             }
+
+            const main = document.createElement('section');
+            main.className = 'fpo-recipe-main';
 
             const list = document.createElement('div');
             list.className = 'fpo-recipe-list';
@@ -478,7 +486,10 @@ export class FusionPanel {
                   }
             }
 
-            root.appendChild(list);
+            main.appendChild(list);
+            split.appendChild(side);
+            split.appendChild(main);
+            root.appendChild(split);
             return root;
       }
 
@@ -565,7 +576,7 @@ export class FusionPanel {
       private _isCompactRecipeLayout(): boolean {
             const width = this._el.clientWidth || window.innerWidth || 0;
             const height = window.innerHeight || 0;
-            if (this._isLandscapeFocusMode()) return true;
+            if (this._isLandscapeFocusMode() || this._isPhoneLandscapeMode()) return true;
             const portrait = height > width;
             if (portrait) return width < 980;
             if (height > 0 && height < 340) return true;
@@ -575,11 +586,18 @@ export class FusionPanel {
       private _isLandscapeFocusMode(): boolean {
             const width = window.innerWidth || this._el.clientWidth || 0;
             const height = window.innerHeight || 0;
-            return width > height && width <= 980 && height <= 560;
+            return width > height && width <= 1600 && height <= 900;
+      }
+
+      private _isPhoneLandscapeMode(): boolean {
+            const width = window.innerWidth || this._el.clientWidth || 0;
+            const height = window.innerHeight || 0;
+            return width > height && width <= 1280 && height <= 560;
       }
 
       private _syncResponsiveMode(): void {
             this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
+            this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
       }
 
       private _buildFormulaListHeader(): HTMLDivElement {
@@ -705,6 +723,7 @@ export class FusionPanel {
             nodeKey: string,
             recommendedKeys: Set<string>
       ): HTMLDivElement {
+            const compactActionMode = this._isLandscapeFocusMode() || this._isPhoneLandscapeMode();
             const card = document.createElement('div');
             Object.assign(card.style, {
                   marginLeft: `${depth * 14}px`,
@@ -835,8 +854,8 @@ export class FusionPanel {
                   applyBtn.type = 'button';
                   applyBtn.className = `game-btn ${canApply ? 'game-btn-primary' : 'game-btn-secondary'} fpo-tree-apply`;
                   applyBtn.textContent = canApply
-                        ? (this._isLandscapeFocusMode() ? '合成' : '去合成機')
-                        : (this._isLandscapeFocusMode() ? '缺資料' : '資料缺失');
+                        ? (compactActionMode ? '合成' : '去合成機')
+                        : (compactActionMode ? '缺資料' : '資料缺失');
                   applyBtn.disabled = !canApply;
                   applyBtn.addEventListener('click', () => {
                         if (!canApply) return;
@@ -914,6 +933,7 @@ export class FusionPanel {
             const dropEggLabel = this._formatDropEggLabel(entry.resultDropEgg);
             const compact = this._isCompactRecipeLayout();
             const focusMode = this._isLandscapeFocusMode();
+            const compactActionMode = focusMode || this._isPhoneLandscapeMode();
 
             const formulaGrid = document.createElement('div');
             if (compact) {
@@ -966,7 +986,7 @@ export class FusionPanel {
             const brief = document.createElement('div');
             brief.className = 'fpo-brief-line';
             brief.innerHTML = `材料庫存：主 <b style="color:${mainCount >= requiredMain ? '#8DE2A7' : '#F7A3A3'}">${mainCount}/${requiredMain}</b> · 副 <b style="color:${subCount >= 1 ? '#8DE2A7' : '#F7A3A3'}">${subCount}/1</b> · 估算：${this._escapeHtml(estimate.summary)}`;
-            if (focusMode) {
+            if (compactActionMode) {
                   brief.innerHTML = `主 <b style="color:${mainCount >= requiredMain ? '#8DE2A7' : '#F7A3A3'}">${mainCount}/${requiredMain}</b> · 副 <b style="color:${subCount >= 1 ? '#8DE2A7' : '#F7A3A3'}">${subCount}/1</b>`;
             }
             card.appendChild(brief);
@@ -979,8 +999,8 @@ export class FusionPanel {
             const canApply = fullyMapped;
             applyBtn.className = `game-btn ${canApply ? 'game-btn-primary' : 'game-btn-secondary'} fpo-card-btn`;
             applyBtn.textContent = canApply
-                  ? (focusMode ? '合成' : '去合成機')
-                  : (focusMode ? '缺資料' : '資料缺失');
+                  ? (compactActionMode ? '合成' : '去合成機')
+                  : (compactActionMode ? '缺資料' : '資料缺失');
             if (!canApply) applyBtn.disabled = true;
             applyBtn.addEventListener('click', () => {
                   if (!canApply) return;
@@ -991,8 +1011,8 @@ export class FusionPanel {
             trackBtn.type = 'button';
             trackBtn.className = 'game-btn game-btn-secondary';
             trackBtn.textContent = tracked
-                  ? (focusMode ? '已收藏' : '★ 取消收藏')
-                  : (focusMode ? '收藏' : '☆ 加入收藏');
+                  ? (compactActionMode ? '已收藏' : '★ 取消收藏')
+                  : (compactActionMode ? '收藏' : '☆ 加入收藏');
             if (tracked) trackBtn.classList.add('is-active');
             trackBtn.classList.add('fpo-card-btn');
             trackBtn.addEventListener('click', () => {
@@ -1006,8 +1026,8 @@ export class FusionPanel {
             const mapName = entry.resultMapNames[0] ?? '';
             const canMapJump = Boolean(mapName && this._onNavigateMap);
             mapBtn.textContent = mapName
-                  ? (focusMode ? '地圖' : '去地圖')
-                  : (focusMode ? '無地圖' : '暫無地圖');
+                  ? (compactActionMode ? '地圖' : '去地圖')
+                  : (compactActionMode ? '無地圖' : '暫無地圖');
             mapBtn.title = mapName ? `前往地圖：${mapName}` : '暫無地圖';
             mapBtn.disabled = !canMapJump;
             mapBtn.addEventListener('click', () => {
@@ -1204,6 +1224,7 @@ export class FusionPanel {
       private _buildBottomBar(): HTMLDivElement {
             const bar = document.createElement('div');
             bar.className = 'fpo-bottom-bar';
+            const compactActionMode = this._isLandscapeFocusMode() || this._isPhoneLandscapeMode();
 
             const left = document.createElement('span');
             left.innerHTML = '<span style="color:#27AE60;font-weight:700">GP</span>';
@@ -1223,7 +1244,7 @@ export class FusionPanel {
                   }
                   action.addEventListener('click', () => { if (canFuse) this._executeFusion(); });
             } else {
-                  action.textContent = '回合成機';
+                  action.textContent = compactActionMode ? '合成機' : '回合成機';
                   action.addEventListener('click', () => {
                         this._mainTab = 'machine';
                         this._render();

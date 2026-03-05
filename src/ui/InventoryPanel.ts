@@ -60,6 +60,11 @@ export class InventoryPanel {
       private _tooltip!: HTMLDivElement;
       private _page = 0;
       private readonly SLOTS_PER_PAGE = 15;
+      private _fitFrameId = 0;
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._scheduleFit();
+      };
 
       constructor(inventory: Inventory, equipSystem: EquipmentSystem, enhanceSystem: EnhanceSystem, playerStats: PlayerStats) {
             this._inventory = inventory;
@@ -80,6 +85,7 @@ export class InventoryPanel {
 
             inventory.onChange = () => { if (this._visible) this._render(); };
             equipSystem.onChange = () => { if (this._visible) this._render(); };
+            window.addEventListener('resize', this._onResize);
       }
 
       /** Show floating feedback text */
@@ -271,6 +277,28 @@ export class InventoryPanel {
             goldBar.className = 'inv2-gold-bar';
             goldBar.innerHTML = `💰 <span class="inv2-gold-val">${this._inventory.gold.toLocaleString()}</span> <span class="inv2-gold-label">GP</span>`;
             this._el.appendChild(goldBar);
+            this._scheduleFit();
+      }
+
+      private _scheduleFit(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            this._fitPanelScale();
+            this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
+      }
+
+      private _fitPanelScale(): void {
+            this._el.style.transformOrigin = 'center center';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+
+            const vh = window.innerHeight || 0;
+            const available = Math.max(0, Math.floor(vh * 0.88) - 6);
+            if (available <= 0) return;
+
+            const needed = this._el.scrollHeight;
+            if (needed <= 0 || needed <= available) return;
+
+            const scale = Math.max(0.55, Math.min(1, available / needed));
+            this._el.style.setProperty('transform', `translate(-50%, -50%) scale(${scale})`, 'important');
       }
 
       private _showEquipActions(equip: EquipDef, slot: EquipSlot): void {
@@ -501,7 +529,20 @@ export class InventoryPanel {
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._render(); }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; this._tooltip.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      show(): void {
+            this._visible = true;
+            this._el.style.display = 'block';
+            this._render();
+      }
+      hide(): void {
+            this._visible = false;
+            this._el.style.display = 'none';
+            this._tooltip.style.display = 'none';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+      }
+      dispose(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

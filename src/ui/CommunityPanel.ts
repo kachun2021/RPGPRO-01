@@ -36,6 +36,11 @@ export class CommunityPanel {
       private _visible = false;
       private _currentTab: CommTab = 'friends';
       private _showOnlineOnly = false;
+      private _fitFrameId = 0;
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._scheduleFit();
+      };
 
       constructor() {
             this._el = document.createElement('div');
@@ -43,6 +48,7 @@ export class CommunityPanel {
             this._el.className = 'sa-panel comm-root';
             this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
+            window.addEventListener('resize', this._onResize);
       }
 
       private _render(): void {
@@ -92,6 +98,29 @@ export class CommunityPanel {
                   tabBar.appendChild(btn);
             }
             this._el.appendChild(tabBar);
+
+            this._scheduleFit();
+      }
+
+      private _scheduleFit(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            this._fitPanelScale();
+            this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
+      }
+
+      private _fitPanelScale(): void {
+            this._el.style.transformOrigin = 'center center';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+
+            const vh = window.innerHeight || 0;
+            const available = Math.max(0, Math.floor(vh * 0.88) - 6);
+            if (available <= 0) return;
+
+            const needed = this._el.scrollHeight;
+            if (needed <= 0 || needed <= available) return;
+
+            const scale = Math.max(0.62, Math.min(1, available / needed));
+            this._el.style.setProperty('transform', `translate(-50%, -50%) scale(${scale})`, 'important');
       }
 
       private _renderFriends(body: HTMLDivElement): void {
@@ -229,7 +258,19 @@ export class CommunityPanel {
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._render(); }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      show(): void {
+            this._visible = true;
+            this._el.style.display = 'block';
+            this._render();
+      }
+      hide(): void {
+            this._visible = false;
+            this._el.style.display = 'none';
+            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+      }
+      dispose(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

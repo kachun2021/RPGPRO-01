@@ -20,6 +20,10 @@ export class QuestPanel {
       private _currentTab: QTab = 'world';
       private _selectedQuestId: string | null = null;
       private _questManager: QuestManager;
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._syncResponsiveMode();
+      };
 
       get element(): HTMLDivElement { return this._el; }
 
@@ -31,9 +35,11 @@ export class QuestPanel {
             this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
             questManager.onChange = () => { if (this._visible) this._render(); };
+            window.addEventListener('resize', this._onResize);
       }
 
       private _render(): void {
+            this._syncResponsiveMode();
             this._el.innerHTML = '';
 
             // Title bar
@@ -103,7 +109,9 @@ export class QuestPanel {
                         this._selectedQuestId = quests[0].id;
                   }
             }
-            this._el.appendChild(directory);
+            const body = document.createElement('div');
+            body.className = 'qp-body';
+            body.appendChild(directory);
 
             // Quest detail view
             const selectedQuest = quests.find(q => q.id === this._selectedQuestId);
@@ -149,7 +157,18 @@ export class QuestPanel {
             } else {
                   detail.innerHTML = '<div class="qp-detail-empty">選擇一個任務查看詳情</div>';
             }
-            this._el.appendChild(detail);
+            body.appendChild(detail);
+            this._el.appendChild(body);
+      }
+
+      private _isLandscapeFocusMode(): boolean {
+            const w = window.innerWidth || 0;
+            const h = window.innerHeight || 0;
+            return w > h && h <= 1080;
+      }
+
+      private _syncResponsiveMode(): void {
+            this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
       }
 
       /** Actually apply reward effects to game systems */
@@ -207,7 +226,15 @@ export class QuestPanel {
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._render(); }
+      show(): void {
+            this._visible = true;
+            this._syncResponsiveMode();
+            this._el.style.display = 'block';
+            this._render();
+      }
       hide(): void { this._visible = false; this._el.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      dispose(): void {
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

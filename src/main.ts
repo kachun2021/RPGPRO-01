@@ -61,6 +61,79 @@ import { ShopPanel } from './ui/ShopPanel';
 // P9 System Settings
 import { SystemPanel } from './ui/SystemPanel';
 
+function installGlobalPanelViewportFit(): () => void {
+      let fitRaf = 0;
+
+      const parseScale = (el: HTMLElement): number => {
+            const raw = el.style.transform || '';
+            const m = raw.match(/scale\(([\d.]+)\)/);
+            if (!m) return 1;
+            const n = Number(m[1]);
+            return Number.isFinite(n) && n > 0 ? n : 1;
+      };
+
+      const fitPanels = (): void => {
+            const uiLayer = document.getElementById('ui-layer');
+            if (!uiLayer) return;
+
+            const vw = window.innerWidth || 0;
+            const vh = window.innerHeight || 0;
+            if (vw <= 0 || vh <= 0) return;
+
+            const safeTop = 10;
+            const safeBottom = Math.max(86, Math.floor(vh * 0.12));
+            const safeSide = 10;
+            const maxW = Math.max(260, vw - safeSide * 2);
+            const maxH = Math.max(220, vh - safeTop - safeBottom);
+
+            const panels = uiLayer.querySelectorAll<HTMLElement>('.sa-panel');
+            panels.forEach((el) => {
+                  const cs = window.getComputedStyle(el);
+                  if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return;
+
+                  const isPetPanel = el.id === 'petPanel';
+                  const baseTransform = isPetPanel ? 'translateY(-50%)' : 'translate(-50%, -50%)';
+                  const origin = isPetPanel ? 'right center' : 'center center';
+
+                  const rect = el.getBoundingClientRect();
+                  if (rect.width <= 0 || rect.height <= 0) return;
+
+                  const currentScale = parseScale(el);
+                  const naturalW = Math.max(el.scrollWidth, rect.width / currentScale);
+                  const naturalH = Math.max(el.scrollHeight, rect.height / currentScale);
+                  const nextScale = Math.max(0.5, Math.min(1, maxW / naturalW, maxH / naturalH));
+
+                  const prevApplied = Number(el.dataset.fitScale || '1');
+                  if (Math.abs(prevApplied - nextScale) < 0.01 && el.dataset.fitBase === baseTransform) return;
+
+                  el.style.transformOrigin = origin;
+                  el.style.setProperty('transform', `${baseTransform} scale(${nextScale.toFixed(3)})`, 'important');
+                  el.dataset.fitBase = baseTransform;
+                  el.dataset.fitScale = String(nextScale);
+            });
+      };
+
+      const scheduleFit = (): void => {
+            if (fitRaf) cancelAnimationFrame(fitRaf);
+            fitRaf = requestAnimationFrame(() => {
+                  fitRaf = 0;
+                  fitPanels();
+            });
+      };
+
+      window.addEventListener('resize', scheduleFit);
+      window.addEventListener('orientationchange', scheduleFit);
+      document.addEventListener('click', (evt) => {
+            const target = evt.target as HTMLElement | null;
+            if (!target) return;
+            if (!target.closest('.sa-panel, .sa-nav-btn, .panel-close, .game-btn, .skill-tab-btn, .afk-menu-btn, .sa-tag')) return;
+            scheduleFit();
+      }, true);
+
+      scheduleFit();
+      return scheduleFit;
+}
+
 function initUiFeedbackSfx(): void {
       let audioCtx: AudioContext | null = null;
       let lastPlayed = 0;
@@ -114,6 +187,7 @@ function initUiFeedbackSfx(): void {
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
       initUiFeedbackSfx();
+      const schedulePanelViewportFit = installGlobalPanelViewportFit();
 
       // 1. Engine
       const engineManager = new EngineManager();
@@ -336,6 +410,7 @@ async function bootstrap(): Promise<void> {
             autoGrindBtn.textContent = on ? 'AUTO ON' : 'AUTO';
             afkPanel.notifyAutoStateChanged(on);
             autoSettingsBtn.classList.toggle('active', afkPanel.isVisible);
+            schedulePanelViewportFit();
       };
 
       autoGrindBtn.addEventListener('click', () => {
@@ -441,36 +516,43 @@ async function bootstrap(): Promise<void> {
             if (except !== 'settings') systemPanel.hide();
             if (except !== 'afk') afkPanel.hide();
             syncAutoUi();
+            schedulePanelViewportFit();
       };
 
       const openPetPanel = (): void => {
             closeSubPanels('pet');
             petPanel.open();
             petPanel.refresh();
+            schedulePanelViewportFit();
       };
 
       const openFusionPanel = (): void => {
             closeSubPanels('fusion');
             fusionPanel.refresh();
             fusionPanel.open();
+            schedulePanelViewportFit();
       };
 
       const openEncyclopediaPanel = (): void => {
             closeSubPanels('book');
             encyclopediaPanel.open();
+            schedulePanelViewportFit();
       };
 
       openShopPanelByDialogue = (mode) => {
             closeSubPanels('shop');
             shopPanel.show(mode);
+            schedulePanelViewportFit();
       };
       openSkillPanelByDialogue = () => {
             closeSubPanels('skill');
             skillPanel.show();
+            schedulePanelViewportFit();
       };
       openQuestPanelByDialogue = () => {
             closeSubPanels('quest');
             questPanel.show();
+            schedulePanelViewportFit();
       };
       openPetPanelByDialogue = () => openPetPanel();
       toggleAfkPanelExclusive = () => {
@@ -481,6 +563,7 @@ async function bootstrap(): Promise<void> {
                   afkPanel.show();
             }
             syncAutoUi();
+            schedulePanelViewportFit();
       };
 
       // Re-wire callbacks with exclusive-open behavior.
@@ -489,29 +572,35 @@ async function bootstrap(): Promise<void> {
       petPanel.onOpenRename = (pet) => {
             closeSubPanels('rename');
             renamePanel.openFor(pet, () => petPanel.refresh());
+            schedulePanelViewportFit();
       };
       petPanel.onOpenRevival = () => {
             closeSubPanels('revival');
             revivalPanel.open(() => petPanel.refresh());
+            schedulePanelViewportFit();
       };
 
       fusionPanel.setMapNavigator((mapName, petName) => {
             closeSubPanels('map');
             worldMapPanel.openAtMap(mapName, petName);
+            schedulePanelViewportFit();
       });
 
       worldMapPanel.setNavigationHandlers({
             onOpenEncyclopedia: (petName, mapName) => {
                   closeSubPanels('book');
                   encyclopediaPanel.openPetByName(petName, mapName);
+                  schedulePanelViewportFit();
             },
             onOpenFusionByIngredient: (petName, mapName) => {
                   closeSubPanels('fusion');
                   fusionPanel.openToRecipesByIngredientName(petName, mapName);
+                  schedulePanelViewportFit();
             },
             onOpenFusionByTarget: (targetName, mapName) => {
                   closeSubPanels('fusion');
                   fusionPanel.openToRecipesByTargetName(targetName, mapName);
+                  schedulePanelViewportFit();
             },
       });
 
@@ -519,10 +608,12 @@ async function bootstrap(): Promise<void> {
             onOpenRecipe: (petName, sourceMap) => {
                   closeSubPanels('fusion');
                   fusionPanel.openToRecipesByTargetName(petName, sourceMap);
+                  schedulePanelViewportFit();
             },
             onOpenMap: (mapName, petName) => {
                   closeSubPanels('map');
                   worldMapPanel.openAtMap(mapName, petName);
+                  schedulePanelViewportFit();
             },
       });
 
@@ -530,6 +621,7 @@ async function bootstrap(): Promise<void> {
       hud.getPortrait(0)?.addEventListener('click', () => {
             closeSubPanels('char');
             characterPanel.show();
+            schedulePanelViewportFit();
       });
       for (let i = 1; i <= 3; i++) {
             hud.getPortrait(i)?.addEventListener('click', () => {
@@ -543,35 +635,90 @@ async function bootstrap(): Promise<void> {
       hud.getNavButton('nav-settings')?.addEventListener('click', () => {
             closeSubPanels('settings');
             systemPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-shop')?.addEventListener('click', () => {
             closeSubPanels('shop');
             shopPanel.show('buy');
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-community')?.addEventListener('click', () => {
             closeSubPanels('community');
             communityPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-quest')?.addEventListener('click', () => {
             closeSubPanels('quest');
             questPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-char')?.addEventListener('click', () => {
             closeSubPanels('char');
             characterPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-bag')?.addEventListener('click', () => {
             closeSubPanels('bag');
             inventoryPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-map')?.addEventListener('click', () => {
             closeSubPanels('map');
             worldMapPanel.show();
+            schedulePanelViewportFit();
       });
       hud.getNavButton('nav-skill')?.addEventListener('click', () => {
             closeSubPanels('skill');
             skillPanel.show();
+            schedulePanelViewportFit();
       });
+
+      // Expose concise state for automated game checks.
+      const isUiVisible = (id: string): boolean => {
+            const el = document.getElementById(id);
+            if (!el) return false;
+            const cs = window.getComputedStyle(el);
+            return cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0';
+      };
+      (window as any).render_game_to_text = (): string => {
+            const payload = {
+                  mode: document.getElementById('loading-screen') ? 'loading' : 'play',
+                  zone: {
+                        id: zoneManager.currentZone.id,
+                        name: zoneManager.currentZone.name,
+                  },
+                  player: {
+                        x: Number(player.position.x.toFixed(2)),
+                        y: Number(player.position.y.toFixed(2)),
+                        z: Number(player.position.z.toFixed(2)),
+                        hp: Math.round(player.stats.hp),
+                        maxHp: Math.round(player.stats.maxHp),
+                        mp: Math.round(player.stats.mp),
+                        maxMp: Math.round(player.stats.maxMp),
+                        level: player.stats.level,
+                        exp: Math.round(player.stats.exp),
+                        gold: inventory.gold,
+                  },
+                  world: {
+                        aliveMonsters: monsterManager.alive.length,
+                        inventoryCount: inventory.count,
+                        autoGrind: combatLoop.isAutoGrind,
+                  },
+                  openPanels: {
+                        quest: isUiVisible('quest-panel'),
+                        inventory: isUiVisible('inventory-panel'),
+                        skill: isUiVisible('skill-panel'),
+                        system: isUiVisible('sys-panel'),
+                        pet: isUiVisible('petPanel'),
+                        map: isUiVisible('world-map-panel'),
+                        shop: isUiVisible('shop-panel'),
+                        community: isUiVisible('community-panel'),
+                        character: isUiVisible('char-panel'),
+                        afk: isUiVisible('afk-panel'),
+                  },
+            };
+            return JSON.stringify(payload);
+      };
 
       // 16. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
@@ -582,6 +729,7 @@ async function bootstrap(): Promise<void> {
 
       // Game loop
       let lastTime = performance.now();
+      let panelFitTick = 0;
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
             const dt = (now - lastTime) / 1000;
@@ -629,10 +777,16 @@ async function bootstrap(): Promise<void> {
 
             // P9: NPC billboard + proximity
             npcManager.update(dt, player.position);
+
+            panelFitTick++;
+            if (panelFitTick % 24 === 0) {
+                  schedulePanelViewportFit();
+            }
       });
 
       // Start render loop
       engineManager.startRenderLoop();
+      schedulePanelViewportFit();
 
       console.log('[Fantasy Pet Online] P9 Ready — Quests + NPCs + Dialogue');
 }

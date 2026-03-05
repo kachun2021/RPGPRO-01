@@ -1,7 +1,5 @@
 /**
- * ShopPanel — Premium NPC shop UI with category tabs + item cards + buy/sell.
- * Opens from DialoguePanel or nav bar.
- * Stone Age Premium Dark Theme with rarity borders, quantity controls, and gold display.
+ * ShopPanel - NPC shop UI with mode/category sidebar and item list.
  */
 
 import type { ShopManager, ShopCategory, ShopItem } from '../systems/ShopManager';
@@ -32,6 +30,10 @@ export class ShopPanel {
       private _shop: ShopManager;
       private _inventory: Inventory;
       private _quantities: Map<string, number> = new Map();
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._render();
+      };
 
       constructor(shop: ShopManager, inventory: Inventory) {
             this._shop = shop;
@@ -43,55 +45,63 @@ export class ShopPanel {
             this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
 
-            this._inventory.onChange = () => { if (this._visible) this._render(); };
+            this._inventory.onChange = () => {
+                  if (this._visible) this._render();
+            };
+            window.addEventListener('resize', this._onResize);
       }
 
       private _render(): void {
+            this._el.classList.remove('is-focus-mode');
+            this._el.dataset.mode = this._mode;
+
             const gold = this._inventory.gold;
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        <span class="shop-title-icon">${this._mode === 'buy' ? '🏪' : '📦'}</span>
+                        <span class="shop-title-icon">${this._mode === 'buy' ? '🛍' : '💸'}</span>
                         ${this._mode === 'buy' ? '商店' : '出售'}
                         <span class="shop-gold-badge">💰 <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
                         <span class="panel-close" id="shop-close">×</span>
                   </div>
-
-                  <div class="shop-mode-bar">
-                        <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🛒 購買</button>
-                        <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">💰 出售</button>
+                  <div class="shop-layout">
+                        <aside class="shop-side">
+                              <div class="shop-mode-bar">
+                                    <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🧺 購買</button>
+                                    <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">💰 出售</button>
+                              </div>
+                              ${this._mode === 'buy'
+                                    ? this._renderCategoryTabs()
+                                    : '<div class="shop-side-note">出售模式：從右側清單選擇要賣出的物品。</div>'}
+                        </aside>
+                        <section class="shop-main">
+                              <div class="shop-main-head">
+                                    <span class="shop-main-title">${this._mode === 'buy' ? '商品清單' : '可出售物品'}</span>
+                                    <span class="shop-main-sub">${this._mode === 'buy' ? '左欄切換分類' : '調整數量後按出售'}</span>
+                              </div>
+                              <div class="shop-grid" id="shop-grid"></div>
+                        </section>
                   </div>
-
-                  ${this._mode === 'buy' ? this._renderCategoryTabs() : ''}
-
-                  <div class="shop-grid" id="shop-grid"></div>
             `;
 
-            // Bind close
             this._el.querySelector('#shop-close')?.addEventListener('click', () => this.hide());
 
-            // Bind mode buttons
-            this._el.querySelectorAll('.shop-mode-btn').forEach(btn => {
+            this._el.querySelectorAll('.shop-mode-btn').forEach((btn) => {
                   btn.addEventListener('click', () => {
                         this._mode = (btn as HTMLElement).dataset.mode as 'buy' | 'sell';
                         this._render();
                   });
             });
 
-            // Bind category tabs
-            this._el.querySelectorAll('.shop-cat-btn').forEach(btn => {
+            this._el.querySelectorAll('.shop-cat-btn').forEach((btn) => {
                   btn.addEventListener('click', () => {
                         this._category = (btn as HTMLElement).dataset.cat as ShopCategory;
                         this._render();
                   });
             });
 
-            // Render items
             const grid = this._el.querySelector('#shop-grid') as HTMLDivElement;
-            if (this._mode === 'buy') {
-                  this._renderBuyItems(grid);
-            } else {
-                  this._renderSellItems(grid);
-            }
+            if (this._mode === 'buy') this._renderBuyItems(grid);
+            else this._renderSellItems(grid);
       }
 
       private _renderCategoryTabs(): string {
@@ -106,7 +116,7 @@ export class ShopPanel {
       private _renderBuyItems(grid: HTMLDivElement): void {
             const items = this._shop.getByCategory(this._category);
             if (items.length === 0) {
-                  grid.innerHTML = '<div class="shop-empty">📭 此分類暫無商品</div>';
+                  grid.innerHTML = '<div class="shop-empty">此分類暫時沒有商品</div>';
                   return;
             }
 
@@ -118,14 +128,14 @@ export class ShopPanel {
       private _renderSellItems(grid: HTMLDivElement): void {
             const invItems = this._inventory.items.filter(i => i.type !== 'quest');
             if (invItems.length === 0) {
-                  grid.innerHTML = '<div class="shop-empty">🎒 背包空空如也</div>';
+                  grid.innerHTML = '<div class="shop-empty">背包沒有可出售物品</div>';
                   return;
             }
 
             for (const item of invItems) {
                   const sellPrice = this._shop.getSellPrice(item.itemId);
                   const card = document.createElement('div');
-                  card.className = `shop-card`;
+                  card.className = 'shop-card';
                   card.style.borderColor = RARITY_COLORS[item.rarity || 'common'];
 
                   const qty = this._getQty(item.itemId, item.qty);
@@ -160,7 +170,7 @@ export class ShopPanel {
                         const q = this._getQty(item.itemId, item.qty);
                         const totalGold = this._shop.sell(item.itemId, q, this._inventory);
                         if (totalGold > 0) {
-                              this._showToast(`📦 出售獲得 ${totalGold} 💰`, '#27AE60');
+                              this._showToast(`出售獲得 ${totalGold} 金幣`, '#27AE60');
                               this._quantities.delete(item.itemId);
                         }
                         this._render();
@@ -207,28 +217,28 @@ export class ShopPanel {
             card.querySelector('.buy-btn')?.addEventListener('click', (e) => {
                   e.stopPropagation();
                   if (!canAfford) {
-                        this._showToast('❌ 金幣不足！', '#E74C3C');
+                        this._showToast('金幣不足', '#E74C3C');
                         return;
                   }
+
                   const q = this._getQty(item.id, 99);
                   let bought = 0;
                   for (let i = 0; i < q; i++) {
                         if (this._shop.buy(item.id, 1, this._inventory)) bought++;
                         else break;
                   }
+
                   if (bought > 0) {
-                        this._showToast(`✅ 購買 ${item.name} ×${bought}`, '#27AE60');
+                        this._showToast(`購買 ${item.name} x${bought}`, '#27AE60');
                         this._quantities.delete(item.id);
                   } else {
-                        this._showToast('❌ 金幣不足！', '#E74C3C');
+                        this._showToast('金幣不足', '#E74C3C');
                   }
                   this._render();
             });
 
             return card;
       }
-
-      // ─── Quantity Controls ───
 
       private _getQty(id: string, max: number): number {
             return Math.min(this._quantities.get(id) ?? 1, max);
@@ -243,6 +253,7 @@ export class ShopPanel {
                         this._render();
                   }
             });
+
             card.querySelector('.shop-qty-btn.plus')?.addEventListener('click', (e) => {
                   e.stopPropagation();
                   const cur = this._getQty(id, max);
@@ -252,8 +263,6 @@ export class ShopPanel {
                   }
             });
       }
-
-      // ─── Toast ───
 
       private _showToast(msg: string, color: string): void {
             const el = document.createElement('div');
@@ -267,8 +276,6 @@ export class ShopPanel {
                   setTimeout(() => el.remove(), 300);
             }, 2000);
       }
-
-      // ─── Public API ───
 
       show(mode: 'buy' | 'sell' = 'buy'): void {
             this._mode = mode;
@@ -284,5 +291,9 @@ export class ShopPanel {
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      dispose(): void { this._el.remove(); }
+
+      dispose(): void {
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

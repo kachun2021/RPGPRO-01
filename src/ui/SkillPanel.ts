@@ -97,7 +97,7 @@ export class SkillPanel {
       private _isLandscapeFocusMode(): boolean {
             const w = window.innerWidth || 0;
             const h = window.innerHeight || 0;
-            return w > h && w <= 980 && h <= 540;
+            return w > h && w <= 1600 && h <= 900;
       }
 
       private _syncResponsiveMode(): void {
