@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import json
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,9 +36,12 @@ def to_int(value: Any, default: int = 0) -> int:
 class CheckResult:
     name: str
     passed: bool
-    bad_count: int
+    bad_total: int
     total: int
     sample_bad: list[dict[str, Any]]
+    bad_key_counts: dict[str, int]
+    raw_bad_total: int
+    suppressed_by_override: int
 
 
 def run_fk_check(
@@ -51,6 +55,8 @@ def run_fk_check(
 ) -> CheckResult:
     ignore_values = ignore_values or set()
     bad: list[dict[str, Any]] = []
+    bad_total = 0
+    bad_key_counter: Counter[int] = Counter()
     total = 0
 
     for row in rows:
@@ -59,12 +65,42 @@ def run_fk_check(
             continue
         total += 1
         if key not in valid_set:
+            bad_total += 1
+            bad_key_counter[key] += 1
             if len(bad) < sample_limit:
                 bad.append({'key': key, 'row': row})
 
-    bad_count = len(bad)
-    passed = bad_count == 0
-    return CheckResult(name=name, passed=passed, bad_count=bad_count, total=total, sample_bad=bad)
+    passed = bad_total == 0
+    return CheckResult(
+        name=name,
+        passed=passed,
+        bad_total=bad_total,
+        total=total,
+        sample_bad=bad,
+        bad_key_counts={str(k): v for k, v in sorted(bad_key_counter.items(), key=lambda kv: (-kv[1], kv[0]))},
+        raw_bad_total=bad_total,
+        suppressed_by_override=0,
+    )
+
+
+def load_reference_overrides(source_dir: Path) -> dict[str, Any]:
+    path = source_dir / 'reference_overrides.json'
+    if not path.exists():
+        return {}
+    payload = load_json(path)
+    if not isinstance(payload, dict):
+        return {}
+    return payload
+
+
+def get_override_values(overrides: dict[str, Any], section: str, check_name: str) -> set[int]:
+    section_map = overrides.get(section, {})
+    if not isinstance(section_map, dict):
+        return set()
+    raw = section_map.get(check_name, [])
+    if not isinstance(raw, list):
+        return set()
+    return {to_int(v) for v in raw}
 
 
 def write_json(path: Path, data: Any) -> None:
@@ -81,14 +117,19 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.append(f"- Total Checks: {payload['summary']['totalChecks']}")
     lines.append(f"- Passed: {payload['summary']['passedChecks']}")
     lines.append(f"- Failed: {payload['summary']['failedChecks']}")
+    lines.append(f"- Invalid Refs (Effective): {payload['summary']['invalidRefsTotal']}")
+    lines.append(f"- Invalid Refs (Raw): {payload['summary']['rawInvalidRefsTotal']}")
+    lines.append(f"- Suppressed By Overrides: {payload['summary']['suppressedByOverridesTotal']}")
     lines.append('')
     lines.append('## Check Results')
     lines.append('')
-    lines.append('| Check | Status | Invalid / Checked |')
-    lines.append('|---|---:|---:|')
+    lines.append('| Check | Status | Effective Invalid / Checked | Raw Invalid | Suppressed |')
+    lines.append('|---|---:|---:|---:|---:|')
     for check in payload['checks']:
         status = 'PASS' if check['passed'] else 'FAIL'
-        lines.append(f"| {check['name']} | {status} | {check['badCount']} / {check['total']} |")
+        lines.append(
+            f"| {check['name']} | {status} | {check['badTotal']} / {check['total']} | {check.get('rawBadTotal', check['badTotal'])} | {check.get('suppressedByOverride', 0)} |"
+        )
 
     failed = [c for c in payload['checks'] if not c['passed']]
     if failed:
@@ -98,6 +139,11 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         for check in failed:
             lines.append(f"### {check['name']}")
             lines.append('')
+            if check.get('badKeyCounts'):
+                lines.append('- Top invalid keys:')
+                for key, count in list(check['badKeyCounts'].items())[:10]:
+                    lines.append(f"  - `{key}` x {count}")
+                lines.append('')
             for sample in check['sampleBad'][:10]:
                 lines.append(f"- invalidKey=`{sample['key']}` row={json.dumps(sample['row'], ensure_ascii=False)}")
             lines.append('')
@@ -120,6 +166,8 @@ def main() -> None:
         if isinstance(payload, list):
             tables[json_file.stem] = payload
 
+    overrides = load_reference_overrides(source_dir)
+
     zone_ids = {to_int(r.get('idx')) for r in tables.get('s_zone', [])}
     monster_types = {to_int(r.get('type')) for r in tables.get('s_monster', [])}
     mobitem_ids = {to_int(r.get('idx')) for r in tables.get('s_mobitem', [])}
@@ -128,8 +176,42 @@ def main() -> None:
 
     checks: list[CheckResult] = []
 
+    def run_check(
+        *,
+        name: str,
+        rows: Iterable[dict[str, Any]],
+        key_fn,
+        valid_set: set[int],
+        ignore_values: set[int] | None = None,
+    ) -> CheckResult:
+        base_valid = set(valid_set)
+        base_ignore = set(ignore_values or set())
+
+        raw = run_fk_check(
+            name=name,
+            rows=rows,
+            key_fn=key_fn,
+            valid_set=base_valid,
+            ignore_values=base_ignore,
+        )
+
+        merged_valid = set(valid_set)
+        merged_valid.update(get_override_values(overrides, 'checkExtraValidValues', name))
+        merged_ignore = set(ignore_values or set())
+        merged_ignore.update(get_override_values(overrides, 'checkIgnoreValues', name))
+        effective = run_fk_check(
+            name=name,
+            rows=rows,
+            key_fn=key_fn,
+            valid_set=merged_valid,
+            ignore_values=merged_ignore,
+        )
+        effective.raw_bad_total = raw.bad_total
+        effective.suppressed_by_override = max(0, raw.bad_total - effective.bad_total)
+        return effective
+
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_gate.from_zone_idx -> s_zone.idx',
             rows=tables.get('s_gate', []),
             key_fn=lambda r: r.get('from_zone_idx'),
@@ -137,7 +219,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_gate.dest_zone_idx -> s_zone.idx',
             rows=tables.get('s_gate', []),
             key_fn=lambda r: r.get('dest_zone_idx'),
@@ -149,7 +231,7 @@ def main() -> None:
     mob_rows = tables.get('s_mob', [])
     for slot in range(6):
         checks.append(
-            run_fk_check(
+            run_check(
                 name=f's_mob.zone_idx{slot} -> s_zone.idx',
                 rows=mob_rows,
                 key_fn=lambda r, s=slot: r.get(f'zone_idx{s}'),
@@ -159,7 +241,7 @@ def main() -> None:
         )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_mob.monster_type -> s_monster.type',
             rows=mob_rows,
             key_fn=lambda r: r.get('monster_type'),
@@ -168,7 +250,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_mob.mobitem_idx -> s_mobitem.idx',
             rows=mob_rows,
             key_fn=lambda r: r.get('mobitem_idx'),
@@ -180,7 +262,7 @@ def main() -> None:
     # mix refs
     mix_rows = tables.get('s_mix', [])
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_mix.mainnum -> s_monster.type',
             rows=mix_rows,
             key_fn=lambda r: r.get('mainnum'),
@@ -188,7 +270,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_mix.subnum -> s_monster.type',
             rows=mix_rows,
             key_fn=lambda r: r.get('subnum'),
@@ -196,7 +278,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_mix.result -> s_monster.type',
             rows=mix_rows,
             key_fn=lambda r: r.get('result'),
@@ -206,7 +288,7 @@ def main() -> None:
 
     # npc refs
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_npc.birth_zone_idx -> s_zone.idx',
             rows=tables.get('s_npc', []),
             key_fn=lambda r: r.get('birth_zone_idx'),
@@ -215,7 +297,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_npc_sale.npc_idx -> s_npc.idx',
             rows=tables.get('s_npc_sale', []),
             key_fn=lambda r: r.get('npc_idx'),
@@ -224,7 +306,7 @@ def main() -> None:
         )
     )
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_npc_sale.sale_idx -> s_item.idx',
             rows=tables.get('s_npc_sale', []),
             key_fn=lambda r: r.get('sale_idx'),
@@ -236,7 +318,7 @@ def main() -> None:
     # mob drop item refs
     for slot in range(10):
         checks.append(
-            run_fk_check(
+            run_check(
                 name=f's_mobitem.item_idx{slot} -> s_item.idx',
                 rows=tables.get('s_mobitem', []),
                 key_fn=lambda r, s=slot: r.get(f'item_idx{s}'),
@@ -248,7 +330,7 @@ def main() -> None:
     # production item refs
     prod_rows = tables.get('s_Production', [])
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_Production.result_idx -> s_item.idx',
             rows=prod_rows,
             key_fn=lambda r: r.get('result_idx'),
@@ -258,7 +340,7 @@ def main() -> None:
     )
     for slot in range(1, 11):
         checks.append(
-            run_fk_check(
+            run_check(
                 name=f's_Production.stuff_idx{slot} -> s_item.idx',
                 rows=prod_rows,
                 key_fn=lambda r, s=slot: r.get(f'stuff_idx{s}'),
@@ -271,7 +353,7 @@ def main() -> None:
     event_drop_rows = tables.get('s_event_drop', [])
     for slot in range(1, 11):
         checks.append(
-            run_fk_check(
+            run_check(
                 name=f's_event_drop.item_{slot:02d} -> s_item.idx',
                 rows=event_drop_rows,
                 key_fn=lambda r, s=slot: r.get(f'item_{s:02d}'),
@@ -281,7 +363,7 @@ def main() -> None:
         )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_hero.birth_zone_idx -> s_zone.idx',
             rows=tables.get('s_hero', []),
             key_fn=lambda r: r.get('birth_zone_idx'),
@@ -291,7 +373,7 @@ def main() -> None:
     )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_CastleWarInfo.zone_idx -> s_zone.idx',
             rows=tables.get('s_CastleWarInfo', []),
             key_fn=lambda r: r.get('zone_idx'),
@@ -301,7 +383,7 @@ def main() -> None:
     )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='s_CastleWarInfo.npc_idx -> s_npc.idx',
             rows=tables.get('s_CastleWarInfo', []),
             key_fn=lambda r: r.get('npc_idx'),
@@ -311,7 +393,7 @@ def main() -> None:
     )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='u_item.item_idx -> s_item.idx',
             rows=tables.get('u_item', []),
             key_fn=lambda r: r.get('item_idx'),
@@ -321,7 +403,7 @@ def main() -> None:
     )
 
     checks.append(
-        run_fk_check(
+        run_check(
             name='u_hench_1.monster_type -> s_monster.type',
             rows=tables.get('u_hench_1', []),
             key_fn=lambda r: r.get('monster_type'),
@@ -334,15 +416,21 @@ def main() -> None:
         {
             'name': c.name,
             'passed': c.passed,
-            'badCount': c.bad_count,
+            'badTotal': c.bad_total,
             'total': c.total,
             'sampleBad': c.sample_bad,
+            'badKeyCounts': c.bad_key_counts,
+            'rawBadTotal': c.raw_bad_total,
+            'suppressedByOverride': c.suppressed_by_override,
         }
         for c in checks
     ]
 
     passed = sum(1 for c in checks if c.passed)
     failed = len(checks) - passed
+    invalid_refs_total = sum(c.bad_total for c in checks)
+    raw_invalid_refs_total = sum(c.raw_bad_total for c in checks)
+    suppressed_total = sum(c.suppressed_by_override for c in checks)
 
     report_payload = {
         'builtAt': now_iso(),
@@ -351,7 +439,11 @@ def main() -> None:
             'totalChecks': len(checks),
             'passedChecks': passed,
             'failedChecks': failed,
+            'invalidRefsTotal': invalid_refs_total,
+            'rawInvalidRefsTotal': raw_invalid_refs_total,
+            'suppressedByOverridesTotal': suppressed_total,
         },
+        'overridesApplied': overrides,
         'checks': check_payloads,
     }
 

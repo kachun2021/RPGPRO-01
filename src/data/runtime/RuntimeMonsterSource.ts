@@ -9,6 +9,7 @@ export type RuntimeMonsterBehavior = 'aggressive' | 'passive';
 export interface RuntimeMonsterTemplate {
       sourceMobIdx: number;
       monsterType: number;
+      mobItemIdx: number;
       name: string;
       level: number;
       series: PetSeries;
@@ -41,6 +42,7 @@ interface RuntimeMobSlotRow {
 interface RuntimeMobSpawnRow {
       mobIdx: number;
       monsterType: number;
+      mobItemIdx?: number;
       aggressive?: number;
       slots?: RuntimeMobSlotRow[];
 }
@@ -206,6 +208,7 @@ function ensurePool(): Map<string, RuntimeMonsterTemplate[]> {
                         sceneMap.set(monsterType, {
                               sourceMobIdx: toInt(spawn.mobIdx, 0),
                               monsterType,
+                              mobItemIdx: Math.max(0, toInt(spawn.mobItemIdx, 0)),
                               name,
                               level: baseLevel,
                               series: mapRaceToSeries(race),
@@ -222,6 +225,7 @@ function ensurePool(): Map<string, RuntimeMonsterTemplate[]> {
                   }
 
                   prev.level = Math.max(prev.level, baseLevel);
+                  if (prev.mobItemIdx <= 0) prev.mobItemIdx = Math.max(0, toInt(spawn.mobItemIdx, 0));
                   prev.behavior = prev.behavior === 'aggressive' || behavior === 'aggressive' ? 'aggressive' : 'passive';
                   prev.respawnSec = Math.max(8, Math.min(prev.respawnSec, intervalSec));
                   prev.isBoss = prev.isBoss || isBoss;
@@ -250,4 +254,3 @@ export function getRuntimeMonstersForSceneZone(sceneZoneId: string): RuntimeMons
       const pool = ensurePool().get(sceneZoneId);
       return pool ? pool.map(entry => ({ ...entry })) : [];
 }
-

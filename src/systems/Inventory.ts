@@ -51,6 +51,37 @@ export class Inventory {
 
       set onChange(cb: (() => void) | null) { this._onChange = cb; }
 
+      /** Replace all inventory content from persisted snapshot */
+      replaceFromSave(gold: number, items: InventoryItem[]): void {
+            this._gold = Math.max(0, Math.floor(gold));
+            this._items = items.map((item) => {
+                  const type = item.type;
+                  const maxStack = MAX_STACKS[type] ?? 99;
+                  return {
+                        itemId: String(item.itemId ?? ''),
+                        name: String(item.name ?? ''),
+                        type,
+                        rarity: item.rarity,
+                        qty: Math.max(1, Math.min(maxStack, Math.floor(item.qty))),
+                        maxStack,
+                        icon: String(item.icon ?? '📦'),
+                        description: String(item.description ?? ''),
+                  };
+            });
+            this._onChange?.();
+      }
+
+      /** Clear all inventory content */
+      resetAll(): void {
+            this._items = [];
+            this._gold = 0;
+            this.totalKills = 0;
+            this.totalGoldGained = 0;
+            this.totalExpGained = 0;
+            this.totalItemsFound = 0;
+            this._onChange?.();
+      }
+
       addItem(drop: DroppedItem): void {
             // Gold is special — just add to counter
             if (drop.type === 'gold') {

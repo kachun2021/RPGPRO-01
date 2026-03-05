@@ -1,0 +1,19 @@
+{
+  "checkIgnoreValues": {
+    "s_mob.mobitem_idx -> s_mobitem.idx": [645],
+    "s_npc.birth_zone_idx -> s_zone.idx": [248, 249, 250],
+    "s_npc_sale.npc_idx -> s_npc.idx": [35]
+  },
+  "checkExtraValidValues": {
+    "s_npc_sale.sale_idx -> s_item.idx": [4369, 4371],
+    "s_mobitem.item_idx4 -> s_item.idx": [4369, 4371],
+    "s_Production.result_idx -> s_item.idx": [
+      5729, 5730, 5731, 5732, 5733, 5734, 5735, 5736,
+      5737, 5738, 5739, 5740, 5741, 5742, 5743, 5744,
+      5745, 5746
+    ],
+    "s_Production.stuff_idx2 -> s_item.idx": [
+      4369, 5737, 5738, 5739, 5740, 5741, 5742, 5743, 5744
+    ]
+  }
+}

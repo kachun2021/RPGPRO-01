@@ -26,6 +26,9 @@ function buildDefsForZone(zoneId: string): MonsterDef[] {
             defs.push({
                   id: `mon_${zoneId}_${row.monsterType}_${i}`,
                   name: row.name,
+                  sourceMonsterType: row.monsterType,
+                  sourceMobIdx: row.sourceMobIdx,
+                  mobItemIdx: row.mobItemIdx,
                   level: row.level,
                   series: row.series,
                   behavior: row.behavior,
@@ -230,4 +233,3 @@ export class MonsterManager {
             this.despawnAll();
       }
 }
-

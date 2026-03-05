@@ -94,6 +94,14 @@ def load_source_tables(source_dir: Path) -> dict[str, list[dict[str, Any]]]:
     return tables
 
 
+def load_reference_overrides(source_dir: Path) -> dict[str, Any]:
+    path = source_dir / 'reference_overrides.json'
+    if not path.exists():
+        return {}
+    payload = load_json(path)
+    return payload if isinstance(payload, dict) else {}
+
+
 def build_world_topology(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     zrows = tables.get('s_zone', [])
     grows = tables.get('s_gate', [])
@@ -500,9 +508,56 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     items = tables.get('s_item', [])
     item_by_idx = {to_int(r.get('idx')): r for r in items}
 
-    npcs = tables.get('s_npc', [])
+    npcs_raw = tables.get('s_npc', [])
+    npcs_fixed = tables.get('s_npc_fixed', [])
+    npcs = npcs_fixed if npcs_fixed else npcs_raw
     npc_by_idx = {to_int(r.get('idx')): r for r in npcs}
     npc_sales = tables.get('s_npc_sale', [])
+    mob_drops = tables.get('s_mobitem', [])
+
+    # Build a virtual item map for DB ids referenced by drop/sale/production but
+    # missing in s_item. This preserves source-of-truth references and keeps UI usable.
+    missing_item_names: dict[int, str] = {}
+
+    def register_missing_item_name(item_idx: int, name: str) -> None:
+        if item_idx <= 0 or item_idx in item_by_idx:
+            return
+        text = str(name or '').strip()
+        if item_idx not in missing_item_names:
+            missing_item_names[item_idx] = '' if text == '0' else text
+            return
+        if not missing_item_names[item_idx] and text and text != '0':
+            missing_item_names[item_idx] = text
+
+    for row in mob_drops:
+        for i in range(10):
+            idx = to_int(pick(row, f'item_idx{i}'))
+            if idx <= 0 or idx == 9999:
+                continue
+            register_missing_item_name(idx, '')
+
+    production_rows = tables.get('s_Production', [])
+    for row in production_rows:
+        register_missing_item_name(to_int(pick(row, 'result_idx')), str(pick(row, 'result_name', '')).strip())
+        for slot in range(1, 11):
+            register_missing_item_name(to_int(pick(row, f'stuff_idx{slot}')), str(pick(row, f'stuff_name{slot}', '')).strip())
+
+    for row in npc_sales:
+        register_missing_item_name(to_int(pick(row, 'sale_idx')), '')
+
+    virtual_items: list[dict[str, Any]] = []
+    for item_idx in sorted(k for k in missing_item_names.keys() if k > 0):
+        virtual_items.append(
+            {
+                'idx': item_idx,
+                'name': missing_item_names[item_idx] or f'未知道具 #{item_idx}',
+                'price': 0,
+                'rarity': 0,
+                'type': 0,
+                'isVirtual': True,
+            }
+        )
+    virtual_item_by_idx = {to_int(r['idx']): r for r in virtual_items}
 
     shop_catalog: list[dict[str, Any]] = []
     for row in npc_sales:
@@ -510,7 +565,9 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
         item_idx = to_int(pick(row, 'sale_idx'))
         npc = npc_by_idx.get(npc_idx)
         item = item_by_idx.get(item_idx)
-        if not npc or not item:
+        virtual = virtual_item_by_idx.get(item_idx)
+        resolved_item = item if item else virtual
+        if not npc or not resolved_item:
             continue
         shop_catalog.append(
             {
@@ -519,15 +576,15 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
                 'saleType': to_int(pick(row, 'sale_type')),
                 'buyRatio': to_int(pick(row, 'buy_ratio')),
                 'itemIdx': item_idx,
-                'itemName': str(pick(item, 'name', '')).strip(),
-                'itemType': to_int(pick(item, 'type')),
-                'price': to_int(pick(item, 'price')),
-                'rarity': to_int(pick(item, 'rarity')),
+                'itemName': str(pick(resolved_item, 'name', '')).strip(),
+                'itemType': to_int(pick(resolved_item, 'type')),
+                'price': to_int(pick(resolved_item, 'price')),
+                'rarity': to_int(pick(resolved_item, 'rarity')),
+                'isVirtualItem': bool(virtual and not item),
             }
         )
 
     # Normalize production materials dynamically from stuff_idxN/stuff_countN
-    production_rows = tables.get('s_Production', [])
     production_recipes: list[dict[str, Any]] = []
     slot_pattern = re.compile(r'^stuff_idx(\d+)$')
     for row in production_rows:
@@ -540,22 +597,31 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
             mat_idx = to_int(value)
             if mat_idx <= 0:
                 continue
-            mats.append(
+                mats.append(
                 {
                     'slot': slot,
                     'itemIdx': mat_idx,
-                    'itemName': str(pick(row, f'stuff_name{slot}', '')).strip(),
+                    'itemName': str(
+                        pick(item_by_idx.get(mat_idx, {}), 'name')
+                        or pick(virtual_item_by_idx.get(mat_idx, {}), 'name')
+                        or pick(row, f'stuff_name{slot}', '')
+                    ).strip(),
                     'count': to_int(pick(row, f'stuff_count{slot}')),
                 }
             )
 
+        result_idx = to_int(pick(row, 'result_idx'))
         production_recipes.append(
             {
                 'idx': to_int(pick(row, 'idx')),
                 'docIdx': to_int(pick(row, 'doc_idx')),
                 'docName': str(pick(row, 'doc_name', '')).strip(),
-                'resultIdx': to_int(pick(row, 'result_idx')),
-                'resultName': str(pick(row, 'result_name', '')).strip(),
+                'resultIdx': result_idx,
+                'resultName': str(
+                    pick(item_by_idx.get(result_idx, {}), 'name')
+                    or pick(virtual_item_by_idx.get(result_idx, {}), 'name')
+                    or pick(row, 'result_name', '')
+                ).strip(),
                 'resultCount': to_int(pick(row, 'result_count'), 1),
                 'money': to_int(pick(row, 'money')),
                 'defaultPro': to_int(pick(row, 'default_pro')),
@@ -585,9 +651,10 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
             },
         },
         'items': items,
+        'virtualItems': virtual_items,
         'validItems': valid_items,
         'itemEffectiveData': tables.get('s_ItemEffectiveData', []),
-        'mobDrops': tables.get('s_mobitem', []),
+        'mobDrops': mob_drops,
         'npcs': npcs,
         'npcSales': npc_sales,
         'shopCatalog': shop_catalog,
@@ -602,6 +669,7 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
         'optLvInfo': tables.get('s_OptLvInfo', []),
         'stats': {
             'itemCount': len(items),
+            'virtualItemCount': len(virtual_items),
             'validItemCount': len(valid_items),
             'npcCount': len(npcs),
             'npcSaleCount': len(npc_sales),
@@ -663,24 +731,34 @@ def build_save_schema(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]
     }
 
 
-def build_manifest(index_payload: dict[str, Any], domain_map: dict[str, list[str]], outputs: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    source_tables = index_payload.get('tables', {}) if isinstance(index_payload, dict) else {}
-    if not isinstance(source_tables, dict):
-        source_tables = {}
+def build_manifest(
+    index_payload: dict[str, Any],
+    domain_map: dict[str, list[str]],
+    outputs: dict[str, dict[str, Any]],
+    source_tables_actual: dict[str, int],
+) -> dict[str, Any]:
+    source_tables_from_index = index_payload.get('tables', {}) if isinstance(index_payload, dict) else {}
+    if not isinstance(source_tables_from_index, dict):
+        source_tables_from_index = {}
 
-    known_source = set(source_tables.keys())
+    source_row_counts = dict(source_tables_actual)
+    for key, value in source_tables_from_index.items():
+        if key not in source_row_counts:
+            source_row_counts[key] = to_int(value)
+
+    known_source = set(source_row_counts.keys())
     assigned_tables = {table for tables in domain_map.values() for table in tables}
 
     unassigned = sorted(known_source - assigned_tables)
     unknown_assigned = sorted(assigned_tables - known_source)
 
-    digest_parts = [f"{k}:{source_tables.get(k, -1)}" for k in sorted(known_source)]
+    digest_parts = [f"{k}:{source_row_counts.get(k, -1)}" for k in sorted(known_source)]
     digest = sha256_text('|'.join(digest_parts)) if digest_parts else ''
 
     return {
         'builtAt': now_iso(),
         'sourceTableCount': len(known_source),
-        'sourceRowCounts': source_tables,
+        'sourceRowCounts': source_row_counts,
         'domainTableUsage': domain_map,
         'unassignedSourceTables': unassigned,
         'assignedButMissingSourceTables': unknown_assigned,
@@ -701,6 +779,7 @@ def main() -> None:
     paths.report_dir.mkdir(parents=True, exist_ok=True)
 
     tables = load_source_tables(paths.source_dir)
+    reference_overrides = load_reference_overrides(paths.source_dir)
     index_payload = load_json(paths.source_dir / '_index.json')
 
     domain_table_usage = {
@@ -726,7 +805,13 @@ def main() -> None:
     for name, payload in outputs.items():
         write_json(paths.out_dir / f'{name}.json', payload)
 
-    manifest = build_manifest(index_payload=index_payload, domain_map=domain_table_usage, outputs=outputs)
+    source_tables_actual = {name: len(rows) for name, rows in tables.items()}
+    manifest = build_manifest(
+        index_payload=index_payload,
+        domain_map=domain_table_usage,
+        outputs=outputs,
+        source_tables_actual=source_tables_actual,
+    )
     write_json(paths.out_dir / '_manifest.json', manifest)
 
     build_report = {
@@ -734,6 +819,7 @@ def main() -> None:
         'outDir': str(paths.out_dir),
         'files': sorted([f.name for f in paths.out_dir.glob('*.json')]),
         'manifest': manifest,
+        'referenceOverrides': reference_overrides,
     }
     write_json(paths.report_dir / 'runtime_build_report.json', build_report)
 

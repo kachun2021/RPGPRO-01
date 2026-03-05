@@ -49,6 +49,7 @@ import { StatAllocation } from './systems/StatAllocation';
 import { SkillTree } from './systems/SkillTree';
 import { AwakeningSystem } from './systems/AwakeningSystem';
 import { RebirthSystem } from './systems/RebirthSystem';
+import { loadRuntimeGame, saveRuntimeGame } from './systems/RuntimeSaveManager';
 // P9 Quest + NPC
 import { QuestManager } from './systems/QuestManager';
 import { NPCManager } from './entities/NPC';
@@ -502,10 +503,40 @@ async function bootstrap(): Promise<void> {
                   console.log('[System] Settings updated:', settings);
             },
             onSaveProgress: () => {
-                  console.log('[System] Save progress requested');
+                  const result = saveRuntimeGame({
+                        player,
+                        inventory,
+                        petManager,
+                        statAlloc,
+                        skillTree,
+                        awakening: awakeningSystem,
+                        rebirth: rebirthSystem,
+                  });
+                  if (result.ok) {
+                        console.log(`[System] Save completed at ${result.savedAt}`);
+                  } else {
+                        console.warn(`[System] Save failed: ${result.message}`);
+                  }
             },
             onLoadProgress: () => {
-                  console.log('[System] Load progress requested');
+                  const result = loadRuntimeGame({
+                        player,
+                        inventory,
+                        petManager,
+                        statAlloc,
+                        skillTree,
+                        awakening: awakeningSystem,
+                        rebirth: rebirthSystem,
+                  });
+                  if (result.ok) {
+                        console.log(`[System] Load completed from ${result.savedAt}`);
+                        petPanel.refresh();
+                        hud.updateStats(player.stats);
+                        hud.updatePets(petManager);
+                        schedulePanelViewportFit();
+                  } else {
+                        console.warn(`[System] Load failed: ${result.message}`);
+                  }
             },
             onResetAll: () => {
                   console.log('[System] Reset all data requested');

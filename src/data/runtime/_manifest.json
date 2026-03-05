@@ -1,45 +1,46 @@
 {
-  "builtAt": "2026-03-05T17:19:20.142572+00:00",
-  "sourceTableCount": 38,
+  "builtAt": "2026-03-05T20:05:30.638998+00:00",
+  "sourceTableCount": 39,
   "sourceRowCounts": {
-    "s_monster": 1418,
-    "s_mix": 720,
-    "s_mob": 889,
-    "s_mobitem": 634,
-    "s_item": 4608,
-    "s_ItemEffectiveData": 7980,
-    "s_zone": 201,
-    "s_gate": 140,
-    "s_npc": 1052,
-    "s_npc_sale": 1792,
-    "s_SkillData": 140,
-    "s_SkillProperty": 31,
-    "s_LvMonInfo": 210,
-    "s_LvUserInfo": 200,
-    "s_hero": 4,
-    "s_MixSkill": 10,
-    "s_Production": 167,
+    "Player": 3,
+    "s_CastleWarInfo": 2,
+    "s_event": 1,
     "s_event_drop": 169,
-    "s_ItemRankInfo": 10,
-    "s_Itempoweradd": 13,
+    "s_gate": 140,
+    "s_hero": 4,
+    "s_hero_skill": 0,
+    "s_item": 4608,
     "s_ItemBox": 22,
+    "s_ItemEffectiveData": 7980,
+    "s_Itempoweradd": 13,
+    "s_ItemRankInfo": 10,
     "s_ItemTypeInfo": 14,
     "s_LootRankInfo": 20,
     "s_LootTypeInfo": 11,
+    "s_LvMonInfo": 210,
+    "s_LvUserInfo": 200,
+    "s_mix": 720,
+    "s_MixSkill": 10,
+    "s_mob": 889,
+    "s_mobitem": 634,
+    "s_monster": 1418,
+    "s_npc": 1052,
+    "s_npc_fixed": 1052,
+    "s_npc_sale": 1792,
     "s_OptInfo": 8,
     "s_OptLvInfo": 10,
     "s_PartyExpRate": 4,
     "s_PartyPenaltyRate": 8,
-    "s_event": 1,
-    "s_CastleWarInfo": 2,
-    "ZoneServerMessage": 2,
-    "s_hero_skill": 0,
+    "s_Production": 167,
     "s_QuestScheduler": 0,
-    "u_hero": 0,
+    "s_SkillData": 140,
+    "s_SkillProperty": 31,
+    "s_zone": 201,
     "u_hench_1": 6,
+    "u_hero": 0,
     "u_item": 13,
     "u_MixSkill": 1,
-    "Player": 3
+    "ZoneServerMessage": 2
   },
   "domainTableUsage": {
     "world_topology": [
@@ -97,10 +98,8 @@
     ]
   },
   "unassignedSourceTables": [],
-  "assignedButMissingSourceTables": [
-    "s_npc_fixed"
-  ],
-  "sourceDigest": "d2aea1e2a915298ebc111c0f898b989dc3ffc580ba22c3f6b504762f2bb28194",
+  "assignedButMissingSourceTables": [],
+  "sourceDigest": "4227a761322705d8651d7b9336cbfaff5d0269f832be761d7b79e37153ddf24e",
   "outputs": {
     "world.topology": {
       "stats": {
@@ -243,7 +242,7 @@
         ]
       },
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.751117+00:00",
+        "builtAt": "2026-03-05T20:05:30.193507+00:00",
         "sourceTables": {
           "s_zone": 201,
           "s_gate": 140
@@ -257,7 +256,7 @@
         "zonesWithSpawn": 173
       },
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.775124+00:00",
+        "builtAt": "2026-03-05T20:05:30.225913+00:00",
         "sourceTables": {
           "s_mob": 889,
           "s_monster": 1418
@@ -273,7 +272,7 @@
         "skillLevelRows": 140
       },
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.778387+00:00",
+        "builtAt": "2026-03-05T20:05:30.229877+00:00",
         "sourceTables": {
           "s_hero": 4,
           "s_LvUserInfo": 200,
@@ -294,7 +293,7 @@
         "unresolvedMonsterTypes": []
       },
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.786106+00:00",
+        "builtAt": "2026-03-05T20:05:30.237423+00:00",
         "sourceTables": {
           "s_mix": 720,
           "s_monster": 1418
@@ -304,14 +303,15 @@
     "economy": {
       "stats": {
         "itemCount": 4608,
+        "virtualItemCount": 20,
         "validItemCount": 4593,
         "npcCount": 1052,
         "npcSaleCount": 1792,
-        "shopCatalogRows": 1759,
+        "shopCatalogRows": 1790,
         "productionRecipeCount": 167
       },
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.810072+00:00",
+        "builtAt": "2026-03-05T20:05:30.267633+00:00",
         "sourceTables": {
           "s_item": 4608,
           "s_ItemEffectiveData": 7980,
@@ -326,7 +326,7 @@
     "ops": {
       "stats": {},
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.810197+00:00",
+        "builtAt": "2026-03-05T20:05:30.267825+00:00",
         "sourceTables": {
           "s_event": 1,
           "s_event_drop": 169,
@@ -339,7 +339,7 @@
     "save_schema": {
       "stats": {},
       "meta": {
-        "builtAt": "2026-03-05T17:19:19.810214+00:00",
+        "builtAt": "2026-03-05T20:05:30.267844+00:00",
         "sourceTables": {
           "Player": 3,
           "u_hero": 0,

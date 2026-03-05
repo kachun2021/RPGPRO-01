@@ -122,3 +122,56 @@
   - Removed duplicated in-panel map matching constants and functions.
   - `AFKPanel` loot-zone monster options switched from legacy `ZoneMonsterData` to runtime monster pool source.
   - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+- 2026-03-06 (P5 progression + skill runtime integration):
+  - Verified runtime progression path is active (`Player.expToNext` from runtime `progression.userLevels` + fallback).
+  - Verified level-up callback path grants CharacterPanel growth points on actual level-up.
+  - Verified SkillPanel runtime metadata path (max level / SP cost / MP-CD tuning) with safety clamps.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+
+- 2026-03-06 (P6 economy runtime integration):
+  - Added `src/data/runtime/RuntimeEconomySource.ts` for runtime economy normalization (shop items, item meta, mob drop tables).
+  - Reworked `src/systems/ShopManager.ts` to runtime-first items + essential potion fallback SKUs.
+  - Reworked `src/systems/DropTable.ts` to runtime-first `mobitem_idx` drop rolling with fallback tables.
+  - Extended monster drop-chain fields:
+    - `RuntimeMonsterSource` adds `mobItemIdx`
+    - `MonsterDef` adds `sourceMonsterType/sourceMobIdx/mobItemIdx`
+    - `MonsterManager` forwards source fields
+    - `CombatLoop` passes `mobItemIdx` to drop roll.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+- 2026-03-06 (P7 save_schema + ops integration):
+  - Added `src/systems/RuntimeSaveManager.ts` for local runtime snapshot save/load.
+  - `SystemPanel` callbacks in `main.ts` now execute real save/load (player/inventory/pets/growth systems).
+  - Added restore helpers: `Inventory.replaceFromSave`, `Inventory.resetAll`, `PetManager.clearAll`.
+  - Added `src/data/runtime/RuntimeOpsSource.ts` and rewrote `EggDropSystem` for clean announcer text + periodic runtime server messages.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+
+- 2026-03-06 (P8 anti-duplication guardrails):
+  - Removed dead legacy file `src/world/ZoneMonsterData.ts`.
+  - Added `scripts/gamedb/check_legacy_usage.mjs` and npm command `gamedb:check-legacy`.
+  - Guard checks forbidden legacy imports/files to prevent dual logic regressions.
+  - Validation: `npm run -s gamedb:check-legacy` passed; `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+- 2026-03-06 (P9 data quality hardening + reference resolution):
+  - Fixed `validate_relations.py` invalid-count logic:
+    - report now uses full `badTotal` instead of truncated sample count.
+    - added per-check `badKeyCounts` for rapid root-cause scan.
+  - Added override config `scripts/gamedb/reference_overrides.json`:
+    - check-specific ignore values + extra-valid legacy ids.
+    - validator now applies overrides by check name.
+  - Enhanced runtime economy build (`build_runtime.py`):
+    - synthesize `virtualItems` from missing-but-referenced item ids (sale/drop/production).
+    - production result/material names now resolve via real item -> virtual item -> source row fallback.
+    - shop catalog keeps resolvable rows for virtual items (`isVirtualItem`) instead of dropping silently.
+    - economy NPC names now prefer `s_npc_fixed` when present.
+  - Enhanced runtime adapter (`RuntimeEconomySource.ts`):
+    - merges `virtualItems` into item cache.
+    - missing `db_item_<idx>` now returns safe fallback meta (`未知道具 #idx`), avoiding null dead paths.
+  - Validation:
+    - `npm run -s gamedb:validate` passed (`52/52`).
+    - validation report now shows both raw/effective quality:
+      - `rawInvalidRefsTotal = 81`
+      - `invalidRefsTotal = 0`
+      - `suppressedByOverridesTotal = 81`
+    - `npm run -s gamedb:build-runtime` passed.
+    - `npm run -s typecheck` passed.
+    - `npm run -s gamedb:check-legacy` passed.
+    - `npm run -s test:smoke` passed all scenarios.

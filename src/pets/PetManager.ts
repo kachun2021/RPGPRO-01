@@ -80,6 +80,13 @@ export class PetManager {
             return pet;
       }
 
+      /** Dispose and clear all pets */
+      clearAll(): void {
+            for (const pet of this.owned) pet.dispose();
+            this.owned = [];
+            this.active = [];
+      }
+
       /** Update all active pet positions */
       update(dt: number, playerPos: Vector3): void {
             for (const pet of this.active) {
@@ -88,8 +95,6 @@ export class PetManager {
       }
 
       dispose(): void {
-            for (const pet of this.owned) pet.dispose();
-            this.owned = [];
-            this.active = [];
+            this.clearAll();
       }
 }

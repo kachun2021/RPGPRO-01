@@ -541,7 +541,16 @@ export class CombatLoop {
             // P7: Drop items
             if (this._dropTable && this._dropItemManager) {
                   const zoneId = this._monsterManager.currentZoneId;
-                  const drops = this._dropTable.rollDrops(monster.def.level, monster.def.isBoss, zoneId, monster.def.id);
+                  const bossKey = monster.def.sourceMonsterType
+                        ? `type_${monster.def.sourceMonsterType}`
+                        : monster.def.id;
+                  const drops = this._dropTable.rollDrops(
+                        monster.def.level,
+                        monster.def.isBoss,
+                        zoneId,
+                        bossKey,
+                        monster.def.mobItemIdx,
+                  );
                   if (drops.length > 0) {
                         this._dropItemManager.spawnDrops(drops, monster.root.position);
                         console.log(`[Combat] Dropped ${drops.length} items`);

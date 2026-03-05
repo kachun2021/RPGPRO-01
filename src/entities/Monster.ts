@@ -13,6 +13,9 @@ export type MonsterBehavior = 'aggressive' | 'passive';
 export interface MonsterDef {
       id: string;
       name: string;
+      sourceMonsterType?: number;
+      sourceMobIdx?: number;
+      mobItemIdx?: number;
       level: number;
       series: PetSeries;
       behavior: MonsterBehavior;
