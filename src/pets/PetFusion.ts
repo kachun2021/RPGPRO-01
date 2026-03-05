@@ -2,31 +2,14 @@ import { PET_DEFS } from './PetData';
 import type { PetDef, FusionIngredient } from './PetData';
 import type { Pet } from './Pet';
 import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
+import type { MixmasterRecipePayload } from '../data/fusion/types';
+import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 
 /** Result of a fusion recipe lookup */
 export interface FusionMatch {
       resultDef: PetDef;
       recipe: FusionIngredient;
 }
-
-interface MixmasterRecipeRow {
-      resultName: string;
-      mainName: string;
-      subName: string;
-}
-
-interface MixmasterRecipePayload {
-      recipes?: MixmasterRecipeRow[];
-}
-
-const PET_NAME_ALIASES: Record<string, string> = {
-      '达特凯彬': '达杉凯特',
-      '超级达特凯彬': '超级达杉凯特',
-      '達特凱彬': '达杉凯特',
-      '超級達特凱彬': '超级达杉凯特',
-      '達杉凱特': '达杉凯特',
-      '超級達杉凱特': '超级达杉凯特',
-};
 
 export class PetFusion {
       private static _ruleIndex: Map<string, FusionMatch[]> | null = null;
@@ -184,17 +167,10 @@ export class PetFusion {
       }
 
       private static _canonicalName(raw: string): string {
-            const clean = raw.trim();
-            if (!clean) return clean;
-            return PET_NAME_ALIASES[clean] ?? clean;
+            return canonicalPetName(raw);
       }
 
       private static _normalizeNameKey(raw: string): string {
-            return raw
-                  .trim()
-                  .replace(/\s+/g, '')
-                  .replace(/[()（）\[\]【】·\-_]/g, '')
-                  .replace(/超级|超級|变异|變異|狂化|神王|暗之|覺醒|觉醒|改造|究極|究极/g, '')
-                  .toLowerCase();
+            return normalizeFusionNameKey(raw, { aggressive: true });
       }
 }

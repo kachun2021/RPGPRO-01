@@ -5,6 +5,8 @@ import { PET_DEFS, PetSeries, SERIES_EMOJI, SERIES_ICONS, type FusionIngredient,
 import type { Pet } from '../pets/Pet';
 import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
+import type { ListPetPayload, ListPetRow, MixmasterMonsterRow, MixmasterRecipePayload, MixmasterRecipeRow } from '../data/fusion/types';
+import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 
 type SeriesFilter = 'all' | PetSeries;
 type NoticeTone = 'ok' | 'warn';
@@ -47,69 +49,6 @@ interface FormulaEstimate {
       summary: string;
 }
 
-interface MixmasterRecipeRow {
-      rowId: number;
-      resultName: string;
-      mainName: string;
-      subName: string;
-      mainAdjust: number;
-      subAdjust: number;
-      resultSeries?: string | null;
-      resultBaseLevel?: number | null;
-      resultImageId?: string | null;
-      resultDropEggRaw?: string | null;
-      resultDropEgg?: boolean | null;
-      resultMaps?: string[] | string | null;
-      mainSeries?: string | null;
-      mainBaseLevel?: number | null;
-      mainImageId?: string | null;
-      mainDropEggRaw?: string | null;
-      mainDropEgg?: boolean | null;
-      mainMaps?: string[] | string | null;
-      subSeries?: string | null;
-      subBaseLevel?: number | null;
-      subImageId?: string | null;
-      subDropEggRaw?: string | null;
-      subDropEgg?: boolean | null;
-      subMaps?: string[] | string | null;
-}
-
-interface MixmasterMonsterRow {
-      name: string;
-      series?: string | null;
-      baseLevel?: number | null;
-      imageId?: string | null;
-      dropEggRaw?: string | null;
-      dropEgg?: boolean | null;
-      maps?: string[] | string | null;
-}
-
-interface MixmasterRecipePayload {
-      meta?: {
-            source?: string;
-            rowCount?: number;
-            exportedAt?: string;
-      };
-      monsters?: MixmasterMonsterRow[];
-      recipes?: MixmasterRecipeRow[];
-}
-
-interface ListPetRow {
-      name: string;
-      level?: number | null;
-      series?: string | null;
-      fusible?: boolean | null;
-}
-
-interface ListPetPayload {
-      meta?: {
-            source?: string;
-            exportedAt?: string;
-            petCount?: number;
-      };
-      pets?: ListPetRow[];
-}
-
 const TRACKING_STORAGE_KEY = 'fpo.fusion.panel.tracked.v2';
 const GUIDE_RENDER_STEP = 120;
 
@@ -125,14 +64,7 @@ const SERIES_LABELS: Record<PetSeries, string> = {
 };
 
 // 匯出資料存在少量命名差異，統一映射後可正確回填等級與系列資料。
-const PET_NAME_ALIASES: Record<string, string> = {
-      '达特凯彬': '达杉凯特',
-      '超级达特凯彬': '超级达杉凯特',
-      '達特凱彬': '达杉凯特',
-      '超級達特凱彬': '超级达杉凯特',
-      '達杉凱特': '达杉凯特',
-      '超級達杉凱特': '超级达杉凯特',
-};
+
 
 export class FusionPanel {
       private _el: HTMLDivElement;
@@ -1640,8 +1572,8 @@ export class FusionPanel {
                         subDef,
                         isResolvedSub: true,
                         subBaseLevel,
-                        mainAdjust: Number.isFinite(row.mainAdjust) ? row.mainAdjust : 0,
-                        subAdjust: Number.isFinite(row.subAdjust) ? row.subAdjust : 0,
+                        mainAdjust: Number.isFinite(Number(row.mainAdjust)) ? Number(row.mainAdjust) : 0,
+                        subAdjust: Number.isFinite(Number(row.subAdjust)) ? Number(row.subAdjust) : 0,
                   });
             }
 
@@ -1669,17 +1601,11 @@ export class FusionPanel {
       }
 
       private _normalizeNameKey(raw: string): string {
-            return raw
-                  .trim()
-                  .replace(/\s+/g, '')
-                  .replace(/[()\[\]._-]/g, '')
-                  .toLowerCase();
+            return normalizeFusionNameKey(raw);
       }
 
       private _canonicalPetName(raw: string): string {
-            const clean = raw.trim();
-            if (!clean) return clean;
-            return PET_NAME_ALIASES[clean] ?? clean;
+            return canonicalPetName(raw);
       }
 
       private _rebuildPetDefNameIndex(): void {

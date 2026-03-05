@@ -706,40 +706,6 @@
       font-size: 7px;
     }
 
-    /* Panel Backdrop */
-    .panel-backdrop {
-      position: absolute;
-      inset: 0;
-      z-index: 290;
-      background: rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.22s;
-    }
-
-    .panel-backdrop.show {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    /* Keep old panel class for PanelManager compatibility */
-    .panel {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.92);
-      opacity: 0;
-      z-index: 300;
-      transition: transform 0.25s, opacity 0.25s;
-    }
-
-    .panel.open {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-
     /* ===== P5 COMBAT: Monster HP Bars ===== */
     .monster-hp-bar {
       position: absolute;
@@ -8062,7 +8028,6 @@
   </div>
   <canvas id="renderCanvas"></canvas>
   <div id="ui-layer"></div>
-  <div class="panel-backdrop" id="panelBackdrop"></div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

@@ -2,41 +2,8 @@ import type { ZoneManager } from '../world/ZoneManager';
 import { ZONE_DEFS } from '../world/ZoneDefinitions';
 import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
-
-interface MixmasterMonsterRow {
-      name: string;
-      series?: string | null;
-      baseLevel?: number | null;
-      dropEggRaw?: string | null;
-      dropEgg?: boolean | null;
-      maps?: string[] | string | null;
-}
-
-interface MixmasterRecipeRow {
-      resultName: string;
-      mainName: string;
-      subName: string;
-      resultBaseLevel?: number | null;
-      resultDropEggRaw?: string | null;
-      resultDropEgg?: boolean | null;
-      resultMaps?: string[] | string | null;
-}
-
-interface MixmasterRecipePayload {
-      monsters?: MixmasterMonsterRow[];
-      recipes?: MixmasterRecipeRow[];
-}
-
-interface ListPetRow {
-      name: string;
-      level?: number | null;
-      series?: string | null;
-      fusible?: boolean | null;
-}
-
-interface ListPetPayload {
-      pets?: ListPetRow[];
-}
+import type { ListPetPayload, ListPetRow, MixmasterRecipePayload } from '../data/fusion/types';
+import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 
 interface MapMonsterInfo {
       name: string;
@@ -69,14 +36,7 @@ interface MapSummary {
 type TeleportMatchMode = 'exact' | 'keyword' | 'series' | 'level' | 'none';
 type MapLevelBand = 'all' | '1-30' | '31-60' | '61-90' | '91+';
 
-const PET_NAME_ALIASES: Record<string, string> = {
-      '达特凯彬': '达杉凯特',
-      '超级达特凯彬': '超级达杉凯特',
-      '達特凱彬': '达杉凯特',
-      '超級達特凱彬': '超级达杉凯特',
-      '達杉凱特': '达杉凯特',
-      '超級達杉凱特': '超级达杉凯特',
-};
+
 
 const MAP_EXACT_ZONE: Record<string, string> = {
       '巴尔克牧场低': 'starter_meadow',
@@ -915,9 +875,7 @@ export class WorldMapPanel {
       }
 
       private _canonicalName(raw: string): string {
-            const clean = raw.trim();
-            if (!clean) return clean;
-            return PET_NAME_ALIASES[clean] ?? clean;
+            return canonicalPetName(raw);
       }
 
       private _canonicalMapName(raw: string): string {
@@ -931,7 +889,7 @@ export class WorldMapPanel {
       }
 
       private _normalizeNameKey(raw: string): string {
-            return raw.trim().replace(/\s+/g, '').replace(/[()（）\[\]【】·._-]/g, '').toLowerCase();
+            return normalizeFusionNameKey(raw);
       }
 
       private _normalizeStringArray(value: unknown): string[] {

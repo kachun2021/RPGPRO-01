@@ -62,3 +62,20 @@ Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、�
 pm run -s typecheck passed.
     - 
 pm run -s test:smoke passed all scenarios.
+
+- 2026-03-05 (cleanup before data phase):
+  - Removed unreachable dead files: `src/core/AssetLoader.ts`, `src/pets/PetAI.ts`, `src/ui/PanelManager.ts`, `src/ui/PetControlBar.ts`.
+  - Added missing script: `scripts/export_fusion_mdb.ps1` (safe no-op when no valid MDB path), so `fusion:export-mdb` no longer points to a missing file.
+  - Fixed build blocker: removed stale `firebase` manual chunk from `vite.config.ts`; production build now succeeds.
+  - Extracted shared fusion name logic to `src/data/fusion/FusionNameUtils.ts` and replaced duplicated alias/normalize implementations in:
+    - `src/pets/PetFusion.ts`
+    - `src/ui/FusionPanel.ts`
+    - `src/ui/EncyclopediaPanel.ts`
+    - `src/ui/WorldMapPanel.ts`
+  - Extracted shared fusion payload/list typings to `src/data/fusion/types.ts` and adopted in fusion/map/book/pet-fusion modules.
+  - Removed old unused PanelManager backdrop/style remnants from `index.html` (`.panel-backdrop`, `.panel`, `.panel.open`, and `#panelBackdrop` node).
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed all scenarios.
+    - Post-clean dependency graph check: `UNREACHABLE_FROM_MAIN = 0`, `ZERO_INBOUND_NON_ENTRY = 0`.

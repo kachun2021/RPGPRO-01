@@ -22,7 +22,6 @@ export default defineConfig({
                               "@babylonjs/materials",
                               "@babylonjs/loaders",
                          ],
-                         firebase: ["firebase"],
                     },
                },
           },

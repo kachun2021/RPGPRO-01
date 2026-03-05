@@ -2,39 +2,10 @@ import { PetEncyclopedia } from '../pets/PetEncyclopedia';
 import { PET_DEFS, PetSeries, SERIES_EMOJI, type PetDef } from '../pets/PetData';
 import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
+import type { ListPetPayload, ListPetRow, MixmasterRecipePayload } from '../data/fusion/types';
+import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 
 type SeriesFilter = 'all' | PetSeries;
-
-interface MixmasterMonsterRow {
-      name: string;
-      baseLevel?: number | null;
-      dropEggRaw?: string | null;
-      dropEgg?: boolean | null;
-      maps?: string[] | string | null;
-}
-
-interface MixmasterRecipeRow {
-      resultName: string;
-      resultBaseLevel?: number | null;
-      resultDropEggRaw?: string | null;
-      resultDropEgg?: boolean | null;
-      resultMaps?: string[] | string | null;
-}
-
-interface MixmasterRecipePayload {
-      monsters?: MixmasterMonsterRow[];
-      recipes?: MixmasterRecipeRow[];
-}
-
-interface ListPetRow {
-      name: string;
-      level?: number | null;
-      fusible?: boolean | null;
-}
-
-interface ListPetPayload {
-      pets?: ListPetRow[];
-}
 
 interface EncyclopediaMeta {
       level: number;
@@ -54,10 +25,7 @@ const SERIES_NAMES: Record<PetSeries, string> = {
       [PetSeries.Bird]: '飛禽',
 };
 
-const PET_NAME_ALIASES: Record<string, string> = {
-      '達特凱特': '達杉凱特',
-      '超級達特凱特': '超級達杉凱特',
-};
+
 
 export class EncyclopediaPanel {
       private _el: HTMLDivElement;
@@ -537,17 +505,11 @@ export class EncyclopediaPanel {
       }
 
       private _canonicalPetName(raw: string): string {
-            const clean = raw.trim();
-            if (!clean) return clean;
-            return PET_NAME_ALIASES[clean] ?? clean;
+            return canonicalPetName(raw);
       }
 
       private _normalizeNameKey(raw: string): string {
-            return raw
-                  .trim()
-                  .replace(/\s+/g, '')
-                  .replace(/[()（）\[\]【】._-]/g, '')
-                  .toLowerCase();
+            return normalizeFusionNameKey(raw);
       }
 
       private _normalizeStringArray(value: unknown): string[] {
