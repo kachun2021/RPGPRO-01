@@ -1,6 +1,7 @@
 import { PET_DEFS } from './PetData';
 import type { PetDef, FusionIngredient } from './PetData';
 import type { Pet } from './Pet';
+import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 
 /** Result of a fusion recipe lookup */
 export interface FusionMatch {
@@ -8,29 +9,39 @@ export interface FusionMatch {
       recipe: FusionIngredient;
 }
 
+interface MixmasterRecipeRow {
+      resultName: string;
+      mainName: string;
+      subName: string;
+}
+
+interface MixmasterRecipePayload {
+      recipes?: MixmasterRecipeRow[];
+}
+
+const PET_NAME_ALIASES: Record<string, string> = {
+      '达特凯彬': '达杉凯特',
+      '超级达特凯彬': '超级达杉凯特',
+      '達特凱彬': '达杉凯特',
+      '超級達特凱彬': '超级达杉凯特',
+      '達杉凱特': '达杉凯特',
+      '超級達杉凱特': '超级达杉凯特',
+};
+
 export class PetFusion {
+      private static _ruleIndex: Map<string, FusionMatch[]> | null = null;
+      private static _mappedMixmasterRules = 0;
+
       /**
        * Find all possible results from fusing pet1 (main) + pet2 (sub).
-       * Searches PET_DEFS for any pet whose fusionRecipes contain { main: pet1.def.id, sub: pet2.def.id }.
-       * Also checks reverse (pet2 as main, pet1 as sub).
+       * Uses mixmaster-recipes JSON as primary source; falls back to PET_DEFS when no mapped external rules exist.
        */
       static findRecipes(pet1: Pet, pet2: Pet): FusionMatch[] {
-            const matches: FusionMatch[] = [];
             const id1 = pet1.def.id;
             const id2 = pet2.def.id;
-
-            for (const def of PET_DEFS) {
-                  if (def.acquisition !== 'fusion' || def.fusionRecipes.length === 0) continue;
-
-                  for (const recipe of def.fusionRecipes) {
-                        // Check both directions
-                        if ((recipe.main === id1 && recipe.sub === id2) ||
-                              (recipe.main === id2 && recipe.sub === id1)) {
-                              matches.push({ resultDef: def, recipe });
-                        }
-                  }
-            }
-            return matches;
+            this._ensureRuleIndex();
+            const key = this._pairKey(id1, id2);
+            return [...(this._ruleIndex?.get(key) ?? [])];
       }
 
       /**
@@ -73,5 +84,117 @@ export class PetFusion {
                   }
                   return { success: false, primaryLevelDrop: hasProtection ? 0 : drop };
             }
+      }
+
+      private static _ensureRuleIndex(): void {
+            if (this._ruleIndex) return;
+
+            const mappedMixmasterRules = this._buildMappedMixmasterRules();
+            const petDefRules = this._buildPetDefRules();
+            const merged = this._mergeRules(mappedMixmasterRules, petDefRules);
+
+            this._mappedMixmasterRules = mappedMixmasterRules.length;
+            this._ruleIndex = this._indexRules(merged);
+      }
+
+      private static _indexRules(rules: FusionMatch[]): Map<string, FusionMatch[]> {
+            const index = new Map<string, FusionMatch[]>();
+            for (const rule of rules) {
+                  const key = this._pairKey(rule.recipe.main, rule.recipe.sub);
+                  const list = index.get(key);
+                  if (list) list.push(rule);
+                  else index.set(key, [rule]);
+            }
+            return index;
+      }
+
+      private static _pairKey(idA: string, idB: string): string {
+            return idA < idB ? `${idA}|${idB}` : `${idB}|${idA}`;
+      }
+
+      private static _mergeRules(primary: FusionMatch[], secondary: FusionMatch[]): FusionMatch[] {
+            const out: FusionMatch[] = [];
+            const seen = new Set<string>();
+
+            const pushRule = (rule: FusionMatch): void => {
+                  const k = `${rule.resultDef.id}|${rule.recipe.main}|${rule.recipe.sub}`;
+                  if (seen.has(k)) return;
+                  seen.add(k);
+                  out.push(rule);
+            };
+
+            for (const rule of primary) pushRule(rule);
+            for (const rule of secondary) pushRule(rule);
+            return out;
+      }
+
+      private static _buildPetDefRules(): FusionMatch[] {
+            const rules: FusionMatch[] = [];
+            for (const def of PET_DEFS) {
+                  if (def.acquisition !== 'fusion' || def.fusionRecipes.length === 0) continue;
+                  for (const recipe of def.fusionRecipes) {
+                        rules.push({ resultDef: def, recipe });
+                  }
+            }
+            return rules;
+      }
+
+      private static _buildMappedMixmasterRules(): FusionMatch[] {
+            const payload = mixmasterRecipesRaw as MixmasterRecipePayload;
+            const rows = Array.isArray(payload.recipes) ? payload.recipes : [];
+            if (rows.length === 0) return [];
+
+            const nameIndex = new Map<string, PetDef>();
+            for (const def of PET_DEFS) {
+                  const canonical = this._canonicalName(def.nameCN);
+                  nameIndex.set(canonical, def);
+                  nameIndex.set(this._normalizeNameKey(canonical), def);
+            }
+
+            const dedupe = new Set<string>();
+            const rules: FusionMatch[] = [];
+            for (const row of rows) {
+                  const resultName = (row.resultName ?? '').trim();
+                  const mainName = (row.mainName ?? '').trim();
+                  const subName = (row.subName ?? '').trim();
+                  if (!resultName || !mainName || !subName) continue;
+
+                  const resultDef = this._resolvePetDefByName(resultName, nameIndex);
+                  const mainDef = this._resolvePetDefByName(mainName, nameIndex);
+                  const subDef = this._resolvePetDefByName(subName, nameIndex);
+                  if (!resultDef || !mainDef || !subDef) continue;
+
+                  const dedupeKey = `${resultDef.id}|${mainDef.id}|${subDef.id}`;
+                  if (dedupe.has(dedupeKey)) continue;
+                  dedupe.add(dedupeKey);
+
+                  rules.push({
+                        resultDef,
+                        recipe: { main: mainDef.id, sub: subDef.id },
+                  });
+            }
+            return rules;
+      }
+
+      private static _resolvePetDefByName(name: string, nameIndex: Map<string, PetDef>): PetDef | null {
+            const canonical = this._canonicalName(name);
+            const direct = nameIndex.get(canonical);
+            if (direct) return direct;
+            return nameIndex.get(this._normalizeNameKey(canonical)) ?? null;
+      }
+
+      private static _canonicalName(raw: string): string {
+            const clean = raw.trim();
+            if (!clean) return clean;
+            return PET_NAME_ALIASES[clean] ?? clean;
+      }
+
+      private static _normalizeNameKey(raw: string): string {
+            return raw
+                  .trim()
+                  .replace(/\s+/g, '')
+                  .replace(/[()（）\[\]【】·\-_]/g, '')
+                  .replace(/超级|超級|变异|變異|狂化|神王|暗之|覺醒|觉醒|改造|究極|究极/g, '')
+                  .toLowerCase();
       }
 }

@@ -6,7 +6,6 @@ import { Player } from './entities/Player';
 import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
-import { PanelManager } from './ui/PanelManager';
 import { PetManager } from './pets/PetManager';
 import { PetEncyclopedia } from './pets/PetEncyclopedia';
 import { PetEquipment } from './pets/PetEquipment';
@@ -59,9 +58,62 @@ import { QuestTracker } from './ui/QuestTracker';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
 import { ShopPanel } from './ui/ShopPanel';
+// P9 System Settings
+import { SystemPanel } from './ui/SystemPanel';
+
+function initUiFeedbackSfx(): void {
+      let audioCtx: AudioContext | null = null;
+      let lastPlayed = 0;
+
+      const resolveContext = (): AudioContext | null => {
+            if (audioCtx) return audioCtx;
+            const Ctor = (window.AudioContext || (window as any).webkitAudioContext) as (new () => AudioContext) | undefined;
+            if (!Ctor) return null;
+            audioCtx = new Ctor();
+            return audioCtx;
+      };
+
+      const playClick = (): void => {
+            const ctx = resolveContext();
+            if (!ctx) return;
+            const now = performance.now();
+            if (now - lastPlayed < 40) return;
+            lastPlayed = now;
+
+            if (ctx.state === 'suspended') {
+                  void ctx.resume();
+            }
+
+            const t = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(820, t);
+            osc.frequency.exponentialRampToValueAtTime(560, t + 0.04);
+            gain.gain.setValueAtTime(0.0001, t);
+            gain.gain.exponentialRampToValueAtTime(0.018, t + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.065);
+      };
+
+      document.addEventListener('pointerdown', (evt) => {
+            const target = evt.target as HTMLElement | null;
+            if (!target) return;
+            if (!target.closest('.game-btn, .skill-tab-btn, .afk-menu-btn, .panel-close, .sa-nav-btn')) return;
+            try {
+                  playClick();
+            } catch {
+                  // Ignore audio failures to keep UI responsive.
+            }
+      }, true);
+}
 
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
+      initUiFeedbackSfx();
 
       // 1. Engine
       const engineManager = new EngineManager();
@@ -187,13 +239,24 @@ async function bootstrap(): Promise<void> {
             dialoguePanel.openForNpc(npc);
       };
 
+      let openShopPanelByDialogue = (mode: 'buy' | 'sell'): void => {
+            shopPanel.show(mode);
+      };
+      let openSkillPanelByDialogue = (): void => {
+            skillPanel.show();
+      };
+      let openQuestPanelByDialogue = (): void => {
+            questPanel.show();
+      };
+      let openPetPanelByDialogue = (): void => { };
+
       // Wire dialogue actions → panels
       dialoguePanel.onAction = (_npc, action) => {
             switch (action) {
-                  case 'buy': shopPanel.show('buy'); break;
-                  case 'sell': shopPanel.show('sell'); break;
-                  case 'learn': skillPanel.show(); break;
-                  case 'accept': questPanel.show(); break;
+                  case 'buy': openShopPanelByDialogue('buy'); break;
+                  case 'sell': openShopPanelByDialogue('sell'); break;
+                  case 'learn': openSkillPanelByDialogue(); break;
+                  case 'accept': openQuestPanelByDialogue(); break;
                   case 'trade': {
                         const exchangeQuests = questManager.allQuests.filter(
                               q => q.type === 'side' && q.objectives.some(o => o.type === 'exchange_pet') && !q.claimed
@@ -219,7 +282,7 @@ async function bootstrap(): Promise<void> {
                         }
                         break;
                   }
-                  case 'view': petPanel.toggle(); petPanel.refresh(); break;
+                  case 'view': openPetPanelByDialogue(); break;
             }
       };
 
@@ -249,6 +312,10 @@ async function bootstrap(): Promise<void> {
             detectRange: afkPanel.settings.detectRadius,
             skipBossTargets: afkPanel.settings.stopOnBoss,
       });
+      let toggleAfkPanelExclusive = (): void => {
+            afkPanel.toggle();
+            syncAutoUi();
+      };
 
       // Auto-grind controls: AUTO button + settings icon
       const autoControls = document.createElement('div');
@@ -276,8 +343,7 @@ async function bootstrap(): Promise<void> {
             syncAutoUi();
       });
       autoSettingsBtn.addEventListener('click', () => {
-            afkPanel.toggle();
-            syncAutoUi();
+            toggleAfkPanelExclusive();
       });
       autoControls.appendChild(autoGrindBtn);
       autoControls.appendChild(autoSettingsBtn);
@@ -309,10 +375,6 @@ async function bootstrap(): Promise<void> {
       // Build initial zone (Starter Meadow)
       await zoneManager.buildInitialZone('starter_meadow');
 
-      // 14. PanelManager
-      const panelManager = new PanelManager();
-      Registry.panelManager = panelManager;
-
       // 14. Pet Panel
       const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
 
@@ -321,43 +383,6 @@ async function bootstrap(): Promise<void> {
       const encyclopediaPanel = new EncyclopediaPanel(encyclopedia);
       const renamePanel = new RenamePanel();
       const revivalPanel = new RevivalPanel(petManager);
-
-      // FusionPanel manages itself (own backdrop + open/close), NOT via PanelManager
-      panelManager.register('encyclopedia', encyclopediaPanel.element);
-      panelManager.register('rename', renamePanel.element);
-      panelManager.register('revival', revivalPanel.element);
-
-      // Wire PetPanel action buttons → sub-panels
-      petPanel.onOpenFusion = () => {
-            fusionPanel.refresh();
-            fusionPanel.open();
-      };
-      petPanel.onOpenEncyclopedia = () => {
-            encyclopediaPanel.open();
-      };
-      petPanel.onOpenRename = (pet) => {
-            renamePanel.openFor(pet, () => petPanel.refresh());
-      };
-      petPanel.onOpenRevival = () => {
-            revivalPanel.open(() => petPanel.refresh());
-      };
-
-      // Wire nav buttons
-      hud.getNavButton('nav-pet')?.addEventListener('click', () => {
-            petPanel.toggle();
-            petPanel.refresh();
-      });
-
-      // Wire portraits
-      hud.getPortrait(0)?.addEventListener('click', () => {
-            characterPanel.toggle();
-      });
-      for (let i = 1; i <= 3; i++) {
-            hud.getPortrait(i)?.addEventListener('click', () => {
-                  petPanel.toggle();
-                  petPanel.refresh();
-            });
-      }
 
       // P8: Equipment + Enhance + Resonance
       const equipmentSystem = new EquipmentSystem();
@@ -381,30 +406,171 @@ async function bootstrap(): Promise<void> {
 
       const communityPanel = new CommunityPanel();
 
-      hud.getNavButton('nav-settings')?.addEventListener('click', () => console.log('[Nav] settings'));
-      for (const id of ['nav-book']) {
-            hud.getNavButton(id)?.addEventListener('click', () => console.log(`[Nav] ${id}`));
+      // System Settings Panel
+      const systemPanel = new SystemPanel({
+            onSettingsChange: (settings) => {
+                  console.log('[System] Settings updated:', settings);
+            },
+            onSaveProgress: () => {
+                  console.log('[System] Save progress requested');
+            },
+            onLoadProgress: () => {
+                  console.log('[System] Load progress requested');
+            },
+            onResetAll: () => {
+                  console.log('[System] Reset all data requested');
+                  localStorage.clear();
+                  location.reload();
+            },
+      });
+
+      // Global panel rule: opening one sub-panel closes others to avoid overlap.
+      const closeSubPanels = (except?: string): void => {
+            if (except !== 'pet') petPanel.close();
+            if (except !== 'fusion') fusionPanel.close();
+            if (except !== 'book') encyclopediaPanel.close();
+            if (except !== 'rename') renamePanel.close();
+            if (except !== 'revival') revivalPanel.close();
+            if (except !== 'shop') shopPanel.hide();
+            if (except !== 'quest') questPanel.hide();
+            if (except !== 'community') communityPanel.hide();
+            if (except !== 'char') characterPanel.hide();
+            if (except !== 'bag') inventoryPanel.hide();
+            if (except !== 'map') worldMapPanel.hide();
+            if (except !== 'skill') skillPanel.hide();
+            if (except !== 'settings') systemPanel.hide();
+            if (except !== 'afk') afkPanel.hide();
+            syncAutoUi();
+      };
+
+      const openPetPanel = (): void => {
+            closeSubPanels('pet');
+            petPanel.open();
+            petPanel.refresh();
+      };
+
+      const openFusionPanel = (): void => {
+            closeSubPanels('fusion');
+            fusionPanel.refresh();
+            fusionPanel.open();
+      };
+
+      const openEncyclopediaPanel = (): void => {
+            closeSubPanels('book');
+            encyclopediaPanel.open();
+      };
+
+      openShopPanelByDialogue = (mode) => {
+            closeSubPanels('shop');
+            shopPanel.show(mode);
+      };
+      openSkillPanelByDialogue = () => {
+            closeSubPanels('skill');
+            skillPanel.show();
+      };
+      openQuestPanelByDialogue = () => {
+            closeSubPanels('quest');
+            questPanel.show();
+      };
+      openPetPanelByDialogue = () => openPetPanel();
+      toggleAfkPanelExclusive = () => {
+            if (afkPanel.isVisible) {
+                  afkPanel.hide();
+            } else {
+                  closeSubPanels('afk');
+                  afkPanel.show();
+            }
+            syncAutoUi();
+      };
+
+      // Re-wire callbacks with exclusive-open behavior.
+      petPanel.onOpenFusion = () => openFusionPanel();
+      petPanel.onOpenEncyclopedia = () => openEncyclopediaPanel();
+      petPanel.onOpenRename = (pet) => {
+            closeSubPanels('rename');
+            renamePanel.openFor(pet, () => petPanel.refresh());
+      };
+      petPanel.onOpenRevival = () => {
+            closeSubPanels('revival');
+            revivalPanel.open(() => petPanel.refresh());
+      };
+
+      fusionPanel.setMapNavigator((mapName, petName) => {
+            closeSubPanels('map');
+            worldMapPanel.openAtMap(mapName, petName);
+      });
+
+      worldMapPanel.setNavigationHandlers({
+            onOpenEncyclopedia: (petName, mapName) => {
+                  closeSubPanels('book');
+                  encyclopediaPanel.openPetByName(petName, mapName);
+            },
+            onOpenFusionByIngredient: (petName, mapName) => {
+                  closeSubPanels('fusion');
+                  fusionPanel.openToRecipesByIngredientName(petName, mapName);
+            },
+            onOpenFusionByTarget: (targetName, mapName) => {
+                  closeSubPanels('fusion');
+                  fusionPanel.openToRecipesByTargetName(targetName, mapName);
+            },
+      });
+
+      encyclopediaPanel.setNavigationHandlers({
+            onOpenRecipe: (petName, sourceMap) => {
+                  closeSubPanels('fusion');
+                  fusionPanel.openToRecipesByTargetName(petName, sourceMap);
+            },
+            onOpenMap: (mapName, petName) => {
+                  closeSubPanels('map');
+                  worldMapPanel.openAtMap(mapName, petName);
+            },
+      });
+
+      // Wire portraits
+      hud.getPortrait(0)?.addEventListener('click', () => {
+            closeSubPanels('char');
+            characterPanel.show();
+      });
+      for (let i = 1; i <= 3; i++) {
+            hud.getPortrait(i)?.addEventListener('click', () => {
+                  openPetPanel();
+            });
       }
+
+      // Wire nav buttons
+      hud.getNavButton('nav-pet')?.addEventListener('click', () => openPetPanel());
+      hud.getNavButton('nav-book')?.addEventListener('click', () => openEncyclopediaPanel());
+      hud.getNavButton('nav-settings')?.addEventListener('click', () => {
+            closeSubPanels('settings');
+            systemPanel.show();
+      });
       hud.getNavButton('nav-shop')?.addEventListener('click', () => {
-            shopPanel.toggle();
+            closeSubPanels('shop');
+            shopPanel.show('buy');
       });
       hud.getNavButton('nav-community')?.addEventListener('click', () => {
-            communityPanel.toggle();
+            closeSubPanels('community');
+            communityPanel.show();
       });
       hud.getNavButton('nav-quest')?.addEventListener('click', () => {
-            questPanel.toggle();
+            closeSubPanels('quest');
+            questPanel.show();
       });
       hud.getNavButton('nav-char')?.addEventListener('click', () => {
-            characterPanel.toggle();
+            closeSubPanels('char');
+            characterPanel.show();
       });
       hud.getNavButton('nav-bag')?.addEventListener('click', () => {
-            inventoryPanel.toggle();
+            closeSubPanels('bag');
+            inventoryPanel.show();
       });
       hud.getNavButton('nav-map')?.addEventListener('click', () => {
-            worldMapPanel.toggle();
+            closeSubPanels('map');
+            worldMapPanel.show();
       });
       hud.getNavButton('nav-skill')?.addEventListener('click', () => {
-            skillPanel.toggle();
+            closeSubPanels('skill');
+            skillPanel.show();
       });
 
       // 16. Fade out loading screen

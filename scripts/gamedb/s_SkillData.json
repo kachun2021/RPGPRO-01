@@ -1,0 +1,1402 @@
+[
+  {
+    "skill_index": 1,
+    "level": 1,
+    "consumedMp": 7,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 3,
+    "continuityTime": 3000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 1,
+    "level": 2,
+    "consumedMp": 12,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 8,
+    "continuityTime": 3000,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 1,
+    "level": 3,
+    "consumedMp": 18,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 3500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 1,
+    "level": 4,
+    "consumedMp": 25,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 3500,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 1,
+    "level": 5,
+    "consumedMp": 33,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 35,
+    "continuityTime": 4000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 1,
+    "level": 6,
+    "consumedMp": 43,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 46,
+    "continuityTime": 4000,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 1,
+    "level": 7,
+    "consumedMp": 55,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 60,
+    "continuityTime": 4500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 2,
+    "level": 1,
+    "consumedMp": 7,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 3,
+    "continuityTime": 3000,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 2,
+    "level": 2,
+    "consumedMp": 12,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 8,
+    "continuityTime": 3000,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 2,
+    "level": 3,
+    "consumedMp": 18,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 3500,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 2,
+    "level": 4,
+    "consumedMp": 26,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 3500,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 2,
+    "level": 5,
+    "consumedMp": 35,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 35,
+    "continuityTime": 4000,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 2,
+    "level": 6,
+    "consumedMp": 46,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 46,
+    "continuityTime": 4000,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 2,
+    "level": 7,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 60,
+    "continuityTime": 4500,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 3,
+    "level": 1,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 4,
+    "continuityTime": 3500,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 3,
+    "level": 2,
+    "consumedMp": 20,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 10,
+    "continuityTime": 3500,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 3,
+    "level": 3,
+    "consumedMp": 30,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 4500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 3,
+    "level": 4,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 32,
+    "continuityTime": 4500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 3,
+    "level": 5,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 45,
+    "continuityTime": 5500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 4,
+    "level": 1,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 30,
+    "continuityTime": 4000,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 4,
+    "level": 2,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 55,
+    "continuityTime": 4500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 4,
+    "level": 3,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 75,
+    "continuityTime": 4500,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 4,
+    "level": 4,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 90,
+    "continuityTime": 5000,
+    "coolTime": 6500
+  },
+  {
+    "skill_index": 4,
+    "level": 5,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 100,
+    "continuityTime": 5000,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 4,
+    "level": 6,
+    "consumedMp": 90,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 105,
+    "continuityTime": 5500,
+    "coolTime": 6500
+  },
+  {
+    "skill_index": 5,
+    "level": 1,
+    "consumedMp": 20,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 3,
+    "continuityTime": 0,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 5,
+    "level": 2,
+    "consumedMp": 30,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 8,
+    "continuityTime": 0,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 5,
+    "level": 3,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 5,
+    "level": 4,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 26,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 5,
+    "level": 5,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 39,
+    "continuityTime": 0,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 5,
+    "level": 6,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 55,
+    "continuityTime": 0,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 5,
+    "level": 7,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 75,
+    "continuityTime": 0,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 6,
+    "level": 1,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 4,
+    "continuityTime": 0,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 6,
+    "level": 2,
+    "consumedMp": 30,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 13,
+    "continuityTime": 0,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 6,
+    "level": 3,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 27,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 6,
+    "level": 4,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 46,
+    "continuityTime": 0,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 6,
+    "level": 5,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 70,
+    "continuityTime": 0,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 7,
+    "level": 1,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 5,
+    "continuityTime": 3300,
+    "coolTime": 3000
+  },
+  {
+    "skill_index": 7,
+    "level": 2,
+    "consumedMp": 20,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 4100,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 7,
+    "level": 3,
+    "consumedMp": 30,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 4900,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 7,
+    "level": 4,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 35,
+    "continuityTime": 5700,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 7,
+    "level": 5,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 50,
+    "continuityTime": 6500,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 8,
+    "level": 1,
+    "consumedMp": 15,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 5,
+    "continuityTime": 0,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 8,
+    "level": 2,
+    "consumedMp": 25,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 13,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 8,
+    "level": 3,
+    "consumedMp": 35,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 25,
+    "continuityTime": 0,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 8,
+    "level": 4,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 42,
+    "continuityTime": 0,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 8,
+    "level": 5,
+    "consumedMp": 65,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 65,
+    "continuityTime": 0,
+    "coolTime": 3500
+  },
+  {
+    "skill_index": 9,
+    "level": 1,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 5,
+    "continuityTime": 5500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 9,
+    "level": 2,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 15,
+    "continuityTime": 6000,
+    "coolTime": 6500
+  },
+  {
+    "skill_index": 9,
+    "level": 3,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 25,
+    "continuityTime": 6500,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 9,
+    "level": 4,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 40,
+    "continuityTime": 7000,
+    "coolTime": 7500
+  },
+  {
+    "skill_index": 9,
+    "level": 5,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 55,
+    "continuityTime": 7500,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 10,
+    "level": 1,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 5,
+    "continuityTime": 5500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 10,
+    "level": 2,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 15,
+    "continuityTime": 6000,
+    "coolTime": 6500
+  },
+  {
+    "skill_index": 10,
+    "level": 3,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 25,
+    "continuityTime": 6500,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 10,
+    "level": 4,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 40,
+    "continuityTime": 7000,
+    "coolTime": 7500
+  },
+  {
+    "skill_index": 10,
+    "level": 5,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 55,
+    "continuityTime": 7500,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 11,
+    "level": 1,
+    "consumedMp": 110,
+    "maxTargetDistance": 4,
+    "targetRange": 4,
+    "requireSP": 20,
+    "continuityTime": 4500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 12,
+    "level": 1,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 15,
+    "continuityTime": 0,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 12,
+    "level": 2,
+    "consumedMp": 100,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 45,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 13,
+    "level": 1,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 15,
+    "continuityTime": 0,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 13,
+    "level": 2,
+    "consumedMp": 100,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 45,
+    "continuityTime": 0,
+    "coolTime": 4500
+  },
+  {
+    "skill_index": 14,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 2800,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 3600,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 4400,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 5200,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 6000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 6800,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 14,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 7600,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 15,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 2000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 15,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 2500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 15,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 3000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 15,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 3500,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 15,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 4000,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 15,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 4500,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 15,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 5000,
+    "coolTime": 5500
+  },
+  {
+    "skill_index": 16,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 16,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 17,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 4000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 5000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 6000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 7000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 8000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 9000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 18,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 10000,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 19,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 20,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 1,
+    "consumedMp": 5,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 12,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 2,
+    "consumedMp": 10,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 14,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 3,
+    "consumedMp": 16,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 16,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 4,
+    "consumedMp": 23,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 5,
+    "consumedMp": 31,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 6,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 22,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 21,
+    "level": 7,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 22,
+    "level": 1,
+    "consumedMp": 50,
+    "maxTargetDistance": 17,
+    "targetRange": 8,
+    "requireSP": 24,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 23,
+    "level": 1,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 9000,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 23,
+    "level": 2,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 45,
+    "continuityTime": 10500,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 23,
+    "level": 3,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 75,
+    "continuityTime": 12000,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 24,
+    "level": 1,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 20,
+    "continuityTime": 7500,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 24,
+    "level": 2,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 45,
+    "continuityTime": 9000,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 24,
+    "level": 3,
+    "consumedMp": 80,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 75,
+    "continuityTime": 10500,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 25,
+    "level": 1,
+    "consumedMp": 40,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 0,
+    "coolTime": 3000
+  },
+  {
+    "skill_index": 25,
+    "level": 2,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 39,
+    "continuityTime": 0,
+    "coolTime": 4000
+  },
+  {
+    "skill_index": 25,
+    "level": 3,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 63,
+    "continuityTime": 0,
+    "coolTime": 5000
+  },
+  {
+    "skill_index": 26,
+    "level": 1,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 30,
+    "continuityTime": 4000,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 26,
+    "level": 2,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 65,
+    "continuityTime": 6000,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 27,
+    "level": 1,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 4000,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 27,
+    "level": 2,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 39,
+    "continuityTime": 5000,
+    "coolTime": 7000
+  },
+  {
+    "skill_index": 27,
+    "level": 3,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 63,
+    "continuityTime": 6000,
+    "coolTime": 8000
+  },
+  {
+    "skill_index": 28,
+    "level": 1,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 18,
+    "continuityTime": 240000,
+    "coolTime": 15000
+  },
+  {
+    "skill_index": 28,
+    "level": 2,
+    "consumedMp": 60,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 39,
+    "continuityTime": 360000,
+    "coolTime": 20000
+  },
+  {
+    "skill_index": 28,
+    "level": 3,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 63,
+    "continuityTime": 480000,
+    "coolTime": 25000
+  },
+  {
+    "skill_index": 29,
+    "level": 1,
+    "consumedMp": 50,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 30,
+    "continuityTime": 360000,
+    "coolTime": 15000
+  },
+  {
+    "skill_index": 29,
+    "level": 2,
+    "consumedMp": 70,
+    "maxTargetDistance": 8,
+    "targetRange": 0,
+    "requireSP": 65,
+    "continuityTime": 480000,
+    "coolTime": 25000
+  },
+  {
+    "skill_index": 30,
+    "level": 1,
+    "consumedMp": 120,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 30,
+    "continuityTime": 0,
+    "coolTime": 6000
+  },
+  {
+    "skill_index": 31,
+    "level": 1,
+    "consumedMp": 120,
+    "maxTargetDistance": 8,
+    "targetRange": 4,
+    "requireSP": 30,
+    "continuityTime": 9000,
+    "coolTime": 10000
+  }
+]

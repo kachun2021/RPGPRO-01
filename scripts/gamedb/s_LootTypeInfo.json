@@ -1,0 +1,79 @@
+[
+  {
+    "loot_type": 1,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 30000,
+    "opt_rate2": 550
+  },
+  {
+    "loot_type": 2,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 29000,
+    "opt_rate2": 500
+  },
+  {
+    "loot_type": 3,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 28000,
+    "opt_rate2": 450
+  },
+  {
+    "loot_type": 4,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 27000,
+    "opt_rate2": 400
+  },
+  {
+    "loot_type": 5,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 26000,
+    "opt_rate2": 350
+  },
+  {
+    "loot_type": 6,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 25000,
+    "opt_rate2": 300
+  },
+  {
+    "loot_type": 7,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 24000,
+    "opt_rate2": 250
+  },
+  {
+    "loot_type": 8,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 23000,
+    "opt_rate2": 200
+  },
+  {
+    "loot_type": 9,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 22000,
+    "opt_rate2": 150
+  },
+  {
+    "loot_type": 10,
+    "sp_loot_rate": 100,
+    "loot_rate": 10,
+    "opt_rate1": 21000,
+    "opt_rate2": 100
+  },
+  {
+    "loot_type": 11,
+    "sp_loot_rate": 100,
+    "loot_rate": 0,
+    "opt_rate1": 0,
+    "opt_rate2": 0
+  }
+]

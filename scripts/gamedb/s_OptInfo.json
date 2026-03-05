@@ -1,0 +1,34 @@
+[
+  {
+    "type": 0,
+    "loot_rate": 10
+  },
+  {
+    "type": 1,
+    "loot_rate": 10
+  },
+  {
+    "type": 2,
+    "loot_rate": 10
+  },
+  {
+    "type": 3,
+    "loot_rate": 14
+  },
+  {
+    "type": 4,
+    "loot_rate": 14
+  },
+  {
+    "type": 5,
+    "loot_rate": 14
+  },
+  {
+    "type": 6,
+    "loot_rate": 14
+  },
+  {
+    "type": 7,
+    "loot_rate": 14
+  }
+]

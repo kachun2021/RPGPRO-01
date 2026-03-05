@@ -18,6 +18,11 @@ export class SkillPanel {
       private _activeTab: 'player' | 'pet' = 'player';
       private _sp = 12;
       private _skillLevels = new Map<string, number>();
+      private _onResize = (): void => {
+            if (!this._visible) return;
+            this._syncResponsiveMode();
+            this._fitBodyScale();
+      };
 
       constructor(skillBar: SkillBar, petManager?: PetManager) {
             this._skillBar = skillBar;
@@ -34,6 +39,7 @@ export class SkillPanel {
 
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
+            window.addEventListener('resize', this._onResize);
       }
 
       setPetManager(pm: PetManager): void {
@@ -43,7 +49,7 @@ export class SkillPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '⚔️ 技能設定';
+            title.innerHTML = '⚡ 技能設定';
 
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
@@ -53,19 +59,20 @@ export class SkillPanel {
             this._el.appendChild(title);
 
             const tabBar = document.createElement('div');
-            tabBar.className = 'sa-sec';
-            tabBar.style.cssText = 'display:flex;gap:4px;padding:4px 8px';
+            tabBar.className = 'skill-tabs';
 
-            const playerTab = document.createElement('div');
-            playerTab.className = 'sa-tag sa-tag-active';
+            const playerTab = document.createElement('button');
+            playerTab.type = 'button';
+            playerTab.className = 'skill-tab-btn active';
             playerTab.id = 'skill-tab-player';
-            playerTab.textContent = '⚔ 主角技能';
+            playerTab.textContent = '主角';
             playerTab.addEventListener('click', () => this._switchTab('player'));
 
-            const petTab = document.createElement('div');
-            petTab.className = 'sa-tag';
+            const petTab = document.createElement('button');
+            petTab.type = 'button';
+            petTab.className = 'skill-tab-btn';
             petTab.id = 'skill-tab-pet';
-            petTab.textContent = '🐾 寵物技能';
+            petTab.textContent = '寵物';
             petTab.addEventListener('click', () => this._switchTab('pet'));
 
             tabBar.appendChild(playerTab);
@@ -74,7 +81,7 @@ export class SkillPanel {
 
             this._body = document.createElement('div');
             this._body.className = 'panel-body';
-            this._body.style.padding = '8px 12px';
+            this._body.style.padding = '8px 10px 10px';
             this._el.appendChild(this._body);
       }
 
@@ -82,38 +89,74 @@ export class SkillPanel {
             this._activeTab = tab;
             const playerTab = this._el.querySelector('#skill-tab-player');
             const petTab = this._el.querySelector('#skill-tab-pet');
-            if (playerTab) playerTab.className = tab === 'player' ? 'sa-tag sa-tag-active' : 'sa-tag';
-            if (petTab) petTab.className = tab === 'pet' ? 'sa-tag sa-tag-active' : 'sa-tag';
+            if (playerTab) playerTab.className = tab === 'player' ? 'skill-tab-btn active' : 'skill-tab-btn';
+            if (petTab) petTab.className = tab === 'pet' ? 'skill-tab-btn active' : 'skill-tab-btn';
             this._renderContent();
       }
 
+      private _isLandscapeFocusMode(): boolean {
+            const w = window.innerWidth || 0;
+            const h = window.innerHeight || 0;
+            return w > h && w <= 980 && h <= 540;
+      }
+
+      private _syncResponsiveMode(): void {
+            this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
+      }
+
       private _renderContent(): void {
+            this._syncResponsiveMode();
             this._body.innerHTML = '';
             if (this._activeTab === 'player') this._renderPlayerTab();
             else this._renderPetTab();
+            requestAnimationFrame(() => this._fitBodyScale());
+      }
+
+      private _fitBodyScale(): void {
+            const root = this._body.firstElementChild as HTMLElement | null;
+            if (!root) return;
+            this._el.style.transformOrigin = 'center center';
+            this._el.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            const available = this._body.clientHeight;
+            if (available <= 0) return;
+
+            const needed = root.scrollHeight;
+            if (needed <= 0 || needed <= available) return;
+
+            const scale = Math.max(0.58, Math.min(1, available / needed));
+            this._el.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
 
       // -- Player Tab --
 
       private _renderPlayerTab(): void {
+            const focusMode = this._isLandscapeFocusMode();
+
+            const layout = document.createElement('div');
+            layout.className = 'skill-layout skill-layout-player';
+            const leftCol = document.createElement('div');
+            leftCol.className = 'skill-col skill-left';
+            const rightCol = document.createElement('div');
+            rightCol.className = 'skill-col skill-right';
+
             const spBar = document.createElement('div');
-            spBar.className = 'sa-sec';
-            spBar.style.cssText = 'padding:6px 8px;display:flex;justify-content:space-between;align-items:center';
+            spBar.className = 'sa-sec skill-sp-bar';
             spBar.innerHTML = `
-                  <span style="color:rgba(232,201,106,0.85);font-size:11px;font-weight:700">技能點數 SP</span>
+                  <span style="color:rgba(232,201,106,0.85);font-size:11px;font-weight:700">技能點 SP</span>
                   <span style="color:rgba(220,215,200,0.9);font-size:12px;font-weight:700">${this._sp}</span>
             `;
-            this._body.appendChild(spBar);
+            leftCol.appendChild(spBar);
 
             const equipSection = document.createElement('div');
-            equipSection.className = 'sa-sec';
+            equipSection.className = 'sa-sec skill-section';
             const equipLabel = document.createElement('div');
-            equipLabel.style.cssText = 'color:rgba(232,201,106,0.8);font-size:11px;font-weight:700;margin-bottom:6px';
-            equipLabel.textContent = '技能欄 (F1-F5) - 可拖放，點擊可清除';
+            equipLabel.className = 'skill-section-title';
+            equipLabel.textContent = focusMode ? '技能槽（拖放）' : '技能槽位（拖放裝備，點擊清除）';
             equipSection.appendChild(equipLabel);
 
             const equipGrid = document.createElement('div');
-            equipGrid.style.cssText = 'display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px';
+            equipGrid.className = 'skill-equip-grid';
 
             const equipped = this._skillBar.getEquipped();
             for (let i = 0; i < 5; i++) {
@@ -148,30 +191,34 @@ export class SkillPanel {
                   equipGrid.appendChild(slot);
             }
             equipSection.appendChild(equipGrid);
-            this._body.appendChild(equipSection);
+            leftCol.appendChild(equipSection);
 
             const allSection = document.createElement('div');
-            allSection.className = 'sa-sec';
+            allSection.className = 'sa-sec skill-section';
             const allLabel = document.createElement('div');
-            allLabel.style.cssText = 'color:rgba(232,201,106,0.8);font-size:11px;font-weight:700;margin-bottom:6px';
-            allLabel.textContent = '所有技能 (點擊裝備 / 升級提升倍率)';
+            allLabel.className = 'skill-section-title';
+            allLabel.textContent = focusMode ? '可用技能（點擊裝備）' : '技能清單（點擊裝備，升級可提高倍率）';
             allSection.appendChild(allLabel);
 
             const skillGrid = document.createElement('div');
-            skillGrid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:4px';
+            skillGrid.className = 'skill-cards-grid';
             for (const skill of SKILL_DEFS) {
                   skillGrid.appendChild(this._createSkillCard(skill));
             }
             allSection.appendChild(skillGrid);
-            this._body.appendChild(allSection);
+            rightCol.appendChild(allSection);
+            layout.appendChild(leftCol);
+            layout.appendChild(rightCol);
+            this._body.appendChild(layout);
       }
 
       private _createSkillCard(baseSkill: SkillDef): HTMLDivElement {
             const skill = this._runtimeSkill(baseSkill);
             const level = this._skillLevels.get(baseSkill.id) ?? 1;
+            const focusMode = this._isLandscapeFocusMode();
 
             const card = document.createElement('div');
-            card.className = 'skill-card';
+            card.className = 'skill-card game-card';
             card.draggable = true;
             card.addEventListener('click', () => this._equipSkillById(baseSkill.id));
             card.addEventListener('dragstart', (e) => {
@@ -186,10 +233,10 @@ export class SkillPanel {
                   debuff: '#9B59B6',
             };
             const typeLabels: Record<string, string> = {
-                  attack: '⚔️攻擊',
-                  heal: '💚回復',
-                  buff: '🛡️增益',
-                  debuff: '💀減益',
+                  attack: '攻擊',
+                  heal: '治療',
+                  buff: '增益',
+                  debuff: '減益',
             };
 
             card.innerHTML = `
@@ -207,8 +254,11 @@ export class SkillPanel {
 
             const upBtn = document.createElement('button');
             upBtn.className = 'btn-gold';
-            upBtn.textContent = this._sp > 0 ? '升級 -1SP' : 'SP不足';
-            upBtn.style.cssText = 'margin-left:4px;padding:4px 6px;font-size:10px;min-width:58px;opacity:' + (this._sp > 0 ? '1' : '0.45');
+            upBtn.textContent = this._sp > 0
+                  ? (focusMode ? '升級' : '升級 -1SP')
+                  : (focusMode ? '不足' : 'SP不足');
+            upBtn.title = this._sp > 0 ? '消耗 1 SP 升級技能' : 'SP不足';
+            upBtn.style.cssText = 'margin-left:4px;padding:4px 6px;font-size:10px;min-width:62px;opacity:' + (this._sp > 0 ? '1' : '0.45');
             upBtn.disabled = this._sp <= 0;
             upBtn.addEventListener('click', (e) => {
                   e.stopPropagation();
@@ -267,21 +317,27 @@ export class SkillPanel {
 
       private _renderPetTab(): void {
             if (!this._petManager) {
-                  this._body.innerHTML = '<div style="color:rgba(200,195,185,0.5);text-align:center;padding:20px;font-size:12px">尚未載入</div>';
+                  this._body.innerHTML = '<div style="color:rgba(200,195,185,0.5);text-align:center;padding:20px;font-size:12px">尚未載入寵物資料</div>';
                   return;
             }
 
             const activePets = this._petManager.active;
+            const layout = document.createElement('div');
+            layout.className = 'skill-layout skill-layout-pet';
+            const leftCol = document.createElement('div');
+            leftCol.className = 'skill-col skill-left';
+            const rightCol = document.createElement('div');
+            rightCol.className = 'skill-col skill-right';
 
             const section = document.createElement('div');
-            section.className = 'sa-sec';
+            section.className = 'sa-sec skill-section';
             const label = document.createElement('div');
-            label.style.cssText = 'color:rgba(232,201,106,0.8);font-size:11px;font-weight:700;margin-bottom:6px';
-            label.textContent = `出戰寵物技能 (${activePets.length}/3)`;
+            label.className = 'skill-section-title';
+            label.textContent = `出戰寵物 (${activePets.length}/3)`;
             section.appendChild(label);
 
             const slotGrid = document.createElement('div');
-            slotGrid.style.cssText = 'display:flex;gap:4px;margin-bottom:8px';
+            slotGrid.className = 'skill-equip-grid skill-pet-grid';
 
             for (let i = 0; i < 3; i++) {
                   const slot = document.createElement('div');
@@ -297,18 +353,24 @@ export class SkillPanel {
                   slotGrid.appendChild(slot);
             }
             section.appendChild(slotGrid);
-            this._body.appendChild(section);
+            leftCol.appendChild(section);
 
             if (activePets.length === 0) {
-                  this._body.innerHTML += '<div style="color:rgba(200,195,185,0.4);text-align:center;padding:12px;font-size:11px">沒有出戰寵物</div>';
+                  const empty = document.createElement('div');
+                  empty.className = 'sa-sec skill-section';
+                  empty.innerHTML = '<div style="color:rgba(200,195,185,0.4);text-align:center;padding:12px;font-size:11px">目前沒有出戰寵物</div>';
+                  rightCol.appendChild(empty);
+                  layout.appendChild(leftCol);
+                  layout.appendChild(rightCol);
+                  this._body.appendChild(layout);
                   return;
             }
 
             const detailSection = document.createElement('div');
-            detailSection.className = 'sa-sec';
+            detailSection.className = 'sa-sec skill-section';
             const detailLabel = document.createElement('div');
-            detailLabel.style.cssText = 'color:rgba(232,201,106,0.8);font-size:11px;font-weight:700;margin-bottom:6px';
-            detailLabel.textContent = '寵物技能詳情';
+            detailLabel.className = 'skill-section-title';
+            detailLabel.textContent = '寵物技能資訊';
             detailSection.appendChild(detailLabel);
 
             for (const pet of activePets) {
@@ -318,7 +380,7 @@ export class SkillPanel {
                   const colorHex = `rgb(${Math.round(seriesColor.r * 255)},${Math.round(seriesColor.g * 255)},${Math.round(seriesColor.b * 255)})`;
 
                   const card = document.createElement('div');
-                  card.className = 'skill-card';
+                  card.className = 'skill-card game-card';
                   card.style.cssText = 'margin-bottom:4px;cursor:default';
 
                   let skillHtml = '<span style="color:rgba(200,195,185,0.4);font-size:10px">無技能</span>';
@@ -345,16 +407,30 @@ export class SkillPanel {
                   `;
                   detailSection.appendChild(card);
             }
-            this._body.appendChild(detailSection);
+            rightCol.appendChild(detailSection);
 
             const note = document.createElement('div');
             note.style.cssText = 'color:rgba(200,195,185,0.3);font-size:9px;text-align:center;padding:6px';
-            note.textContent = '寵物技能由戰鬥輪流自動施放';
-            this._body.appendChild(note);
+            note.textContent = '寵物技能由戰鬥 AI 自動施放';
+            rightCol.appendChild(note);
+            layout.appendChild(leftCol);
+            layout.appendChild(rightCol);
+            this._body.appendChild(layout);
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._renderContent(); }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      show(): void {
+            this._visible = true;
+            this._syncResponsiveMode();
+            this._el.style.display = 'block';
+            this._renderContent();
+      }
+      hide(): void {
+            this._visible = false;
+            this._el.style.display = 'none';
+      }
+      dispose(): void {
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
 }

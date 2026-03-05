@@ -1,0 +1,5762 @@
+[
+  {
+    "mode": 2,
+    "mainnum": 25,
+    "maingrade": 0,
+    "subnum": 121,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 213,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 257,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 226,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 216,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 213,
+    "maingrade": 0,
+    "subnum": 129,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 213,
+    "maingrade": 0,
+    "subnum": 248,
+    "subgrade": 0,
+    "result": 29
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 208,
+    "subgrade": 0,
+    "result": 33
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 33
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 33
+  },
+  {
+    "mode": 2,
+    "mainnum": 33,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 33,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 77,
+    "subgrade": 0,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 266,
+    "maingrade": 1,
+    "subnum": 77,
+    "subgrade": 0,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 266,
+    "maingrade": 1,
+    "subnum": 73,
+    "subgrade": 0,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 266,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 37
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 129,
+    "subgrade": 0,
+    "result": 41
+  },
+  {
+    "mode": 2,
+    "mainnum": 33,
+    "maingrade": 0,
+    "subnum": 259,
+    "subgrade": 0,
+    "result": 41
+  },
+  {
+    "mode": 2,
+    "mainnum": 33,
+    "maingrade": 0,
+    "subnum": 227,
+    "subgrade": 0,
+    "result": 41
+  },
+  {
+    "mode": 2,
+    "mainnum": 33,
+    "maingrade": 0,
+    "subnum": 269,
+    "subgrade": 0,
+    "result": 41
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 45
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 45
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 81,
+    "subgrade": 1,
+    "result": 45
+  },
+  {
+    "mode": 2,
+    "mainnum": 2,
+    "maingrade": 0,
+    "subnum": 85,
+    "subgrade": 0,
+    "result": 53
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 214,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 202,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 208,
+    "maingrade": 0,
+    "subnum": 213,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 208,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 217,
+    "maingrade": 0,
+    "subnum": 257,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 217,
+    "maingrade": 0,
+    "subnum": 149,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 217,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 69
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 248,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 69,
+    "maingrade": 0,
+    "subnum": 214,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 69,
+    "maingrade": 0,
+    "subnum": 262,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 69,
+    "maingrade": 0,
+    "subnum": 29,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 69,
+    "maingrade": 0,
+    "subnum": 137,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 73,
+    "maingrade": 0,
+    "subnum": 41,
+    "subgrade": 0,
+    "result": 77
+  },
+  {
+    "mode": 2,
+    "mainnum": 77,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 81
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 105
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 200,
+    "subgrade": 0,
+    "result": 105
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 105
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 181,
+    "subgrade": 0,
+    "result": 105
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 105
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 41,
+    "subgrade": 0,
+    "result": 109
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 340,
+    "subgrade": 1,
+    "result": 109
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 109
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 73,
+    "subgrade": 0,
+    "result": 109
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 109
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 234,
+    "subgrade": 0,
+    "result": 137
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 137
+  },
+  {
+    "mode": 2,
+    "mainnum": 197,
+    "maingrade": 0,
+    "subnum": 57,
+    "subgrade": 0,
+    "result": 137
+  },
+  {
+    "mode": 2,
+    "mainnum": 197,
+    "maingrade": 0,
+    "subnum": 193,
+    "subgrade": 0,
+    "result": 137
+  },
+  {
+    "mode": 2,
+    "mainnum": 226,
+    "maingrade": 0,
+    "subnum": 199,
+    "subgrade": 0,
+    "result": 137
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 228,
+    "subgrade": 0,
+    "result": 141
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 65,
+    "subgrade": 0,
+    "result": 141
+  },
+  {
+    "mode": 2,
+    "mainnum": 141,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 145
+  },
+  {
+    "mode": 2,
+    "mainnum": 141,
+    "maingrade": 0,
+    "subnum": 41,
+    "subgrade": 0,
+    "result": 145
+  },
+  {
+    "mode": 2,
+    "mainnum": 165,
+    "maingrade": 0,
+    "subnum": 129,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 165,
+    "maingrade": 0,
+    "subnum": 237,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 165,
+    "maingrade": 0,
+    "subnum": 133,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 165,
+    "maingrade": 0,
+    "subnum": 234,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 165,
+    "maingrade": 0,
+    "subnum": 229,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 137,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 231,
+    "maingrade": 0,
+    "subnum": 239,
+    "subgrade": 0,
+    "result": 169
+  },
+  {
+    "mode": 2,
+    "mainnum": 169,
+    "maingrade": 0,
+    "subnum": 340,
+    "subgrade": 1,
+    "result": 173
+  },
+  {
+    "mode": 2,
+    "mainnum": 169,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 173
+  },
+  {
+    "mode": 2,
+    "mainnum": 169,
+    "maingrade": 0,
+    "subnum": 77,
+    "subgrade": 0,
+    "result": 173
+  },
+  {
+    "mode": 2,
+    "mainnum": 169,
+    "maingrade": 0,
+    "subnum": 242,
+    "subgrade": 1,
+    "result": 173
+  },
+  {
+    "mode": 2,
+    "mainnum": 169,
+    "maingrade": 0,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 173
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 341,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 273,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 133,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 29,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 220,
+    "maingrade": 0,
+    "subnum": 193,
+    "subgrade": 0,
+    "result": 181
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 259,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 129,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 247,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 234,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 235,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 137,
+    "subgrade": 0,
+    "result": 185
+  },
+  {
+    "mode": 2,
+    "mainnum": 73,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 196
+  },
+  {
+    "mode": 2,
+    "mainnum": 73,
+    "maingrade": 0,
+    "subnum": 241,
+    "subgrade": 1,
+    "result": 196
+  },
+  {
+    "mode": 2,
+    "mainnum": 73,
+    "maingrade": 0,
+    "subnum": 105,
+    "subgrade": 0,
+    "result": 196
+  },
+  {
+    "mode": 2,
+    "mainnum": 77,
+    "maingrade": 0,
+    "subnum": 327,
+    "subgrade": 0,
+    "result": 196
+  },
+  {
+    "mode": 2,
+    "mainnum": 77,
+    "maingrade": 0,
+    "subnum": 73,
+    "subgrade": 0,
+    "result": 196
+  },
+  {
+    "mode": 2,
+    "mainnum": 198,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 200
+  },
+  {
+    "mode": 2,
+    "mainnum": 198,
+    "maingrade": 0,
+    "subnum": 226,
+    "subgrade": 0,
+    "result": 200
+  },
+  {
+    "mode": 2,
+    "mainnum": 266,
+    "maingrade": 1,
+    "subnum": 260,
+    "subgrade": 1,
+    "result": 207
+  },
+  {
+    "mode": 2,
+    "mainnum": 266,
+    "maingrade": 1,
+    "subnum": 251,
+    "subgrade": 1,
+    "result": 207
+  },
+  {
+    "mode": 2,
+    "mainnum": 81,
+    "maingrade": 1,
+    "subnum": 242,
+    "subgrade": 1,
+    "result": 209
+  },
+  {
+    "mode": 2,
+    "mainnum": 81,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 209
+  },
+  {
+    "mode": 2,
+    "mainnum": 196,
+    "maingrade": 1,
+    "subnum": 251,
+    "subgrade": 1,
+    "result": 209
+  },
+  {
+    "mode": 2,
+    "mainnum": 196,
+    "maingrade": 1,
+    "subnum": 265,
+    "subgrade": 1,
+    "result": 209
+  },
+  {
+    "mode": 2,
+    "mainnum": 196,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 209
+  },
+  {
+    "mode": 2,
+    "mainnum": 133,
+    "maingrade": 0,
+    "subnum": 194,
+    "subgrade": 0,
+    "result": 210
+  },
+  {
+    "mode": 2,
+    "mainnum": 133,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 210
+  },
+  {
+    "mode": 2,
+    "mainnum": 226,
+    "maingrade": 0,
+    "subnum": 202,
+    "subgrade": 0,
+    "result": 210
+  },
+  {
+    "mode": 2,
+    "mainnum": 271,
+    "maingrade": 1,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 211
+  },
+  {
+    "mode": 2,
+    "mainnum": 271,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 211
+  },
+  {
+    "mode": 2,
+    "mainnum": 196,
+    "maingrade": 1,
+    "subnum": 37,
+    "subgrade": 1,
+    "result": 218
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 214,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 217,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 177,
+    "maingrade": 0,
+    "subnum": 256,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 177,
+    "maingrade": 0,
+    "subnum": 125,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 220,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 220,
+    "maingrade": 0,
+    "subnum": 258,
+    "subgrade": 0,
+    "result": 221
+  },
+  {
+    "mode": 2,
+    "mainnum": 219,
+    "maingrade": 0,
+    "subnum": 225,
+    "subgrade": 0,
+    "result": 222
+  },
+  {
+    "mode": 2,
+    "mainnum": 219,
+    "maingrade": 0,
+    "subnum": 199,
+    "subgrade": 0,
+    "result": 222
+  },
+  {
+    "mode": 2,
+    "mainnum": 219,
+    "maingrade": 0,
+    "subnum": 113,
+    "subgrade": 0,
+    "result": 222
+  },
+  {
+    "mode": 2,
+    "mainnum": 101,
+    "maingrade": 0,
+    "subnum": 33,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 263,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 185,
+    "maingrade": 0,
+    "subnum": 238,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 237,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 245,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 133,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 222,
+    "maingrade": 0,
+    "subnum": 229,
+    "subgrade": 0,
+    "result": 223
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 227,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 258,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 236,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 238,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 223,
+    "maingrade": 0,
+    "subnum": 105,
+    "subgrade": 0,
+    "result": 224
+  },
+  {
+    "mode": 2,
+    "mainnum": 121,
+    "maingrade": 0,
+    "subnum": 245,
+    "subgrade": 0,
+    "result": 227
+  },
+  {
+    "mode": 2,
+    "mainnum": 121,
+    "maingrade": 0,
+    "subnum": 216,
+    "subgrade": 0,
+    "result": 227
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 237,
+    "subgrade": 0,
+    "result": 227
+  },
+  {
+    "mode": 2,
+    "mainnum": 129,
+    "maingrade": 0,
+    "subnum": 133,
+    "subgrade": 0,
+    "result": 227
+  },
+  {
+    "mode": 2,
+    "mainnum": 226,
+    "maingrade": 0,
+    "subnum": 225,
+    "subgrade": 0,
+    "result": 227
+  },
+  {
+    "mode": 2,
+    "mainnum": 199,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 229
+  },
+  {
+    "mode": 2,
+    "mainnum": 199,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 229
+  },
+  {
+    "mode": 2,
+    "mainnum": 199,
+    "maingrade": 0,
+    "subnum": 202,
+    "subgrade": 0,
+    "result": 229
+  },
+  {
+    "mode": 2,
+    "mainnum": 199,
+    "maingrade": 0,
+    "subnum": 232,
+    "subgrade": 0,
+    "result": 229
+  },
+  {
+    "mode": 2,
+    "mainnum": 199,
+    "maingrade": 0,
+    "subnum": 226,
+    "subgrade": 0,
+    "result": 229
+  },
+  {
+    "mode": 2,
+    "mainnum": 228,
+    "maingrade": 0,
+    "subnum": 257,
+    "subgrade": 0,
+    "result": 230
+  },
+  {
+    "mode": 2,
+    "mainnum": 228,
+    "maingrade": 0,
+    "subnum": 201,
+    "subgrade": 0,
+    "result": 230
+  },
+  {
+    "mode": 2,
+    "mainnum": 228,
+    "maingrade": 0,
+    "subnum": 225,
+    "subgrade": 0,
+    "result": 230
+  },
+  {
+    "mode": 2,
+    "mainnum": 228,
+    "maingrade": 0,
+    "subnum": 203,
+    "subgrade": 0,
+    "result": 230
+  },
+  {
+    "mode": 2,
+    "mainnum": 228,
+    "maingrade": 0,
+    "subnum": 226,
+    "subgrade": 0,
+    "result": 230
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 231
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 237,
+    "subgrade": 0,
+    "result": 231
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 235,
+    "subgrade": 0,
+    "result": 231
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 221,
+    "subgrade": 0,
+    "result": 231
+  },
+  {
+    "mode": 2,
+    "mainnum": 229,
+    "maingrade": 0,
+    "subnum": 177,
+    "subgrade": 0,
+    "result": 231
+  },
+  {
+    "mode": 2,
+    "mainnum": 193,
+    "maingrade": 0,
+    "subnum": 198,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 193,
+    "maingrade": 0,
+    "subnum": 197,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 193,
+    "maingrade": 0,
+    "subnum": 177,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 203,
+    "maingrade": 0,
+    "subnum": 256,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 203,
+    "maingrade": 0,
+    "subnum": 199,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 203,
+    "maingrade": 0,
+    "subnum": 228,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 203,
+    "maingrade": 0,
+    "subnum": 226,
+    "subgrade": 0,
+    "result": 235
+  },
+  {
+    "mode": 2,
+    "mainnum": 202,
+    "maingrade": 0,
+    "subnum": 194,
+    "subgrade": 0,
+    "result": 236
+  },
+  {
+    "mode": 2,
+    "mainnum": 202,
+    "maingrade": 0,
+    "subnum": 225,
+    "subgrade": 0,
+    "result": 236
+  },
+  {
+    "mode": 2,
+    "mainnum": 202,
+    "maingrade": 0,
+    "subnum": 199,
+    "subgrade": 0,
+    "result": 236
+  },
+  {
+    "mode": 2,
+    "mainnum": 234,
+    "maingrade": 0,
+    "subnum": 221,
+    "subgrade": 0,
+    "result": 236
+  },
+  {
+    "mode": 2,
+    "mainnum": 234,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 236
+  },
+  {
+    "mode": 2,
+    "mainnum": 202,
+    "maingrade": 0,
+    "subnum": 57,
+    "subgrade": 0,
+    "result": 237
+  },
+  {
+    "mode": 2,
+    "mainnum": 234,
+    "maingrade": 0,
+    "subnum": 129,
+    "subgrade": 0,
+    "result": 237
+  },
+  {
+    "mode": 2,
+    "mainnum": 203,
+    "maingrade": 0,
+    "subnum": 225,
+    "subgrade": 0,
+    "result": 238
+  },
+  {
+    "mode": 2,
+    "mainnum": 234,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 238
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 238
+  },
+  {
+    "mode": 2,
+    "mainnum": 234,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 235,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 235,
+    "maingrade": 0,
+    "subnum": 133,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 235,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 235,
+    "maingrade": 0,
+    "subnum": 230,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 235,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 239
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 210,
+    "subgrade": 0,
+    "result": 240
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 227,
+    "subgrade": 0,
+    "result": 240
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 263,
+    "subgrade": 0,
+    "result": 240
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 241
+  },
+  {
+    "mode": 2,
+    "mainnum": 236,
+    "maingrade": 0,
+    "subnum": 185,
+    "subgrade": 0,
+    "result": 241
+  },
+  {
+    "mode": 2,
+    "mainnum": 240,
+    "maingrade": 0,
+    "subnum": 185,
+    "subgrade": 0,
+    "result": 241
+  },
+  {
+    "mode": 2,
+    "mainnum": 238,
+    "maingrade": 0,
+    "subnum": 101,
+    "subgrade": 0,
+    "result": 242
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 242
+  },
+  {
+    "mode": 2,
+    "mainnum": 240,
+    "maingrade": 0,
+    "subnum": 230,
+    "subgrade": 0,
+    "result": 242
+  },
+  {
+    "mode": 2,
+    "mainnum": 316,
+    "maingrade": 1,
+    "subnum": 207,
+    "subgrade": 1,
+    "result": 250
+  },
+  {
+    "mode": 2,
+    "mainnum": 316,
+    "maingrade": 1,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 250
+  },
+  {
+    "mode": 2,
+    "mainnum": 332,
+    "maingrade": 1,
+    "subnum": 328,
+    "subgrade": 1,
+    "result": 250
+  },
+  {
+    "mode": 2,
+    "mainnum": 332,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 250
+  },
+  {
+    "mode": 2,
+    "mainnum": 332,
+    "maingrade": 1,
+    "subnum": 268,
+    "subgrade": 1,
+    "result": 250
+  },
+  {
+    "mode": 2,
+    "mainnum": 273,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 251
+  },
+  {
+    "mode": 2,
+    "mainnum": 273,
+    "maingrade": 0,
+    "subnum": 105,
+    "subgrade": 0,
+    "result": 251
+  },
+  {
+    "mode": 2,
+    "mainnum": 257,
+    "maingrade": 0,
+    "subnum": 248,
+    "subgrade": 0,
+    "result": 259
+  },
+  {
+    "mode": 2,
+    "mainnum": 257,
+    "maingrade": 0,
+    "subnum": 216,
+    "subgrade": 0,
+    "result": 259
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 199,
+    "subgrade": 0,
+    "result": 259
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 249,
+    "subgrade": 0,
+    "result": 259
+  },
+  {
+    "mode": 2,
+    "mainnum": 259,
+    "maingrade": 0,
+    "subnum": 269,
+    "subgrade": 0,
+    "result": 260
+  },
+  {
+    "mode": 2,
+    "mainnum": 259,
+    "maingrade": 0,
+    "subnum": 263,
+    "subgrade": 0,
+    "result": 260
+  },
+  {
+    "mode": 2,
+    "mainnum": 259,
+    "maingrade": 0,
+    "subnum": 242,
+    "subgrade": 1,
+    "result": 260
+  },
+  {
+    "mode": 2,
+    "mainnum": 259,
+    "maingrade": 0,
+    "subnum": 33,
+    "subgrade": 0,
+    "result": 260
+  },
+  {
+    "mode": 2,
+    "mainnum": 259,
+    "maingrade": 0,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 260
+  },
+  {
+    "mode": 2,
+    "mainnum": 218,
+    "maingrade": 1,
+    "subnum": 45,
+    "subgrade": 1,
+    "result": 261
+  },
+  {
+    "mode": 2,
+    "mainnum": 218,
+    "maingrade": 1,
+    "subnum": 316,
+    "subgrade": 1,
+    "result": 261
+  },
+  {
+    "mode": 2,
+    "mainnum": 218,
+    "maingrade": 1,
+    "subnum": 333,
+    "subgrade": 1,
+    "result": 261
+  },
+  {
+    "mode": 2,
+    "mainnum": 218,
+    "maingrade": 1,
+    "subnum": 211,
+    "subgrade": 1,
+    "result": 261
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 69,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 29,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 194,
+    "maingrade": 0,
+    "subnum": 258,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 213,
+    "maingrade": 0,
+    "subnum": 215,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 213,
+    "maingrade": 0,
+    "subnum": 228,
+    "subgrade": 0,
+    "result": 263
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 211,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 271,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 196,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 109,
+    "maingrade": 1,
+    "subnum": 173,
+    "subgrade": 1,
+    "result": 264
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 260,
+    "subgrade": 1,
+    "result": 266
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 266
+  },
+  {
+    "mode": 2,
+    "mainnum": 41,
+    "maingrade": 0,
+    "subnum": 73,
+    "subgrade": 0,
+    "result": 266
+  },
+  {
+    "mode": 2,
+    "mainnum": 211,
+    "maingrade": 1,
+    "subnum": 109,
+    "subgrade": 1,
+    "result": 267
+  },
+  {
+    "mode": 2,
+    "mainnum": 211,
+    "maingrade": 1,
+    "subnum": 271,
+    "subgrade": 1,
+    "result": 267
+  },
+  {
+    "mode": 2,
+    "mainnum": 211,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 267
+  },
+  {
+    "mode": 2,
+    "mainnum": 211,
+    "maingrade": 1,
+    "subnum": 81,
+    "subgrade": 1,
+    "result": 267
+  },
+  {
+    "mode": 2,
+    "mainnum": 211,
+    "maingrade": 1,
+    "subnum": 173,
+    "subgrade": 1,
+    "result": 267
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 45,
+    "subgrade": 1,
+    "result": 268
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 271,
+    "subgrade": 1,
+    "result": 268
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 81,
+    "subgrade": 1,
+    "result": 268
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 29,
+    "subgrade": 0,
+    "result": 269
+  },
+  {
+    "mode": 2,
+    "mainnum": 65,
+    "maingrade": 0,
+    "subnum": 165,
+    "subgrade": 0,
+    "result": 269
+  },
+  {
+    "mode": 2,
+    "mainnum": 208,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 269
+  },
+  {
+    "mode": 2,
+    "mainnum": 208,
+    "maingrade": 0,
+    "subnum": 21,
+    "subgrade": 0,
+    "result": 269
+  },
+  {
+    "mode": 2,
+    "mainnum": 208,
+    "maingrade": 0,
+    "subnum": 195,
+    "subgrade": 0,
+    "result": 269
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 457,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 340,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 263,
+    "subgrade": 0,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 260,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 251,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 196,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 457,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 270
+  },
+  {
+    "mode": 2,
+    "mainnum": 145,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 271
+  },
+  {
+    "mode": 2,
+    "mainnum": 145,
+    "maingrade": 1,
+    "subnum": 241,
+    "subgrade": 1,
+    "result": 271
+  },
+  {
+    "mode": 2,
+    "mainnum": 145,
+    "maingrade": 1,
+    "subnum": 196,
+    "subgrade": 1,
+    "result": 271
+  },
+  {
+    "mode": 2,
+    "mainnum": 257,
+    "maingrade": 0,
+    "subnum": 25,
+    "subgrade": 0,
+    "result": 272
+  },
+  {
+    "mode": 2,
+    "mainnum": 257,
+    "maingrade": 0,
+    "subnum": 220,
+    "subgrade": 0,
+    "result": 272
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 208,
+    "subgrade": 0,
+    "result": 272
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 195,
+    "subgrade": 0,
+    "result": 272
+  },
+  {
+    "mode": 2,
+    "mainnum": 249,
+    "maingrade": 0,
+    "subnum": 237,
+    "subgrade": 0,
+    "result": 273
+  },
+  {
+    "mode": 2,
+    "mainnum": 249,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 273
+  },
+  {
+    "mode": 2,
+    "mainnum": 249,
+    "maingrade": 0,
+    "subnum": 217,
+    "subgrade": 0,
+    "result": 273
+  },
+  {
+    "mode": 2,
+    "mainnum": 264,
+    "maingrade": 1,
+    "subnum": 333,
+    "subgrade": 1,
+    "result": 277
+  },
+  {
+    "mode": 2,
+    "mainnum": 264,
+    "maingrade": 1,
+    "subnum": 270,
+    "subgrade": 1,
+    "result": 277
+  },
+  {
+    "mode": 2,
+    "mainnum": 264,
+    "maingrade": 1,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 277
+  },
+  {
+    "mode": 2,
+    "mainnum": 264,
+    "maingrade": 1,
+    "subnum": 242,
+    "subgrade": 1,
+    "result": 277
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 231,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 227,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 272,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 223,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 239,
+    "maingrade": 0,
+    "subnum": 185,
+    "subgrade": 0,
+    "result": 278
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 316,
+    "subgrade": 1,
+    "result": 279
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 284,
+    "subgrade": 2,
+    "result": 279
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 279
+  },
+  {
+    "mode": 2,
+    "mainnum": 279,
+    "maingrade": 2,
+    "subnum": 303,
+    "subgrade": 2,
+    "result": 280
+  },
+  {
+    "mode": 2,
+    "mainnum": 374,
+    "maingrade": 2,
+    "subnum": 351,
+    "subgrade": 2,
+    "result": 280
+  },
+  {
+    "mode": 2,
+    "mainnum": 374,
+    "maingrade": 2,
+    "subnum": 376,
+    "subgrade": 2,
+    "result": 280
+  },
+  {
+    "mode": 2,
+    "mainnum": 374,
+    "maingrade": 2,
+    "subnum": 375,
+    "subgrade": 2,
+    "result": 280
+  },
+  {
+    "mode": 2,
+    "mainnum": 268,
+    "maingrade": 1,
+    "subnum": 328,
+    "subgrade": 1,
+    "result": 281
+  },
+  {
+    "mode": 2,
+    "mainnum": 268,
+    "maingrade": 1,
+    "subnum": 332,
+    "subgrade": 1,
+    "result": 281
+  },
+  {
+    "mode": 2,
+    "mainnum": 268,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 281
+  },
+  {
+    "mode": 2,
+    "mainnum": 271,
+    "maingrade": 1,
+    "subnum": 109,
+    "subgrade": 1,
+    "result": 283
+  },
+  {
+    "mode": 2,
+    "mainnum": 271,
+    "maingrade": 1,
+    "subnum": 211,
+    "subgrade": 1,
+    "result": 283
+  },
+  {
+    "mode": 2,
+    "mainnum": 271,
+    "maingrade": 1,
+    "subnum": 173,
+    "subgrade": 1,
+    "result": 283
+  },
+  {
+    "mode": 2,
+    "mainnum": 366,
+    "maingrade": 3,
+    "subnum": 855,
+    "subgrade": 3,
+    "result": 285
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 288
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 325,
+    "subgrade": 2,
+    "result": 288
+  },
+  {
+    "mode": 2,
+    "mainnum": 288,
+    "maingrade": 2,
+    "subnum": 280,
+    "subgrade": 2,
+    "result": 289
+  },
+  {
+    "mode": 2,
+    "mainnum": 288,
+    "maingrade": 2,
+    "subnum": 313,
+    "subgrade": 2,
+    "result": 289
+  },
+  {
+    "mode": 2,
+    "mainnum": 424,
+    "maingrade": 3,
+    "subnum": 874,
+    "subgrade": 3,
+    "result": 292
+  },
+  {
+    "mode": 2,
+    "mainnum": 424,
+    "maingrade": 3,
+    "subnum": 431,
+    "subgrade": 3,
+    "result": 292
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 316,
+    "subgrade": 1,
+    "result": 293
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 328,
+    "subgrade": 1,
+    "result": 293
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 268,
+    "subgrade": 1,
+    "result": 293
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 250,
+    "subgrade": 2,
+    "result": 293
+  },
+  {
+    "mode": 2,
+    "mainnum": 293,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 294
+  },
+  {
+    "mode": 2,
+    "mainnum": 332,
+    "maingrade": 1,
+    "subnum": 317,
+    "subgrade": 1,
+    "result": 296
+  },
+  {
+    "mode": 2,
+    "mainnum": 332,
+    "maingrade": 1,
+    "subnum": 309,
+    "subgrade": 0,
+    "result": 296
+  },
+  {
+    "mode": 2,
+    "mainnum": 355,
+    "maingrade": 1,
+    "subnum": 326,
+    "subgrade": 1,
+    "result": 296
+  },
+  {
+    "mode": 2,
+    "mainnum": 330,
+    "maingrade": 2,
+    "subnum": 424,
+    "subgrade": 2,
+    "result": 297
+  },
+  {
+    "mode": 2,
+    "mainnum": 868,
+    "maingrade": 3,
+    "subnum": 848,
+    "subgrade": 3,
+    "result": 297
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 329,
+    "subgrade": 1,
+    "result": 298
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 270,
+    "subgrade": 1,
+    "result": 298
+  },
+  {
+    "mode": 2,
+    "mainnum": 281,
+    "maingrade": 1,
+    "subnum": 282,
+    "subgrade": 0,
+    "result": 298
+  },
+  {
+    "mode": 2,
+    "mainnum": 329,
+    "maingrade": 1,
+    "subnum": 268,
+    "subgrade": 1,
+    "result": 299
+  },
+  {
+    "mode": 2,
+    "mainnum": 329,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 299
+  },
+  {
+    "mode": 2,
+    "mainnum": 433,
+    "maingrade": 2,
+    "subnum": 339,
+    "subgrade": 2,
+    "result": 300
+  },
+  {
+    "mode": 2,
+    "mainnum": 433,
+    "maingrade": 3,
+    "subnum": 561,
+    "subgrade": 3,
+    "result": 300
+  },
+  {
+    "mode": 2,
+    "mainnum": 856,
+    "maingrade": 3,
+    "subnum": 1011,
+    "subgrade": 3,
+    "result": 300
+  },
+  {
+    "mode": 2,
+    "mainnum": 296,
+    "maingrade": 2,
+    "subnum": 304,
+    "subgrade": 2,
+    "result": 301
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 333,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 212,
+    "subgrade": 0,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 218,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 328,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 328,
+    "maingrade": 1,
+    "subnum": 268,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 328,
+    "maingrade": 1,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 328,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 302
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 355,
+    "subgrade": 1,
+    "result": 303
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 326,
+    "subgrade": 1,
+    "result": 303
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 303
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 317,
+    "subgrade": 1,
+    "result": 303
+  },
+  {
+    "mode": 2,
+    "mainnum": 353,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 304
+  },
+  {
+    "mode": 2,
+    "mainnum": 353,
+    "maingrade": 2,
+    "subnum": 284,
+    "subgrade": 2,
+    "result": 304
+  },
+  {
+    "mode": 2,
+    "mainnum": 299,
+    "maingrade": 2,
+    "subnum": 303,
+    "subgrade": 2,
+    "result": 305
+  },
+  {
+    "mode": 2,
+    "mainnum": 299,
+    "maingrade": 2,
+    "subnum": 296,
+    "subgrade": 2,
+    "result": 305
+  },
+  {
+    "mode": 2,
+    "mainnum": 294,
+    "maingrade": 2,
+    "subnum": 301,
+    "subgrade": 2,
+    "result": 306
+  },
+  {
+    "mode": 2,
+    "mainnum": 280,
+    "maingrade": 2,
+    "subnum": 373,
+    "subgrade": 2,
+    "result": 307
+  },
+  {
+    "mode": 2,
+    "mainnum": 280,
+    "maingrade": 2,
+    "subnum": 294,
+    "subgrade": 2,
+    "result": 307
+  },
+  {
+    "mode": 2,
+    "mainnum": 301,
+    "maingrade": 2,
+    "subnum": 313,
+    "subgrade": 2,
+    "result": 308
+  },
+  {
+    "mode": 2,
+    "mainnum": 326,
+    "maingrade": 1,
+    "subnum": 329,
+    "subgrade": 1,
+    "result": 309
+  },
+  {
+    "mode": 2,
+    "mainnum": 326,
+    "maingrade": 1,
+    "subnum": 283,
+    "subgrade": 1,
+    "result": 309
+  },
+  {
+    "mode": 2,
+    "mainnum": 326,
+    "maingrade": 1,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 309
+  },
+  {
+    "mode": 2,
+    "mainnum": 326,
+    "maingrade": 1,
+    "subnum": 322,
+    "subgrade": 1,
+    "result": 309
+  },
+  {
+    "mode": 2,
+    "mainnum": 289,
+    "maingrade": 2,
+    "subnum": 306,
+    "subgrade": 2,
+    "result": 310
+  },
+  {
+    "mode": 2,
+    "mainnum": 289,
+    "maingrade": 2,
+    "subnum": 423,
+    "subgrade": 2,
+    "result": 310
+  },
+  {
+    "mode": 2,
+    "mainnum": 835,
+    "maingrade": 2,
+    "subnum": 1021,
+    "subgrade": 2,
+    "result": 310
+  },
+  {
+    "mode": 2,
+    "mainnum": 81,
+    "maingrade": 1,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 311
+  },
+  {
+    "mode": 2,
+    "mainnum": 81,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 311
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 316,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 326,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 218,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 105,
+    "maingrade": 0,
+    "subnum": 261,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 264,
+    "maingrade": 1,
+    "subnum": 211,
+    "subgrade": 1,
+    "result": 312
+  },
+  {
+    "mode": 2,
+    "mainnum": 304,
+    "maingrade": 2,
+    "subnum": 305,
+    "subgrade": 2,
+    "result": 313
+  },
+  {
+    "mode": 2,
+    "mainnum": 304,
+    "maingrade": 2,
+    "subnum": 375,
+    "subgrade": 2,
+    "result": 313
+  },
+  {
+    "mode": 2,
+    "mainnum": 173,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 314
+  },
+  {
+    "mode": 2,
+    "mainnum": 173,
+    "maingrade": 1,
+    "subnum": 270,
+    "subgrade": 1,
+    "result": 314
+  },
+  {
+    "mode": 2,
+    "mainnum": 173,
+    "maingrade": 1,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 314
+  },
+  {
+    "mode": 2,
+    "mainnum": 322,
+    "maingrade": 1,
+    "subnum": 355,
+    "subgrade": 1,
+    "result": 314
+  },
+  {
+    "mode": 2,
+    "mainnum": 322,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 314
+  },
+  {
+    "mode": 2,
+    "mainnum": 270,
+    "maingrade": 1,
+    "subnum": 316,
+    "subgrade": 1,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 270,
+    "maingrade": 1,
+    "subnum": 81,
+    "subgrade": 1,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 309,
+    "maingrade": 0,
+    "subnum": 302,
+    "subgrade": 1,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 309,
+    "maingrade": 0,
+    "subnum": 332,
+    "subgrade": 1,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 309,
+    "maingrade": 0,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 309,
+    "maingrade": 0,
+    "subnum": 299,
+    "subgrade": 2,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 309,
+    "maingrade": 0,
+    "subnum": 282,
+    "subgrade": 0,
+    "result": 315
+  },
+  {
+    "mode": 2,
+    "mainnum": 251,
+    "maingrade": 1,
+    "subnum": 260,
+    "subgrade": 1,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 251,
+    "maingrade": 1,
+    "subnum": 265,
+    "subgrade": 1,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 251,
+    "maingrade": 1,
+    "subnum": 270,
+    "subgrade": 1,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 251,
+    "maingrade": 1,
+    "subnum": 207,
+    "subgrade": 1,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 251,
+    "maingrade": 1,
+    "subnum": 196,
+    "subgrade": 1,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 273,
+    "maingrade": 0,
+    "subnum": 77,
+    "subgrade": 0,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 273,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 316
+  },
+  {
+    "mode": 2,
+    "mainnum": 268,
+    "maingrade": 1,
+    "subnum": 209,
+    "subgrade": 1,
+    "result": 317
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 355,
+    "subgrade": 1,
+    "result": 317
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 277,
+    "subgrade": 1,
+    "result": 317
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 322,
+    "subgrade": 1,
+    "result": 317
+  },
+  {
+    "mode": 2,
+    "mainnum": 333,
+    "maingrade": 1,
+    "subnum": 271,
+    "subgrade": 1,
+    "result": 322
+  },
+  {
+    "mode": 2,
+    "mainnum": 333,
+    "maingrade": 1,
+    "subnum": 270,
+    "subgrade": 1,
+    "result": 322
+  },
+  {
+    "mode": 2,
+    "mainnum": 333,
+    "maingrade": 1,
+    "subnum": 145,
+    "subgrade": 1,
+    "result": 322
+  },
+  {
+    "mode": 2,
+    "mainnum": 333,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 322
+  },
+  {
+    "mode": 2,
+    "mainnum": 306,
+    "maingrade": 2,
+    "subnum": 289,
+    "subgrade": 2,
+    "result": 323
+  },
+  {
+    "mode": 2,
+    "mainnum": 313,
+    "maingrade": 2,
+    "subnum": 307,
+    "subgrade": 2,
+    "result": 324
+  },
+  {
+    "mode": 2,
+    "mainnum": 303,
+    "maingrade": 2,
+    "subnum": 304,
+    "subgrade": 2,
+    "result": 325
+  },
+  {
+    "mode": 2,
+    "mainnum": 303,
+    "maingrade": 2,
+    "subnum": 376,
+    "subgrade": 2,
+    "result": 325
+  },
+  {
+    "mode": 2,
+    "mainnum": 270,
+    "maingrade": 1,
+    "subnum": 328,
+    "subgrade": 1,
+    "result": 326
+  },
+  {
+    "mode": 2,
+    "mainnum": 270,
+    "maingrade": 1,
+    "subnum": 271,
+    "subgrade": 1,
+    "result": 326
+  },
+  {
+    "mode": 2,
+    "mainnum": 270,
+    "maingrade": 1,
+    "subnum": 268,
+    "subgrade": 1,
+    "result": 326
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 273,
+    "subgrade": 0,
+    "result": 327
+  },
+  {
+    "mode": 2,
+    "mainnum": 258,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 327
+  },
+  {
+    "mode": 2,
+    "mainnum": 272,
+    "maingrade": 0,
+    "subnum": 231,
+    "subgrade": 0,
+    "result": 327
+  },
+  {
+    "mode": 2,
+    "mainnum": 272,
+    "maingrade": 0,
+    "subnum": 239,
+    "subgrade": 0,
+    "result": 327
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 260,
+    "subgrade": 1,
+    "result": 328
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 251,
+    "subgrade": 1,
+    "result": 328
+  },
+  {
+    "mode": 2,
+    "mainnum": 207,
+    "maingrade": 1,
+    "subnum": 210,
+    "subgrade": 0,
+    "result": 328
+  },
+  {
+    "mode": 2,
+    "mainnum": 361,
+    "maingrade": 2,
+    "subnum": 380,
+    "subgrade": 2,
+    "result": 330
+  },
+  {
+    "mode": 2,
+    "mainnum": 315,
+    "maingrade": 2,
+    "subnum": 304,
+    "subgrade": 2,
+    "result": 331
+  },
+  {
+    "mode": 2,
+    "mainnum": 173,
+    "maingrade": 1,
+    "subnum": 333,
+    "subgrade": 1,
+    "result": 333
+  },
+  {
+    "mode": 2,
+    "mainnum": 173,
+    "maingrade": 1,
+    "subnum": 207,
+    "subgrade": 1,
+    "result": 333
+  },
+  {
+    "mode": 2,
+    "mainnum": 287,
+    "maingrade": 2,
+    "subnum": 299,
+    "subgrade": 2,
+    "result": 335
+  },
+  {
+    "mode": 2,
+    "mainnum": 287,
+    "maingrade": 2,
+    "subnum": 284,
+    "subgrade": 2,
+    "result": 335
+  },
+  {
+    "mode": 2,
+    "mainnum": 385,
+    "maingrade": 2,
+    "subnum": 379,
+    "subgrade": 2,
+    "result": 337
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 309,
+    "subgrade": 0,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 332,
+    "subgrade": 1,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 314,
+    "maingrade": 1,
+    "subnum": 282,
+    "subgrade": 0,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 322,
+    "maingrade": 1,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 322,
+    "maingrade": 1,
+    "subnum": 281,
+    "subgrade": 1,
+    "result": 338
+  },
+  {
+    "mode": 2,
+    "mainnum": 231,
+    "maingrade": 0,
+    "subnum": 169,
+    "subgrade": 0,
+    "result": 340
+  },
+  {
+    "mode": 2,
+    "mainnum": 231,
+    "maingrade": 0,
+    "subnum": 240,
+    "subgrade": 0,
+    "result": 340
+  },
+  {
+    "mode": 2,
+    "mainnum": 231,
+    "maingrade": 0,
+    "subnum": 141,
+    "subgrade": 0,
+    "result": 340
+  },
+  {
+    "mode": 2,
+    "mainnum": 231,
+    "maingrade": 0,
+    "subnum": 223,
+    "subgrade": 0,
+    "result": 340
+  },
+  {
+    "mode": 2,
+    "mainnum": 273,
+    "maingrade": 0,
+    "subnum": 231,
+    "subgrade": 0,
+    "result": 341
+  },
+  {
+    "mode": 2,
+    "mainnum": 346,
+    "maingrade": 3,
+    "subnum": 1278,
+    "subgrade": 3,
+    "result": 342
+  },
+  {
+    "mode": 2,
+    "mainnum": 1907,
+    "maingrade": 3,
+    "subnum": 1056,
+    "subgrade": 3,
+    "result": 343
+  },
+  {
+    "mode": 2,
+    "mainnum": 1907,
+    "maingrade": 3,
+    "subnum": 852,
+    "subgrade": 3,
+    "result": 343
+  },
+  {
+    "mode": 2,
+    "mainnum": 1268,
+    "maingrade": 3,
+    "subnum": 371,
+    "subgrade": 3,
+    "result": 344
+  },
+  {
+    "mode": 2,
+    "mainnum": 1268,
+    "maingrade": 3,
+    "subnum": 1023,
+    "subgrade": 3,
+    "result": 344
+  },
+  {
+    "mode": 2,
+    "mainnum": 960,
+    "maingrade": 3,
+    "subnum": 1904,
+    "subgrade": 3,
+    "result": 345
+  },
+  {
+    "mode": 2,
+    "mainnum": 1911,
+    "maingrade": 3,
+    "subnum": 1904,
+    "subgrade": 3,
+    "result": 345
+  },
+  {
+    "mode": 2,
+    "mainnum": 969,
+    "maingrade": 3,
+    "subnum": 866,
+    "subgrade": 3,
+    "result": 346
+  },
+  {
+    "mode": 2,
+    "mainnum": 1913,
+    "maingrade": 3,
+    "subnum": 866,
+    "subgrade": 3,
+    "result": 346
+  },
+  {
+    "mode": 2,
+    "mainnum": 351,
+    "maingrade": 2,
+    "subnum": 317,
+    "subgrade": 1,
+    "result": 350
+  },
+  {
+    "mode": 2,
+    "mainnum": 351,
+    "maingrade": 2,
+    "subnum": 250,
+    "subgrade": 2,
+    "result": 350
+  },
+  {
+    "mode": 2,
+    "mainnum": 351,
+    "maingrade": 2,
+    "subnum": 287,
+    "subgrade": 2,
+    "result": 350
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 329,
+    "subgrade": 1,
+    "result": 351
+  },
+  {
+    "mode": 2,
+    "mainnum": 284,
+    "maingrade": 2,
+    "subnum": 329,
+    "subgrade": 1,
+    "result": 351
+  },
+  {
+    "mode": 2,
+    "mainnum": 284,
+    "maingrade": 2,
+    "subnum": 281,
+    "subgrade": 1,
+    "result": 351
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 335,
+    "subgrade": 2,
+    "result": 352
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 298,
+    "subgrade": 2,
+    "result": 352
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 287,
+    "subgrade": 2,
+    "result": 352
+  },
+  {
+    "mode": 2,
+    "mainnum": 282,
+    "maingrade": 0,
+    "subnum": 312,
+    "subgrade": 2,
+    "result": 353
+  },
+  {
+    "mode": 2,
+    "mainnum": 282,
+    "maingrade": 0,
+    "subnum": 329,
+    "subgrade": 1,
+    "result": 353
+  },
+  {
+    "mode": 2,
+    "mainnum": 282,
+    "maingrade": 0,
+    "subnum": 250,
+    "subgrade": 2,
+    "result": 353
+  },
+  {
+    "mode": 2,
+    "mainnum": 282,
+    "maingrade": 0,
+    "subnum": 281,
+    "subgrade": 1,
+    "result": 353
+  },
+  {
+    "mode": 2,
+    "mainnum": 282,
+    "maingrade": 0,
+    "subnum": 284,
+    "subgrade": 2,
+    "result": 353
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 387,
+    "subgrade": 1,
+    "result": 354
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 241,
+    "subgrade": 1,
+    "result": 354
+  },
+  {
+    "mode": 2,
+    "mainnum": 260,
+    "maingrade": 1,
+    "subnum": 264,
+    "subgrade": 1,
+    "result": 354
+  },
+  {
+    "mode": 2,
+    "mainnum": 316,
+    "maingrade": 1,
+    "subnum": 302,
+    "subgrade": 1,
+    "result": 355
+  },
+  {
+    "mode": 2,
+    "mainnum": 316,
+    "maingrade": 1,
+    "subnum": 311,
+    "subgrade": 1,
+    "result": 355
+  },
+  {
+    "mode": 2,
+    "mainnum": 316,
+    "maingrade": 1,
+    "subnum": 314,
+    "subgrade": 1,
+    "result": 355
+  },
+  {
+    "mode": 2,
+    "mainnum": 1023,
+    "maingrade": 3,
+    "subnum": 308,
+    "subgrade": 3,
+    "result": 358
+  },
+  {
+    "mode": 2,
+    "mainnum": 294,
+    "maingrade": 2,
+    "subnum": 305,
+    "subgrade": 2,
+    "result": 360
+  },
+  {
+    "mode": 2,
+    "mainnum": 308,
+    "maingrade": 2,
+    "subnum": 306,
+    "subgrade": 2,
+    "result": 362
+  },
+  {
+    "mode": 2,
+    "mainnum": 337,
+    "maingrade": 2,
+    "subnum": 307,
+    "subgrade": 2,
+    "result": 363
+  },
+  {
+    "mode": 2,
+    "mainnum": 310,
+    "maingrade": 3,
+    "subnum": 558,
+    "subgrade": 3,
+    "result": 365
+  },
+  {
+    "mode": 2,
+    "mainnum": 310,
+    "maingrade": 2,
+    "subnum": 362,
+    "subgrade": 2,
+    "result": 365
+  },
+  {
+    "mode": 2,
+    "mainnum": 310,
+    "maingrade": 3,
+    "subnum": 558,
+    "subgrade": 3,
+    "result": 365
+  },
+  {
+    "mode": 2,
+    "mainnum": 829,
+    "maingrade": 0,
+    "subnum": 1011,
+    "subgrade": 0,
+    "result": 366
+  },
+  {
+    "mode": 2,
+    "mainnum": 305,
+    "maingrade": 2,
+    "subnum": 294,
+    "subgrade": 2,
+    "result": 367
+  },
+  {
+    "mode": 2,
+    "mainnum": 381,
+    "maingrade": 2,
+    "subnum": 423,
+    "subgrade": 2,
+    "result": 368
+  },
+  {
+    "mode": 2,
+    "mainnum": 384,
+    "maingrade": 2,
+    "subnum": 386,
+    "subgrade": 2,
+    "result": 369
+  },
+  {
+    "mode": 2,
+    "mainnum": 412,
+    "maingrade": 2,
+    "subnum": 386,
+    "subgrade": 2,
+    "result": 369
+  },
+  {
+    "mode": 2,
+    "mainnum": 323,
+    "maingrade": 2,
+    "subnum": 428,
+    "subgrade": 2,
+    "result": 370
+  },
+  {
+    "mode": 2,
+    "mainnum": 1018,
+    "maingrade": 3,
+    "subnum": 1033,
+    "subgrade": 3,
+    "result": 370
+  },
+  {
+    "mode": 2,
+    "mainnum": 1048,
+    "maingrade": 3,
+    "subnum": 300,
+    "subgrade": 3,
+    "result": 371
+  },
+  {
+    "mode": 2,
+    "mainnum": 288,
+    "maingrade": 2,
+    "subnum": 315,
+    "subgrade": 2,
+    "result": 372
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 373,
+    "subgrade": 2,
+    "result": 372
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 315,
+    "subgrade": 2,
+    "result": 372
+  },
+  {
+    "mode": 2,
+    "mainnum": 355,
+    "maingrade": 1,
+    "subnum": 375,
+    "subgrade": 2,
+    "result": 373
+  },
+  {
+    "mode": 2,
+    "mainnum": 355,
+    "maingrade": 1,
+    "subnum": 354,
+    "subgrade": 1,
+    "result": 373
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 309,
+    "subgrade": 0,
+    "result": 374
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 376,
+    "subgrade": 2,
+    "result": 374
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 326,
+    "subgrade": 1,
+    "result": 374
+  },
+  {
+    "mode": 2,
+    "mainnum": 354,
+    "maingrade": 1,
+    "subnum": 267,
+    "subgrade": 1,
+    "result": 374
+  },
+  {
+    "mode": 2,
+    "mainnum": 381,
+    "maingrade": 2,
+    "subnum": 383,
+    "subgrade": 2,
+    "result": 377
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 353,
+    "subgrade": 2,
+    "result": 378
+  },
+  {
+    "mode": 2,
+    "mainnum": 350,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 378
+  },
+  {
+    "mode": 2,
+    "mainnum": 352,
+    "maingrade": 2,
+    "subnum": 315,
+    "subgrade": 2,
+    "result": 378
+  },
+  {
+    "mode": 2,
+    "mainnum": 352,
+    "maingrade": 2,
+    "subnum": 375,
+    "subgrade": 2,
+    "result": 378
+  },
+  {
+    "mode": 2,
+    "mainnum": 279,
+    "maingrade": 2,
+    "subnum": 250,
+    "subgrade": 2,
+    "result": 379
+  },
+  {
+    "mode": 2,
+    "mainnum": 279,
+    "maingrade": 2,
+    "subnum": 299,
+    "subgrade": 2,
+    "result": 379
+  },
+  {
+    "mode": 2,
+    "mainnum": 331,
+    "maingrade": 2,
+    "subnum": 352,
+    "subgrade": 2,
+    "result": 381
+  },
+  {
+    "mode": 2,
+    "mainnum": 373,
+    "maingrade": 2,
+    "subnum": 378,
+    "subgrade": 2,
+    "result": 383
+  },
+  {
+    "mode": 2,
+    "mainnum": 380,
+    "maingrade": 2,
+    "subnum": 379,
+    "subgrade": 2,
+    "result": 384
+  },
+  {
+    "mode": 2,
+    "mainnum": 360,
+    "maingrade": 2,
+    "subnum": 372,
+    "subgrade": 2,
+    "result": 385
+  },
+  {
+    "mode": 2,
+    "mainnum": 367,
+    "maingrade": 2,
+    "subnum": 301,
+    "subgrade": 2,
+    "result": 386
+  },
+  {
+    "mode": 2,
+    "mainnum": 367,
+    "maingrade": 2,
+    "subnum": 325,
+    "subgrade": 2,
+    "result": 386
+  },
+  {
+    "mode": 2,
+    "mainnum": 386,
+    "maingrade": 2,
+    "subnum": 385,
+    "subgrade": 2,
+    "result": 418
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 309,
+    "subgrade": 0,
+    "result": 419
+  },
+  {
+    "mode": 2,
+    "mainnum": 277,
+    "maingrade": 1,
+    "subnum": 296,
+    "subgrade": 2,
+    "result": 419
+  },
+  {
+    "mode": 2,
+    "mainnum": 355,
+    "maingrade": 1,
+    "subnum": 353,
+    "subgrade": 2,
+    "result": 420
+  },
+  {
+    "mode": 2,
+    "mainnum": 355,
+    "maingrade": 1,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 420
+  },
+  {
+    "mode": 2,
+    "mainnum": 378,
+    "maingrade": 2,
+    "subnum": 379,
+    "subgrade": 2,
+    "result": 421
+  },
+  {
+    "mode": 2,
+    "mainnum": 378,
+    "maingrade": 2,
+    "subnum": 380,
+    "subgrade": 2,
+    "result": 421
+  },
+  {
+    "mode": 2,
+    "mainnum": 336,
+    "maingrade": 2,
+    "subnum": 315,
+    "subgrade": 2,
+    "result": 422
+  },
+  {
+    "mode": 2,
+    "mainnum": 325,
+    "maingrade": 2,
+    "subnum": 360,
+    "subgrade": 2,
+    "result": 423
+  },
+  {
+    "mode": 2,
+    "mainnum": 1019,
+    "maingrade": 3,
+    "subnum": 1032,
+    "subgrade": 3,
+    "result": 424
+  },
+  {
+    "mode": 2,
+    "mainnum": 307,
+    "maingrade": 2,
+    "subnum": 385,
+    "subgrade": 2,
+    "result": 425
+  },
+  {
+    "mode": 2,
+    "mainnum": 362,
+    "maingrade": 2,
+    "subnum": 323,
+    "subgrade": 2,
+    "result": 426
+  },
+  {
+    "mode": 2,
+    "mainnum": 372,
+    "maingrade": 2,
+    "subnum": 361,
+    "subgrade": 2,
+    "result": 427
+  },
+  {
+    "mode": 2,
+    "mainnum": 377,
+    "maingrade": 2,
+    "subnum": 386,
+    "subgrade": 2,
+    "result": 428
+  },
+  {
+    "mode": 2,
+    "mainnum": 363,
+    "maingrade": 2,
+    "subnum": 418,
+    "subgrade": 2,
+    "result": 429
+  },
+  {
+    "mode": 2,
+    "mainnum": 841,
+    "maingrade": 3,
+    "subnum": 365,
+    "subgrade": 3,
+    "result": 429
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 242,
+    "subgrade": 1,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 105,
+    "subgrade": 0,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 388,
+    "maingrade": 1,
+    "subnum": 266,
+    "subgrade": 1,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 388,
+    "maingrade": 1,
+    "subnum": 387,
+    "subgrade": 1,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 388,
+    "maingrade": 1,
+    "subnum": 224,
+    "subgrade": 1,
+    "result": 457
+  },
+  {
+    "mode": 2,
+    "mainnum": 297,
+    "maingrade": 3,
+    "subnum": 429,
+    "subgrade": 3,
+    "result": 549
+  },
+  {
+    "mode": 2,
+    "mainnum": 1037,
+    "maingrade": 3,
+    "subnum": 1023,
+    "subgrade": 3,
+    "result": 550
+  },
+  {
+    "mode": 2,
+    "mainnum": 850,
+    "maingrade": 3,
+    "subnum": 301,
+    "subgrade": 3,
+    "result": 633
+  },
+  {
+    "mode": 2,
+    "mainnum": 850,
+    "maingrade": 3,
+    "subnum": 360,
+    "subgrade": 3,
+    "result": 633
+  },
+  {
+    "mode": 2,
+    "mainnum": 302,
+    "maingrade": 1,
+    "subnum": 355,
+    "subgrade": 1,
+    "result": 824
+  },
+  {
+    "mode": 2,
+    "mainnum": 302,
+    "maingrade": 1,
+    "subnum": 317,
+    "subgrade": 1,
+    "result": 824
+  },
+  {
+    "mode": 2,
+    "mainnum": 302,
+    "maingrade": 1,
+    "subnum": 284,
+    "subgrade": 1,
+    "result": 824
+  },
+  {
+    "mode": 2,
+    "mainnum": 302,
+    "maingrade": 1,
+    "subnum": 250,
+    "subgrade": 1,
+    "result": 824
+  },
+  {
+    "mode": 2,
+    "mainnum": 843,
+    "maingrade": 3,
+    "subnum": 846,
+    "subgrade": 3,
+    "result": 825
+  },
+  {
+    "mode": 2,
+    "mainnum": 287,
+    "maingrade": 2,
+    "subnum": 351,
+    "subgrade": 2,
+    "result": 826
+  },
+  {
+    "mode": 2,
+    "mainnum": 287,
+    "maingrade": 2,
+    "subnum": 299,
+    "subgrade": 2,
+    "result": 826
+  },
+  {
+    "mode": 2,
+    "mainnum": 287,
+    "maingrade": 2,
+    "subnum": 551,
+    "subgrade": 2,
+    "result": 826
+  },
+  {
+    "mode": 2,
+    "mainnum": 853,
+    "maingrade": 3,
+    "subnum": 837,
+    "subgrade": 3,
+    "result": 827
+  },
+  {
+    "mode": 2,
+    "mainnum": 824,
+    "maingrade": 2,
+    "subnum": 350,
+    "subgrade": 2,
+    "result": 828
+  },
+  {
+    "mode": 2,
+    "mainnum": 824,
+    "maingrade": 2,
+    "subnum": 353,
+    "subgrade": 2,
+    "result": 828
+  },
+  {
+    "mode": 2,
+    "mainnum": 824,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 828
+  },
+  {
+    "mode": 2,
+    "mainnum": 847,
+    "maingrade": 3,
+    "subnum": 633,
+    "subgrade": 3,
+    "result": 829
+  },
+  {
+    "mode": 2,
+    "mainnum": 285,
+    "maingrade": 3,
+    "subnum": 866,
+    "subgrade": 3,
+    "result": 830
+  },
+  {
+    "mode": 2,
+    "mainnum": 833,
+    "maingrade": 2,
+    "subnum": 336,
+    "subgrade": 2,
+    "result": 831
+  },
+  {
+    "mode": 2,
+    "mainnum": 833,
+    "maingrade": 2,
+    "subnum": 303,
+    "subgrade": 2,
+    "result": 831
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 854,
+    "subgrade": 2,
+    "result": 832
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 872,
+    "subgrade": 2,
+    "result": 832
+  },
+  {
+    "mode": 2,
+    "mainnum": 288,
+    "maingrade": 2,
+    "subnum": 373,
+    "subgrade": 2,
+    "result": 834
+  },
+  {
+    "mode": 2,
+    "mainnum": 288,
+    "maingrade": 2,
+    "subnum": 420,
+    "subgrade": 2,
+    "result": 834
+  },
+  {
+    "mode": 2,
+    "mainnum": 828,
+    "maingrade": 2,
+    "subnum": 313,
+    "subgrade": 3,
+    "result": 835
+  },
+  {
+    "mode": 2,
+    "mainnum": 828,
+    "maingrade": 2,
+    "subnum": 372,
+    "subgrade": 3,
+    "result": 835
+  },
+  {
+    "mode": 2,
+    "mainnum": 372,
+    "maingrade": 3,
+    "subnum": 305,
+    "subgrade": 2,
+    "result": 836
+  },
+  {
+    "mode": 2,
+    "mainnum": 372,
+    "maingrade": 3,
+    "subnum": 379,
+    "subgrade": 2,
+    "result": 836
+  },
+  {
+    "mode": 2,
+    "mainnum": 860,
+    "maingrade": 2,
+    "subnum": 378,
+    "subgrade": 2,
+    "result": 837
+  },
+  {
+    "mode": 2,
+    "mainnum": 860,
+    "maingrade": 2,
+    "subnum": 331,
+    "subgrade": 2,
+    "result": 837
+  },
+  {
+    "mode": 2,
+    "mainnum": 261,
+    "maingrade": 1,
+    "subnum": 312,
+    "subgrade": 2,
+    "result": 839
+  },
+  {
+    "mode": 2,
+    "mainnum": 261,
+    "maingrade": 1,
+    "subnum": 282,
+    "subgrade": 2,
+    "result": 839
+  },
+  {
+    "mode": 2,
+    "mainnum": 261,
+    "maingrade": 1,
+    "subnum": 298,
+    "subgrade": 2,
+    "result": 839
+  },
+  {
+    "mode": 2,
+    "mainnum": 429,
+    "maingrade": 3,
+    "subnum": 549,
+    "subgrade": 3,
+    "result": 840
+  },
+  {
+    "mode": 2,
+    "mainnum": 559,
+    "maingrade": 3,
+    "subnum": 310,
+    "subgrade": 3,
+    "result": 841
+  },
+  {
+    "mode": 2,
+    "mainnum": 839,
+    "maingrade": 2,
+    "subnum": 419,
+    "subgrade": 2,
+    "result": 842
+  },
+  {
+    "mode": 2,
+    "mainnum": 839,
+    "maingrade": 2,
+    "subnum": 304,
+    "subgrade": 2,
+    "result": 842
+  },
+  {
+    "mode": 2,
+    "mainnum": 831,
+    "maingrade": 3,
+    "subnum": 842,
+    "subgrade": 3,
+    "result": 843
+  },
+  {
+    "mode": 2,
+    "mainnum": 831,
+    "maingrade": 3,
+    "subnum": 832,
+    "subgrade": 3,
+    "result": 843
+  },
+  {
+    "mode": 2,
+    "mainnum": 196,
+    "maingrade": 1,
+    "subnum": 839,
+    "subgrade": 2,
+    "result": 844
+  },
+  {
+    "mode": 2,
+    "mainnum": 376,
+    "maingrade": 2,
+    "subnum": 293,
+    "subgrade": 2,
+    "result": 845
+  },
+  {
+    "mode": 2,
+    "mainnum": 376,
+    "maingrade": 2,
+    "subnum": 353,
+    "subgrade": 2,
+    "result": 845
+  },
+  {
+    "mode": 2,
+    "mainnum": 376,
+    "maingrade": 2,
+    "subnum": 336,
+    "subgrade": 2,
+    "result": 845
+  },
+  {
+    "mode": 2,
+    "mainnum": 422,
+    "maingrade": 3,
+    "subnum": 834,
+    "subgrade": 3,
+    "result": 846
+  },
+  {
+    "mode": 2,
+    "mainnum": 422,
+    "maingrade": 3,
+    "subnum": 865,
+    "subgrade": 3,
+    "result": 846
+  },
+  {
+    "mode": 2,
+    "mainnum": 427,
+    "maingrade": 3,
+    "subnum": 837,
+    "subgrade": 3,
+    "result": 847
+  },
+  {
+    "mode": 2,
+    "mainnum": 825,
+    "maingrade": 3,
+    "subnum": 827,
+    "subgrade": 3,
+    "result": 848
+  },
+  {
+    "mode": 2,
+    "mainnum": 367,
+    "maingrade": 3,
+    "subnum": 336,
+    "subgrade": 2,
+    "result": 849
+  },
+  {
+    "mode": 2,
+    "mainnum": 851,
+    "maingrade": 2,
+    "subnum": 552,
+    "subgrade": 2,
+    "result": 850
+  },
+  {
+    "mode": 2,
+    "mainnum": 851,
+    "maingrade": 2,
+    "subnum": 296,
+    "subgrade": 2,
+    "result": 850
+  },
+  {
+    "mode": 2,
+    "mainnum": 851,
+    "maingrade": 2,
+    "subnum": 839,
+    "subgrade": 2,
+    "result": 850
+  },
+  {
+    "mode": 2,
+    "mainnum": 300,
+    "maingrade": 3,
+    "subnum": 1023,
+    "subgrade": 3,
+    "result": 852
+  },
+  {
+    "mode": 2,
+    "mainnum": 335,
+    "maingrade": 2,
+    "subnum": 552,
+    "subgrade": 2,
+    "result": 853
+  },
+  {
+    "mode": 2,
+    "mainnum": 833,
+    "maingrade": 2,
+    "subnum": 303,
+    "subgrade": 2,
+    "result": 853
+  },
+  {
+    "mode": 2,
+    "mainnum": 424,
+    "maingrade": 3,
+    "subnum": 848,
+    "subgrade": 3,
+    "result": 855
+  },
+  {
+    "mode": 2,
+    "mainnum": 869,
+    "maingrade": 3,
+    "subnum": 418,
+    "subgrade": 3,
+    "result": 856
+  },
+  {
+    "mode": 2,
+    "mainnum": 241,
+    "maingrade": 1,
+    "subnum": 862,
+    "subgrade": 3,
+    "result": 857
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 842,
+    "subgrade": 3,
+    "result": 858
+  },
+  {
+    "mode": 2,
+    "mainnum": 242,
+    "maingrade": 1,
+    "subnum": 831,
+    "subgrade": 3,
+    "result": 858
+  },
+  {
+    "mode": 2,
+    "mainnum": 845,
+    "maingrade": 2,
+    "subnum": 553,
+    "subgrade": 2,
+    "result": 862
+  },
+  {
+    "mode": 2,
+    "mainnum": 845,
+    "maingrade": 2,
+    "subnum": 331,
+    "subgrade": 2,
+    "result": 862
+  },
+  {
+    "mode": 2,
+    "mainnum": 558,
+    "maingrade": 3,
+    "subnum": 330,
+    "subgrade": 3,
+    "result": 863
+  },
+  {
+    "mode": 2,
+    "mainnum": 420,
+    "maingrade": 2,
+    "subnum": 378,
+    "subgrade": 2,
+    "result": 865
+  },
+  {
+    "mode": 2,
+    "mainnum": 420,
+    "maingrade": 2,
+    "subnum": 288,
+    "subgrade": 2,
+    "result": 865
+  },
+  {
+    "mode": 2,
+    "mainnum": 549,
+    "maingrade": 3,
+    "subnum": 371,
+    "subgrade": 3,
+    "result": 866
+  },
+  {
+    "mode": 2,
+    "mainnum": 426,
+    "maingrade": 3,
+    "subnum": 558,
+    "subgrade": 3,
+    "result": 868
+  },
+  {
+    "mode": 2,
+    "mainnum": 557,
+    "maingrade": 3,
+    "subnum": 857,
+    "subgrade": 3,
+    "result": 868
+  },
+  {
+    "mode": 2,
+    "mainnum": 556,
+    "maingrade": 3,
+    "subnum": 858,
+    "subgrade": 3,
+    "result": 869
+  },
+  {
+    "mode": 2,
+    "mainnum": 864,
+    "maingrade": 2,
+    "subnum": 293,
+    "subgrade": 2,
+    "result": 870
+  },
+  {
+    "mode": 2,
+    "mainnum": 864,
+    "maingrade": 2,
+    "subnum": 279,
+    "subgrade": 2,
+    "result": 870
+  },
+  {
+    "mode": 2,
+    "mainnum": 864,
+    "maingrade": 2,
+    "subnum": 298,
+    "subgrade": 2,
+    "result": 870
+  },
+  {
+    "mode": 2,
+    "mainnum": 368,
+    "maingrade": 3,
+    "subnum": 849,
+    "subgrade": 3,
+    "result": 874
+  },
+  {
+    "mode": 2,
+    "mainnum": 1900,
+    "maingrade": 3,
+    "subnum": 285,
+    "subgrade": 3,
+    "result": 876
+  },
+  {
+    "mode": 2,
+    "mainnum": 292,
+    "maingrade": 3,
+    "subnum": 1902,
+    "subgrade": 3,
+    "result": 877
+  },
+  {
+    "mode": 2,
+    "mainnum": 1003,
+    "maingrade": 3,
+    "subnum": 1006,
+    "subgrade": 3,
+    "result": 878
+  },
+  {
+    "mode": 2,
+    "mainnum": 1905,
+    "maingrade": 3,
+    "subnum": 1048,
+    "subgrade": 3,
+    "result": 879
+  },
+  {
+    "mode": 2,
+    "mainnum": 366,
+    "maingrade": 3,
+    "subnum": 1900,
+    "subgrade": 3,
+    "result": 908
+  },
+  {
+    "mode": 2,
+    "mainnum": 1901,
+    "maingrade": 3,
+    "subnum": 848,
+    "subgrade": 3,
+    "result": 917
+  },
+  {
+    "mode": 2,
+    "mainnum": 1006,
+    "maingrade": 3,
+    "subnum": 1011,
+    "subgrade": 3,
+    "result": 926
+  },
+  {
+    "mode": 2,
+    "mainnum": 1023,
+    "maingrade": 3,
+    "subnum": 1902,
+    "subgrade": 3,
+    "result": 935
+  },
+  {
+    "mode": 2,
+    "mainnum": 1047,
+    "maingrade": 3,
+    "subnum": 371,
+    "subgrade": 3,
+    "result": 951
+  },
+  {
+    "mode": 2,
+    "mainnum": 1904,
+    "maingrade": 3,
+    "subnum": 856,
+    "subgrade": 3,
+    "result": 960
+  },
+  {
+    "mode": 2,
+    "mainnum": 1906,
+    "maingrade": 3,
+    "subnum": 297,
+    "subgrade": 3,
+    "result": 969
+  },
+  {
+    "mode": 2,
+    "mainnum": 1047,
+    "maingrade": 3,
+    "subnum": 1905,
+    "subgrade": 3,
+    "result": 978
+  },
+  {
+    "mode": 2,
+    "mainnum": 421,
+    "maingrade": 3,
+    "subnum": 313,
+    "subgrade": 3,
+    "result": 1000
+  },
+  {
+    "mode": 2,
+    "mainnum": 1009,
+    "maingrade": 3,
+    "subnum": 1008,
+    "subgrade": 3,
+    "result": 1003
+  },
+  {
+    "mode": 2,
+    "mainnum": 1010,
+    "maingrade": 2,
+    "subnum": 844,
+    "subgrade": 2,
+    "result": 1004
+  },
+  {
+    "mode": 2,
+    "mainnum": 432,
+    "maingrade": 3,
+    "subnum": 1035,
+    "subgrade": 3,
+    "result": 1006
+  },
+  {
+    "mode": 2,
+    "mainnum": 859,
+    "maingrade": 3,
+    "subnum": 856,
+    "subgrade": 3,
+    "result": 1006
+  },
+  {
+    "mode": 2,
+    "mainnum": 1000,
+    "maingrade": 3,
+    "subnum": 560,
+    "subgrade": 3,
+    "result": 1006
+  },
+  {
+    "mode": 2,
+    "mainnum": 419,
+    "maingrade": 2,
+    "subnum": 338,
+    "subgrade": 2,
+    "result": 1007
+  },
+  {
+    "mode": 2,
+    "mainnum": 419,
+    "maingrade": 2,
+    "subnum": 419,
+    "subgrade": 2,
+    "result": 1007
+  },
+  {
+    "mode": 2,
+    "mainnum": 1002,
+    "maingrade": 3,
+    "subnum": 1004,
+    "subgrade": 3,
+    "result": 1008
+  },
+  {
+    "mode": 2,
+    "mainnum": 1001,
+    "maingrade": 2,
+    "subnum": 870,
+    "subgrade": 2,
+    "result": 1009
+  },
+  {
+    "mode": 2,
+    "mainnum": 1001,
+    "maingrade": 2,
+    "subnum": 420,
+    "subgrade": 2,
+    "result": 1009
+  },
+  {
+    "mode": 2,
+    "mainnum": 1003,
+    "maingrade": 0,
+    "subnum": 432,
+    "subgrade": 0,
+    "result": 1011
+  },
+  {
+    "mode": 2,
+    "mainnum": 430,
+    "maingrade": 2,
+    "subnum": 875,
+    "subgrade": 3,
+    "result": 1011
+  },
+  {
+    "mode": 2,
+    "mainnum": 1006,
+    "maingrade": 3,
+    "subnum": 285,
+    "subgrade": 3,
+    "result": 1012
+  },
+  {
+    "mode": 2,
+    "mainnum": 1014,
+    "maingrade": 2,
+    "subnum": 352,
+    "subgrade": 2,
+    "result": 1013
+  },
+  {
+    "mode": 2,
+    "mainnum": 1014,
+    "maingrade": 2,
+    "subnum": 335,
+    "subgrade": 2,
+    "result": 1013
+  },
+  {
+    "mode": 2,
+    "mainnum": 313,
+    "maingrade": 2,
+    "subnum": 1027,
+    "subgrade": 2,
+    "result": 1015
+  },
+  {
+    "mode": 2,
+    "mainnum": 313,
+    "maingrade": 2,
+    "subnum": 331,
+    "subgrade": 2,
+    "result": 1015
+  },
+  {
+    "mode": 2,
+    "mainnum": 1052,
+    "maingrade": 3,
+    "subnum": 1055,
+    "subgrade": 3,
+    "result": 1017
+  },
+  {
+    "mode": 2,
+    "mainnum": 1015,
+    "maingrade": 3,
+    "subnum": 308,
+    "subgrade": 3,
+    "result": 1018
+  },
+  {
+    "mode": 2,
+    "mainnum": 1013,
+    "maingrade": 3,
+    "subnum": 324,
+    "subgrade": 3,
+    "result": 1019
+  },
+  {
+    "mode": 2,
+    "mainnum": 1020,
+    "maingrade": 2,
+    "subnum": 1022,
+    "subgrade": 3,
+    "result": 1021
+  },
+  {
+    "mode": 2,
+    "mainnum": 1017,
+    "maingrade": 3,
+    "subnum": 370,
+    "subgrade": 3,
+    "result": 1023
+  },
+  {
+    "mode": 2,
+    "mainnum": 1016,
+    "maingrade": 2,
+    "subnum": 1020,
+    "subgrade": 2,
+    "result": 1024
+  },
+  {
+    "mode": 2,
+    "mainnum": 1020,
+    "maingrade": 2,
+    "subnum": 1016,
+    "subgrade": 2,
+    "result": 1024
+  },
+  {
+    "mode": 2,
+    "mainnum": 1016,
+    "maingrade": 2,
+    "subnum": 1022,
+    "subgrade": 3,
+    "result": 1025
+  },
+  {
+    "mode": 2,
+    "mainnum": 338,
+    "maingrade": 2,
+    "subnum": 293,
+    "subgrade": 2,
+    "result": 1027
+  },
+  {
+    "mode": 2,
+    "mainnum": 338,
+    "maingrade": 2,
+    "subnum": 296,
+    "subgrade": 2,
+    "result": 1027
+  },
+  {
+    "mode": 2,
+    "mainnum": 294,
+    "maingrade": 2,
+    "subnum": 280,
+    "subgrade": 2,
+    "result": 1028
+  },
+  {
+    "mode": 2,
+    "mainnum": 294,
+    "maingrade": 2,
+    "subnum": 380,
+    "subgrade": 2,
+    "result": 1028
+  },
+  {
+    "mode": 2,
+    "mainnum": 1030,
+    "maingrade": 2,
+    "subnum": 1024,
+    "subgrade": 3,
+    "result": 1031
+  },
+  {
+    "mode": 2,
+    "mainnum": 425,
+    "maingrade": 3,
+    "subnum": 556,
+    "subgrade": 3,
+    "result": 1032
+  },
+  {
+    "mode": 2,
+    "mainnum": 1026,
+    "maingrade": 2,
+    "subnum": 1036,
+    "subgrade": 3,
+    "result": 1033
+  },
+  {
+    "mode": 2,
+    "mainnum": 1026,
+    "maingrade": 2,
+    "subnum": 861,
+    "subgrade": 3,
+    "result": 1033
+  },
+  {
+    "mode": 2,
+    "mainnum": 1028,
+    "maingrade": 3,
+    "subnum": 385,
+    "subgrade": 3,
+    "result": 1034
+  },
+  {
+    "mode": 2,
+    "mainnum": 323,
+    "maingrade": 3,
+    "subnum": 1050,
+    "subgrade": 3,
+    "result": 1035
+  },
+  {
+    "mode": 2,
+    "mainnum": 552,
+    "maingrade": 2,
+    "subnum": 845,
+    "subgrade": 2,
+    "result": 1036
+  },
+  {
+    "mode": 2,
+    "mainnum": 552,
+    "maingrade": 2,
+    "subnum": 305,
+    "subgrade": 2,
+    "result": 1036
+  },
+  {
+    "mode": 2,
+    "mainnum": 1031,
+    "maingrade": 3,
+    "subnum": 1035,
+    "subgrade": 3,
+    "result": 1037
+  },
+  {
+    "mode": 2,
+    "mainnum": 550,
+    "maingrade": 3,
+    "subnum": 1006,
+    "subgrade": 3,
+    "result": 1038
+  },
+  {
+    "mode": 2,
+    "mainnum": 374,
+    "maingrade": 2,
+    "subnum": 374,
+    "subgrade": 2,
+    "result": 1039
+  },
+  {
+    "mode": 2,
+    "mainnum": 374,
+    "maingrade": 2,
+    "subnum": 288,
+    "subgrade": 2,
+    "result": 1039
+  },
+  {
+    "mode": 2,
+    "mainnum": 1046,
+    "maingrade": 2,
+    "subnum": 422,
+    "subgrade": 3,
+    "result": 1040
+  },
+  {
+    "mode": 2,
+    "mainnum": 323,
+    "maingrade": 3,
+    "subnum": 425,
+    "subgrade": 3,
+    "result": 1041
+  },
+  {
+    "mode": 2,
+    "mainnum": 1045,
+    "maingrade": 3,
+    "subnum": 307,
+    "subgrade": 3,
+    "result": 1042
+  },
+  {
+    "mode": 2,
+    "mainnum": 379,
+    "maingrade": 2,
+    "subnum": 379,
+    "subgrade": 2,
+    "result": 1043
+  },
+  {
+    "mode": 2,
+    "mainnum": 379,
+    "maingrade": 2,
+    "subnum": 1001,
+    "subgrade": 2,
+    "result": 1043
+  },
+  {
+    "mode": 2,
+    "mainnum": 1039,
+    "maingrade": 2,
+    "subnum": 331,
+    "subgrade": 2,
+    "result": 1045
+  },
+  {
+    "mode": 2,
+    "mainnum": 1041,
+    "maingrade": 3,
+    "subnum": 364,
+    "subgrade": 3,
+    "result": 1047
+  },
+  {
+    "mode": 2,
+    "mainnum": 1042,
+    "maingrade": 3,
+    "subnum": 330,
+    "subgrade": 3,
+    "result": 1048
+  },
+  {
+    "mode": 2,
+    "mainnum": 1049,
+    "maingrade": 3,
+    "subnum": 1034,
+    "subgrade": 3,
+    "result": 1048
+  },
+  {
+    "mode": 2,
+    "mainnum": 1044,
+    "maingrade": 3,
+    "subnum": 1043,
+    "subgrade": 2,
+    "result": 1049
+  },
+  {
+    "mode": 2,
+    "mainnum": 1044,
+    "maingrade": 3,
+    "subnum": 385,
+    "subgrade": 3,
+    "result": 1050
+  },
+  {
+    "mode": 2,
+    "mainnum": 371,
+    "maingrade": 3,
+    "subnum": 550,
+    "subgrade": 3,
+    "result": 1051
+  },
+  {
+    "mode": 2,
+    "mainnum": 1053,
+    "maingrade": 3,
+    "subnum": 1054,
+    "subgrade": 2,
+    "result": 1055
+  },
+  {
+    "mode": 2,
+    "mainnum": 292,
+    "maingrade": 3,
+    "subnum": 848,
+    "subgrade": 3,
+    "result": 1056
+  },
+  {
+    "mode": 2,
+    "mainnum": 1268,
+    "maingrade": 3,
+    "subnum": 344,
+    "subgrade": 3,
+    "result": 1061
+  },
+  {
+    "mode": 2,
+    "mainnum": 1238,
+    "maingrade": 3,
+    "subnum": 1056,
+    "subgrade": 3,
+    "result": 1146
+  },
+  {
+    "mode": 2,
+    "mainnum": 1904,
+    "maingrade": 3,
+    "subnum": 345,
+    "subgrade": 3,
+    "result": 1147
+  },
+  {
+    "mode": 2,
+    "mainnum": 2028,
+    "maingrade": 4,
+    "subnum": 2033,
+    "subgrade": 4,
+    "result": 1154
+  },
+  {
+    "mode": 2,
+    "mainnum": 2031,
+    "maingrade": 4,
+    "subnum": 2028,
+    "subgrade": 4,
+    "result": 1155
+  },
+  {
+    "mode": 2,
+    "mainnum": 2032,
+    "maingrade": 4,
+    "subnum": 2029,
+    "subgrade": 4,
+    "result": 1156
+  },
+  {
+    "mode": 2,
+    "mainnum": 2035,
+    "maingrade": 4,
+    "subnum": 2031,
+    "subgrade": 4,
+    "result": 1157
+  },
+  {
+    "mode": 2,
+    "mainnum": 343,
+    "maingrade": 3,
+    "subnum": 1907,
+    "subgrade": 3,
+    "result": 1208
+  },
+  {
+    "mode": 2,
+    "mainnum": 1818,
+    "maingrade": 3,
+    "subnum": 1848,
+    "subgrade": 3,
+    "result": 1218
+  },
+  {
+    "mode": 2,
+    "mainnum": 1838,
+    "maingrade": 3,
+    "subnum": 1012,
+    "subgrade": 3,
+    "result": 1228
+  },
+  {
+    "mode": 2,
+    "mainnum": 1828,
+    "maingrade": 3,
+    "subnum": 1909,
+    "subgrade": 3,
+    "result": 1238
+  },
+  {
+    "mode": 2,
+    "mainnum": 1903,
+    "maingrade": 3,
+    "subnum": 1038,
+    "subgrade": 3,
+    "result": 1248
+  },
+  {
+    "mode": 2,
+    "mainnum": 1147,
+    "maingrade": 3,
+    "subnum": 852,
+    "subgrade": 3,
+    "result": 1258
+  },
+  {
+    "mode": 2,
+    "mainnum": 1912,
+    "maingrade": 3,
+    "subnum": 1905,
+    "subgrade": 3,
+    "result": 1268
+  },
+  {
+    "mode": 2,
+    "mainnum": 1878,
+    "maingrade": 3,
+    "subnum": 549,
+    "subgrade": 3,
+    "result": 1278
+  },
+  {
+    "mode": 2,
+    "mainnum": 1920,
+    "maingrade": 3,
+    "subnum": 830,
+    "subgrade": 3,
+    "result": 1308
+  },
+  {
+    "mode": 2,
+    "mainnum": 1915,
+    "maingrade": 3,
+    "subnum": 840,
+    "subgrade": 3,
+    "result": 1318
+  },
+  {
+    "mode": 2,
+    "mainnum": 1914,
+    "maingrade": 3,
+    "subnum": 343,
+    "subgrade": 3,
+    "result": 1328
+  },
+  {
+    "mode": 2,
+    "mainnum": 1318,
+    "maingrade": 3,
+    "subnum": 1218,
+    "subgrade": 3,
+    "result": 1338
+  },
+  {
+    "mode": 2,
+    "mainnum": 1916,
+    "maingrade": 3,
+    "subnum": 1838,
+    "subgrade": 3,
+    "result": 1348
+  },
+  {
+    "mode": 2,
+    "mainnum": 1917,
+    "maingrade": 3,
+    "subnum": 1238,
+    "subgrade": 3,
+    "result": 1358
+  },
+  {
+    "mode": 2,
+    "mainnum": 1918,
+    "maingrade": 3,
+    "subnum": 1248,
+    "subgrade": 3,
+    "result": 1368
+  },
+  {
+    "mode": 2,
+    "mainnum": 1919,
+    "maingrade": 3,
+    "subnum": 1147,
+    "subgrade": 3,
+    "result": 1378
+  },
+  {
+    "mode": 2,
+    "mainnum": 1921,
+    "maingrade": 3,
+    "subnum": 1278,
+    "subgrade": 3,
+    "result": 1388
+  },
+  {
+    "mode": 2,
+    "mainnum": 1308,
+    "maingrade": 3,
+    "subnum": 1061,
+    "subgrade": 3,
+    "result": 1398
+  },
+  {
+    "mode": 2,
+    "mainnum": 1154,
+    "maingrade": 4,
+    "subnum": 2035,
+    "subgrade": 4,
+    "result": 1660
+  },
+  {
+    "mode": 2,
+    "mainnum": 2039,
+    "maingrade": 4,
+    "subnum": 2038,
+    "subgrade": 4,
+    "result": 1661
+  },
+  {
+    "mode": 2,
+    "mainnum": 2038,
+    "maingrade": 4,
+    "subnum": 2032,
+    "subgrade": 4,
+    "result": 1662
+  },
+  {
+    "mode": 2,
+    "mainnum": 1155,
+    "maingrade": 4,
+    "subnum": 1154,
+    "subgrade": 4,
+    "result": 1663
+  },
+  {
+    "mode": 2,
+    "mainnum": 1156,
+    "maingrade": 4,
+    "subnum": 2039,
+    "subgrade": 4,
+    "result": 1664
+  },
+  {
+    "mode": 2,
+    "mainnum": 2037,
+    "maingrade": 4,
+    "subnum": 1155,
+    "subgrade": 4,
+    "result": 1665
+  },
+  {
+    "mode": 2,
+    "mainnum": 2037,
+    "maingrade": 4,
+    "subnum": 1157,
+    "subgrade": 4,
+    "result": 1665
+  },
+  {
+    "mode": 2,
+    "mainnum": 2036,
+    "maingrade": 4,
+    "subnum": 1156,
+    "subgrade": 4,
+    "result": 1666
+  },
+  {
+    "mode": 2,
+    "mainnum": 1157,
+    "maingrade": 4,
+    "subnum": 1155,
+    "subgrade": 4,
+    "result": 1667
+  },
+  {
+    "mode": 2,
+    "mainnum": 1660,
+    "maingrade": 5,
+    "subnum": 1665,
+    "subgrade": 5,
+    "result": 1670
+  },
+  {
+    "mode": 2,
+    "mainnum": 2039,
+    "maingrade": 5,
+    "subnum": 1662,
+    "subgrade": 5,
+    "result": 1671
+  },
+  {
+    "mode": 2,
+    "mainnum": 1662,
+    "maingrade": 5,
+    "subnum": 1666,
+    "subgrade": 5,
+    "result": 1672
+  },
+  {
+    "mode": 2,
+    "mainnum": 1663,
+    "maingrade": 5,
+    "subnum": 1660,
+    "subgrade": 5,
+    "result": 1673
+  },
+  {
+    "mode": 2,
+    "mainnum": 1664,
+    "maingrade": 5,
+    "subnum": 1661,
+    "subgrade": 5,
+    "result": 1674
+  },
+  {
+    "mode": 2,
+    "mainnum": 2040,
+    "maingrade": 5,
+    "subnum": 1667,
+    "subgrade": 5,
+    "result": 1675
+  },
+  {
+    "mode": 2,
+    "mainnum": 1666,
+    "maingrade": 5,
+    "subnum": 1664,
+    "subgrade": 5,
+    "result": 1676
+  },
+  {
+    "mode": 2,
+    "mainnum": 1667,
+    "maingrade": 5,
+    "subnum": 1663,
+    "subgrade": 5,
+    "result": 1677
+  },
+  {
+    "mode": 2,
+    "mainnum": 301,
+    "maingrade": 2,
+    "subnum": 865,
+    "subgrade": 2,
+    "result": 1722
+  },
+  {
+    "mode": 2,
+    "mainnum": 951,
+    "maingrade": 3,
+    "subnum": 1038,
+    "subgrade": 3,
+    "result": 1808
+  },
+  {
+    "mode": 2,
+    "mainnum": 917,
+    "maingrade": 3,
+    "subnum": 1901,
+    "subgrade": 3,
+    "result": 1818
+  },
+  {
+    "mode": 2,
+    "mainnum": 1909,
+    "maingrade": 3,
+    "subnum": 1902,
+    "subgrade": 3,
+    "result": 1828
+  },
+  {
+    "mode": 2,
+    "mainnum": 1858,
+    "maingrade": 3,
+    "subnum": 1012,
+    "subgrade": 3,
+    "result": 1838
+  },
+  {
+    "mode": 2,
+    "mainnum": 1908,
+    "maingrade": 3,
+    "subnum": 1901,
+    "subgrade": 3,
+    "result": 1848
+  },
+  {
+    "mode": 2,
+    "mainnum": 878,
+    "maingrade": 3,
+    "subnum": 926,
+    "subgrade": 3,
+    "result": 1858
+  },
+  {
+    "mode": 2,
+    "mainnum": 1938,
+    "maingrade": 4,
+    "subnum": 1328,
+    "subgrade": 4,
+    "result": 1870
+  },
+  {
+    "mode": 2,
+    "mainnum": 1948,
+    "maingrade": 4,
+    "subnum": 1338,
+    "subgrade": 4,
+    "result": 1871
+  },
+  {
+    "mode": 2,
+    "mainnum": 1958,
+    "maingrade": 4,
+    "subnum": 1348,
+    "subgrade": 4,
+    "result": 1872
+  },
+  {
+    "mode": 2,
+    "mainnum": 1968,
+    "maingrade": 4,
+    "subnum": 1358,
+    "subgrade": 4,
+    "result": 1873
+  },
+  {
+    "mode": 2,
+    "mainnum": 1978,
+    "maingrade": 4,
+    "subnum": 1368,
+    "subgrade": 4,
+    "result": 1874
+  },
+  {
+    "mode": 2,
+    "mainnum": 1988,
+    "maingrade": 4,
+    "subnum": 1378,
+    "subgrade": 4,
+    "result": 1875
+  },
+  {
+    "mode": 2,
+    "mainnum": 1998,
+    "maingrade": 4,
+    "subnum": 1388,
+    "subgrade": 4,
+    "result": 1876
+  },
+  {
+    "mode": 2,
+    "mainnum": 2008,
+    "maingrade": 4,
+    "subnum": 1398,
+    "subgrade": 4,
+    "result": 1877
+  },
+  {
+    "mode": 2,
+    "mainnum": 969,
+    "maingrade": 3,
+    "subnum": 1913,
+    "subgrade": 3,
+    "result": 1878
+  },
+  {
+    "mode": 2,
+    "mainnum": 1038,
+    "maingrade": 3,
+    "subnum": 908,
+    "subgrade": 3,
+    "result": 1879
+  },
+  {
+    "mode": 2,
+    "mainnum": 829,
+    "maingrade": 3,
+    "subnum": 561,
+    "subgrade": 3,
+    "result": 1900
+  },
+  {
+    "mode": 2,
+    "mainnum": 841,
+    "maingrade": 3,
+    "subnum": 863,
+    "subgrade": 3,
+    "result": 1901
+  },
+  {
+    "mode": 2,
+    "mainnum": 292,
+    "maingrade": 3,
+    "subnum": 364,
+    "subgrade": 3,
+    "result": 1902
+  },
+  {
+    "mode": 2,
+    "mainnum": 1032,
+    "maingrade": 3,
+    "subnum": 1037,
+    "subgrade": 3,
+    "result": 1903
+  },
+  {
+    "mode": 2,
+    "mainnum": 300,
+    "maingrade": 3,
+    "subnum": 856,
+    "subgrade": 3,
+    "result": 1904
+  },
+  {
+    "mode": 2,
+    "mainnum": 1048,
+    "maingrade": 3,
+    "subnum": 560,
+    "subgrade": 3,
+    "result": 1905
+  },
+  {
+    "mode": 2,
+    "mainnum": 297,
+    "maingrade": 3,
+    "subnum": 875,
+    "subgrade": 3,
+    "result": 1906
+  },
+  {
+    "mode": 2,
+    "mainnum": 876,
+    "maingrade": 3,
+    "subnum": 908,
+    "subgrade": 3,
+    "result": 1907
+  },
+  {
+    "mode": 2,
+    "mainnum": 1901,
+    "maingrade": 3,
+    "subnum": 429,
+    "subgrade": 3,
+    "result": 1908
+  },
+  {
+    "mode": 2,
+    "mainnum": 935,
+    "maingrade": 3,
+    "subnum": 877,
+    "subgrade": 3,
+    "result": 1909
+  },
+  {
+    "mode": 2,
+    "mainnum": 1037,
+    "maingrade": 3,
+    "subnum": 1903,
+    "subgrade": 3,
+    "result": 1910
+  },
+  {
+    "mode": 2,
+    "mainnum": 1904,
+    "maingrade": 3,
+    "subnum": 855,
+    "subgrade": 3,
+    "result": 1911
+  },
+  {
+    "mode": 2,
+    "mainnum": 879,
+    "maingrade": 3,
+    "subnum": 978,
+    "subgrade": 3,
+    "result": 1912
+  },
+  {
+    "mode": 2,
+    "mainnum": 1906,
+    "maingrade": 3,
+    "subnum": 549,
+    "subgrade": 3,
+    "result": 1913
+  },
+  {
+    "mode": 2,
+    "mainnum": 1208,
+    "maingrade": 3,
+    "subnum": 1051,
+    "subgrade": 3,
+    "result": 1914
+  },
+  {
+    "mode": 2,
+    "mainnum": 1218,
+    "maingrade": 3,
+    "subnum": 840,
+    "subgrade": 3,
+    "result": 1915
+  },
+  {
+    "mode": 2,
+    "mainnum": 1228,
+    "maingrade": 3,
+    "subnum": 1858,
+    "subgrade": 3,
+    "result": 1916
+  },
+  {
+    "mode": 2,
+    "mainnum": 1146,
+    "maingrade": 3,
+    "subnum": 1056,
+    "subgrade": 3,
+    "result": 1917
+  },
+  {
+    "mode": 2,
+    "mainnum": 1038,
+    "maingrade": 3,
+    "subnum": 1910,
+    "subgrade": 3,
+    "result": 1918
+  },
+  {
+    "mode": 2,
+    "mainnum": 1258,
+    "maingrade": 3,
+    "subnum": 852,
+    "subgrade": 3,
+    "result": 1919
+  },
+  {
+    "mode": 2,
+    "mainnum": 1061,
+    "maingrade": 3,
+    "subnum": 830,
+    "subgrade": 3,
+    "result": 1920
+  },
+  {
+    "mode": 2,
+    "mainnum": 342,
+    "maingrade": 3,
+    "subnum": 866,
+    "subgrade": 3,
+    "result": 1921
+  },
+  {
+    "mode": 2,
+    "mainnum": 1914,
+    "maingrade": 3,
+    "subnum": 1208,
+    "subgrade": 3,
+    "result": 1938
+  },
+  {
+    "mode": 2,
+    "mainnum": 1318,
+    "maingrade": 3,
+    "subnum": 1915,
+    "subgrade": 3,
+    "result": 1948
+  },
+  {
+    "mode": 2,
+    "mainnum": 1916,
+    "maingrade": 3,
+    "subnum": 1228,
+    "subgrade": 3,
+    "result": 1958
+  },
+  {
+    "mode": 2,
+    "mainnum": 1917,
+    "maingrade": 3,
+    "subnum": 1146,
+    "subgrade": 3,
+    "result": 1968
+  },
+  {
+    "mode": 2,
+    "mainnum": 1918,
+    "maingrade": 3,
+    "subnum": 1879,
+    "subgrade": 3,
+    "result": 1978
+  },
+  {
+    "mode": 2,
+    "mainnum": 1919,
+    "maingrade": 3,
+    "subnum": 1258,
+    "subgrade": 3,
+    "result": 1988
+  },
+  {
+    "mode": 2,
+    "mainnum": 1921,
+    "maingrade": 3,
+    "subnum": 342,
+    "subgrade": 3,
+    "result": 1998
+  },
+  {
+    "mode": 2,
+    "mainnum": 1308,
+    "maingrade": 3,
+    "subnum": 1920,
+    "subgrade": 3,
+    "result": 2008
+  },
+  {
+    "mode": 2,
+    "mainnum": 1870,
+    "maingrade": 4,
+    "subnum": 1875,
+    "subgrade": 4,
+    "result": 2028
+  },
+  {
+    "mode": 2,
+    "mainnum": 1871,
+    "maingrade": 4,
+    "subnum": 1872,
+    "subgrade": 4,
+    "result": 2029
+  },
+  {
+    "mode": 2,
+    "mainnum": 1872,
+    "maingrade": 4,
+    "subnum": 1876,
+    "subgrade": 4,
+    "result": 2030
+  },
+  {
+    "mode": 2,
+    "mainnum": 1873,
+    "maingrade": 4,
+    "subnum": 1870,
+    "subgrade": 4,
+    "result": 2031
+  },
+  {
+    "mode": 2,
+    "mainnum": 1874,
+    "maingrade": 4,
+    "subnum": 1871,
+    "subgrade": 4,
+    "result": 2032
+  },
+  {
+    "mode": 2,
+    "mainnum": 1875,
+    "maingrade": 4,
+    "subnum": 1877,
+    "subgrade": 4,
+    "result": 2033
+  },
+  {
+    "mode": 2,
+    "mainnum": 1876,
+    "maingrade": 4,
+    "subnum": 1874,
+    "subgrade": 4,
+    "result": 2034
+  },
+  {
+    "mode": 2,
+    "mainnum": 1877,
+    "maingrade": 4,
+    "subnum": 1873,
+    "subgrade": 4,
+    "result": 2035
+  },
+  {
+    "mode": 2,
+    "mainnum": 2034,
+    "maingrade": 4,
+    "subnum": 2032,
+    "subgrade": 4,
+    "result": 2036
+  },
+  {
+    "mode": 2,
+    "mainnum": 2033,
+    "maingrade": 4,
+    "subnum": 2031,
+    "subgrade": 4,
+    "result": 2037
+  },
+  {
+    "mode": 2,
+    "mainnum": 2030,
+    "maingrade": 4,
+    "subnum": 2034,
+    "subgrade": 4,
+    "result": 2038
+  },
+  {
+    "mode": 2,
+    "mainnum": 2029,
+    "maingrade": 4,
+    "subnum": 2030,
+    "subgrade": 4,
+    "result": 2039
+  },
+  {
+    "mode": 2,
+    "mainnum": 2033,
+    "maingrade": 4,
+    "subnum": 2035,
+    "subgrade": 4,
+    "result": 2040
+  }
+]

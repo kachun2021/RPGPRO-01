@@ -1,0 +1,34 @@
+[
+  {
+    "level_diff": 10,
+    "penalty_rate": 95
+  },
+  {
+    "level_diff": 15,
+    "penalty_rate": 90
+  },
+  {
+    "level_diff": 20,
+    "penalty_rate": 80
+  },
+  {
+    "level_diff": 25,
+    "penalty_rate": 50
+  },
+  {
+    "level_diff": 30,
+    "penalty_rate": 30
+  },
+  {
+    "level_diff": 40,
+    "penalty_rate": 10
+  },
+  {
+    "level_diff": 50,
+    "penalty_rate": 5
+  },
+  {
+    "level_diff": 55,
+    "penalty_rate": 0
+  }
+]

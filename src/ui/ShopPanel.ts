@@ -1,11 +1,28 @@
 /**
- * ShopPanel — NPC shop UI with category tabs + item grid + buy/sell.
- * Opens from DialoguePanel when player clicks "買" or "賣".
+ * ShopPanel — Premium NPC shop UI with category tabs + item cards + buy/sell.
+ * Opens from DialoguePanel or nav bar.
+ * Stone Age Premium Dark Theme with rarity borders, quantity controls, and gold display.
  */
 
-import type { ShopManager, ShopCategory } from '../systems/ShopManager';
+import type { ShopManager, ShopCategory, ShopItem } from '../systems/ShopManager';
 import { SHOP_CATEGORIES } from '../systems/ShopManager';
 import type { Inventory } from '../systems/Inventory';
+
+const RARITY_COLORS: Record<string, string> = {
+      common: 'rgba(200,195,185,0.5)',
+      uncommon: 'rgba(39,174,96,0.7)',
+      rare: 'rgba(52,152,219,0.8)',
+      epic: 'rgba(155,89,182,0.8)',
+      legendary: 'rgba(232,201,106,0.9)',
+};
+
+const RARITY_LABELS: Record<string, string> = {
+      common: '普通',
+      uncommon: '優秀',
+      rare: '稀有',
+      epic: '史詩',
+      legendary: '傳說',
+};
 
 export class ShopPanel {
       private _el: HTMLDivElement;
@@ -14,6 +31,7 @@ export class ShopPanel {
       private _category: ShopCategory = 'potion';
       private _shop: ShopManager;
       private _inventory: Inventory;
+      private _quantities: Map<string, number> = new Map();
 
       constructor(shop: ShopManager, inventory: Inventory) {
             this._shop = shop;
@@ -29,136 +47,234 @@ export class ShopPanel {
       }
 
       private _render(): void {
-            this._el.innerHTML = '';
+            const gold = this._inventory.gold;
+            this._el.innerHTML = `
+                  <div class="sa-panel-title">
+                        <span class="shop-title-icon">${this._mode === 'buy' ? '🏪' : '📦'}</span>
+                        ${this._mode === 'buy' ? '商店' : '出售'}
+                        <span class="shop-gold-badge">💰 <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
+                        <span class="panel-close" id="shop-close">×</span>
+                  </div>
 
-            // Title
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `${this._mode === 'buy' ? '🛒 商店' : '📦 出售'}`;
-            const closeBtn = document.createElement('span');
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
-            this._el.appendChild(title);
+                  <div class="shop-mode-bar">
+                        <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🛒 購買</button>
+                        <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">💰 出售</button>
+                  </div>
 
-            // Mode toggle
-            const modeBar = document.createElement('div');
-            modeBar.className = 'shop-mode-bar';
-            for (const m of ['buy', 'sell'] as const) {
-                  const btn = document.createElement('button');
-                  btn.className = `shop-mode-btn${m === this._mode ? ' shop-mode-active' : ''}`;
-                  btn.textContent = m === 'buy' ? '💰 購買' : '📦 出售';
-                  btn.addEventListener('click', () => { this._mode = m; this._render(); });
-                  modeBar.appendChild(btn);
-            }
-            this._el.appendChild(modeBar);
+                  ${this._mode === 'buy' ? this._renderCategoryTabs() : ''}
 
-            // Layout: tabs left + grid right
-            const body = document.createElement('div');
-            body.className = 'shop-body';
+                  <div class="shop-grid" id="shop-grid"></div>
+            `;
 
-            // Category tabs
-            const tabs = document.createElement('div');
-            tabs.className = 'shop-tabs';
-            for (const cat of SHOP_CATEGORIES) {
-                  const btn = document.createElement('button');
-                  btn.className = `shop-tab${cat.id === this._category ? ' shop-tab-active' : ''}`;
-                  btn.innerHTML = `${cat.icon}<br>${cat.label}`;
-                  btn.addEventListener('click', () => { this._category = cat.id; this._render(); });
-                  tabs.appendChild(btn);
-            }
-            body.appendChild(tabs);
+            // Bind close
+            this._el.querySelector('#shop-close')?.addEventListener('click', () => this.hide());
 
-            // Item grid
-            const grid = document.createElement('div');
-            grid.className = 'shop-grid';
+            // Bind mode buttons
+            this._el.querySelectorAll('.shop-mode-btn').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                        this._mode = (btn as HTMLElement).dataset.mode as 'buy' | 'sell';
+                        this._render();
+                  });
+            });
 
+            // Bind category tabs
+            this._el.querySelectorAll('.shop-cat-btn').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                        this._category = (btn as HTMLElement).dataset.cat as ShopCategory;
+                        this._render();
+                  });
+            });
+
+            // Render items
+            const grid = this._el.querySelector('#shop-grid') as HTMLDivElement;
             if (this._mode === 'buy') {
-                  const items = this._shop.getByCategory(this._category);
-                  for (const item of items) {
-                        const card = document.createElement('div');
-                        card.className = 'shop-item';
-                        card.innerHTML = `
-                              <div class="shop-item-icon">${item.icon}</div>
-                              <div class="shop-item-info">
-                                    <div class="shop-item-name">${item.name}</div>
-                                    <div class="shop-item-desc">${item.description}</div>
-                                    <div class="shop-item-price">💰 ${item.price}</div>
-                              </div>
-                              <button class="shop-buy-btn btn-gold">購買</button>
-                        `;
-                        const buyBtn = card.querySelector('.shop-buy-btn')!;
-                        buyBtn.addEventListener('click', (e) => {
-                              e.stopPropagation();
-                              if (this._shop.buy(item.id, 1, this._inventory)) {
-                                    this._showFeedback(`✅ 購買 ${item.name}`, '#27AE60');
-                              } else {
-                                    this._showFeedback('❌ 金幣不足', '#E74C3C');
-                              }
-                              this._render();
-                        });
-                        grid.appendChild(card);
-                  }
-                  if (items.length === 0) {
-                        grid.innerHTML = '<div class="shop-empty">此分類暫無商品</div>';
-                  }
+                  this._renderBuyItems(grid);
             } else {
-                  // Sell mode — show inventory items
-                  const invItems = this._inventory.items.filter(i => i.type !== 'quest');
-                  for (const item of invItems) {
-                        const sellPrice = this._shop.getSellPrice(item.itemId);
-                        const card = document.createElement('div');
-                        card.className = 'shop-item';
-                        card.innerHTML = `
-                              <div class="shop-item-icon">${item.icon}</div>
-                              <div class="shop-item-info">
-                                    <div class="shop-item-name">${item.name} ×${item.qty}</div>
-                                    <div class="shop-item-desc">${item.description}</div>
-                                    <div class="shop-item-price" style="color:#27AE60">+💰 ${sellPrice}</div>
-                              </div>
-                              <button class="shop-sell-btn">出售</button>
-                        `;
-                        const sellBtn = card.querySelector('.shop-sell-btn')!;
-                        sellBtn.addEventListener('click', (e) => {
-                              e.stopPropagation();
-                              const gold = this._shop.sell(item.itemId, 1, this._inventory);
-                              if (gold > 0) {
-                                    this._showFeedback(`📦 出售獲得 ${gold}💰`, '#E8C96A');
-                              }
-                              this._render();
-                        });
-                        grid.appendChild(card);
-                  }
-                  if (invItems.length === 0) {
-                        grid.innerHTML = '<div class="shop-empty">背包空空如也</div>';
-                  }
+                  this._renderSellItems(grid);
             }
-
-            body.appendChild(grid);
-            this._el.appendChild(body);
-
-            // Gold display
-            const goldBar = document.createElement('div');
-            goldBar.className = 'shop-gold-bar';
-            goldBar.innerHTML = `💰 <span class="shop-gold-val">${this._inventory.gold.toLocaleString()}</span> GP`;
-            this._el.appendChild(goldBar);
       }
 
-      private _showFeedback(msg: string, color: string): void {
+      private _renderCategoryTabs(): string {
+            return `<div class="shop-cat-bar">${SHOP_CATEGORIES.map(cat => `
+                  <button class="shop-cat-btn${cat.id === this._category ? ' active' : ''}" data-cat="${cat.id}">
+                        <span class="shop-cat-icon">${cat.icon}</span>
+                        <span class="shop-cat-label">${cat.label}</span>
+                  </button>
+            `).join('')}</div>`;
+      }
+
+      private _renderBuyItems(grid: HTMLDivElement): void {
+            const items = this._shop.getByCategory(this._category);
+            if (items.length === 0) {
+                  grid.innerHTML = '<div class="shop-empty">📭 此分類暫無商品</div>';
+                  return;
+            }
+
+            for (const item of items) {
+                  grid.appendChild(this._createBuyCard(item));
+            }
+      }
+
+      private _renderSellItems(grid: HTMLDivElement): void {
+            const invItems = this._inventory.items.filter(i => i.type !== 'quest');
+            if (invItems.length === 0) {
+                  grid.innerHTML = '<div class="shop-empty">🎒 背包空空如也</div>';
+                  return;
+            }
+
+            for (const item of invItems) {
+                  const sellPrice = this._shop.getSellPrice(item.itemId);
+                  const card = document.createElement('div');
+                  card.className = `shop-card`;
+                  card.style.borderColor = RARITY_COLORS[item.rarity || 'common'];
+
+                  const qty = this._getQty(item.itemId, item.qty);
+
+                  card.innerHTML = `
+                        <div class="shop-card-left">
+                              <div class="shop-card-icon" style="border-color:${RARITY_COLORS[item.rarity || 'common']}">${item.icon}</div>
+                        </div>
+                        <div class="shop-card-center">
+                              <div class="shop-card-name">${item.name}</div>
+                              <div class="shop-card-desc">${item.description}</div>
+                              <div class="shop-card-meta">
+                                    <span class="shop-card-rarity" style="color:${RARITY_COLORS[item.rarity || 'common']}">${RARITY_LABELS[item.rarity || 'common']}</span>
+                                    <span class="shop-card-stock">庫存: ${item.qty}</span>
+                              </div>
+                        </div>
+                        <div class="shop-card-right">
+                              <div class="shop-card-price sell">+💰 ${sellPrice * qty}</div>
+                              <div class="shop-qty-control">
+                                    <button class="shop-qty-btn minus" data-id="${item.itemId}">−</button>
+                                    <span class="shop-qty-num">${qty}</span>
+                                    <button class="shop-qty-btn plus" data-id="${item.itemId}" data-max="${item.qty}">＋</button>
+                              </div>
+                              <button class="shop-action-btn sell-btn" data-id="${item.itemId}">出售</button>
+                        </div>
+                  `;
+
+                  this._bindQtyControls(card, item.itemId, item.qty);
+
+                  card.querySelector('.sell-btn')?.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const q = this._getQty(item.itemId, item.qty);
+                        const totalGold = this._shop.sell(item.itemId, q, this._inventory);
+                        if (totalGold > 0) {
+                              this._showToast(`📦 出售獲得 ${totalGold} 💰`, '#27AE60');
+                              this._quantities.delete(item.itemId);
+                        }
+                        this._render();
+                  });
+
+                  grid.appendChild(card);
+            }
+      }
+
+      private _createBuyCard(item: ShopItem): HTMLDivElement {
+            const card = document.createElement('div');
+            card.className = 'shop-card';
+            card.style.borderColor = RARITY_COLORS[item.rarity || 'common'];
+
+            const qty = this._getQty(item.id, 99);
+            const totalCost = item.price * qty;
+            const canAfford = this._inventory.gold >= totalCost;
+
+            card.innerHTML = `
+                  <div class="shop-card-left">
+                        <div class="shop-card-icon" style="border-color:${RARITY_COLORS[item.rarity || 'common']}">${item.icon}</div>
+                  </div>
+                  <div class="shop-card-center">
+                        <div class="shop-card-name">${item.name}</div>
+                        <div class="shop-card-desc">${item.description}</div>
+                        <div class="shop-card-meta">
+                              <span class="shop-card-rarity" style="color:${RARITY_COLORS[item.rarity || 'common']}">${RARITY_LABELS[item.rarity || 'common']}</span>
+                              <span class="shop-card-unit">單價: ${item.price}💰</span>
+                        </div>
+                  </div>
+                  <div class="shop-card-right">
+                        <div class="shop-card-price${canAfford ? '' : ' insufficient'}">💰 ${totalCost}</div>
+                        <div class="shop-qty-control">
+                              <button class="shop-qty-btn minus" data-id="${item.id}">−</button>
+                              <span class="shop-qty-num">${qty}</span>
+                              <button class="shop-qty-btn plus" data-id="${item.id}" data-max="99">＋</button>
+                        </div>
+                        <button class="shop-action-btn buy-btn btn-gold${canAfford ? '' : ' disabled'}" data-id="${item.id}">購買</button>
+                  </div>
+            `;
+
+            this._bindQtyControls(card, item.id, 99);
+
+            card.querySelector('.buy-btn')?.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  if (!canAfford) {
+                        this._showToast('❌ 金幣不足！', '#E74C3C');
+                        return;
+                  }
+                  const q = this._getQty(item.id, 99);
+                  let bought = 0;
+                  for (let i = 0; i < q; i++) {
+                        if (this._shop.buy(item.id, 1, this._inventory)) bought++;
+                        else break;
+                  }
+                  if (bought > 0) {
+                        this._showToast(`✅ 購買 ${item.name} ×${bought}`, '#27AE60');
+                        this._quantities.delete(item.id);
+                  } else {
+                        this._showToast('❌ 金幣不足！', '#E74C3C');
+                  }
+                  this._render();
+            });
+
+            return card;
+      }
+
+      // ─── Quantity Controls ───
+
+      private _getQty(id: string, max: number): number {
+            return Math.min(this._quantities.get(id) ?? 1, max);
+      }
+
+      private _bindQtyControls(card: HTMLElement, id: string, max: number): void {
+            card.querySelector('.shop-qty-btn.minus')?.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  const cur = this._getQty(id, max);
+                  if (cur > 1) {
+                        this._quantities.set(id, cur - 1);
+                        this._render();
+                  }
+            });
+            card.querySelector('.shop-qty-btn.plus')?.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  const cur = this._getQty(id, max);
+                  if (cur < max) {
+                        this._quantities.set(id, cur + 1);
+                        this._render();
+                  }
+            });
+      }
+
+      // ─── Toast ───
+
+      private _showToast(msg: string, color: string): void {
             const el = document.createElement('div');
-            el.className = 'pickup-text';
-            el.style.color = color;
+            el.className = 'shop-toast';
+            el.style.setProperty('--toast-color', color);
             el.textContent = msg;
             document.getElementById('ui-layer')?.appendChild(el);
             requestAnimationFrame(() => el.classList.add('show'));
-            setTimeout(() => el.remove(), 2000);
+            setTimeout(() => {
+                  el.classList.remove('show');
+                  setTimeout(() => el.remove(), 300);
+            }, 2000);
       }
+
+      // ─── Public API ───
 
       show(mode: 'buy' | 'sell' = 'buy'): void {
             this._mode = mode;
             this._visible = true;
-            this._el.style.display = 'block';
+            this._quantities.clear();
+            this._el.style.display = 'flex';
             this._render();
       }
 

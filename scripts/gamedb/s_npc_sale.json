@@ -1,0 +1,10754 @@
+[
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 8,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 2700,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3504,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 394,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3708,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3316,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9483,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3502,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3506,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 917,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 918,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 919,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 920,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 921,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 922,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 923,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 924,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 1027,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 158,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 159,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 3709,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 328,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 329,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 330,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 331,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 332,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 333,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 334,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 335,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8697,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8698,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8699,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8700,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8701,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8702,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8703,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 8704,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9500,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9501,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9502,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9503,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9504,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9505,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9506,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 9,
+    "sale_type": 2,
+    "sale_idx": 9507,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4677,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4689,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4704,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4722,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4680,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4695,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4710,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4725,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4683,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4698,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4713,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4728,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4941,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4947,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4953,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 4959,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 122,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 125,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 128,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 131,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 134,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 137,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 140,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 143,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 8607,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 8610,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 8613,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 8616,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9231,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9255,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9279,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9291,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9315,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9234,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9258,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9270,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9282,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9306,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9318,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9261,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9297,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9309,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9321,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9240,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9264,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9288,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9312,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 10,
+    "sale_type": 2,
+    "sale_idx": 9324,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 191,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 192,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 193,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 194,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 195,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 201,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 202,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 211,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 212,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 213,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 214,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 215,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 221,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 222,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 224,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 225,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 191,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 192,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 193,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 194,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 195,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 201,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 202,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 211,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 212,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 213,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 214,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 215,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 221,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 222,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 224,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 11,
+    "sale_type": 2,
+    "sale_idx": 225,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 196,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 197,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 198,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 208,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 216,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 217,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 218,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 226,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 227,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 228,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6042,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6043,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6044,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6045,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6188,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 196,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 197,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 198,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 208,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 216,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 217,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 218,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 226,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 227,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 228,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6042,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6043,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6044,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6045,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 12,
+    "sale_type": 2,
+    "sale_idx": 6188,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 193,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 194,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 195,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 196,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 197,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 213,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 214,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 215,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 216,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 217,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 224,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 225,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 226,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 227,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 193,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 194,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 195,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 196,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 197,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 213,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 214,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 215,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 216,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 217,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 224,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 225,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 226,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 13,
+    "sale_type": 2,
+    "sale_idx": 227,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6042,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6043,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6044,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6045,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6053,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6054,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6055,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6056,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6188,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6042,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6043,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6044,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6045,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6053,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6054,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6055,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6056,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6188,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 14,
+    "sale_type": 2,
+    "sale_idx": 6254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 231,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 232,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 233,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 234,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 235,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 241,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 242,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 255,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 261,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 262,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 263,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 264,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 265,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 231,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 232,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 233,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 234,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 235,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 241,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 242,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 255,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 261,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 262,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 263,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 264,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 29,
+    "sale_type": 2,
+    "sale_idx": 265,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 236,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 238,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 256,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 257,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 258,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 266,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 268,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6035,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6036,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6037,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6038,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6178,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6179,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6180,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6181,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 236,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 238,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 256,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 257,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 258,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 266,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 268,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6035,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6036,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6037,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6038,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6178,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6179,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6180,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 30,
+    "sale_type": 2,
+    "sale_idx": 6181,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 233,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 234,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 235,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 236,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 255,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 256,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 257,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 263,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 264,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 265,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 266,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 233,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 234,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 235,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 236,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 255,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 256,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 257,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 263,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 264,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 265,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 266,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 31,
+    "sale_type": 2,
+    "sale_idx": 267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8463,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8466,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8487,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4749,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4752,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4755,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4746,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4761,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4764,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4767,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4758,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1152,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1153,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1154,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1155,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8673,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8674,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8675,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8676,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 22,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 23,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 24,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 25,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 26,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 27,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 28,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 29,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 30,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 31,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 32,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 33,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 82,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 83,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 84,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 85,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 86,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 87,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 88,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 89,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 90,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 91,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 92,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 93,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 111,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 112,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 113,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 114,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 115,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 116,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 117,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 886,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 887,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 888,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 889,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 890,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 891,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 892,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 893,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 894,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 927,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 928,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 929,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 930,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 931,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 932,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 933,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 934,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 935,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 936,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 937,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 938,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 1186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3703,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3718,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3720,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3721,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3722,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3723,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 3724,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4279,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4280,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4281,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4398,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4399,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 4401,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8059,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8060,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8146,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8149,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8270,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8279,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8282,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8288,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8312,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8315,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8318,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8321,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8467,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8468,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8483,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8484,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8693,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8694,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8695,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8708,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8711,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8714,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8717,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8720,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8723,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8726,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8729,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8732,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8735,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8763,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 32,
+    "sale_type": 2,
+    "sale_idx": 8764,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 189,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 190,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 191,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 192,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 193,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 199,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 200,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 201,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 202,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 209,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 210,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 211,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 212,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 213,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 219,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 220,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 221,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 222,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 229,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 230,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 231,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 232,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 233,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 239,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 240,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 241,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 242,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 250,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 259,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 260,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 261,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 262,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 263,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6251,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6252,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6253,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6254,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6064,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6065,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6066,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6067,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6057,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6058,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6059,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6060,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6266,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6267,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6268,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 6269,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 70,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 71,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 72,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 73,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 74,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 75,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 76,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4935,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4908,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4881,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4854,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4827,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4731,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4734,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4737,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4740,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 33,
+    "sale_type": 2,
+    "sale_idx": 4743,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6035,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6036,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6037,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6038,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6046,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6047,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6048,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6049,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6178,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6179,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6180,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6181,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6035,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6036,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6037,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6038,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6046,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6047,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6048,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6049,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6178,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6179,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6180,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6181,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 34,
+    "sale_type": 2,
+    "sale_idx": 6247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 35,
+    "sale_type": 2,
+    "sale_idx": 259,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 35,
+    "sale_type": 2,
+    "sale_idx": 259,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 36,
+    "sale_type": 2,
+    "sale_idx": 77,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 36,
+    "sale_type": 2,
+    "sale_idx": 77,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 37,
+    "sale_type": 2,
+    "sale_idx": 77,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 37,
+    "sale_type": 2,
+    "sale_idx": 77,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 271,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 272,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 281,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 282,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 283,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 284,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 291,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 292,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 293,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 295,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 271,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 272,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 281,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 282,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 283,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 284,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 291,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 292,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 293,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 52,
+    "sale_type": 2,
+    "sale_idx": 295,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 277,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 278,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 286,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 287,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 288,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 296,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 297,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 298,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6039,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6040,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6041,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6182,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6183,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6184,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 277,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 278,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 286,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 287,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 288,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 296,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 297,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 298,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6039,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6040,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6041,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6182,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6183,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 53,
+    "sale_type": 2,
+    "sale_idx": 6184,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 277,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 283,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 284,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 286,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 287,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 293,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 295,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 296,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 297,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 273,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 277,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 283,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 284,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 286,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 287,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 293,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 295,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 296,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 54,
+    "sale_type": 2,
+    "sale_idx": 297,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6039,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6040,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6041,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6050,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6051,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6052,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6182,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6183,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6184,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6250,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6039,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6040,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6041,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6050,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6051,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6052,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6182,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6183,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6184,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 55,
+    "sale_type": 2,
+    "sale_idx": 6250,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6061,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6062,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6063,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6250,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6270,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6271,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6272,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6061,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6062,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6063,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6248,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6249,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6250,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6270,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6271,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 56,
+    "sale_type": 2,
+    "sale_idx": 6272,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 4515,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 9485,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 940,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1411,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1412,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 4363,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8237,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8469,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 4225,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1332,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 943,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 4491,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8496,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8497,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 944,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 945,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 946,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 947,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 3321,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 80,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8019,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 875,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 876,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 877,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 878,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 879,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 880,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 881,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 882,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 3502,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8662,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1010,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1011,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1012,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1013,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1014,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1015,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1016,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1208,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1209,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 1210,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5301,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5304,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5408,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5409,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5410,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5411,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5412,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5413,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5414,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5415,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 5416,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 57,
+    "sale_type": 2,
+    "sale_idx": 8018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 299,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1323,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1326,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1329,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5306,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5307,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5309,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5310,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5311,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5415,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5416,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8019,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 299,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1323,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1326,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 1329,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 3308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5306,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5307,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5309,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5310,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5311,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5415,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 5416,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 58,
+    "sale_type": 2,
+    "sale_idx": 8019,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 59,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 60,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 9487,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 9488,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 9489,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 61,
+    "sale_type": 2,
+    "sale_idx": 9490,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 62,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 63,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 64,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 65,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4380,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 66,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 67,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 299,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 299,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 68,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4377,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4378,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 386,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4366,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4367,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4374,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 4375,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 69,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 311,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 312,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 313,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 314,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 315,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 316,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 317,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 318,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 319,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 874,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 875,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 876,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 877,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 878,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 879,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 880,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 881,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 882,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1010,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1011,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1012,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1013,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1014,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1015,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1016,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1019,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1020,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1021,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1022,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1023,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1024,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1025,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1026,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1027,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1203,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1204,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1205,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1206,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1207,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1208,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1209,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 1210,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8624,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8627,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8630,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8633,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8785,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8788,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8791,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8794,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8243,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8244,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8245,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8246,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8247,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8195,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8223,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8293,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8294,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8295,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8296,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8298,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8299,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8301,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8477,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8488,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8586,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8587,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8588,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8653,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8692,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8758,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8759,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8760,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8761,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 77,
+    "sale_type": 2,
+    "sale_idx": 8762,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4932,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4905,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4878,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4824,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 4851,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8773,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9326,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8949,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8950,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8951,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8952,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8953,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8776,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8954,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8955,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8956,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8957,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8958,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8959,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8962,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8963,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8964,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8965,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8966,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8967,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8968,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8971,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8972,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8973,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8974,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8975,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8976,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8977,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8980,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8981,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8982,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8983,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8984,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8985,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8986,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8779,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8987,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8988,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8989,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8990,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8991,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8992,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8782,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8993,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8994,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8995,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8996,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8997,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 8998,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9001,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9002,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9003,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9004,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9005,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9006,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 80,
+    "sale_type": 2,
+    "sale_idx": 9007,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 3700,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 3701,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 3702,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4274,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4275,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4276,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4277,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4962,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4965,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4968,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4971,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 1187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 1188,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 1189,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 1190,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4353,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4354,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4355,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 4356,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2301,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2304,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2306,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2307,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2309,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2310,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2311,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2312,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2313,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2314,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 2315,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 8487,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 8466,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 82,
+    "sale_type": 2,
+    "sale_idx": 8463,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 98,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 22,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 23,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 24,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 25,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 26,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 27,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 28,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 29,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 30,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 31,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 32,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 33,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 82,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 83,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 84,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 85,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 86,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 90,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 92,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 93,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 111,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 112,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 113,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 114,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 115,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 116,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 117,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 886,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 928,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 931,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 932,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 933,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 934,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 935,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 936,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 937,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 938,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 1185,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 1186,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3718,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3720,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3721,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3722,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3723,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3724,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4279,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4280,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4281,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 3703,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4399,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8059,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8060,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8061,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8187,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8270,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8282,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8285,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8288,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8467,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8479,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8481,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8483,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8484,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8708,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8711,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8714,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8717,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8720,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8723,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8726,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8729,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8732,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8735,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8763,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8764,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8693,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8694,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 8695,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4398,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4518,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4521,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4524,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4527,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4530,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4533,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 83,
+    "sale_type": 2,
+    "sale_idx": 4536,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 170,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 3746,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8593,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 432,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 435,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4376,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4379,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4381,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8511,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 3704,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 3705,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 1075,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 1076,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 1077,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 1078,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 1079,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 3745,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8215,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 8831,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4304,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4306,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4307,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4308,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4309,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4310,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 807,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 808,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 806,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 813,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 814,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 817,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 818,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 819,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 820,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4311,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 90,
+    "sale_type": 2,
+    "sale_idx": 4312,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5300,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5301,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5302,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5303,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5304,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5305,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5408,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5409,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5410,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5411,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5412,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5413,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5414,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5415,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 5416,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 8017,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 8018,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 91,
+    "sale_type": 2,
+    "sale_idx": 8019,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 368,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 369,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 370,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 371,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 382,
+    "sale_type": 2,
+    "sale_idx": 259,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 382,
+    "sale_type": 2,
+    "sale_idx": 259,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 189,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 199,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 219,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 209,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 189,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 199,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 219,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 384,
+    "sale_type": 2,
+    "sale_idx": 209,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1188,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1188,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1188,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1189,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1190,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1191,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1192,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1193,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1194,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8642,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8643,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8644,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8646,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8795,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8797,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8799,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8648,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8650,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8801,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8645,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8647,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8796,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8798,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8800,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8649,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8651,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1195,
+    "sale_type": 2,
+    "sale_idx": 8802,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1204,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4369,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4370,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4371,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4368,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4372,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 4373,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8617,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8618,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8619,
+    "buy_ratio": 50
+  },
+  {
+    "npc_idx": 1205,
+    "sale_type": 2,
+    "sale_idx": 8620,
+    "buy_ratio": 50
+  }
+]

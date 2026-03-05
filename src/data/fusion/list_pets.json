@@ -1,0 +1,2824 @@
+{
+  "meta": {
+    "source": "LIST.xlsm",
+    "excelPath": "C:\\Users\\prokc\\OneDrive\\桌面\\白嫖猎人MM[合成器]\\LIST.xlsm",
+    "exportedAt": "2026-03-04T22:40:51.648187+00:00",
+    "petCount": 469
+  },
+  "pets": [
+    {
+      "name": "圆圆",
+      "level": 1,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "天使球",
+      "level": 1,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "扑满金猪",
+      "level": 1,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "泡泡龙",
+      "level": 1,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "灵球",
+      "level": 1,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "猫尾球",
+      "level": 1,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "琥珀球",
+      "level": 1,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "苹果球",
+      "level": 1,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "黑球球",
+      "level": 1,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "刺球",
+      "level": 3,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "天使蜜蜂",
+      "level": 3,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "小泥鳅",
+      "level": 3,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "尖嘴鸡",
+      "level": 3,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "尖甲虫",
+      "level": 3,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "护卫",
+      "level": 3,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "蹦蹦兔",
+      "level": 3,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "露露",
+      "level": 3,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "奶嘴鹰",
+      "level": 5,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "小齿轮",
+      "level": 5,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "山参",
+      "level": 5,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "斑马虫",
+      "level": 5,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "眼镜虫",
+      "level": 5,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "舌怪",
+      "level": 5,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "荷包蛋",
+      "level": 5,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "蓝箭",
+      "level": 5,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "小探头",
+      "level": 7,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "扇尾鸟",
+      "level": 7,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "灵灵",
+      "level": 7,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "绿苞子",
+      "level": 7,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "蝙蝠龙",
+      "level": 7,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "邦迪",
+      "level": 7,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "钳子怪",
+      "level": 7,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "飞天猪",
+      "level": 7,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "喇叭蜂",
+      "level": 8,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "乖乖蛋",
+      "level": 9,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "大眼",
+      "level": 9,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "尤葆德",
+      "level": 9,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "白草",
+      "level": 9,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "达Q拉",
+      "level": 9,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "馒头猪",
+      "level": 9,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "龙猫",
+      "level": 9,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "ET宝宝",
+      "level": 11,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "吉祥龟",
+      "level": 11,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "大头鹰",
+      "level": 11,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "小可爱",
+      "level": 11,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "小滚珠",
+      "level": 11,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "小鬼",
+      "level": 11,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "绿叶宝宝",
+      "level": 11,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "绿幽灵",
+      "level": 11,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "幽灵狗",
+      "level": 13,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "木茄",
+      "level": 13,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "甜心小子",
+      "level": 13,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "百合鸟",
+      "level": 13,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "皮皮",
+      "level": 13,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "那莎波",
+      "level": 13,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "酷日波伊",
+      "level": 13,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "铁甲虫",
+      "level": 13,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "蝠翼龙",
+      "level": 14,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "刺刺猪",
+      "level": 15,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "呆头蝇",
+      "level": 15,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "小丑怪",
+      "level": 15,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "憨豆龙",
+      "level": 15,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "望远镜晃晃",
+      "level": 15,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "杰弗德",
+      "level": 15,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "绿蔬",
+      "level": 15,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "血泪亡灵",
+      "level": 15,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "变异邦迪",
+      "level": 16,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "气球鹦",
+      "level": 17,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "猫巫",
+      "level": 17,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "红眼蓝鲸",
+      "level": 17,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "托娜西",
+      "level": 18,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "拳击兔",
+      "level": 18,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "红鼻瓢虫",
+      "level": 18,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "蓝气球鹦",
+      "level": 19,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "阿呆",
+      "level": 19,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "波理莫斯",
+      "level": 20,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "甜心宝贝",
+      "level": 20,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "莫诺阿伊",
+      "level": 20,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "飞天龙",
+      "level": 20,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "博士鹰",
+      "level": 21,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "哈普斯",
+      "level": 21,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "小魔女",
+      "level": 21,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "甜心队长",
+      "level": 22,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "花妖宝宝",
+      "level": 22,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "变异大嘴怪",
+      "level": 24,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "大嘴怪",
+      "level": 24,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "臭臭",
+      "level": 24,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "酷基马",
+      "level": 24,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "罗基仁",
+      "level": 25,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "阿莫布",
+      "level": 26,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "马尔伊诺",
+      "level": 26,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "大象露比",
+      "level": 27,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "树精宝宝",
+      "level": 27,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "牛牛龟",
+      "level": 27,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "领路甲虫",
+      "level": 27,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "变异拳击兔",
+      "level": 28,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "年兽",
+      "level": 29,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "椰蛋树",
+      "level": 30,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "水镜",
+      "level": 30,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "红嘴豚",
+      "level": 30,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "蜗牛叮铛",
+      "level": 30,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "达杉凯特",
+      "level": 30,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "变异博士鹰",
+      "level": 31,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "节节高",
+      "level": 33,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "白虎",
+      "level": 34,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "大脚怪",
+      "level": 35,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "顽皮球",
+      "level": 35,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "人龙",
+      "level": 36,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "小新",
+      "level": 37,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "变异大眼",
+      "level": 38,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "恶灵",
+      "level": 38,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "斯芬克思",
+      "level": 38,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "木偶人",
+      "level": 43,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "运动猫",
+      "level": 43,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "亘马立奥",
+      "level": 45,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "暗人龙",
+      "level": 46,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "木牌怪",
+      "level": 46,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "变异领路甲虫",
+      "level": 47,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "雪橇狗",
+      "level": 47,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "假面鬼",
+      "level": 48,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "大红鹰",
+      "level": 48,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "肥肥",
+      "level": 48,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "暗恶灵",
+      "level": 49,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "卡梅拉克",
+      "level": 50,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "万圣恶魔",
+      "level": 52,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "绿尾云龙",
+      "level": 52,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "瓦斯蛋",
+      "level": 53,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "苏德特日",
+      "level": 56,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "变异大红鹰",
+      "level": 58,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "变异肥肥",
+      "level": 58,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "斯凯波",
+      "level": 60,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "布热迪连特",
+      "level": 62,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级万圣恶魔",
+      "level": 62,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "巨灵恶魔",
+      "level": 65,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "皇翼蜂",
+      "level": 65,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "超级达杉凯特",
+      "level": 67,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "巨影恶魔",
+      "level": 68,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "米德特尔",
+      "level": 68,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "翁克来斯",
+      "level": 69,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "胖头龙",
+      "level": 69,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "苏夫来克",
+      "level": 69,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "黑暗守护犬",
+      "level": 69,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "石奴",
+      "level": 72,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "变异运动猫",
+      "level": 73,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "毒针王蜂",
+      "level": 74,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "呀呀鸟",
+      "level": 75,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "特工螳螂",
+      "level": 76,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "库玛",
+      "level": 78,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级变异肥肥",
+      "level": 78,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "小恶魔",
+      "level": 79,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "伊夫来克",
+      "level": 80,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "超级卡梅拉克",
+      "level": 80,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "超级瓦斯蛋",
+      "level": 80,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "超级木偶人",
+      "level": 81,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "风特思",
+      "level": 81,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "超级白虎",
+      "level": 82,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "猛达夏",
+      "level": 83,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "史诺基",
+      "level": 84,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "风琴恶魔",
+      "level": 88,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "毛怪",
+      "level": 89,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "双斧铠魔",
+      "level": 90,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "变异蹦蹦兔",
+      "level": 90,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "红桃木偶",
+      "level": 90,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "红气球鸟",
+      "level": 90,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "绿努比狗",
+      "level": 90,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "拳击熔岩虫",
+      "level": 92,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "红孩儿",
+      "level": 92,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "毒骨龙",
+      "level": 93,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "粉音乐龙",
+      "level": 93,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "翡翠龟",
+      "level": 94,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "鹈鹕鸟",
+      "level": 94,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "雪人狮",
+      "level": 95,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "炸弹蛛",
+      "level": 96,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "地狱皇冠",
+      "level": 97,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "小绿剑龙",
+      "level": 97,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "圣诞企鹅",
+      "level": 98,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "大鼻鸟",
+      "level": 98,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "蛛蛛",
+      "level": 98,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "变异小恶魔",
+      "level": 99,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "强化运动猫",
+      "level": 100,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "超级蜗牛叮铛",
+      "level": 100,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "灯泡机器人",
+      "level": 101,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "紫女仆",
+      "level": 101,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "红眼钉锤怪",
+      "level": 101,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级呀呀鸟",
+      "level": 101,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "变异胖头龙",
+      "level": 102,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "小红",
+      "level": 102,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "生化赛普",
+      "level": 102,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "精卫鸟",
+      "level": 103,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "白毛怪",
+      "level": 104,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "双拳杰克",
+      "level": 105,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "机电光龙",
+      "level": 105,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "玛丽棒棒",
+      "level": 105,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "美乐奇",
+      "level": 105,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级斯凯波",
+      "level": 105,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "变异皇翼蜂",
+      "level": 106,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "考拉",
+      "level": 106,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "象鼻兽",
+      "level": 106,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "雪地狮",
+      "level": 106,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "哈蒂精灵",
+      "level": 107,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级库玛",
+      "level": 107,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级米德特尔",
+      "level": 107,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "飞天甲壳龙",
+      "level": 108,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "变异美乐奇",
+      "level": 110,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "士兵小新",
+      "level": 110,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "诡异木偶",
+      "level": 110,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "雪狐",
+      "level": 112,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "黄色气球鸟",
+      "level": 112,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "牛角虫",
+      "level": 113,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "超级风琴恶魔",
+      "level": 113,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "大眼蓝",
+      "level": 114,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "太阳花",
+      "level": 114,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "深海水妖",
+      "level": 115,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "生化假面",
+      "level": 115,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "变异椰蛋树",
+      "level": 117,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "哈比鸟",
+      "level": 117,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "小刚",
+      "level": 117,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "微型坦克",
+      "level": 117,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "盾牌机器人",
+      "level": 117,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "蓝魔天狼蛛",
+      "level": 118,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "滑轮犀牛",
+      "level": 119,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "光头恶魔",
+      "level": 120,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "士兵狮鹫鸟",
+      "level": 120,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "木桩怪",
+      "level": 120,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "蓝龙",
+      "level": 120,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "超级变异小恶魔",
+      "level": 120,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级风特思",
+      "level": 120,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "路易吉",
+      "level": 120,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "小坏",
+      "level": 121,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "双鱼鹈鹕鸟",
+      "level": 123,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "哇一拼龙",
+      "level": 123,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "双轮机械车",
+      "level": 125,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "蓝猪",
+      "level": 125,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "超级木牌怪",
+      "level": 125,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "超级蛛蛛",
+      "level": 125,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "变异象鼻兽",
+      "level": 126,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "树妖长老",
+      "level": 126,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "沙鲁法",
+      "level": 126,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "雪球",
+      "level": 126,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "暗影龟",
+      "level": 127,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "甲虫小新",
+      "level": 127,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "蓝变异小恶魔",
+      "level": 128,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "弗兰肯1号",
+      "level": 130,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "打鼓机",
+      "level": 130,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "狮鹫兽",
+      "level": 130,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "绿剑龙",
+      "level": 130,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "蓝气球鸟",
+      "level": 130,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "橙气球鸟",
+      "level": 131,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "绿巨人",
+      "level": 131,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "黑寡妇",
+      "level": 132,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "战斗鸡",
+      "level": 134,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "DJ蓝音乐龙",
+      "level": 135,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "伊鲁法",
+      "level": 135,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "变异哈比鸟",
+      "level": 135,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "巴尔干",
+      "level": 135,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "按钮机器人",
+      "level": 135,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "紫色气球鸟",
+      "level": 135,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "红女仆",
+      "level": 135,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "花木牌怪",
+      "level": 135,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "超级生化赛普",
+      "level": 135,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "长尾陆行鸟",
+      "level": 135,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "雪地狮王",
+      "level": 135,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "奶瓶牛",
+      "level": 136,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "超级大鼻鸟",
+      "level": 136,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "黄龙",
+      "level": 136,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "死亡女仆",
+      "level": 137,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级蓝魔天狼蛛",
+      "level": 138,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "钻头龙",
+      "level": 138,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "双刀杰克",
+      "level": 139,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级小坏",
+      "level": 139,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "千年树妖",
+      "level": 140,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "卷尾巴",
+      "level": 140,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "弗兰肯2号",
+      "level": 140,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级变异胖头龙",
+      "level": 140,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "面具炸弹蜘",
+      "level": 140,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "黑暗树妖",
+      "level": 140,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "鹈鹕2兄弟",
+      "level": 141,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "变形小新",
+      "level": 142,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "大角飞蝇",
+      "level": 142,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "恶魔骨龙",
+      "level": 142,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "银月库恩",
+      "level": 144,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "变异飞天龙",
+      "level": 145,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "背包考拉",
+      "level": 145,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "花木偶",
+      "level": 145,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "超级红眼钉锤怪",
+      "level": 145,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "绿色气球鸟",
+      "level": 146,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "超级太阳花",
+      "level": 146,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "红色钳子",
+      "level": 147,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "灰巴尔干",
+      "level": 148,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "侯爵狮鹫鸟",
+      "level": 150,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "变异魔术师",
+      "level": 150,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "弗兰肯3号",
+      "level": 150,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "机械牛库恩",
+      "level": 150,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "死神",
+      "level": 150,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "火焰兽",
+      "level": 150,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "神秘外星人",
+      "level": 150,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "绅士鸟",
+      "level": 150,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "龙狮",
+      "level": 150,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "变异滑轮犀牛",
+      "level": 151,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "海盗鹈鹕鸟",
+      "level": 151,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "红叶",
+      "level": 152,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "超级长尾陆行鸟",
+      "level": 152,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "冥特魔",
+      "level": 153,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "变异双斧铠魔",
+      "level": 153,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "花蜘蛛",
+      "level": 153,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "散打熔岩虫",
+      "level": 154,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "蓝蝎将军",
+      "level": 154,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "大爪龙",
+      "level": 155,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "巴尔干机车",
+      "level": 155,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "机械红龙",
+      "level": 155,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "老龅牙兔",
+      "level": 157,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "超级冥特魔",
+      "level": 158,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "锥子头",
+      "level": 159,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "天使",
+      "level": 160,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "米勒",
+      "level": 160,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "红刚",
+      "level": 160,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "魔术师",
+      "level": 160,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "变异沙鲁法",
+      "level": 161,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "超级死亡女仆",
+      "level": 161,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "铁头怪",
+      "level": 161,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "灰双斧铠魔",
+      "level": 162,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "超人猩",
+      "level": 162,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "超级雪地狮王",
+      "level": 162,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "风女",
+      "level": 162,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "变异毒骨龙",
+      "level": 163,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "变异紫小恶魔",
+      "level": 163,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "小丑皇",
+      "level": 163,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "小红帽",
+      "level": 163,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "音乐猫",
+      "level": 163,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "鹈鹕3兄弟",
+      "level": 163,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "超级卷尾巴",
+      "level": 164,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "变异恶魔骨龙",
+      "level": 165,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "变异打鼓机",
+      "level": 165,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "复仇者",
+      "level": 165,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "皇冠蛙",
+      "level": 165,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "红龙",
+      "level": 165,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "蜜蜂树妖",
+      "level": 165,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "超级深海水妖",
+      "level": 165,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "魔王",
+      "level": 165,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "黄女仆",
+      "level": 165,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "黑暗龙狮",
+      "level": 165,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "恶魔",
+      "level": 166,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "牛角骑士",
+      "level": 166,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "棒子牛",
+      "level": 168,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "蓝色钳子",
+      "level": 168,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "不掉",
+      "level": 169,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "酷日波伊[神变]",
+      "level": 169,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "大眼花妖",
+      "level": 171,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "巨臂树精",
+      "level": 171,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "森林女王",
+      "level": 171,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "火女",
+      "level": 171,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "灰机械牛库恩",
+      "level": 171,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "黄金雪狮",
+      "level": 171,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "冰晶兽",
+      "level": 172,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "变异绅士鸟",
+      "level": 172,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "巨眼魔",
+      "level": 173,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "坦克",
+      "level": 174,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "财迷熊",
+      "level": 174,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "邪笑兔",
+      "level": 174,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "变异卡鲁昆",
+      "level": 175,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "南瓜魔女",
+      "level": 178,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "狂化巨灵恶魔",
+      "level": 178,
+      "series": "恶魔系",
+      "fusible": true
+    },
+    {
+      "name": "机械暴龙",
+      "level": 179,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "狂化大闸蟹",
+      "level": 179,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "狂化流氓兔",
+      "level": 179,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "蜜蜂妖姬",
+      "level": 179,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "狂化飘飘幽",
+      "level": 180,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "铁翼鸟",
+      "level": 180,
+      "series": "鸟系",
+      "fusible": true
+    },
+    {
+      "name": "狂化超人猩",
+      "level": 181,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "狂化鬼面人",
+      "level": 181,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "裂空豹",
+      "level": 181,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "震地犀牛",
+      "level": 181,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "狂化三头蛇",
+      "level": 182,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "蝴蝶仙子",
+      "level": 182,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "代欧齐希斯",
+      "level": 183,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "佛烈托斯",
+      "level": 183,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "小丑LuLu",
+      "level": 183,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "沙漠蜻蜓",
+      "level": 183,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "火焰猴",
+      "level": 183,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "炎帝",
+      "level": 183,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "狂化小丑皇",
+      "level": 183,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "盾卫崎克",
+      "level": 183,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "紫龙战士",
+      "level": 183,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "艾路雷朵",
+      "level": 183,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "铁钳将军",
+      "level": 183,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "卡鲁昆",
+      "level": 185,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "呆呆猿",
+      "level": 185,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "噬魂师",
+      "level": 185,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "绒绒羊",
+      "level": 185,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "蓝羽火龙",
+      "level": 185,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "异次元鹭龙",
+      "level": 188,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "黑暗小奇力",
+      "level": 189,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "卡龙王[神变]",
+      "level": 190,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "烈焰凤凰[神变]",
+      "level": 190,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "神秘武士王[神变]",
+      "level": 190,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "红巾螳螂王[神变]",
+      "level": 190,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "阿努比斯[神变]",
+      "level": 190,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "食人树妖[神变]",
+      "level": 190,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "驱逐舰[神变]",
+      "level": 190,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗双头狼[神变]",
+      "level": 190,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗花木偶",
+      "level": 190,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "幻境火女",
+      "level": 191,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "音乐猫[神变]",
+      "level": 192,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗加菲",
+      "level": 192,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗拉比",
+      "level": 192,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗洛克",
+      "level": 192,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "异次元凤凰",
+      "level": 193,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "异次元卡龙王",
+      "level": 193,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "异次元双头狼",
+      "level": 193,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "异次元树妖王",
+      "level": 193,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "异次元武士王",
+      "level": 193,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "异次元螳螂王",
+      "level": 193,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "异次元阿努比斯",
+      "level": 193,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "红巾螳螂王",
+      "level": 196,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "阿努比斯",
+      "level": 196,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "烈焰凤凰",
+      "level": 197,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "食人树妖",
+      "level": 197,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "万代食玩",
+      "level": 198,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "帕路奇犽",
+      "level": 198,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "神秘武士王",
+      "level": 198,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "索尔迦雷欧",
+      "level": 198,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗双头狼",
+      "level": 198,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "驱逐舰",
+      "level": 199,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "卡龙王",
+      "level": 200,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "变异打鼓机[玄]",
+      "level": 200,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "超级深海水妖[玄]",
+      "level": 200,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "幻境幽灵",
+      "level": 201,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "代欧齐希斯[Max]",
+      "level": 202,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "佛烈托斯[Max]",
+      "level": 202,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "宝贝龙[Max]",
+      "level": 202,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "沙漠蜻蜓[Max]",
+      "level": 202,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "盾卫崎克[Max]",
+      "level": 202,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "艾路雷朵[Max]",
+      "level": 202,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗蒙面超人",
+      "level": 203,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "冰冻流氓兔",
+      "level": 205,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "次元地狱之主",
+      "level": 207,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "次元本源树妖",
+      "level": 207,
+      "series": "植物系",
+      "fusible": true
+    },
+    {
+      "name": "次元次元机甲",
+      "level": 207,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "次元混沌巨兽",
+      "level": 207,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "次元白虎王",
+      "level": 207,
+      "series": "兽系",
+      "fusible": true
+    },
+    {
+      "name": "次元神之金鹏",
+      "level": 207,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "超级孙悟空",
+      "level": 207,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "超级扎马斯",
+      "level": 207,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "超级沙鲁",
+      "level": 207,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "超级贝吉塔",
+      "level": 207,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "化石飞龙",
+      "level": 208,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "栗子",
+      "level": 208,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "次元紫羽将军",
+      "level": 209,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "次元紫翼龙",
+      "level": 209,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "次元金鲨鱼炮",
+      "level": 209,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "次元黄角炮手",
+      "level": 209,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "次元黑魔术师",
+      "level": 209,
+      "series": "神秘系",
+      "fusible": true
+    },
+    {
+      "name": "冰晶蜜蜂(神王)",
+      "level": 210,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "狂化大鼻鸟(神王)",
+      "level": 210,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "超级小红帽",
+      "level": 210,
+      "series": "龙系",
+      "fusible": true
+    },
+    {
+      "name": "奥米加兽",
+      "level": 212,
+      "series": "机械系",
+      "fusible": false
+    },
+    {
+      "name": "姬月",
+      "level": 212,
+      "series": "虫系",
+      "fusible": true
+    },
+    {
+      "name": "姬若雪",
+      "level": 212,
+      "series": "机械系",
+      "fusible": true
+    },
+    {
+      "name": "真红莲骑士兽",
+      "level": 212,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "飞天龙(神王)",
+      "level": 215,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "黑暗外星人(神王)",
+      "level": 215,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪企鹅(神王)",
+      "level": 218,
+      "series": "鸟系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪兔宝(神王)",
+      "level": 218,
+      "series": "植物系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪幽灵(神王)",
+      "level": 218,
+      "series": "恶魔系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪武士狗(神王)",
+      "level": 218,
+      "series": "神秘系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪海盗鼠(神王)",
+      "level": 218,
+      "series": "兽系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪章鱼(神王)",
+      "level": 218,
+      "series": "虫系",
+      "fusible": false
+    },
+    {
+      "name": "冰雪章鱼船长",
+      "level": 218,
+      "series": "龙系",
+      "fusible": false
+    },
+    {
+      "name": "娜可",
+      "level": 238,
+      "series": "龙系",
+      "fusible": true
+    }
+  ]
+}

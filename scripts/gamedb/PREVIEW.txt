@@ -1,0 +1,30 @@
+﻿
+============================================================
+s_monster (1418 rows)
+============================================================
+python : Traceback (most recent call last):
+所在位置 行:1 字符: 1
++ python scripts/preview_detail.py 2>&1 | Out-File -Encod
+ing UTF8 scrip ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback ( 
+   most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "D:\AI-RPGGAME\scripts\preview_detail.py", line 19
+, in <module>
+    show('s_monster', 5, ['type','name','race','start_bas
+e_level','price','core_rate','stat_rate','hp_rate','exp_r
+ate','attack_range','speed_move','speed_attack','mix_rest
+rict'])
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+  File "D:\AI-RPGGAME\scripts\preview_detail.py", line 16
+, in show
+    print(f'  [{i}]', {k: row.get(k) for k in keys})
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\
+ud15f' in position 21: illegal multibyte sequence
+  [0] 

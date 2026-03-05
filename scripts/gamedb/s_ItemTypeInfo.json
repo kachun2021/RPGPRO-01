@@ -1,0 +1,86 @@
+[
+  {
+    "item_type": 1,
+    "type_name": "武器",
+    "gamble_money": 3499750,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 2,
+    "type_name": "头盔",
+    "gamble_money": 3499750,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 3,
+    "type_name": "铠甲",
+    "gamble_money": 3499750,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 4,
+    "type_name": "鞋子",
+    "gamble_money": 3499750,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 5,
+    "type_name": "饰品",
+    "gamble_money": 3298640,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 6,
+    "type_name": "消耗品",
+    "gamble_money": 1251530,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 7,
+    "type_name": "材料",
+    "gamble_money": 713515,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 8,
+    "type_name": "任务物品",
+    "gamble_money": 2082045,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 9,
+    "type_name": "其他",
+    "gamble_money": 1108015,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 10,
+    "type_name": "特殊兑换物品",
+    "gamble_money": 1322569,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 11,
+    "type_name": "宝石",
+    "gamble_money": 1322569,
+    "loot_rate": 0
+  },
+  {
+    "item_type": 12,
+    "type_name": "HP药水",
+    "gamble_money": 0,
+    "loot_rate": 50
+  },
+  {
+    "item_type": 13,
+    "type_name": "MP药水",
+    "gamble_money": 0,
+    "loot_rate": 39
+  },
+  {
+    "item_type": 14,
+    "type_name": "卷轴",
+    "gamble_money": 0,
+    "loot_rate": 0
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "opt_lv": 1,
+    "enchant_rate": 100,
+    "gamble_rate": 100000
+  },
+  {
+    "opt_lv": 2,
+    "enchant_rate": 25,
+    "gamble_rate": 10000
+  },
+  {
+    "opt_lv": 3,
+    "enchant_rate": 15,
+    "gamble_rate": 1000
+  },
+  {
+    "opt_lv": 4,
+    "enchant_rate": 10,
+    "gamble_rate": 100
+  },
+  {
+    "opt_lv": 5,
+    "enchant_rate": 5,
+    "gamble_rate": 10
+  },
+  {
+    "opt_lv": 6,
+    "enchant_rate": 3,
+    "gamble_rate": 0
+  },
+  {
+    "opt_lv": 7,
+    "enchant_rate": 1,
+    "gamble_rate": 0
+  },
+  {
+    "opt_lv": 8,
+    "enchant_rate": 1,
+    "gamble_rate": 0
+  },
+  {
+    "opt_lv": 9,
+    "enchant_rate": 1,
+    "gamble_rate": 0
+  },
+  {
+    "opt_lv": 10,
+    "enchant_rate": 1,
+    "gamble_rate": 0
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "MixSkillLevel": 1,
+    "StartHenchLevel": 1,
+    "EndHenchLevel": 20,
+    "MixSkillBasis": 50,
+    "MixSkillStart": 20,
+    "MixSkillMaster": 30,
+    "MixSkillBonus": 0,
+    "MixSkillMaxRate": 90
+  },
+  {
+    "MixSkillLevel": 2,
+    "StartHenchLevel": 21,
+    "EndHenchLevel": 40,
+    "MixSkillBasis": 100,
+    "MixSkillStart": 30,
+    "MixSkillMaster": 55,
+    "MixSkillBonus": 25,
+    "MixSkillMaxRate": 80
+  },
+  {
+    "MixSkillLevel": 3,
+    "StartHenchLevel": 41,
+    "EndHenchLevel": 60,
+    "MixSkillBasis": 200,
+    "MixSkillStart": 48,
+    "MixSkillMaster": 60,
+    "MixSkillBonus": 50,
+    "MixSkillMaxRate": 70
+  },
+  {
+    "MixSkillLevel": 4,
+    "StartHenchLevel": 61,
+    "EndHenchLevel": 80,
+    "MixSkillBasis": 300,
+    "MixSkillStart": 45,
+    "MixSkillMaster": 75,
+    "MixSkillBonus": 80,
+    "MixSkillMaxRate": 60
+  },
+  {
+    "MixSkillLevel": 5,
+    "StartHenchLevel": 81,
+    "EndHenchLevel": 100,
+    "MixSkillBasis": 800,
+    "MixSkillStart": 80,
+    "MixSkillMaster": 88,
+    "MixSkillBonus": 200,
+    "MixSkillMaxRate": 45
+  },
+  {
+    "MixSkillLevel": 6,
+    "StartHenchLevel": 101,
+    "EndHenchLevel": 120,
+    "MixSkillBasis": 1000,
+    "MixSkillStart": 70,
+    "MixSkillMaster": 105,
+    "MixSkillBonus": 250,
+    "MixSkillMaxRate": 30
+  },
+  {
+    "MixSkillLevel": 7,
+    "StartHenchLevel": 121,
+    "EndHenchLevel": 140,
+    "MixSkillBasis": 1200,
+    "MixSkillStart": 36,
+    "MixSkillMaster": 78,
+    "MixSkillBonus": 300,
+    "MixSkillMaxRate": 17
+  },
+  {
+    "MixSkillLevel": 8,
+    "StartHenchLevel": 141,
+    "EndHenchLevel": 160,
+    "MixSkillBasis": 1400,
+    "MixSkillStart": 34,
+    "MixSkillMaster": 82,
+    "MixSkillBonus": 330,
+    "MixSkillMaxRate": 11
+  },
+  {
+    "MixSkillLevel": 9,
+    "StartHenchLevel": 161,
+    "EndHenchLevel": 180,
+    "MixSkillBasis": 1600,
+    "MixSkillStart": 26,
+    "MixSkillMaster": 86,
+    "MixSkillBonus": 360,
+    "MixSkillMaxRate": 10
+  },
+  {
+    "MixSkillLevel": 10,
+    "StartHenchLevel": 181,
+    "EndHenchLevel": 200,
+    "MixSkillBasis": 1800,
+    "MixSkillStart": 30,
+    "MixSkillMaster": 82,
+    "MixSkillBonus": 380,
+    "MixSkillMaxRate": 9
+  }
+]

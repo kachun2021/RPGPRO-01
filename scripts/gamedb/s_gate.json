@@ -1,0 +1,842 @@
+[
+  {
+    "from_zone_idx": 2,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 63,
+    "dest_zone_layer": 104
+  },
+  {
+    "from_zone_idx": 2,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 52,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 2,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 6,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 3,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 17,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 3,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 6,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 3,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 57,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 6,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 23,
+    "dest_zone_layer": 104
+  },
+  {
+    "from_zone_idx": 6,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 2,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 6,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 3,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 14,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 25,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 14,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 23,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 14,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 23,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 15,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 21,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 15,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 63,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 15,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 25,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 17,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 59,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 17,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 3,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 17,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 161,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 21,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 33,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 21,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 15,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 23,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 59,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 23,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 14,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 23,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 14,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 23,
+    "from_zone_attr": 104,
+    "dest_zone_idx": 6,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 25,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 15,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 25,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 63,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 25,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 14,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 31,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 67,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 31,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 33,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 33,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 31,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 33,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 21,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 33,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 131,
+    "dest_zone_layer": 105
+  },
+  {
+    "from_zone_idx": 33,
+    "from_zone_attr": 104,
+    "dest_zone_idx": 35,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 35,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 36,
+    "dest_zone_layer": 104
+  },
+  {
+    "from_zone_idx": 35,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 36,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 35,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 33,
+    "dest_zone_layer": 104
+  },
+  {
+    "from_zone_idx": 36,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 38,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 36,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 38,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 36,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 35,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 36,
+    "from_zone_attr": 104,
+    "dest_zone_idx": 35,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 38,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 36,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 38,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 36,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 38,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 60,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 50,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 66,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 50,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 52,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 52,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 63,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 52,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 50,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 52,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 2,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 57,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 3,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 57,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 160,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 59,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 23,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 59,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 17,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 60,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 38,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 60,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 66,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 60,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 81,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 63,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 25,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 63,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 15,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 63,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 52,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 63,
+    "from_zone_attr": 104,
+    "dest_zone_idx": 2,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 66,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 60,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 66,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 50,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 67,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 31,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 72,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 73,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 73,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 75,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 73,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 74,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 73,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 72,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 74,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 73,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 74,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 75,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 75,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 74,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 75,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 73,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 81,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 82,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 81,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 60,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 82,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 83,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 82,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 81,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 82,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 83,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 83,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 82,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 83,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 84,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 83,
+    "from_zone_attr": 103,
+    "dest_zone_idx": 82,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 84,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 85,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 84,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 83,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 85,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 84,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 85,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 86,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 86,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 85,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 86,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 87,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 87,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 86,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 91,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 92,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 92,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 91,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 92,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 93,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 93,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 94,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 93,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 92,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 94,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 93,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 95,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 94,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 96,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 97,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 97,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 96,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 97,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 98,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 98,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 97,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 99,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 98,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 100,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 243,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 111,
+    "from_zone_attr": 152,
+    "dest_zone_idx": 112,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 111,
+    "from_zone_attr": 151,
+    "dest_zone_idx": 113,
+    "dest_zone_layer": 151
+  },
+  {
+    "from_zone_idx": 112,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 111,
+    "dest_zone_layer": 152
+  },
+  {
+    "from_zone_idx": 113,
+    "from_zone_attr": 151,
+    "dest_zone_idx": 111,
+    "dest_zone_layer": 151
+  },
+  {
+    "from_zone_idx": 113,
+    "from_zone_attr": 152,
+    "dest_zone_idx": 114,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 114,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 113,
+    "dest_zone_layer": 152
+  },
+  {
+    "from_zone_idx": 116,
+    "from_zone_attr": 150,
+    "dest_zone_idx": 117,
+    "dest_zone_layer": 150
+  },
+  {
+    "from_zone_idx": 116,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 117,
+    "dest_zone_layer": 150
+  },
+  {
+    "from_zone_idx": 117,
+    "from_zone_attr": 150,
+    "dest_zone_idx": 116,
+    "dest_zone_layer": 150
+  },
+  {
+    "from_zone_idx": 117,
+    "from_zone_attr": 116,
+    "dest_zone_idx": 117,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 117,
+    "from_zone_attr": 112,
+    "dest_zone_idx": 181,
+    "dest_zone_layer": 254
+  },
+  {
+    "from_zone_idx": 117,
+    "from_zone_attr": 112,
+    "dest_zone_idx": 182,
+    "dest_zone_layer": 254
+  },
+  {
+    "from_zone_idx": 131,
+    "from_zone_attr": 105,
+    "dest_zone_idx": 33,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 150,
+    "from_zone_attr": 150,
+    "dest_zone_idx": 151,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 150,
+    "from_zone_attr": 151,
+    "dest_zone_idx": 152,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 151,
+    "from_zone_attr": 150,
+    "dest_zone_idx": 150,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 151,
+    "from_zone_attr": 151,
+    "dest_zone_idx": 153,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 152,
+    "from_zone_attr": 200,
+    "dest_zone_idx": 150,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 152,
+    "from_zone_attr": 201,
+    "dest_zone_idx": 153,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 153,
+    "from_zone_attr": 150,
+    "dest_zone_idx": 152,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 153,
+    "from_zone_attr": 151,
+    "dest_zone_idx": 151,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 160,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 57,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 160,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 161,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 161,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 160,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 161,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 17,
+    "dest_zone_layer": 103
+  },
+  {
+    "from_zone_idx": 177,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 180,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 180,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 177,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 181,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 117,
+    "dest_zone_layer": 112
+  },
+  {
+    "from_zone_idx": 182,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 117,
+    "dest_zone_layer": 112
+  },
+  {
+    "from_zone_idx": 192,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 200,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 193,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 201,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 194,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 202,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 195,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 203,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 200,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 192,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 201,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 193,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 202,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 194,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 203,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 195,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 243,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 100,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 244,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 245,
+    "dest_zone_layer": 102
+  },
+  {
+    "from_zone_idx": 244,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 245,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 245,
+    "from_zone_attr": 102,
+    "dest_zone_idx": 244,
+    "dest_zone_layer": 101
+  },
+  {
+    "from_zone_idx": 245,
+    "from_zone_attr": 101,
+    "dest_zone_idx": 244,
+    "dest_zone_layer": 102
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "idx": 0,
+    "EventStart": "1900-01-00 00:00:00",
+    "EventEnd": "1900-01-00 00:00:00",
+    "CoreRate": 0,
+    "ExpRate": 0,
+    "ItemRate": 0,
+    "GpRate": 0,
+    "EventStartNotice1": 0,
+    "EventStartNotice2": 0,
+    "EventStartNotice3": 0,
+    "EventEndNotice1": 0,
+    "EventEndNotice2": 0,
+    "EventEndNotice3": 0,
+    "EventTime": "1900-01-00 00:00:00"
+  }
+]

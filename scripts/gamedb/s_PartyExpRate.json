@@ -1,0 +1,18 @@
+[
+  {
+    "member_count": 1,
+    "exp_add_rate": 0
+  },
+  {
+    "member_count": 2,
+    "exp_add_rate": 30
+  },
+  {
+    "member_count": 3,
+    "exp_add_rate": 60
+  },
+  {
+    "member_count": 4,
+    "exp_add_rate": 100
+  }
+]

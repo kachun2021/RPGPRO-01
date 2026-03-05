@@ -1,0 +1,28 @@
+[
+  {
+    "zone_idx": 101,
+    "open_wday": 6,
+    "open_hour": 20,
+    "open_min": 30,
+    "close_hour": 21,
+    "close_min": 30,
+    "npc_idx": 38,
+    "attacker_arrival_layer": 253,
+    "defenser_arrival_layer": 254,
+    "symbol_hench_idx": 321,
+    "symbol_item_idx": 111
+  },
+  {
+    "zone_idx": 102,
+    "open_wday": 6,
+    "open_hour": 20,
+    "open_min": 33,
+    "close_hour": 21,
+    "close_min": 30,
+    "npc_idx": 39,
+    "attacker_arrival_layer": 253,
+    "defenser_arrival_layer": 254,
+    "symbol_hench_idx": 290,
+    "symbol_item_idx": 111
+  }
+]
