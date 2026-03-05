@@ -1,7 +1,7 @@
 [
   {
     "type": 1,
-    "name": "泡泡龙",
+    "name": "泡泡龍",
     "race": 0,
     "start_base_level": 1,
     "price": 100,
@@ -67,7 +67,7 @@
   },
   {
     "type": 3,
-    "name": "猫尾球",
+    "name": "貓尾球",
     "race": 2,
     "start_base_level": 1,
     "price": 100,
@@ -265,7 +265,7 @@
   },
   {
     "type": 9,
-    "name": "小泥鳅",
+    "name": "小泥鰍",
     "race": 0,
     "start_base_level": 3,
     "price": 200,
@@ -397,7 +397,7 @@
   },
   {
     "type": 13,
-    "name": "蓝箭",
+    "name": "藍箭",
     "race": 0,
     "start_base_level": 5,
     "price": 300,
@@ -529,7 +529,7 @@
   },
   {
     "type": 17,
-    "name": "蝙蝠龙",
+    "name": "蝙蝠龍",
     "race": 0,
     "start_base_level": 7,
     "price": 400,
@@ -595,7 +595,7 @@
   },
   {
     "type": 19,
-    "name": "变异刺球",
+    "name": "變異刺球",
     "race": 5,
     "start_base_level": 40,
     "price": 31000,
@@ -628,7 +628,7 @@
   },
   {
     "type": 20,
-    "name": "变异刺球",
+    "name": "變異刺球",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -661,7 +661,7 @@
   },
   {
     "type": 21,
-    "name": "龙猫",
+    "name": "龍貓",
     "race": 0,
     "start_base_level": 9,
     "price": 500,
@@ -694,7 +694,7 @@
   },
   {
     "type": 22,
-    "name": "变异刺球",
+    "name": "變異刺球",
     "race": 5,
     "start_base_level": 80,
     "price": 131000,
@@ -727,7 +727,7 @@
   },
   {
     "type": 23,
-    "name": "变异刺球",
+    "name": "變異刺球",
     "race": 5,
     "start_base_level": 100,
     "price": 231000,
@@ -760,7 +760,7 @@
   },
   {
     "type": 24,
-    "name": "变异刺球",
+    "name": "變異刺球",
     "race": 5,
     "start_base_level": 120,
     "price": 351000,
@@ -793,7 +793,7 @@
   },
   {
     "type": 25,
-    "name": "ET宝宝",
+    "name": "ET寶寶",
     "race": 0,
     "start_base_level": 11,
     "price": 600,
@@ -925,7 +925,7 @@
   },
   {
     "type": 29,
-    "name": "飞天龙",
+    "name": "飛天龍",
     "race": 0,
     "start_base_level": 20,
     "price": 2400,
@@ -1057,7 +1057,7 @@
   },
   {
     "type": 33,
-    "name": "年兽",
+    "name": "年獸",
     "race": 0,
     "start_base_level": 29,
     "price": 15000,
@@ -1255,7 +1255,7 @@
   },
   {
     "type": 39,
-    "name": "小坎布防刷GP场",
+    "name": "小坎布防刷GP場",
     "race": 2,
     "start_base_level": 200,
     "price": 959000,
@@ -1321,7 +1321,7 @@
   },
   {
     "type": 41,
-    "name": "人龙",
+    "name": "人龍",
     "race": 0,
     "start_base_level": 36,
     "price": 25500,
@@ -1453,7 +1453,7 @@
   },
   {
     "type": 45,
-    "name": "绿尾云龙",
+    "name": "綠尾雲龍",
     "race": 0,
     "start_base_level": 52,
     "price": 43000,
@@ -1717,7 +1717,7 @@
   },
   {
     "type": 53,
-    "name": "奶嘴鹰",
+    "name": "奶嘴鷹",
     "race": 1,
     "start_base_level": 5,
     "price": 300,
@@ -1915,7 +1915,7 @@
   },
   {
     "type": 61,
-    "name": "达Q拉",
+    "name": "達Q拉",
     "race": 1,
     "start_base_level": 9,
     "price": 500,
@@ -1948,7 +1948,7 @@
   },
   {
     "type": 62,
-    "name": "变异流氓兔",
+    "name": "變異流氓兔",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -1981,7 +1981,7 @@
   },
   {
     "type": 63,
-    "name": "变异流氓兔",
+    "name": "變異流氓兔",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -2014,7 +2014,7 @@
   },
   {
     "type": 64,
-    "name": "变异流氓兔",
+    "name": "變異流氓兔",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -2080,7 +2080,7 @@
   },
   {
     "type": 66,
-    "name": "变异流氓兔",
+    "name": "變異流氓兔",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -2113,7 +2113,7 @@
   },
   {
     "type": 67,
-    "name": "变异流氓兔",
+    "name": "變異流氓兔",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -2146,7 +2146,7 @@
   },
   {
     "type": 68,
-    "name": "诺诺",
+    "name": "諾諾",
     "race": 1,
     "start_base_level": 40,
     "price": 31000,
@@ -2212,7 +2212,7 @@
   },
   {
     "type": 70,
-    "name": "诺诺",
+    "name": "諾諾",
     "race": 1,
     "start_base_level": 60,
     "price": 51000,
@@ -2245,7 +2245,7 @@
   },
   {
     "type": 71,
-    "name": "诺诺",
+    "name": "諾諾",
     "race": 1,
     "start_base_level": 80,
     "price": 131000,
@@ -2278,7 +2278,7 @@
   },
   {
     "type": 72,
-    "name": "诺诺",
+    "name": "諾諾",
     "race": 1,
     "start_base_level": 100,
     "price": 231000,
@@ -2311,7 +2311,7 @@
   },
   {
     "type": 73,
-    "name": "大脚怪",
+    "name": "大腳怪",
     "race": 1,
     "start_base_level": 35,
     "price": 24000,
@@ -2344,7 +2344,7 @@
   },
   {
     "type": 74,
-    "name": "诺诺",
+    "name": "諾諾",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -2377,7 +2377,7 @@
   },
   {
     "type": 77,
-    "name": "恶灵",
+    "name": "惡靈",
     "race": 1,
     "start_base_level": 38,
     "price": 28500,
@@ -2410,7 +2410,7 @@
   },
   {
     "type": 81,
-    "name": "万圣恶魔",
+    "name": "萬聖惡魔",
     "race": 1,
     "start_base_level": 52,
     "price": 43000,
@@ -2509,7 +2509,7 @@
   },
   {
     "type": 93,
-    "name": "飞天猪",
+    "name": "飛天豬",
     "race": 2,
     "start_base_level": 7,
     "price": 400,
@@ -2542,7 +2542,7 @@
   },
   {
     "type": 97,
-    "name": "馒头猪",
+    "name": "饅頭豬",
     "race": 2,
     "start_base_level": 9,
     "price": 500,
@@ -2575,7 +2575,7 @@
   },
   {
     "type": 101,
-    "name": "拳击兔",
+    "name": "拳擊兔",
     "race": 2,
     "start_base_level": 18,
     "price": 2000,
@@ -2674,7 +2674,7 @@
   },
   {
     "type": 113,
-    "name": "尖嘴鸡",
+    "name": "尖嘴雞",
     "race": 3,
     "start_base_level": 3,
     "price": 200,
@@ -2740,7 +2740,7 @@
   },
   {
     "type": 121,
-    "name": "扇尾鸟",
+    "name": "扇尾鳥",
     "race": 3,
     "start_base_level": 7,
     "price": 400,
@@ -2806,7 +2806,7 @@
   },
   {
     "type": 129,
-    "name": "气球鹦",
+    "name": "氣球鸚",
     "race": 3,
     "start_base_level": 17,
     "price": 1800,
@@ -2839,7 +2839,7 @@
   },
   {
     "type": 133,
-    "name": "蓝气球鹦",
+    "name": "藍氣球鸚",
     "race": 3,
     "start_base_level": 19,
     "price": 2200,
@@ -2872,7 +2872,7 @@
   },
   {
     "type": 137,
-    "name": "博士鹰",
+    "name": "博士鷹",
     "race": 3,
     "start_base_level": 21,
     "price": 3000,
@@ -2905,7 +2905,7 @@
   },
   {
     "type": 141,
-    "name": "红嘴豚",
+    "name": "紅嘴豚",
     "race": 3,
     "start_base_level": 30,
     "price": 16500,
@@ -2938,7 +2938,7 @@
   },
   {
     "type": 145,
-    "name": "大红鹰",
+    "name": "大紅鷹",
     "race": 3,
     "start_base_level": 48,
     "price": 39000,
@@ -3037,7 +3037,7 @@
   },
   {
     "type": 157,
-    "name": "眼镜虫",
+    "name": "眼鏡蟲",
     "race": 4,
     "start_base_level": 5,
     "price": 300,
@@ -3070,7 +3070,7 @@
   },
   {
     "type": 161,
-    "name": "小探头",
+    "name": "小探頭",
     "race": 4,
     "start_base_level": 7,
     "price": 400,
@@ -3103,7 +3103,7 @@
   },
   {
     "type": 165,
-    "name": "红鼻瓢虫",
+    "name": "紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 18,
     "price": 2000,
@@ -3202,7 +3202,7 @@
   },
   {
     "type": 177,
-    "name": "吉祥龟",
+    "name": "吉祥龜",
     "race": 2,
     "start_base_level": 11,
     "price": 600,
@@ -3301,7 +3301,7 @@
   },
   {
     "type": 189,
-    "name": "绿苞子",
+    "name": "綠苞子",
     "race": 5,
     "start_base_level": 7,
     "price": 400,
@@ -3334,7 +3334,7 @@
   },
   {
     "type": 193,
-    "name": "绿叶宝宝",
+    "name": "綠葉寶寶",
     "race": 5,
     "start_base_level": 11,
     "price": 600,
@@ -3367,7 +3367,7 @@
   },
   {
     "type": 194,
-    "name": "憨豆龙",
+    "name": "憨豆龍",
     "race": 0,
     "start_base_level": 15,
     "price": 1400,
@@ -3400,7 +3400,7 @@
   },
   {
     "type": 195,
-    "name": "蝠翼龙",
+    "name": "蝠翼龍",
     "race": 0,
     "start_base_level": 14,
     "price": 1200,
@@ -3466,7 +3466,7 @@
   },
   {
     "type": 197,
-    "name": "大头鹰",
+    "name": "大頭鷹",
     "race": 3,
     "start_base_level": 11,
     "price": 600,
@@ -3499,7 +3499,7 @@
   },
   {
     "type": 198,
-    "name": "小可爱",
+    "name": "小可愛",
     "race": 4,
     "start_base_level": 11,
     "price": 600,
@@ -3532,7 +3532,7 @@
   },
   {
     "type": 199,
-    "name": "铁甲虫",
+    "name": "鐵甲蟲",
     "race": 4,
     "start_base_level": 13,
     "price": 1000,
@@ -3565,7 +3565,7 @@
   },
   {
     "type": 200,
-    "name": "领路甲虫",
+    "name": "領路甲蟲",
     "race": 4,
     "start_base_level": 27,
     "price": 12000,
@@ -3664,7 +3664,7 @@
   },
   {
     "type": 203,
-    "name": "绿蔬",
+    "name": "綠蔬",
     "race": 5,
     "start_base_level": 15,
     "price": 1400,
@@ -3697,7 +3697,7 @@
   },
   {
     "type": 204,
-    "name": "苹果球",
+    "name": "蘋果球",
     "race": 5,
     "start_base_level": 1,
     "price": 100,
@@ -3730,7 +3730,7 @@
   },
   {
     "type": 205,
-    "name": "灵球",
+    "name": "靈球",
     "race": 6,
     "start_base_level": 1,
     "price": 100,
@@ -3763,7 +3763,7 @@
   },
   {
     "type": 206,
-    "name": "圆圆",
+    "name": "圓圓",
     "race": 7,
     "start_base_level": 1,
     "price": 100,
@@ -3796,7 +3796,7 @@
   },
   {
     "type": 207,
-    "name": "变异肥肥",
+    "name": "變異肥肥",
     "race": 0,
     "start_base_level": 58,
     "price": 49000,
@@ -3829,7 +3829,7 @@
   },
   {
     "type": 208,
-    "name": "变异邦迪",
+    "name": "變異邦迪",
     "race": 1,
     "start_base_level": 16,
     "price": 1600,
@@ -3862,7 +3862,7 @@
   },
   {
     "type": 209,
-    "name": "布热迪连特",
+    "name": "布熱迪連特",
     "race": 1,
     "start_base_level": 62,
     "price": 59000,
@@ -3895,7 +3895,7 @@
   },
   {
     "type": 210,
-    "name": "变异博士鹰",
+    "name": "變異博士鷹",
     "race": 3,
     "start_base_level": 31,
     "price": 18000,
@@ -3928,7 +3928,7 @@
   },
   {
     "type": 211,
-    "name": "变异大红鹰",
+    "name": "變異大紅鷹",
     "race": 3,
     "start_base_level": 58,
     "price": 49000,
@@ -3961,7 +3961,7 @@
   },
   {
     "type": 212,
-    "name": "变异拳击兔",
+    "name": "變異拳擊兔",
     "race": 2,
     "start_base_level": 28,
     "price": 13500,
@@ -4027,7 +4027,7 @@
   },
   {
     "type": 214,
-    "name": "红眼蓝鲸",
+    "name": "紅眼藍鯨",
     "race": 0,
     "start_base_level": 17,
     "price": 1800,
@@ -4093,7 +4093,7 @@
   },
   {
     "type": 216,
-    "name": "幽灵狗",
+    "name": "幽靈狗",
     "race": 1,
     "start_base_level": 13,
     "price": 1000,
@@ -4126,7 +4126,7 @@
   },
   {
     "type": 217,
-    "name": "血泪亡灵",
+    "name": "血淚亡靈",
     "race": 1,
     "start_base_level": 15,
     "price": 1400,
@@ -4159,7 +4159,7 @@
   },
   {
     "type": 218,
-    "name": "巨灵恶魔",
+    "name": "巨靈惡魔",
     "race": 1,
     "start_base_level": 65,
     "price": 71000,
@@ -4225,7 +4225,7 @@
   },
   {
     "type": 220,
-    "name": "刺刺猪",
+    "name": "刺刺豬",
     "race": 2,
     "start_base_level": 15,
     "price": 1400,
@@ -4258,7 +4258,7 @@
   },
   {
     "type": 221,
-    "name": "甜心宝贝",
+    "name": "甜心寶貝",
     "race": 2,
     "start_base_level": 20,
     "price": 2400,
@@ -4291,7 +4291,7 @@
   },
   {
     "type": 222,
-    "name": "甜心队长",
+    "name": "甜心隊長",
     "race": 2,
     "start_base_level": 22,
     "price": 4500,
@@ -4324,7 +4324,7 @@
   },
   {
     "type": 223,
-    "name": "水镜",
+    "name": "水鏡",
     "race": 2,
     "start_base_level": 30,
     "price": 16500,
@@ -4357,7 +4357,7 @@
   },
   {
     "type": 224,
-    "name": "运动猫",
+    "name": "運動貓",
     "race": 2,
     "start_base_level": 43,
     "price": 34000,
@@ -4390,7 +4390,7 @@
   },
   {
     "type": 225,
-    "name": "百合鸟",
+    "name": "百合鳥",
     "race": 3,
     "start_base_level": 13,
     "price": 1000,
@@ -4423,7 +4423,7 @@
   },
   {
     "type": 226,
-    "name": "杰弗德",
+    "name": "傑弗德",
     "race": 3,
     "start_base_level": 15,
     "price": 1400,
@@ -4456,7 +4456,7 @@
   },
   {
     "type": 227,
-    "name": "罗基仁",
+    "name": "羅基仁",
     "race": 3,
     "start_base_level": 25,
     "price": 9000,
@@ -4489,7 +4489,7 @@
   },
   {
     "type": 228,
-    "name": "呆头蝇",
+    "name": "呆頭蠅",
     "race": 4,
     "start_base_level": 15,
     "price": 1400,
@@ -4555,7 +4555,7 @@
   },
   {
     "type": 230,
-    "name": "酷基马",
+    "name": "酷基馬",
     "race": 4,
     "start_base_level": 24,
     "price": 7500,
@@ -4588,7 +4588,7 @@
   },
   {
     "type": 231,
-    "name": "蜗牛叮铛",
+    "name": "蝸牛叮鐺",
     "race": 4,
     "start_base_level": 30,
     "price": 16500,
@@ -4621,7 +4621,7 @@
   },
   {
     "type": 232,
-    "name": "山参",
+    "name": "山參",
     "race": 5,
     "start_base_level": 5,
     "price": 300,
@@ -4687,7 +4687,7 @@
   },
   {
     "type": 234,
-    "name": "托娜西 ",
+    "name": "託娜西 ",
     "race": 5,
     "start_base_level": 18,
     "price": 2000,
@@ -4786,7 +4786,7 @@
   },
   {
     "type": 237,
-    "name": "花妖宝宝",
+    "name": "花妖寶寶",
     "race": 5,
     "start_base_level": 22,
     "price": 4500,
@@ -4819,7 +4819,7 @@
   },
   {
     "type": 238,
-    "name": "树精宝宝",
+    "name": "樹精寶寶",
     "race": 5,
     "start_base_level": 27,
     "price": 12000,
@@ -4852,7 +4852,7 @@
   },
   {
     "type": 239,
-    "name": "椰蛋树",
+    "name": "椰蛋樹",
     "race": 5,
     "start_base_level": 30,
     "price": 16500,
@@ -4885,7 +4885,7 @@
   },
   {
     "type": 240,
-    "name": "节节高",
+    "name": "節節高",
     "race": 5,
     "start_base_level": 33,
     "price": 21000,
@@ -4984,7 +4984,7 @@
   },
   {
     "type": 243,
-    "name": "护卫",
+    "name": "護衛",
     "race": 6,
     "start_base_level": 3,
     "price": 200,
@@ -5017,7 +5017,7 @@
   },
   {
     "type": 244,
-    "name": "斑马虫",
+    "name": "斑馬蟲",
     "race": 6,
     "start_base_level": 5,
     "price": 300,
@@ -5050,7 +5050,7 @@
   },
   {
     "type": 245,
-    "name": "灵灵",
+    "name": "靈靈",
     "race": 6,
     "start_base_level": 7,
     "price": 400,
@@ -5116,7 +5116,7 @@
   },
   {
     "type": 247,
-    "name": "绿幽灵",
+    "name": "綠幽靈",
     "race": 6,
     "start_base_level": 11,
     "price": 600,
@@ -5215,7 +5215,7 @@
   },
   {
     "type": 250,
-    "name": "史诺基",
+    "name": "史諾基",
     "race": 6,
     "start_base_level": 84,
     "price": 151000,
@@ -5248,7 +5248,7 @@
   },
   {
     "type": 251,
-    "name": "亘马立奥",
+    "name": "亙馬立奧",
     "race": 6,
     "start_base_level": 45,
     "price": 36000,
@@ -5281,7 +5281,7 @@
   },
   {
     "type": 252,
-    "name": "尖甲虫",
+    "name": "尖甲蟲",
     "race": 7,
     "start_base_level": 3,
     "price": 200,
@@ -5314,7 +5314,7 @@
   },
   {
     "type": 253,
-    "name": "小齿轮",
+    "name": "小齒輪",
     "race": 7,
     "start_base_level": 5,
     "price": 300,
@@ -5347,7 +5347,7 @@
   },
   {
     "type": 254,
-    "name": "钳子怪",
+    "name": "鉗子怪",
     "race": 7,
     "start_base_level": 7,
     "price": 400,
@@ -5413,7 +5413,7 @@
   },
   {
     "type": 256,
-    "name": "小滚珠",
+    "name": "小滾珠",
     "race": 7,
     "start_base_level": 11,
     "price": 600,
@@ -5479,7 +5479,7 @@
   },
   {
     "type": 258,
-    "name": "望远镜晃晃",
+    "name": "望遠鏡晃晃",
     "race": 7,
     "start_base_level": 15,
     "price": 1400,
@@ -5512,7 +5512,7 @@
   },
   {
     "type": 259,
-    "name": "牛牛龟",
+    "name": "牛牛龜",
     "race": 7,
     "start_base_level": 25,
     "price": 9000,
@@ -5578,7 +5578,7 @@
   },
   {
     "type": 261,
-    "name": "巨影恶魔",
+    "name": "巨影惡魔",
     "race": 1,
     "start_base_level": 68,
     "price": 83000,
@@ -5611,7 +5611,7 @@
   },
   {
     "type": 262,
-    "name": "猫巫",
+    "name": "貓巫",
     "race": 1,
     "start_base_level": 17,
     "price": 1800,
@@ -5677,7 +5677,7 @@
   },
   {
     "type": 264,
-    "name": "黑暗守护犬",
+    "name": "黑暗守護犬",
     "race": 2,
     "start_base_level": 69,
     "price": 87000,
@@ -5710,7 +5710,7 @@
   },
   {
     "type": 265,
-    "name": "暗恶灵",
+    "name": "暗惡靈",
     "race": 1,
     "start_base_level": 49,
     "price": 40000,
@@ -5743,7 +5743,7 @@
   },
   {
     "type": 266,
-    "name": "暗人龙",
+    "name": "暗人龍",
     "race": 0,
     "start_base_level": 46,
     "price": 37000,
@@ -5776,7 +5776,7 @@
   },
   {
     "type": 267,
-    "name": "翁克来斯",
+    "name": "翁克來斯",
     "race": 3,
     "start_base_level": 69,
     "price": 87000,
@@ -5809,7 +5809,7 @@
   },
   {
     "type": 268,
-    "name": "苏夫来克",
+    "name": "蘇夫來克",
     "race": 7,
     "start_base_level": 68,
     "price": 83000,
@@ -5842,7 +5842,7 @@
   },
   {
     "type": 269,
-    "name": "马尔伊诺",
+    "name": "馬爾伊諾",
     "race": 1,
     "start_base_level": 26,
     "price": 10500,
@@ -5875,7 +5875,7 @@
   },
   {
     "type": 270,
-    "name": "斯凯波",
+    "name": "斯凱波",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -5908,7 +5908,7 @@
   },
   {
     "type": 271,
-    "name": "苏德特日",
+    "name": "蘇德特日",
     "race": 3,
     "start_base_level": 56,
     "price": 47000,
@@ -5941,7 +5941,7 @@
   },
   {
     "type": 272,
-    "name": "莫诺阿伊",
+    "name": "莫諾阿伊",
     "race": 7,
     "start_base_level": 20,
     "price": 2400,
@@ -5974,7 +5974,7 @@
   },
   {
     "type": 273,
-    "name": "达特凯彬",
+    "name": "達特凱彬",
     "race": 6,
     "start_base_level": 30,
     "price": 16500,
@@ -6040,7 +6040,7 @@
   },
   {
     "type": 275,
-    "name": "黑猪宝宝",
+    "name": "黑豬寶寶",
     "race": 2,
     "start_base_level": 1,
     "price": 100,
@@ -6073,7 +6073,7 @@
   },
   {
     "type": 276,
-    "name": "红猪宝宝",
+    "name": "紅豬寶寶",
     "race": 2,
     "start_base_level": 25,
     "price": 9000,
@@ -6106,7 +6106,7 @@
   },
   {
     "type": 277,
-    "name": "变异运动猫",
+    "name": "變異運動貓",
     "race": 2,
     "start_base_level": 73,
     "price": 103000,
@@ -6139,7 +6139,7 @@
   },
   {
     "type": 278,
-    "name": "顽皮球",
+    "name": "頑皮球",
     "race": 5,
     "start_base_level": 35,
     "price": 24000,
@@ -6172,7 +6172,7 @@
   },
   {
     "type": 279,
-    "name": "大鼻鸟",
+    "name": "大鼻鳥",
     "race": 7,
     "start_base_level": 98,
     "price": 221000,
@@ -6205,7 +6205,7 @@
   },
   {
     "type": 280,
-    "name": "小刚",
+    "name": "小剛",
     "race": 7,
     "start_base_level": 117,
     "price": 333000,
@@ -6238,7 +6238,7 @@
   },
   {
     "type": 281,
-    "name": "伊夫来克",
+    "name": "伊夫來克",
     "race": 7,
     "start_base_level": 80,
     "price": 131000,
@@ -6271,7 +6271,7 @@
   },
   {
     "type": 282,
-    "name": "风特思",
+    "name": "風特思",
     "race": 3,
     "start_base_level": 81,
     "price": 136000,
@@ -6304,7 +6304,7 @@
   },
   {
     "type": 283,
-    "name": "米德特尔",
+    "name": "米德特爾",
     "race": 3,
     "start_base_level": 68,
     "price": 83000,
@@ -6337,7 +6337,7 @@
   },
   {
     "type": 284,
-    "name": "猛达夏",
+    "name": "猛達夏",
     "race": 2,
     "start_base_level": 83,
     "price": 146000,
@@ -6370,7 +6370,7 @@
   },
   {
     "type": 285,
-    "name": "卡鲁昆",
+    "name": "卡魯昆",
     "race": 0,
     "start_base_level": 185,
     "price": 774000,
@@ -6403,7 +6403,7 @@
   },
   {
     "type": 286,
-    "name": "孙悟空",
+    "name": "孫悟空",
     "race": 2,
     "start_base_level": 1,
     "price": 100,
@@ -6436,7 +6436,7 @@
   },
   {
     "type": 287,
-    "name": "毒骨龙",
+    "name": "毒骨龍",
     "race": 0,
     "start_base_level": 93,
     "price": 196000,
@@ -6502,7 +6502,7 @@
   },
   {
     "type": 289,
-    "name": "长尾陆行鸟",
+    "name": "長尾陸行鳥",
     "race": 0,
     "start_base_level": 135,
     "price": 426000,
@@ -6568,7 +6568,7 @@
   },
   {
     "type": 291,
-    "name": "噬魂师",
+    "name": "噬魂師",
     "race": 1,
     "start_base_level": 172,
     "price": 663000,
@@ -6667,7 +6667,7 @@
   },
   {
     "type": 294,
-    "name": "蓝魔天狼蛛",
+    "name": "藍魔天狼蛛",
     "race": 4,
     "start_base_level": 118,
     "price": 339000,
@@ -6700,7 +6700,7 @@
   },
   {
     "type": 295,
-    "name": "炫紫圣诞鹿",
+    "name": "炫紫聖誕鹿",
     "race": 2,
     "start_base_level": 200,
     "price": 500000,
@@ -6733,7 +6733,7 @@
   },
   {
     "type": 296,
-    "name": "红眼钉锤怪",
+    "name": "紅眼釘錘怪",
     "race": 6,
     "start_base_level": 101,
     "price": 237000,
@@ -6799,7 +6799,7 @@
   },
   {
     "type": 298,
-    "name": "双斧铠魔",
+    "name": "雙斧鎧魔",
     "race": 7,
     "start_base_level": 90,
     "price": 181000,
@@ -6832,7 +6832,7 @@
   },
   {
     "type": 299,
-    "name": "风琴恶魔",
+    "name": "風琴惡魔",
     "race": 1,
     "start_base_level": 88,
     "price": 171000,
@@ -6865,7 +6865,7 @@
   },
   {
     "type": 300,
-    "name": "巨臂树精",
+    "name": "巨臂樹精",
     "race": 5,
     "start_base_level": 170,
     "price": 651000,
@@ -6898,7 +6898,7 @@
   },
   {
     "type": 301,
-    "name": "小坏",
+    "name": "小壞",
     "race": 6,
     "start_base_level": 121,
     "price": 356000,
@@ -6931,7 +6931,7 @@
   },
   {
     "type": 302,
-    "name": "超级变异肥肥",
+    "name": "超級變異肥肥",
     "race": 0,
     "start_base_level": 78,
     "price": 123000,
@@ -6964,7 +6964,7 @@
   },
   {
     "type": 303,
-    "name": "强化运动猫",
+    "name": "強化運動貓",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -6997,7 +6997,7 @@
   },
   {
     "type": 304,
-    "name": "超级米德特尔",
+    "name": "超級米德特爾",
     "race": 3,
     "start_base_level": 107,
     "price": 273000,
@@ -7030,7 +7030,7 @@
   },
   {
     "type": 305,
-    "name": "超级风琴恶魔",
+    "name": "超級風琴惡魔",
     "race": 1,
     "start_base_level": 113,
     "price": 309000,
@@ -7063,7 +7063,7 @@
   },
   {
     "type": 306,
-    "name": "超级蓝魔天狼蛛",
+    "name": "超級藍魔天狼蛛",
     "race": 4,
     "start_base_level": 138,
     "price": 441000,
@@ -7096,7 +7096,7 @@
   },
   {
     "type": 307,
-    "name": "超级大鼻鸟",
+    "name": "超級大鼻鳥",
     "race": 7,
     "start_base_level": 136,
     "price": 431000,
@@ -7129,7 +7129,7 @@
   },
   {
     "type": 308,
-    "name": "超级小坏",
+    "name": "超級小壞",
     "race": 6,
     "start_base_level": 139,
     "price": 446000,
@@ -7162,7 +7162,7 @@
   },
   {
     "type": 309,
-    "name": "超级木偶人",
+    "name": "超級木偶人",
     "race": 5,
     "start_base_level": 81,
     "price": 136000,
@@ -7195,7 +7195,7 @@
   },
   {
     "type": 310,
-    "name": "超级长尾陆行鸟",
+    "name": "超級長尾陸行鳥",
     "race": 0,
     "start_base_level": 152,
     "price": 535000,
@@ -7228,7 +7228,7 @@
   },
   {
     "type": 311,
-    "name": "超级万圣恶魔",
+    "name": "超級萬聖惡魔",
     "race": 1,
     "start_base_level": 62,
     "price": 59000,
@@ -7261,7 +7261,7 @@
   },
   {
     "type": 312,
-    "name": "超级白虎",
+    "name": "超級白虎",
     "race": 2,
     "start_base_level": 82,
     "price": 141000,
@@ -7294,7 +7294,7 @@
   },
   {
     "type": 313,
-    "name": "超级风特思",
+    "name": "超級風特思",
     "race": 3,
     "start_base_level": 120,
     "price": 351000,
@@ -7327,7 +7327,7 @@
   },
   {
     "type": 314,
-    "name": "超级瓦斯蛋",
+    "name": "超級瓦斯蛋",
     "race": 4,
     "start_base_level": 80,
     "price": 131000,
@@ -7360,7 +7360,7 @@
   },
   {
     "type": 315,
-    "name": "超级斯凯波",
+    "name": "超級斯凱波",
     "race": 5,
     "start_base_level": 105,
     "price": 261000,
@@ -7393,7 +7393,7 @@
   },
   {
     "type": 316,
-    "name": "超级达特凯彬",
+    "name": "超級達特凱彬",
     "race": 6,
     "start_base_level": 67,
     "price": 79000,
@@ -7426,7 +7426,7 @@
   },
   {
     "type": 317,
-    "name": "超级卡梅拉克",
+    "name": "超級卡梅拉克",
     "race": 7,
     "start_base_level": 80,
     "price": 131000,
@@ -7492,7 +7492,7 @@
   },
   {
     "type": 319,
-    "name": "城门A",
+    "name": "城門A",
     "race": 1,
     "start_base_level": 90,
     "price": 181000,
@@ -7525,7 +7525,7 @@
   },
   {
     "type": 320,
-    "name": "城门B",
+    "name": "城門B",
     "race": 1,
     "start_base_level": 90,
     "price": 181000,
@@ -7591,7 +7591,7 @@
   },
   {
     "type": 322,
-    "name": "毒针王蜂",
+    "name": "毒針王蜂",
     "race": 4,
     "start_base_level": 74,
     "price": 107000,
@@ -7624,7 +7624,7 @@
   },
   {
     "type": 323,
-    "name": "大角飞蝇",
+    "name": "大角飛蠅",
     "race": 4,
     "start_base_level": 142,
     "price": 465000,
@@ -7690,7 +7690,7 @@
   },
   {
     "type": 325,
-    "name": "滑轮犀牛",
+    "name": "滑輪犀牛",
     "race": 2,
     "start_base_level": 119,
     "price": 345000,
@@ -7789,7 +7789,7 @@
   },
   {
     "type": 328,
-    "name": "胖头龙",
+    "name": "胖頭龍",
     "race": 0,
     "start_base_level": 69,
     "price": 87000,
@@ -7822,7 +7822,7 @@
   },
   {
     "type": 329,
-    "name": "小恶魔",
+    "name": "小惡魔",
     "race": 1,
     "start_base_level": 79,
     "price": 127000,
@@ -7855,7 +7855,7 @@
   },
   {
     "type": 330,
-    "name": "蓝蝎将军",
+    "name": "藍蠍將軍",
     "race": 4,
     "start_base_level": 154,
     "price": 549000,
@@ -7888,7 +7888,7 @@
   },
   {
     "type": 331,
-    "name": "太阳花",
+    "name": "太陽花",
     "race": 5,
     "start_base_level": 114,
     "price": 315000,
@@ -8020,7 +8020,7 @@
   },
   {
     "type": 335,
-    "name": "变异胖头龙",
+    "name": "變異胖頭龍",
     "race": 0,
     "start_base_level": 102,
     "price": 243000,
@@ -8053,7 +8053,7 @@
   },
   {
     "type": 336,
-    "name": "变异小恶魔",
+    "name": "變異小惡魔",
     "race": 1,
     "start_base_level": 99,
     "price": 226000,
@@ -8086,7 +8086,7 @@
   },
   {
     "type": 337,
-    "name": "变异双斧铠魔",
+    "name": "變異雙斧鎧魔",
     "race": 7,
     "start_base_level": 153,
     "price": 542000,
@@ -8119,7 +8119,7 @@
   },
   {
     "type": 338,
-    "name": "变异皇翼蜂",
+    "name": "變異皇翼蜂",
     "race": 4,
     "start_base_level": 106,
     "price": 267000,
@@ -8152,7 +8152,7 @@
   },
   {
     "type": 339,
-    "name": "变异滑轮犀牛",
+    "name": "變異滑輪犀牛",
     "race": 2,
     "start_base_level": 151,
     "price": 528000,
@@ -8185,7 +8185,7 @@
   },
   {
     "type": 340,
-    "name": "变异领路甲虫",
+    "name": "變異領路甲蟲",
     "race": 4,
     "start_base_level": 47,
     "price": 38000,
@@ -8218,7 +8218,7 @@
   },
   {
     "type": 341,
-    "name": "变异大眼",
+    "name": "變異大眼",
     "race": 6,
     "start_base_level": 38,
     "price": 28500,
@@ -8251,7 +8251,7 @@
   },
   {
     "type": 342,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 200,
     "price": 959000,
@@ -8284,7 +8284,7 @@
   },
   {
     "type": 343,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 200,
     "price": 959000,
@@ -8317,7 +8317,7 @@
   },
   {
     "type": 344,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 200,
     "price": 959000,
@@ -8350,7 +8350,7 @@
   },
   {
     "type": 345,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 200,
     "price": 959000,
@@ -8383,7 +8383,7 @@
   },
   {
     "type": 346,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 959000,
@@ -8416,7 +8416,7 @@
   },
   {
     "type": 347,
-    "name": "机械树",
+    "name": "機械樹",
     "race": 5,
     "start_base_level": 1,
     "price": 100,
@@ -8482,7 +8482,7 @@
   },
   {
     "type": 349,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 1,
     "price": 100,
@@ -8515,7 +8515,7 @@
   },
   {
     "type": 350,
-    "name": "翡翠龟",
+    "name": "翡翠龜",
     "race": 2,
     "start_base_level": 94,
     "price": 201000,
@@ -8614,7 +8614,7 @@
   },
   {
     "type": 353,
-    "name": "圣诞企鹅",
+    "name": "聖誕企鵝",
     "race": 3,
     "start_base_level": 98,
     "price": 221000,
@@ -8647,7 +8647,7 @@
   },
   {
     "type": 354,
-    "name": "呀呀鸟",
+    "name": "呀呀鳥",
     "race": 7,
     "start_base_level": 75,
     "price": 111000,
@@ -8680,7 +8680,7 @@
   },
   {
     "type": 355,
-    "name": "库玛",
+    "name": "庫瑪",
     "race": 6,
     "start_base_level": 78,
     "price": 123000,
@@ -8713,7 +8713,7 @@
   },
   {
     "type": 356,
-    "name": "孙悟空",
+    "name": "孫悟空",
     "race": 2,
     "start_base_level": 20,
     "price": 2400,
@@ -8746,7 +8746,7 @@
   },
   {
     "type": 357,
-    "name": "孙悟空",
+    "name": "孫悟空",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -8779,7 +8779,7 @@
   },
   {
     "type": 358,
-    "name": "孙悟空",
+    "name": "孫悟空",
     "race": 2,
     "start_base_level": 165,
     "price": 621000,
@@ -8845,7 +8845,7 @@
   },
   {
     "type": 360,
-    "name": "超级蛛蛛",
+    "name": "超級蛛蛛",
     "race": 4,
     "start_base_level": 125,
     "price": 376000,
@@ -8878,7 +8878,7 @@
   },
   {
     "type": 361,
-    "name": "暗影龟",
+    "name": "暗影龜",
     "race": 2,
     "start_base_level": 127,
     "price": 386000,
@@ -8911,7 +8911,7 @@
   },
   {
     "type": 362,
-    "name": "超级红眼钉锤怪",
+    "name": "超級紅眼釘錘怪",
     "race": 6,
     "start_base_level": 145,
     "price": 486000,
@@ -8944,7 +8944,7 @@
   },
   {
     "type": 363,
-    "name": "红刚",
+    "name": "紅剛",
     "race": 7,
     "start_base_level": 160,
     "price": 591000,
@@ -8977,7 +8977,7 @@
   },
   {
     "type": 364,
-    "name": "超级卷尾巴",
+    "name": "超級卷尾巴",
     "race": 3,
     "start_base_level": 164,
     "price": 615000,
@@ -9010,7 +9010,7 @@
   },
   {
     "type": 365,
-    "name": "变异毒骨龙",
+    "name": "變異毒骨龍",
     "race": 0,
     "start_base_level": 163,
     "price": 609000,
@@ -9043,7 +9043,7 @@
   },
   {
     "type": 366,
-    "name": "变异卡鲁昆",
+    "name": "變異卡魯昆",
     "race": 0,
     "start_base_level": 175,
     "price": 681000,
@@ -9076,7 +9076,7 @@
   },
   {
     "type": 367,
-    "name": "沙鲁法",
+    "name": "沙魯法",
     "race": 1,
     "start_base_level": 126,
     "price": 381000,
@@ -9109,7 +9109,7 @@
   },
   {
     "type": 368,
-    "name": "红叶",
+    "name": "紅葉",
     "race": 5,
     "start_base_level": 152,
     "price": 535000,
@@ -9142,7 +9142,7 @@
   },
   {
     "type": 369,
-    "name": "魔术师",
+    "name": "魔術師",
     "race": 6,
     "start_base_level": 160,
     "price": 591000,
@@ -9241,7 +9241,7 @@
   },
   {
     "type": 372,
-    "name": "蓝龙",
+    "name": "藍龍",
     "race": 0,
     "start_base_level": 120,
     "price": 351000,
@@ -9274,7 +9274,7 @@
   },
   {
     "type": 373,
-    "name": "超级库玛",
+    "name": "超級庫瑪",
     "race": 6,
     "start_base_level": 107,
     "price": 273000,
@@ -9307,7 +9307,7 @@
   },
   {
     "type": 374,
-    "name": "超级呀呀鸟",
+    "name": "超級呀呀鳥",
     "race": 7,
     "start_base_level": 101,
     "price": 237000,
@@ -9340,7 +9340,7 @@
   },
   {
     "type": 375,
-    "name": "生化赛普",
+    "name": "生化賽普",
     "race": 4,
     "start_base_level": 102,
     "price": 243000,
@@ -9373,7 +9373,7 @@
   },
   {
     "type": 376,
-    "name": "美乐奇",
+    "name": "美樂奇",
     "race": 1,
     "start_base_level": 105,
     "price": 261000,
@@ -9406,7 +9406,7 @@
   },
   {
     "type": 377,
-    "name": "千年树妖",
+    "name": "千年樹妖",
     "race": 5,
     "start_base_level": 140,
     "price": 451000,
@@ -9472,7 +9472,7 @@
   },
   {
     "type": 379,
-    "name": "大眼蓝",
+    "name": "大眼藍",
     "race": 7,
     "start_base_level": 114,
     "price": 315000,
@@ -9505,7 +9505,7 @@
   },
   {
     "type": 380,
-    "name": "哈比鸟",
+    "name": "哈比鳥",
     "race": 3,
     "start_base_level": 117,
     "price": 333000,
@@ -9538,7 +9538,7 @@
   },
   {
     "type": 381,
-    "name": "树妖长老",
+    "name": "樹妖長老",
     "race": 5,
     "start_base_level": 126,
     "price": 381000,
@@ -9637,7 +9637,7 @@
   },
   {
     "type": 384,
-    "name": "狮鹫兽",
+    "name": "獅鷲獸",
     "race": 3,
     "start_base_level": 130,
     "price": 401000,
@@ -9670,7 +9670,7 @@
   },
   {
     "type": 385,
-    "name": "超级生化赛普",
+    "name": "超級生化賽普",
     "race": 4,
     "start_base_level": 135,
     "price": 426000,
@@ -9703,7 +9703,7 @@
   },
   {
     "type": 386,
-    "name": "死亡女仆",
+    "name": "死亡女僕",
     "race": 1,
     "start_base_level": 137,
     "price": 436000,
@@ -9835,7 +9835,7 @@
   },
   {
     "type": 390,
-    "name": "扑满金猪",
+    "name": "撲滿金豬",
     "race": 2,
     "start_base_level": 1,
     "price": 100,
@@ -9868,7 +9868,7 @@
   },
   {
     "type": 391,
-    "name": "顽皮球",
+    "name": "頑皮球",
     "race": 5,
     "start_base_level": 35,
     "price": 24000,
@@ -9901,7 +9901,7 @@
   },
   {
     "type": 392,
-    "name": "变异大眼",
+    "name": "變異大眼",
     "race": 6,
     "start_base_level": 38,
     "price": 28500,
@@ -9967,7 +9967,7 @@
   },
   {
     "type": 394,
-    "name": "暗人龙",
+    "name": "暗人龍",
     "race": 0,
     "start_base_level": 46,
     "price": 37000,
@@ -10000,7 +10000,7 @@
   },
   {
     "type": 395,
-    "name": "变异领路甲虫",
+    "name": "變異領路甲蟲",
     "race": 4,
     "start_base_level": 47,
     "price": 38000,
@@ -10033,7 +10033,7 @@
   },
   {
     "type": 396,
-    "name": "巨灵恶魔",
+    "name": "巨靈惡魔",
     "race": 1,
     "start_base_level": 65,
     "price": 71000,
@@ -10066,7 +10066,7 @@
   },
   {
     "type": 397,
-    "name": "米德特尔",
+    "name": "米德特爾",
     "race": 3,
     "start_base_level": 68,
     "price": 83000,
@@ -10099,7 +10099,7 @@
   },
   {
     "type": 398,
-    "name": "变异运动猫",
+    "name": "變異運動貓",
     "race": 2,
     "start_base_level": 73,
     "price": 103000,
@@ -10132,7 +10132,7 @@
   },
   {
     "type": 399,
-    "name": "史诺基",
+    "name": "史諾基",
     "race": 6,
     "start_base_level": 84,
     "price": 151000,
@@ -10198,7 +10198,7 @@
   },
   {
     "type": 401,
-    "name": "双斧铠魔",
+    "name": "雙斧鎧魔",
     "race": 7,
     "start_base_level": 90,
     "price": 181000,
@@ -10231,7 +10231,7 @@
   },
   {
     "type": 402,
-    "name": "毒骨龙",
+    "name": "毒骨龍",
     "race": 0,
     "start_base_level": 93,
     "price": 196000,
@@ -10264,7 +10264,7 @@
   },
   {
     "type": 403,
-    "name": "圣诞企鹅",
+    "name": "聖誕企鵝",
     "race": 3,
     "start_base_level": 98,
     "price": 221000,
@@ -10297,7 +10297,7 @@
   },
   {
     "type": 404,
-    "name": "变异小恶魔",
+    "name": "變異小惡魔",
     "race": 1,
     "start_base_level": 99,
     "price": 226000,
@@ -10330,7 +10330,7 @@
   },
   {
     "type": 405,
-    "name": "超级斯凯波",
+    "name": "超級斯凱波",
     "race": 5,
     "start_base_level": 105,
     "price": 261000,
@@ -10396,7 +10396,7 @@
   },
   {
     "type": 407,
-    "name": "太阳花",
+    "name": "太陽花",
     "race": 5,
     "start_base_level": 114,
     "price": 315000,
@@ -10429,7 +10429,7 @@
   },
   {
     "type": 408,
-    "name": "小刚",
+    "name": "小剛",
     "race": 7,
     "start_base_level": 117,
     "price": 333000,
@@ -10462,7 +10462,7 @@
   },
   {
     "type": 409,
-    "name": "蓝魔天狼蛛",
+    "name": "藍魔天狼蛛",
     "race": 4,
     "start_base_level": 118,
     "price": 339000,
@@ -10495,7 +10495,7 @@
   },
   {
     "type": 410,
-    "name": "超级风特思",
+    "name": "超級風特思",
     "race": 3,
     "start_base_level": 120,
     "price": 351000,
@@ -10528,7 +10528,7 @@
   },
   {
     "type": 411,
-    "name": "小坏",
+    "name": "小壞",
     "race": 6,
     "start_base_level": 121,
     "price": 356000,
@@ -10561,7 +10561,7 @@
   },
   {
     "type": 412,
-    "name": "狮鹫兽",
+    "name": "獅鷲獸",
     "race": 3,
     "start_base_level": 130,
     "price": 401000,
@@ -10594,7 +10594,7 @@
   },
   {
     "type": 413,
-    "name": "死亡女仆",
+    "name": "死亡女僕",
     "race": 1,
     "start_base_level": 137,
     "price": 436000,
@@ -10627,7 +10627,7 @@
   },
   {
     "type": 414,
-    "name": "超级大鼻鸟",
+    "name": "超級大鼻鳥",
     "race": 7,
     "start_base_level": 136,
     "price": 431000,
@@ -10660,7 +10660,7 @@
   },
   {
     "type": 415,
-    "name": "超级小坏",
+    "name": "超級小壞",
     "race": 6,
     "start_base_level": 139,
     "price": 446000,
@@ -10693,7 +10693,7 @@
   },
   {
     "type": 416,
-    "name": "长尾陆行鸟",
+    "name": "長尾陸行鳥",
     "race": 0,
     "start_base_level": 135,
     "price": 426000,
@@ -10792,7 +10792,7 @@
   },
   {
     "type": 419,
-    "name": "雪地狮",
+    "name": "雪地獅",
     "race": 2,
     "start_base_level": 106,
     "price": 267000,
@@ -10825,7 +10825,7 @@
   },
   {
     "type": 420,
-    "name": "诡异木偶",
+    "name": "詭異木偶",
     "race": 6,
     "start_base_level": 110,
     "price": 291000,
@@ -10858,7 +10858,7 @@
   },
   {
     "type": 421,
-    "name": "蓝猪",
+    "name": "藍豬",
     "race": 2,
     "start_base_level": 125,
     "price": 376000,
@@ -10891,7 +10891,7 @@
   },
   {
     "type": 422,
-    "name": "超级变异小恶魔",
+    "name": "超級變異小惡魔",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -10924,7 +10924,7 @@
   },
   {
     "type": 423,
-    "name": "雪地狮王",
+    "name": "雪地獅王",
     "race": 2,
     "start_base_level": 135,
     "price": 426000,
@@ -10990,7 +10990,7 @@
   },
   {
     "type": 425,
-    "name": "银月库恩",
+    "name": "銀月庫恩",
     "race": 7,
     "start_base_level": 144,
     "price": 479000,
@@ -11056,7 +11056,7 @@
   },
   {
     "type": 427,
-    "name": "超级变异胖头龙",
+    "name": "超級變異胖頭龍",
     "race": 0,
     "start_base_level": 140,
     "price": 451000,
@@ -11089,7 +11089,7 @@
   },
   {
     "type": 428,
-    "name": "超级太阳花",
+    "name": "超級太陽花",
     "race": 5,
     "start_base_level": 146,
     "price": 493000,
@@ -11155,7 +11155,7 @@
   },
   {
     "type": 430,
-    "name": "风女",
+    "name": "風女",
     "race": 2,
     "start_base_level": 162,
     "price": 603000,
@@ -11188,7 +11188,7 @@
   },
   {
     "type": 431,
-    "name": "恶魔",
+    "name": "惡魔",
     "race": 3,
     "start_base_level": 166,
     "price": 627000,
@@ -11221,7 +11221,7 @@
   },
   {
     "type": 432,
-    "name": "超级雪地狮王",
+    "name": "超級雪地獅王",
     "race": 2,
     "start_base_level": 162,
     "price": 603000,
@@ -11254,7 +11254,7 @@
   },
   {
     "type": 433,
-    "name": "超级死亡女仆",
+    "name": "超級死亡女僕",
     "race": 1,
     "start_base_level": 161,
     "price": 597000,
@@ -11287,7 +11287,7 @@
   },
   {
     "type": 434,
-    "name": "银气球鹰",
+    "name": "銀氣球鷹",
     "race": 3,
     "start_base_level": 1,
     "price": 100,
@@ -11353,7 +11353,7 @@
   },
   {
     "type": 436,
-    "name": "人龙",
+    "name": "人龍",
     "race": 0,
     "start_base_level": 36,
     "price": 25500,
@@ -11419,7 +11419,7 @@
   },
   {
     "type": 438,
-    "name": "绿尾云龙",
+    "name": "綠尾雲龍",
     "race": 0,
     "start_base_level": 52,
     "price": 43000,
@@ -11452,7 +11452,7 @@
   },
   {
     "type": 439,
-    "name": "万圣恶魔",
+    "name": "萬聖惡魔",
     "race": 1,
     "start_base_level": 52,
     "price": 43000,
@@ -11518,7 +11518,7 @@
   },
   {
     "type": 441,
-    "name": "苏德特日",
+    "name": "蘇德特日",
     "race": 3,
     "start_base_level": 56,
     "price": 47000,
@@ -11551,7 +11551,7 @@
   },
   {
     "type": 442,
-    "name": "变异肥肥",
+    "name": "變異肥肥",
     "race": 0,
     "start_base_level": 58,
     "price": 49000,
@@ -11584,7 +11584,7 @@
   },
   {
     "type": 443,
-    "name": "顽皮球",
+    "name": "頑皮球",
     "race": 5,
     "start_base_level": 35,
     "price": 24000,
@@ -11650,7 +11650,7 @@
   },
   {
     "type": 445,
-    "name": "变异大眼",
+    "name": "變異大眼",
     "race": 6,
     "start_base_level": 38,
     "price": 28500,
@@ -11683,7 +11683,7 @@
   },
   {
     "type": 446,
-    "name": "变异领路甲虫",
+    "name": "變異領路甲蟲",
     "race": 4,
     "start_base_level": 47,
     "price": 38000,
@@ -11716,7 +11716,7 @@
   },
   {
     "type": 447,
-    "name": "红猪",
+    "name": "紅豬",
     "race": 2,
     "start_base_level": 30,
     "price": 16500,
@@ -11749,7 +11749,7 @@
   },
   {
     "type": 448,
-    "name": "红猪",
+    "name": "紅豬",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -11782,7 +11782,7 @@
   },
   {
     "type": 449,
-    "name": "红猪",
+    "name": "紅豬",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -11815,7 +11815,7 @@
   },
   {
     "type": 450,
-    "name": "老山参",
+    "name": "老山參",
     "race": 5,
     "start_base_level": 30,
     "price": 16500,
@@ -11848,7 +11848,7 @@
   },
   {
     "type": 451,
-    "name": "老山参",
+    "name": "老山參",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -11881,7 +11881,7 @@
   },
   {
     "type": 452,
-    "name": "老山参",
+    "name": "老山參",
     "race": 5,
     "start_base_level": 90,
     "price": 181000,
@@ -11914,7 +11914,7 @@
   },
   {
     "type": 453,
-    "name": "变异博士鹰",
+    "name": "變異博士鷹",
     "race": 3,
     "start_base_level": 30,
     "price": 16500,
@@ -11947,7 +11947,7 @@
   },
   {
     "type": 454,
-    "name": "变异博士鹰",
+    "name": "變異博士鷹",
     "race": 3,
     "start_base_level": 60,
     "price": 51000,
@@ -11980,7 +11980,7 @@
   },
   {
     "type": 455,
-    "name": "变异博士鹰",
+    "name": "變異博士鷹",
     "race": 3,
     "start_base_level": 90,
     "price": 181000,
@@ -12046,7 +12046,7 @@
   },
   {
     "type": 457,
-    "name": "皇冠红色棒",
+    "name": "皇冠紅色棒",
     "race": 5,
     "start_base_level": 50,
     "price": 41000,
@@ -12079,7 +12079,7 @@
   },
   {
     "type": 488,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 1,
     "price": 100,
@@ -12112,7 +12112,7 @@
   },
   {
     "type": 489,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 30,
     "price": 16500,
@@ -12145,7 +12145,7 @@
   },
   {
     "type": 490,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -12178,7 +12178,7 @@
   },
   {
     "type": 491,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -12211,7 +12211,7 @@
   },
   {
     "type": 492,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -12244,7 +12244,7 @@
   },
   {
     "type": 493,
-    "name": "红蝙蝠龙",
+    "name": "紅蝙蝠龍",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -12310,7 +12310,7 @@
   },
   {
     "type": 495,
-    "name": "博士鹰王",
+    "name": "博士鷹王",
     "race": 3,
     "start_base_level": 110,
     "price": 291000,
@@ -12343,7 +12343,7 @@
   },
   {
     "type": 496,
-    "name": "机械鸵鸟",
+    "name": "機械鴕鳥",
     "race": 7,
     "start_base_level": 110,
     "price": 291000,
@@ -12376,7 +12376,7 @@
   },
   {
     "type": 497,
-    "name": "变种大嘴怪",
+    "name": "變種大嘴怪",
     "race": 5,
     "start_base_level": 24,
     "price": 7500,
@@ -12409,7 +12409,7 @@
   },
   {
     "type": 498,
-    "name": "红嘴豚",
+    "name": "紅嘴豚",
     "race": 3,
     "start_base_level": 30,
     "price": 16500,
@@ -12442,7 +12442,7 @@
   },
   {
     "type": 499,
-    "name": "水镜",
+    "name": "水鏡",
     "race": 2,
     "start_base_level": 30,
     "price": 16500,
@@ -12475,7 +12475,7 @@
   },
   {
     "type": 500,
-    "name": "蜗牛叮铛",
+    "name": "蝸牛叮鐺",
     "race": 4,
     "start_base_level": 30,
     "price": 16500,
@@ -12508,7 +12508,7 @@
   },
   {
     "type": 501,
-    "name": "节节高",
+    "name": "節節高",
     "race": 5,
     "start_base_level": 31,
     "price": 18000,
@@ -12541,7 +12541,7 @@
   },
   {
     "type": 502,
-    "name": "顽皮球",
+    "name": "頑皮球",
     "race": 5,
     "start_base_level": 35,
     "price": 24000,
@@ -12640,7 +12640,7 @@
   },
   {
     "type": 505,
-    "name": "恶灵",
+    "name": "惡靈",
     "race": 1,
     "start_base_level": 38,
     "price": 28500,
@@ -12706,7 +12706,7 @@
   },
   {
     "type": 507,
-    "name": "变异领路甲虫",
+    "name": "變異領路甲蟲",
     "race": 4,
     "start_base_level": 47,
     "price": 38000,
@@ -12772,7 +12772,7 @@
   },
   {
     "type": 509,
-    "name": "大红鹰",
+    "name": "大紅鷹",
     "race": 3,
     "start_base_level": 48,
     "price": 39000,
@@ -12805,7 +12805,7 @@
   },
   {
     "type": 510,
-    "name": "万圣恶魔",
+    "name": "萬聖惡魔",
     "race": 1,
     "start_base_level": 52,
     "price": 43000,
@@ -12871,7 +12871,7 @@
   },
   {
     "type": 512,
-    "name": "变异大红鹰",
+    "name": "變異大紅鷹",
     "race": 3,
     "start_base_level": 58,
     "price": 49000,
@@ -12904,7 +12904,7 @@
   },
   {
     "type": 513,
-    "name": "斯凯波 ",
+    "name": "斯凱波 ",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -12970,7 +12970,7 @@
   },
   {
     "type": 515,
-    "name": "米德特尔",
+    "name": "米德特爾",
     "race": 3,
     "start_base_level": 68,
     "price": 83000,
@@ -13003,7 +13003,7 @@
   },
   {
     "type": 516,
-    "name": "胖头龙",
+    "name": "胖頭龍",
     "race": 0,
     "start_base_level": 69,
     "price": 87000,
@@ -13036,7 +13036,7 @@
   },
   {
     "type": 517,
-    "name": "变异运动猫",
+    "name": "變異運動貓",
     "race": 2,
     "start_base_level": 73,
     "price": 103000,
@@ -13069,7 +13069,7 @@
   },
   {
     "type": 518,
-    "name": "库玛",
+    "name": "庫瑪",
     "race": 6,
     "start_base_level": 78,
     "price": 123000,
@@ -13102,7 +13102,7 @@
   },
   {
     "type": 519,
-    "name": "小恶魔",
+    "name": "小惡魔",
     "race": 1,
     "start_base_level": 79,
     "price": 127000,
@@ -13135,7 +13135,7 @@
   },
   {
     "type": 520,
-    "name": "超级瓦斯蛋",
+    "name": "超級瓦斯蛋",
     "race": 4,
     "start_base_level": 80,
     "price": 131000,
@@ -13168,7 +13168,7 @@
   },
   {
     "type": 521,
-    "name": "超级木偶人",
+    "name": "超級木偶人",
     "race": 5,
     "start_base_level": 81,
     "price": 136000,
@@ -13201,7 +13201,7 @@
   },
   {
     "type": 522,
-    "name": "超级白虎",
+    "name": "超級白虎",
     "race": 2,
     "start_base_level": 82,
     "price": 141000,
@@ -13234,7 +13234,7 @@
   },
   {
     "type": 523,
-    "name": "史诺基",
+    "name": "史諾基",
     "race": 6,
     "start_base_level": 84,
     "price": 151000,
@@ -13267,7 +13267,7 @@
   },
   {
     "type": 524,
-    "name": "风琴恶魔",
+    "name": "風琴惡魔",
     "race": 1,
     "start_base_level": 88,
     "price": 171000,
@@ -13300,7 +13300,7 @@
   },
   {
     "type": 525,
-    "name": "圣诞企鹅",
+    "name": "聖誕企鵝",
     "race": 3,
     "start_base_level": 94,
     "price": 201000,
@@ -13333,7 +13333,7 @@
   },
   {
     "type": 526,
-    "name": "翡翠龟",
+    "name": "翡翠龜",
     "race": 2,
     "start_base_level": 94,
     "price": 201000,
@@ -13366,7 +13366,7 @@
   },
   {
     "type": 527,
-    "name": "大鼻鸟",
+    "name": "大鼻鳥",
     "race": 7,
     "start_base_level": 98,
     "price": 221000,
@@ -13399,7 +13399,7 @@
   },
   {
     "type": 528,
-    "name": "强化运动猫",
+    "name": "強化運動貓",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -13432,7 +13432,7 @@
   },
   {
     "type": 529,
-    "name": "红眼钉锤怪",
+    "name": "紅眼釘錘怪",
     "race": 6,
     "start_base_level": 94,
     "price": 201000,
@@ -13465,7 +13465,7 @@
   },
   {
     "type": 530,
-    "name": "翡翠龟",
+    "name": "翡翠龜",
     "race": 2,
     "start_base_level": 94,
     "price": 201000,
@@ -13498,7 +13498,7 @@
   },
   {
     "type": 531,
-    "name": "大鼻鸟",
+    "name": "大鼻鳥",
     "race": 7,
     "start_base_level": 98,
     "price": 221000,
@@ -13531,7 +13531,7 @@
   },
   {
     "type": 532,
-    "name": "强化运动猫",
+    "name": "強化運動貓",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -13597,7 +13597,7 @@
   },
   {
     "type": 534,
-    "name": "大眼蓝",
+    "name": "大眼藍",
     "race": 7,
     "start_base_level": 114,
     "price": 315000,
@@ -13630,7 +13630,7 @@
   },
   {
     "type": 535,
-    "name": "哈比鸟",
+    "name": "哈比鳥",
     "race": 3,
     "start_base_level": 117,
     "price": 333000,
@@ -13663,7 +13663,7 @@
   },
   {
     "type": 536,
-    "name": "小刚",
+    "name": "小剛",
     "race": 7,
     "start_base_level": 117,
     "price": 333000,
@@ -13762,7 +13762,7 @@
   },
   {
     "type": 539,
-    "name": "博士鹰王",
+    "name": "博士鷹王",
     "race": 3,
     "start_base_level": 30,
     "price": 16500,
@@ -13795,7 +13795,7 @@
   },
   {
     "type": 540,
-    "name": "博士鹰王",
+    "name": "博士鷹王",
     "race": 3,
     "start_base_level": 70,
     "price": 91000,
@@ -13828,7 +13828,7 @@
   },
   {
     "type": 541,
-    "name": "机械鸵鸟",
+    "name": "機械鴕鳥",
     "race": 7,
     "start_base_level": 30,
     "price": 16500,
@@ -13861,7 +13861,7 @@
   },
   {
     "type": 542,
-    "name": "机械鸵鸟",
+    "name": "機械鴕鳥",
     "race": 7,
     "start_base_level": 70,
     "price": 91000,
@@ -13894,7 +13894,7 @@
   },
   {
     "type": 543,
-    "name": "卡鲁昆",
+    "name": "卡魯昆",
     "race": 0,
     "start_base_level": 10,
     "price": 550,
@@ -14059,7 +14059,7 @@
   },
   {
     "type": 549,
-    "name": "噬魂师",
+    "name": "噬魂師",
     "race": 6,
     "start_base_level": 185,
     "price": 774000,
@@ -14092,7 +14092,7 @@
   },
   {
     "type": 550,
-    "name": "铁钳将军",
+    "name": "鐵鉗將軍",
     "race": 4,
     "start_base_level": 183,
     "price": 752000,
@@ -14125,7 +14125,7 @@
   },
   {
     "type": 551,
-    "name": "变异蹦蹦兔",
+    "name": "變異蹦蹦兔",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -14158,7 +14158,7 @@
   },
   {
     "type": 552,
-    "name": "超级蜗牛叮铛",
+    "name": "超級蝸牛叮鐺",
     "race": 4,
     "start_base_level": 100,
     "price": 231000,
@@ -14191,7 +14191,7 @@
   },
   {
     "type": 553,
-    "name": "变异椰蛋树",
+    "name": "變異椰蛋樹",
     "race": 5,
     "start_base_level": 117,
     "price": 333000,
@@ -14224,7 +14224,7 @@
   },
   {
     "type": 554,
-    "name": "超级木牌怪",
+    "name": "超級木牌怪",
     "race": 5,
     "start_base_level": 125,
     "price": 376000,
@@ -14257,7 +14257,7 @@
   },
   {
     "type": 555,
-    "name": "变异哈比鸟",
+    "name": "變異哈比鳥",
     "race": 3,
     "start_base_level": 135,
     "price": 426000,
@@ -14290,7 +14290,7 @@
   },
   {
     "type": 556,
-    "name": "变异飞天龙",
+    "name": "變異飛天龍",
     "race": 0,
     "start_base_level": 145,
     "price": 486000,
@@ -14323,7 +14323,7 @@
   },
   {
     "type": 557,
-    "name": "变异魔术师",
+    "name": "變異魔術師",
     "race": 6,
     "start_base_level": 150,
     "price": 521000,
@@ -14356,7 +14356,7 @@
   },
   {
     "type": 558,
-    "name": "超级冥特魔",
+    "name": "超級冥特魔",
     "race": 6,
     "start_base_level": 158,
     "price": 577000,
@@ -14389,7 +14389,7 @@
   },
   {
     "type": 559,
-    "name": "变异沙鲁法",
+    "name": "變異沙魯法",
     "race": 1,
     "start_base_level": 161,
     "price": 597000,
@@ -14422,7 +14422,7 @@
   },
   {
     "type": 560,
-    "name": "灰双斧铠魔",
+    "name": "灰雙斧鎧魔",
     "race": 7,
     "start_base_level": 162,
     "price": 603000,
@@ -14455,7 +14455,7 @@
   },
   {
     "type": 561,
-    "name": "超级深海水妖",
+    "name": "超級深海水妖",
     "race": 0,
     "start_base_level": 165,
     "price": 621000,
@@ -14488,7 +14488,7 @@
   },
   {
     "type": 562,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 1,
     "price": 100,
@@ -14521,7 +14521,7 @@
   },
   {
     "type": 563,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 15,
     "price": 1400,
@@ -14554,7 +14554,7 @@
   },
   {
     "type": 564,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 30,
     "price": 16500,
@@ -14587,7 +14587,7 @@
   },
   {
     "type": 565,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 45,
     "price": 36000,
@@ -14620,7 +14620,7 @@
   },
   {
     "type": 566,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -14653,7 +14653,7 @@
   },
   {
     "type": 567,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -14686,7 +14686,7 @@
   },
   {
     "type": 568,
-    "name": "超级变异云龙",
+    "name": "超級變異雲龍",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -14719,7 +14719,7 @@
   },
   {
     "type": 569,
-    "name": "超级变异云龙",
+    "name": "超級變異雲龍",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -14752,7 +14752,7 @@
   },
   {
     "type": 570,
-    "name": "超级变异云龙",
+    "name": "超級變異雲龍",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -14785,7 +14785,7 @@
   },
   {
     "type": 571,
-    "name": "超级变异云龙",
+    "name": "超級變異雲龍",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -14818,7 +14818,7 @@
   },
   {
     "type": 572,
-    "name": "超级变异云龙",
+    "name": "超級變異雲龍",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -14851,7 +14851,7 @@
   },
   {
     "type": 573,
-    "name": "变异蓝尾云龙",
+    "name": "變異藍尾雲龍",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -14884,7 +14884,7 @@
   },
   {
     "type": 574,
-    "name": "变异蓝尾云龙",
+    "name": "變異藍尾雲龍",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -14917,7 +14917,7 @@
   },
   {
     "type": 575,
-    "name": "变异蓝尾云龙",
+    "name": "變異藍尾雲龍",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -14950,7 +14950,7 @@
   },
   {
     "type": 576,
-    "name": "变异蓝尾云龙",
+    "name": "變異藍尾雲龍",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -14983,7 +14983,7 @@
   },
   {
     "type": 577,
-    "name": "变异蓝尾云龙",
+    "name": "變異藍尾雲龍",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -15016,7 +15016,7 @@
   },
   {
     "type": 578,
-    "name": "超变异蓝尾云龙",
+    "name": "超變異藍尾雲龍",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -15049,7 +15049,7 @@
   },
   {
     "type": 579,
-    "name": "超变异蓝尾云龙",
+    "name": "超變異藍尾雲龍",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -15082,7 +15082,7 @@
   },
   {
     "type": 580,
-    "name": "超变异蓝尾云龙",
+    "name": "超變異藍尾雲龍",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -15115,7 +15115,7 @@
   },
   {
     "type": 581,
-    "name": "超变异蓝尾云龙",
+    "name": "超變異藍尾雲龍",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -15148,7 +15148,7 @@
   },
   {
     "type": 582,
-    "name": "超变异蓝尾云龙",
+    "name": "超變異藍尾雲龍",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -15181,7 +15181,7 @@
   },
   {
     "type": 583,
-    "name": "超蓝尾云龙",
+    "name": "超藍尾雲龍",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -15214,7 +15214,7 @@
   },
   {
     "type": 584,
-    "name": "超蓝尾云龙",
+    "name": "超藍尾雲龍",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -15247,7 +15247,7 @@
   },
   {
     "type": 585,
-    "name": "超蓝尾云龙",
+    "name": "超藍尾雲龍",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -15280,7 +15280,7 @@
   },
   {
     "type": 586,
-    "name": "超蓝尾云龙",
+    "name": "超藍尾雲龍",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -15313,7 +15313,7 @@
   },
   {
     "type": 587,
-    "name": "超蓝尾云龙",
+    "name": "超藍尾雲龍",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -15346,7 +15346,7 @@
   },
   {
     "type": 588,
-    "name": "超级水镜",
+    "name": "超級水鏡",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -15379,7 +15379,7 @@
   },
   {
     "type": 589,
-    "name": "超级水镜",
+    "name": "超級水鏡",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -15412,7 +15412,7 @@
   },
   {
     "type": 590,
-    "name": "超级水镜",
+    "name": "超級水鏡",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -15445,7 +15445,7 @@
   },
   {
     "type": 591,
-    "name": "超级水镜",
+    "name": "超級水鏡",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -15478,7 +15478,7 @@
   },
   {
     "type": 592,
-    "name": "超级水镜",
+    "name": "超級水鏡",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -15511,7 +15511,7 @@
   },
   {
     "type": 593,
-    "name": "蓝水镜",
+    "name": "藍水鏡",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -15544,7 +15544,7 @@
   },
   {
     "type": 594,
-    "name": "蓝水镜",
+    "name": "藍水鏡",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -15577,7 +15577,7 @@
   },
   {
     "type": 595,
-    "name": "蓝水镜",
+    "name": "藍水鏡",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -15610,7 +15610,7 @@
   },
   {
     "type": 596,
-    "name": "蓝水镜",
+    "name": "藍水鏡",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -15643,7 +15643,7 @@
   },
   {
     "type": 597,
-    "name": "蓝水镜",
+    "name": "藍水鏡",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -15676,7 +15676,7 @@
   },
   {
     "type": 598,
-    "name": "超级蓝水镜",
+    "name": "超級藍水鏡",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -15709,7 +15709,7 @@
   },
   {
     "type": 599,
-    "name": "超级蓝水镜",
+    "name": "超級藍水鏡",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -15742,7 +15742,7 @@
   },
   {
     "type": 600,
-    "name": "超级蓝水镜",
+    "name": "超級藍水鏡",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -15775,7 +15775,7 @@
   },
   {
     "type": 601,
-    "name": "超级蓝水镜",
+    "name": "超級藍水鏡",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -15808,7 +15808,7 @@
   },
   {
     "type": 602,
-    "name": "超级蓝水镜",
+    "name": "超級藍水鏡",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -15841,7 +15841,7 @@
   },
   {
     "type": 603,
-    "name": "变异水镜",
+    "name": "變異水鏡",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -15874,7 +15874,7 @@
   },
   {
     "type": 604,
-    "name": "变异水镜",
+    "name": "變異水鏡",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -15907,7 +15907,7 @@
   },
   {
     "type": 605,
-    "name": "变异水镜",
+    "name": "變異水鏡",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -15940,7 +15940,7 @@
   },
   {
     "type": 606,
-    "name": "变异水镜",
+    "name": "變異水鏡",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -15973,7 +15973,7 @@
   },
   {
     "type": 607,
-    "name": "变异水镜",
+    "name": "變異水鏡",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -16006,7 +16006,7 @@
   },
   {
     "type": 608,
-    "name": "超级哈普斯",
+    "name": "超級哈普斯",
     "race": 4,
     "start_base_level": 40,
     "price": 31000,
@@ -16039,7 +16039,7 @@
   },
   {
     "type": 609,
-    "name": "超级哈普斯",
+    "name": "超級哈普斯",
     "race": 4,
     "start_base_level": 50,
     "price": 41000,
@@ -16072,7 +16072,7 @@
   },
   {
     "type": 610,
-    "name": "超级哈普斯",
+    "name": "超級哈普斯",
     "race": 4,
     "start_base_level": 70,
     "price": 91000,
@@ -16105,7 +16105,7 @@
   },
   {
     "type": 611,
-    "name": "超级哈普斯",
+    "name": "超級哈普斯",
     "race": 4,
     "start_base_level": 90,
     "price": 181000,
@@ -16138,7 +16138,7 @@
   },
   {
     "type": 612,
-    "name": "超级哈普斯",
+    "name": "超級哈普斯",
     "race": 4,
     "start_base_level": 110,
     "price": 291000,
@@ -16171,7 +16171,7 @@
   },
   {
     "type": 613,
-    "name": "蓝哈普斯",
+    "name": "藍哈普斯",
     "race": 4,
     "start_base_level": 40,
     "price": 31000,
@@ -16204,7 +16204,7 @@
   },
   {
     "type": 614,
-    "name": "蓝哈普斯",
+    "name": "藍哈普斯",
     "race": 4,
     "start_base_level": 50,
     "price": 41000,
@@ -16237,7 +16237,7 @@
   },
   {
     "type": 615,
-    "name": "蓝哈普斯",
+    "name": "藍哈普斯",
     "race": 4,
     "start_base_level": 70,
     "price": 91000,
@@ -16270,7 +16270,7 @@
   },
   {
     "type": 616,
-    "name": "蓝哈普斯",
+    "name": "藍哈普斯",
     "race": 4,
     "start_base_level": 90,
     "price": 181000,
@@ -16303,7 +16303,7 @@
   },
   {
     "type": 617,
-    "name": "蓝哈普斯",
+    "name": "藍哈普斯",
     "race": 4,
     "start_base_level": 110,
     "price": 291000,
@@ -16336,7 +16336,7 @@
   },
   {
     "type": 618,
-    "name": "超级蓝哈普斯",
+    "name": "超級藍哈普斯",
     "race": 4,
     "start_base_level": 40,
     "price": 31000,
@@ -16369,7 +16369,7 @@
   },
   {
     "type": 619,
-    "name": "超级蓝哈普斯",
+    "name": "超級藍哈普斯",
     "race": 4,
     "start_base_level": 50,
     "price": 41000,
@@ -16402,7 +16402,7 @@
   },
   {
     "type": 620,
-    "name": "超级蓝哈普斯",
+    "name": "超級藍哈普斯",
     "race": 4,
     "start_base_level": 70,
     "price": 91000,
@@ -16435,7 +16435,7 @@
   },
   {
     "type": 621,
-    "name": "超级蓝哈普斯",
+    "name": "超級藍哈普斯",
     "race": 4,
     "start_base_level": 90,
     "price": 181000,
@@ -16468,7 +16468,7 @@
   },
   {
     "type": 622,
-    "name": "超级蓝哈普斯",
+    "name": "超級藍哈普斯",
     "race": 4,
     "start_base_level": 110,
     "price": 291000,
@@ -16501,7 +16501,7 @@
   },
   {
     "type": 623,
-    "name": "变异哈普斯",
+    "name": "變異哈普斯",
     "race": 4,
     "start_base_level": 40,
     "price": 31000,
@@ -16534,7 +16534,7 @@
   },
   {
     "type": 624,
-    "name": "变异哈普斯",
+    "name": "變異哈普斯",
     "race": 4,
     "start_base_level": 50,
     "price": 41000,
@@ -16567,7 +16567,7 @@
   },
   {
     "type": 625,
-    "name": "变异哈普斯",
+    "name": "變異哈普斯",
     "race": 4,
     "start_base_level": 70,
     "price": 91000,
@@ -16600,7 +16600,7 @@
   },
   {
     "type": 626,
-    "name": "变异哈普斯",
+    "name": "變異哈普斯",
     "race": 4,
     "start_base_level": 90,
     "price": 181000,
@@ -16633,7 +16633,7 @@
   },
   {
     "type": 627,
-    "name": "变异哈普斯",
+    "name": "變異哈普斯",
     "race": 4,
     "start_base_level": 110,
     "price": 291000,
@@ -16666,7 +16666,7 @@
   },
   {
     "type": 628,
-    "name": "超变白虎",
+    "name": "超變白虎",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -16699,7 +16699,7 @@
   },
   {
     "type": 629,
-    "name": "超变白虎",
+    "name": "超變白虎",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -16732,7 +16732,7 @@
   },
   {
     "type": 630,
-    "name": "超变白虎",
+    "name": "超變白虎",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -16765,7 +16765,7 @@
   },
   {
     "type": 631,
-    "name": "超变白虎",
+    "name": "超變白虎",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -16798,7 +16798,7 @@
   },
   {
     "type": 632,
-    "name": "超变白虎",
+    "name": "超變白虎",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -16831,7 +16831,7 @@
   },
   {
     "type": 633,
-    "name": "黑暗树妖",
+    "name": "黑暗樹妖",
     "race": 5,
     "start_base_level": 140,
     "price": 451000,
@@ -16864,7 +16864,7 @@
   },
   {
     "type": 634,
-    "name": "超变石奴",
+    "name": "超變石奴",
     "race": 6,
     "start_base_level": 40,
     "price": 31000,
@@ -16897,7 +16897,7 @@
   },
   {
     "type": 635,
-    "name": "超变石奴",
+    "name": "超變石奴",
     "race": 6,
     "start_base_level": 60,
     "price": 51000,
@@ -16930,7 +16930,7 @@
   },
   {
     "type": 636,
-    "name": "超变石奴",
+    "name": "超變石奴",
     "race": 6,
     "start_base_level": 80,
     "price": 131000,
@@ -16963,7 +16963,7 @@
   },
   {
     "type": 637,
-    "name": "超变石奴",
+    "name": "超變石奴",
     "race": 6,
     "start_base_level": 120,
     "price": 351000,
@@ -16996,7 +16996,7 @@
   },
   {
     "type": 638,
-    "name": "超变石奴",
+    "name": "超變石奴",
     "race": 6,
     "start_base_level": 140,
     "price": 451000,
@@ -17029,7 +17029,7 @@
   },
   {
     "type": 639,
-    "name": "黑暗守护犬宝宝",
+    "name": "黑暗守護犬寶寶",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -17062,7 +17062,7 @@
   },
   {
     "type": 640,
-    "name": "黑暗守护犬宝宝",
+    "name": "黑暗守護犬寶寶",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -17095,7 +17095,7 @@
   },
   {
     "type": 641,
-    "name": "黑暗守护犬宝宝",
+    "name": "黑暗守護犬寶寶",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -17128,7 +17128,7 @@
   },
   {
     "type": 642,
-    "name": "黑暗守护犬宝宝",
+    "name": "黑暗守護犬寶寶",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -17161,7 +17161,7 @@
   },
   {
     "type": 643,
-    "name": "黑暗守护犬宝宝",
+    "name": "黑暗守護犬寶寶",
     "race": 2,
     "start_base_level": 140,
     "price": 451000,
@@ -17194,7 +17194,7 @@
   },
   {
     "type": 644,
-    "name": "长尾陆行鸟宝宝",
+    "name": "長尾陸行鳥寶寶",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -17227,7 +17227,7 @@
   },
   {
     "type": 645,
-    "name": "长尾陆行鸟宝宝",
+    "name": "長尾陸行鳥寶寶",
     "race": 0,
     "start_base_level": 60,
     "price": 51000,
@@ -17260,7 +17260,7 @@
   },
   {
     "type": 646,
-    "name": "长尾陆行鸟宝宝",
+    "name": "長尾陸行鳥寶寶",
     "race": 0,
     "start_base_level": 80,
     "price": 131000,
@@ -17293,7 +17293,7 @@
   },
   {
     "type": 647,
-    "name": "长尾陆行鸟宝宝",
+    "name": "長尾陸行鳥寶寶",
     "race": 0,
     "start_base_level": 120,
     "price": 351000,
@@ -17326,7 +17326,7 @@
   },
   {
     "type": 648,
-    "name": "长尾陆行鸟宝宝",
+    "name": "長尾陸行鳥寶寶",
     "race": 0,
     "start_base_level": 140,
     "price": 451000,
@@ -17359,7 +17359,7 @@
   },
   {
     "type": 649,
-    "name": "巨灵恶魔宝宝",
+    "name": "巨靈惡魔寶寶",
     "race": 1,
     "start_base_level": 40,
     "price": 31000,
@@ -17392,7 +17392,7 @@
   },
   {
     "type": 650,
-    "name": "巨灵恶魔宝宝",
+    "name": "巨靈惡魔寶寶",
     "race": 1,
     "start_base_level": 60,
     "price": 51000,
@@ -17425,7 +17425,7 @@
   },
   {
     "type": 651,
-    "name": "巨灵恶魔宝宝",
+    "name": "巨靈惡魔寶寶",
     "race": 1,
     "start_base_level": 80,
     "price": 131000,
@@ -17458,7 +17458,7 @@
   },
   {
     "type": 652,
-    "name": "巨灵恶魔宝宝",
+    "name": "巨靈惡魔寶寶",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -17491,7 +17491,7 @@
   },
   {
     "type": 653,
-    "name": "巨灵恶魔宝宝",
+    "name": "巨靈惡魔寶寶",
     "race": 1,
     "start_base_level": 140,
     "price": 451000,
@@ -17524,7 +17524,7 @@
   },
   {
     "type": 654,
-    "name": "巨影恶魔宝宝",
+    "name": "巨影惡魔寶寶",
     "race": 1,
     "start_base_level": 40,
     "price": 31000,
@@ -17557,7 +17557,7 @@
   },
   {
     "type": 655,
-    "name": "巨影恶魔宝宝",
+    "name": "巨影惡魔寶寶",
     "race": 1,
     "start_base_level": 60,
     "price": 51000,
@@ -17590,7 +17590,7 @@
   },
   {
     "type": 656,
-    "name": "巨影恶魔宝宝",
+    "name": "巨影惡魔寶寶",
     "race": 1,
     "start_base_level": 80,
     "price": 131000,
@@ -17623,7 +17623,7 @@
   },
   {
     "type": 657,
-    "name": "巨影恶魔宝宝",
+    "name": "巨影惡魔寶寶",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -17656,7 +17656,7 @@
   },
   {
     "type": 658,
-    "name": "巨影恶魔宝宝",
+    "name": "巨影惡魔寶寶",
     "race": 1,
     "start_base_level": 140,
     "price": 451000,
@@ -17689,7 +17689,7 @@
   },
   {
     "type": 659,
-    "name": "巨灵恶魔",
+    "name": "巨靈惡魔",
     "race": 1,
     "start_base_level": 65,
     "price": 71000,
@@ -17722,7 +17722,7 @@
   },
   {
     "type": 660,
-    "name": "超级达特凯彬",
+    "name": "超級達特凱彬",
     "race": 6,
     "start_base_level": 67,
     "price": 79000,
@@ -17755,7 +17755,7 @@
   },
   {
     "type": 661,
-    "name": "胖头龙",
+    "name": "胖頭龍",
     "race": 0,
     "start_base_level": 69,
     "price": 87000,
@@ -17788,7 +17788,7 @@
   },
   {
     "type": 662,
-    "name": "变异运动猫",
+    "name": "變異運動貓",
     "race": 2,
     "start_base_level": 73,
     "price": 103000,
@@ -17821,7 +17821,7 @@
   },
   {
     "type": 663,
-    "name": "棕野猪",
+    "name": "棕野豬",
     "race": 2,
     "start_base_level": 5,
     "price": 300,
@@ -17854,7 +17854,7 @@
   },
   {
     "type": 664,
-    "name": "Mini棕野猪",
+    "name": "Mini棕野豬",
     "race": 2,
     "start_base_level": 5,
     "price": 300,
@@ -17887,7 +17887,7 @@
   },
   {
     "type": 665,
-    "name": "Mini黑野猪",
+    "name": "Mini黑野豬",
     "race": 2,
     "start_base_level": 5,
     "price": 300,
@@ -17920,7 +17920,7 @@
   },
   {
     "type": 666,
-    "name": "忍者龟60兽",
+    "name": "忍者龜60獸",
     "race": 2,
     "start_base_level": 60,
     "price": 100,
@@ -17953,7 +17953,7 @@
   },
   {
     "type": 667,
-    "name": "忍者龟100兽",
+    "name": "忍者龜100獸",
     "race": 2,
     "start_base_level": 100,
     "price": 100,
@@ -17986,7 +17986,7 @@
   },
   {
     "type": 668,
-    "name": "忍者龟120兽",
+    "name": "忍者龜120獸",
     "race": 2,
     "start_base_level": 120,
     "price": 100,
@@ -18019,7 +18019,7 @@
   },
   {
     "type": 669,
-    "name": "忍者龟120龙",
+    "name": "忍者龜120龍",
     "race": 0,
     "start_base_level": 120,
     "price": 100,
@@ -18052,7 +18052,7 @@
   },
   {
     "type": 670,
-    "name": "忍者龟120神秘",
+    "name": "忍者龜120神秘",
     "race": 6,
     "start_base_level": 120,
     "price": 100,
@@ -18085,7 +18085,7 @@
   },
   {
     "type": 671,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 45,
     "price": 36000,
@@ -18118,7 +18118,7 @@
   },
   {
     "type": 672,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 65,
     "price": 71000,
@@ -18151,7 +18151,7 @@
   },
   {
     "type": 673,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 85,
     "price": 156000,
@@ -18184,7 +18184,7 @@
   },
   {
     "type": 674,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 105,
     "price": 261000,
@@ -18217,7 +18217,7 @@
   },
   {
     "type": 675,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 125,
     "price": 376000,
@@ -18415,7 +18415,7 @@
   },
   {
     "type": 681,
-    "name": "忍者龟-防刷GP",
+    "name": "忍者龜-防刷GP",
     "race": 7,
     "start_base_level": 120,
     "price": 959000,
@@ -18448,7 +18448,7 @@
   },
   {
     "type": 682,
-    "name": "忍者龟",
+    "name": "忍者龜",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -18481,7 +18481,7 @@
   },
   {
     "type": 683,
-    "name": "忍者龟",
+    "name": "忍者龜",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -18514,7 +18514,7 @@
   },
   {
     "type": 684,
-    "name": "忍者龟",
+    "name": "忍者龜",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -18547,7 +18547,7 @@
   },
   {
     "type": 685,
-    "name": "忍者龟",
+    "name": "忍者龜",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -18580,7 +18580,7 @@
   },
   {
     "type": 686,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 45,
     "price": 36000,
@@ -18613,7 +18613,7 @@
   },
   {
     "type": 687,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 65,
     "price": 71000,
@@ -18646,7 +18646,7 @@
   },
   {
     "type": 688,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 85,
     "price": 156000,
@@ -18679,7 +18679,7 @@
   },
   {
     "type": 689,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 105,
     "price": 261000,
@@ -18712,7 +18712,7 @@
   },
   {
     "type": 690,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 125,
     "price": 376000,
@@ -18745,7 +18745,7 @@
   },
   {
     "type": 691,
-    "name": "变异忍者龟",
+    "name": "變異忍者龜",
     "race": 2,
     "start_base_level": 145,
     "price": 486000,
@@ -18910,7 +18910,7 @@
   },
   {
     "type": 696,
-    "name": "红螃蟹王",
+    "name": "紅螃蟹王",
     "race": 2,
     "start_base_level": 45,
     "price": 36000,
@@ -18943,7 +18943,7 @@
   },
   {
     "type": 697,
-    "name": "红螃蟹王",
+    "name": "紅螃蟹王",
     "race": 2,
     "start_base_level": 85,
     "price": 156000,
@@ -18976,7 +18976,7 @@
   },
   {
     "type": 698,
-    "name": "红螃蟹王",
+    "name": "紅螃蟹王",
     "race": 2,
     "start_base_level": 125,
     "price": 376000,
@@ -19009,7 +19009,7 @@
   },
   {
     "type": 699,
-    "name": "红螃蟹王",
+    "name": "紅螃蟹王",
     "race": 2,
     "start_base_level": 165,
     "price": 621000,
@@ -19042,7 +19042,7 @@
   },
   {
     "type": 700,
-    "name": "绿色眼镜蛇",
+    "name": "綠色眼鏡蛇",
     "race": 2,
     "start_base_level": 35,
     "price": 24000,
@@ -19075,7 +19075,7 @@
   },
   {
     "type": 701,
-    "name": "绿色眼镜蛇",
+    "name": "綠色眼鏡蛇",
     "race": 2,
     "start_base_level": 75,
     "price": 111000,
@@ -19108,7 +19108,7 @@
   },
   {
     "type": 702,
-    "name": "绿色眼镜蛇",
+    "name": "綠色眼鏡蛇",
     "race": 2,
     "start_base_level": 115,
     "price": 321000,
@@ -19141,7 +19141,7 @@
   },
   {
     "type": 703,
-    "name": "绿色眼镜蛇",
+    "name": "綠色眼鏡蛇",
     "race": 2,
     "start_base_level": 155,
     "price": 556000,
@@ -19174,7 +19174,7 @@
   },
   {
     "type": 704,
-    "name": "红色眼镜蛇",
+    "name": "紅色眼鏡蛇",
     "race": 2,
     "start_base_level": 30,
     "price": 16500,
@@ -19207,7 +19207,7 @@
   },
   {
     "type": 705,
-    "name": "红色眼镜蛇",
+    "name": "紅色眼鏡蛇",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -19240,7 +19240,7 @@
   },
   {
     "type": 706,
-    "name": "红色眼镜蛇",
+    "name": "紅色眼鏡蛇",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -19273,7 +19273,7 @@
   },
   {
     "type": 707,
-    "name": "红色眼镜蛇",
+    "name": "紅色眼鏡蛇",
     "race": 2,
     "start_base_level": 150,
     "price": 521000,
@@ -19306,7 +19306,7 @@
   },
   {
     "type": 708,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -19339,7 +19339,7 @@
   },
   {
     "type": 709,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -19372,7 +19372,7 @@
   },
   {
     "type": 710,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 2,
     "start_base_level": 130,
     "price": 401000,
@@ -19405,7 +19405,7 @@
   },
   {
     "type": 711,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 2,
     "start_base_level": 170,
     "price": 651000,
@@ -19438,7 +19438,7 @@
   },
   {
     "type": 712,
-    "name": "黑野猪",
+    "name": "黑野豬",
     "race": 2,
     "start_base_level": 5,
     "price": 300,
@@ -20131,7 +20131,7 @@
   },
   {
     "type": 733,
-    "name": "超级奇奇",
+    "name": "超級奇奇",
     "race": 0,
     "start_base_level": 50,
     "price": 41000,
@@ -20164,7 +20164,7 @@
   },
   {
     "type": 734,
-    "name": "超级奇奇",
+    "name": "超級奇奇",
     "race": 0,
     "start_base_level": 70,
     "price": 91000,
@@ -20197,7 +20197,7 @@
   },
   {
     "type": 735,
-    "name": "超级奇奇",
+    "name": "超級奇奇",
     "race": 0,
     "start_base_level": 90,
     "price": 181000,
@@ -20230,7 +20230,7 @@
   },
   {
     "type": 736,
-    "name": "超级奇奇",
+    "name": "超級奇奇",
     "race": 0,
     "start_base_level": 110,
     "price": 291000,
@@ -20263,7 +20263,7 @@
   },
   {
     "type": 737,
-    "name": "超级奇奇",
+    "name": "超級奇奇",
     "race": 0,
     "start_base_level": 165,
     "price": 621000,
@@ -20296,7 +20296,7 @@
   },
   {
     "type": 738,
-    "name": "超级安安",
+    "name": "超級安安",
     "race": 3,
     "start_base_level": 50,
     "price": 41000,
@@ -20329,7 +20329,7 @@
   },
   {
     "type": 739,
-    "name": "超级安安",
+    "name": "超級安安",
     "race": 3,
     "start_base_level": 70,
     "price": 91000,
@@ -20362,7 +20362,7 @@
   },
   {
     "type": 740,
-    "name": "超级安安",
+    "name": "超級安安",
     "race": 3,
     "start_base_level": 90,
     "price": 181000,
@@ -20395,7 +20395,7 @@
   },
   {
     "type": 741,
-    "name": "超级安安",
+    "name": "超級安安",
     "race": 3,
     "start_base_level": 110,
     "price": 291000,
@@ -20428,7 +20428,7 @@
   },
   {
     "type": 742,
-    "name": "超级安安",
+    "name": "超級安安",
     "race": 3,
     "start_base_level": 165,
     "price": 621000,
@@ -20461,7 +20461,7 @@
   },
   {
     "type": 743,
-    "name": "超级米勒",
+    "name": "超級米勒",
     "race": 2,
     "start_base_level": 50,
     "price": 41000,
@@ -20494,7 +20494,7 @@
   },
   {
     "type": 744,
-    "name": "超级米勒",
+    "name": "超級米勒",
     "race": 2,
     "start_base_level": 70,
     "price": 91000,
@@ -20527,7 +20527,7 @@
   },
   {
     "type": 745,
-    "name": "超级米勒",
+    "name": "超級米勒",
     "race": 2,
     "start_base_level": 90,
     "price": 181000,
@@ -20560,7 +20560,7 @@
   },
   {
     "type": 746,
-    "name": "超级米勒",
+    "name": "超級米勒",
     "race": 2,
     "start_base_level": 110,
     "price": 291000,
@@ -20593,7 +20593,7 @@
   },
   {
     "type": 747,
-    "name": "超级米勒",
+    "name": "超級米勒",
     "race": 2,
     "start_base_level": 165,
     "price": 621000,
@@ -20626,7 +20626,7 @@
   },
   {
     "type": 748,
-    "name": "超级尼弄",
+    "name": "超級尼弄",
     "race": 7,
     "start_base_level": 50,
     "price": 41000,
@@ -20659,7 +20659,7 @@
   },
   {
     "type": 749,
-    "name": "超级尼弄",
+    "name": "超級尼弄",
     "race": 7,
     "start_base_level": 70,
     "price": 91000,
@@ -20692,7 +20692,7 @@
   },
   {
     "type": 750,
-    "name": "超级尼弄",
+    "name": "超級尼弄",
     "race": 7,
     "start_base_level": 90,
     "price": 181000,
@@ -20725,7 +20725,7 @@
   },
   {
     "type": 751,
-    "name": "超级尼弄",
+    "name": "超級尼弄",
     "race": 7,
     "start_base_level": 110,
     "price": 291000,
@@ -20758,7 +20758,7 @@
   },
   {
     "type": 752,
-    "name": "超级尼弄",
+    "name": "超級尼弄",
     "race": 7,
     "start_base_level": 165,
     "price": 621000,
@@ -20791,7 +20791,7 @@
   },
   {
     "type": 800,
-    "name": "火焰顽皮豆",
+    "name": "火焰頑皮豆",
     "race": 5,
     "start_base_level": 40,
     "price": 31000,
@@ -20824,7 +20824,7 @@
   },
   {
     "type": 801,
-    "name": "火焰顽皮豆",
+    "name": "火焰頑皮豆",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -20857,7 +20857,7 @@
   },
   {
     "type": 802,
-    "name": "火焰顽皮豆",
+    "name": "火焰頑皮豆",
     "race": 5,
     "start_base_level": 80,
     "price": 131000,
@@ -20890,7 +20890,7 @@
   },
   {
     "type": 803,
-    "name": "火焰顽皮豆",
+    "name": "火焰頑皮豆",
     "race": 5,
     "start_base_level": 100,
     "price": 231000,
@@ -20923,7 +20923,7 @@
   },
   {
     "type": 804,
-    "name": "超级流氓兔",
+    "name": "超級流氓兔",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -20956,7 +20956,7 @@
   },
   {
     "type": 805,
-    "name": "超级流氓兔",
+    "name": "超級流氓兔",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -20989,7 +20989,7 @@
   },
   {
     "type": 806,
-    "name": "超级流氓兔",
+    "name": "超級流氓兔",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -21022,7 +21022,7 @@
   },
   {
     "type": 807,
-    "name": "超级流氓兔",
+    "name": "超級流氓兔",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -21055,7 +21055,7 @@
   },
   {
     "type": 808,
-    "name": "超级流氓兔",
+    "name": "超級流氓兔",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -21088,7 +21088,7 @@
   },
   {
     "type": 809,
-    "name": "超级小坎布",
+    "name": "超級小坎布",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -21121,7 +21121,7 @@
   },
   {
     "type": 810,
-    "name": "超级小坎布",
+    "name": "超級小坎布",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -21154,7 +21154,7 @@
   },
   {
     "type": 811,
-    "name": "超级小坎布",
+    "name": "超級小坎布",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -21187,7 +21187,7 @@
   },
   {
     "type": 812,
-    "name": "超级小坎布",
+    "name": "超級小坎布",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -21220,7 +21220,7 @@
   },
   {
     "type": 813,
-    "name": "超级小坎布",
+    "name": "超級小坎布",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -21253,7 +21253,7 @@
   },
   {
     "type": 814,
-    "name": "超级卡龙王宝宝",
+    "name": "超級卡龍王寶寶",
     "race": 6,
     "start_base_level": 40,
     "price": 31000,
@@ -21583,7 +21583,7 @@
   },
   {
     "type": 824,
-    "name": "粉音乐龙",
+    "name": "粉音樂龍",
     "race": 0,
     "start_base_level": 91,
     "price": 186000,
@@ -21616,7 +21616,7 @@
   },
   {
     "type": 825,
-    "name": "大爪龙",
+    "name": "大爪龍",
     "race": 0,
     "start_base_level": 155,
     "price": 556000,
@@ -21649,7 +21649,7 @@
   },
   {
     "type": 826,
-    "name": "机电光龙",
+    "name": "機電光龍",
     "race": 0,
     "start_base_level": 105,
     "price": 261000,
@@ -21682,7 +21682,7 @@
   },
   {
     "type": 827,
-    "name": "龙狮",
+    "name": "龍獅",
     "race": 0,
     "start_base_level": 150,
     "price": 521000,
@@ -21715,7 +21715,7 @@
   },
   {
     "type": 828,
-    "name": "飞天甲壳龙",
+    "name": "飛天甲殼龍",
     "race": 0,
     "start_base_level": 108,
     "price": 279000,
@@ -21748,7 +21748,7 @@
   },
   {
     "type": 829,
-    "name": "黑暗龙狮",
+    "name": "黑暗龍獅",
     "race": 0,
     "start_base_level": 165,
     "price": 621000,
@@ -21781,7 +21781,7 @@
   },
   {
     "type": 830,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 200,
     "price": 959000,
@@ -21847,7 +21847,7 @@
   },
   {
     "type": 832,
-    "name": "哇一拼龙",
+    "name": "哇一拼龍",
     "race": 0,
     "start_base_level": 123,
     "price": 366000,
@@ -21880,7 +21880,7 @@
   },
   {
     "type": 833,
-    "name": "小绿剑龙",
+    "name": "小綠劍龍",
     "race": 0,
     "start_base_level": 97,
     "price": 216000,
@@ -21913,7 +21913,7 @@
   },
   {
     "type": 834,
-    "name": "大绿剑龙",
+    "name": "大綠劍龍",
     "race": 0,
     "start_base_level": 130,
     "price": 401000,
@@ -21946,7 +21946,7 @@
   },
   {
     "type": 835,
-    "name": "钻头龙",
+    "name": "鑽頭龍",
     "race": 0,
     "start_base_level": 138,
     "price": 441000,
@@ -21979,7 +21979,7 @@
   },
   {
     "type": 836,
-    "name": "DJ蓝音乐龙",
+    "name": "DJ藍音樂龍",
     "race": 0,
     "start_base_level": 135,
     "price": 426000,
@@ -22012,7 +22012,7 @@
   },
   {
     "type": 837,
-    "name": "弗兰肯1号",
+    "name": "弗蘭肯1號",
     "race": 1,
     "start_base_level": 130,
     "price": 401000,
@@ -22045,7 +22045,7 @@
   },
   {
     "type": 838,
-    "name": "红孩儿",
+    "name": "紅孩兒",
     "race": 1,
     "start_base_level": 92,
     "price": 191000,
@@ -22078,7 +22078,7 @@
   },
   {
     "type": 839,
-    "name": "小红",
+    "name": "小紅",
     "race": 1,
     "start_base_level": 102,
     "price": 243000,
@@ -22144,7 +22144,7 @@
   },
   {
     "type": 841,
-    "name": "变异恶魔骨龙",
+    "name": "變異惡魔骨龍",
     "race": 1,
     "start_base_level": 165,
     "price": 621000,
@@ -22177,7 +22177,7 @@
   },
   {
     "type": 842,
-    "name": "光头恶魔",
+    "name": "光頭惡魔",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -22210,7 +22210,7 @@
   },
   {
     "type": 843,
-    "name": "伊鲁法",
+    "name": "伊魯法",
     "race": 1,
     "start_base_level": 135,
     "price": 426000,
@@ -22276,7 +22276,7 @@
   },
   {
     "type": 845,
-    "name": "变异美乐奇",
+    "name": "變異美樂奇",
     "race": 1,
     "start_base_level": 110,
     "price": 291000,
@@ -22309,7 +22309,7 @@
   },
   {
     "type": 846,
-    "name": "弗兰肯2号",
+    "name": "弗蘭肯2號",
     "race": 1,
     "start_base_level": 140,
     "price": 451000,
@@ -22342,7 +22342,7 @@
   },
   {
     "type": 847,
-    "name": "弗兰肯3号",
+    "name": "弗蘭肯3號",
     "race": 1,
     "start_base_level": 150,
     "price": 521000,
@@ -22375,7 +22375,7 @@
   },
   {
     "type": 848,
-    "name": "复仇者",
+    "name": "復仇者",
     "race": 1,
     "start_base_level": 165,
     "price": 621000,
@@ -22408,7 +22408,7 @@
   },
   {
     "type": 849,
-    "name": "恶魔骨龙",
+    "name": "惡魔骨龍",
     "race": 1,
     "start_base_level": 142,
     "price": 465000,
@@ -22441,7 +22441,7 @@
   },
   {
     "type": 850,
-    "name": "木桩怪",
+    "name": "木樁怪",
     "race": 5,
     "start_base_level": 120,
     "price": 351000,
@@ -22474,7 +22474,7 @@
   },
   {
     "type": 851,
-    "name": "绿努比狗",
+    "name": "綠努比狗",
     "race": 5,
     "start_base_level": 90,
     "price": 181000,
@@ -22507,7 +22507,7 @@
   },
   {
     "type": 852,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 197,
     "price": 920000,
@@ -22540,7 +22540,7 @@
   },
   {
     "type": 853,
-    "name": "黄龙",
+    "name": "黃龍",
     "race": 0,
     "start_base_level": 136,
     "price": 431000,
@@ -22573,7 +22573,7 @@
   },
   {
     "type": 854,
-    "name": "玛丽棒棒",
+    "name": "瑪麗棒棒",
     "race": 5,
     "start_base_level": 105,
     "price": 261000,
@@ -22639,7 +22639,7 @@
   },
   {
     "type": 856,
-    "name": "蜜蜂树妖",
+    "name": "蜜蜂樹妖",
     "race": 5,
     "start_base_level": 165,
     "price": 621000,
@@ -22738,7 +22738,7 @@
   },
   {
     "type": 859,
-    "name": "红龙",
+    "name": "紅龍",
     "race": 0,
     "start_base_level": 165,
     "price": 621000,
@@ -22771,7 +22771,7 @@
   },
   {
     "type": 860,
-    "name": "紫女仆",
+    "name": "紫女僕",
     "race": 1,
     "start_base_level": 101,
     "price": 237000,
@@ -22804,7 +22804,7 @@
   },
   {
     "type": 861,
-    "name": "变异小恶魔",
+    "name": "變異小惡魔",
     "race": 1,
     "start_base_level": 128,
     "price": 391000,
@@ -22837,7 +22837,7 @@
   },
   {
     "type": 862,
-    "name": "红女仆",
+    "name": "紅女僕",
     "race": 1,
     "start_base_level": 135,
     "price": 426000,
@@ -22870,7 +22870,7 @@
   },
   {
     "type": 863,
-    "name": "黄女仆",
+    "name": "黃女僕",
     "race": 1,
     "start_base_level": 165,
     "price": 621000,
@@ -22903,7 +22903,7 @@
   },
   {
     "type": 864,
-    "name": "红桃木偶",
+    "name": "紅桃木偶",
     "race": 6,
     "start_base_level": 90,
     "price": 181000,
@@ -22936,7 +22936,7 @@
   },
   {
     "type": 865,
-    "name": "打鼓机",
+    "name": "打鼓機",
     "race": 6,
     "start_base_level": 130,
     "price": 401000,
@@ -23101,7 +23101,7 @@
   },
   {
     "type": 870,
-    "name": "哈蒂精灵",
+    "name": "哈蒂精靈",
     "race": 6,
     "start_base_level": 107,
     "price": 273000,
@@ -23134,7 +23134,7 @@
   },
   {
     "type": 871,
-    "name": "绿巨人",
+    "name": "綠巨人",
     "race": 6,
     "start_base_level": 131,
     "price": 406000,
@@ -23167,7 +23167,7 @@
   },
   {
     "type": 872,
-    "name": "双拳杰克",
+    "name": "雙拳傑克",
     "race": 6,
     "start_base_level": 105,
     "price": 261000,
@@ -23200,7 +23200,7 @@
   },
   {
     "type": 873,
-    "name": "双刀杰克",
+    "name": "雙刀傑克",
     "race": 6,
     "start_base_level": 135,
     "price": 426000,
@@ -23233,7 +23233,7 @@
   },
   {
     "type": 874,
-    "name": "变异紫小恶魔",
+    "name": "變異紫小惡魔",
     "race": 1,
     "start_base_level": 163,
     "price": 609000,
@@ -23266,7 +23266,7 @@
   },
   {
     "type": 875,
-    "name": "变异打鼓机",
+    "name": "變異打鼓機",
     "race": 6,
     "start_base_level": 165,
     "price": 621000,
@@ -23299,7 +23299,7 @@
   },
   {
     "type": 876,
-    "name": "袭海狂龙",
+    "name": "襲海狂龍",
     "race": 0,
     "start_base_level": 180,
     "price": 774000,
@@ -23332,7 +23332,7 @@
   },
   {
     "type": 877,
-    "name": "月翼神鹰",
+    "name": "月翼神鷹",
     "race": 3,
     "start_base_level": 180,
     "price": 774000,
@@ -23431,7 +23431,7 @@
   },
   {
     "type": 900,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 20,
     "price": 2400,
@@ -23464,7 +23464,7 @@
   },
   {
     "type": 901,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 40,
     "price": 31000,
@@ -23497,7 +23497,7 @@
   },
   {
     "type": 902,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 60,
     "price": 51000,
@@ -23530,7 +23530,7 @@
   },
   {
     "type": 903,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 80,
     "price": 131000,
@@ -23563,7 +23563,7 @@
   },
   {
     "type": 904,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 100,
     "price": 231000,
@@ -23596,7 +23596,7 @@
   },
   {
     "type": 905,
-    "name": "礼物-圣诞鹿",
+    "name": "禮物-聖誕鹿",
     "race": 2,
     "start_base_level": 150,
     "price": 100,
@@ -23629,7 +23629,7 @@
   },
   {
     "type": 906,
-    "name": "礼物-雪人",
+    "name": "禮物-雪人",
     "race": 6,
     "start_base_level": 150,
     "price": 100,
@@ -23662,7 +23662,7 @@
   },
   {
     "type": 907,
-    "name": "礼物-机械树",
+    "name": "禮物-機械樹",
     "race": 5,
     "start_base_level": 150,
     "price": 100,
@@ -23695,7 +23695,7 @@
   },
   {
     "type": 908,
-    "name": "卡鲁昆宝宝",
+    "name": "卡魯昆寶寶",
     "race": 0,
     "start_base_level": 180,
     "price": 100,
@@ -23728,7 +23728,7 @@
   },
   {
     "type": 909,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 20,
     "price": 2400,
@@ -23761,7 +23761,7 @@
   },
   {
     "type": 910,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 40,
     "price": 31000,
@@ -23794,7 +23794,7 @@
   },
   {
     "type": 911,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 60,
     "price": 51000,
@@ -23827,7 +23827,7 @@
   },
   {
     "type": 912,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 80,
     "price": 131000,
@@ -23860,7 +23860,7 @@
   },
   {
     "type": 913,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 100,
     "price": 231000,
@@ -23893,7 +23893,7 @@
   },
   {
     "type": 914,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 120,
     "price": 351000,
@@ -23926,7 +23926,7 @@
   },
   {
     "type": 915,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 140,
     "price": 451000,
@@ -23959,7 +23959,7 @@
   },
   {
     "type": 916,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 160,
     "price": 591000,
@@ -23992,7 +23992,7 @@
   },
   {
     "type": 917,
-    "name": "火女宝宝",
+    "name": "火女寶寶",
     "race": 1,
     "start_base_level": 180,
     "price": 100,
@@ -24025,7 +24025,7 @@
   },
   {
     "type": 918,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 20,
     "price": 2400,
@@ -24058,7 +24058,7 @@
   },
   {
     "type": 919,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 40,
     "price": 31000,
@@ -24091,7 +24091,7 @@
   },
   {
     "type": 920,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 60,
     "price": 51000,
@@ -24124,7 +24124,7 @@
   },
   {
     "type": 921,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 80,
     "price": 131000,
@@ -24157,7 +24157,7 @@
   },
   {
     "type": 922,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 100,
     "price": 231000,
@@ -24190,7 +24190,7 @@
   },
   {
     "type": 923,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 120,
     "price": 351000,
@@ -24223,7 +24223,7 @@
   },
   {
     "type": 924,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 140,
     "price": 451000,
@@ -24256,7 +24256,7 @@
   },
   {
     "type": 925,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 160,
     "price": 591000,
@@ -24289,7 +24289,7 @@
   },
   {
     "type": 926,
-    "name": "风女宝宝",
+    "name": "風女寶寶",
     "race": 2,
     "start_base_level": 180,
     "price": 100,
@@ -24322,7 +24322,7 @@
   },
   {
     "type": 927,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 20,
     "price": 2400,
@@ -24355,7 +24355,7 @@
   },
   {
     "type": 928,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 40,
     "price": 31000,
@@ -24388,7 +24388,7 @@
   },
   {
     "type": 929,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 60,
     "price": 51000,
@@ -24421,7 +24421,7 @@
   },
   {
     "type": 930,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 80,
     "price": 131000,
@@ -24454,7 +24454,7 @@
   },
   {
     "type": 931,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 100,
     "price": 231000,
@@ -24487,7 +24487,7 @@
   },
   {
     "type": 932,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 120,
     "price": 351000,
@@ -24520,7 +24520,7 @@
   },
   {
     "type": 933,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -24553,7 +24553,7 @@
   },
   {
     "type": 934,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 160,
     "price": 591000,
@@ -24586,7 +24586,7 @@
   },
   {
     "type": 935,
-    "name": "森林女王宝宝",
+    "name": "森林女王寶寶",
     "race": 3,
     "start_base_level": 180,
     "price": 100,
@@ -24619,7 +24619,7 @@
   },
   {
     "type": 938,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 40,
     "price": 31000,
@@ -24652,7 +24652,7 @@
   },
   {
     "type": 939,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 60,
     "price": 51000,
@@ -24685,7 +24685,7 @@
   },
   {
     "type": 940,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 80,
     "price": 131000,
@@ -24718,7 +24718,7 @@
   },
   {
     "type": 941,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 100,
     "price": 231000,
@@ -24751,7 +24751,7 @@
   },
   {
     "type": 942,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 6,
     "start_base_level": 120,
     "price": 351000,
@@ -24784,7 +24784,7 @@
   },
   {
     "type": 943,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 20,
     "price": 2400,
@@ -24817,7 +24817,7 @@
   },
   {
     "type": 944,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 40,
     "price": 31000,
@@ -24850,7 +24850,7 @@
   },
   {
     "type": 945,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 60,
     "price": 51000,
@@ -24883,7 +24883,7 @@
   },
   {
     "type": 946,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 80,
     "price": 131000,
@@ -24916,7 +24916,7 @@
   },
   {
     "type": 947,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 100,
     "price": 231000,
@@ -24949,7 +24949,7 @@
   },
   {
     "type": 948,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 120,
     "price": 351000,
@@ -24982,7 +24982,7 @@
   },
   {
     "type": 949,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 140,
     "price": 451000,
@@ -25015,7 +25015,7 @@
   },
   {
     "type": 950,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 160,
     "price": 591000,
@@ -25048,7 +25048,7 @@
   },
   {
     "type": 951,
-    "name": "铁钳将军宝宝",
+    "name": "鐵鉗將軍寶寶",
     "race": 4,
     "start_base_level": 180,
     "price": 719000,
@@ -25081,7 +25081,7 @@
   },
   {
     "type": 952,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 20,
     "price": 2400,
@@ -25114,7 +25114,7 @@
   },
   {
     "type": 953,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 40,
     "price": 31000,
@@ -25147,7 +25147,7 @@
   },
   {
     "type": 954,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 60,
     "price": 51000,
@@ -25180,7 +25180,7 @@
   },
   {
     "type": 955,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 80,
     "price": 131000,
@@ -25213,7 +25213,7 @@
   },
   {
     "type": 956,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 100,
     "price": 231000,
@@ -25246,7 +25246,7 @@
   },
   {
     "type": 957,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 120,
     "price": 351000,
@@ -25279,7 +25279,7 @@
   },
   {
     "type": 958,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 140,
     "price": 451000,
@@ -25312,7 +25312,7 @@
   },
   {
     "type": 959,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 160,
     "price": 591000,
@@ -25345,7 +25345,7 @@
   },
   {
     "type": 960,
-    "name": "红叶宝宝",
+    "name": "紅葉寶寶",
     "race": 5,
     "start_base_level": 180,
     "price": 719000,
@@ -25378,7 +25378,7 @@
   },
   {
     "type": 961,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 20,
     "price": 2400,
@@ -25411,7 +25411,7 @@
   },
   {
     "type": 962,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 40,
     "price": 31000,
@@ -25444,7 +25444,7 @@
   },
   {
     "type": 963,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 60,
     "price": 51000,
@@ -25477,7 +25477,7 @@
   },
   {
     "type": 964,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 80,
     "price": 131000,
@@ -25510,7 +25510,7 @@
   },
   {
     "type": 965,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 100,
     "price": 231000,
@@ -25543,7 +25543,7 @@
   },
   {
     "type": 966,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 120,
     "price": 351000,
@@ -25576,7 +25576,7 @@
   },
   {
     "type": 967,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 140,
     "price": 451000,
@@ -25609,7 +25609,7 @@
   },
   {
     "type": 968,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 160,
     "price": 591000,
@@ -25642,7 +25642,7 @@
   },
   {
     "type": 969,
-    "name": "冥特魔宝宝",
+    "name": "冥特魔寶寶",
     "race": 6,
     "start_base_level": 180,
     "price": 719000,
@@ -25675,7 +25675,7 @@
   },
   {
     "type": 970,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 20,
     "price": 2400,
@@ -25708,7 +25708,7 @@
   },
   {
     "type": 971,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 40,
     "price": 31000,
@@ -25741,7 +25741,7 @@
   },
   {
     "type": 972,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 60,
     "price": 51000,
@@ -25774,7 +25774,7 @@
   },
   {
     "type": 973,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 80,
     "price": 131000,
@@ -25807,7 +25807,7 @@
   },
   {
     "type": 974,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 100,
     "price": 231000,
@@ -25840,7 +25840,7 @@
   },
   {
     "type": 975,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 120,
     "price": 351000,
@@ -25873,7 +25873,7 @@
   },
   {
     "type": 976,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 140,
     "price": 451000,
@@ -25906,7 +25906,7 @@
   },
   {
     "type": 977,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 160,
     "price": 591000,
@@ -25939,7 +25939,7 @@
   },
   {
     "type": 978,
-    "name": "灰双斧铠魔宝宝",
+    "name": "灰雙斧鎧魔寶寶",
     "race": 7,
     "start_base_level": 180,
     "price": 719000,
@@ -25972,7 +25972,7 @@
   },
   {
     "type": 979,
-    "name": "超级箱子妞",
+    "name": "超級箱子妞",
     "race": 6,
     "start_base_level": 40,
     "price": 31000,
@@ -26005,7 +26005,7 @@
   },
   {
     "type": 980,
-    "name": "超级箱子妞",
+    "name": "超級箱子妞",
     "race": 6,
     "start_base_level": 60,
     "price": 51000,
@@ -26038,7 +26038,7 @@
   },
   {
     "type": 981,
-    "name": "超级箱子妞",
+    "name": "超級箱子妞",
     "race": 6,
     "start_base_level": 80,
     "price": 131000,
@@ -26071,7 +26071,7 @@
   },
   {
     "type": 982,
-    "name": "超级箱子妞",
+    "name": "超級箱子妞",
     "race": 6,
     "start_base_level": 100,
     "price": 231000,
@@ -26104,7 +26104,7 @@
   },
   {
     "type": 983,
-    "name": "超级箱子妞",
+    "name": "超級箱子妞",
     "race": 6,
     "start_base_level": 120,
     "price": 351000,
@@ -26137,7 +26137,7 @@
   },
   {
     "type": 1000,
-    "name": "火焰兽",
+    "name": "火焰獸",
     "race": 2,
     "start_base_level": 150,
     "price": 521000,
@@ -26170,7 +26170,7 @@
   },
   {
     "type": 1001,
-    "name": "象鼻兽",
+    "name": "象鼻獸",
     "race": 2,
     "start_base_level": 106,
     "price": 267000,
@@ -26203,7 +26203,7 @@
   },
   {
     "type": 1002,
-    "name": "龅牙兔",
+    "name": "齙牙兔",
     "race": 2,
     "start_base_level": 121,
     "price": 356000,
@@ -26302,7 +26302,7 @@
   },
   {
     "type": 1005,
-    "name": "雪人狮",
+    "name": "雪人獅",
     "race": 2,
     "start_base_level": 95,
     "price": 206000,
@@ -26335,7 +26335,7 @@
   },
   {
     "type": 1006,
-    "name": "冰晶兽",
+    "name": "冰晶獸",
     "race": 2,
     "start_base_level": 172,
     "price": 663000,
@@ -26368,7 +26368,7 @@
   },
   {
     "type": 1007,
-    "name": "变异象鼻兽",
+    "name": "變異象鼻獸",
     "race": 2,
     "start_base_level": 126,
     "price": 381000,
@@ -26401,7 +26401,7 @@
   },
   {
     "type": 1008,
-    "name": "老龅牙兔",
+    "name": "老齙牙兔",
     "race": 2,
     "start_base_level": 157,
     "price": 570000,
@@ -26500,7 +26500,7 @@
   },
   {
     "type": 1011,
-    "name": "黄金雪狮",
+    "name": "黃金雪獅",
     "race": 2,
     "start_base_level": 170,
     "price": 651000,
@@ -26533,7 +26533,7 @@
   },
   {
     "type": 1012,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 198,
     "price": 933000,
@@ -26566,7 +26566,7 @@
   },
   {
     "type": 1013,
-    "name": "士兵狮鹫鸟",
+    "name": "士兵獅鷲鳥",
     "race": 3,
     "start_base_level": 120,
     "price": 351000,
@@ -26599,7 +26599,7 @@
   },
   {
     "type": 1014,
-    "name": "精卫鸟",
+    "name": "精衛鳥",
     "race": 3,
     "start_base_level": 103,
     "price": 249000,
@@ -26632,7 +26632,7 @@
   },
   {
     "type": 1015,
-    "name": "战斗鸡",
+    "name": "戰鬥雞",
     "race": 3,
     "start_base_level": 134,
     "price": 421000,
@@ -26665,7 +26665,7 @@
   },
   {
     "type": 1016,
-    "name": "红气球鸟",
+    "name": "紅氣球鳥",
     "race": 3,
     "start_base_level": 90,
     "price": 181000,
@@ -26698,7 +26698,7 @@
   },
   {
     "type": 1017,
-    "name": "鹈鹕3兄弟",
+    "name": "鵜鶘3兄弟",
     "race": 3,
     "start_base_level": 163,
     "price": 609000,
@@ -26731,7 +26731,7 @@
   },
   {
     "type": 1018,
-    "name": "绅士鸟",
+    "name": "紳士鳥",
     "race": 3,
     "start_base_level": 150,
     "price": 521000,
@@ -26764,7 +26764,7 @@
   },
   {
     "type": 1019,
-    "name": "侯爵狮鹫鸟",
+    "name": "侯爵獅鷲鳥",
     "race": 3,
     "start_base_level": 150,
     "price": 521000,
@@ -26797,7 +26797,7 @@
   },
   {
     "type": 1020,
-    "name": "黄气球鸟",
+    "name": "黃氣球鳥",
     "race": 3,
     "start_base_level": 112,
     "price": 303000,
@@ -26830,7 +26830,7 @@
   },
   {
     "type": 1021,
-    "name": "绿气球鸟",
+    "name": "綠氣球鳥",
     "race": 3,
     "start_base_level": 146,
     "price": 493000,
@@ -26863,7 +26863,7 @@
   },
   {
     "type": 1022,
-    "name": "蓝气球鸟",
+    "name": "藍氣球鳥",
     "race": 3,
     "start_base_level": 130,
     "price": 401000,
@@ -26896,7 +26896,7 @@
   },
   {
     "type": 1023,
-    "name": "变异绅士鸟",
+    "name": "變異紳士鳥",
     "race": 3,
     "start_base_level": 172,
     "price": 663000,
@@ -26929,7 +26929,7 @@
   },
   {
     "type": 1024,
-    "name": "橙气球鸟",
+    "name": "橙氣球鳥",
     "race": 3,
     "start_base_level": 131,
     "price": 406000,
@@ -26962,7 +26962,7 @@
   },
   {
     "type": 1025,
-    "name": "紫气球鸟",
+    "name": "紫氣球鳥",
     "race": 3,
     "start_base_level": 135,
     "price": 426000,
@@ -26995,7 +26995,7 @@
   },
   {
     "type": 1026,
-    "name": "炸弹蛛",
+    "name": "炸彈蛛",
     "race": 4,
     "start_base_level": 96,
     "price": 211000,
@@ -27028,7 +27028,7 @@
   },
   {
     "type": 1027,
-    "name": "牛角虫",
+    "name": "牛角蟲",
     "race": 4,
     "start_base_level": 113,
     "price": 309000,
@@ -27061,7 +27061,7 @@
   },
   {
     "type": 1028,
-    "name": "黑寡妇",
+    "name": "黑寡婦",
     "race": 4,
     "start_base_level": 132,
     "price": 411000,
@@ -27094,7 +27094,7 @@
   },
   {
     "type": 1029,
-    "name": "拳击熔岩虫",
+    "name": "拳擊熔巖蟲",
     "race": 4,
     "start_base_level": 92,
     "price": 191000,
@@ -27160,7 +27160,7 @@
   },
   {
     "type": 1031,
-    "name": "变形小新",
+    "name": "變形小新",
     "race": 4,
     "start_base_level": 142,
     "price": 465000,
@@ -27193,7 +27193,7 @@
   },
   {
     "type": 1032,
-    "name": "散打熔岩虫",
+    "name": "散打熔巖蟲",
     "race": 4,
     "start_base_level": 154,
     "price": 549000,
@@ -27226,7 +27226,7 @@
   },
   {
     "type": 1033,
-    "name": "面具炸弹蜘",
+    "name": "面具炸彈蜘",
     "race": 4,
     "start_base_level": 140,
     "price": 451000,
@@ -27292,7 +27292,7 @@
   },
   {
     "type": 1035,
-    "name": "牛角骑士",
+    "name": "牛角騎士",
     "race": 4,
     "start_base_level": 166,
     "price": 627000,
@@ -27325,7 +27325,7 @@
   },
   {
     "type": 1036,
-    "name": "甲虫小新",
+    "name": "甲蟲小新",
     "race": 4,
     "start_base_level": 127,
     "price": 386000,
@@ -27358,7 +27358,7 @@
   },
   {
     "type": 1037,
-    "name": "光剑小新",
+    "name": "光劍小新",
     "race": 4,
     "start_base_level": 170,
     "price": 651000,
@@ -27391,7 +27391,7 @@
   },
   {
     "type": 1038,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 196,
     "price": 907000,
@@ -27424,7 +27424,7 @@
   },
   {
     "type": 1039,
-    "name": "盾牌机器人",
+    "name": "盾牌機器人",
     "race": 7,
     "start_base_level": 115,
     "price": 321000,
@@ -27457,7 +27457,7 @@
   },
   {
     "type": 1040,
-    "name": "按钮机器人",
+    "name": "按鈕機器人",
     "race": 7,
     "start_base_level": 135,
     "price": 426000,
@@ -27490,7 +27490,7 @@
   },
   {
     "type": 1041,
-    "name": "机械牛库恩",
+    "name": "機械牛庫恩",
     "race": 7,
     "start_base_level": 150,
     "price": 521000,
@@ -27523,7 +27523,7 @@
   },
   {
     "type": 1042,
-    "name": "红色钳子",
+    "name": "紅色鉗子",
     "race": 7,
     "start_base_level": 147,
     "price": 500000,
@@ -27589,7 +27589,7 @@
   },
   {
     "type": 1044,
-    "name": "巴尔干",
+    "name": "巴爾幹",
     "race": 7,
     "start_base_level": 135,
     "price": 426000,
@@ -27622,7 +27622,7 @@
   },
   {
     "type": 1045,
-    "name": "双轮机械车",
+    "name": "雙輪機械車",
     "race": 7,
     "start_base_level": 125,
     "price": 376000,
@@ -27655,7 +27655,7 @@
   },
   {
     "type": 1046,
-    "name": "灯泡机器人",
+    "name": "燈泡機器人",
     "race": 7,
     "start_base_level": 101,
     "price": 237000,
@@ -27688,7 +27688,7 @@
   },
   {
     "type": 1047,
-    "name": "灰机械牛库恩",
+    "name": "灰機械牛庫恩",
     "race": 7,
     "start_base_level": 170,
     "price": 651000,
@@ -27721,7 +27721,7 @@
   },
   {
     "type": 1048,
-    "name": "蓝色钳子",
+    "name": "藍色鉗子",
     "race": 7,
     "start_base_level": 168,
     "price": 639000,
@@ -27754,7 +27754,7 @@
   },
   {
     "type": 1049,
-    "name": "巴尔干机车",
+    "name": "巴爾幹機車",
     "race": 7,
     "start_base_level": 155,
     "price": 556000,
@@ -27787,7 +27787,7 @@
   },
   {
     "type": 1050,
-    "name": "灰巴尔干",
+    "name": "灰巴爾幹",
     "race": 7,
     "start_base_level": 148,
     "price": 507000,
@@ -27820,7 +27820,7 @@
   },
   {
     "type": 1051,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 199,
     "price": 946000,
@@ -27853,7 +27853,7 @@
   },
   {
     "type": 1052,
-    "name": "海盗鹈鹕鸟",
+    "name": "海盜鵜鶘鳥",
     "race": 3,
     "start_base_level": 151,
     "price": 528000,
@@ -27886,7 +27886,7 @@
   },
   {
     "type": 1053,
-    "name": "双鱼鹈鹕鸟",
+    "name": "雙魚鵜鶘鳥",
     "race": 3,
     "start_base_level": 123,
     "price": 366000,
@@ -27919,7 +27919,7 @@
   },
   {
     "type": 1054,
-    "name": "鹈鹕鸟",
+    "name": "鵜鶘鳥",
     "race": 3,
     "start_base_level": 94,
     "price": 201000,
@@ -27952,7 +27952,7 @@
   },
   {
     "type": 1055,
-    "name": "鹈鹕2兄弟",
+    "name": "鵜鶘2兄弟",
     "race": 3,
     "start_base_level": 141,
     "price": 458000,
@@ -27985,7 +27985,7 @@
   },
   {
     "type": 1056,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 197,
     "price": 920000,
@@ -28018,7 +28018,7 @@
   },
   {
     "type": 1057,
-    "name": "超级卡龙王",
+    "name": "超級卡龍王",
     "race": 0,
     "start_base_level": 200,
     "price": 959000,
@@ -28051,7 +28051,7 @@
   },
   {
     "type": 1058,
-    "name": "淘气圣诞鹿",
+    "name": "淘氣聖誕鹿",
     "race": 0,
     "start_base_level": 60,
     "price": 31000,
@@ -28084,7 +28084,7 @@
   },
   {
     "type": 1059,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 200,
     "price": 959000,
@@ -28117,7 +28117,7 @@
   },
   {
     "type": 1060,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 200,
     "price": 959000,
@@ -28150,7 +28150,7 @@
   },
   {
     "type": 1061,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 200,
     "price": 959000,
@@ -28183,7 +28183,7 @@
   },
   {
     "type": 1062,
-    "name": "超级烈焰凤凰",
+    "name": "超級烈焰鳳凰",
     "race": 3,
     "start_base_level": 200,
     "price": 959000,
@@ -28216,7 +28216,7 @@
   },
   {
     "type": 1063,
-    "name": "超级阿努比斯",
+    "name": "超級阿努比斯",
     "race": 1,
     "start_base_level": 200,
     "price": 959000,
@@ -28249,7 +28249,7 @@
   },
   {
     "type": 1064,
-    "name": "超级螳螂王",
+    "name": "超級螳螂王",
     "race": 4,
     "start_base_level": 200,
     "price": 959000,
@@ -28282,7 +28282,7 @@
   },
   {
     "type": 1065,
-    "name": "超级大黑球球",
+    "name": "超級大黑球球",
     "race": 1,
     "start_base_level": 140,
     "price": 451000,
@@ -28315,7 +28315,7 @@
   },
   {
     "type": 1066,
-    "name": "超级大猫尾球",
+    "name": "超級大貓尾球",
     "race": 2,
     "start_base_level": 140,
     "price": 451000,
@@ -28348,7 +28348,7 @@
   },
   {
     "type": 1067,
-    "name": "超级大天使球",
+    "name": "超級大天使球",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -28381,7 +28381,7 @@
   },
   {
     "type": 1068,
-    "name": "超级大琥珀球",
+    "name": "超級大琥珀球",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -28414,7 +28414,7 @@
   },
   {
     "type": 1069,
-    "name": "超级大苹果球",
+    "name": "超級大蘋果球",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -28447,7 +28447,7 @@
   },
   {
     "type": 1070,
-    "name": "超级大灵球",
+    "name": "超級大靈球",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -28480,7 +28480,7 @@
   },
   {
     "type": 1071,
-    "name": "超级大圆圆",
+    "name": "超級大圓圓",
     "race": 3,
     "start_base_level": 140,
     "price": 451000,
@@ -28513,7 +28513,7 @@
   },
   {
     "type": 1072,
-    "name": "超变流氓兔",
+    "name": "超變流氓兔",
     "race": 3,
     "start_base_level": 180,
     "price": 719000,
@@ -28546,7 +28546,7 @@
   },
   {
     "type": 1073,
-    "name": "月宫兔",
+    "name": "月宮兔",
     "race": 6,
     "start_base_level": 160,
     "price": 591000,
@@ -28579,7 +28579,7 @@
   },
   {
     "type": 1074,
-    "name": "训练兵",
+    "name": "訓練兵",
     "race": 5,
     "start_base_level": 170,
     "price": 0,
@@ -28645,7 +28645,7 @@
   },
   {
     "type": 1076,
-    "name": "淘气圣诞鹿",
+    "name": "淘氣聖誕鹿",
     "race": 2,
     "start_base_level": 180,
     "price": 719000,
@@ -28678,7 +28678,7 @@
   },
   {
     "type": 1077,
-    "name": "圣诞鹿",
+    "name": "聖誕鹿",
     "race": 2,
     "start_base_level": 180,
     "price": 719000,
@@ -28711,7 +28711,7 @@
   },
   {
     "type": 1142,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 200,
     "price": 959000,
@@ -28744,7 +28744,7 @@
   },
   {
     "type": 1143,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 200,
     "price": 959000,
@@ -28777,7 +28777,7 @@
   },
   {
     "type": 1144,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 200,
     "price": 959000,
@@ -28810,7 +28810,7 @@
   },
   {
     "type": 1145,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 959000,
@@ -28843,7 +28843,7 @@
   },
   {
     "type": 1146,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 200,
     "price": 959000,
@@ -28876,7 +28876,7 @@
   },
   {
     "type": 1147,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 200,
     "price": 959000,
@@ -28909,7 +28909,7 @@
   },
   {
     "type": 1148,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 200,
     "price": 959000,
@@ -28942,7 +28942,7 @@
   },
   {
     "type": 1149,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 200,
     "price": 959000,
@@ -28975,7 +28975,7 @@
   },
   {
     "type": 1150,
-    "name": "GP-DJ音乐龙",
+    "name": "GP-DJ音樂龍",
     "race": 0,
     "start_base_level": 120,
     "price": 351000,
@@ -29008,7 +29008,7 @@
   },
   {
     "type": 1151,
-    "name": "GP-神秘打鼓机",
+    "name": "GP-神秘打鼓機",
     "race": 6,
     "start_base_level": 120,
     "price": 351000,
@@ -29041,7 +29041,7 @@
   },
   {
     "type": 1152,
-    "name": "DJ音乐龙-防刷",
+    "name": "DJ音樂龍-防刷",
     "race": 0,
     "start_base_level": 200,
     "price": 959000,
@@ -29074,7 +29074,7 @@
   },
   {
     "type": 1153,
-    "name": "打鼓机-防刷",
+    "name": "打鼓機-防刷",
     "race": 6,
     "start_base_level": 200,
     "price": 959000,
@@ -29107,7 +29107,7 @@
   },
   {
     "type": 1154,
-    "name": "变异大叔",
+    "name": "變異大叔",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -29140,7 +29140,7 @@
   },
   {
     "type": 1155,
-    "name": "变异女仆",
+    "name": "變異女僕",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -29173,7 +29173,7 @@
   },
   {
     "type": 1156,
-    "name": "变异袋鹿",
+    "name": "變異袋鹿",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -29206,7 +29206,7 @@
   },
   {
     "type": 1157,
-    "name": "变异斯芬克思",
+    "name": "變異斯芬克思",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -29239,7 +29239,7 @@
   },
   {
     "type": 1158,
-    "name": "异界迪特",
+    "name": "異界迪特",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -29272,7 +29272,7 @@
   },
   {
     "type": 1159,
-    "name": "异界鬼灵",
+    "name": "異界鬼靈",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -29305,7 +29305,7 @@
   },
   {
     "type": 1160,
-    "name": "异界超人猩",
+    "name": "異界超人猩",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -29338,7 +29338,7 @@
   },
   {
     "type": 1161,
-    "name": "异界火烈鸟",
+    "name": "異界火烈鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -29371,7 +29371,7 @@
   },
   {
     "type": 1162,
-    "name": "异界小新",
+    "name": "異界小新",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -29404,7 +29404,7 @@
   },
   {
     "type": 1163,
-    "name": "异界芬莉",
+    "name": "異界芬莉",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -29437,7 +29437,7 @@
   },
   {
     "type": 1164,
-    "name": "异界波伊",
+    "name": "異界波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -29470,7 +29470,7 @@
   },
   {
     "type": 1165,
-    "name": "异界简",
+    "name": "異界簡",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -29503,7 +29503,7 @@
   },
   {
     "type": 1200,
-    "name": "异次元金猪",
+    "name": "異次元金豬",
     "race": 2,
     "start_base_level": 100,
     "price": 100,
@@ -29536,7 +29536,7 @@
   },
   {
     "type": 1201,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 165,
     "price": 111,
@@ -29569,7 +29569,7 @@
   },
   {
     "type": 1202,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 170,
     "price": 111,
@@ -29602,7 +29602,7 @@
   },
   {
     "type": 1203,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 175,
     "price": 111,
@@ -29635,7 +29635,7 @@
   },
   {
     "type": 1204,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 180,
     "price": 111,
@@ -29668,7 +29668,7 @@
   },
   {
     "type": 1205,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 185,
     "price": 111,
@@ -29701,7 +29701,7 @@
   },
   {
     "type": 1206,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 190,
     "price": 111,
@@ -29734,7 +29734,7 @@
   },
   {
     "type": 1207,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 195,
     "price": 111,
@@ -29767,7 +29767,7 @@
   },
   {
     "type": 1208,
-    "name": "超级龙猫",
+    "name": "超級龍貓",
     "race": 0,
     "start_base_level": 200,
     "price": 111,
@@ -29800,7 +29800,7 @@
   },
   {
     "type": 1211,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 165,
     "price": 111,
@@ -29833,7 +29833,7 @@
   },
   {
     "type": 1212,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 170,
     "price": 111,
@@ -29866,7 +29866,7 @@
   },
   {
     "type": 1213,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 175,
     "price": 111,
@@ -29899,7 +29899,7 @@
   },
   {
     "type": 1214,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 180,
     "price": 111,
@@ -29932,7 +29932,7 @@
   },
   {
     "type": 1215,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 185,
     "price": 111,
@@ -29965,7 +29965,7 @@
   },
   {
     "type": 1216,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 190,
     "price": 111,
@@ -29998,7 +29998,7 @@
   },
   {
     "type": 1217,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 195,
     "price": 111,
@@ -30031,7 +30031,7 @@
   },
   {
     "type": 1218,
-    "name": "超级邦迪",
+    "name": "超級邦迪",
     "race": 1,
     "start_base_level": 200,
     "price": 111,
@@ -30064,7 +30064,7 @@
   },
   {
     "type": 1221,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 165,
     "price": 111,
@@ -30097,7 +30097,7 @@
   },
   {
     "type": 1222,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 170,
     "price": 111,
@@ -30130,7 +30130,7 @@
   },
   {
     "type": 1223,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 175,
     "price": 111,
@@ -30163,7 +30163,7 @@
   },
   {
     "type": 1224,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 180,
     "price": 111,
@@ -30196,7 +30196,7 @@
   },
   {
     "type": 1225,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 185,
     "price": 111,
@@ -30229,7 +30229,7 @@
   },
   {
     "type": 1226,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 190,
     "price": 111,
@@ -30262,7 +30262,7 @@
   },
   {
     "type": 1227,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 195,
     "price": 111,
@@ -30295,7 +30295,7 @@
   },
   {
     "type": 1228,
-    "name": "超级馒头猪",
+    "name": "超級饅頭豬",
     "race": 2,
     "start_base_level": 200,
     "price": 111,
@@ -30328,7 +30328,7 @@
   },
   {
     "type": 1231,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 165,
     "price": 111,
@@ -30361,7 +30361,7 @@
   },
   {
     "type": 1232,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 170,
     "price": 111,
@@ -30394,7 +30394,7 @@
   },
   {
     "type": 1233,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 175,
     "price": 111,
@@ -30427,7 +30427,7 @@
   },
   {
     "type": 1234,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 180,
     "price": 111,
@@ -30460,7 +30460,7 @@
   },
   {
     "type": 1235,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 185,
     "price": 111,
@@ -30493,7 +30493,7 @@
   },
   {
     "type": 1236,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 190,
     "price": 111,
@@ -30526,7 +30526,7 @@
   },
   {
     "type": 1237,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 195,
     "price": 111,
@@ -30559,7 +30559,7 @@
   },
   {
     "type": 1238,
-    "name": "超级乖乖蛋",
+    "name": "超級乖乖蛋",
     "race": 3,
     "start_base_level": 200,
     "price": 111,
@@ -30592,7 +30592,7 @@
   },
   {
     "type": 1241,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 165,
     "price": 111,
@@ -30625,7 +30625,7 @@
   },
   {
     "type": 1242,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 170,
     "price": 111,
@@ -30658,7 +30658,7 @@
   },
   {
     "type": 1243,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 175,
     "price": 111,
@@ -30691,7 +30691,7 @@
   },
   {
     "type": 1244,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 180,
     "price": 111,
@@ -30724,7 +30724,7 @@
   },
   {
     "type": 1245,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 185,
     "price": 111,
@@ -30757,7 +30757,7 @@
   },
   {
     "type": 1246,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 190,
     "price": 111,
@@ -30790,7 +30790,7 @@
   },
   {
     "type": 1247,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 195,
     "price": 111,
@@ -30823,7 +30823,7 @@
   },
   {
     "type": 1248,
-    "name": "超级红鼻瓢虫",
+    "name": "超級紅鼻瓢蟲",
     "race": 4,
     "start_base_level": 200,
     "price": 111,
@@ -30856,7 +30856,7 @@
   },
   {
     "type": 1251,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 165,
     "price": 111,
@@ -30889,7 +30889,7 @@
   },
   {
     "type": 1252,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 170,
     "price": 111,
@@ -30922,7 +30922,7 @@
   },
   {
     "type": 1253,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 175,
     "price": 111,
@@ -30955,7 +30955,7 @@
   },
   {
     "type": 1254,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 180,
     "price": 111,
@@ -30988,7 +30988,7 @@
   },
   {
     "type": 1255,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 185,
     "price": 111,
@@ -31021,7 +31021,7 @@
   },
   {
     "type": 1256,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 190,
     "price": 111,
@@ -31054,7 +31054,7 @@
   },
   {
     "type": 1257,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 195,
     "price": 111,
@@ -31087,7 +31087,7 @@
   },
   {
     "type": 1258,
-    "name": "超级绿叶宝宝",
+    "name": "超級綠葉寶寶",
     "race": 5,
     "start_base_level": 200,
     "price": 111,
@@ -31120,7 +31120,7 @@
   },
   {
     "type": 1261,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 165,
     "price": 111,
@@ -31153,7 +31153,7 @@
   },
   {
     "type": 1262,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 170,
     "price": 111,
@@ -31186,7 +31186,7 @@
   },
   {
     "type": 1263,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 175,
     "price": 111,
@@ -31219,7 +31219,7 @@
   },
   {
     "type": 1264,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 180,
     "price": 111,
@@ -31252,7 +31252,7 @@
   },
   {
     "type": 1265,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 185,
     "price": 111,
@@ -31285,7 +31285,7 @@
   },
   {
     "type": 1266,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 190,
     "price": 111,
@@ -31318,7 +31318,7 @@
   },
   {
     "type": 1267,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 195,
     "price": 111,
@@ -31351,7 +31351,7 @@
   },
   {
     "type": 1268,
-    "name": "超级那莎波",
+    "name": "超級那莎波",
     "race": 7,
     "start_base_level": 200,
     "price": 111,
@@ -31384,7 +31384,7 @@
   },
   {
     "type": 1271,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 165,
     "price": 111,
@@ -31417,7 +31417,7 @@
   },
   {
     "type": 1272,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 170,
     "price": 111,
@@ -31450,7 +31450,7 @@
   },
   {
     "type": 1273,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 175,
     "price": 111,
@@ -31483,7 +31483,7 @@
   },
   {
     "type": 1274,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 180,
     "price": 111,
@@ -31516,7 +31516,7 @@
   },
   {
     "type": 1275,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 185,
     "price": 111,
@@ -31549,7 +31549,7 @@
   },
   {
     "type": 1276,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 190,
     "price": 111,
@@ -31582,7 +31582,7 @@
   },
   {
     "type": 1277,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 195,
     "price": 111,
@@ -31615,7 +31615,7 @@
   },
   {
     "type": 1278,
-    "name": "超级酷日波伊",
+    "name": "超級酷日波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 111,
@@ -31912,7 +31912,7 @@
   },
   {
     "type": 1311,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 165,
     "price": 111,
@@ -31945,7 +31945,7 @@
   },
   {
     "type": 1312,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 170,
     "price": 111,
@@ -31978,7 +31978,7 @@
   },
   {
     "type": 1313,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 175,
     "price": 111,
@@ -32011,7 +32011,7 @@
   },
   {
     "type": 1314,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 180,
     "price": 111,
@@ -32044,7 +32044,7 @@
   },
   {
     "type": 1315,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 185,
     "price": 111,
@@ -32077,7 +32077,7 @@
   },
   {
     "type": 1316,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 190,
     "price": 111,
@@ -32110,7 +32110,7 @@
   },
   {
     "type": 1317,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 195,
     "price": 111,
@@ -32143,7 +32143,7 @@
   },
   {
     "type": 1318,
-    "name": "樱子",
+    "name": "櫻子",
     "race": 1,
     "start_base_level": 200,
     "price": 111,
@@ -32176,7 +32176,7 @@
   },
   {
     "type": 1321,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 165,
     "price": 100,
@@ -32209,7 +32209,7 @@
   },
   {
     "type": 1322,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 170,
     "price": 100,
@@ -32242,7 +32242,7 @@
   },
   {
     "type": 1323,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 175,
     "price": 100,
@@ -32275,7 +32275,7 @@
   },
   {
     "type": 1324,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 180,
     "price": 100,
@@ -32308,7 +32308,7 @@
   },
   {
     "type": 1325,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 185,
     "price": 100,
@@ -32341,7 +32341,7 @@
   },
   {
     "type": 1326,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 190,
     "price": 100,
@@ -32374,7 +32374,7 @@
   },
   {
     "type": 1327,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 195,
     "price": 100,
@@ -32407,7 +32407,7 @@
   },
   {
     "type": 1328,
-    "name": "异次元流氓兔",
+    "name": "異次元流氓兔",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -32440,7 +32440,7 @@
   },
   {
     "type": 1331,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 165,
     "price": 100,
@@ -32473,7 +32473,7 @@
   },
   {
     "type": 1332,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 170,
     "price": 100,
@@ -32506,7 +32506,7 @@
   },
   {
     "type": 1333,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 175,
     "price": 100,
@@ -32539,7 +32539,7 @@
   },
   {
     "type": 1334,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 180,
     "price": 100,
@@ -32572,7 +32572,7 @@
   },
   {
     "type": 1335,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 185,
     "price": 100,
@@ -32605,7 +32605,7 @@
   },
   {
     "type": 1336,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 190,
     "price": 100,
@@ -32638,7 +32638,7 @@
   },
   {
     "type": 1337,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 195,
     "price": 100,
@@ -32671,7 +32671,7 @@
   },
   {
     "type": 1338,
-    "name": "异次元螃蟹",
+    "name": "異次元螃蟹",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -32704,7 +32704,7 @@
   },
   {
     "type": 1341,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 165,
     "price": 100,
@@ -32737,7 +32737,7 @@
   },
   {
     "type": 1342,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 170,
     "price": 100,
@@ -32770,7 +32770,7 @@
   },
   {
     "type": 1343,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 175,
     "price": 100,
@@ -32803,7 +32803,7 @@
   },
   {
     "type": 1344,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 180,
     "price": 100,
@@ -32836,7 +32836,7 @@
   },
   {
     "type": 1345,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 185,
     "price": 100,
@@ -32869,7 +32869,7 @@
   },
   {
     "type": 1346,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 190,
     "price": 100,
@@ -32902,7 +32902,7 @@
   },
   {
     "type": 1347,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 195,
     "price": 100,
@@ -32935,7 +32935,7 @@
   },
   {
     "type": 1348,
-    "name": "异次元棕野猪",
+    "name": "異次元棕野豬",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -32968,7 +32968,7 @@
   },
   {
     "type": 1351,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 165,
     "price": 100,
@@ -33001,7 +33001,7 @@
   },
   {
     "type": 1352,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 170,
     "price": 100,
@@ -33034,7 +33034,7 @@
   },
   {
     "type": 1353,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 175,
     "price": 100,
@@ -33067,7 +33067,7 @@
   },
   {
     "type": 1354,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 180,
     "price": 100,
@@ -33100,7 +33100,7 @@
   },
   {
     "type": 1355,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 185,
     "price": 100,
@@ -33133,7 +33133,7 @@
   },
   {
     "type": 1356,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 190,
     "price": 100,
@@ -33166,7 +33166,7 @@
   },
   {
     "type": 1357,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 195,
     "price": 100,
@@ -33199,7 +33199,7 @@
   },
   {
     "type": 1358,
-    "name": "异次元鸵鸟",
+    "name": "異次元鴕鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -33232,7 +33232,7 @@
   },
   {
     "type": 1361,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 165,
     "price": 100,
@@ -33265,7 +33265,7 @@
   },
   {
     "type": 1362,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 170,
     "price": 100,
@@ -33298,7 +33298,7 @@
   },
   {
     "type": 1363,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 175,
     "price": 100,
@@ -33331,7 +33331,7 @@
   },
   {
     "type": 1364,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 180,
     "price": 100,
@@ -33364,7 +33364,7 @@
   },
   {
     "type": 1365,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 185,
     "price": 100,
@@ -33397,7 +33397,7 @@
   },
   {
     "type": 1366,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 190,
     "price": 100,
@@ -33430,7 +33430,7 @@
   },
   {
     "type": 1367,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 195,
     "price": 100,
@@ -33463,7 +33463,7 @@
   },
   {
     "type": 1368,
-    "name": "异次元兔子",
+    "name": "異次元兔子",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -33496,7 +33496,7 @@
   },
   {
     "type": 1371,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 165,
     "price": 100,
@@ -33529,7 +33529,7 @@
   },
   {
     "type": 1372,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 170,
     "price": 100,
@@ -33562,7 +33562,7 @@
   },
   {
     "type": 1373,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 175,
     "price": 100,
@@ -33595,7 +33595,7 @@
   },
   {
     "type": 1374,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 180,
     "price": 100,
@@ -33628,7 +33628,7 @@
   },
   {
     "type": 1375,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 185,
     "price": 100,
@@ -33661,7 +33661,7 @@
   },
   {
     "type": 1376,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 190,
     "price": 100,
@@ -33694,7 +33694,7 @@
   },
   {
     "type": 1377,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 195,
     "price": 100,
@@ -33727,7 +33727,7 @@
   },
   {
     "type": 1378,
-    "name": "异次元火焰豆",
+    "name": "異次元火焰豆",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -33760,7 +33760,7 @@
   },
   {
     "type": 1381,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 165,
     "price": 100,
@@ -33793,7 +33793,7 @@
   },
   {
     "type": 1382,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 170,
     "price": 100,
@@ -33826,7 +33826,7 @@
   },
   {
     "type": 1383,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 175,
     "price": 100,
@@ -33859,7 +33859,7 @@
   },
   {
     "type": 1384,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 180,
     "price": 100,
@@ -33892,7 +33892,7 @@
   },
   {
     "type": 1385,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 185,
     "price": 100,
@@ -33925,7 +33925,7 @@
   },
   {
     "type": 1386,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 190,
     "price": 100,
@@ -33958,7 +33958,7 @@
   },
   {
     "type": 1387,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 195,
     "price": 100,
@@ -33991,7 +33991,7 @@
   },
   {
     "type": 1388,
-    "name": "异次元棒棒",
+    "name": "異次元棒棒",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -34024,7 +34024,7 @@
   },
   {
     "type": 1391,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 165,
     "price": 100,
@@ -34057,7 +34057,7 @@
   },
   {
     "type": 1392,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 170,
     "price": 100,
@@ -34090,7 +34090,7 @@
   },
   {
     "type": 1393,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 175,
     "price": 100,
@@ -34123,7 +34123,7 @@
   },
   {
     "type": 1394,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 180,
     "price": 100,
@@ -34156,7 +34156,7 @@
   },
   {
     "type": 1395,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 185,
     "price": 100,
@@ -34189,7 +34189,7 @@
   },
   {
     "type": 1396,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 190,
     "price": 100,
@@ -34222,7 +34222,7 @@
   },
   {
     "type": 1397,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 195,
     "price": 100,
@@ -34255,7 +34255,7 @@
   },
   {
     "type": 1398,
-    "name": "异次元坎布",
+    "name": "異次元坎布",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -34288,7 +34288,7 @@
   },
   {
     "type": 1401,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 165,
     "price": 333,
@@ -34321,7 +34321,7 @@
   },
   {
     "type": 1402,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 170,
     "price": 333,
@@ -34354,7 +34354,7 @@
   },
   {
     "type": 1403,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 175,
     "price": 333,
@@ -34387,7 +34387,7 @@
   },
   {
     "type": 1404,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 180,
     "price": 333,
@@ -34420,7 +34420,7 @@
   },
   {
     "type": 1405,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 185,
     "price": 333,
@@ -34453,7 +34453,7 @@
   },
   {
     "type": 1406,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 190,
     "price": 333,
@@ -34486,7 +34486,7 @@
   },
   {
     "type": 1407,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 195,
     "price": 333,
@@ -34750,7 +34750,7 @@
   },
   {
     "type": 1421,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 165,
     "price": 333,
@@ -34783,7 +34783,7 @@
   },
   {
     "type": 1422,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 170,
     "price": 333,
@@ -34816,7 +34816,7 @@
   },
   {
     "type": 1423,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 175,
     "price": 333,
@@ -34849,7 +34849,7 @@
   },
   {
     "type": 1424,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 180,
     "price": 333,
@@ -34882,7 +34882,7 @@
   },
   {
     "type": 1425,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 185,
     "price": 333,
@@ -34915,7 +34915,7 @@
   },
   {
     "type": 1426,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 190,
     "price": 333,
@@ -34948,7 +34948,7 @@
   },
   {
     "type": 1427,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 195,
     "price": 333,
@@ -34981,7 +34981,7 @@
   },
   {
     "type": 1431,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 165,
     "price": 333,
@@ -35014,7 +35014,7 @@
   },
   {
     "type": 1432,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 170,
     "price": 333,
@@ -35047,7 +35047,7 @@
   },
   {
     "type": 1433,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 175,
     "price": 333,
@@ -35080,7 +35080,7 @@
   },
   {
     "type": 1434,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 180,
     "price": 333,
@@ -35113,7 +35113,7 @@
   },
   {
     "type": 1435,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 185,
     "price": 333,
@@ -35146,7 +35146,7 @@
   },
   {
     "type": 1436,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 190,
     "price": 333,
@@ -35179,7 +35179,7 @@
   },
   {
     "type": 1437,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 195,
     "price": 333,
@@ -35443,7 +35443,7 @@
   },
   {
     "type": 1451,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 165,
     "price": 333,
@@ -35476,7 +35476,7 @@
   },
   {
     "type": 1452,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 170,
     "price": 333,
@@ -35509,7 +35509,7 @@
   },
   {
     "type": 1453,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 175,
     "price": 333,
@@ -35542,7 +35542,7 @@
   },
   {
     "type": 1454,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 180,
     "price": 333,
@@ -35575,7 +35575,7 @@
   },
   {
     "type": 1455,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 185,
     "price": 333,
@@ -35608,7 +35608,7 @@
   },
   {
     "type": 1456,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 190,
     "price": 333,
@@ -35641,7 +35641,7 @@
   },
   {
     "type": 1457,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 195,
     "price": 333,
@@ -35674,7 +35674,7 @@
   },
   {
     "type": 1461,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 165,
     "price": 333,
@@ -35707,7 +35707,7 @@
   },
   {
     "type": 1462,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 170,
     "price": 333,
@@ -35740,7 +35740,7 @@
   },
   {
     "type": 1463,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 175,
     "price": 333,
@@ -35773,7 +35773,7 @@
   },
   {
     "type": 1464,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 180,
     "price": 333,
@@ -35806,7 +35806,7 @@
   },
   {
     "type": 1465,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 185,
     "price": 333,
@@ -35839,7 +35839,7 @@
   },
   {
     "type": 1466,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 190,
     "price": 333,
@@ -35872,7 +35872,7 @@
   },
   {
     "type": 1467,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 195,
     "price": 333,
@@ -35905,7 +35905,7 @@
   },
   {
     "type": 1471,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 165,
     "price": 333,
@@ -35938,7 +35938,7 @@
   },
   {
     "type": 1472,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 170,
     "price": 333,
@@ -35971,7 +35971,7 @@
   },
   {
     "type": 1473,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 175,
     "price": 333,
@@ -36004,7 +36004,7 @@
   },
   {
     "type": 1474,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 180,
     "price": 333,
@@ -36037,7 +36037,7 @@
   },
   {
     "type": 1475,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 185,
     "price": 333,
@@ -36070,7 +36070,7 @@
   },
   {
     "type": 1476,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 190,
     "price": 333,
@@ -36103,7 +36103,7 @@
   },
   {
     "type": 1477,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 195,
     "price": 333,
@@ -36136,7 +36136,7 @@
   },
   {
     "type": 1481,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 165,
     "price": 111,
@@ -36169,7 +36169,7 @@
   },
   {
     "type": 1482,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 170,
     "price": 111,
@@ -36202,7 +36202,7 @@
   },
   {
     "type": 1483,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 175,
     "price": 111,
@@ -36235,7 +36235,7 @@
   },
   {
     "type": 1484,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 180,
     "price": 111,
@@ -36268,7 +36268,7 @@
   },
   {
     "type": 1485,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 185,
     "price": 111,
@@ -36301,7 +36301,7 @@
   },
   {
     "type": 1486,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 190,
     "price": 111,
@@ -36334,7 +36334,7 @@
   },
   {
     "type": 1487,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 195,
     "price": 111,
@@ -36367,7 +36367,7 @@
   },
   {
     "type": 1491,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 165,
     "price": 111,
@@ -36400,7 +36400,7 @@
   },
   {
     "type": 1492,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 170,
     "price": 111,
@@ -36433,7 +36433,7 @@
   },
   {
     "type": 1493,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 175,
     "price": 111,
@@ -36466,7 +36466,7 @@
   },
   {
     "type": 1494,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 180,
     "price": 111,
@@ -36499,7 +36499,7 @@
   },
   {
     "type": 1495,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 185,
     "price": 111,
@@ -36532,7 +36532,7 @@
   },
   {
     "type": 1496,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 190,
     "price": 111,
@@ -36565,7 +36565,7 @@
   },
   {
     "type": 1497,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 195,
     "price": 111,
@@ -36598,7 +36598,7 @@
   },
   {
     "type": 1501,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 165,
     "price": 111,
@@ -36631,7 +36631,7 @@
   },
   {
     "type": 1502,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 170,
     "price": 111,
@@ -36664,7 +36664,7 @@
   },
   {
     "type": 1503,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 175,
     "price": 111,
@@ -36697,7 +36697,7 @@
   },
   {
     "type": 1504,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 180,
     "price": 111,
@@ -36730,7 +36730,7 @@
   },
   {
     "type": 1505,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 185,
     "price": 111,
@@ -36763,7 +36763,7 @@
   },
   {
     "type": 1506,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 190,
     "price": 111,
@@ -36796,7 +36796,7 @@
   },
   {
     "type": 1507,
-    "name": "卡龙王",
+    "name": "卡龍王",
     "race": 0,
     "start_base_level": 195,
     "price": 111,
@@ -37060,7 +37060,7 @@
   },
   {
     "type": 1521,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 165,
     "price": 111,
@@ -37093,7 +37093,7 @@
   },
   {
     "type": 1522,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 170,
     "price": 111,
@@ -37126,7 +37126,7 @@
   },
   {
     "type": 1523,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 175,
     "price": 111,
@@ -37159,7 +37159,7 @@
   },
   {
     "type": 1524,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 180,
     "price": 111,
@@ -37192,7 +37192,7 @@
   },
   {
     "type": 1525,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 185,
     "price": 111,
@@ -37225,7 +37225,7 @@
   },
   {
     "type": 1526,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 190,
     "price": 111,
@@ -37258,7 +37258,7 @@
   },
   {
     "type": 1527,
-    "name": "黑暗双头狼",
+    "name": "黑暗雙頭狼",
     "race": 2,
     "start_base_level": 195,
     "price": 111,
@@ -37291,7 +37291,7 @@
   },
   {
     "type": 1531,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 165,
     "price": 111,
@@ -37324,7 +37324,7 @@
   },
   {
     "type": 1532,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 170,
     "price": 111,
@@ -37357,7 +37357,7 @@
   },
   {
     "type": 1533,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 175,
     "price": 111,
@@ -37390,7 +37390,7 @@
   },
   {
     "type": 1534,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 180,
     "price": 111,
@@ -37423,7 +37423,7 @@
   },
   {
     "type": 1535,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 185,
     "price": 111,
@@ -37456,7 +37456,7 @@
   },
   {
     "type": 1536,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 190,
     "price": 111,
@@ -37489,7 +37489,7 @@
   },
   {
     "type": 1537,
-    "name": "烈焰凤凰",
+    "name": "烈焰鳳凰",
     "race": 3,
     "start_base_level": 195,
     "price": 111,
@@ -37522,7 +37522,7 @@
   },
   {
     "type": 1541,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 165,
     "price": 111,
@@ -37555,7 +37555,7 @@
   },
   {
     "type": 1542,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 170,
     "price": 111,
@@ -37588,7 +37588,7 @@
   },
   {
     "type": 1543,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 175,
     "price": 111,
@@ -37621,7 +37621,7 @@
   },
   {
     "type": 1544,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 180,
     "price": 111,
@@ -37654,7 +37654,7 @@
   },
   {
     "type": 1545,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 185,
     "price": 111,
@@ -37687,7 +37687,7 @@
   },
   {
     "type": 1546,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 190,
     "price": 111,
@@ -37720,7 +37720,7 @@
   },
   {
     "type": 1547,
-    "name": "红巾螳螂王",
+    "name": "紅巾螳螂王",
     "race": 4,
     "start_base_level": 195,
     "price": 111,
@@ -37753,7 +37753,7 @@
   },
   {
     "type": 1551,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 165,
     "price": 111,
@@ -37786,7 +37786,7 @@
   },
   {
     "type": 1552,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 170,
     "price": 111,
@@ -37819,7 +37819,7 @@
   },
   {
     "type": 1553,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 175,
     "price": 111,
@@ -37852,7 +37852,7 @@
   },
   {
     "type": 1554,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 180,
     "price": 111,
@@ -37885,7 +37885,7 @@
   },
   {
     "type": 1555,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 185,
     "price": 111,
@@ -37918,7 +37918,7 @@
   },
   {
     "type": 1556,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 190,
     "price": 111,
@@ -37951,7 +37951,7 @@
   },
   {
     "type": 1557,
-    "name": "食人树妖",
+    "name": "食人樹妖",
     "race": 5,
     "start_base_level": 195,
     "price": 111,
@@ -38215,7 +38215,7 @@
   },
   {
     "type": 1571,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 165,
     "price": 111,
@@ -38248,7 +38248,7 @@
   },
   {
     "type": 1572,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 170,
     "price": 111,
@@ -38281,7 +38281,7 @@
   },
   {
     "type": 1573,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 175,
     "price": 111,
@@ -38314,7 +38314,7 @@
   },
   {
     "type": 1574,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 180,
     "price": 111,
@@ -38347,7 +38347,7 @@
   },
   {
     "type": 1575,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 185,
     "price": 111,
@@ -38380,7 +38380,7 @@
   },
   {
     "type": 1576,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 190,
     "price": 111,
@@ -38413,7 +38413,7 @@
   },
   {
     "type": 1577,
-    "name": "驱逐舰",
+    "name": "驅逐艦",
     "race": 7,
     "start_base_level": 195,
     "price": 111,
@@ -38446,7 +38446,7 @@
   },
   {
     "type": 1581,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 165,
     "price": 111,
@@ -38479,7 +38479,7 @@
   },
   {
     "type": 1582,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 170,
     "price": 111,
@@ -38512,7 +38512,7 @@
   },
   {
     "type": 1583,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 175,
     "price": 111,
@@ -38545,7 +38545,7 @@
   },
   {
     "type": 1584,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 180,
     "price": 111,
@@ -38578,7 +38578,7 @@
   },
   {
     "type": 1585,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 185,
     "price": 111,
@@ -38611,7 +38611,7 @@
   },
   {
     "type": 1586,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 190,
     "price": 111,
@@ -38644,7 +38644,7 @@
   },
   {
     "type": 1587,
-    "name": "圣诞迪特",
+    "name": "聖誕迪特",
     "race": 0,
     "start_base_level": 195,
     "price": 111,
@@ -38677,7 +38677,7 @@
   },
   {
     "type": 1591,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 165,
     "price": 111,
@@ -38710,7 +38710,7 @@
   },
   {
     "type": 1592,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 170,
     "price": 111,
@@ -38743,7 +38743,7 @@
   },
   {
     "type": 1593,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 175,
     "price": 111,
@@ -38776,7 +38776,7 @@
   },
   {
     "type": 1594,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 180,
     "price": 111,
@@ -38809,7 +38809,7 @@
   },
   {
     "type": 1595,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 185,
     "price": 111,
@@ -38842,7 +38842,7 @@
   },
   {
     "type": 1596,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 190,
     "price": 111,
@@ -38875,7 +38875,7 @@
   },
   {
     "type": 1597,
-    "name": "圣诞简",
+    "name": "聖誕簡",
     "race": 7,
     "start_base_level": 195,
     "price": 111,
@@ -38908,7 +38908,7 @@
   },
   {
     "type": 1601,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 165,
     "price": 111,
@@ -38941,7 +38941,7 @@
   },
   {
     "type": 1602,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 170,
     "price": 111,
@@ -38974,7 +38974,7 @@
   },
   {
     "type": 1603,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 175,
     "price": 111,
@@ -39007,7 +39007,7 @@
   },
   {
     "type": 1604,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 180,
     "price": 111,
@@ -39040,7 +39040,7 @@
   },
   {
     "type": 1605,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 185,
     "price": 111,
@@ -39073,7 +39073,7 @@
   },
   {
     "type": 1606,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 190,
     "price": 111,
@@ -39106,7 +39106,7 @@
   },
   {
     "type": 1607,
-    "name": "圣诞芬利",
+    "name": "聖誕芬利",
     "race": 5,
     "start_base_level": 195,
     "price": 111,
@@ -39139,7 +39139,7 @@
   },
   {
     "type": 1611,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 165,
     "price": 111,
@@ -39172,7 +39172,7 @@
   },
   {
     "type": 1612,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 170,
     "price": 111,
@@ -39205,7 +39205,7 @@
   },
   {
     "type": 1613,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 175,
     "price": 111,
@@ -39238,7 +39238,7 @@
   },
   {
     "type": 1614,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 180,
     "price": 111,
@@ -39271,7 +39271,7 @@
   },
   {
     "type": 1615,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 185,
     "price": 111,
@@ -39304,7 +39304,7 @@
   },
   {
     "type": 1616,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 190,
     "price": 111,
@@ -39337,7 +39337,7 @@
   },
   {
     "type": 1617,
-    "name": "圣诞波伊",
+    "name": "聖誕波伊",
     "race": 6,
     "start_base_level": 195,
     "price": 111,
@@ -39370,7 +39370,7 @@
   },
   {
     "type": 1621,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 165,
     "price": 111,
@@ -39403,7 +39403,7 @@
   },
   {
     "type": 1622,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 170,
     "price": 111,
@@ -39436,7 +39436,7 @@
   },
   {
     "type": 1623,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 175,
     "price": 111,
@@ -39469,7 +39469,7 @@
   },
   {
     "type": 1624,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 180,
     "price": 111,
@@ -39502,7 +39502,7 @@
   },
   {
     "type": 1625,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 185,
     "price": 111,
@@ -39535,7 +39535,7 @@
   },
   {
     "type": 1626,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 190,
     "price": 111,
@@ -39568,7 +39568,7 @@
   },
   {
     "type": 1627,
-    "name": "超级鬼面人",
+    "name": "超級鬼面人",
     "race": 6,
     "start_base_level": 195,
     "price": 111,
@@ -39601,7 +39601,7 @@
   },
   {
     "type": 1631,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 165,
     "price": 111,
@@ -39634,7 +39634,7 @@
   },
   {
     "type": 1632,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 170,
     "price": 111,
@@ -39667,7 +39667,7 @@
   },
   {
     "type": 1633,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 175,
     "price": 111,
@@ -39700,7 +39700,7 @@
   },
   {
     "type": 1634,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 180,
     "price": 111,
@@ -39733,7 +39733,7 @@
   },
   {
     "type": 1635,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 185,
     "price": 111,
@@ -39766,7 +39766,7 @@
   },
   {
     "type": 1636,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 190,
     "price": 111,
@@ -39799,7 +39799,7 @@
   },
   {
     "type": 1637,
-    "name": "超级牛库恩",
+    "name": "超級牛庫恩",
     "race": 7,
     "start_base_level": 195,
     "price": 111,
@@ -39832,7 +39832,7 @@
   },
   {
     "type": 1641,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 165,
     "price": 111,
@@ -39865,7 +39865,7 @@
   },
   {
     "type": 1642,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 170,
     "price": 111,
@@ -39898,7 +39898,7 @@
   },
   {
     "type": 1643,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 175,
     "price": 111,
@@ -39931,7 +39931,7 @@
   },
   {
     "type": 1644,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 180,
     "price": 111,
@@ -39964,7 +39964,7 @@
   },
   {
     "type": 1645,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 185,
     "price": 111,
@@ -39997,7 +39997,7 @@
   },
   {
     "type": 1646,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 190,
     "price": 111,
@@ -40030,7 +40030,7 @@
   },
   {
     "type": 1647,
-    "name": "超级森林女王",
+    "name": "超級森林女王",
     "race": 3,
     "start_base_level": 195,
     "price": 111,
@@ -40063,7 +40063,7 @@
   },
   {
     "type": 1651,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 165,
     "price": 111,
@@ -40096,7 +40096,7 @@
   },
   {
     "type": 1652,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 170,
     "price": 111,
@@ -40129,7 +40129,7 @@
   },
   {
     "type": 1653,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 175,
     "price": 111,
@@ -40162,7 +40162,7 @@
   },
   {
     "type": 1654,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 180,
     "price": 111,
@@ -40195,7 +40195,7 @@
   },
   {
     "type": 1655,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 185,
     "price": 111,
@@ -40228,7 +40228,7 @@
   },
   {
     "type": 1656,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 190,
     "price": 111,
@@ -40261,7 +40261,7 @@
   },
   {
     "type": 1657,
-    "name": "超级巨臂树精",
+    "name": "超級巨臂樹精",
     "race": 5,
     "start_base_level": 195,
     "price": 111,
@@ -40294,7 +40294,7 @@
   },
   {
     "type": 1660,
-    "name": "奇异泡泡龙",
+    "name": "奇異泡泡龍",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -40327,7 +40327,7 @@
   },
   {
     "type": 1661,
-    "name": "奇异黑球球",
+    "name": "奇異黑球球",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -40360,7 +40360,7 @@
   },
   {
     "type": 1662,
-    "name": "奇异猫尾球",
+    "name": "奇異貓尾球",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -40393,7 +40393,7 @@
   },
   {
     "type": 1663,
-    "name": "奇异天使球",
+    "name": "奇異天使球",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -40426,7 +40426,7 @@
   },
   {
     "type": 1664,
-    "name": "奇异琥珀球",
+    "name": "奇異琥珀球",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -40459,7 +40459,7 @@
   },
   {
     "type": 1665,
-    "name": "奇异苹果球",
+    "name": "奇異蘋果球",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -40492,7 +40492,7 @@
   },
   {
     "type": 1666,
-    "name": "奇异灵球",
+    "name": "奇異靈球",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -40525,7 +40525,7 @@
   },
   {
     "type": 1667,
-    "name": "奇异圆圆",
+    "name": "奇異圓圓",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -40558,7 +40558,7 @@
   },
   {
     "type": 1670,
-    "name": "奇异迪特",
+    "name": "奇異迪特",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -40591,7 +40591,7 @@
   },
   {
     "type": 1671,
-    "name": "奇异小巨灵",
+    "name": "奇異小巨靈",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -40624,7 +40624,7 @@
   },
   {
     "type": 1672,
-    "name": "奇异运动猫",
+    "name": "奇異運動貓",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -40657,7 +40657,7 @@
   },
   {
     "type": 1673,
-    "name": "奇异雪糕鸟",
+    "name": "奇異雪糕鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -40690,7 +40690,7 @@
   },
   {
     "type": 1674,
-    "name": "奇异灰兔子",
+    "name": "奇異灰兔子",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -40723,7 +40723,7 @@
   },
   {
     "type": 1675,
-    "name": "奇异芬利",
+    "name": "奇異芬利",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -40756,7 +40756,7 @@
   },
   {
     "type": 1676,
-    "name": "奇异波伊",
+    "name": "奇異波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -40789,7 +40789,7 @@
   },
   {
     "type": 1677,
-    "name": "奇异简",
+    "name": "奇異簡",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -40855,7 +40855,7 @@
   },
   {
     "type": 1716,
-    "name": "绿芽天使",
+    "name": "綠芽天使",
     "race": 5,
     "start_base_level": 120,
     "price": 111,
@@ -40888,7 +40888,7 @@
   },
   {
     "type": 1717,
-    "name": "木头人",
+    "name": "木頭人",
     "race": 5,
     "start_base_level": 120,
     "price": 111,
@@ -40921,7 +40921,7 @@
   },
   {
     "type": 1718,
-    "name": "小绿人",
+    "name": "小綠人",
     "race": 4,
     "start_base_level": 120,
     "price": 111,
@@ -40954,7 +40954,7 @@
   },
   {
     "type": 1719,
-    "name": "小鲸猪",
+    "name": "小鯨豬",
     "race": 6,
     "start_base_level": 120,
     "price": 111,
@@ -40987,7 +40987,7 @@
   },
   {
     "type": 1720,
-    "name": "愤怒小鸟",
+    "name": "憤怒小鳥",
     "race": 3,
     "start_base_level": 150,
     "price": 111,
@@ -41020,7 +41020,7 @@
   },
   {
     "type": 1721,
-    "name": "鲸猪",
+    "name": "鯨豬",
     "race": 6,
     "start_base_level": 150,
     "price": 111,
@@ -41053,7 +41053,7 @@
   },
   {
     "type": 1722,
-    "name": "薯头狗",
+    "name": "薯頭狗",
     "race": 6,
     "start_base_level": 150,
     "price": 111,
@@ -41086,7 +41086,7 @@
   },
   {
     "type": 1730,
-    "name": "奇异小流氓兔",
+    "name": "奇異小流氓兔",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -41119,7 +41119,7 @@
   },
   {
     "type": 1731,
-    "name": "奇异小鬼头",
+    "name": "奇異小鬼頭",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -41152,7 +41152,7 @@
   },
   {
     "type": 1732,
-    "name": "奇异鲸猪",
+    "name": "奇異鯨豬",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -41185,7 +41185,7 @@
   },
   {
     "type": 1733,
-    "name": "奇异愤怒小鸟",
+    "name": "奇異憤怒小鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -41218,7 +41218,7 @@
   },
   {
     "type": 1734,
-    "name": "奇异蓝天使",
+    "name": "奇異藍天使",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -41251,7 +41251,7 @@
   },
   {
     "type": 1735,
-    "name": "奇异木头人",
+    "name": "奇異木頭人",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -41284,7 +41284,7 @@
   },
   {
     "type": 1736,
-    "name": "奇异小丑怪",
+    "name": "奇異小丑怪",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -41317,7 +41317,7 @@
   },
   {
     "type": 1737,
-    "name": "奇异小桃怪",
+    "name": "奇異小桃怪",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -41350,7 +41350,7 @@
   },
   {
     "type": 1738,
-    "name": "奇异钻头龙",
+    "name": "奇異鑽頭龍",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -41383,7 +41383,7 @@
   },
   {
     "type": 1739,
-    "name": "奇异假面鬼",
+    "name": "奇異假面鬼",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -41416,7 +41416,7 @@
   },
   {
     "type": 1740,
-    "name": "奇异猛达夏",
+    "name": "奇異猛達夏",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -41449,7 +41449,7 @@
   },
   {
     "type": 1741,
-    "name": "奇异米德特尔",
+    "name": "奇異米德特爾",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -41482,7 +41482,7 @@
   },
   {
     "type": 1742,
-    "name": "奇异铁甲虫",
+    "name": "奇異鐵甲蟲",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -41515,7 +41515,7 @@
   },
   {
     "type": 1743,
-    "name": "奇异太阳花",
+    "name": "奇異太陽花",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -41548,7 +41548,7 @@
   },
   {
     "type": 1744,
-    "name": "奇异巨眼魔",
+    "name": "奇異巨眼魔",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -41581,7 +41581,7 @@
   },
   {
     "type": 1745,
-    "name": "奇异伊夫来克",
+    "name": "奇異伊夫來克",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -41614,7 +41614,7 @@
   },
   {
     "type": 1801,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 165,
     "price": 111,
@@ -41647,7 +41647,7 @@
   },
   {
     "type": 1802,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 170,
     "price": 111,
@@ -41680,7 +41680,7 @@
   },
   {
     "type": 1803,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 175,
     "price": 111,
@@ -41713,7 +41713,7 @@
   },
   {
     "type": 1804,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 180,
     "price": 111,
@@ -41746,7 +41746,7 @@
   },
   {
     "type": 1805,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 185,
     "price": 111,
@@ -41779,7 +41779,7 @@
   },
   {
     "type": 1806,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 190,
     "price": 111,
@@ -41812,7 +41812,7 @@
   },
   {
     "type": 1807,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 195,
     "price": 111,
@@ -41845,7 +41845,7 @@
   },
   {
     "type": 1808,
-    "name": "黑斧虫",
+    "name": "黑斧蟲",
     "race": 4,
     "start_base_level": 200,
     "price": 111,
@@ -41878,7 +41878,7 @@
   },
   {
     "type": 1811,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 165,
     "price": 111,
@@ -41911,7 +41911,7 @@
   },
   {
     "type": 1812,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 170,
     "price": 111,
@@ -41944,7 +41944,7 @@
   },
   {
     "type": 1813,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 175,
     "price": 111,
@@ -41977,7 +41977,7 @@
   },
   {
     "type": 1814,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 180,
     "price": 111,
@@ -42010,7 +42010,7 @@
   },
   {
     "type": 1815,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 185,
     "price": 111,
@@ -42043,7 +42043,7 @@
   },
   {
     "type": 1816,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 190,
     "price": 111,
@@ -42076,7 +42076,7 @@
   },
   {
     "type": 1817,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 195,
     "price": 111,
@@ -42109,7 +42109,7 @@
   },
   {
     "type": 1818,
-    "name": "魔鬼椰灵",
+    "name": "魔鬼椰靈",
     "race": 1,
     "start_base_level": 200,
     "price": 111,
@@ -42142,7 +42142,7 @@
   },
   {
     "type": 1821,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 165,
     "price": 111,
@@ -42175,7 +42175,7 @@
   },
   {
     "type": 1822,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 170,
     "price": 111,
@@ -42208,7 +42208,7 @@
   },
   {
     "type": 1823,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 175,
     "price": 111,
@@ -42241,7 +42241,7 @@
   },
   {
     "type": 1824,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 180,
     "price": 111,
@@ -42274,7 +42274,7 @@
   },
   {
     "type": 1825,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 185,
     "price": 111,
@@ -42307,7 +42307,7 @@
   },
   {
     "type": 1826,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 190,
     "price": 111,
@@ -42340,7 +42340,7 @@
   },
   {
     "type": 1827,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 195,
     "price": 111,
@@ -42373,7 +42373,7 @@
   },
   {
     "type": 1828,
-    "name": "火烈鸟",
+    "name": "火烈鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 111,
@@ -42934,7 +42934,7 @@
   },
   {
     "type": 1851,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 165,
     "price": 111,
@@ -42967,7 +42967,7 @@
   },
   {
     "type": 1852,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 170,
     "price": 111,
@@ -43000,7 +43000,7 @@
   },
   {
     "type": 1853,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 175,
     "price": 111,
@@ -43033,7 +43033,7 @@
   },
   {
     "type": 1854,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 180,
     "price": 111,
@@ -43066,7 +43066,7 @@
   },
   {
     "type": 1855,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 185,
     "price": 111,
@@ -43099,7 +43099,7 @@
   },
   {
     "type": 1856,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 190,
     "price": 111,
@@ -43132,7 +43132,7 @@
   },
   {
     "type": 1857,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 195,
     "price": 111,
@@ -43165,7 +43165,7 @@
   },
   {
     "type": 1858,
-    "name": "白象兽",
+    "name": "白象獸",
     "race": 2,
     "start_base_level": 200,
     "price": 111,
@@ -43198,7 +43198,7 @@
   },
   {
     "type": 1870,
-    "name": "超级卡龙王",
+    "name": "超級卡龍王",
     "race": 0,
     "start_base_level": 200,
     "price": 222,
@@ -43231,7 +43231,7 @@
   },
   {
     "type": 1871,
-    "name": "超级阿努比斯",
+    "name": "超級阿努比斯",
     "race": 1,
     "start_base_level": 200,
     "price": 222,
@@ -43264,7 +43264,7 @@
   },
   {
     "type": 1872,
-    "name": "超级黑暗双头狼",
+    "name": "超級黑暗雙頭狼",
     "race": 2,
     "start_base_level": 200,
     "price": 222,
@@ -43297,7 +43297,7 @@
   },
   {
     "type": 1873,
-    "name": "超级烈焰凤凰",
+    "name": "超級烈焰鳳凰",
     "race": 3,
     "start_base_level": 200,
     "price": 222,
@@ -43330,7 +43330,7 @@
   },
   {
     "type": 1874,
-    "name": "超级红巾螳螂王",
+    "name": "超級紅巾螳螂王",
     "race": 4,
     "start_base_level": 200,
     "price": 222,
@@ -43363,7 +43363,7 @@
   },
   {
     "type": 1875,
-    "name": "超级食人树妖",
+    "name": "超級食人樹妖",
     "race": 5,
     "start_base_level": 200,
     "price": 222,
@@ -43396,7 +43396,7 @@
   },
   {
     "type": 1876,
-    "name": "超级神秘武士王",
+    "name": "超級神秘武士王",
     "race": 6,
     "start_base_level": 200,
     "price": 222,
@@ -43429,7 +43429,7 @@
   },
   {
     "type": 1877,
-    "name": "超级驱逐舰",
+    "name": "超級驅逐艦",
     "race": 7,
     "start_base_level": 200,
     "price": 222,
@@ -43462,7 +43462,7 @@
   },
   {
     "type": 1878,
-    "name": "超级忍者龟",
+    "name": "超級忍者龜",
     "race": 6,
     "start_base_level": 200,
     "price": 111,
@@ -43495,7 +43495,7 @@
   },
   {
     "type": 1879,
-    "name": "黑色眼镜蛇王",
+    "name": "黑色眼鏡蛇王",
     "race": 4,
     "start_base_level": 200,
     "price": 111,
@@ -43528,7 +43528,7 @@
   },
   {
     "type": 1900,
-    "name": "剑龙",
+    "name": "劍龍",
     "race": 0,
     "start_base_level": 172,
     "price": 333,
@@ -43561,7 +43561,7 @@
   },
   {
     "type": 1901,
-    "name": "变异南瓜人偶",
+    "name": "變異南瓜人偶",
     "race": 1,
     "start_base_level": 172,
     "price": 333,
@@ -43594,7 +43594,7 @@
   },
   {
     "type": 1902,
-    "name": "冰精鸟",
+    "name": "冰精鳥",
     "race": 3,
     "start_base_level": 172,
     "price": 333,
@@ -43627,7 +43627,7 @@
   },
   {
     "type": 1903,
-    "name": "谜之怪人",
+    "name": "謎之怪人",
     "race": 4,
     "start_base_level": 172,
     "price": 333,
@@ -43660,7 +43660,7 @@
   },
   {
     "type": 1904,
-    "name": "狂暴巨臂树精",
+    "name": "狂暴巨臂樹精",
     "race": 5,
     "start_base_level": 172,
     "price": 333,
@@ -43693,7 +43693,7 @@
   },
   {
     "type": 1905,
-    "name": "狂暴双斧铠魔",
+    "name": "狂暴雙斧鎧魔",
     "race": 7,
     "start_base_level": 172,
     "price": 333,
@@ -43759,7 +43759,7 @@
   },
   {
     "type": 1907,
-    "name": "烈焰陆行鸟",
+    "name": "烈焰陸行鳥",
     "race": 0,
     "start_base_level": 180,
     "price": 333,
@@ -43792,7 +43792,7 @@
   },
   {
     "type": 1908,
-    "name": "南瓜人爱丽丝",
+    "name": "南瓜人愛麗絲",
     "race": 1,
     "start_base_level": 180,
     "price": 333,
@@ -43924,7 +43924,7 @@
   },
   {
     "type": 1912,
-    "name": "狂暴牛库恩",
+    "name": "狂暴牛庫恩",
     "race": 7,
     "start_base_level": 180,
     "price": 333,
@@ -43990,7 +43990,7 @@
   },
   {
     "type": 1914,
-    "name": "稚火龙",
+    "name": "稚火龍",
     "race": 0,
     "start_base_level": 200,
     "price": 333,
@@ -44056,7 +44056,7 @@
   },
   {
     "type": 1916,
-    "name": "远古三头狼",
+    "name": "遠古三頭狼",
     "race": 2,
     "start_base_level": 200,
     "price": 333,
@@ -44089,7 +44089,7 @@
   },
   {
     "type": 1917,
-    "name": "萤火鸟",
+    "name": "螢火鳥",
     "race": 3,
     "start_base_level": 200,
     "price": 333,
@@ -44155,7 +44155,7 @@
   },
   {
     "type": 1919,
-    "name": "剧毒罗曼陀",
+    "name": "劇毒羅曼陀",
     "race": 5,
     "start_base_level": 200,
     "price": 333,
@@ -44188,7 +44188,7 @@
   },
   {
     "type": 1920,
-    "name": "机械战士",
+    "name": "機械戰士",
     "race": 7,
     "start_base_level": 200,
     "price": 333,
@@ -44221,7 +44221,7 @@
   },
   {
     "type": 1921,
-    "name": "权杖巫师",
+    "name": "權杖巫師",
     "race": 6,
     "start_base_level": 200,
     "price": 333,
@@ -44254,7 +44254,7 @@
   },
   {
     "type": 1931,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 165,
     "price": 100,
@@ -44287,7 +44287,7 @@
   },
   {
     "type": 1932,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 170,
     "price": 100,
@@ -44320,7 +44320,7 @@
   },
   {
     "type": 1933,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 175,
     "price": 100,
@@ -44353,7 +44353,7 @@
   },
   {
     "type": 1934,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 180,
     "price": 100,
@@ -44386,7 +44386,7 @@
   },
   {
     "type": 1935,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 185,
     "price": 100,
@@ -44419,7 +44419,7 @@
   },
   {
     "type": 1936,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 190,
     "price": 100,
@@ -44452,7 +44452,7 @@
   },
   {
     "type": 1937,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 195,
     "price": 100,
@@ -44485,7 +44485,7 @@
   },
   {
     "type": 1938,
-    "name": "异次元小流氓兔",
+    "name": "異次元小流氓兔",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -44518,7 +44518,7 @@
   },
   {
     "type": 1941,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 165,
     "price": 100,
@@ -44551,7 +44551,7 @@
   },
   {
     "type": 1942,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 170,
     "price": 100,
@@ -44584,7 +44584,7 @@
   },
   {
     "type": 1943,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 175,
     "price": 100,
@@ -44617,7 +44617,7 @@
   },
   {
     "type": 1944,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 180,
     "price": 100,
@@ -44650,7 +44650,7 @@
   },
   {
     "type": 1945,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 185,
     "price": 100,
@@ -44683,7 +44683,7 @@
   },
   {
     "type": 1946,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 190,
     "price": 100,
@@ -44716,7 +44716,7 @@
   },
   {
     "type": 1947,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 195,
     "price": 100,
@@ -44749,7 +44749,7 @@
   },
   {
     "type": 1948,
-    "name": "异次元小螃蟹",
+    "name": "異次元小螃蟹",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -44782,7 +44782,7 @@
   },
   {
     "type": 1951,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 165,
     "price": 100,
@@ -44815,7 +44815,7 @@
   },
   {
     "type": 1952,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 170,
     "price": 100,
@@ -44848,7 +44848,7 @@
   },
   {
     "type": 1953,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 175,
     "price": 100,
@@ -44881,7 +44881,7 @@
   },
   {
     "type": 1954,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 180,
     "price": 100,
@@ -44914,7 +44914,7 @@
   },
   {
     "type": 1955,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 185,
     "price": 100,
@@ -44947,7 +44947,7 @@
   },
   {
     "type": 1956,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 190,
     "price": 100,
@@ -44980,7 +44980,7 @@
   },
   {
     "type": 1957,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 195,
     "price": 100,
@@ -45013,7 +45013,7 @@
   },
   {
     "type": 1958,
-    "name": "异次元冰晶兽",
+    "name": "異次元冰晶獸",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -45046,7 +45046,7 @@
   },
   {
     "type": 1961,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 165,
     "price": 100,
@@ -45079,7 +45079,7 @@
   },
   {
     "type": 1962,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 170,
     "price": 100,
@@ -45112,7 +45112,7 @@
   },
   {
     "type": 1963,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 175,
     "price": 100,
@@ -45145,7 +45145,7 @@
   },
   {
     "type": 1964,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 180,
     "price": 100,
@@ -45178,7 +45178,7 @@
   },
   {
     "type": 1965,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 185,
     "price": 100,
@@ -45211,7 +45211,7 @@
   },
   {
     "type": 1966,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 190,
     "price": 100,
@@ -45244,7 +45244,7 @@
   },
   {
     "type": 1967,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 195,
     "price": 100,
@@ -45277,7 +45277,7 @@
   },
   {
     "type": 1968,
-    "name": "异次元秃鹰",
+    "name": "異次元禿鷹",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -45310,7 +45310,7 @@
   },
   {
     "type": 1971,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 165,
     "price": 100,
@@ -45343,7 +45343,7 @@
   },
   {
     "type": 1972,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 170,
     "price": 100,
@@ -45376,7 +45376,7 @@
   },
   {
     "type": 1973,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 175,
     "price": 100,
@@ -45409,7 +45409,7 @@
   },
   {
     "type": 1974,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 180,
     "price": 100,
@@ -45442,7 +45442,7 @@
   },
   {
     "type": 1975,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 185,
     "price": 100,
@@ -45475,7 +45475,7 @@
   },
   {
     "type": 1976,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 190,
     "price": 100,
@@ -45508,7 +45508,7 @@
   },
   {
     "type": 1977,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 195,
     "price": 100,
@@ -45541,7 +45541,7 @@
   },
   {
     "type": 1978,
-    "name": "异次元小红帽",
+    "name": "異次元小紅帽",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -45574,7 +45574,7 @@
   },
   {
     "type": 1981,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 165,
     "price": 100,
@@ -45607,7 +45607,7 @@
   },
   {
     "type": 1982,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 170,
     "price": 100,
@@ -45640,7 +45640,7 @@
   },
   {
     "type": 1983,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 175,
     "price": 100,
@@ -45673,7 +45673,7 @@
   },
   {
     "type": 1984,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 180,
     "price": 100,
@@ -45706,7 +45706,7 @@
   },
   {
     "type": 1985,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 185,
     "price": 100,
@@ -45739,7 +45739,7 @@
   },
   {
     "type": 1986,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 190,
     "price": 100,
@@ -45772,7 +45772,7 @@
   },
   {
     "type": 1987,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 195,
     "price": 100,
@@ -45805,7 +45805,7 @@
   },
   {
     "type": 1988,
-    "name": "异次元蓝叶",
+    "name": "異次元藍葉",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -45838,7 +45838,7 @@
   },
   {
     "type": 1991,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 165,
     "price": 100,
@@ -45871,7 +45871,7 @@
   },
   {
     "type": 1992,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 170,
     "price": 100,
@@ -45904,7 +45904,7 @@
   },
   {
     "type": 1993,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 175,
     "price": 100,
@@ -45937,7 +45937,7 @@
   },
   {
     "type": 1994,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 180,
     "price": 100,
@@ -45970,7 +45970,7 @@
   },
   {
     "type": 1995,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 185,
     "price": 100,
@@ -46003,7 +46003,7 @@
   },
   {
     "type": 1996,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 190,
     "price": 100,
@@ -46036,7 +46036,7 @@
   },
   {
     "type": 1997,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 195,
     "price": 100,
@@ -46069,7 +46069,7 @@
   },
   {
     "type": 1998,
-    "name": "异次元石奴",
+    "name": "異次元石奴",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -46102,7 +46102,7 @@
   },
   {
     "type": 2001,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 165,
     "price": 100,
@@ -46135,7 +46135,7 @@
   },
   {
     "type": 2002,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 170,
     "price": 100,
@@ -46168,7 +46168,7 @@
   },
   {
     "type": 2003,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 175,
     "price": 100,
@@ -46201,7 +46201,7 @@
   },
   {
     "type": 2004,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 180,
     "price": 100,
@@ -46234,7 +46234,7 @@
   },
   {
     "type": 2005,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 185,
     "price": 100,
@@ -46267,7 +46267,7 @@
   },
   {
     "type": 2006,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 190,
     "price": 100,
@@ -46300,7 +46300,7 @@
   },
   {
     "type": 2007,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 195,
     "price": 100,
@@ -46333,7 +46333,7 @@
   },
   {
     "type": 2008,
-    "name": "异次元小坎布",
+    "name": "異次元小坎布",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -46366,7 +46366,7 @@
   },
   {
     "type": 2028,
-    "name": "异次元迪特",
+    "name": "異次元迪特",
     "race": 0,
     "start_base_level": 200,
     "price": 100,
@@ -46399,7 +46399,7 @@
   },
   {
     "type": 2029,
-    "name": "异次元魔王",
+    "name": "異次元魔王",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -46432,7 +46432,7 @@
   },
   {
     "type": 2030,
-    "name": "足球宝宝",
+    "name": "足球寶寶",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -46465,7 +46465,7 @@
   },
   {
     "type": 2031,
-    "name": "美人鱼",
+    "name": "美人魚",
     "race": 3,
     "start_base_level": 200,
     "price": 100,
@@ -46498,7 +46498,7 @@
   },
   {
     "type": 2032,
-    "name": "大脚邪神",
+    "name": "大腳邪神",
     "race": 4,
     "start_base_level": 200,
     "price": 100,
@@ -46531,7 +46531,7 @@
   },
   {
     "type": 2033,
-    "name": "异次元箱子妞",
+    "name": "異次元箱子妞",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -46564,7 +46564,7 @@
   },
   {
     "type": 2034,
-    "name": "异次元波伊",
+    "name": "異次元波伊",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -46597,7 +46597,7 @@
   },
   {
     "type": 2035,
-    "name": "异次元简",
+    "name": "異次元簡",
     "race": 7,
     "start_base_level": 200,
     "price": 100,
@@ -46630,7 +46630,7 @@
   },
   {
     "type": 2036,
-    "name": "变异薯头狗",
+    "name": "變異薯頭狗",
     "race": 6,
     "start_base_level": 200,
     "price": 100,
@@ -46663,7 +46663,7 @@
   },
   {
     "type": 2037,
-    "name": "变异双豆子",
+    "name": "變異雙豆子",
     "race": 5,
     "start_base_level": 200,
     "price": 100,
@@ -46696,7 +46696,7 @@
   },
   {
     "type": 2038,
-    "name": "变异裂空雷虎",
+    "name": "變異裂空雷虎",
     "race": 2,
     "start_base_level": 200,
     "price": 100,
@@ -46729,7 +46729,7 @@
   },
   {
     "type": 2039,
-    "name": "变异伊鲁法",
+    "name": "變異伊魯法",
     "race": 1,
     "start_base_level": 200,
     "price": 100,
@@ -46762,7 +46762,7 @@
   },
   {
     "type": 2040,
-    "name": "变异蜜蜂树妖",
+    "name": "變異蜜蜂樹妖",
     "race": 5,
     "start_base_level": 200,
     "price": 100,

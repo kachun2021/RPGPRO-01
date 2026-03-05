@@ -1,7 +1,7 @@
 [
   {
     "idx": 12,
-    "set_name": "新手村套装",
+    "set_name": "新手村套裝",
     "helmet": 5904,
     "armor": 5905,
     "glove": 5906,
@@ -19,7 +19,7 @@
   },
   {
     "idx": 1,
-    "set_name": "新月套装",
+    "set_name": "新月套裝",
     "helmet": 5700,
     "armor": 5701,
     "glove": 5702,
@@ -37,7 +37,7 @@
   },
   {
     "idx": 2,
-    "set_name": "魔力套装",
+    "set_name": "魔力套裝",
     "helmet": 5707,
     "armor": 5708,
     "glove": 5709,
@@ -55,7 +55,7 @@
   },
   {
     "idx": 3,
-    "set_name": "特洛伊套装",
+    "set_name": "特洛伊套裝",
     "helmet": 5715,
     "armor": 5716,
     "glove": 5717,
@@ -73,7 +73,7 @@
   },
   {
     "idx": 4,
-    "set_name": "蓝眼套装",
+    "set_name": "藍眼套裝",
     "helmet": 5722,
     "armor": 5723,
     "glove": 5724,
@@ -91,7 +91,7 @@
   },
   {
     "idx": 4,
-    "set_name": "龙-卡龙王",
+    "set_name": "龍-卡龍王",
     "helmet": 8949,
     "armor": 8773,
     "glove": 8953,
@@ -109,7 +109,7 @@
   },
   {
     "idx": 5,
-    "set_name": "恶魔-阿努比斯",
+    "set_name": "惡魔-阿努比斯",
     "helmet": 8955,
     "armor": 8776,
     "glove": 8959,
@@ -127,7 +127,7 @@
   },
   {
     "idx": 6,
-    "set_name": "兽-黑暗双头狼",
+    "set_name": "獸-黑暗雙頭狼",
     "helmet": 8964,
     "armor": 8962,
     "glove": 8968,
@@ -145,7 +145,7 @@
   },
   {
     "idx": 7,
-    "set_name": "鸟-凤凰",
+    "set_name": "鳥-鳳凰",
     "helmet": 8973,
     "armor": 8971,
     "glove": 8977,
@@ -163,7 +163,7 @@
   },
   {
     "idx": 8,
-    "set_name": "虫-红巾螳螂王",
+    "set_name": "蟲-紅巾螳螂王",
     "helmet": 8982,
     "armor": 8980,
     "glove": 8986,
@@ -181,7 +181,7 @@
   },
   {
     "idx": 9,
-    "set_name": "植物-食人树妖",
+    "set_name": "植物-食人樹妖",
     "helmet": 8988,
     "armor": 8779,
     "glove": 8992,
@@ -217,7 +217,7 @@
   },
   {
     "idx": 11,
-    "set_name": "机械-驱逐舰",
+    "set_name": "機械-驅逐艦",
     "helmet": 9003,
     "armor": 9001,
     "glove": 9007,

@@ -1,7 +1,7 @@
 [
   {
     "idx": 1,
-    "book_name": "流氓兔的地盘",
+    "book_name": "流氓兔的地盤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -25,7 +25,7 @@
   },
   {
     "idx": 2,
-    "book_name": "黑尔斯波入口",
+    "book_name": "黑爾斯波入口",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -49,7 +49,7 @@
   },
   {
     "idx": 3,
-    "book_name": "马吉利塔北部",
+    "book_name": "馬吉利塔北部",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -73,7 +73,7 @@
   },
   {
     "idx": 4,
-    "book_name": "流氓兔的地盘",
+    "book_name": "流氓兔的地盤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -97,7 +97,7 @@
   },
   {
     "idx": 5,
-    "book_name": "流氓兔的地盘",
+    "book_name": "流氓兔的地盤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -121,7 +121,7 @@
   },
   {
     "idx": 6,
-    "book_name": "马吉利塔西海岸",
+    "book_name": "馬吉利塔西海岸",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -145,7 +145,7 @@
   },
   {
     "idx": 7,
-    "book_name": "流氓兔的地盘",
+    "book_name": "流氓兔的地盤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -169,7 +169,7 @@
   },
   {
     "idx": 8,
-    "book_name": "流氓兔的地盘",
+    "book_name": "流氓兔的地盤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -193,7 +193,7 @@
   },
   {
     "idx": 9,
-    "book_name": "坎布的地盘-兽",
+    "book_name": "坎布的地盤-獸",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -217,7 +217,7 @@
   },
   {
     "idx": 10,
-    "book_name": "坎布的地盘-兽",
+    "book_name": "坎布的地盤-獸",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -241,7 +241,7 @@
   },
   {
     "idx": 11,
-    "book_name": "坎布的地盘-兽",
+    "book_name": "坎布的地盤-獸",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -265,7 +265,7 @@
   },
   {
     "idx": 12,
-    "book_name": "坎布的地盘-龙",
+    "book_name": "坎布的地盤-龍",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -289,7 +289,7 @@
   },
   {
     "idx": 13,
-    "book_name": "坎布的地盘-神秘",
+    "book_name": "坎布的地盤-神秘",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -313,7 +313,7 @@
   },
   {
     "idx": 14,
-    "book_name": "伊斯拉布湿地",
+    "book_name": "伊斯拉布溼地",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -337,7 +337,7 @@
   },
   {
     "idx": 15,
-    "book_name": "欧文草原",
+    "book_name": "歐文草原",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -361,7 +361,7 @@
   },
   {
     "idx": 17,
-    "book_name": "米格瑞塔东海岸",
+    "book_name": "米格瑞塔東海岸",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -433,7 +433,7 @@
   },
   {
     "idx": 25,
-    "book_name": "彼斯克罗",
+    "book_name": "彼斯克羅",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -457,7 +457,7 @@
   },
   {
     "idx": 31,
-    "book_name": "鲁狄斯南部",
+    "book_name": "魯狄斯南部",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -481,7 +481,7 @@
   },
   {
     "idx": 33,
-    "book_name": "巴尔干入口",
+    "book_name": "巴爾幹入口",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -529,7 +529,7 @@
   },
   {
     "idx": 36,
-    "book_name": "双子峡谷",
+    "book_name": "雙子峽谷",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -553,7 +553,7 @@
   },
   {
     "idx": 38,
-    "book_name": "命运的沙漠岔道",
+    "book_name": "命運的沙漠岔道",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -577,7 +577,7 @@
   },
   {
     "idx": 50,
-    "book_name": "罗林克斯平原",
+    "book_name": "羅林克斯平原",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -601,7 +601,7 @@
   },
   {
     "idx": 52,
-    "book_name": "芝士堡遗址",
+    "book_name": "芝士堡遺址",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -625,7 +625,7 @@
   },
   {
     "idx": 57,
-    "book_name": "马吉利塔",
+    "book_name": "馬吉利塔",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -673,7 +673,7 @@
   },
   {
     "idx": 60,
-    "book_name": "贝赫鲁",
+    "book_name": "貝赫魯",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -697,7 +697,7 @@
   },
   {
     "idx": 63,
-    "book_name": "黑尔斯波",
+    "book_name": "黑爾斯波",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -721,7 +721,7 @@
   },
   {
     "idx": 66,
-    "book_name": "贝赫鲁南部",
+    "book_name": "貝赫魯南部",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -745,7 +745,7 @@
   },
   {
     "idx": 67,
-    "book_name": "鲁狄斯",
+    "book_name": "魯狄斯",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -769,7 +769,7 @@
   },
   {
     "idx": 69,
-    "book_name": "混乱森林",
+    "book_name": "混亂森林",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -793,7 +793,7 @@
   },
   {
     "idx": 70,
-    "book_name": "PK场",
+    "book_name": "PK場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -817,7 +817,7 @@
   },
   {
     "idx": 71,
-    "book_name": "PK大厅",
+    "book_name": "PK大廳",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -865,7 +865,7 @@
   },
   {
     "idx": 73,
-    "book_name": "鲁那特平原",
+    "book_name": "魯那特平原",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -889,7 +889,7 @@
   },
   {
     "idx": 74,
-    "book_name": "迷幻沼泽",
+    "book_name": "迷幻沼澤",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -913,7 +913,7 @@
   },
   {
     "idx": 75,
-    "book_name": "鲁那特地狱入口",
+    "book_name": "魯那特地獄入口",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -937,7 +937,7 @@
   },
   {
     "idx": 81,
-    "book_name": "劳吉塔地下1层",
+    "book_name": "勞吉塔地下1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -961,7 +961,7 @@
   },
   {
     "idx": 82,
-    "book_name": "劳吉塔地下2层",
+    "book_name": "勞吉塔地下2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -985,7 +985,7 @@
   },
   {
     "idx": 83,
-    "book_name": "劳吉塔地下3层",
+    "book_name": "勞吉塔地下3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1009,7 +1009,7 @@
   },
   {
     "idx": 84,
-    "book_name": "劳吉塔地下4层",
+    "book_name": "勞吉塔地下4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1033,7 +1033,7 @@
   },
   {
     "idx": 85,
-    "book_name": "劳吉塔地下5层",
+    "book_name": "勞吉塔地下5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1057,7 +1057,7 @@
   },
   {
     "idx": 86,
-    "book_name": "劳吉塔地下6层",
+    "book_name": "勞吉塔地下6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1081,7 +1081,7 @@
   },
   {
     "idx": 87,
-    "book_name": "劳吉塔地下7层",
+    "book_name": "勞吉塔地下7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1105,7 +1105,7 @@
   },
   {
     "idx": 91,
-    "book_name": "鲁那特地城1层",
+    "book_name": "魯那特地城1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1129,7 +1129,7 @@
   },
   {
     "idx": 92,
-    "book_name": "鲁那特地城2层",
+    "book_name": "魯那特地城2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1153,7 +1153,7 @@
   },
   {
     "idx": 93,
-    "book_name": "鲁那特地城3层",
+    "book_name": "魯那特地城3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1177,7 +1177,7 @@
   },
   {
     "idx": 94,
-    "book_name": "鲁那特地城4层",
+    "book_name": "魯那特地城4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1201,7 +1201,7 @@
   },
   {
     "idx": 95,
-    "book_name": "鲁那特地城5层",
+    "book_name": "魯那特地城5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1225,7 +1225,7 @@
   },
   {
     "idx": 96,
-    "book_name": "勇气试炼场1层",
+    "book_name": "勇氣試煉場1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1249,7 +1249,7 @@
   },
   {
     "idx": 97,
-    "book_name": "勇气试炼场2层",
+    "book_name": "勇氣試煉場2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1273,7 +1273,7 @@
   },
   {
     "idx": 98,
-    "book_name": "勇气试炼场3层",
+    "book_name": "勇氣試煉場3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1297,7 +1297,7 @@
   },
   {
     "idx": 99,
-    "book_name": "勇气试炼场4层",
+    "book_name": "勇氣試煉場4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1321,7 +1321,7 @@
   },
   {
     "idx": 100,
-    "book_name": "鲁狄斯地城废墟",
+    "book_name": "魯狄斯地城廢墟",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1345,7 +1345,7 @@
   },
   {
     "idx": 101,
-    "book_name": "马吉利塔城",
+    "book_name": "馬吉利塔城",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1393,7 +1393,7 @@
   },
   {
     "idx": 103,
-    "book_name": "天空之城1层",
+    "book_name": "天空之城1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1417,7 +1417,7 @@
   },
   {
     "idx": 104,
-    "book_name": "天空之城2层",
+    "book_name": "天空之城2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1441,7 +1441,7 @@
   },
   {
     "idx": 105,
-    "book_name": "天空之城3层",
+    "book_name": "天空之城3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1465,7 +1465,7 @@
   },
   {
     "idx": 106,
-    "book_name": "天空之城4层",
+    "book_name": "天空之城4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1489,7 +1489,7 @@
   },
   {
     "idx": 107,
-    "book_name": "天空之城5层",
+    "book_name": "天空之城5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1513,7 +1513,7 @@
   },
   {
     "idx": 108,
-    "book_name": "天空之城6层",
+    "book_name": "天空之城6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1537,7 +1537,7 @@
   },
   {
     "idx": 109,
-    "book_name": "天空之城7层",
+    "book_name": "天空之城7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1561,7 +1561,7 @@
   },
   {
     "idx": 110,
-    "book_name": "天空之城8层",
+    "book_name": "天空之城8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1585,7 +1585,7 @@
   },
   {
     "idx": 111,
-    "book_name": "布迈",
+    "book_name": "布邁",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1633,7 +1633,7 @@
   },
   {
     "idx": 113,
-    "book_name": "伊斯凯森林",
+    "book_name": "伊斯凱森林",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1657,7 +1657,7 @@
   },
   {
     "idx": 114,
-    "book_name": "寂静废墟",
+    "book_name": "寂靜廢墟",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1705,7 +1705,7 @@
   },
   {
     "idx": 116,
-    "book_name": "希南遗址入口",
+    "book_name": "希南遺址入口",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1729,7 +1729,7 @@
   },
   {
     "idx": 117,
-    "book_name": "希南遗址",
+    "book_name": "希南遺址",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1753,7 +1753,7 @@
   },
   {
     "idx": 118,
-    "book_name": "布买废墟",
+    "book_name": "布買廢墟",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1777,7 +1777,7 @@
   },
   {
     "idx": 119,
-    "book_name": "龙系天空1层",
+    "book_name": "龍系天空1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1801,7 +1801,7 @@
   },
   {
     "idx": 120,
-    "book_name": "龙系天空2层",
+    "book_name": "龍系天空2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1825,7 +1825,7 @@
   },
   {
     "idx": 121,
-    "book_name": "龙系天空3层",
+    "book_name": "龍系天空3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1849,7 +1849,7 @@
   },
   {
     "idx": 122,
-    "book_name": "龙系天空4层",
+    "book_name": "龍系天空4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1873,7 +1873,7 @@
   },
   {
     "idx": 123,
-    "book_name": "龙系天空5层",
+    "book_name": "龍系天空5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1897,7 +1897,7 @@
   },
   {
     "idx": 124,
-    "book_name": "龙系天空6层",
+    "book_name": "龍系天空6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1921,7 +1921,7 @@
   },
   {
     "idx": 125,
-    "book_name": "龙系天空7层",
+    "book_name": "龍系天空7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1945,7 +1945,7 @@
   },
   {
     "idx": 126,
-    "book_name": "龙系天空8层",
+    "book_name": "龍系天空8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1969,7 +1969,7 @@
   },
   {
     "idx": 127,
-    "book_name": "恶魔天空1层",
+    "book_name": "惡魔天空1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -1993,7 +1993,7 @@
   },
   {
     "idx": 128,
-    "book_name": "恶魔天空2层",
+    "book_name": "惡魔天空2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2017,7 +2017,7 @@
   },
   {
     "idx": 129,
-    "book_name": "恶魔天空3层",
+    "book_name": "惡魔天空3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2041,7 +2041,7 @@
   },
   {
     "idx": 130,
-    "book_name": "新手区",
+    "book_name": "新手區",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2065,7 +2065,7 @@
   },
   {
     "idx": 131,
-    "book_name": "巴尔干峡谷",
+    "book_name": "巴爾幹峽谷",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2089,7 +2089,7 @@
   },
   {
     "idx": 132,
-    "book_name": "恶魔天空4层",
+    "book_name": "惡魔天空4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2113,7 +2113,7 @@
   },
   {
     "idx": 133,
-    "book_name": "恶魔天空5层",
+    "book_name": "惡魔天空5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2137,7 +2137,7 @@
   },
   {
     "idx": 134,
-    "book_name": "恶魔天空6层",
+    "book_name": "惡魔天空6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2161,7 +2161,7 @@
   },
   {
     "idx": 135,
-    "book_name": "恶魔天空7层",
+    "book_name": "惡魔天空7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2185,7 +2185,7 @@
   },
   {
     "idx": 136,
-    "book_name": "恶魔天空8层",
+    "book_name": "惡魔天空8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2209,7 +2209,7 @@
   },
   {
     "idx": 137,
-    "book_name": "植物天空1层",
+    "book_name": "植物天空1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2233,7 +2233,7 @@
   },
   {
     "idx": 138,
-    "book_name": "植物天空2层",
+    "book_name": "植物天空2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2257,7 +2257,7 @@
   },
   {
     "idx": 139,
-    "book_name": "植物天空3层",
+    "book_name": "植物天空3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2281,7 +2281,7 @@
   },
   {
     "idx": 140,
-    "book_name": "植物天空4层",
+    "book_name": "植物天空4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2305,7 +2305,7 @@
   },
   {
     "idx": 141,
-    "book_name": "植物天空5层",
+    "book_name": "植物天空5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2329,7 +2329,7 @@
   },
   {
     "idx": 142,
-    "book_name": "植物天空6层",
+    "book_name": "植物天空6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2353,7 +2353,7 @@
   },
   {
     "idx": 143,
-    "book_name": "植物天空7层",
+    "book_name": "植物天空7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2377,7 +2377,7 @@
   },
   {
     "idx": 144,
-    "book_name": "植物天空8层",
+    "book_name": "植物天空8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2401,7 +2401,7 @@
   },
   {
     "idx": 145,
-    "book_name": "神秘天空1层",
+    "book_name": "神秘天空1層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2425,7 +2425,7 @@
   },
   {
     "idx": 146,
-    "book_name": "神秘天空2层",
+    "book_name": "神秘天空2層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2449,7 +2449,7 @@
   },
   {
     "idx": 147,
-    "book_name": "神秘天空3层",
+    "book_name": "神秘天空3層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2473,7 +2473,7 @@
   },
   {
     "idx": 148,
-    "book_name": "神秘天空4层",
+    "book_name": "神秘天空4層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2497,7 +2497,7 @@
   },
   {
     "idx": 149,
-    "book_name": "神秘天空5层",
+    "book_name": "神秘天空5層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2521,7 +2521,7 @@
   },
   {
     "idx": 150,
-    "book_name": "地城-龙之屋",
+    "book_name": "地城-龍之屋",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2545,7 +2545,7 @@
   },
   {
     "idx": 151,
-    "book_name": "地城-机械之屋",
+    "book_name": "地城-機械之屋",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2569,7 +2569,7 @@
   },
   {
     "idx": 152,
-    "book_name": "地城-鸟之屋",
+    "book_name": "地城-鳥之屋",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2617,7 +2617,7 @@
   },
   {
     "idx": 154,
-    "book_name": "神秘天空6层",
+    "book_name": "神秘天空6層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2641,7 +2641,7 @@
   },
   {
     "idx": 155,
-    "book_name": "神秘天空7层",
+    "book_name": "神秘天空7層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2665,7 +2665,7 @@
   },
   {
     "idx": 156,
-    "book_name": "神秘天空8层",
+    "book_name": "神秘天空8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2689,7 +2689,7 @@
   },
   {
     "idx": 160,
-    "book_name": "马吉利塔东部",
+    "book_name": "馬吉利塔東部",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2737,7 +2737,7 @@
   },
   {
     "idx": 171,
-    "book_name": "马吉地下室(自由PK区)",
+    "book_name": "馬吉地下室(自由PK區)",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2761,7 +2761,7 @@
   },
   {
     "idx": 172,
-    "book_name": "马吉利塔庭院",
+    "book_name": "馬吉利塔庭院",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2785,7 +2785,7 @@
   },
   {
     "idx": 174,
-    "book_name": "扇子岛(自由PK区)",
+    "book_name": "扇子島(自由PK區)",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2809,7 +2809,7 @@
   },
   {
     "idx": 175,
-    "book_name": "石头花园",
+    "book_name": "石頭花園",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2833,7 +2833,7 @@
   },
   {
     "idx": 176,
-    "book_name": "奥特佩斯",
+    "book_name": "奧特佩斯",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2857,7 +2857,7 @@
   },
   {
     "idx": 177,
-    "book_name": "混沌之岛",
+    "book_name": "混沌之島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2881,7 +2881,7 @@
   },
   {
     "idx": 180,
-    "book_name": "花园迷宫",
+    "book_name": "花園迷宮",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2953,7 +2953,7 @@
   },
   {
     "idx": 183,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -2977,7 +2977,7 @@
   },
   {
     "idx": 184,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3001,7 +3001,7 @@
   },
   {
     "idx": 185,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3025,7 +3025,7 @@
   },
   {
     "idx": 186,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3049,7 +3049,7 @@
   },
   {
     "idx": 187,
-    "book_name": "足球场",
+    "book_name": "足球場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3073,7 +3073,7 @@
   },
   {
     "idx": 188,
-    "book_name": "足球场",
+    "book_name": "足球場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3097,7 +3097,7 @@
   },
   {
     "idx": 189,
-    "book_name": "足球场",
+    "book_name": "足球場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3121,7 +3121,7 @@
   },
   {
     "idx": 190,
-    "book_name": "足球场",
+    "book_name": "足球場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3145,7 +3145,7 @@
   },
   {
     "idx": 191,
-    "book_name": "足球场",
+    "book_name": "足球場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3169,7 +3169,7 @@
   },
   {
     "idx": 192,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3193,7 +3193,7 @@
   },
   {
     "idx": 193,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3217,7 +3217,7 @@
   },
   {
     "idx": 194,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3241,7 +3241,7 @@
   },
   {
     "idx": 195,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3265,7 +3265,7 @@
   },
   {
     "idx": 196,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3289,7 +3289,7 @@
   },
   {
     "idx": 197,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3313,7 +3313,7 @@
   },
   {
     "idx": 198,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3337,7 +3337,7 @@
   },
   {
     "idx": 199,
-    "book_name": "钓鱼岛",
+    "book_name": "釣魚島",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3553,7 +3553,7 @@
   },
   {
     "idx": 208,
-    "book_name": "训练场",
+    "book_name": "訓練場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3577,7 +3577,7 @@
   },
   {
     "idx": 209,
-    "book_name": "训练场",
+    "book_name": "訓練場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3601,7 +3601,7 @@
   },
   {
     "idx": 210,
-    "book_name": "训练场",
+    "book_name": "訓練場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3625,7 +3625,7 @@
   },
   {
     "idx": 211,
-    "book_name": "训练场",
+    "book_name": "訓練場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3649,7 +3649,7 @@
   },
   {
     "idx": 212,
-    "book_name": "训练场",
+    "book_name": "訓練場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3673,7 +3673,7 @@
   },
   {
     "idx": 213,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3697,7 +3697,7 @@
   },
   {
     "idx": 214,
-    "book_name": "巴尔克牧场",
+    "book_name": "巴爾克牧場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3721,7 +3721,7 @@
   },
   {
     "idx": 237,
-    "book_name": "事务所",
+    "book_name": "事務所",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3745,7 +3745,7 @@
   },
   {
     "idx": 238,
-    "book_name": "马吉利塔废墟[低]",
+    "book_name": "馬吉利塔廢墟[低]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3769,7 +3769,7 @@
   },
   {
     "idx": 239,
-    "book_name": "贝赫鲁废墟[低]",
+    "book_name": "貝赫魯廢墟[低]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3793,7 +3793,7 @@
   },
   {
     "idx": 240,
-    "book_name": "鲁狄斯废墟[低]",
+    "book_name": "魯狄斯廢墟[低]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3817,7 +3817,7 @@
   },
   {
     "idx": 241,
-    "book_name": "马吉利塔废墟[高]",
+    "book_name": "馬吉利塔廢墟[高]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3841,7 +3841,7 @@
   },
   {
     "idx": 242,
-    "book_name": "贝赫鲁废墟[高]",
+    "book_name": "貝赫魯廢墟[高]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3865,7 +3865,7 @@
   },
   {
     "idx": 243,
-    "book_name": "鲁狄斯废墟[高]",
+    "book_name": "魯狄斯廢墟[高]",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3889,7 +3889,7 @@
   },
   {
     "idx": 244,
-    "book_name": "劳吉塔地下8层",
+    "book_name": "勞吉塔地下8層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3913,7 +3913,7 @@
   },
   {
     "idx": 245,
-    "book_name": "劳吉塔地下9层",
+    "book_name": "勞吉塔地下9層",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3937,7 +3937,7 @@
   },
   {
     "idx": 246,
-    "book_name": "远古森林",
+    "book_name": "遠古森林",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3961,7 +3961,7 @@
   },
   {
     "idx": 247,
-    "book_name": "狂风地牢",
+    "book_name": "狂風地牢",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -3985,7 +3985,7 @@
   },
   {
     "idx": 251,
-    "book_name": "河谷农场",
+    "book_name": "河谷農場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -4009,7 +4009,7 @@
   },
   {
     "idx": 252,
-    "book_name": "内地农场",
+    "book_name": "內地農場",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,
@@ -4033,7 +4033,7 @@
   },
   {
     "idx": 255,
-    "book_name": "管理房间",
+    "book_name": "管理房間",
     "item_01": 0,
     "item_01_per": 0,
     "item_02": 0,

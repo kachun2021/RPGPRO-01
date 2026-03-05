@@ -1,7 +1,7 @@
 [
   {
     "idx": 1,
-    "name": "流氓兔的地盘",
+    "name": "流氓兔的地盤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -23,7 +23,7 @@
   },
   {
     "idx": 2,
-    "name": "黑尔斯波入口",
+    "name": "黑爾斯波入口",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -45,7 +45,7 @@
   },
   {
     "idx": 3,
-    "name": "马吉利塔北部",
+    "name": "馬吉利塔北部",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -67,7 +67,7 @@
   },
   {
     "idx": 4,
-    "name": "流氓兔的地盘",
+    "name": "流氓兔的地盤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -89,7 +89,7 @@
   },
   {
     "idx": 5,
-    "name": "流氓兔的地盘",
+    "name": "流氓兔的地盤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -111,7 +111,7 @@
   },
   {
     "idx": 6,
-    "name": "马吉利塔西海岸",
+    "name": "馬吉利塔西海岸",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -133,7 +133,7 @@
   },
   {
     "idx": 7,
-    "name": "流氓兔的地盘",
+    "name": "流氓兔的地盤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -155,7 +155,7 @@
   },
   {
     "idx": 8,
-    "name": "流氓兔的地盘",
+    "name": "流氓兔的地盤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -177,7 +177,7 @@
   },
   {
     "idx": 9,
-    "name": "坎布的地盘-兽",
+    "name": "坎布的地盤-獸",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -199,7 +199,7 @@
   },
   {
     "idx": 10,
-    "name": "坎布的地盘-兽",
+    "name": "坎布的地盤-獸",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -221,7 +221,7 @@
   },
   {
     "idx": 11,
-    "name": "坎布的地盘-兽",
+    "name": "坎布的地盤-獸",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -243,7 +243,7 @@
   },
   {
     "idx": 12,
-    "name": "坎布的地盘-龙",
+    "name": "坎布的地盤-龍",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -265,7 +265,7 @@
   },
   {
     "idx": 13,
-    "name": "坎布的地盘-神秘",
+    "name": "坎布的地盤-神秘",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -287,7 +287,7 @@
   },
   {
     "idx": 14,
-    "name": "伊斯拉布湿地",
+    "name": "伊斯拉布溼地",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -309,7 +309,7 @@
   },
   {
     "idx": 15,
-    "name": "欧文草原",
+    "name": "歐文草原",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -331,7 +331,7 @@
   },
   {
     "idx": 17,
-    "name": "米格瑞塔东海岸",
+    "name": "米格瑞塔東海岸",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -397,7 +397,7 @@
   },
   {
     "idx": 25,
-    "name": "彼斯克罗",
+    "name": "彼斯克羅",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -419,7 +419,7 @@
   },
   {
     "idx": 31,
-    "name": "鲁狄斯南部",
+    "name": "魯狄斯南部",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -441,7 +441,7 @@
   },
   {
     "idx": 33,
-    "name": "巴尔干入口",
+    "name": "巴爾幹入口",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -485,7 +485,7 @@
   },
   {
     "idx": 36,
-    "name": "双子峡谷",
+    "name": "雙子峽谷",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -507,7 +507,7 @@
   },
   {
     "idx": 38,
-    "name": "命运的沙漠岔道",
+    "name": "命運的沙漠岔道",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -529,7 +529,7 @@
   },
   {
     "idx": 39,
-    "name": "兽系天空1层",
+    "name": "獸系天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -551,7 +551,7 @@
   },
   {
     "idx": 40,
-    "name": "兽系天空2层",
+    "name": "獸系天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -573,7 +573,7 @@
   },
   {
     "idx": 41,
-    "name": "兽系天空3层",
+    "name": "獸系天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -595,7 +595,7 @@
   },
   {
     "idx": 42,
-    "name": "兽系天空4层",
+    "name": "獸系天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -617,7 +617,7 @@
   },
   {
     "idx": 43,
-    "name": "兽系天空5层",
+    "name": "獸系天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -639,7 +639,7 @@
   },
   {
     "idx": 44,
-    "name": "兽系天空6层",
+    "name": "獸系天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -661,7 +661,7 @@
   },
   {
     "idx": 45,
-    "name": "兽系天空7层",
+    "name": "獸系天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -683,7 +683,7 @@
   },
   {
     "idx": 46,
-    "name": "兽系天空8层",
+    "name": "獸系天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -705,7 +705,7 @@
   },
   {
     "idx": 50,
-    "name": "罗林克斯平原",
+    "name": "羅林克斯平原",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -727,7 +727,7 @@
   },
   {
     "idx": 52,
-    "name": "芝士堡遗址",
+    "name": "芝士堡遺址",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -749,7 +749,7 @@
   },
   {
     "idx": 57,
-    "name": "马吉利塔",
+    "name": "馬吉利塔",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -793,7 +793,7 @@
   },
   {
     "idx": 60,
-    "name": "贝赫鲁",
+    "name": "貝赫魯",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -815,7 +815,7 @@
   },
   {
     "idx": 63,
-    "name": "黑尔斯波",
+    "name": "黑爾斯波",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -837,7 +837,7 @@
   },
   {
     "idx": 66,
-    "name": "贝赫鲁南部",
+    "name": "貝赫魯南部",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -859,7 +859,7 @@
   },
   {
     "idx": 67,
-    "name": "鲁狄斯",
+    "name": "魯狄斯",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -881,7 +881,7 @@
   },
   {
     "idx": 69,
-    "name": "混乱森林",
+    "name": "混亂森林",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -903,7 +903,7 @@
   },
   {
     "idx": 70,
-    "name": "PK场",
+    "name": "PK場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 44,
@@ -925,7 +925,7 @@
   },
   {
     "idx": 71,
-    "name": "PK大厅",
+    "name": "PK大廳",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 44,
@@ -969,7 +969,7 @@
   },
   {
     "idx": 73,
-    "name": "鲁那特平原",
+    "name": "魯那特平原",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -991,7 +991,7 @@
   },
   {
     "idx": 74,
-    "name": "迷幻沼泽",
+    "name": "迷幻沼澤",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1013,7 +1013,7 @@
   },
   {
     "idx": 75,
-    "name": "鲁那特地狱入口",
+    "name": "魯那特地獄入口",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1035,7 +1035,7 @@
   },
   {
     "idx": 81,
-    "name": "劳吉塔地下1层",
+    "name": "勞吉塔地下1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1057,7 +1057,7 @@
   },
   {
     "idx": 82,
-    "name": "劳吉塔地下2层",
+    "name": "勞吉塔地下2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1079,7 +1079,7 @@
   },
   {
     "idx": 83,
-    "name": "劳吉塔地下3层",
+    "name": "勞吉塔地下3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1101,7 +1101,7 @@
   },
   {
     "idx": 84,
-    "name": "劳吉塔地下4层",
+    "name": "勞吉塔地下4層",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1123,7 +1123,7 @@
   },
   {
     "idx": 85,
-    "name": "劳吉塔地下5层",
+    "name": "勞吉塔地下5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1145,7 +1145,7 @@
   },
   {
     "idx": 86,
-    "name": "劳吉塔地下6层",
+    "name": "勞吉塔地下6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1167,7 +1167,7 @@
   },
   {
     "idx": 87,
-    "name": "劳吉塔地下7层",
+    "name": "勞吉塔地下7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1189,7 +1189,7 @@
   },
   {
     "idx": 91,
-    "name": "鲁那特地城1层",
+    "name": "魯那特地城1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1211,7 +1211,7 @@
   },
   {
     "idx": 92,
-    "name": "鲁那特地城2层",
+    "name": "魯那特地城2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1233,7 +1233,7 @@
   },
   {
     "idx": 93,
-    "name": "鲁那特地城3层",
+    "name": "魯那特地城3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1255,7 +1255,7 @@
   },
   {
     "idx": 94,
-    "name": "鲁那特地城4层",
+    "name": "魯那特地城4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1277,7 +1277,7 @@
   },
   {
     "idx": 95,
-    "name": "鲁那特地城5层",
+    "name": "魯那特地城5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1299,7 +1299,7 @@
   },
   {
     "idx": 96,
-    "name": "勇气试炼场1层",
+    "name": "勇氣試煉場1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1321,7 +1321,7 @@
   },
   {
     "idx": 97,
-    "name": "勇气试炼场2层",
+    "name": "勇氣試煉場2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1343,7 +1343,7 @@
   },
   {
     "idx": 98,
-    "name": "勇气试炼场3层",
+    "name": "勇氣試煉場3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1365,7 +1365,7 @@
   },
   {
     "idx": 99,
-    "name": "勇气试炼场4层",
+    "name": "勇氣試煉場4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1387,7 +1387,7 @@
   },
   {
     "idx": 100,
-    "name": "鲁狄斯地城废墟",
+    "name": "魯狄斯地城廢墟",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1409,7 +1409,7 @@
   },
   {
     "idx": 101,
-    "name": "马吉利塔城",
+    "name": "馬吉利塔城",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 44,
@@ -1453,7 +1453,7 @@
   },
   {
     "idx": 103,
-    "name": "天空之城1层",
+    "name": "天空之城1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1475,7 +1475,7 @@
   },
   {
     "idx": 104,
-    "name": "天空之城2层",
+    "name": "天空之城2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1497,7 +1497,7 @@
   },
   {
     "idx": 105,
-    "name": "天空之城3层",
+    "name": "天空之城3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1519,7 +1519,7 @@
   },
   {
     "idx": 106,
-    "name": "天空之城4层",
+    "name": "天空之城4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1541,7 +1541,7 @@
   },
   {
     "idx": 107,
-    "name": "天空之城5层",
+    "name": "天空之城5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1563,7 +1563,7 @@
   },
   {
     "idx": 108,
-    "name": "天空之城6层",
+    "name": "天空之城6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1585,7 +1585,7 @@
   },
   {
     "idx": 109,
-    "name": "天空之城7层",
+    "name": "天空之城7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -1607,7 +1607,7 @@
   },
   {
     "idx": 110,
-    "name": "天空之城8层",
+    "name": "天空之城8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -1629,7 +1629,7 @@
   },
   {
     "idx": 111,
-    "name": "布迈",
+    "name": "布邁",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1673,7 +1673,7 @@
   },
   {
     "idx": 113,
-    "name": "伊斯凯森林",
+    "name": "伊斯凱森林",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1695,7 +1695,7 @@
   },
   {
     "idx": 114,
-    "name": "寂静废墟",
+    "name": "寂靜廢墟",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1739,7 +1739,7 @@
   },
   {
     "idx": 116,
-    "name": "希南遗址入口",
+    "name": "希南遺址入口",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1761,7 +1761,7 @@
   },
   {
     "idx": 117,
-    "name": "希南遗址",
+    "name": "希南遺址",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1783,7 +1783,7 @@
   },
   {
     "idx": 118,
-    "name": "布买废墟",
+    "name": "布買廢墟",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1805,7 +1805,7 @@
   },
   {
     "idx": 119,
-    "name": "龙系天空1层",
+    "name": "龍系天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1827,7 +1827,7 @@
   },
   {
     "idx": 120,
-    "name": "龙系天空2层",
+    "name": "龍系天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1849,7 +1849,7 @@
   },
   {
     "idx": 121,
-    "name": "龙系天空3层",
+    "name": "龍系天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1871,7 +1871,7 @@
   },
   {
     "idx": 122,
-    "name": "龙系天空4层",
+    "name": "龍系天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1893,7 +1893,7 @@
   },
   {
     "idx": 123,
-    "name": "龙系天空5层",
+    "name": "龍系天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1915,7 +1915,7 @@
   },
   {
     "idx": 124,
-    "name": "龙系天空6层",
+    "name": "龍系天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -1937,7 +1937,7 @@
   },
   {
     "idx": 125,
-    "name": "龙系天空7层",
+    "name": "龍系天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -1959,7 +1959,7 @@
   },
   {
     "idx": 126,
-    "name": "龙系天空8层",
+    "name": "龍系天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -1981,7 +1981,7 @@
   },
   {
     "idx": 127,
-    "name": "恶魔天空1层",
+    "name": "惡魔天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2003,7 +2003,7 @@
   },
   {
     "idx": 128,
-    "name": "恶魔天空2层",
+    "name": "惡魔天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2025,7 +2025,7 @@
   },
   {
     "idx": 129,
-    "name": "恶魔天空3层",
+    "name": "惡魔天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2047,7 +2047,7 @@
   },
   {
     "idx": 130,
-    "name": "新手区",
+    "name": "新手區",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2069,7 +2069,7 @@
   },
   {
     "idx": 131,
-    "name": "巴尔干峡谷",
+    "name": "巴爾幹峽谷",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2091,7 +2091,7 @@
   },
   {
     "idx": 132,
-    "name": "恶魔天空4层",
+    "name": "惡魔天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2113,7 +2113,7 @@
   },
   {
     "idx": 133,
-    "name": "恶魔天空5层",
+    "name": "惡魔天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2135,7 +2135,7 @@
   },
   {
     "idx": 134,
-    "name": "恶魔天空6层",
+    "name": "惡魔天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2157,7 +2157,7 @@
   },
   {
     "idx": 135,
-    "name": "恶魔天空7层",
+    "name": "惡魔天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2179,7 +2179,7 @@
   },
   {
     "idx": 136,
-    "name": "恶魔天空8层",
+    "name": "惡魔天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2201,7 +2201,7 @@
   },
   {
     "idx": 137,
-    "name": "植物天空1层",
+    "name": "植物天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2223,7 +2223,7 @@
   },
   {
     "idx": 138,
-    "name": "植物天空2层",
+    "name": "植物天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2245,7 +2245,7 @@
   },
   {
     "idx": 139,
-    "name": "植物天空3层",
+    "name": "植物天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2267,7 +2267,7 @@
   },
   {
     "idx": 140,
-    "name": "植物天空4层",
+    "name": "植物天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2289,7 +2289,7 @@
   },
   {
     "idx": 141,
-    "name": "植物天空5层",
+    "name": "植物天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2311,7 +2311,7 @@
   },
   {
     "idx": 142,
-    "name": "植物天空6层",
+    "name": "植物天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2333,7 +2333,7 @@
   },
   {
     "idx": 143,
-    "name": "植物天空7层",
+    "name": "植物天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2355,7 +2355,7 @@
   },
   {
     "idx": 144,
-    "name": "植物天空8层",
+    "name": "植物天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2377,7 +2377,7 @@
   },
   {
     "idx": 145,
-    "name": "神秘天空1层",
+    "name": "神秘天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2399,7 +2399,7 @@
   },
   {
     "idx": 146,
-    "name": "神秘天空2层",
+    "name": "神秘天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2421,7 +2421,7 @@
   },
   {
     "idx": 147,
-    "name": "神秘天空3层",
+    "name": "神秘天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2443,7 +2443,7 @@
   },
   {
     "idx": 148,
-    "name": "神秘天空4层",
+    "name": "神秘天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2465,7 +2465,7 @@
   },
   {
     "idx": 149,
-    "name": "神秘天空5层",
+    "name": "神秘天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2487,7 +2487,7 @@
   },
   {
     "idx": 150,
-    "name": "地城-龙之屋",
+    "name": "地城-龍之屋",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2509,7 +2509,7 @@
   },
   {
     "idx": 151,
-    "name": "地城-机械之屋",
+    "name": "地城-機械之屋",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2531,7 +2531,7 @@
   },
   {
     "idx": 152,
-    "name": "地城-鸟之屋",
+    "name": "地城-鳥之屋",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2575,7 +2575,7 @@
   },
   {
     "idx": 154,
-    "name": "神秘天空6层",
+    "name": "神秘天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2597,7 +2597,7 @@
   },
   {
     "idx": 155,
-    "name": "神秘天空7层",
+    "name": "神秘天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2619,7 +2619,7 @@
   },
   {
     "idx": 156,
-    "name": "神秘天空8层",
+    "name": "神秘天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2641,7 +2641,7 @@
   },
   {
     "idx": 160,
-    "name": "马吉利塔东部",
+    "name": "馬吉利塔東部",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2685,7 +2685,7 @@
   },
   {
     "idx": 162,
-    "name": "鸟系天空1层",
+    "name": "鳥系天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2707,7 +2707,7 @@
   },
   {
     "idx": 163,
-    "name": "鸟系天空2层",
+    "name": "鳥系天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2729,7 +2729,7 @@
   },
   {
     "idx": 164,
-    "name": "鸟系天空3层",
+    "name": "鳥系天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2751,7 +2751,7 @@
   },
   {
     "idx": 165,
-    "name": "鸟系天空4层",
+    "name": "鳥系天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2773,7 +2773,7 @@
   },
   {
     "idx": 166,
-    "name": "鸟系天空5层",
+    "name": "鳥系天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2795,7 +2795,7 @@
   },
   {
     "idx": 167,
-    "name": "鸟系天空6层",
+    "name": "鳥系天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2817,7 +2817,7 @@
   },
   {
     "idx": 168,
-    "name": "鸟系天空7层",
+    "name": "鳥系天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2839,7 +2839,7 @@
   },
   {
     "idx": 169,
-    "name": "鸟系天空8层",
+    "name": "鳥系天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2861,7 +2861,7 @@
   },
   {
     "idx": 171,
-    "name": "马吉地下室(自由PK区)",
+    "name": "馬吉地下室(自由PK區)",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2883,7 +2883,7 @@
   },
   {
     "idx": 172,
-    "name": "马吉利塔庭院",
+    "name": "馬吉利塔庭院",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2905,7 +2905,7 @@
   },
   {
     "idx": 174,
-    "name": "扇子岛(自由PK区)",
+    "name": "扇子島(自由PK區)",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2927,7 +2927,7 @@
   },
   {
     "idx": 175,
-    "name": "石头花园",
+    "name": "石頭花園",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2949,7 +2949,7 @@
   },
   {
     "idx": 176,
-    "name": "奥特佩斯",
+    "name": "奧特佩斯",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -2971,7 +2971,7 @@
   },
   {
     "idx": 177,
-    "name": "混沌之岛",
+    "name": "混沌之島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -2993,7 +2993,7 @@
   },
   {
     "idx": 180,
-    "name": "花园迷宫",
+    "name": "花園迷宮",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3059,7 +3059,7 @@
   },
   {
     "idx": 183,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3081,7 +3081,7 @@
   },
   {
     "idx": 184,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3103,7 +3103,7 @@
   },
   {
     "idx": 185,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3125,7 +3125,7 @@
   },
   {
     "idx": 186,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3147,7 +3147,7 @@
   },
   {
     "idx": 187,
-    "name": "足球场",
+    "name": "足球場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3169,7 +3169,7 @@
   },
   {
     "idx": 188,
-    "name": "足球场",
+    "name": "足球場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3191,7 +3191,7 @@
   },
   {
     "idx": 189,
-    "name": "足球场",
+    "name": "足球場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3213,7 +3213,7 @@
   },
   {
     "idx": 190,
-    "name": "足球场",
+    "name": "足球場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3235,7 +3235,7 @@
   },
   {
     "idx": 191,
-    "name": "足球场",
+    "name": "足球場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3257,7 +3257,7 @@
   },
   {
     "idx": 192,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3279,7 +3279,7 @@
   },
   {
     "idx": 193,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3301,7 +3301,7 @@
   },
   {
     "idx": 194,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3323,7 +3323,7 @@
   },
   {
     "idx": 195,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3345,7 +3345,7 @@
   },
   {
     "idx": 196,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3367,7 +3367,7 @@
   },
   {
     "idx": 197,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3389,7 +3389,7 @@
   },
   {
     "idx": 198,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3411,7 +3411,7 @@
   },
   {
     "idx": 199,
-    "name": "钓鱼岛",
+    "name": "釣魚島",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3609,7 +3609,7 @@
   },
   {
     "idx": 208,
-    "name": "训练场",
+    "name": "訓練場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3631,7 +3631,7 @@
   },
   {
     "idx": 209,
-    "name": "训练场",
+    "name": "訓練場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3653,7 +3653,7 @@
   },
   {
     "idx": 210,
-    "name": "训练场",
+    "name": "訓練場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3675,7 +3675,7 @@
   },
   {
     "idx": 211,
-    "name": "训练场",
+    "name": "訓練場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3697,7 +3697,7 @@
   },
   {
     "idx": 212,
-    "name": "训练场",
+    "name": "訓練場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3719,7 +3719,7 @@
   },
   {
     "idx": 213,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3741,7 +3741,7 @@
   },
   {
     "idx": 214,
-    "name": "巴尔克牧场",
+    "name": "巴爾克牧場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3763,7 +3763,7 @@
   },
   {
     "idx": 215,
-    "name": "昆虫天空1层",
+    "name": "昆蟲天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3785,7 +3785,7 @@
   },
   {
     "idx": 216,
-    "name": "昆虫天空2层",
+    "name": "昆蟲天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3807,7 +3807,7 @@
   },
   {
     "idx": 217,
-    "name": "昆虫天空3层",
+    "name": "昆蟲天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3829,7 +3829,7 @@
   },
   {
     "idx": 218,
-    "name": "昆虫天空4层",
+    "name": "昆蟲天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3851,7 +3851,7 @@
   },
   {
     "idx": 219,
-    "name": "昆虫天空5层",
+    "name": "昆蟲天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3873,7 +3873,7 @@
   },
   {
     "idx": 220,
-    "name": "昆虫天空6层",
+    "name": "昆蟲天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3895,7 +3895,7 @@
   },
   {
     "idx": 221,
-    "name": "昆虫天空7层",
+    "name": "昆蟲天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3917,7 +3917,7 @@
   },
   {
     "idx": 222,
-    "name": "昆虫天空8层",
+    "name": "昆蟲天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -3939,7 +3939,7 @@
   },
   {
     "idx": 223,
-    "name": "机械天空1层",
+    "name": "機械天空1層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3961,7 +3961,7 @@
   },
   {
     "idx": 224,
-    "name": "机械天空2层",
+    "name": "機械天空2層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -3983,7 +3983,7 @@
   },
   {
     "idx": 225,
-    "name": "机械天空3层",
+    "name": "機械天空3層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4005,7 +4005,7 @@
   },
   {
     "idx": 226,
-    "name": "机械天空4层",
+    "name": "機械天空4層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4027,7 +4027,7 @@
   },
   {
     "idx": 227,
-    "name": "机械天空5层",
+    "name": "機械天空5層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4049,7 +4049,7 @@
   },
   {
     "idx": 228,
-    "name": "机械天空6层",
+    "name": "機械天空6層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4071,7 +4071,7 @@
   },
   {
     "idx": 229,
-    "name": "机械天空7层",
+    "name": "機械天空7層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -4093,7 +4093,7 @@
   },
   {
     "idx": 230,
-    "name": "机械天空8层",
+    "name": "機械天空8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 1,
@@ -4115,7 +4115,7 @@
   },
   {
     "idx": 237,
-    "name": "事务所",
+    "name": "事務所",
     "mob_able": 0,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4137,7 +4137,7 @@
   },
   {
     "idx": 238,
-    "name": "马吉利塔废墟[低]",
+    "name": "馬吉利塔廢墟[低]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4159,7 +4159,7 @@
   },
   {
     "idx": 239,
-    "name": "贝赫鲁废墟[低]",
+    "name": "貝赫魯廢墟[低]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4181,7 +4181,7 @@
   },
   {
     "idx": 240,
-    "name": "鲁狄斯废墟[低]",
+    "name": "魯狄斯廢墟[低]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4203,7 +4203,7 @@
   },
   {
     "idx": 241,
-    "name": "马吉利塔废墟[高]",
+    "name": "馬吉利塔廢墟[高]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4225,7 +4225,7 @@
   },
   {
     "idx": 242,
-    "name": "贝赫鲁废墟[高]",
+    "name": "貝赫魯廢墟[高]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4247,7 +4247,7 @@
   },
   {
     "idx": 243,
-    "name": "鲁狄斯废墟[高]",
+    "name": "魯狄斯廢墟[高]",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4269,7 +4269,7 @@
   },
   {
     "idx": 244,
-    "name": "劳吉塔地下8层",
+    "name": "勞吉塔地下8層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4291,7 +4291,7 @@
   },
   {
     "idx": 245,
-    "name": "劳吉塔地下9层",
+    "name": "勞吉塔地下9層",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4313,7 +4313,7 @@
   },
   {
     "idx": 246,
-    "name": "远古森林",
+    "name": "遠古森林",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4335,7 +4335,7 @@
   },
   {
     "idx": 247,
-    "name": "狂风地牢",
+    "name": "狂風地牢",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4357,7 +4357,7 @@
   },
   {
     "idx": 251,
-    "name": "河谷农场",
+    "name": "河谷農場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4379,7 +4379,7 @@
   },
   {
     "idx": 252,
-    "name": "内地农场",
+    "name": "內地農場",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,
@@ -4401,7 +4401,7 @@
   },
   {
     "idx": 255,
-    "name": "管理房间",
+    "name": "管理房間",
     "mob_able": 1,
     "revive_zone_layernum": 254,
     "nonPkZoneLayernum": 0,

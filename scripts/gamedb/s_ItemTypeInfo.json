@@ -7,13 +7,13 @@
   },
   {
     "item_type": 2,
-    "type_name": "头盔",
+    "type_name": "頭盔",
     "gamble_money": 3499750,
     "loot_rate": 0
   },
   {
     "item_type": 3,
-    "type_name": "铠甲",
+    "type_name": "鎧甲",
     "gamble_money": 3499750,
     "loot_rate": 0
   },
@@ -25,7 +25,7 @@
   },
   {
     "item_type": 5,
-    "type_name": "饰品",
+    "type_name": "飾品",
     "gamble_money": 3298640,
     "loot_rate": 0
   },
@@ -43,7 +43,7 @@
   },
   {
     "item_type": 8,
-    "type_name": "任务物品",
+    "type_name": "任務物品",
     "gamble_money": 2082045,
     "loot_rate": 0
   },
@@ -55,31 +55,31 @@
   },
   {
     "item_type": 10,
-    "type_name": "特殊兑换物品",
+    "type_name": "特殊兌換物品",
     "gamble_money": 1322569,
     "loot_rate": 0
   },
   {
     "item_type": 11,
-    "type_name": "宝石",
+    "type_name": "寶石",
     "gamble_money": 1322569,
     "loot_rate": 0
   },
   {
     "item_type": 12,
-    "type_name": "HP药水",
+    "type_name": "HP藥水",
     "gamble_money": 0,
     "loot_rate": 50
   },
   {
     "item_type": 13,
-    "type_name": "MP药水",
+    "type_name": "MP藥水",
     "gamble_money": 0,
     "loot_rate": 39
   },
   {
     "item_type": 14,
-    "type_name": "卷轴",
+    "type_name": "捲軸",
     "gamble_money": 0,
     "loot_rate": 0
   }

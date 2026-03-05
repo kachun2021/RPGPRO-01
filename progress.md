@@ -1,4 +1,4 @@
-Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、回歸檢查）如何自動化使用最佳SKILL?例如TASK完結自動化測試是否正確?
+﻿Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、回歸檢查）如何自動化使用最佳SKILL?例如TASK完結自動化測試是否正確?
 
 ## 2026-03-05
 
@@ -58,10 +58,8 @@ Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、�
   - Updated existing panels to remove template inline styles (progress bars/labels/cards) in CharacterPanel, QuestPanel, CommunityPanel, DialoguePanel, WorldMapPanel, Minimap, InventoryPanel.
   - Added class-based style hooks for new elements: chatbox/hud/skillbar/pet panel/book panel/revival/rename/world-map note/icons and rarity-color CSS variable hooks.
   - Validation:
-    - 
-pm run -s typecheck passed.
-    - 
-pm run -s test:smoke passed all scenarios.
+    - `npm run -s typecheck` passed.
+    - `npm run -s test:smoke` passed all scenarios.
 
 - 2026-03-05 (cleanup before data phase):
   - Removed unreachable dead files: `src/core/AssetLoader.ts`, `src/pets/PetAI.ts`, `src/ui/PanelManager.ts`, `src/ui/PetControlBar.ts`.
@@ -79,3 +77,4 @@ pm run -s test:smoke passed all scenarios.
     - `npm run -s build` passed.
     - `npm run -s test:smoke` passed all scenarios.
     - Post-clean dependency graph check: `UNREACHABLE_FROM_MAIN = 0`, `ZERO_INBOUND_NON_ENTRY = 0`.
+

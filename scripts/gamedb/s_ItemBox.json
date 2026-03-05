@@ -109,7 +109,7 @@
     "add_idx": 9391,
     "rate": 50,
     "count": 99,
-    "shuoming": "高级药水x99"
+    "shuoming": "高級藥水x99"
   },
   {
     "idx": 9493,
@@ -123,34 +123,34 @@
     "add_idx": 8768,
     "rate": 10,
     "count": 1,
-    "shuoming": "高级徽章x1"
+    "shuoming": "高級徽章x1"
   },
   {
     "idx": 9493,
     "add_idx": 8309,
     "rate": 5,
     "count": 1,
-    "shuoming": "超级徽章x1"
+    "shuoming": "超級徽章x1"
   },
   {
     "idx": 9493,
     "add_idx": 8308,
     "rate": 5,
     "count": 1,
-    "shuoming": "经验徽章x1"
+    "shuoming": "經驗徽章x1"
   },
   {
     "idx": 9493,
     "add_idx": 9495,
     "rate": 5,
     "count": 1,
-    "shuoming": "宠物碎片x1"
+    "shuoming": "寵物碎片x1"
   },
   {
     "idx": 9493,
     "add_idx": 921,
     "rate": 5,
     "count": 1,
-    "shuoming": "敏捷药剂x1"
+    "shuoming": "敏捷藥劑x1"
   }
 ]
