@@ -308,7 +308,7 @@ export class InventoryPanel {
             const setInfo = equip.setId ? `<div class="inv-tt-set">套裝: ${equip.setId === 'boss_set' ? 'Boss套裝' : 'PVP套裝'}</div>` : '';
 
             this._tooltip.innerHTML = `
-                  <div class="inv-tt-name" style="color:rgba(232,201,106,0.9)">${equip.icon} ${equip.name} +${equip.enhanceLevel}</div>
+                  <div class="inv-tt-name inv-tt-name-equip">${equip.icon} ${equip.name} +${equip.enhanceLevel}</div>
                   <div class="inv-tt-desc">ATK+${equip.stats.atk} DEF+${equip.stats.def} HP+${equip.stats.hp} MP+${equip.stats.mp}</div>
                   ${setInfo}
                   <div class="inv-tt-rarity">強化 +${equip.enhanceLevel + 1} 成功率: ${Math.round(rate * 100)}% | 費用: ${cost}💰</div>
@@ -388,7 +388,7 @@ export class InventoryPanel {
                   return `
                               <div class="eq-equip-row" data-id="${i.itemId}">
                                     <span>${i.icon} ${i.name}</span>
-                                    <span style="color:rgba(200,195,185,0.4)">ATK+${tmpl.stats.atk} DEF+${tmpl.stats.def}</span>
+                                    <span class="inv-eq-row-stats">ATK+${tmpl.stats.atk} DEF+${tmpl.stats.def}</span>
                               </div>
                         `;
             }).join('')}
@@ -449,7 +449,7 @@ export class InventoryPanel {
             }
 
             this._tooltip.innerHTML = `
-                  <div class="inv-tt-name" style="color:${RARITY_BORDER[item.rarity]}">${item.icon} ${item.name}</div>
+                  <div class="inv-tt-name inv-tt-name-rarity">${item.icon} ${item.name}</div>
                   <div class="inv-tt-rarity">${rarityName[item.rarity]}</div>
                   <div class="inv-tt-desc">${item.description}</div>
                   <div class="inv-tt-qty">數量: ${item.qty}</div>

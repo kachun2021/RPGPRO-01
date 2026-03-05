@@ -1,16 +1,20 @@
 import type { ResonanceSystem } from '../systems/ResonanceSystem';
 import type { Inventory } from '../systems/Inventory';
-import { PetSeries } from '../pets/PetData';
-import { SERIES_COLORS } from '../pets/PetData';
+import { PetSeries, SERIES_COLORS } from '../pets/PetData';
 
 const SERIES_NAMES: Record<string, string> = {
-      plant: '植物系', dragon: '龍系', beast: '獸系', insect: '蟲系',
-      metal: '金屬系', mystery: '神秘系', demon: '惡魔系', bird: '飛鳥系',
+      plant: '植物系',
+      dragon: '龍族系',
+      beast: '野獸系',
+      insect: '昆蟲系',
+      metal: '機械系',
+      mystery: '神秘系',
+      demon: '惡魔系',
+      bird: '飛禽系',
 };
 
 /**
- * ResonancePanel — Select equipment + resonance potion → preview → confirm.
- * Applies resonance boost to a pet series.
+ * ResonancePanel - apply resonance boosts by pet series.
  */
 export class ResonancePanel {
       private _el: HTMLDivElement;
@@ -36,10 +40,10 @@ export class ResonancePanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '🔮 共鳴';
+            title.innerHTML = '🔭 共鳴';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
+            closeBtn.textContent = '✕';
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
@@ -55,10 +59,15 @@ export class ResonancePanel {
             if (!body) return;
             body.innerHTML = '';
 
-            // Show all 8 series with current resonance level
             const allSeries: PetSeries[] = [
-                  PetSeries.Plant, PetSeries.Dragon, PetSeries.Beast, PetSeries.Insect,
-                  PetSeries.Metal, PetSeries.Mystery, PetSeries.Demon, PetSeries.Bird,
+                  PetSeries.Plant,
+                  PetSeries.Dragon,
+                  PetSeries.Beast,
+                  PetSeries.Insect,
+                  PetSeries.Metal,
+                  PetSeries.Mystery,
+                  PetSeries.Demon,
+                  PetSeries.Bird,
             ];
 
             for (const series of allSeries) {
@@ -69,17 +78,17 @@ export class ResonancePanel {
 
                   const row = document.createElement('div');
                   row.className = 'reso-row';
+                  row.style.setProperty('--reso-series-color', colorStr);
 
-                  // Progress dots
                   let dots = '';
                   for (let i = 1; i <= 5; i++) {
-                        dots += `<span class="reso-dot${i <= level ? ' reso-dot-active' : ''}" style="${i <= level ? `background:${colorStr}` : ''}"></span>`;
+                        dots += `<span class="reso-dot${i <= level ? ' reso-dot-active' : ''}"></span>`;
                   }
 
                   row.innerHTML = `
-                        <div class="reso-series" style="color:${colorStr}">${SERIES_NAMES[series] ?? series}</div>
+                        <div class="reso-series">${SERIES_NAMES[series] ?? series}</div>
                         <div class="reso-dots">${dots}</div>
-                        <div class="reso-info">${level > 0 ? `ATK+${Math.round((effect?.atkBonus ?? 0) * 100)}% DEF+${Math.round((effect?.defBonus ?? 0) * 100)}%` : '未啟動'}</div>
+                        <div class="reso-info">${level > 0 ? `ATK+${Math.round((effect?.atkBonus ?? 0) * 100)}% DEF+${Math.round((effect?.defBonus ?? 0) * 100)}%` : '尚未共鳴'}</div>
                         <button class="reso-apply-btn${level >= 5 ? ' reso-maxed' : ''}">
                               ${level >= 5 ? 'MAX' : `Lv.${level + 1} 共鳴`}
                         </button>
@@ -90,14 +99,13 @@ export class ResonancePanel {
                         btn.addEventListener('click', () => {
                               const goldCost = (level + 1) * 200;
                               const hasPotion = this._inventory.hasItem('reso_potion');
-                              // Require either potion or just gold
                               if (!this._inventory.spendGold(goldCost)) {
-                                    this._showResult('❌ 金幣不足', 0);
+                                    this._showResult('金幣不足', 0);
                                     return;
                               }
                               if (hasPotion) this._inventory.removeItem('reso_potion', 1);
                               this._resonanceSystem.applyResonance(series);
-                              this._showResult(`${SERIES_NAMES[series] ?? series} 共鳴升級至`, level + 1);
+                              this._showResult(`${SERIES_NAMES[series] ?? series} 共鳴升級`, level + 1);
                               this._render();
                         });
                   }
@@ -110,14 +118,29 @@ export class ResonancePanel {
             const el = document.createElement('div');
             el.className = 'pickup-text';
             el.style.color = '#27AE60';
-            el.textContent = `✨ ${seriesName} 共鳴升級至 Lv.${newLevel}！`;
+            el.textContent = `✅ ${seriesName} Lv.${newLevel}`;
             document.getElementById('ui-layer')?.appendChild(el);
             requestAnimationFrame(() => el.classList.add('show'));
             setTimeout(() => el.remove(), 2000);
       }
 
-      toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void { this._visible = true; this._el.style.display = 'block'; this._render(); }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; }
-      dispose(): void { this._el.remove(); }
+      toggle(): void {
+            this._visible ? this.hide() : this.show();
+      }
+
+      show(): void {
+            this._visible = true;
+            this._el.style.display = 'block';
+            this._render();
+      }
+
+      hide(): void {
+            this._visible = false;
+            this._el.style.display = 'none';
+      }
+
+      dispose(): void {
+            this._el.remove();
+      }
 }
+

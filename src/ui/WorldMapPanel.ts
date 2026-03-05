@@ -228,7 +228,7 @@ export class WorldMapPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span style="font-size:15px">🗺️</span> 世界地圖（合成器分佈）';
+            title.innerHTML = '<span class="wmp-title-icon">🗺️</span> 世界地圖（合成器分佈）';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -237,7 +237,7 @@ export class WorldMapPanel {
             this._el.appendChild(title);
 
             const note = document.createElement('div');
-            note.style.cssText = 'padding:6px 10px;border-bottom:1px solid rgba(160,130,80,0.2);font-size:10px;color:rgba(200,195,185,0.68);background:rgba(12,10,20,0.44)';
+            note.className = 'wmp-note';
             note.textContent = '資料地圖以合成器分佈為準；可用快篩：只看可合成、只看可掉蛋、最低等級。';
             this._el.appendChild(note);
 

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ShopPanel - NPC shop UI with mode/category sidebar and item list.
  */
 
@@ -58,25 +58,25 @@ export class ShopPanel {
             const gold = this._inventory.gold;
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        <span class="shop-title-icon">${this._mode === 'buy' ? '🛍' : '💸'}</span>
+                        <span class="shop-title-icon">${this._mode === 'buy' ? '🛒' : '💰'}</span>
                         ${this._mode === 'buy' ? '商店' : '出售'}
-                        <span class="shop-gold-badge">💰 <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
-                        <span class="panel-close" id="shop-close">×</span>
+                        <span class="shop-gold-badge">🪙 <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
+                        <span class="panel-close" id="shop-close">✕</span>
                   </div>
                   <div class="shop-layout">
                         <aside class="shop-side">
                               <div class="shop-mode-bar">
-                                    <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🧺 購買</button>
-                                    <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">💰 出售</button>
+                                    <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🛍 購買</button>
+                                    <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">🪙 出售</button>
                               </div>
                               ${this._mode === 'buy'
                                     ? this._renderCategoryTabs()
-                                    : '<div class="shop-side-note">出售模式：從右側清單選擇要賣出的物品。</div>'}
+                                    : '<div class="shop-side-note">出售模式：在右側清單操作數量後出售。</div>'}
                         </aside>
                         <section class="shop-main">
                               <div class="shop-main-head">
                                     <span class="shop-main-title">${this._mode === 'buy' ? '商品清單' : '可出售物品'}</span>
-                                    <span class="shop-main-sub">${this._mode === 'buy' ? '左欄切換分類' : '調整數量後按出售'}</span>
+                                    <span class="shop-main-sub">${this._mode === 'buy' ? '左側切換分類' : '調整數量後按出售'}</span>
                               </div>
                               <div class="shop-grid" id="shop-grid"></div>
                         </section>
@@ -105,7 +105,7 @@ export class ShopPanel {
       }
 
       private _renderCategoryTabs(): string {
-            return `<div class="shop-cat-bar">${SHOP_CATEGORIES.map(cat => `
+            return `<div class="shop-cat-bar">${SHOP_CATEGORIES.map((cat) => `
                   <button class="shop-cat-btn${cat.id === this._category ? ' active' : ''}" data-cat="${cat.id}">
                         <span class="shop-cat-icon">${cat.icon}</span>
                         <span class="shop-cat-label">${cat.label}</span>
@@ -119,14 +119,11 @@ export class ShopPanel {
                   grid.innerHTML = '<div class="shop-empty">此分類暫時沒有商品</div>';
                   return;
             }
-
-            for (const item of items) {
-                  grid.appendChild(this._createBuyCard(item));
-            }
+            for (const item of items) grid.appendChild(this._createBuyCard(item));
       }
 
       private _renderSellItems(grid: HTMLDivElement): void {
-            const invItems = this._inventory.items.filter(i => i.type !== 'quest');
+            const invItems = this._inventory.items.filter((i) => i.type !== 'quest');
             if (invItems.length === 0) {
                   grid.innerHTML = '<div class="shop-empty">背包沒有可出售物品</div>';
                   return;
@@ -136,35 +133,36 @@ export class ShopPanel {
                   const sellPrice = this._shop.getSellPrice(item.itemId);
                   const card = document.createElement('div');
                   card.className = 'shop-card';
-                  card.style.borderColor = RARITY_COLORS[item.rarity || 'common'];
+                  const rarityColor = RARITY_COLORS[item.rarity || 'common'];
+                  card.style.borderColor = rarityColor;
+                  card.style.setProperty('--shop-rarity-color', rarityColor);
 
                   const qty = this._getQty(item.itemId, item.qty);
 
                   card.innerHTML = `
                         <div class="shop-card-left">
-                              <div class="shop-card-icon" style="border-color:${RARITY_COLORS[item.rarity || 'common']}">${item.icon}</div>
+                              <div class="shop-card-icon">${item.icon}</div>
                         </div>
                         <div class="shop-card-center">
                               <div class="shop-card-name">${item.name}</div>
                               <div class="shop-card-desc">${item.description}</div>
                               <div class="shop-card-meta">
-                                    <span class="shop-card-rarity" style="color:${RARITY_COLORS[item.rarity || 'common']}">${RARITY_LABELS[item.rarity || 'common']}</span>
+                                    <span class="shop-card-rarity">${RARITY_LABELS[item.rarity || 'common']}</span>
                                     <span class="shop-card-stock">庫存: ${item.qty}</span>
                               </div>
                         </div>
                         <div class="shop-card-right">
-                              <div class="shop-card-price sell">+💰 ${sellPrice * qty}</div>
+                              <div class="shop-card-price sell">+🪙 ${sellPrice * qty}</div>
                               <div class="shop-qty-control">
-                                    <button class="shop-qty-btn minus" data-id="${item.itemId}">−</button>
+                                    <button class="shop-qty-btn minus" data-id="${item.itemId}">-</button>
                                     <span class="shop-qty-num">${qty}</span>
-                                    <button class="shop-qty-btn plus" data-id="${item.itemId}" data-max="${item.qty}">＋</button>
+                                    <button class="shop-qty-btn plus" data-id="${item.itemId}" data-max="${item.qty}">+</button>
                               </div>
                               <button class="shop-action-btn sell-btn" data-id="${item.itemId}">出售</button>
                         </div>
                   `;
 
                   this._bindQtyControls(card, item.itemId, item.qty);
-
                   card.querySelector('.sell-btn')?.addEventListener('click', (e) => {
                         e.stopPropagation();
                         const q = this._getQty(item.itemId, item.qty);
@@ -183,7 +181,9 @@ export class ShopPanel {
       private _createBuyCard(item: ShopItem): HTMLDivElement {
             const card = document.createElement('div');
             card.className = 'shop-card';
-            card.style.borderColor = RARITY_COLORS[item.rarity || 'common'];
+            const rarityColor = RARITY_COLORS[item.rarity || 'common'];
+            card.style.borderColor = rarityColor;
+            card.style.setProperty('--shop-rarity-color', rarityColor);
 
             const qty = this._getQty(item.id, 99);
             const totalCost = item.price * qty;
@@ -191,29 +191,28 @@ export class ShopPanel {
 
             card.innerHTML = `
                   <div class="shop-card-left">
-                        <div class="shop-card-icon" style="border-color:${RARITY_COLORS[item.rarity || 'common']}">${item.icon}</div>
+                        <div class="shop-card-icon">${item.icon}</div>
                   </div>
                   <div class="shop-card-center">
                         <div class="shop-card-name">${item.name}</div>
                         <div class="shop-card-desc">${item.description}</div>
                         <div class="shop-card-meta">
-                              <span class="shop-card-rarity" style="color:${RARITY_COLORS[item.rarity || 'common']}">${RARITY_LABELS[item.rarity || 'common']}</span>
-                              <span class="shop-card-unit">單價: ${item.price}💰</span>
+                              <span class="shop-card-rarity">${RARITY_LABELS[item.rarity || 'common']}</span>
+                              <span class="shop-card-unit">單價: ${item.price}🪙</span>
                         </div>
                   </div>
                   <div class="shop-card-right">
-                        <div class="shop-card-price${canAfford ? '' : ' insufficient'}">💰 ${totalCost}</div>
+                        <div class="shop-card-price${canAfford ? '' : ' insufficient'}">🪙 ${totalCost}</div>
                         <div class="shop-qty-control">
-                              <button class="shop-qty-btn minus" data-id="${item.id}">−</button>
+                              <button class="shop-qty-btn minus" data-id="${item.id}">-</button>
                               <span class="shop-qty-num">${qty}</span>
-                              <button class="shop-qty-btn plus" data-id="${item.id}" data-max="99">＋</button>
+                              <button class="shop-qty-btn plus" data-id="${item.id}" data-max="99">+</button>
                         </div>
                         <button class="shop-action-btn buy-btn btn-gold${canAfford ? '' : ' disabled'}" data-id="${item.id}">購買</button>
                   </div>
             `;
 
             this._bindQtyControls(card, item.id, 99);
-
             card.querySelector('.buy-btn')?.addEventListener('click', (e) => {
                   e.stopPropagation();
                   if (!canAfford) {

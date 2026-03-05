@@ -51,3 +51,14 @@ Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、�
   - Removed remaining `style=`/`style.cssText` usage in Fusion content rendering; retained only required runtime style for panel open/close animation and per-node indent margin.
   - Refactored bottom GP label, picker icon, slot emoji, protection checkbox, and fusion flash overlay to CSS classes.
   - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed; manual Fusion screenshot verified (`output/web-game/manual-fusion/shot-0.png`).
+- 2026-03-05 (global inline-style cleanup + class unification):
+  - Removed all style="..." and style.cssText usage across src/ui (scan result now zero for both patterns).
+  - Reworked panel rendering to class-based markup and centralized CSS in index.html helper block.
+  - Major rewrites (UTF-8 cleanup + class-first): ChatBox, HUD, SkillBar, SkillPanel, PetPanel, ShopPanel, EncyclopediaPanel, RevivalPanel, RenamePanel, QuestTracker, PetControlBar.
+  - Updated existing panels to remove template inline styles (progress bars/labels/cards) in CharacterPanel, QuestPanel, CommunityPanel, DialoguePanel, WorldMapPanel, Minimap, InventoryPanel.
+  - Added class-based style hooks for new elements: chatbox/hud/skillbar/pet panel/book panel/revival/rename/world-map note/icons and rarity-color CSS variable hooks.
+  - Validation:
+    - 
+pm run -s typecheck passed.
+    - 
+pm run -s test:smoke passed all scenarios.

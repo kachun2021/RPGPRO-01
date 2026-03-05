@@ -112,7 +112,7 @@ export class Minimap {
             this._canvas = document.createElement('canvas');
             this._canvas.width = this.CANVAS_W;
             this._canvas.height = this.CANVAS_H;
-            this._canvas.style.cssText = 'width:100%;display:block';
+            this._canvas.className = 'minimap-canvas';
             this._ctx = this._canvas.getContext('2d')!;
             this._body.appendChild(this._canvas);
 

@@ -4,10 +4,7 @@ import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
 
 /**
- * SkillPanel - center popup with player/pet tabs.
- * Player tab supports:
- * - SP-based skill upgrades
- * - drag-drop and click equip to SkillBar slots
+ * SkillPanel - player/pet skill management panel.
  */
 export class SkillPanel {
       private _el: HTMLDivElement;
@@ -28,9 +25,7 @@ export class SkillPanel {
             this._skillBar = skillBar;
             this._petManager = petManager ?? null;
 
-            for (const s of SKILL_DEFS) {
-                  this._skillLevels.set(s.id, 1);
-            }
+            for (const s of SKILL_DEFS) this._skillLevels.set(s.id, 1);
 
             this._el = document.createElement('div');
             this._el.id = 'skill-panel';
@@ -53,7 +48,7 @@ export class SkillPanel {
 
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
+            closeBtn.textContent = '✕';
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
@@ -80,8 +75,7 @@ export class SkillPanel {
             this._el.appendChild(tabBar);
 
             this._body = document.createElement('div');
-            this._body.className = 'panel-body';
-            this._body.style.padding = '8px 10px 10px';
+            this._body.className = 'panel-body skill-panel-body';
             this._el.appendChild(this._body);
       }
 
@@ -120,7 +114,6 @@ export class SkillPanel {
 
             const available = this._body.clientHeight;
             if (available <= 0) return;
-
             const needed = root.scrollHeight;
             if (needed <= 0 || needed <= available) return;
 
@@ -128,13 +121,12 @@ export class SkillPanel {
             this._el.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
 
-      // -- Player Tab --
-
       private _renderPlayerTab(): void {
             const focusMode = this._isLandscapeFocusMode();
 
             const layout = document.createElement('div');
             layout.className = 'skill-layout skill-layout-player';
+
             const leftCol = document.createElement('div');
             leftCol.className = 'skill-col skill-left';
             const rightCol = document.createElement('div');
@@ -143,8 +135,8 @@ export class SkillPanel {
             const spBar = document.createElement('div');
             spBar.className = 'sa-sec skill-sp-bar';
             spBar.innerHTML = `
-                  <span style="color:rgba(232,201,106,0.85);font-size:11px;font-weight:700">技能點 SP</span>
-                  <span style="color:rgba(220,215,200,0.9);font-size:12px;font-weight:700">${this._sp}</span>
+                  <span class="skill-sp-label">技能點 SP</span>
+                  <span class="skill-sp-value">${this._sp}</span>
             `;
             leftCol.appendChild(spBar);
 
@@ -152,12 +144,11 @@ export class SkillPanel {
             equipSection.className = 'sa-sec skill-section';
             const equipLabel = document.createElement('div');
             equipLabel.className = 'skill-section-title';
-            equipLabel.textContent = focusMode ? '技能槽（拖放）' : '技能槽位（拖放裝備，點擊清除）';
+            equipLabel.textContent = focusMode ? '技能欄（拖放）' : '技能欄位（拖放裝備，點擊清除）';
             equipSection.appendChild(equipLabel);
 
             const equipGrid = document.createElement('div');
             equipGrid.className = 'skill-equip-grid';
-
             const equipped = this._skillBar.getEquipped();
             for (let i = 0; i < 5; i++) {
                   const slot = document.createElement('div');
@@ -165,23 +156,26 @@ export class SkillPanel {
                   slot.innerHTML = `<span class="skill-slot-key">F${i + 1}</span>`;
                   slot.addEventListener('dragover', (e) => {
                         e.preventDefault();
-                        slot.style.borderColor = 'rgba(232,201,106,0.5)';
+                        slot.classList.add('is-drop-hover');
                   });
-                  slot.addEventListener('dragleave', () => {
-                        slot.style.borderColor = '';
-                  });
+                  slot.addEventListener('dragleave', () => slot.classList.remove('is-drop-hover'));
                   slot.addEventListener('drop', (e) => {
                         e.preventDefault();
-                        slot.style.borderColor = '';
+                        slot.classList.remove('is-drop-hover');
                         const skillId = e.dataTransfer?.getData('text/skill-id') ?? '';
                         if (!skillId) return;
                         this._equipSkillById(skillId, i);
                   });
-
                   if (equipped[i]) {
                         const skill = equipped[i]!;
-                        slot.innerHTML += `<div class="skill-mini-icon" style="background-image:url(assets/icons/${skill.icon})"></div>`;
-                        slot.innerHTML += `<span class="skill-slot-name">${skill.name}</span>`;
+                        const icon = document.createElement('div');
+                        icon.className = 'skill-mini-icon';
+                        icon.style.backgroundImage = `url(assets/icons/${skill.icon})`;
+                        slot.appendChild(icon);
+                        const name = document.createElement('span');
+                        name.className = 'skill-slot-name';
+                        name.textContent = skill.name;
+                        slot.appendChild(name);
                   }
                   const idx = i;
                   slot.addEventListener('click', () => {
@@ -202,10 +196,9 @@ export class SkillPanel {
 
             const skillGrid = document.createElement('div');
             skillGrid.className = 'skill-cards-grid';
-            for (const skill of SKILL_DEFS) {
-                  skillGrid.appendChild(this._createSkillCard(skill));
-            }
+            for (const skill of SKILL_DEFS) skillGrid.appendChild(this._createSkillCard(skill));
             allSection.appendChild(skillGrid);
+
             rightCol.appendChild(allSection);
             layout.appendChild(leftCol);
             layout.appendChild(rightCol);
@@ -216,15 +209,6 @@ export class SkillPanel {
             const skill = this._runtimeSkill(baseSkill);
             const level = this._skillLevels.get(baseSkill.id) ?? 1;
             const focusMode = this._isLandscapeFocusMode();
-
-            const card = document.createElement('div');
-            card.className = 'skill-card game-card';
-            card.draggable = true;
-            card.addEventListener('click', () => this._equipSkillById(baseSkill.id));
-            card.addEventListener('dragstart', (e) => {
-                  e.dataTransfer?.setData('text/skill-id', baseSkill.id);
-                  e.dataTransfer!.effectAllowed = 'copy';
-            });
 
             const typeColors: Record<string, string> = {
                   attack: '#E74C3C',
@@ -239,31 +223,63 @@ export class SkillPanel {
                   debuff: '減益',
             };
 
-            card.innerHTML = `
-                  <div class="skill-card-icon" style="background-image:url(assets/icons/${baseSkill.icon})"></div>
-                  <div class="skill-card-info">
-                        <div class="skill-card-name">${baseSkill.name} <span style="color:rgba(232,201,106,0.7);font-size:10px">Lv.${level}</span></div>
-                        <div class="skill-card-stats">
-                              <span style="color:${typeColors[baseSkill.type] ?? '#aaa'}">${typeLabels[baseSkill.type] ?? baseSkill.type}</span>
-                              <span>MP:${skill.mpCost}</span>
-                              <span>CD:${skill.cooldown.toFixed(1)}s</span>
-                        </div>
-                        <div class="skill-card-mult">x${skill.multiplier.toFixed(2)}</div>
-                  </div>
-            `;
+            const card = document.createElement('div');
+            card.className = 'skill-card game-card';
+            card.draggable = true;
+            card.addEventListener('click', () => this._equipSkillById(baseSkill.id));
+            card.addEventListener('dragstart', (e) => {
+                  e.dataTransfer?.setData('text/skill-id', baseSkill.id);
+                  e.dataTransfer!.effectAllowed = 'copy';
+            });
+
+            const icon = document.createElement('div');
+            icon.className = 'skill-card-icon';
+            icon.style.backgroundImage = `url(assets/icons/${baseSkill.icon})`;
+
+            const info = document.createElement('div');
+            info.className = 'skill-card-info';
+
+            const name = document.createElement('div');
+            name.className = 'skill-card-name';
+            name.innerHTML = `${baseSkill.name} <span class="skill-card-level">Lv.${level}</span>`;
+
+            const stats = document.createElement('div');
+            stats.className = 'skill-card-stats';
+            const type = document.createElement('span');
+            type.className = 'skill-card-type';
+            type.textContent = typeLabels[baseSkill.type] ?? baseSkill.type;
+            type.style.color = typeColors[baseSkill.type] ?? '#aaa';
+            const mp = document.createElement('span');
+            mp.textContent = `MP:${skill.mpCost}`;
+            const cd = document.createElement('span');
+            cd.textContent = `CD:${skill.cooldown.toFixed(1)}s`;
+            stats.appendChild(type);
+            stats.appendChild(mp);
+            stats.appendChild(cd);
+
+            const mult = document.createElement('div');
+            mult.className = 'skill-card-mult';
+            mult.textContent = `x${skill.multiplier.toFixed(2)}`;
+
+            info.appendChild(name);
+            info.appendChild(stats);
+            info.appendChild(mult);
 
             const upBtn = document.createElement('button');
-            upBtn.className = 'btn-gold';
+            upBtn.className = 'btn-gold skill-up-btn';
             upBtn.textContent = this._sp > 0
                   ? (focusMode ? '升級' : '升級 -1SP')
                   : (focusMode ? '不足' : 'SP不足');
             upBtn.title = this._sp > 0 ? '消耗 1 SP 升級技能' : 'SP不足';
-            upBtn.style.cssText = 'margin-left:4px;padding:4px 6px;font-size:10px;min-width:62px;opacity:' + (this._sp > 0 ? '1' : '0.45');
             upBtn.disabled = this._sp <= 0;
+            upBtn.classList.toggle('is-disabled', this._sp <= 0);
             upBtn.addEventListener('click', (e) => {
                   e.stopPropagation();
                   this._upgradeSkill(baseSkill.id);
             });
+
+            card.appendChild(icon);
+            card.appendChild(info);
             card.appendChild(upBtn);
             return card;
       }
@@ -278,7 +294,7 @@ export class SkillPanel {
       }
 
       private _equipSkillById(skillId: string, targetIdx?: number): void {
-            const base = SKILL_DEFS.find(s => s.id === skillId);
+            const base = SKILL_DEFS.find((s) => s.id === skillId);
             if (!base) return;
             const runtime = this._runtimeSkill(base);
 
@@ -290,7 +306,6 @@ export class SkillPanel {
             }
             this._skillBar.setSkill(slot, runtime);
             this._renderContent();
-            console.log('[Skill] Equipped:', runtime.name, 'to F' + (slot + 1));
       }
 
       private _refreshEquippedSkills(): void {
@@ -298,7 +313,7 @@ export class SkillPanel {
             for (let i = 0; i < equipped.length; i++) {
                   const now = equipped[i];
                   if (!now) continue;
-                  const base = SKILL_DEFS.find(s => s.id === now.id);
+                  const base = SKILL_DEFS.find((s) => s.id === now.id);
                   if (!base) continue;
                   this._skillBar.setSkill(i, this._runtimeSkill(base));
             }
@@ -307,23 +322,19 @@ export class SkillPanel {
       private _runtimeSkill(base: SkillDef): SkillDef {
             const level = this._skillLevels.get(base.id) ?? 1;
             const multBonus = 1 + (level - 1) * 0.08;
-            return {
-                  ...base,
-                  multiplier: Number((base.multiplier * multBonus).toFixed(2)),
-            };
+            return { ...base, multiplier: Number((base.multiplier * multBonus).toFixed(2)) };
       }
-
-      // -- Pet Tab --
 
       private _renderPetTab(): void {
             if (!this._petManager) {
-                  this._body.innerHTML = '<div style="color:rgba(200,195,185,0.5);text-align:center;padding:20px;font-size:12px">尚未載入寵物資料</div>';
+                  this._body.innerHTML = '<div class="skill-empty-tip">尚未載入寵物資料</div>';
                   return;
             }
 
             const activePets = this._petManager.active;
             const layout = document.createElement('div');
             layout.className = 'skill-layout skill-layout-pet';
+
             const leftCol = document.createElement('div');
             leftCol.className = 'skill-col skill-left';
             const rightCol = document.createElement('div');
@@ -338,7 +349,6 @@ export class SkillPanel {
 
             const slotGrid = document.createElement('div');
             slotGrid.className = 'skill-equip-grid skill-pet-grid';
-
             for (let i = 0; i < 3; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'dark-slot skill-equip-slot';
@@ -347,8 +357,14 @@ export class SkillPanel {
                         const pet = activePets[i];
                         const seriesColor = SERIES_COLORS[pet.def.series];
                         const colorHex = `rgb(${Math.round(seriesColor.r * 255)},${Math.round(seriesColor.g * 255)},${Math.round(seriesColor.b * 255)})`;
-                        slot.innerHTML += `<div class="skill-mini-icon" style="background:${colorHex};border-radius:50%"></div>`;
-                        slot.innerHTML += `<span class="skill-slot-name">${pet.def.name}</span>`;
+                        const icon = document.createElement('div');
+                        icon.className = 'skill-mini-icon is-circle';
+                        icon.style.background = colorHex;
+                        slot.appendChild(icon);
+                        const name = document.createElement('span');
+                        name.className = 'skill-slot-name';
+                        name.textContent = pet.def.name;
+                        slot.appendChild(name);
                   }
                   slotGrid.appendChild(slot);
             }
@@ -358,7 +374,7 @@ export class SkillPanel {
             if (activePets.length === 0) {
                   const empty = document.createElement('div');
                   empty.className = 'sa-sec skill-section';
-                  empty.innerHTML = '<div style="color:rgba(200,195,185,0.4);text-align:center;padding:12px;font-size:11px">目前沒有出戰寵物</div>';
+                  empty.innerHTML = '<div class="skill-empty-tip is-small">目前沒有出戰寵物</div>';
                   rightCol.appendChild(empty);
                   layout.appendChild(leftCol);
                   layout.appendChild(rightCol);
@@ -374,63 +390,72 @@ export class SkillPanel {
             detailSection.appendChild(detailLabel);
 
             for (const pet of activePets) {
-                  const petDef = PET_DEFS.find(d => d.id === pet.def.id);
+                  const petDef = PET_DEFS.find((d) => d.id === pet.def.id);
                   const skills = petDef?.skills ?? [];
                   const seriesColor = SERIES_COLORS[pet.def.series];
                   const colorHex = `rgb(${Math.round(seriesColor.r * 255)},${Math.round(seriesColor.g * 255)},${Math.round(seriesColor.b * 255)})`;
 
                   const card = document.createElement('div');
-                  card.className = 'skill-card game-card';
-                  card.style.cssText = 'margin-bottom:4px;cursor:default';
+                  card.className = 'skill-card game-card skill-card-static';
 
-                  let skillHtml = '<span style="color:rgba(200,195,185,0.4);font-size:10px">無技能</span>';
+                  let skillHtml = '<span class="skill-card-no-skill">無技能</span>';
                   if (skills.length > 0) {
                         const sk = skills[0];
+                        const atkType = pet.def.attackType === 'melee' ? '⚔近攻' : '🏹遠攻';
                         skillHtml = `
                               <div class="skill-card-name">${sk.name}</div>
                               <div class="skill-card-stats">
-                                    <span style="color:#E74C3C">DMG:${sk.damage}</span>
+                                    <span class="skill-card-dmg">DMG:${sk.damage}</span>
                                     <span>CD:${sk.cooldown}s</span>
-                                    <span style="color:${colorHex}">${pet.def.attackType === 'melee' ? '⚔近攻' : '🏹遠攻'}</span>
+                                    <span class="skill-card-attack">${atkType}</span>
                               </div>
                         `;
                   }
 
                   card.innerHTML = `
-                        <div class="skill-card-icon" style="background:${colorHex};border-radius:50%"></div>
+                        <div class="skill-card-icon is-circle"></div>
                         <div class="skill-card-info">
-                              <div style="color:rgba(220,215,200,0.8);font-size:11px;font-weight:600">
-                                    ${pet.def.name} <span style="color:rgba(200,195,185,0.4)">Lv.${pet.stats.level}</span>
+                              <div class="skill-pet-title">
+                                    ${pet.def.name} <span class="skill-pet-level">Lv.${pet.stats.level}</span>
                               </div>
                               ${skillHtml}
                         </div>
                   `;
+                  const cardIcon = card.querySelector('.skill-card-icon') as HTMLDivElement | null;
+                  if (cardIcon) cardIcon.style.background = colorHex;
+                  const attack = card.querySelector('.skill-card-attack') as HTMLSpanElement | null;
+                  if (attack) attack.style.color = colorHex;
                   detailSection.appendChild(card);
             }
-            rightCol.appendChild(detailSection);
 
+            rightCol.appendChild(detailSection);
             const note = document.createElement('div');
-            note.style.cssText = 'color:rgba(200,195,185,0.3);font-size:9px;text-align:center;padding:6px';
+            note.className = 'skill-note';
             note.textContent = '寵物技能由戰鬥 AI 自動施放';
             rightCol.appendChild(note);
+
             layout.appendChild(leftCol);
             layout.appendChild(rightCol);
             this._body.appendChild(layout);
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
+
       show(): void {
             this._visible = true;
             this._syncResponsiveMode();
             this._el.style.display = 'block';
             this._renderContent();
       }
+
       hide(): void {
             this._visible = false;
             this._el.style.display = 'none';
       }
+
       dispose(): void {
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }
 }
+

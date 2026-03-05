@@ -1,5 +1,5 @@
 /**
- * ChatBox — Dark premium theme, 3 channels
+ * ChatBox - dark theme, 3 channels.
  */
 export class ChatBox {
       private _el: HTMLDivElement;
@@ -7,83 +7,73 @@ export class ChatBox {
       private _input: HTMLInputElement;
       private _channel = 'system';
       private _msgList: Array<{ ch: string; text: string }> = [];
-      private _collapsed = true;  // Start collapsed to avoid blocking
+      private _collapsed = true;
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
 
             this._el = document.createElement('div');
             this._el.id = 'chatBox';
-            this._el.className = 'interactive';
-            Object.assign(this._el.style, {
-                  position: 'fixed', left: '10px', bottom: '44px', zIndex: '150',
-                  width: '220px',
-                  background: 'linear-gradient(180deg, rgba(20,16,30,0.88), rgba(12,10,20,0.92))',
-                  border: '1px solid rgba(160,130,80,0.25)',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
-                  overflow: 'hidden',
-            });
+            this._el.className = 'interactive chatbox-root';
 
-            // Toggle header
             const header = document.createElement('div');
-            header.style.cssText = 'padding:3px 8px;cursor:pointer;font-size:10px;color:rgba(232,201,106,0.6);border-bottom:1px solid rgba(160,130,80,0.15)';
-            header.textContent = '▶ Chat';
-            header.addEventListener('click', () => {
-                  this._collapsed = !this._collapsed;
-                  body.style.display = this._collapsed ? 'none' : '';
-                  header.textContent = this._collapsed ? '▶ Chat' : '▼ Chat';
-            });
+            header.className = 'chatbox-header';
+            header.textContent = '▼ Chat';
             this._el.appendChild(header);
 
             const body = document.createElement('div');
-            body.style.display = 'none';  // Start collapsed
+            body.className = 'chatbox-body';
+            body.style.display = 'none';
 
-            // Channel tabs
             const tabs = document.createElement('div');
-            tabs.style.cssText = 'display:flex;gap:10px;padding:3px 8px;border-bottom:1px solid rgba(160,130,80,0.12)';
+            tabs.className = 'chatbox-tabs';
             for (const ch of ['System', 'World', 'Guild']) {
                   const tab = document.createElement('span');
-                  tab.style.cssText = `font-size:10px;font-weight:600;cursor:pointer;color:${ch.toLowerCase() === this._channel ? 'rgba(232,201,106,0.9)' : 'rgba(200,195,185,0.4)'}`;
+                  tab.className = `chatbox-tab${ch.toLowerCase() === this._channel ? ' is-active' : ''}`;
                   tab.textContent = ch;
                   tab.addEventListener('click', () => {
                         this._channel = ch.toLowerCase();
-                        tabs.querySelectorAll('span').forEach(s => (s as HTMLElement).style.color = 'rgba(200,195,185,0.4)');
-                        tab.style.color = 'rgba(232,201,106,0.9)';
+                        tabs.querySelectorAll('.chatbox-tab').forEach((s) => s.classList.remove('is-active'));
+                        tab.classList.add('is-active');
                         this._renderMessages();
                   });
                   tabs.appendChild(tab);
             }
             body.appendChild(tabs);
 
-            // Messages
             this._messages = document.createElement('div');
-            this._messages.style.cssText = 'height:60px;overflow-y:auto;padding:3px 8px;scrollbar-width:none';
+            this._messages.className = 'chatbox-messages';
             body.appendChild(this._messages);
 
-            // Input row
             const inputRow = document.createElement('div');
-            inputRow.style.cssText = 'display:flex;gap:4px;padding:3px 6px;border-top:1px solid rgba(160,130,80,0.12)';
+            inputRow.className = 'chatbox-input-row';
 
             this._input = document.createElement('input');
             this._input.type = 'text';
             this._input.placeholder = 'Type a message...';
             this._input.className = 'dark-chat-input';
+            this._input.addEventListener('keydown', (e) => {
+                  if (e.key === 'Enter') this._send();
+            });
 
             const sendBtn = document.createElement('div');
             sendBtn.className = 'dark-btn-sm';
             sendBtn.textContent = 'Send';
             sendBtn.addEventListener('click', () => this._send());
-            this._input.addEventListener('keydown', (e) => { if (e.key === 'Enter') this._send(); });
 
             inputRow.appendChild(this._input);
             inputRow.appendChild(sendBtn);
             body.appendChild(inputRow);
-
             this._el.appendChild(body);
+
+            header.addEventListener('click', () => {
+                  this._collapsed = !this._collapsed;
+                  body.style.display = this._collapsed ? 'none' : '';
+                  header.textContent = this._collapsed ? '▼ Chat' : '▲ Chat';
+            });
+
             uiLayer.appendChild(this._el);
 
-            // Initial messages
             this.addMessage('system', 'Welcome to Fantasy Pet Online!');
             this.addMessage('system', 'Use WASD to move your character');
       }
@@ -95,10 +85,10 @@ export class ChatBox {
       }
 
       private _renderMessages(): void {
-            const filtered = this._msgList.filter(m => m.ch === this._channel);
-            this._messages.innerHTML = filtered.map(m =>
-                  `<div style="font-size:10px;color:rgba(220,215,200,0.7);padding:1px 0">${m.text}</div>`
-            ).join('');
+            const filtered = this._msgList.filter((m) => m.ch === this._channel);
+            this._messages.innerHTML = filtered
+                  .map((m) => `<div class="chatbox-message">${m.text}</div>`)
+                  .join('');
             this._messages.scrollTop = this._messages.scrollHeight;
       }
 
@@ -109,5 +99,8 @@ export class ChatBox {
             this._input.value = '';
       }
 
-      dispose(): void { this._el.remove(); }
+      dispose(): void {
+            this._el.remove();
+      }
 }
+

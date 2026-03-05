@@ -48,19 +48,15 @@ const SERIES_NAMES: Record<PetSeries, string> = {
       [PetSeries.Dragon]: '龍族',
       [PetSeries.Beast]: '野獸',
       [PetSeries.Insect]: '昆蟲',
-      [PetSeries.Metal]: '金屬',
-      [PetSeries.Mystery]: '神祕',
+      [PetSeries.Metal]: '機械',
+      [PetSeries.Mystery]: '神秘',
       [PetSeries.Demon]: '惡魔',
       [PetSeries.Bird]: '飛禽',
 };
 
 const PET_NAME_ALIASES: Record<string, string> = {
-      '达特凯彬': '达杉凯特',
-      '超级达特凯彬': '超级达杉凯特',
-      '達特凱彬': '达杉凯特',
-      '超級達特凱彬': '超级达杉凯特',
-      '達杉凱特': '达杉凯特',
-      '超級達杉凱特': '超级达杉凯特',
+      '達特凱特': '達杉凱特',
+      '超級達特凱特': '超級達杉凱特',
 };
 
 export class EncyclopediaPanel {
@@ -171,39 +167,14 @@ export class EncyclopediaPanel {
             title.textContent = '📖 寵物圖鑑';
 
             const progress = document.createElement('span');
-            progress.style.cssText = 'margin-left:auto;margin-right:34px;font-size:11px;color:rgba(200,195,185,0.7)';
+            progress.className = 'book-progress';
             progress.textContent = `${this._enc.discoveredCount} / ${this._enc.totalCount}`;
 
             const closeBtn = document.createElement('button');
             closeBtn.type = 'button';
-            closeBtn.textContent = '✕';
+            closeBtn.textContent = 'X';
             closeBtn.setAttribute('aria-label', '關閉圖鑑');
-            closeBtn.style.cssText = `
-                  position:absolute;
-                  right:6px;
-                  top:50%;
-                  transform:translateY(-50%);
-                  width:24px;
-                  height:24px;
-                  border:1px solid rgba(160,130,80,0.28);
-                  border-radius:4px;
-                  background:rgba(20,16,30,0.72);
-                  color:rgba(220,215,200,0.9);
-                  font-size:13px;
-                  font-weight:700;
-                  line-height:1;
-                  cursor:pointer;
-            `;
-            closeBtn.addEventListener('mouseenter', () => {
-                  closeBtn.style.color = '#E74C3C';
-                  closeBtn.style.borderColor = 'rgba(231,76,60,0.45)';
-                  closeBtn.style.background = 'rgba(231,76,60,0.12)';
-            });
-            closeBtn.addEventListener('mouseleave', () => {
-                  closeBtn.style.color = 'rgba(220,215,200,0.9)';
-                  closeBtn.style.borderColor = 'rgba(160,130,80,0.28)';
-                  closeBtn.style.background = 'rgba(20,16,30,0.72)';
-            });
+            closeBtn.className = 'book-close-btn';
             closeBtn.addEventListener('click', () => this.close());
 
             header.appendChild(title);
@@ -214,10 +185,10 @@ export class EncyclopediaPanel {
 
       private _buildUnifiedView(): HTMLDivElement {
             const root = document.createElement('div');
-            root.style.cssText = 'display:flex;flex-direction:column;max-height:calc(86vh - 40px);overflow:hidden';
+            root.className = 'book-unified-root';
 
             const filterRow = document.createElement('div');
-            filterRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;padding:8px;border-bottom:1px solid rgba(160,130,80,0.14);background:rgba(14,11,22,0.48)';
+            filterRow.className = 'book-filter-row';
             filterRow.appendChild(this._buildSeriesFilterChip('all', '全部'));
             for (const series of Object.values(PetSeries) as PetSeries[]) {
                   filterRow.appendChild(this._buildSeriesFilterChip(series, `${SERIES_EMOJI[series]} ${SERIES_NAMES[series]}`));
@@ -227,7 +198,7 @@ export class EncyclopediaPanel {
             search.type = 'search';
             search.placeholder = '搜尋寵物名稱';
             search.value = this._searchKeyword;
-            search.style.cssText = 'margin-left:auto;min-width:180px;max-width:220px;flex:1 1 200px;border:1px solid rgba(160,130,80,0.24);border-radius:6px;background:rgba(12,10,20,0.78);color:rgba(220,215,200,0.9);font-size:10px;padding:4px 8px';
+            search.className = 'book-search-input';
             search.addEventListener('input', () => {
                   this._searchKeyword = search.value.trim();
                   this._render();
@@ -250,9 +221,7 @@ export class EncyclopediaPanel {
 
             const split = document.createElement('div');
             const compact = this._shouldUseStackLayout();
-            split.style.cssText = compact
-                  ? 'display:flex;flex-direction:column;gap:8px;padding:8px;overflow:auto'
-                  : 'display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:8px;padding:8px;overflow:hidden';
+            split.className = `book-split${compact ? ' is-compact' : ''}`;
             split.appendChild(this._buildPetListPane(compact));
             split.appendChild(this._buildDetailPane(compact));
             root.appendChild(split);
@@ -271,16 +240,7 @@ export class EncyclopediaPanel {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.textContent = label;
-            btn.style.cssText = `
-                  border-radius:999px;
-                  border:1px solid ${active ? 'rgba(232,201,106,0.52)' : 'rgba(160,130,80,0.24)'};
-                  background:${active ? 'rgba(160,130,80,0.22)' : 'rgba(20,16,30,0.62)'};
-                  color:${active ? 'rgba(232,201,106,0.95)' : 'rgba(200,195,185,0.7)'};
-                  font-size:10px;
-                  font-weight:700;
-                  padding:3px 9px;
-                  cursor:pointer;
-            `;
+            btn.className = `book-chip${active ? ' is-active' : ''}`;
             btn.addEventListener('click', () => {
                   if (this._seriesFilter === filter) return;
                   this._seriesFilter = filter;
@@ -293,16 +253,7 @@ export class EncyclopediaPanel {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.textContent = label;
-            btn.style.cssText = `
-                  border-radius:999px;
-                  border:1px solid ${active ? 'rgba(232,201,106,0.52)' : 'rgba(160,130,80,0.24)'};
-                  background:${active ? 'rgba(160,130,80,0.22)' : 'rgba(20,16,30,0.62)'};
-                  color:${active ? 'rgba(232,201,106,0.95)' : 'rgba(200,195,185,0.7)'};
-                  font-size:10px;
-                  font-weight:700;
-                  padding:3px 9px;
-                  cursor:pointer;
-            `;
+            btn.className = `book-chip book-chip-toggle${active ? ' is-active' : ''}`;
             btn.addEventListener('click', onClick);
             return btn;
       }
@@ -312,7 +263,7 @@ export class EncyclopediaPanel {
             pane.className = `book-pane${compact ? ' is-compact-list' : ''}`;
 
             const defs = this._filteredDefs();
-            if (!this._selectedPetId || !defs.some(def => def.id === this._selectedPetId)) {
+            if (!this._selectedPetId || !defs.some((def) => def.id === this._selectedPetId)) {
                   this._selectedPetId = defs[0]?.id ?? null;
             }
 
@@ -326,13 +277,12 @@ export class EncyclopediaPanel {
 
             const list = document.createElement('div');
             list.className = 'book-pane-list';
-            for (const def of defs) {
-                  list.appendChild(this._buildPetListRow(def));
-            }
+            for (const def of defs) list.appendChild(this._buildPetListRow(def));
+
             if (defs.length === 0) {
                   const empty = document.createElement('div');
                   empty.className = 'book-empty';
-                  empty.textContent = '此系列目前沒有資料';
+                  empty.textContent = '此篩選條件沒有資料';
                   list.appendChild(empty);
             }
             pane.appendChild(list);
@@ -396,7 +346,7 @@ export class EncyclopediaPanel {
             card.innerHTML = `
                   <div class="book-card-head">
                         <span class="book-card-icon">${SERIES_EMOJI[def.series]}</span>
-                        <div style="min-width:0">
+                        <div class="book-card-main">
                               <div class="book-card-name">${this._escapeHtml(def.nameCN)}</div>
                               <div class="book-card-sub">${SERIES_NAMES[def.series]} · Lv.${level}</div>
                         </div>
@@ -424,7 +374,7 @@ export class EncyclopediaPanel {
 
             const mapBtn = document.createElement('button');
             mapBtn.type = 'button';
-            mapBtn.className = `game-btn game-btn-ghost book-action-btn`;
+            mapBtn.className = 'game-btn game-btn-ghost book-action-btn';
             mapBtn.textContent = preferredMap ? '前往地圖' : '無來源地圖';
             mapBtn.disabled = !preferredMap;
             mapBtn.addEventListener('click', () => {
@@ -436,46 +386,30 @@ export class EncyclopediaPanel {
             actionRow.appendChild(recipeBtn);
             actionRow.appendChild(mapBtn);
             pane.appendChild(actionRow);
-
             return pane;
       }
 
       private _buildDetailRow(label: string, valueHtml: string): HTMLDivElement {
             const row = document.createElement('div');
             row.className = 'book-detail-row';
-
-            const key = document.createElement('div');
-            key.className = 'book-detail-key';
-            key.textContent = label;
-
-            const value = document.createElement('div');
-            value.className = 'book-detail-value';
-            value.innerHTML = valueHtml;
-
-            row.appendChild(key);
-            row.appendChild(value);
+            row.innerHTML = `
+                  <div class="book-detail-key">${label}</div>
+                  <div class="book-detail-value">${valueHtml}</div>
+            `;
             return row;
       }
 
       private _mapChipsMarkup(mapNames: string[]): string {
-            if (mapNames.length === 0) {
-                  return '<span class="book-map-chip-empty">尚無地圖資料</span>';
-            }
-            const chips = mapNames.slice(0, 10).map(name => `
-                  <span class="book-map-chip">
-                        ${this._escapeHtml(name)}
-                  </span>
-            `);
-            if (mapNames.length > 10) {
-                  chips.push(`<span class="book-map-chip-more">+${mapNames.length - 10}</span>`);
-            }
+            if (mapNames.length === 0) return '<span class="book-map-chip-empty">尚無地圖資料</span>';
+            const chips = mapNames.slice(0, 10).map((name) => `<span class="book-map-chip">${this._escapeHtml(name)}</span>`);
+            if (mapNames.length > 10) chips.push(`<span class="book-map-chip-more">+${mapNames.length - 10}</span>`);
             return chips.join('');
       }
 
       private _filteredDefs(): PetDef[] {
             return PET_DEFS
-                  .filter(def => this._seriesFilter === 'all' || def.series === this._seriesFilter)
-                  .filter(def => {
+                  .filter((def) => this._seriesFilter === 'all' || def.series === this._seriesFilter)
+                  .filter((def) => {
                         if (this._searchKeyword) {
                               const key = this._normalizeNameKey(this._canonicalPetName(this._searchKeyword));
                               const nameCN = this._normalizeNameKey(this._canonicalPetName(def.nameCN));
@@ -498,7 +432,7 @@ export class EncyclopediaPanel {
 
       private _selectedPetDef(): PetDef | null {
             if (!this._selectedPetId) return PET_DEFS[0] ?? null;
-            return PET_DEFS.find(def => def.id === this._selectedPetId) ?? PET_DEFS[0] ?? null;
+            return PET_DEFS.find((def) => def.id === this._selectedPetId) ?? PET_DEFS[0] ?? null;
       }
 
       private _buildPetDefNameIndex(): void {
@@ -554,7 +488,7 @@ export class EncyclopediaPanel {
 
                   const defId = this._findPetDefIdByName(name);
                   if (!defId) continue;
-                  const def = PET_DEFS.find(item => item.id === defId);
+                  const def = PET_DEFS.find((item) => item.id === defId);
                   if (!def) continue;
                   const meta = ensureMeta(def);
                   const lv = this._toLevel(row.level, meta.level);
@@ -570,7 +504,7 @@ export class EncyclopediaPanel {
                   const name = this._canonicalPetName(String(row?.name ?? '').trim());
                   const defId = this._findPetDefIdByName(name);
                   if (!defId) continue;
-                  const def = PET_DEFS.find(item => item.id === defId);
+                  const def = PET_DEFS.find((item) => item.id === defId);
                   if (!def) continue;
                   const meta = ensureMeta(def);
                   const listHint = listByCanonicalName.get(name)?.level;
@@ -583,7 +517,7 @@ export class EncyclopediaPanel {
                   const name = this._canonicalPetName(String(row?.resultName ?? '').trim());
                   const defId = this._findPetDefIdByName(name);
                   if (!defId) continue;
-                  const def = PET_DEFS.find(item => item.id === defId);
+                  const def = PET_DEFS.find((item) => item.id === defId);
                   if (!def) continue;
                   const meta = ensureMeta(def);
                   const listHint = listByCanonicalName.get(name)?.level;
@@ -595,7 +529,7 @@ export class EncyclopediaPanel {
 
             for (const def of PET_DEFS) {
                   const meta = ensureMeta(def);
-                  meta.mapNames = Array.from(new Set(meta.mapNames.map(name => name.trim()).filter(Boolean)))
+                  meta.mapNames = Array.from(new Set(meta.mapNames.map((name) => name.trim()).filter(Boolean)))
                         .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
             }
 
@@ -618,7 +552,7 @@ export class EncyclopediaPanel {
 
       private _normalizeStringArray(value: unknown): string[] {
             if (Array.isArray(value)) {
-                  const arr = value.map(item => String(item ?? '').trim()).filter(Boolean);
+                  const arr = value.map((item) => String(item ?? '').trim()).filter(Boolean);
                   return Array.from(new Set(arr));
             }
             if (typeof value === 'string') {
@@ -667,3 +601,4 @@ export class EncyclopediaPanel {
                   .replace(/'/g, '&#39;');
       }
 }
+

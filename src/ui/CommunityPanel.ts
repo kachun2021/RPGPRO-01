@@ -221,9 +221,11 @@ export class CommunityPanel {
                               <span class="comm-party-name">Lv.${m.level} ${m.name}</span>
                               <span class="comm-party-role">${m.role}</span>
                               <div class="comm-party-hp">
-                                    <div class="comm-party-hp-fill" style="width:${hpPct}%"></div>
+                                    <div class="comm-party-hp-fill"></div>
                               </div>
                         `;
+                        const fill = card.querySelector('.comm-party-hp-fill') as HTMLDivElement | null;
+                        if (fill) fill.style.width = `${hpPct}%`;
                         body.appendChild(card);
                   }
             }

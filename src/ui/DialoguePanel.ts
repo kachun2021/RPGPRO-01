@@ -90,13 +90,14 @@ export class DialoguePanel {
                         <span class="dlg-header-type">${typeLabel}</span>
                   </div>
                   <div class="dlg-body">
-                        <div class="dlg-watermark" style="color:rgba(${rgbStr},0.08)">${icon}</div>
+                        <div class="dlg-watermark">${icon}</div>
                         <div class="dlg-text-area" id="dlg-text"></div>
                   </div>
                   <div class="dlg-actions" id="dlg-actions">
                         ${actionsHtml}
                   </div>
             `;
+            this._el.style.setProperty('--dlg-watermark-color', `rgba(${rgbStr},0.08)`);
 
             // Type the current dialogue line
             this._typeDialogue(this._dialogueIdx);

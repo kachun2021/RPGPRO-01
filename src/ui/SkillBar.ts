@@ -1,11 +1,11 @@
 import { SKILL_DEFS, type SkillDef } from '../combat/CombatSystem';
 import type { PetManager } from '../pets/PetManager';
-import { PET_DEFS, SERIES_ICONS, type PetSkillDef, type PetSeries } from '../pets/PetData';
+import { PET_DEFS, SERIES_ICONS, type PetSeries, type PetSkillDef } from '../pets/PetData';
 
 /**
- * SkillBar — Right-side vertical bar split into:
- *   Top: "角色技能" label + 5 player skill slots (F1-F5)
- *   Bottom: "寵物技能" label + 3 pet skill slots (auto from active pets)
+ * SkillBar
+ * - Top: player skills F1-F5
+ * - Bottom: pet skills P1-P3
  */
 export class SkillBar {
       private _el: HTMLDivElement;
@@ -14,73 +14,46 @@ export class SkillBar {
       private _collapsed = false;
       private _petManager: PetManager | null = null;
       private _globalPlayerLock = 0;
-
-      /** Currently equipped player skills (5 slots) */
       private _equipped: (SkillDef | null)[] = [];
+      private _toggleBtn: HTMLDivElement;
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
 
-            // Default: first 5 skills equipped
-            for (let i = 0; i < 5; i++) {
-                  this._equipped.push(SKILL_DEFS[i] ?? null);
-            }
+            for (let i = 0; i < 5; i++) this._equipped.push(SKILL_DEFS[i] ?? null);
 
             this._el = document.createElement('div');
             this._el.id = 'skillBar';
-            this._el.className = 'interactive';
-            Object.assign(this._el.style, {
-                  position: 'fixed', right: '4px', top: '76px', zIndex: '150',
-                  display: 'flex', flexDirection: 'column', gap: '2px',
-                  background: 'linear-gradient(180deg, rgba(20,16,30,0.85), rgba(12,10,20,0.9))',
-                  border: '1px solid rgba(160,130,80,0.25)',
-                  borderRadius: '6px', padding: '4px',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
-            });
+            this._el.className = 'skillbar-root interactive';
 
-            // Toggle header
-            const toggle = document.createElement('div');
-            toggle.style.cssText = 'font-size:9px;color:rgba(232,201,106,0.8);text-align:center;cursor:pointer;padding:3px 4px;border-bottom:1px solid rgba(160,130,80,0.15);transition:color 0.2s';
-            toggle.textContent = '\u25BC Skills';
-            toggle.addEventListener('mouseenter', () => { toggle.style.color = '#FFD700'; });
-            toggle.addEventListener('mouseleave', () => { toggle.style.color = 'rgba(232,201,106,0.8)'; });
-            toggle.addEventListener('click', () => {
-                  this._collapsed = !this._collapsed;
-                  const display = this._collapsed ? 'none' : '';
-                  this._playerSlots.forEach(s => s.el.style.display = display);
-                  this._petSlots.forEach(s => s.el.style.display = display);
-                  this._el.querySelectorAll('.skillbar-label,.skillbar-divider').forEach(
-                        el => (el as HTMLElement).style.display = display
-                  );
-                  toggle.textContent = this._collapsed ? '\u25B6 Skills' : '\u25BC Skills';
-            });
-            this._el.appendChild(toggle);
+            this._toggleBtn = document.createElement('div');
+            this._toggleBtn.className = 'skillbar-toggle';
+            this._toggleBtn.textContent = '▼ Skills';
+            this._toggleBtn.addEventListener('mouseenter', () => this._toggleBtn.classList.add('is-hover'));
+            this._toggleBtn.addEventListener('mouseleave', () => this._toggleBtn.classList.remove('is-hover'));
+            this._toggleBtn.addEventListener('click', () => this._toggleCollapse());
+            this._el.appendChild(this._toggleBtn);
 
-            // ── Player Skills Section ──
             const playerLabel = document.createElement('div');
             playerLabel.className = 'skillbar-label';
-            playerLabel.textContent = '\u2694 \u89D2\u8272';
+            playerLabel.textContent = '⚔ 角色';
             this._el.appendChild(playerLabel);
 
-            // 5 player skill slots
             for (let i = 0; i < 5; i++) {
                   const slot = new SkillSlot(i, `F${i + 1}`, this._equipped[i], () => this._onPlayerSlotClick(i));
                   this._el.appendChild(slot.el);
                   this._playerSlots.push(slot);
             }
 
-            // ── Divider ──
             const divider = document.createElement('div');
             divider.className = 'skillbar-divider';
             this._el.appendChild(divider);
 
-            // ── Pet Skills Section ──
             const petLabel = document.createElement('div');
             petLabel.className = 'skillbar-label';
-            petLabel.textContent = '\uD83D\uDC3E \u5BF5\u7269';
+            petLabel.textContent = '🐾 寵物';
             this._el.appendChild(petLabel);
 
-            // 3 pet skill slots (auto-filled)
             for (let i = 0; i < 3; i++) {
                   const slot = new SkillSlot(i + 5, `P${i + 1}`, null, () => { });
                   slot.el.classList.add('pet-skill-slot');
@@ -88,17 +61,14 @@ export class SkillBar {
                   this._petSlots.push(slot);
             }
 
-            // Keyboard hotkeys (F1-F8)
             window.addEventListener('keydown', (e) => {
                   const match = e.key.match(/^F(\d{1,2})$/);
-                  if (match) {
-                        const idx = parseInt(match[1], 10) - 1;
-                        if (idx >= 0 && idx < 8) {
-                              e.preventDefault();
-                              if (idx < 5) this._onPlayerSlotClick(idx);
-                              else this._onPetSlotHotkey(idx - 5);
-                        }
-                  }
+                  if (!match) return;
+                  const idx = parseInt(match[1], 10) - 1;
+                  if (idx < 0 || idx >= 8) return;
+                  e.preventDefault();
+                  if (idx < 5) this._onPlayerSlotClick(idx);
+                  else this._onPetSlotHotkey(idx - 5);
             });
 
             uiLayer.appendChild(this._el);
@@ -106,6 +76,17 @@ export class SkillBar {
 
       setPetManager(pm: PetManager): void {
             this._petManager = pm;
+      }
+
+      private _toggleCollapse(): void {
+            this._collapsed = !this._collapsed;
+            const display = this._collapsed ? 'none' : '';
+            this._playerSlots.forEach((s) => (s.el.style.display = display));
+            this._petSlots.forEach((s) => (s.el.style.display = display));
+            this._el.querySelectorAll('.skillbar-label,.skillbar-divider').forEach((el) => {
+                  (el as HTMLElement).style.display = display;
+            });
+            this._toggleBtn.textContent = this._collapsed ? '▶ Skills' : '▼ Skills';
       }
 
       private _onPlayerSlotClick(idx: number): void {
@@ -117,7 +98,6 @@ export class SkillBar {
             slot.startCooldown(skill.cooldown);
             slot.flashPress();
             this._globalPlayerLock = skill.cooldown;
-            console.log('[Skill] Cast:', skill.name, `(F${idx + 1})`);
       }
 
       private _onPetSlotHotkey(idx: number): void {
@@ -125,16 +105,10 @@ export class SkillBar {
             this._petSlots[idx].flashPress();
       }
 
-      /** Update CD overlays + refresh pet slots each frame */
       update(dt: number): void {
             this._globalPlayerLock = Math.max(0, this._globalPlayerLock - dt);
-            for (const slot of this._playerSlots) {
-                  slot.update(dt);
-            }
-            for (const slot of this._petSlots) {
-                  slot.update(dt);
-            }
-            // Refresh pet skill icons from active pets
+            this._playerSlots.forEach((slot) => slot.update(dt));
+            this._petSlots.forEach((slot) => slot.update(dt));
             this._refreshPetSlots();
       }
 
@@ -145,7 +119,7 @@ export class SkillBar {
                   const slot = this._petSlots[i];
                   if (i < activePets.length) {
                         const pet = activePets[i];
-                        const petDef = PET_DEFS.find(d => d.id === pet.def.id);
+                        const petDef = PET_DEFS.find((d) => d.id === pet.def.id);
                         const skill = petDef?.skills?.[0];
                         slot.setPetSkill(pet.def.name, skill ?? null, pet.def.series);
                   } else {
@@ -154,14 +128,10 @@ export class SkillBar {
             }
       }
 
-      /** Set auto-cast glow on a player slot */
       setAutoCast(idx: number, enabled: boolean): void {
-            if (idx >= 0 && idx < 5) {
-                  this._playerSlots[idx].setAutoCast(enabled);
-            }
+            if (idx >= 0 && idx < 5) this._playerSlots[idx].setAutoCast(enabled);
       }
 
-      /** Set player skill at a slot index */
       setSkill(idx: number, skill: SkillDef | null): void {
             if (idx >= 0 && idx < 5) {
                   this._equipped[idx] = skill;
@@ -169,34 +139,28 @@ export class SkillBar {
             }
       }
 
-      /** Get currently equipped player skills */
       getEquipped(): (SkillDef | null)[] {
             return [...this._equipped];
       }
 
-      /** Trigger CD animation on a player slot (called by CombatLoop) */
       triggerPlayerCD(idx: number, duration: number): void {
-            if (idx >= 0 && idx < 5) {
-                  this._globalPlayerLock = duration;
-                  this._playerSlots[idx].startCooldown(duration);
-                  this._playerSlots[idx].flashPress();
-            }
+            if (idx < 0 || idx >= 5) return;
+            this._globalPlayerLock = duration;
+            this._playerSlots[idx].startCooldown(duration);
+            this._playerSlots[idx].flashPress();
       }
 
-      /** Trigger CD animation on a pet slot (called by CombatLoop) */
       triggerPetCD(idx: number, duration: number): void {
-            if (idx >= 0 && idx < 3) {
-                  this._petSlots[idx].startCooldown(duration);
-                  this._petSlots[idx].flashPress();
-            }
+            if (idx < 0 || idx >= 3) return;
+            this._petSlots[idx].startCooldown(duration);
+            this._petSlots[idx].flashPress();
       }
 
-      dispose(): void { this._el.remove(); }
+      dispose(): void {
+            this._el.remove();
+      }
 }
 
-/**
- * Individual skill slot with icon + CD overlay + timer text + auto-cast glow
- */
 class SkillSlot {
       public el: HTMLDivElement;
       private _iconEl: HTMLDivElement;
@@ -212,7 +176,6 @@ class SkillSlot {
             this.el.className = 'skill-slot';
             this.el.addEventListener('click', onClick);
 
-            // Icon area
             this._iconEl = document.createElement('div');
             this._iconEl.className = 'skill-icon';
             if (skill) {
@@ -221,29 +184,25 @@ class SkillSlot {
             }
             this.el.appendChild(this._iconEl);
 
-            // CD overlay (conic-gradient mask)
             this._cdOverlay = document.createElement('div');
             this._cdOverlay.className = 'skill-cd-overlay';
             this._cdOverlay.style.display = 'none';
             this.el.appendChild(this._cdOverlay);
 
-            // CD timer text (remaining seconds)
             this._cdText = document.createElement('span');
             this._cdText.className = 'skill-cd-text';
             this._cdText.style.display = 'none';
             this.el.appendChild(this._cdText);
 
-            // Pet name label (bottom, only for pet slots)
             this._nameEl = document.createElement('span');
             this._nameEl.className = 'skill-pet-name';
             this._nameEl.style.display = 'none';
             this.el.appendChild(this._nameEl);
 
-            // Key label
-            const kl = document.createElement('span');
-            kl.className = 'skill-key-label';
-            kl.textContent = keyLabel;
-            this.el.appendChild(kl);
+            const key = document.createElement('span');
+            key.className = 'skill-key-label';
+            key.textContent = keyLabel;
+            this.el.appendChild(key);
       }
 
       get isOnCooldown(): boolean { return this._cooldown > 0; }
@@ -264,15 +223,13 @@ class SkillSlot {
                   this._cdOverlay.style.display = 'none';
                   this._cdText.style.display = 'none';
                   this._iconEl.style.filter = '';
-                  // Flash green when ready
                   this.el.style.boxShadow = '0 0 8px rgba(39,174,96,0.6)';
-                  setTimeout(() => { this.el.style.boxShadow = ''; }, 400);
+                  setTimeout(() => (this.el.style.boxShadow = ''), 400);
                   return;
             }
             const pct = this._cooldown / this._maxCooldown;
             const deg = pct * 360;
-            this._cdOverlay.style.background =
-                  `conic-gradient(rgba(0,0,0,0.7) ${deg}deg, transparent ${deg}deg)`;
+            this._cdOverlay.style.background = `conic-gradient(rgba(0,0,0,0.7) ${deg}deg, transparent ${deg}deg)`;
             this._cdText.textContent = this._cooldown.toFixed(1);
       }
 
@@ -283,6 +240,7 @@ class SkillSlot {
       setPlayerSkill(skill: SkillDef | null): void {
             if (skill) {
                   this._iconEl.style.backgroundImage = `url(assets/icons/${skill.icon})`;
+                  this._iconEl.style.background = '';
                   this._iconEl.title = `${skill.name} (MP:${skill.mpCost} CD:${skill.cooldown}s)`;
             } else {
                   this._iconEl.style.backgroundImage = 'none';
@@ -290,15 +248,12 @@ class SkillSlot {
             }
       }
 
-      /** Update pet slot: show series icon + pet name + skill tooltip */
       setPetSkill(petName: string | null, skill: PetSkillDef | null, series?: PetSeries): void {
-            if (petName && this._petName === petName) return; // no change
+            if (petName && this._petName === petName) return;
             this._petName = petName;
             if (petName && skill) {
-                  // Use series icon
                   const iconFile = series !== undefined ? SERIES_ICONS[series] : '';
                   if (iconFile) {
-                        this._iconEl.style.backgroundImage = `url(assets/icons/${iconFile})`;
                         this._iconEl.style.background = '';
                         this._iconEl.style.backgroundImage = `url(assets/icons/${iconFile})`;
                         this._iconEl.style.backgroundSize = 'cover';
@@ -320,6 +275,7 @@ class SkillSlot {
 
       flashPress(): void {
             this.el.style.transform = 'scale(0.88)';
-            setTimeout(() => { this.el.style.transform = ''; }, 100);
+            setTimeout(() => (this.el.style.transform = ''), 100);
       }
 }
+

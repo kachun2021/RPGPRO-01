@@ -140,12 +140,12 @@ export class CharacterPanel {
                   <div class="cp-bars">
                         <div class="cp-bar-row">
                               <span class="cp-bar-label">HP</span>
-                              <div class="cp-bar-track"><div class="cp-bar-fill cp-hp-fill" style="width:${(s.hp / s.maxHp) * 100}%"></div></div>
+                              <div class="cp-bar-track"><div class="cp-bar-fill cp-hp-fill"></div></div>
                               <span class="cp-bar-val">${s.hp}/${s.maxHp}</span>
                         </div>
                         <div class="cp-bar-row">
                               <span class="cp-bar-label">MP</span>
-                              <div class="cp-bar-track"><div class="cp-bar-fill cp-mp-fill" style="width:${(s.mp / s.maxMp) * 100}%"></div></div>
+                              <div class="cp-bar-track"><div class="cp-bar-fill cp-mp-fill"></div></div>
                               <span class="cp-bar-val">${s.mp}/${s.maxMp}</span>
                         </div>
                   </div>
@@ -171,6 +171,10 @@ export class CharacterPanel {
                         <div class="cp-sum-row"><span>💧 MP</span><span>${d.maxMp}</span></div>
                   </div>
             `;
+            const hpFill = body.querySelector('.cp-hp-fill') as HTMLDivElement | null;
+            if (hpFill) hpFill.style.width = `${(s.hp / s.maxHp) * 100}%`;
+            const mpFill = body.querySelector('.cp-mp-fill') as HTMLDivElement | null;
+            if (mpFill) mpFill.style.width = `${(s.mp / s.maxMp) * 100}%`;
 
             // Bind +/- buttons
             body.querySelectorAll('.cp-btn-plus').forEach(btn => {

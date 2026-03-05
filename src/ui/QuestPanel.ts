@@ -128,7 +128,7 @@ export class QuestPanel {
                         <div class="qp-detail-desc">${selectedQuest.description}</div>
                         <div class="qp-detail-progress">
                               <div class="qp-detail-pbar">
-                                    <div class="qp-detail-pfill" style="width:${pct}%"></div>
+                                    <div class="qp-detail-pfill"></div>
                               </div>
                               <span class="qp-detail-ptext">${obj.label}: ${obj.current}/${obj.required}</span>
                         </div>
@@ -143,6 +143,8 @@ export class QuestPanel {
                         ` : ''}
                         ${status === 'complete' ? '<button class="qp-claim-btn btn-gold">🎁 領取獎勵</button>' : ''}
                   `;
+                  const fill = detail.querySelector('.qp-detail-pfill') as HTMLDivElement | null;
+                  if (fill) fill.style.width = `${pct}%`;
 
                   if (status === 'complete') {
                         detail.querySelector('.qp-claim-btn')?.addEventListener('click', () => {
