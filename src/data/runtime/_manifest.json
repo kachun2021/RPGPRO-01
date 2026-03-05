@@ -1,0 +1,353 @@
+{
+  "builtAt": "2026-03-05T17:19:20.142572+00:00",
+  "sourceTableCount": 38,
+  "sourceRowCounts": {
+    "s_monster": 1418,
+    "s_mix": 720,
+    "s_mob": 889,
+    "s_mobitem": 634,
+    "s_item": 4608,
+    "s_ItemEffectiveData": 7980,
+    "s_zone": 201,
+    "s_gate": 140,
+    "s_npc": 1052,
+    "s_npc_sale": 1792,
+    "s_SkillData": 140,
+    "s_SkillProperty": 31,
+    "s_LvMonInfo": 210,
+    "s_LvUserInfo": 200,
+    "s_hero": 4,
+    "s_MixSkill": 10,
+    "s_Production": 167,
+    "s_event_drop": 169,
+    "s_ItemRankInfo": 10,
+    "s_Itempoweradd": 13,
+    "s_ItemBox": 22,
+    "s_ItemTypeInfo": 14,
+    "s_LootRankInfo": 20,
+    "s_LootTypeInfo": 11,
+    "s_OptInfo": 8,
+    "s_OptLvInfo": 10,
+    "s_PartyExpRate": 4,
+    "s_PartyPenaltyRate": 8,
+    "s_event": 1,
+    "s_CastleWarInfo": 2,
+    "ZoneServerMessage": 2,
+    "s_hero_skill": 0,
+    "s_QuestScheduler": 0,
+    "u_hero": 0,
+    "u_hench_1": 6,
+    "u_item": 13,
+    "u_MixSkill": 1,
+    "Player": 3
+  },
+  "domainTableUsage": {
+    "world_topology": [
+      "s_zone",
+      "s_gate"
+    ],
+    "world_spawn": [
+      "s_mob",
+      "s_monster"
+    ],
+    "progression": [
+      "s_hero",
+      "s_LvUserInfo",
+      "s_LvMonInfo",
+      "s_SkillProperty",
+      "s_SkillData",
+      "s_MixSkill",
+      "s_hero_skill",
+      "s_PartyExpRate",
+      "s_PartyPenaltyRate"
+    ],
+    "fusion_runtime": [
+      "s_mix"
+    ],
+    "economy": [
+      "s_item",
+      "s_ItemEffectiveData",
+      "s_mobitem",
+      "s_npc",
+      "s_npc_sale",
+      "s_Production",
+      "s_ItemRankInfo",
+      "s_Itempoweradd",
+      "s_ItemBox",
+      "s_ItemTypeInfo",
+      "s_LootRankInfo",
+      "s_LootTypeInfo",
+      "s_OptInfo",
+      "s_OptLvInfo",
+      "s_npc_fixed"
+    ],
+    "ops": [
+      "s_event",
+      "s_event_drop",
+      "s_CastleWarInfo",
+      "ZoneServerMessage",
+      "s_QuestScheduler"
+    ],
+    "save_schema": [
+      "Player",
+      "u_hero",
+      "u_hench_1",
+      "u_item",
+      "u_MixSkill"
+    ]
+  },
+  "unassignedSourceTables": [],
+  "assignedButMissingSourceTables": [
+    "s_npc_fixed"
+  ],
+  "sourceDigest": "d2aea1e2a915298ebc111c0f898b989dc3ffc580ba22c3f6b504762f2bb28194",
+  "outputs": {
+    "world.topology": {
+      "stats": {
+        "zoneCount": 201,
+        "gateCount": 140,
+        "zonesWithOutgoingGate": 71,
+        "zonesWithIncomingGate": 69,
+        "isolatedZoneCount": 130,
+        "isolatedZoneIds": [
+          1,
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          69,
+          70,
+          71,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          115,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          154,
+          155,
+          156,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169,
+          171,
+          172,
+          174,
+          175,
+          176,
+          183,
+          184,
+          185,
+          186,
+          187,
+          188,
+          189,
+          190,
+          191,
+          196,
+          197,
+          198,
+          199,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          218,
+          219,
+          220,
+          221,
+          222,
+          223,
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          246,
+          247,
+          251,
+          252,
+          255
+        ]
+      },
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.751117+00:00",
+        "sourceTables": {
+          "s_zone": 201,
+          "s_gate": 140
+        }
+      }
+    },
+    "world.spawn": {
+      "stats": {
+        "mobSpawnCount": 889,
+        "monsterCatalogCount": 1418,
+        "zonesWithSpawn": 173
+      },
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.775124+00:00",
+        "sourceTables": {
+          "s_mob": 889,
+          "s_monster": 1418
+        }
+      }
+    },
+    "progression": {
+      "stats": {
+        "heroCount": 4,
+        "userLevelRows": 200,
+        "monsterLevelRows": 210,
+        "skillCount": 31,
+        "skillLevelRows": 140
+      },
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.778387+00:00",
+        "sourceTables": {
+          "s_hero": 4,
+          "s_LvUserInfo": 200,
+          "s_LvMonInfo": 210,
+          "s_SkillProperty": 31,
+          "s_SkillData": 140,
+          "s_MixSkill": 10,
+          "s_hero_skill": 0
+        }
+      }
+    },
+    "fusion.runtime": {
+      "stats": {
+        "recipeCount": 720,
+        "resultTypeCount": 347,
+        "ingredientTypeCount": 427,
+        "unresolvedMonsterTypeCount": 0,
+        "unresolvedMonsterTypes": []
+      },
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.786106+00:00",
+        "sourceTables": {
+          "s_mix": 720,
+          "s_monster": 1418
+        }
+      }
+    },
+    "economy": {
+      "stats": {
+        "itemCount": 4608,
+        "validItemCount": 4593,
+        "npcCount": 1052,
+        "npcSaleCount": 1792,
+        "shopCatalogRows": 1759,
+        "productionRecipeCount": 167
+      },
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.810072+00:00",
+        "sourceTables": {
+          "s_item": 4608,
+          "s_ItemEffectiveData": 7980,
+          "s_mobitem": 634,
+          "s_npc": 1052,
+          "s_npc_sale": 1792,
+          "s_Production": 167,
+          "s_npc_fixed": 1052
+        }
+      }
+    },
+    "ops": {
+      "stats": {},
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.810197+00:00",
+        "sourceTables": {
+          "s_event": 1,
+          "s_event_drop": 169,
+          "s_CastleWarInfo": 2,
+          "ZoneServerMessage": 2,
+          "s_QuestScheduler": 0
+        }
+      }
+    },
+    "save_schema": {
+      "stats": {},
+      "meta": {
+        "builtAt": "2026-03-05T17:19:19.810214+00:00",
+        "sourceTables": {
+          "Player": 3,
+          "u_hero": 0,
+          "u_hench_1": 6,
+          "u_item": 13,
+          "u_MixSkill": 1
+        }
+      }
+    }
+  }
+}

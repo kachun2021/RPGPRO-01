@@ -1,0 +1,7464 @@
+{
+  "meta": {
+    "builtAt": "2026-03-05T17:19:19.751117+00:00",
+    "sourceTables": {
+      "s_zone": 201,
+      "s_gate": 140
+    }
+  },
+  "zones": [
+    {
+      "zoneId": 1,
+      "name": "流氓兔的地盤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 60
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 2,
+      "name": "黑爾斯波入口",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 3,
+      "name": "馬吉利塔北部",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 4,
+      "name": "流氓兔的地盤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 80
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 5,
+      "name": "流氓兔的地盤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 100
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 6,
+      "name": "馬吉利塔西海岸",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 7,
+      "name": "流氓兔的地盤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 120
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 8,
+      "name": "流氓兔的地盤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 175
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 9,
+      "name": "坎布的地盤-獸",
+      "mobAble": true,
+      "level": {
+        "min": 51,
+        "max": 100
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 10,
+      "name": "坎布的地盤-獸",
+      "mobAble": true,
+      "level": {
+        "min": 101,
+        "max": 140
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 11,
+      "name": "坎布的地盤-獸",
+      "mobAble": true,
+      "level": {
+        "min": 141,
+        "max": 200
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 12,
+      "name": "坎布的地盤-龍",
+      "mobAble": true,
+      "level": {
+        "min": 141,
+        "max": 200
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 13,
+      "name": "坎布的地盤-神秘",
+      "mobAble": true,
+      "level": {
+        "min": 141,
+        "max": 200
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 14,
+      "name": "伊斯拉布溼地",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 15,
+      "name": "歐文草原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 17,
+      "name": "米格瑞塔東海岸",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 21,
+      "name": "古德草原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 23,
+      "name": "米格瑞塔南部草原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 25,
+      "name": "彼斯克羅",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 31,
+      "name": "魯狄斯南部",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 33,
+      "name": "巴爾幹入口",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 35,
+      "name": "白色荒野",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 36,
+      "name": "雙子峽谷",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 38,
+      "name": "命運的沙漠岔道",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 130,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 39,
+      "name": "獸系天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 40,
+      "name": "獸系天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 41,
+      "name": "獸系天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 42,
+      "name": "獸系天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 43,
+      "name": "獸系天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 44,
+      "name": "獸系天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 45,
+      "name": "獸系天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 46,
+      "name": "獸系天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 50,
+      "name": "羅林克斯平原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 52,
+      "name": "芝士堡遺址",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 57,
+      "name": "馬吉利塔",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 101,
+        "ability": 2,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 59,
+      "name": "米格瑞塔",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 102,
+        "ability": 2,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 60,
+      "name": "貝赫魯",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 63,
+      "name": "黑爾斯波",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 66,
+      "name": "貝赫魯南部",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 67,
+      "name": "魯狄斯",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 69,
+      "name": "混亂森林",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 160,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 2,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 70,
+      "name": "PK場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 2,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 44,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 71,
+      "name": "PK大廳",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 98,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 118,
+        "dropItemCond": 1,
+        "reviveLayer": 254,
+        "nonPkLayer": 44,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 72,
+      "name": "黑暗森林",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 73,
+      "name": "魯那特平原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 74,
+      "name": "迷幻沼澤",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 75,
+      "name": "魯那特地獄入口",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 81,
+      "name": "勞吉塔地下1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 25,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 82,
+      "name": "勞吉塔地下2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 83,
+      "name": "勞吉塔地下3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 84,
+      "name": "勞吉塔地下4層",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 85,
+      "name": "勞吉塔地下5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 86,
+      "name": "勞吉塔地下6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 87,
+      "name": "勞吉塔地下7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 91,
+      "name": "魯那特地城1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 92,
+      "name": "魯那特地城2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 93,
+      "name": "魯那特地城3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 94,
+      "name": "魯那特地城4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 95,
+      "name": "魯那特地城5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 96,
+      "name": "勇氣試煉場1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 100,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 97,
+      "name": "勇氣試煉場2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 100,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 98,
+      "name": "勇氣試煉場3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 100,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 99,
+      "name": "勇氣試煉場4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 100,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 100,
+      "name": "魯狄斯地城廢墟",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 101,
+      "name": "馬吉利塔城",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 2,
+        "itemIdx": 0,
+        "collisionLayer": 77,
+        "rootZone": 0,
+        "ability": 4,
+        "mobDamageRate": 0.1,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 44,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 102,
+      "name": "米格瑞塔城",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 2,
+        "itemIdx": 0,
+        "collisionLayer": 77,
+        "rootZone": 0,
+        "ability": 4,
+        "mobDamageRate": 0.1,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 44,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 103,
+      "name": "天空之城1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 104,
+      "name": "天空之城2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 105,
+      "name": "天空之城3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 106,
+      "name": "天空之城4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 107,
+      "name": "天空之城5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 108,
+      "name": "天空之城6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 109,
+      "name": "天空之城7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 110,
+      "name": "天空之城8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 111,
+      "name": "布邁",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 112,
+      "name": "象牙海岸",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 113,
+      "name": "伊斯凱森林",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 114,
+      "name": "寂靜廢墟",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 115,
+      "name": "夏日雪原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 116,
+      "name": "希南遺址入口",
+      "mobAble": true,
+      "level": {
+        "min": 200,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 117,
+      "name": "希南遺址",
+      "mobAble": true,
+      "level": {
+        "min": 200,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 118,
+      "name": "布買廢墟",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 119,
+      "name": "龍系天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 120,
+      "name": "龍系天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 121,
+      "name": "龍系天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 122,
+      "name": "龍系天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 123,
+      "name": "龍系天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 124,
+      "name": "龍系天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 125,
+      "name": "龍系天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 126,
+      "name": "龍系天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 127,
+      "name": "惡魔天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 128,
+      "name": "惡魔天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 129,
+      "name": "惡魔天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 130,
+      "name": "新手區",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 131,
+      "name": "巴爾幹峽谷",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 132,
+      "name": "惡魔天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 133,
+      "name": "惡魔天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 134,
+      "name": "惡魔天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 135,
+      "name": "惡魔天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 136,
+      "name": "惡魔天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 137,
+      "name": "植物天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 138,
+      "name": "植物天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 139,
+      "name": "植物天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 140,
+      "name": "植物天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 141,
+      "name": "植物天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 142,
+      "name": "植物天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 143,
+      "name": "植物天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 144,
+      "name": "植物天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 145,
+      "name": "神秘天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 146,
+      "name": "神秘天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 147,
+      "name": "神秘天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 148,
+      "name": "神秘天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 149,
+      "name": "神秘天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 150,
+      "name": "地城-龍之屋",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 151,
+      "name": "地城-機械之屋",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 152,
+      "name": "地城-鳥之屋",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 153,
+      "name": "地城-植物之屋",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 30,
+        "max": 400,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 154,
+      "name": "神秘天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 155,
+      "name": "神秘天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 156,
+      "name": "神秘天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 160,
+      "name": "馬吉利塔東部",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 161,
+      "name": "米格瑞塔中部草原",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 162,
+      "name": "鳥系天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 163,
+      "name": "鳥系天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 164,
+      "name": "鳥系天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 165,
+      "name": "鳥系天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 166,
+      "name": "鳥系天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 167,
+      "name": "鳥系天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 168,
+      "name": "鳥系天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 169,
+      "name": "鳥系天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 171,
+      "name": "馬吉地下室(自由PK區)",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 200,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 172,
+      "name": "馬吉利塔庭院",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 200,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 174,
+      "name": "扇子島(自由PK區)",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 200,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 175,
+      "name": "石頭花園",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 200,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 176,
+      "name": "奧特佩斯",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 200,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 1,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 177,
+      "name": "混沌之島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 60,
+        "max": 180,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 180,
+      "name": "花園迷宮",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 50,
+        "max": 160,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 181,
+      "name": "希南的秘密通道",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 60,
+        "max": 120,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 182,
+      "name": "希南的秘密通道",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 60,
+        "max": 120,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 183,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 184,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 185,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 186,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 187,
+      "name": "足球場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 10,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 188,
+      "name": "足球場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 10,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 189,
+      "name": "足球場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 10,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 190,
+      "name": "足球場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 10,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 191,
+      "name": "足球場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 10,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 192,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 193,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 194,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 195,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 196,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 197,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 198,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 199,
+      "name": "釣魚島",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 200,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 201,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 202,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 203,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 204,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 205,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 206,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 207,
+      "name": "地下石洞",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 300,
+        "max": 600,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 208,
+      "name": "訓練場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 200,
+        "max": 300,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 209,
+      "name": "訓練場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 200,
+        "max": 300,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 210,
+      "name": "訓練場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 200,
+        "max": 300,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 211,
+      "name": "訓練場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 200,
+        "max": 300,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 212,
+      "name": "訓練場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 200,
+        "max": 300,
+        "perUser": 3
+      },
+      "rules": {
+        "restriction": 32,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 213,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 214,
+      "name": "巴爾克牧場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 400,
+        "max": 600,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 215,
+      "name": "昆蟲天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 216,
+      "name": "昆蟲天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 217,
+      "name": "昆蟲天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 218,
+      "name": "昆蟲天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 219,
+      "name": "昆蟲天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 220,
+      "name": "昆蟲天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 221,
+      "name": "昆蟲天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 222,
+      "name": "昆蟲天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 223,
+      "name": "機械天空1層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 224,
+      "name": "機械天空2層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 225,
+      "name": "機械天空3層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 226,
+      "name": "機械天空4層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 227,
+      "name": "機械天空5層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 228,
+      "name": "機械天空6層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 229,
+      "name": "機械天空7層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 230,
+      "name": "機械天空8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 100,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 1,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 237,
+      "name": "事務所",
+      "mobAble": false,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 0,
+        "max": 0,
+        "perUser": 0
+      },
+      "rules": {
+        "restriction": 24,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 238,
+      "name": "馬吉利塔廢墟[低]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 239,
+      "name": "貝赫魯廢墟[低]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 240,
+      "name": "魯狄斯廢墟[低]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 241,
+      "name": "馬吉利塔廢墟[高]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 942,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 242,
+      "name": "貝赫魯廢墟[高]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 942,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 243,
+      "name": "魯狄斯廢墟[高]",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 942,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 244,
+      "name": "勞吉塔地下8層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 245,
+      "name": "勞吉塔地下9層",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 941,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 246,
+      "name": "遠古森林",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 247,
+      "name": "狂風地牢",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 251,
+      "name": "河谷農場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 4001,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 252,
+      "name": "內地農場",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 80,
+        "max": 140,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 4,
+        "itemIdx": 4001,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    },
+    {
+      "zoneId": 255,
+      "name": "管理房間",
+      "mobAble": true,
+      "level": {
+        "min": 1,
+        "max": 1000
+      },
+      "mobDensity": {
+        "min": 20,
+        "max": 50,
+        "perUser": 2
+      },
+      "rules": {
+        "restriction": 0,
+        "itemIdx": 0,
+        "collisionLayer": 0,
+        "rootZone": 0,
+        "ability": 0,
+        "mobDamageRate": 1.0,
+        "pkZoneFlag": 0,
+        "dropItemIdx": 0,
+        "dropItemCond": 0,
+        "reviveLayer": 254,
+        "nonPkLayer": 0,
+        "dualLayer": 0
+      }
+    }
+  ],
+  "gates": [
+    {
+      "fromZoneId": 2,
+      "fromAttr": 101,
+      "toZoneId": 63,
+      "toLayer": 104
+    },
+    {
+      "fromZoneId": 2,
+      "fromAttr": 102,
+      "toZoneId": 52,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 2,
+      "fromAttr": 103,
+      "toZoneId": 6,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 3,
+      "fromAttr": 101,
+      "toZoneId": 17,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 3,
+      "fromAttr": 102,
+      "toZoneId": 6,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 3,
+      "fromAttr": 103,
+      "toZoneId": 57,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 6,
+      "fromAttr": 101,
+      "toZoneId": 23,
+      "toLayer": 104
+    },
+    {
+      "fromZoneId": 6,
+      "fromAttr": 102,
+      "toZoneId": 2,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 6,
+      "fromAttr": 103,
+      "toZoneId": 3,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 14,
+      "fromAttr": 101,
+      "toZoneId": 25,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 14,
+      "fromAttr": 102,
+      "toZoneId": 23,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 14,
+      "fromAttr": 103,
+      "toZoneId": 23,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 15,
+      "fromAttr": 101,
+      "toZoneId": 21,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 15,
+      "fromAttr": 102,
+      "toZoneId": 63,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 15,
+      "fromAttr": 103,
+      "toZoneId": 25,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 17,
+      "fromAttr": 101,
+      "toZoneId": 59,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 17,
+      "fromAttr": 102,
+      "toZoneId": 3,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 17,
+      "fromAttr": 103,
+      "toZoneId": 161,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 21,
+      "fromAttr": 101,
+      "toZoneId": 33,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 21,
+      "fromAttr": 103,
+      "toZoneId": 15,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 23,
+      "fromAttr": 101,
+      "toZoneId": 59,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 23,
+      "fromAttr": 102,
+      "toZoneId": 14,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 23,
+      "fromAttr": 103,
+      "toZoneId": 14,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 23,
+      "fromAttr": 104,
+      "toZoneId": 6,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 25,
+      "fromAttr": 101,
+      "toZoneId": 15,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 25,
+      "fromAttr": 102,
+      "toZoneId": 63,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 25,
+      "fromAttr": 103,
+      "toZoneId": 14,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 31,
+      "fromAttr": 101,
+      "toZoneId": 67,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 31,
+      "fromAttr": 102,
+      "toZoneId": 33,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 33,
+      "fromAttr": 101,
+      "toZoneId": 31,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 33,
+      "fromAttr": 103,
+      "toZoneId": 21,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 33,
+      "fromAttr": 102,
+      "toZoneId": 131,
+      "toLayer": 105
+    },
+    {
+      "fromZoneId": 33,
+      "fromAttr": 104,
+      "toZoneId": 35,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 35,
+      "fromAttr": 102,
+      "toZoneId": 36,
+      "toLayer": 104
+    },
+    {
+      "fromZoneId": 35,
+      "fromAttr": 103,
+      "toZoneId": 36,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 35,
+      "fromAttr": 101,
+      "toZoneId": 33,
+      "toLayer": 104
+    },
+    {
+      "fromZoneId": 36,
+      "fromAttr": 101,
+      "toZoneId": 38,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 36,
+      "fromAttr": 102,
+      "toZoneId": 38,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 36,
+      "fromAttr": 103,
+      "toZoneId": 35,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 36,
+      "fromAttr": 104,
+      "toZoneId": 35,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 38,
+      "fromAttr": 101,
+      "toZoneId": 36,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 38,
+      "fromAttr": 102,
+      "toZoneId": 36,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 38,
+      "fromAttr": 103,
+      "toZoneId": 60,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 50,
+      "fromAttr": 101,
+      "toZoneId": 66,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 50,
+      "fromAttr": 102,
+      "toZoneId": 52,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 52,
+      "fromAttr": 101,
+      "toZoneId": 63,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 52,
+      "fromAttr": 102,
+      "toZoneId": 50,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 52,
+      "fromAttr": 103,
+      "toZoneId": 2,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 57,
+      "fromAttr": 101,
+      "toZoneId": 3,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 57,
+      "fromAttr": 102,
+      "toZoneId": 160,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 59,
+      "fromAttr": 101,
+      "toZoneId": 23,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 59,
+      "fromAttr": 102,
+      "toZoneId": 17,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 60,
+      "fromAttr": 101,
+      "toZoneId": 38,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 60,
+      "fromAttr": 102,
+      "toZoneId": 66,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 60,
+      "fromAttr": 103,
+      "toZoneId": 81,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 63,
+      "fromAttr": 101,
+      "toZoneId": 25,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 63,
+      "fromAttr": 102,
+      "toZoneId": 15,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 63,
+      "fromAttr": 103,
+      "toZoneId": 52,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 63,
+      "fromAttr": 104,
+      "toZoneId": 2,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 66,
+      "fromAttr": 101,
+      "toZoneId": 60,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 66,
+      "fromAttr": 102,
+      "toZoneId": 50,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 67,
+      "fromAttr": 101,
+      "toZoneId": 31,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 72,
+      "fromAttr": 101,
+      "toZoneId": 73,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 73,
+      "fromAttr": 101,
+      "toZoneId": 75,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 73,
+      "fromAttr": 102,
+      "toZoneId": 74,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 73,
+      "fromAttr": 103,
+      "toZoneId": 72,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 74,
+      "fromAttr": 101,
+      "toZoneId": 73,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 74,
+      "fromAttr": 102,
+      "toZoneId": 75,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 75,
+      "fromAttr": 102,
+      "toZoneId": 74,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 75,
+      "fromAttr": 103,
+      "toZoneId": 73,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 81,
+      "fromAttr": 101,
+      "toZoneId": 82,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 81,
+      "fromAttr": 102,
+      "toZoneId": 60,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 82,
+      "fromAttr": 101,
+      "toZoneId": 83,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 82,
+      "fromAttr": 102,
+      "toZoneId": 81,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 82,
+      "fromAttr": 103,
+      "toZoneId": 83,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 83,
+      "fromAttr": 101,
+      "toZoneId": 82,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 83,
+      "fromAttr": 102,
+      "toZoneId": 84,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 83,
+      "fromAttr": 103,
+      "toZoneId": 82,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 84,
+      "fromAttr": 101,
+      "toZoneId": 85,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 84,
+      "fromAttr": 102,
+      "toZoneId": 83,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 85,
+      "fromAttr": 101,
+      "toZoneId": 84,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 85,
+      "fromAttr": 102,
+      "toZoneId": 86,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 86,
+      "fromAttr": 101,
+      "toZoneId": 85,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 86,
+      "fromAttr": 102,
+      "toZoneId": 87,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 87,
+      "fromAttr": 101,
+      "toZoneId": 86,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 91,
+      "fromAttr": 101,
+      "toZoneId": 92,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 92,
+      "fromAttr": 101,
+      "toZoneId": 91,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 92,
+      "fromAttr": 102,
+      "toZoneId": 93,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 93,
+      "fromAttr": 101,
+      "toZoneId": 94,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 93,
+      "fromAttr": 102,
+      "toZoneId": 92,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 94,
+      "fromAttr": 102,
+      "toZoneId": 93,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 95,
+      "fromAttr": 102,
+      "toZoneId": 94,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 96,
+      "fromAttr": 101,
+      "toZoneId": 97,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 97,
+      "fromAttr": 101,
+      "toZoneId": 96,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 97,
+      "fromAttr": 102,
+      "toZoneId": 98,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 98,
+      "fromAttr": 102,
+      "toZoneId": 97,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 99,
+      "fromAttr": 102,
+      "toZoneId": 98,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 100,
+      "fromAttr": 101,
+      "toZoneId": 243,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 111,
+      "fromAttr": 152,
+      "toZoneId": 112,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 111,
+      "fromAttr": 151,
+      "toZoneId": 113,
+      "toLayer": 151
+    },
+    {
+      "fromZoneId": 112,
+      "fromAttr": 101,
+      "toZoneId": 111,
+      "toLayer": 152
+    },
+    {
+      "fromZoneId": 113,
+      "fromAttr": 151,
+      "toZoneId": 111,
+      "toLayer": 151
+    },
+    {
+      "fromZoneId": 113,
+      "fromAttr": 152,
+      "toZoneId": 114,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 114,
+      "fromAttr": 101,
+      "toZoneId": 113,
+      "toLayer": 152
+    },
+    {
+      "fromZoneId": 116,
+      "fromAttr": 150,
+      "toZoneId": 117,
+      "toLayer": 150
+    },
+    {
+      "fromZoneId": 116,
+      "fromAttr": 102,
+      "toZoneId": 117,
+      "toLayer": 150
+    },
+    {
+      "fromZoneId": 117,
+      "fromAttr": 150,
+      "toZoneId": 116,
+      "toLayer": 150
+    },
+    {
+      "fromZoneId": 117,
+      "fromAttr": 116,
+      "toZoneId": 117,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 117,
+      "fromAttr": 112,
+      "toZoneId": 181,
+      "toLayer": 254
+    },
+    {
+      "fromZoneId": 117,
+      "fromAttr": 112,
+      "toZoneId": 182,
+      "toLayer": 254
+    },
+    {
+      "fromZoneId": 131,
+      "fromAttr": 105,
+      "toZoneId": 33,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 150,
+      "fromAttr": 150,
+      "toZoneId": 151,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 150,
+      "fromAttr": 151,
+      "toZoneId": 152,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 151,
+      "fromAttr": 150,
+      "toZoneId": 150,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 151,
+      "fromAttr": 151,
+      "toZoneId": 153,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 152,
+      "fromAttr": 200,
+      "toZoneId": 150,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 152,
+      "fromAttr": 201,
+      "toZoneId": 153,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 153,
+      "fromAttr": 150,
+      "toZoneId": 152,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 153,
+      "fromAttr": 151,
+      "toZoneId": 151,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 160,
+      "fromAttr": 101,
+      "toZoneId": 57,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 160,
+      "fromAttr": 102,
+      "toZoneId": 161,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 161,
+      "fromAttr": 101,
+      "toZoneId": 160,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 161,
+      "fromAttr": 102,
+      "toZoneId": 17,
+      "toLayer": 103
+    },
+    {
+      "fromZoneId": 177,
+      "fromAttr": 101,
+      "toZoneId": 180,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 180,
+      "fromAttr": 101,
+      "toZoneId": 177,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 181,
+      "fromAttr": 101,
+      "toZoneId": 117,
+      "toLayer": 112
+    },
+    {
+      "fromZoneId": 182,
+      "fromAttr": 101,
+      "toZoneId": 117,
+      "toLayer": 112
+    },
+    {
+      "fromZoneId": 192,
+      "fromAttr": 101,
+      "toZoneId": 200,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 193,
+      "fromAttr": 101,
+      "toZoneId": 201,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 194,
+      "fromAttr": 101,
+      "toZoneId": 202,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 195,
+      "fromAttr": 101,
+      "toZoneId": 203,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 200,
+      "fromAttr": 101,
+      "toZoneId": 192,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 201,
+      "fromAttr": 101,
+      "toZoneId": 193,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 202,
+      "fromAttr": 101,
+      "toZoneId": 194,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 203,
+      "fromAttr": 101,
+      "toZoneId": 195,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 243,
+      "fromAttr": 101,
+      "toZoneId": 100,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 244,
+      "fromAttr": 101,
+      "toZoneId": 245,
+      "toLayer": 102
+    },
+    {
+      "fromZoneId": 244,
+      "fromAttr": 102,
+      "toZoneId": 245,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 245,
+      "fromAttr": 102,
+      "toZoneId": 244,
+      "toLayer": 101
+    },
+    {
+      "fromZoneId": 245,
+      "fromAttr": 101,
+      "toZoneId": 244,
+      "toLayer": 102
+    }
+  ],
+  "adjacency": {
+    "2": [
+      {
+        "toZoneId": 63,
+        "fromAttr": 101,
+        "toLayer": 104
+      },
+      {
+        "toZoneId": 52,
+        "fromAttr": 102,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 6,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "3": [
+      {
+        "toZoneId": 17,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 6,
+        "fromAttr": 102,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 57,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "6": [
+      {
+        "toZoneId": 23,
+        "fromAttr": 101,
+        "toLayer": 104
+      },
+      {
+        "toZoneId": 2,
+        "fromAttr": 102,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 3,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "14": [
+      {
+        "toZoneId": 25,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 23,
+        "fromAttr": 102,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 23,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "15": [
+      {
+        "toZoneId": 21,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 63,
+        "fromAttr": 102,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 25,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "17": [
+      {
+        "toZoneId": 59,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 3,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 161,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "21": [
+      {
+        "toZoneId": 33,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 15,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "23": [
+      {
+        "toZoneId": 59,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 14,
+        "fromAttr": 102,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 14,
+        "fromAttr": 103,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 6,
+        "fromAttr": 104,
+        "toLayer": 101
+      }
+    ],
+    "25": [
+      {
+        "toZoneId": 15,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 63,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 14,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "31": [
+      {
+        "toZoneId": 67,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 33,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "33": [
+      {
+        "toZoneId": 31,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 21,
+        "fromAttr": 103,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 131,
+        "fromAttr": 102,
+        "toLayer": 105
+      },
+      {
+        "toZoneId": 35,
+        "fromAttr": 104,
+        "toLayer": 101
+      }
+    ],
+    "35": [
+      {
+        "toZoneId": 36,
+        "fromAttr": 102,
+        "toLayer": 104
+      },
+      {
+        "toZoneId": 36,
+        "fromAttr": 103,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 33,
+        "fromAttr": 101,
+        "toLayer": 104
+      }
+    ],
+    "36": [
+      {
+        "toZoneId": 38,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 38,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 35,
+        "fromAttr": 103,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 35,
+        "fromAttr": 104,
+        "toLayer": 102
+      }
+    ],
+    "38": [
+      {
+        "toZoneId": 36,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 36,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 60,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "50": [
+      {
+        "toZoneId": 66,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 52,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "52": [
+      {
+        "toZoneId": 63,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 50,
+        "fromAttr": 102,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 2,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "57": [
+      {
+        "toZoneId": 3,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 160,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "59": [
+      {
+        "toZoneId": 23,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 17,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "60": [
+      {
+        "toZoneId": 38,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 66,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 81,
+        "fromAttr": 103,
+        "toLayer": 102
+      }
+    ],
+    "63": [
+      {
+        "toZoneId": 25,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 15,
+        "fromAttr": 102,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 52,
+        "fromAttr": 103,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 2,
+        "fromAttr": 104,
+        "toLayer": 101
+      }
+    ],
+    "66": [
+      {
+        "toZoneId": 60,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 50,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "67": [
+      {
+        "toZoneId": 31,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "72": [
+      {
+        "toZoneId": 73,
+        "fromAttr": 101,
+        "toLayer": 103
+      }
+    ],
+    "73": [
+      {
+        "toZoneId": 75,
+        "fromAttr": 101,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 74,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 72,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "74": [
+      {
+        "toZoneId": 73,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 75,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "75": [
+      {
+        "toZoneId": 74,
+        "fromAttr": 102,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 73,
+        "fromAttr": 103,
+        "toLayer": 101
+      }
+    ],
+    "81": [
+      {
+        "toZoneId": 82,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 60,
+        "fromAttr": 102,
+        "toLayer": 103
+      }
+    ],
+    "82": [
+      {
+        "toZoneId": 83,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 81,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 83,
+        "fromAttr": 103,
+        "toLayer": 103
+      }
+    ],
+    "83": [
+      {
+        "toZoneId": 82,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 84,
+        "fromAttr": 102,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 82,
+        "fromAttr": 103,
+        "toLayer": 103
+      }
+    ],
+    "84": [
+      {
+        "toZoneId": 85,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 83,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "85": [
+      {
+        "toZoneId": 84,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 86,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "86": [
+      {
+        "toZoneId": 85,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 87,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "87": [
+      {
+        "toZoneId": 86,
+        "fromAttr": 101,
+        "toLayer": 102
+      }
+    ],
+    "91": [
+      {
+        "toZoneId": 92,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "92": [
+      {
+        "toZoneId": 91,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 93,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "93": [
+      {
+        "toZoneId": 94,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 92,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "94": [
+      {
+        "toZoneId": 93,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "95": [
+      {
+        "toZoneId": 94,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "96": [
+      {
+        "toZoneId": 97,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "97": [
+      {
+        "toZoneId": 96,
+        "fromAttr": 101,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 98,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "98": [
+      {
+        "toZoneId": 97,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "99": [
+      {
+        "toZoneId": 98,
+        "fromAttr": 102,
+        "toLayer": 102
+      }
+    ],
+    "100": [
+      {
+        "toZoneId": 243,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "111": [
+      {
+        "toZoneId": 112,
+        "fromAttr": 152,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 113,
+        "fromAttr": 151,
+        "toLayer": 151
+      }
+    ],
+    "112": [
+      {
+        "toZoneId": 111,
+        "fromAttr": 101,
+        "toLayer": 152
+      }
+    ],
+    "113": [
+      {
+        "toZoneId": 111,
+        "fromAttr": 151,
+        "toLayer": 151
+      },
+      {
+        "toZoneId": 114,
+        "fromAttr": 152,
+        "toLayer": 101
+      }
+    ],
+    "114": [
+      {
+        "toZoneId": 113,
+        "fromAttr": 101,
+        "toLayer": 152
+      }
+    ],
+    "116": [
+      {
+        "toZoneId": 117,
+        "fromAttr": 150,
+        "toLayer": 150
+      },
+      {
+        "toZoneId": 117,
+        "fromAttr": 102,
+        "toLayer": 150
+      }
+    ],
+    "117": [
+      {
+        "toZoneId": 116,
+        "fromAttr": 150,
+        "toLayer": 150
+      },
+      {
+        "toZoneId": 117,
+        "fromAttr": 116,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 181,
+        "fromAttr": 112,
+        "toLayer": 254
+      },
+      {
+        "toZoneId": 182,
+        "fromAttr": 112,
+        "toLayer": 254
+      }
+    ],
+    "131": [
+      {
+        "toZoneId": 33,
+        "fromAttr": 105,
+        "toLayer": 102
+      }
+    ],
+    "150": [
+      {
+        "toZoneId": 151,
+        "fromAttr": 150,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 152,
+        "fromAttr": 151,
+        "toLayer": 102
+      }
+    ],
+    "151": [
+      {
+        "toZoneId": 150,
+        "fromAttr": 150,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 153,
+        "fromAttr": 151,
+        "toLayer": 102
+      }
+    ],
+    "152": [
+      {
+        "toZoneId": 150,
+        "fromAttr": 200,
+        "toLayer": 103
+      },
+      {
+        "toZoneId": 153,
+        "fromAttr": 201,
+        "toLayer": 101
+      }
+    ],
+    "153": [
+      {
+        "toZoneId": 152,
+        "fromAttr": 150,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 151,
+        "fromAttr": 151,
+        "toLayer": 102
+      }
+    ],
+    "160": [
+      {
+        "toZoneId": 57,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 161,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "161": [
+      {
+        "toZoneId": 160,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 17,
+        "fromAttr": 102,
+        "toLayer": 103
+      }
+    ],
+    "177": [
+      {
+        "toZoneId": 180,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "180": [
+      {
+        "toZoneId": 177,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "181": [
+      {
+        "toZoneId": 117,
+        "fromAttr": 101,
+        "toLayer": 112
+      }
+    ],
+    "182": [
+      {
+        "toZoneId": 117,
+        "fromAttr": 101,
+        "toLayer": 112
+      }
+    ],
+    "192": [
+      {
+        "toZoneId": 200,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "193": [
+      {
+        "toZoneId": 201,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "194": [
+      {
+        "toZoneId": 202,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "195": [
+      {
+        "toZoneId": 203,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "200": [
+      {
+        "toZoneId": 192,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "201": [
+      {
+        "toZoneId": 193,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "202": [
+      {
+        "toZoneId": 194,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "203": [
+      {
+        "toZoneId": 195,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "243": [
+      {
+        "toZoneId": 100,
+        "fromAttr": 101,
+        "toLayer": 101
+      }
+    ],
+    "244": [
+      {
+        "toZoneId": 245,
+        "fromAttr": 101,
+        "toLayer": 102
+      },
+      {
+        "toZoneId": 245,
+        "fromAttr": 102,
+        "toLayer": 101
+      }
+    ],
+    "245": [
+      {
+        "toZoneId": 244,
+        "fromAttr": 102,
+        "toLayer": 101
+      },
+      {
+        "toZoneId": 244,
+        "fromAttr": 101,
+        "toLayer": 102
+      }
+    ]
+  },
+  "stats": {
+    "zoneCount": 201,
+    "gateCount": 140,
+    "zonesWithOutgoingGate": 71,
+    "zonesWithIncomingGate": 69,
+    "isolatedZoneCount": 130,
+    "isolatedZoneIds": [
+      1,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      69,
+      70,
+      71,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      115,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      154,
+      155,
+      156,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      171,
+      172,
+      174,
+      175,
+      176,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      196,
+      197,
+      198,
+      199,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      246,
+      247,
+      251,
+      252,
+      255
+    ]
+  }
+}

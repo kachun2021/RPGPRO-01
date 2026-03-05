@@ -3,6 +3,7 @@ import { Registry } from './core/Registry';
 import { OrientationManager } from './core/OrientationManager';
 import { MainScene } from './scenes/MainScene';
 import { Player } from './entities/Player';
+import { getRuntimeHeroTemplate, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
 import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
@@ -203,7 +204,18 @@ async function bootstrap(): Promise<void> {
       await mainScene.build();
 
       // 4. Player
-      const player = new Player(Registry.scene, mainScene.shadowGenerator);
+      const runtimeHero = getRuntimeHeroTemplate(0);
+      const player = new Player(Registry.scene, mainScene.shadowGenerator, {
+            expToNextResolver: resolveRuntimeExpToNext,
+            initialStats: runtimeHero
+                  ? {
+                        hp: runtimeHero.baseHp,
+                        maxHp: runtimeHero.baseHp,
+                        mp: runtimeHero.baseMp,
+                        maxMp: runtimeHero.baseMp,
+                  }
+                  : undefined,
+      });
       Registry.player = player;
 
       // 5. Camera
@@ -468,6 +480,9 @@ async function bootstrap(): Promise<void> {
       const awakeningSystem = new AwakeningSystem();
       const rebirthSystem = new RebirthSystem();
       const characterPanel = new CharacterPanel(player, statAlloc, skillTree, awakeningSystem, rebirthSystem);
+      player.onLevelUp(() => {
+            characterPanel.onLevelUp();
+      });
       // Apply initial stat allocation
       statAlloc.applyTo(player.stats);
       player.stats.hp = player.stats.maxHp;

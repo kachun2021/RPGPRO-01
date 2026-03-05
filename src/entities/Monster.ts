@@ -23,6 +23,7 @@ export interface MonsterDef {
       def: number;
       eggDropRate: number;
       eggPetId?: string;
+      spawnWeight?: number;
 }
 
 export class Monster {

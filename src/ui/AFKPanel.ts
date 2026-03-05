@@ -1,6 +1,6 @@
 import type { Inventory } from '../systems/Inventory';
 import { ZONE_DEFS } from '../world/ZoneDefinitions';
-import { ZONE_MONSTER_DATA } from '../world/ZoneMonsterData';
+import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
 
 type AFKTabId = 'quick' | 'combat' | 'loot' | 'safety';
 type AFKMode = 'safe' | 'balanced' | 'efficient';
@@ -29,26 +29,24 @@ const MODE_IDS: AFKMode[] = ['safe', 'balanced', 'efficient'];
 const FILTER_CHAR_LIMIT = 300;
 
 const LOOT_ZONES: LootZoneOption[] = ZONE_DEFS
-      .filter((zone) => !zone.isTown && zone.mapMonIds.length > 0)
+      .filter((zone) => !zone.isTown)
       .map((zone) => {
             const monsterMap = new Map<string, LootZoneMonsterOption>();
-            zone.mapMonIds.forEach((mapMonId) => {
-                  const monsters = ZONE_MONSTER_DATA[mapMonId] ?? [];
-                  monsters.forEach((monster) => {
-                        const name = String(monster.name ?? '').trim();
-                        if (!name) return;
-                        const key = name.toLowerCase();
-                        const existing = monsterMap.get(key);
-                        if (!existing || monster.level < existing.level) {
-                              monsterMap.set(key, {
-                                    name,
-                                    level: monster.level,
-                                    isBoss: Boolean(monster.isBoss),
-                              });
-                              return;
-                        }
-                        if (monster.isBoss) existing.isBoss = true;
-                  });
+            const runtimeMonsters = getRuntimeMonstersForSceneZone(zone.id);
+            runtimeMonsters.forEach((monster) => {
+                  const name = String(monster.name ?? '').trim();
+                  if (!name) return;
+                  const key = name.toLowerCase();
+                  const existing = monsterMap.get(key);
+                  if (!existing || monster.level < existing.level) {
+                        monsterMap.set(key, {
+                              name,
+                              level: monster.level,
+                              isBoss: Boolean(monster.isBoss),
+                        });
+                        return;
+                  }
+                  if (monster.isBoss) existing.isBoss = true;
             });
             const monsters = Array.from(monsterMap.values()).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name, 'zh-Hant'));
             return {

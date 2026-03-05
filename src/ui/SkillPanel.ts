@@ -2,6 +2,23 @@ import { SKILL_DEFS, type SkillDef } from '../combat/CombatSystem';
 import type { SkillBar } from './SkillBar';
 import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
+import { getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
+
+type SkillTab = 'player' | 'pet';
+
+const SKILL_TYPE_COLORS: Record<SkillDef['type'], string> = {
+      attack: '#E74C3C',
+      heal: '#27AE60',
+      buff: '#3498DB',
+      debuff: '#9B59B6',
+};
+
+const SKILL_TYPE_LABELS: Record<SkillDef['type'], string> = {
+      attack: '攻擊',
+      heal: '治療',
+      buff: '增益',
+      debuff: '減益',
+};
 
 /**
  * SkillPanel - player/pet skill management panel.
@@ -12,7 +29,7 @@ export class SkillPanel {
       private _skillBar: SkillBar;
       private _petManager: PetManager | null = null;
       private _body!: HTMLDivElement;
-      private _activeTab: 'player' | 'pet' = 'player';
+      private _activeTab: SkillTab = 'player';
       private _sp = 12;
       private _skillLevels = new Map<string, number>();
       private _onResize = (): void => {
@@ -44,11 +61,11 @@ export class SkillPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '⚡ 技能設定';
+            title.textContent = '技能設定';
 
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
-            closeBtn.textContent = '✕';
+            closeBtn.textContent = '×';
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
@@ -79,7 +96,7 @@ export class SkillPanel {
             this._el.appendChild(this._body);
       }
 
-      private _switchTab(tab: 'player' | 'pet'): void {
+      private _switchTab(tab: SkillTab): void {
             this._activeTab = tab;
             const playerTab = this._el.querySelector('#skill-tab-player');
             const petTab = this._el.querySelector('#skill-tab-pet');
@@ -144,7 +161,7 @@ export class SkillPanel {
             equipSection.className = 'sa-sec skill-section';
             const equipLabel = document.createElement('div');
             equipLabel.className = 'skill-section-title';
-            equipLabel.textContent = focusMode ? '技能欄（拖放）' : '技能欄位（拖放裝備，點擊清除）';
+            equipLabel.textContent = focusMode ? '技能欄（拖放）' : '技能欄位（拖放裝備，點擊可清除）';
             equipSection.appendChild(equipLabel);
 
             const equipGrid = document.createElement('div');
@@ -191,7 +208,7 @@ export class SkillPanel {
             allSection.className = 'sa-sec skill-section';
             const allLabel = document.createElement('div');
             allLabel.className = 'skill-section-title';
-            allLabel.textContent = focusMode ? '可用技能（點擊裝備）' : '技能清單（點擊裝備，升級可提高倍率）';
+            allLabel.textContent = focusMode ? '可用技能（點擊裝備）' : '技能清單（點擊裝備；升級可提高倍率）';
             allSection.appendChild(allLabel);
 
             const skillGrid = document.createElement('div');
@@ -206,22 +223,14 @@ export class SkillPanel {
       }
 
       private _createSkillCard(baseSkill: SkillDef): HTMLDivElement {
-            const skill = this._runtimeSkill(baseSkill);
             const level = this._skillLevels.get(baseSkill.id) ?? 1;
+            const upgradeMeta = getRuntimeSkillUpgradeMeta(baseSkill.id, level);
+            const safeLevel = Math.min(level, Math.max(1, upgradeMeta.maxLevel));
+            const skill = this._runtimeSkill(baseSkill);
             const focusMode = this._isLandscapeFocusMode();
-
-            const typeColors: Record<string, string> = {
-                  attack: '#E74C3C',
-                  heal: '#27AE60',
-                  buff: '#3498DB',
-                  debuff: '#9B59B6',
-            };
-            const typeLabels: Record<string, string> = {
-                  attack: '攻擊',
-                  heal: '治療',
-                  buff: '增益',
-                  debuff: '減益',
-            };
+            const isMaxed = safeLevel >= upgradeMeta.maxLevel;
+            const upgradeCost = Math.max(1, upgradeMeta.nextUpgradeSp);
+            const canUpgrade = !isMaxed && this._sp >= upgradeCost;
 
             const card = document.createElement('div');
             card.className = 'skill-card game-card';
@@ -241,14 +250,14 @@ export class SkillPanel {
 
             const name = document.createElement('div');
             name.className = 'skill-card-name';
-            name.innerHTML = `${baseSkill.name} <span class="skill-card-level">Lv.${level}</span>`;
+            name.innerHTML = `${skill.name} <span class="skill-card-level">Lv.${safeLevel}/${upgradeMeta.maxLevel}</span>`;
 
             const stats = document.createElement('div');
             stats.className = 'skill-card-stats';
             const type = document.createElement('span');
             type.className = 'skill-card-type';
-            type.textContent = typeLabels[baseSkill.type] ?? baseSkill.type;
-            type.style.color = typeColors[baseSkill.type] ?? '#aaa';
+            type.textContent = SKILL_TYPE_LABELS[baseSkill.type] ?? baseSkill.type;
+            type.style.color = SKILL_TYPE_COLORS[baseSkill.type] ?? '#aaa';
             const mp = document.createElement('span');
             mp.textContent = `MP:${skill.mpCost}`;
             const cd = document.createElement('span');
@@ -267,12 +276,18 @@ export class SkillPanel {
 
             const upBtn = document.createElement('button');
             upBtn.className = 'btn-gold skill-up-btn';
-            upBtn.textContent = this._sp > 0
-                  ? (focusMode ? '升級' : '升級 -1SP')
-                  : (focusMode ? '不足' : 'SP不足');
-            upBtn.title = this._sp > 0 ? '消耗 1 SP 升級技能' : 'SP不足';
-            upBtn.disabled = this._sp <= 0;
-            upBtn.classList.toggle('is-disabled', this._sp <= 0);
+            if (isMaxed) {
+                  upBtn.textContent = focusMode ? '已滿' : '已滿級';
+                  upBtn.title = '已達最高等級';
+            } else if (canUpgrade) {
+                  upBtn.textContent = focusMode ? '升級' : `升級 -${upgradeCost}SP`;
+                  upBtn.title = `消耗 ${upgradeCost} SP 升級技能`;
+            } else {
+                  upBtn.textContent = focusMode ? '不足' : `SP不足（需${upgradeCost}）`;
+                  upBtn.title = `SP 不足，需 ${upgradeCost} 點`;
+            }
+            upBtn.disabled = !canUpgrade;
+            upBtn.classList.toggle('is-disabled', !canUpgrade);
             upBtn.addEventListener('click', (e) => {
                   e.stopPropagation();
                   this._upgradeSkill(baseSkill.id);
@@ -285,9 +300,14 @@ export class SkillPanel {
       }
 
       private _upgradeSkill(skillId: string): void {
-            if (this._sp <= 0) return;
-            this._sp -= 1;
             const curr = this._skillLevels.get(skillId) ?? 1;
+            const upgradeMeta = getRuntimeSkillUpgradeMeta(skillId, curr);
+            if (curr >= upgradeMeta.maxLevel) return;
+
+            const cost = Math.max(1, upgradeMeta.nextUpgradeSp);
+            if (this._sp < cost) return;
+
+            this._sp -= cost;
             this._skillLevels.set(skillId, curr + 1);
             this._refreshEquippedSkills();
             this._renderContent();
@@ -321,8 +341,16 @@ export class SkillPanel {
 
       private _runtimeSkill(base: SkillDef): SkillDef {
             const level = this._skillLevels.get(base.id) ?? 1;
-            const multBonus = 1 + (level - 1) * 0.08;
-            return { ...base, multiplier: Number((base.multiplier * multBonus).toFixed(2)) };
+            const tuned = resolveRuntimeSkillTuning(base.id, level, base);
+            const safeLevel = Math.min(level, Math.max(1, tuned.maxLevel));
+            const multBonus = 1 + (safeLevel - 1) * 0.08;
+            return {
+                  ...base,
+                  name: tuned.runtimeName ?? base.name,
+                  mpCost: tuned.mpCost,
+                  cooldown: tuned.cooldown,
+                  multiplier: Number((base.multiplier * multBonus).toFixed(2)),
+            };
       }
 
       private _renderPetTab(): void {
@@ -401,7 +429,7 @@ export class SkillPanel {
                   let skillHtml = '<span class="skill-card-no-skill">無技能</span>';
                   if (skills.length > 0) {
                         const sk = skills[0];
-                        const atkType = pet.def.attackType === 'melee' ? '⚔近攻' : '🏹遠攻';
+                        const atkType = pet.def.attackType === 'melee' ? '近戰' : '遠程';
                         skillHtml = `
                               <div class="skill-card-name">${sk.name}</div>
                               <div class="skill-card-stats">

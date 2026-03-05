@@ -3,10 +3,10 @@ import { PetFusion } from '../pets/PetFusion';
 import type { FusionMatch } from '../pets/PetFusion';
 import { PET_DEFS, PetSeries, SERIES_EMOJI, SERIES_ICONS, type FusionIngredient, type PetDef } from '../pets/PetData';
 import type { Pet } from '../pets/Pet';
-import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
-import type { ListPetPayload, ListPetRow, MixmasterMonsterRow, MixmasterRecipePayload, MixmasterRecipeRow } from '../data/fusion/types';
+import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
+import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
 
 type SeriesFilter = 'all' | PetSeries;
 type NoticeTone = 'ok' | 'warn';
@@ -14,7 +14,7 @@ type MainFusionTab = 'machine' | 'recipes' | 'tree';
 
 interface FormulaEntry {
       key: string;
-      source: 'mdb' | 'pet_defs';
+      source: 'runtime' | 'pet_defs';
       resultName: string;
       resultDef: PetDef;
       isResolvedResult: boolean;
@@ -297,7 +297,7 @@ export class FusionPanel {
 
             const subtitle = document.createElement('span');
             subtitle.className = 'fpo-header-subtitle';
-            subtitle.textContent = '資料來源：MixMaster 合成器 datas.mdb';
+            subtitle.textContent = '資料來源：GAME DB s_mix（runtime）';
 
             const craftableCount = this._formulaEntries.filter(entry => this._isEntryCraftable(entry, snapshot)).length;
             const mappedCount = this._formulaEntries.filter(entry => this._isEntryFullyMapped(entry)).length;
@@ -1459,8 +1459,8 @@ export class FusionPanel {
       }
 
       private _buildFormulaEntries(): FormulaEntry[] {
-            const fromMdb = this._buildFormulaEntriesFromMixmaster();
-            if (fromMdb.length > 0) return fromMdb;
+            const fromRuntime = this._buildFormulaEntriesFromRuntime();
+            if (fromRuntime.length > 0) return fromRuntime;
             return this._buildFormulaEntriesFromPetDefs();
       }
       private _buildFormulaEntriesFromPetDefs(): FormulaEntry[] {
@@ -1500,9 +1500,8 @@ export class FusionPanel {
             });
       }
 
-      private _buildFormulaEntriesFromMixmaster(): FormulaEntry[] {
-            const payload = mixmasterRecipesRaw as MixmasterRecipePayload;
-            const rows = Array.isArray(payload.recipes) ? payload.recipes : [];
+      private _buildFormulaEntriesFromRuntime(): FormulaEntry[] {
+            const rows = getRuntimeFusionGuideEntries();
             if (rows.length === 0) return [];
 
             const nameIndex = new Map<string, PetDef>();
@@ -1530,9 +1529,9 @@ export class FusionPanel {
                   const mainResolved = this._resolvePetDefByName(mainName, nameIndex);
                   const subResolved = this._resolvePetDefByName(subName, nameIndex);
 
-                  const resultLevelHint = this._resolveLevelHint(resultName, row.resultBaseLevel, resultResolved?.baseLevel ?? 1);
-                  const mainLevelHint = this._resolveLevelHint(mainName, row.mainBaseLevel, mainResolved?.baseLevel ?? 1);
-                  const subLevelHint = this._resolveLevelHint(subName, row.subBaseLevel, subResolved?.baseLevel ?? 1);
+                  const resultLevelHint = this._resolveLevelHint(resultName, row.resultLevel, resultResolved?.baseLevel ?? 1);
+                  const mainLevelHint = this._resolveLevelHint(mainName, row.mainLevel, mainResolved?.baseLevel ?? 1);
+                  const subLevelHint = this._resolveLevelHint(subName, row.subLevel, subResolved?.baseLevel ?? 1);
 
                   const resultSeriesHint = row.resultSeries ?? this._seriesHintFromList(resultName);
                   const mainSeriesHint = row.mainSeries ?? this._seriesHintFromList(mainName);
@@ -1541,18 +1540,16 @@ export class FusionPanel {
                   const resultDef = resultResolved ?? this._getOrCreateExternalDef(resultName, resultSeriesHint, resultLevelHint);
                   const mainDef = mainResolved ?? this._getOrCreateExternalDef(mainName, mainSeriesHint, mainLevelHint);
                   const subDef = subResolved ?? this._getOrCreateExternalDef(subName, subSeriesHint, subLevelHint);
-                  const resultBaseLevel = this._resolveLevelHint(resultName, row.resultBaseLevel, resultDef.baseLevel);
-                  const mainBaseLevel = this._resolveLevelHint(mainName, row.mainBaseLevel, mainDef.baseLevel);
-                  const subBaseLevel = this._resolveLevelHint(subName, row.subBaseLevel, subDef.baseLevel);
-                  const resultDropEggRaw = typeof row.resultDropEggRaw === 'string' ? row.resultDropEggRaw : null;
-                  const resultDropEgg = typeof row.resultDropEgg === 'boolean'
-                        ? row.resultDropEgg
-                        : this._parseDropEgg(resultDropEggRaw);
+                  const resultBaseLevel = this._resolveLevelHint(resultName, row.resultLevel, resultDef.baseLevel);
+                  const mainBaseLevel = this._resolveLevelHint(mainName, row.mainLevel, mainDef.baseLevel);
+                  const subBaseLevel = this._resolveLevelHint(subName, row.subLevel, subDef.baseLevel);
+                  const resultDropEggRaw = typeof row.resultDropEgg === 'boolean' ? (row.resultDropEgg ? '1' : '0') : null;
+                  const resultDropEgg = typeof row.resultDropEgg === 'boolean' ? row.resultDropEgg : null;
                   const resultMapNames = this._normalizeStringArray(row.resultMaps);
 
                   entries.push({
-                        key: `mdb::${row.rowId ?? 0}::${dedupeKey}::${i}`,
-                        source: 'mdb',
+                        key: `runtime::${row.recipeId ?? 0}::${dedupeKey}::${i}`,
+                        source: 'runtime',
                         resultName,
                         resultDef,
                         isResolvedResult: true,

@@ -1,9 +1,8 @@
 import { PET_DEFS } from './PetData';
 import type { PetDef, FusionIngredient } from './PetData';
 import type { Pet } from './Pet';
-import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
-import type { MixmasterRecipePayload } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
+import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
 
 /** Result of a fusion recipe lookup */
 export interface FusionMatch {
@@ -13,11 +12,12 @@ export interface FusionMatch {
 
 export class PetFusion {
       private static _ruleIndex: Map<string, FusionMatch[]> | null = null;
-      private static _mappedMixmasterRules = 0;
+      private static _mappedRuntimeRules = 0;
 
       /**
        * Find all possible results from fusing pet1 (main) + pet2 (sub).
-       * Uses mixmaster-recipes JSON as primary source; falls back to PET_DEFS when no mapped external rules exist.
+       * Uses runtime DB fusion formulas as primary source; falls back to PET_DEFS rules only
+       * when runtime formulas cannot be mapped to current playable PET_DEFS.
        */
       static findRecipes(pet1: Pet, pet2: Pet): FusionMatch[] {
             const id1 = pet1.def.id;
@@ -72,11 +72,13 @@ export class PetFusion {
       private static _ensureRuleIndex(): void {
             if (this._ruleIndex) return;
 
-            const mappedMixmasterRules = this._buildMappedMixmasterRules();
+            const mappedRuntimeRules = this._buildMappedRuntimeRules();
             const petDefRules = this._buildPetDefRules();
-            const merged = this._mergeRules(mappedMixmasterRules, petDefRules);
+            const merged = mappedRuntimeRules.length > 0
+                  ? this._mergeRules(mappedRuntimeRules, [])
+                  : this._mergeRules([], petDefRules);
 
-            this._mappedMixmasterRules = mappedMixmasterRules.length;
+            this._mappedRuntimeRules = mappedRuntimeRules.length;
             this._ruleIndex = this._indexRules(merged);
       }
 
@@ -122,9 +124,8 @@ export class PetFusion {
             return rules;
       }
 
-      private static _buildMappedMixmasterRules(): FusionMatch[] {
-            const payload = mixmasterRecipesRaw as MixmasterRecipePayload;
-            const rows = Array.isArray(payload.recipes) ? payload.recipes : [];
+      private static _buildMappedRuntimeRules(): FusionMatch[] {
+            const rows = getRuntimeFusionGuideEntries();
             if (rows.length === 0) return [];
 
             const nameIndex = new Map<string, PetDef>();
@@ -137,9 +138,9 @@ export class PetFusion {
             const dedupe = new Set<string>();
             const rules: FusionMatch[] = [];
             for (const row of rows) {
-                  const resultName = (row.resultName ?? '').trim();
-                  const mainName = (row.mainName ?? '').trim();
-                  const subName = (row.subName ?? '').trim();
+                  const resultName = String(row.resultName ?? '').trim();
+                  const mainName = String(row.mainName ?? '').trim();
+                  const subName = String(row.subName ?? '').trim();
                   if (!resultName || !mainName || !subName) continue;
 
                   const resultDef = this._resolvePetDefByName(resultName, nameIndex);

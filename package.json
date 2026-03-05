@@ -15,7 +15,10 @@
     "hooks:install": "powershell -ExecutionPolicy Bypass -File ./scripts/install_git_hooks.ps1",
     "fusion:export-mdb": "powershell -ExecutionPolicy Bypass -File ./scripts/export_fusion_mdb.ps1",
     "fusion:export-list": "python -X utf8 ./scripts/export_fusion_list_excel.py",
-    "fusion:export-all": "npm run fusion:export-mdb && npm run fusion:export-list"
+    "fusion:export-all": "npm run fusion:export-mdb && npm run fusion:export-list",
+    "gamedb:build-runtime": "python -X utf8 ./scripts/gamedb/build_runtime.py",
+    "gamedb:validate": "python -X utf8 ./scripts/gamedb/validate_relations.py",
+    "gamedb:p0": "npm run gamedb:build-runtime && npm run gamedb:validate"
   },
   "dependencies": {
     "@babylonjs/core": "^8.0.0",

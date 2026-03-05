@@ -16,6 +16,14 @@ export interface PlayerStats {
       questChapter: number;
 }
 
+export type PlayerExpToNextResolver = (level: number) => number;
+export type PlayerLevelUpListener = (newLevel: number) => void;
+
+interface PlayerRuntimeOptions {
+      expToNextResolver?: PlayerExpToNextResolver;
+      initialStats?: Partial<PlayerStats>;
+}
+
 export class Player {
       public root: TransformNode;
       public mesh!: Mesh;
@@ -24,12 +32,15 @@ export class Player {
 
       private _scene: Scene;
       private _moveDirection = Vector3.Zero();
+      private _expToNextResolver: PlayerExpToNextResolver | null = null;
+      private _levelUpListeners: PlayerLevelUpListener[] = [];
 
       /** Combat: walk toward this target position */
       public combatTarget: Vector3 | null = null;
 
-      constructor(scene: Scene, shadowGenerator: ShadowGenerator) {
+      constructor(scene: Scene, shadowGenerator: ShadowGenerator, runtime?: PlayerRuntimeOptions) {
             this._scene = scene;
+            this._expToNextResolver = runtime?.expToNextResolver ?? null;
 
             // Root node
             this.root = new TransformNode('player_root', scene);
@@ -51,7 +62,7 @@ export class Player {
             head.position.y = 1.75;
             head.parent = this.root;
 
-            // PBR material — deep blue armor
+            // PBR material - deep blue armor
             const mat = new PBRMaterial('playerMat', scene);
             mat.albedoColor = new Color3(0.3, 0.35, 0.5);
             mat.roughness = 0.6;
@@ -78,6 +89,12 @@ export class Player {
                   gold: 500, diamond: 10,
                   questChapter: 0,
             };
+            if (runtime?.initialStats) {
+                  this.stats = {
+                        ...this.stats,
+                        ...runtime.initialStats,
+                  };
+            }
       }
 
       get position(): Vector3 {
@@ -116,7 +133,24 @@ export class Player {
 
       /** EXP required for next level */
       get expToNext(): number {
-            return this.stats.level * 100;
+            const level = Math.max(1, Math.floor(this.stats.level));
+            if (this._expToNextResolver) {
+                  const value = this._expToNextResolver(level);
+                  if (Number.isFinite(value) && value > 0) return Math.floor(value);
+            }
+            return level * 100;
+      }
+
+      setExpCurveResolver(resolver: PlayerExpToNextResolver | null): void {
+            this._expToNextResolver = resolver;
+      }
+
+      onLevelUp(listener: PlayerLevelUpListener): () => void {
+            this._levelUpListeners.push(listener);
+            return () => {
+                  const idx = this._levelUpListeners.indexOf(listener);
+                  if (idx >= 0) this._levelUpListeners.splice(idx, 1);
+            };
       }
 
       /** Add EXP and auto level-up. Returns { levelsGained } */
@@ -124,8 +158,10 @@ export class Player {
             let levelsGained = 0;
             this.stats.exp += amount;
 
-            while (this.stats.exp >= this.expToNext) {
-                  this.stats.exp -= this.expToNext;
+            while (true) {
+                  const need = this.expToNext;
+                  if (this.stats.exp < need) break;
+                  this.stats.exp -= need;
                   this.stats.level++;
                   levelsGained++;
 
@@ -139,7 +175,14 @@ export class Player {
                   this.stats.hp = this.stats.maxHp;
                   this.stats.mp = this.stats.maxMp;
 
-                  console.log(`[Player] Level Up! → Lv.${this.stats.level}`);
+                  console.log(`[Player] Level Up! -> Lv.${this.stats.level}`);
+                  for (const handler of this._levelUpListeners) {
+                        try {
+                              handler(this.stats.level);
+                        } catch {
+                              // Keep level-up flow resilient even if UI listeners fail.
+                        }
+                  }
             }
 
             return { levelsGained };
@@ -149,3 +192,4 @@ export class Player {
             this.root.dispose(false, true);
       }
 }
+

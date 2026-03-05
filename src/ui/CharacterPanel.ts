@@ -123,7 +123,8 @@ export class CharacterPanel {
             const bs = this._statAlloc.getEffective();
             const d = this._statAlloc.getDerived();
             const pts = this._statAlloc.statPoints;
-            const expPct = s.level > 0 ? ((s.exp / (s.level * 100)) * 100).toFixed(1) : '0.0';
+            const expNeed = Math.max(1, this._player.expToNext);
+            const expPct = ((s.exp / expNeed) * 100).toFixed(1);
             const rebirthInfo = this._rebirth.getInfo();
 
             body.innerHTML = `

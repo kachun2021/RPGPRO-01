@@ -78,3 +78,47 @@
     - `npm run -s test:smoke` passed all scenarios.
     - Post-clean dependency graph check: `UNREACHABLE_FROM_MAIN = 0`, `ZERO_INBOUND_NON_ENTRY = 0`.
 
+
+## 2026-03-06 (P0 Data Runtime Pipeline)
+
+- Added runtime builder script: `scripts/gamedb/build_runtime.py`.
+- Added relationship validator script: `scripts/gamedb/validate_relations.py`.
+- Added npm commands in `package.json`:
+  - `gamedb:build-runtime`
+  - `gamedb:validate`
+  - `gamedb:p0`
+- Generated normalized runtime outputs under `src/data/runtime`:
+  - `_manifest.json`, `world.topology.json`, `world.spawn.json`, `progression.json`, `fusion.runtime.json`, `economy.json`, `ops.json`, `save_schema.json`.
+- Generated reports under `scripts/gamedb/reports`:
+  - `runtime_build_report.json`, `validation_report.json`, `validation_report.md`, `P0_SUMMARY.md`.
+- Validation summary:
+  - 52 checks total, 45 pass, 7 fail.
+  - Failing refs concentrated in `s_npc/s_npc_sale/s_mobitem/s_Production` dangling ids.
+- Decision locked:
+  - Source-of-truth stays in `scripts/gamedb`.
+  - Runtime/UI reads normalized `src/data/runtime` outputs only.
+- 2026-03-06 (P1 world integration):
+  - `src/ui/WorldMapPanel.ts` now reads runtime DB outputs (`world.topology/world.spawn/fusion.runtime`) instead of old fusion map string distribution pipeline.
+  - Map summary is now zone-centric (`s_zone`) with DB levels/restriction-derived region labels.
+  - Monster list is now `s_mob + s_monster` join based on zone slots.
+  - Fusion target list is now `s_mix` recipe-driven (requires both ingredients present in zone monster set).
+  - Updated panel title/source labels to DB-source wording.
+  - Validation: `npm run -s typecheck` passed.
+
+- 2026-03-06 (P2 monster runtime integration):
+  - Replaced `MonsterManager` legacy `ZoneMonsterData` dependency with runtime DB source (`world.spawn` + `world.topology` + `progression`).
+  - Added `src/data/runtime/RuntimeMonsterSource.ts` (runtime spawn/stat synthesis) and `src/data/runtime/RuntimeZoneBridge.ts` (DB zone -> scene zone matching).
+  - `MonsterDef` extended with optional `spawnWeight`; spawn now uses weighted sampling from DB `appearRate`.
+  - Boss/normal spawn split refined (normal weighted pool + up to 2 bosses per zone).
+  - Validation: `npm run -s typecheck` passed, `npm run -s test:smoke` passed all scenarios.
+- 2026-03-06 (P3 fusion source unification):
+  - Added `src/data/runtime/RuntimeFusionGuide.ts` to aggregate runtime fusion recipe + monster/meta/map data.
+  - `FusionPanel` formula source switched from `mixmaster_recipes.json` to runtime guide (`GAME DB s_mix`).
+  - `PetFusion` now uses runtime guide as primary rule source with safe PET_DEFS fallback when runtime rows cannot map to current playable defs.
+  - `EncyclopediaPanel` meta index now consumes runtime fusion guide for level/drop/map hints.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
+- 2026-03-06 (P4 topology/teleport bridge consolidation):
+  - Added shared matcher `src/data/runtime/RuntimeZoneBridge.ts` and switched `WorldMapPanel` to it.
+  - Removed duplicated in-panel map matching constants and functions.
+  - `AFKPanel` loot-zone monster options switched from legacy `ZoneMonsterData` to runtime monster pool source.
+  - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.

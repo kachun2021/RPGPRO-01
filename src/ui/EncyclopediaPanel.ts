@@ -1,9 +1,9 @@
 import { PetEncyclopedia } from '../pets/PetEncyclopedia';
 import { PET_DEFS, PetSeries, SERIES_EMOJI, type PetDef } from '../pets/PetData';
-import mixmasterRecipesRaw from '../data/fusion/mixmaster_recipes.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
-import type { ListPetPayload, ListPetRow, MixmasterRecipePayload } from '../data/fusion/types';
+import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
+import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
 
 type SeriesFilter = 'all' | PetSeries;
 
@@ -464,35 +464,38 @@ export class EncyclopediaPanel {
                   if (typeof row.fusible === 'boolean') meta.fusible = meta.fusible || row.fusible;
             }
 
-            const payload = mixmasterRecipesRaw as MixmasterRecipePayload;
-            const monsterRows = Array.isArray(payload.monsters) ? payload.monsters : [];
-            const recipeRows = Array.isArray(payload.recipes) ? payload.recipes : [];
+            const runtimeRows = getRuntimeFusionGuideEntries();
+            for (const row of runtimeRows) {
+                  const resultName = this._canonicalPetName(String(row.resultName ?? '').trim());
+                  const resultDefId = this._findPetDefIdByName(resultName);
+                  if (resultDefId) {
+                        const def = PET_DEFS.find((item) => item.id === resultDefId);
+                        if (def) {
+                              const meta = ensureMeta(def);
+                              const listHint = listByCanonicalName.get(resultName)?.level;
+                              meta.level = Math.max(meta.level, this._toLevel(row.resultLevel, this._toLevel(listHint, meta.level)));
+                              meta.dropEgg = this._mergeDropEgg(meta.dropEgg, row.resultDropEgg ?? null);
+                              meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(row.resultMaps));
+                              meta.fusible = true;
+                        }
+                  }
 
-            for (const row of monsterRows) {
-                  const name = this._canonicalPetName(String(row?.name ?? '').trim());
-                  const defId = this._findPetDefIdByName(name);
-                  if (!defId) continue;
-                  const def = PET_DEFS.find((item) => item.id === defId);
-                  if (!def) continue;
-                  const meta = ensureMeta(def);
-                  const listHint = listByCanonicalName.get(name)?.level;
-                  meta.level = Math.max(meta.level, this._toLevel(row.baseLevel, this._toLevel(listHint, meta.level)));
-                  meta.dropEgg = this._mergeDropEgg(meta.dropEgg, this._parseDropEgg(row.dropEgg, row.dropEggRaw));
-                  meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(row.maps));
-            }
-
-            for (const row of recipeRows) {
-                  const name = this._canonicalPetName(String(row?.resultName ?? '').trim());
-                  const defId = this._findPetDefIdByName(name);
-                  if (!defId) continue;
-                  const def = PET_DEFS.find((item) => item.id === defId);
-                  if (!def) continue;
-                  const meta = ensureMeta(def);
-                  const listHint = listByCanonicalName.get(name)?.level;
-                  meta.level = Math.max(meta.level, this._toLevel(row.resultBaseLevel, this._toLevel(listHint, meta.level)));
-                  meta.dropEgg = this._mergeDropEgg(meta.dropEgg, this._parseDropEgg(row.resultDropEgg, row.resultDropEggRaw));
-                  meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(row.resultMaps));
-                  meta.fusible = true;
+                  const ingredientNames = [row.mainName, row.subName];
+                  const ingredientMaps = [row.mainMaps, row.subMaps];
+                  const ingredientEggs = [row.mainDropEgg, row.subDropEgg];
+                  const ingredientLevels = [row.mainLevel, row.subLevel];
+                  for (let i = 0; i < ingredientNames.length; i++) {
+                        const ingredientName = this._canonicalPetName(String(ingredientNames[i] ?? '').trim());
+                        const defId = this._findPetDefIdByName(ingredientName);
+                        if (!defId) continue;
+                        const def = PET_DEFS.find((item) => item.id === defId);
+                        if (!def) continue;
+                        const meta = ensureMeta(def);
+                        const listHint = listByCanonicalName.get(ingredientName)?.level;
+                        meta.level = Math.max(meta.level, this._toLevel(ingredientLevels[i], this._toLevel(listHint, meta.level)));
+                        meta.dropEgg = this._mergeDropEgg(meta.dropEgg, ingredientEggs[i] ?? null);
+                        meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(ingredientMaps[i]));
+                  }
             }
 
             for (const def of PET_DEFS) {
@@ -563,4 +566,3 @@ export class EncyclopediaPanel {
                   .replace(/'/g, '&#39;');
       }
 }
-

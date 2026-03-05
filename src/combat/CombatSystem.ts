@@ -1,4 +1,4 @@
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+﻿import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { ElementSystem } from './ElementSystem';
 import { type DamageType } from './FloatingDamage';
 import type { PetSeries } from '../pets/PetData';
@@ -22,18 +22,18 @@ export interface SkillDef {
 
 /** 12 base skill definitions */
 export const SKILL_DEFS: SkillDef[] = [
-      { id: 'slash', name: '斬擊', type: 'attack', mpCost: 0, cooldown: 1.2, multiplier: 1.0, icon: 'skill_slash.png' },
+      { id: 'slash', name: '強擊術', type: 'attack', mpCost: 0, cooldown: 1.2, multiplier: 1.0, icon: 'skill_slash.png' },
       { id: 'power_strike', name: '強力一擊', type: 'attack', mpCost: 8, cooldown: 3.0, multiplier: 1.8, icon: 'skill_power.png' },
-      { id: 'whirlwind', name: '旋風斬', type: 'attack', mpCost: 15, cooldown: 5.0, multiplier: 2.2, icon: 'skill_whirlwind.png' },
+      { id: 'whirlwind', name: '速攻術', type: 'attack', mpCost: 15, cooldown: 5.0, multiplier: 2.2, icon: 'skill_whirlwind.png' },
       { id: 'fire_bolt', name: '火球術', type: 'attack', mpCost: 12, cooldown: 4.0, multiplier: 2.0, icon: 'skill_fireball.png' },
-      { id: 'ice_shard', name: '冰晶術', type: 'attack', mpCost: 10, cooldown: 3.5, multiplier: 1.6, icon: 'skill_ice.png' },
-      { id: 'thunder', name: '雷擊', type: 'attack', mpCost: 18, cooldown: 6.0, multiplier: 2.5, icon: 'skill_thunder.png' },
-      { id: 'heal', name: '治療術', type: 'heal', mpCost: 15, cooldown: 8.0, multiplier: 1.5, icon: 'skill_heal.png' },
-      { id: 'group_heal', name: '群體治癒', type: 'heal', mpCost: 25, cooldown: 12.0, multiplier: 1.2, icon: 'skill_groupheal.png' },
-      { id: 'shield', name: '防護罩', type: 'buff', mpCost: 10, cooldown: 10.0, multiplier: 0.3, icon: 'skill_shield.png' },
-      { id: 'berserk', name: '狂暴', type: 'buff', mpCost: 20, cooldown: 15.0, multiplier: 1.5, icon: 'skill_berserk.png' },
-      { id: 'weaken', name: '弱化', type: 'debuff', mpCost: 12, cooldown: 8.0, multiplier: 0.7, icon: 'skill_weaken.png' },
-      { id: 'poison', name: '毒霧', type: 'debuff', mpCost: 14, cooldown: 10.0, multiplier: 0.5, icon: 'skill_poison.png' },
+      { id: 'ice_shard', name: '冰封術', type: 'attack', mpCost: 10, cooldown: 3.5, multiplier: 1.6, icon: 'skill_ice.png' },
+      { id: 'thunder', name: '爆裂火焰', type: 'attack', mpCost: 18, cooldown: 6.0, multiplier: 2.5, icon: 'skill_thunder.png' },
+      { id: 'heal', name: '治癒術', type: 'heal', mpCost: 15, cooldown: 8.0, multiplier: 1.5, icon: 'skill_heal.png' },
+      { id: 'group_heal', name: '群體治療術', type: 'heal', mpCost: 25, cooldown: 12.0, multiplier: 1.2, icon: 'skill_groupheal.png' },
+      { id: 'shield', name: '遮蔽術', type: 'buff', mpCost: 10, cooldown: 10.0, multiplier: 0.3, icon: 'skill_shield.png' },
+      { id: 'berserk', name: '大地之力', type: 'buff', mpCost: 20, cooldown: 15.0, multiplier: 1.5, icon: 'skill_berserk.png' },
+      { id: 'weaken', name: '虛弱術', type: 'debuff', mpCost: 12, cooldown: 8.0, multiplier: 0.7, icon: 'skill_weaken.png' },
+      { id: 'poison', name: '施毒術', type: 'debuff', mpCost: 14, cooldown: 10.0, multiplier: 0.5, icon: 'skill_poison.png' },
 ];
 
 /** Cooldown tracker for a single entity */
@@ -49,7 +49,7 @@ export interface AutoSkillEntry {
 }
 
 /**
- * CombatSystem — damage calculation, target management, auto-skill engine.
+ * CombatSystem 鈥?damage calculation, target management, auto-skill engine.
  * No pet AI: pets follow player's selected target.
  */
 export class CombatSystem {
@@ -70,7 +70,7 @@ export class CombatSystem {
             this.setAutoQueue('player', [{ skillId: 'slash', enabled: true }]);
       }
 
-      // ── Target Management ──
+      // 鈹€鈹€ Target Management 鈹€鈹€
 
       selectTarget(targetId: string, position: Vector3): void {
             this._targetId = targetId;
@@ -86,12 +86,12 @@ export class CombatSystem {
       get targetPosition(): Vector3 | null { return this._targetPosition; }
       get hasTarget(): boolean { return this._targetId !== null; }
 
-      // ── Damage Calculation ──
+      // 鈹€鈹€ Damage Calculation 鈹€鈹€
 
       /**
        * Calculate damage with formula:
        * damage = (atk * skillMultiplier - def * 0.5) * elementMod * (0.9 + random * 0.2)
-       * Crit: 10% chance × 1.5
+       * Crit: 10% chance 脳 1.5
        */
       calculateDamage(
             atk: number,
@@ -120,7 +120,7 @@ export class CombatSystem {
             return { damage: Math.round(damage), isCrit, type, elementMod };
       }
 
-      // ── Auto-Skill Queue ──
+      // 鈹€鈹€ Auto-Skill Queue 鈹€鈹€
 
       setAutoQueue(entityId: string, queue: AutoSkillEntry[]): void {
             this._autoQueues.set(entityId, [...queue]);
@@ -249,3 +249,4 @@ export class CombatSystem {
             this._queueCursor.clear();
       }
 }
+
