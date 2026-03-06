@@ -5,6 +5,8 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { Scene } from '@babylonjs/core/scene';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
+import type { Observer } from '@babylonjs/core/Misc/observable';
+import type { PointerInfo } from '@babylonjs/core/Events/pointerEvents';
 
 export type NPCType = 'merchant' | 'skill_master' | 'quest' | 'pet_trader';
 
@@ -109,10 +111,7 @@ export class NPC {
             this._promptBubble = document.createElement('div');
             this._promptBubble.className = 'npc-prompt';
             this._promptBubble.innerHTML = `💬 對話`;
-            this._promptBubble.style.display = 'none';
-            // Make it pointer-interactive
-            this._promptBubble.style.pointerEvents = 'auto';
-            this._promptBubble.style.cursor = 'pointer';
+            this._promptBubble.classList.add('is-hidden', 'is-clickable');
             document.getElementById('ui-layer')?.appendChild(this._promptBubble);
       }
 
@@ -123,7 +122,7 @@ export class NPC {
       updateBillboard(scene: Scene, playerPos: Vector3): void {
             if (!scene.activeCamera) {
                   this._marker.style.display = 'none';
-                  this._promptBubble.style.display = 'none';
+                  this._promptBubble.classList.add('is-hidden');
                   return;
             }
 
@@ -137,7 +136,7 @@ export class NPC {
 
             if (screenHead.z < 0 || screenHead.z > 1) {
                   this._marker.style.display = 'none';
-                  this._promptBubble.style.display = 'none';
+                  this._promptBubble.classList.add('is-hidden');
                   this._inRange = false;
                   return;
             }
@@ -156,11 +155,11 @@ export class NPC {
                   // Show prompt bubble at NPC body level
                   const bodyPos = this.root.position.add(new Vector3(0, 2.0, 0));
                   const screenBody = Vector3.Project(bodyPos, Matrix.IdentityReadOnly, scene.getTransformMatrix(), viewport);
-                  this._promptBubble.style.display = 'block';
+                  this._promptBubble.classList.remove('is-hidden');
                   this._promptBubble.style.left = `${screenBody.x}px`;
                   this._promptBubble.style.top = `${screenBody.y}px`;
             } else {
-                  this._promptBubble.style.display = 'none';
+                  this._promptBubble.classList.add('is-hidden');
             }
       }
 
@@ -179,6 +178,7 @@ export class NPCManager {
       private _scene: Scene;
       private _npcs: NPC[] = [];
       private _onInteract: ((npc: NPC) => void) | null = null;
+      private _pointerObserver: Observer<PointerInfo> | null = null;
 
       set onInteract(cb: ((npc: NPC) => void) | null) { this._onInteract = cb; }
 
@@ -198,9 +198,10 @@ export class NPCManager {
                   });
                   this._npcs.push(npc);
             }
+            if (this._npcs.length <= 0) return;
 
             // Also support clicking on NPC mesh directly
-            this._scene.onPointerObservable.add((info) => {
+            this._pointerObserver = this._scene.onPointerObservable.add((info) => {
                   if (info.type !== 4) return; // POINTERDOWN = 4
                   const hit = info.pickInfo;
                   if (!hit?.hit || !hit.pickedMesh?.metadata?.npcId) return;
@@ -228,9 +229,19 @@ export class NPCManager {
       }
 
       despawnAll(): void {
+            this._detachPointerObserver();
             for (const npc of this._npcs) npc.dispose();
             this._npcs = [];
       }
 
-      dispose(): void { this.despawnAll(); }
+      private _detachPointerObserver(): void {
+            if (!this._pointerObserver) return;
+            this._scene.onPointerObservable.remove(this._pointerObserver);
+            this._pointerObserver = null;
+      }
+
+      dispose(): void {
+            this._detachPointerObserver();
+            this.despawnAll();
+      }
 }

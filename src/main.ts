@@ -603,7 +603,14 @@ async function bootstrap(): Promise<void> {
             },
             onResetAll: () => {
                   console.log('[System] Reset all data requested');
-                  localStorage.clear();
+                  const gameKeys: string[] = [];
+                  for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (!key) continue;
+                        if (/^fpo([._]|$)/.test(key)) gameKeys.push(key);
+                  }
+                  gameKeys.forEach((key) => localStorage.removeItem(key));
+                  console.log(`[System] Cleared ${gameKeys.length} game storage keys`);
                   location.reload();
             },
       });

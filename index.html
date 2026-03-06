@@ -87,6 +87,10 @@
       padding-right: env(safe-area-inset-right);
     }
 
+    #ui-layer [hidden] {
+      display: none !important;
+    }
+
     .interactive {
       pointer-events: auto;
       cursor: pointer;
@@ -4633,6 +4637,10 @@
       color: #E8C96A;
     }
 
+    .quest-reward-text {
+      color: #27AE60;
+    }
+
     .pickup-text.show {
       opacity: 1;
       transform: translate(-50%, -30px);
@@ -5122,6 +5130,17 @@
       flex-direction: column;
     }
 
+    .comm-dev-banner {
+      margin: 0 10px 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(160, 130, 80, 0.26);
+      background: rgba(95, 79, 32, 0.24);
+      color: rgba(244, 225, 166, 0.92);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
     .comm-table-header {
       display: flex;
       padding: 6px 10px;
@@ -5225,6 +5244,13 @@
       color: rgba(232, 201, 106, 0.8);
     }
 
+    .comm-status-btn.is-disabled,
+    .comm-status-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
     .comm-online-label {
       font-size: 9px;
       color: rgba(200, 195, 185, 0.5);
@@ -5323,6 +5349,16 @@
     .comm-action-btn:hover {
       background: rgba(160, 130, 80, 0.25);
       color: rgba(232, 201, 106, 0.8);
+    }
+
+    .comm-action-btn.is-disabled,
+    .comm-create-btn.is-disabled,
+    .comm-action-btn:disabled,
+    .comm-create-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: saturate(0.3);
     }
 
     .comm-guild-info {
@@ -5528,6 +5564,15 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
       animation: npc-prompt-bounce 1.2s ease-in-out infinite;
       z-index: 55;
+    }
+
+    .npc-prompt.is-clickable {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .npc-prompt.is-hidden {
+      display: none;
     }
 
     @keyframes npc-prompt-bounce {
@@ -7976,6 +8021,10 @@
       transform-origin: right center;
     }
 
+    .pet-panel-root.is-open {
+      display: block;
+    }
+
     .sa-title-minis {
       display: flex;
       gap: 2px;
@@ -8458,6 +8507,14 @@
       opacity: 0;
     }
 
+    .fusion-backdrop.is-visible {
+      display: block;
+    }
+
+    .fusion-backdrop.is-active {
+      opacity: 1;
+    }
+
     .fusion-root {
       position: fixed;
       left: 50%;
@@ -8475,6 +8532,15 @@
       border-radius: 10px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 24px rgba(160, 130, 80, 0.12);
       pointer-events: auto;
+    }
+
+    .fusion-root.is-visible {
+      display: block;
+    }
+
+    .fusion-root.is-active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
     }
 
     .revival-body {

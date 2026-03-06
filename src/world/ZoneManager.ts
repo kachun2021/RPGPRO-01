@@ -39,11 +39,7 @@ export class ZoneManager {
             this._shadowGen = shadowGen;
             this._currentZone = getRuntimeSceneZoneOrFallback(getDefaultRuntimeSceneZoneId());
             this._unlockAround(this._currentZone.id);
-
-            // Fallback: if runtime topology cannot map route, keep all zones unlocked to avoid dead-end.
-            if (this._unlockedZones.size <= 1) {
-                  for (const zone of listRuntimeSceneZones()) this._unlockedZones.add(zone.id);
-            }
+            this._applyFallbackUnlockPolicy();
       }
 
       /** Wire dependencies */
@@ -173,6 +169,42 @@ export class ZoneManager {
             this._unlockedZones.add(zoneId);
             const neighbors = getSceneZoneNeighbors(zoneId);
             for (const next of neighbors) this._unlockedZones.add(next);
+      }
+
+      /**
+       * Safety fallback when topology mapping is sparse.
+       * Keeps progression intact by unlocking only nearby/low-level candidates,
+       * instead of unlocking every zone.
+       */
+      private _applyFallbackUnlockPolicy(): void {
+            if (this._unlockedZones.size > 1) return;
+
+            const baseId = this._currentZone.id;
+            const firstRing = getSceneZoneNeighbors(baseId);
+            for (const zoneId of firstRing) this._unlockedZones.add(zoneId);
+
+            const secondRing = new Set<string>();
+            for (const zoneId of firstRing) {
+                  const neighbors = getSceneZoneNeighbors(zoneId);
+                  for (const next of neighbors) secondRing.add(next);
+            }
+            for (const zoneId of secondRing) this._unlockedZones.add(zoneId);
+
+            if (this._unlockedZones.size > 1) {
+                  console.warn('[ZoneManager] Sparse topology detected; applied nearby-zone fallback unlocks.');
+                  return;
+            }
+
+            const seeded = listRuntimeSceneZones()
+                  .filter((zone) => !zone.isTown && zone.id !== baseId)
+                  .sort((a, b) => a.levelMin - b.levelMin)
+                  .slice(0, 2);
+
+            for (const zone of seeded) this._unlockedZones.add(zone.id);
+
+            console.warn(
+                  `[ZoneManager] Topology has no route neighbors for ${baseId}; seeded ${seeded.map((z) => z.id).join(', ') || 'none'}.`,
+            );
       }
 
       dispose(): void {

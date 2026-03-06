@@ -16,12 +16,15 @@ export default defineConfig({
           sourcemap: true,
           rollupOptions: {
                output: {
-                    manualChunks: {
-                         babylon: [
-                              "@babylonjs/core",
-                              "@babylonjs/materials",
-                              "@babylonjs/loaders",
-                         ],
+                    manualChunks(id) {
+                         if (id.includes("node_modules")) {
+                              if (id.includes("@babylonjs")) return "vendor-babylon";
+                              return "vendor";
+                         }
+                         if (id.endsWith(".json") && /[\\/]src[\\/]data[\\/]runtime[\\/]/.test(id)) {
+                              return "runtime-data";
+                         }
+                         return undefined;
                     },
                },
           },

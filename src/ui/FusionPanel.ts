@@ -70,6 +70,7 @@ export class FusionPanel {
       private _el: HTMLDivElement;
       private _backdrop: HTMLDivElement;
       private _petManager: PetManager;
+      private _visible = false;
 
       private _mainTab: MainFusionTab = 'recipes';
       private _seriesFilter: SeriesFilter = 'all';
@@ -103,7 +104,7 @@ export class FusionPanel {
       private _recipeKeywordFilter = '';
       private _onNavigateMap: ((mapName: string, petName?: string) => void) | null = null;
       private _onResize = (): void => {
-            if (this._el.style.display === 'none') return;
+            if (!this._visible) return;
             this._syncResponsiveMode();
       };
 
@@ -202,26 +203,28 @@ export class FusionPanel {
             this._recipeTrackedOnly = false;
             this._notice = null;
 
-            this._backdrop.style.display = 'block';
-            requestAnimationFrame(() => { this._backdrop.style.opacity = '1'; });
-
-            this._el.style.display = 'block';
+            this._visible = true;
+            this._backdrop.classList.add('is-visible');
+            this._el.classList.add('is-visible');
             this._syncResponsiveMode();
             requestAnimationFrame(() => {
-                  this._el.style.transform = 'translate(-50%, -50%) scale(1)';
-                  this._el.style.opacity = '1';
+                  if (!this._visible) return;
+                  this._backdrop.classList.add('is-active');
+                  this._el.classList.add('is-active');
             });
 
             this._render();
       }
 
       close(): void {
-            this._el.style.transform = 'translate(-50%, -50%) scale(0.92)';
-            this._el.style.opacity = '0';
-            this._backdrop.style.opacity = '0';
+            if (!this._visible) return;
+            this._visible = false;
+            this._el.classList.remove('is-active');
+            this._backdrop.classList.remove('is-active');
             setTimeout(() => {
-                  this._el.style.display = 'none';
-                  this._backdrop.style.display = 'none';
+                  if (this._visible) return;
+                  this._el.classList.remove('is-visible');
+                  this._backdrop.classList.remove('is-visible');
             }, 200);
             this._onClose?.();
       }
@@ -236,7 +239,7 @@ export class FusionPanel {
             this._recipeMapFilterName = null;
             this._recipeKeywordFilter = '';
             this._notice = null;
-            if (this._el.style.display !== 'none') this._render();
+            if (this._visible) this._render();
       }
 
       private _render(): void {
@@ -1853,7 +1856,7 @@ export class FusionPanel {
             if (this._noticeTimer) clearTimeout(this._noticeTimer);
             this._noticeTimer = window.setTimeout(() => {
                   this._notice = null;
-                  if (this._el.style.display !== 'none') this._render();
+                  if (this._visible) this._render();
             }, 2200);
       }
 

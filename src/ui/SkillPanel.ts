@@ -47,7 +47,7 @@ export class SkillPanel {
             this._el = document.createElement('div');
             this._el.id = 'skill-panel';
             this._el.className = 'sa-panel skill-panel';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
 
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
@@ -541,13 +541,13 @@ export class SkillPanel {
       show(): void {
             this._visible = true;
             this._syncResponsiveMode();
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._renderContent();
       }
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
       }
 
       dispose(): void {

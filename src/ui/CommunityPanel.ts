@@ -26,6 +26,8 @@ interface PartyMember {
       role: string;
 }
 
+const SOCIAL_FEATURES_LIVE = false;
+
 // Mock data
 const MOCK_FRIENDS: FriendEntry[] = [
       { name: '劍士小明', online: true, zone: '新手草原', level: 12 },
@@ -52,7 +54,7 @@ export class CommunityPanel {
             this._el = document.createElement('div');
             this._el.id = 'community-panel';
             this._el.className = 'sa-panel comm-root';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
@@ -72,6 +74,13 @@ export class CommunityPanel {
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
+
+            if (!SOCIAL_FEATURES_LIVE) {
+                  const banner = document.createElement('div');
+                  banner.className = 'comm-dev-banner';
+                  banner.textContent = '社交系統開發中：好友/隊伍/公會目前為展示資料，暫不會影響遊戲進度。';
+                  this._el.appendChild(banner);
+            }
 
             // Body
             const body = document.createElement('div');
@@ -192,7 +201,7 @@ export class CommunityPanel {
             const controls = document.createElement('div');
             controls.className = 'comm-controls';
             controls.innerHTML = `
-                  <button class="comm-status-btn">狀態變更</button>
+                  <button class="comm-status-btn ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>狀態變更</button>
                   <label class="comm-online-label">
                         <input type="checkbox" class="comm-online-check" ${this._showOnlineOnly ? 'checked' : ''}>
                         只查看在線好友
@@ -208,7 +217,7 @@ export class CommunityPanel {
       private _renderParty(body: HTMLDivElement): void {
             const header = document.createElement('div');
             header.className = 'comm-section-title';
-            header.textContent = '目前隊伍成員';
+            header.textContent = SOCIAL_FEATURES_LIVE ? '目前隊伍成員' : '目前隊伍成員（展示）';
             body.appendChild(header);
 
             if (MOCK_PARTY.length === 0) {
@@ -216,8 +225,8 @@ export class CommunityPanel {
                   empty.className = 'comm-party-empty';
                   empty.innerHTML = `
                         <div class="comm-watermark">⚔️</div>
-                        <div class="comm-empty-text">尚未加入隊伍</div>
-                        <button class="comm-create-btn btn-gold">創建隊伍</button>
+                        <div class="comm-empty-text">${SOCIAL_FEATURES_LIVE ? '尚未加入隊伍' : '隊伍功能開發中'}</div>
+                        <button class="comm-create-btn btn-gold ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>${SOCIAL_FEATURES_LIVE ? '創建隊伍' : '即將開放'}</button>
                   `;
                   body.appendChild(empty);
             } else {
@@ -242,8 +251,8 @@ export class CommunityPanel {
             const actions = document.createElement('div');
             actions.className = 'comm-party-actions';
             actions.innerHTML = `
-                  <button class="comm-action-btn">📢 招募隊員</button>
-                  <button class="comm-action-btn">🔍 搜索隊伍</button>
+                  <button class="comm-action-btn ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>📢 招募隊員</button>
+                  <button class="comm-action-btn ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>🔍 搜索隊伍</button>
             `;
             body.appendChild(actions);
       }
@@ -253,10 +262,10 @@ export class CommunityPanel {
             empty.className = 'comm-guild-empty';
             empty.innerHTML = `
                   <div class="comm-watermark">🏰</div>
-                  <div class="comm-empty-text">尚未加入公會</div>
+                  <div class="comm-empty-text">${SOCIAL_FEATURES_LIVE ? '尚未加入公會' : '公會功能開發中'}</div>
                   <div class="comm-guild-actions">
-                        <button class="comm-action-btn btn-gold">創建公會</button>
-                        <button class="comm-action-btn">搜索公會</button>
+                        <button class="comm-action-btn btn-gold ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>${SOCIAL_FEATURES_LIVE ? '創建公會' : '即將開放'}</button>
+                        <button class="comm-action-btn ${SOCIAL_FEATURES_LIVE ? '' : 'is-disabled'}" ${SOCIAL_FEATURES_LIVE ? '' : 'disabled'}>搜索公會</button>
                   </div>
                   <div class="comm-guild-info">
                         <p>• 創建公會需要 5000 GP</p>
@@ -336,12 +345,12 @@ export class CommunityPanel {
       toggle(): void { this._visible ? this.hide() : this.show(); }
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
       }
       dispose(): void {

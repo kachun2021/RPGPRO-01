@@ -19,9 +19,10 @@ export class PetPanel {
       private _sel: Pet | null = null;
       private _page = 0;
       private _dragPet: Pet | null = null;
+      private _visible = false;
       private _fitFrameId = 0;
       private _onResize = (): void => {
-            if (this._el.style.display === 'none') return;
+            if (!this._visible) return;
             this._syncAnchor();
             this._scheduleFit();
       };
@@ -53,17 +54,19 @@ export class PetPanel {
       get element(): HTMLElement { return this._el; }
 
       open(): void {
+            this._visible = true;
+            this._el.classList.add('is-open');
             this._syncAnchor();
-            this._el.style.display = 'block';
             this._render();
       }
 
       close(): void {
-            this._el.style.display = 'none';
+            this._visible = false;
+            this._el.classList.remove('is-open');
       }
 
       toggle(): void {
-            this._el.style.display === 'none' ? this.open() : this.close();
+            this._visible ? this.close() : this.open();
       }
 
       private _render(): void {
@@ -349,7 +352,7 @@ export class PetPanel {
       }
 
       refresh(): void {
-            if (this._el.style.display !== 'none') this._render();
+            if (this._visible) this._render();
       }
 
       dispose(): void {

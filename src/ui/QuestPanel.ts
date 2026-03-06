@@ -32,7 +32,7 @@ export class QuestPanel {
             this._el = document.createElement('div');
             this._el.id = 'quest-panel';
             this._el.className = 'sa-panel qp-root';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             questManager.onChange = () => { if (this._visible) this._render(); };
             window.addEventListener('resize', this._onResize);
@@ -150,7 +150,7 @@ export class QuestPanel {
                         detail.querySelector('.qp-claim-btn')?.addEventListener('click', () => {
                               const reward = this._questManager.claimReward(selectedQuest.id);
                               if (reward) {
-                                    this._applyReward(reward);
+                                    this._applyReward(reward, selectedQuest);
                                     this._showRewardText(selectedQuest.name, reward);
                               }
                               this._render();
@@ -174,7 +174,7 @@ export class QuestPanel {
       }
 
       /** Actually apply reward effects to game systems */
-      private _applyReward(reward: QuestReward): void {
+      private _applyReward(reward: QuestReward, claimedQuest?: QuestDef): void {
             // Gold
             if (reward.gold && Registry.inventory?.addGold) {
                   Registry.inventory.addGold(reward.gold);
@@ -190,15 +190,11 @@ export class QuestPanel {
                   }
             }
 
-            // Increment questChapter for main quests
-            if (Registry.player?.stats) {
+            // Increment questChapter only when the claimed quest is a main chapter.
+            if (Registry.player?.stats && claimedQuest?.type === 'main' && claimedQuest.chapter !== undefined) {
                   const stats = Registry.player.stats;
-                  // Find the chapter number of the quest that was just claimed
-                  const quest = this._questManager.allQuests.find(q =>
-                        q.claimed && q.type === 'main' && q.chapter !== undefined
-                  );
-                  if (quest?.chapter && quest.chapter > (stats.questChapter ?? 0)) {
-                        stats.questChapter = quest.chapter;
+                  if (claimedQuest.chapter > (stats.questChapter ?? 0)) {
+                        stats.questChapter = claimedQuest.chapter;
                         console.log(`[Quest] questChapter → ${stats.questChapter}`);
                   }
             }
@@ -219,8 +215,7 @@ export class QuestPanel {
 
       private _showRewardText(name: string, reward: QuestReward): void {
             const el = document.createElement('div');
-            el.className = 'pickup-text';
-            el.style.color = '#27AE60';
+            el.className = 'pickup-text quest-reward-text';
             el.textContent = `🎉 ${name} 完成！+${reward.exp ?? 0}xp +${reward.gold ?? 0}金`;
             document.getElementById('ui-layer')?.appendChild(el);
             requestAnimationFrame(() => el.classList.add('show'));
@@ -231,10 +226,10 @@ export class QuestPanel {
       show(): void {
             this._visible = true;
             this._syncResponsiveMode();
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
-      hide(): void { this._visible = false; this._el.style.display = 'none'; }
+      hide(): void { this._visible = false; this._el.hidden = true; }
       dispose(): void {
             window.removeEventListener('resize', this._onResize);
             this._el.remove();

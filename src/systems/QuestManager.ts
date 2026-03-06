@@ -46,8 +46,11 @@ export interface QuestDef {
 const MAIN_QUESTS: QuestDef[] = [];
 for (let i = 1; i <= 25; i++) {
       const unlockZones: Record<number, string> = {
-            5: 'misty_forest', 10: 'crystal_cave', 15: 'desert_ruins',
-            20: 'frozen_peak', 25: 'dark_abyss',
+            5: 'misty_forest',
+            10: 'crystal_caves',
+            15: 'ancient_ruins',
+            20: 'frost_peaks',
+            25: 'dark_hollow',
       };
       MAIN_QUESTS.push({
             id: `main_${i}`, chapter: i, type: 'main', claimed: false,
