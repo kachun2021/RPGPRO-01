@@ -175,3 +175,57 @@
     - `npm run -s typecheck` passed.
     - `npm run -s gamedb:check-legacy` passed.
     - `npm run -s test:smoke` passed all scenarios.
+- 2026-03-06 (P10 data health panel):
+  - `validate_relations.py` now publishes `src/data/runtime/data.health.json` for in-game diagnostics.
+  - `SystemPanel` added readonly `DATA` tab to display validation/runtime stats.
+  - Added system-panel styles for health cards/table (`.sys-health-*`).
+  - Validation:
+    - `npm run -s gamedb:p0` passed.
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed.
+- 2026-03-06 (P11 topology-driven map routing):
+  - Replaced `RuntimeZoneBridge` hardcoded map-name dictionaries with topology/level-driven scene routing.
+  - `WorldMapPanel` teleport mapping now calls `matchRuntimeZoneToSceneZone(...)` with runtime zone metadata.
+  - `WorldMapPanel` region label now derived from topology fields (`mobAble/restriction/pkZoneFlag`) instead of manual level buckets.
+  - `RuntimeMonsterSource` spawn routing switched from map-name matching to zone-id topology routing.
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s gamedb:check-legacy` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed.
+- 2026-03-06 (P12 runtime-driven hero creation flow):
+  - `RuntimeProgression` expanded hero template fields (base STR/DEX/AIM/LUCK/ATK/DEF/HP/MP) and added `listRuntimeHeroTemplates()`.
+  - Bootstrap now resolves hero type from runtime list + persistent key `fpo.hero.type.v1`.
+  - Player initial stats now come from selected runtime hero template.
+  - Initial spawn zone now routed from hero birth zone (`world.topology` + `matchRuntimeZoneToSceneZone`).
+  - `SystemPanel` account tab adds runtime hero template selector (apply -> next restart).
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s gamedb:p0` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed.
+- 2026-03-06 (P13 reference normalization unification):
+  - Fixed `scripts/gamedb/build_runtime.py` indentation blocker in production-recipe normalization loop.
+  - `validate_relations.py` now consumes `reference_runtime_repairs.json` directly and applies runtime-normalized checks:
+    - item refs (`itemAlias` + `virtualItems`)
+    - mobitem refs (`mobItemAlias`)
+    - npc birth-zone refs (`npcBirthZoneAlias`)
+    - npc sale refs (`syntheticNpcs`)
+  - Removed legacy `scripts/gamedb/reference_overrides.json` to avoid dual patch sources.
+  - Validation now distinguishes raw-source gaps vs runtime-repaired usability:
+    - `rawInvalidRefsTotal = 81`
+    - `invalidRefsTotal = 0`
+    - `suppressedByRuntimeRepairsTotal = 81`
+    - `suppressedByOverridesTotal = 0`
+  - Runtime/economy outcome:
+    - `virtualItemCount = 18`
+    - `aliasedItemCount = 2`
+    - `aliasedMobDropSlots = 12`
+  - Validation:
+    - `python scripts/gamedb/build_runtime.py` passed.
+    - `python scripts/gamedb/validate_relations.py` passed.
+    - `npm run -s gamedb:check-legacy` passed.
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed.

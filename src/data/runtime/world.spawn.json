@@ -1,6 +1,6 @@
 {
   "meta": {
-    "builtAt": "2026-03-05T20:05:30.225913+00:00",
+    "builtAt": "2026-03-06T00:08:04.499794+00:00",
     "sourceTables": {
       "s_mob": 889,
       "s_monster": 1418
@@ -25542,6 +25542,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -25566,6 +25567,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -25590,6 +25592,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -25614,6 +25617,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -25638,6 +25642,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 79,
+      "sourceMobItemIdx": 79,
       "slots": [
         {
           "slot": 0,
@@ -25662,6 +25667,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 80,
+      "sourceMobItemIdx": 80,
       "slots": [
         {
           "slot": 0,
@@ -25686,6 +25692,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 84,
+      "sourceMobItemIdx": 84,
       "slots": [
         {
           "slot": 0,
@@ -25710,6 +25717,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 87,
+      "sourceMobItemIdx": 87,
       "slots": [
         {
           "slot": 0,
@@ -25734,6 +25742,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 91,
+      "sourceMobItemIdx": 91,
       "slots": [
         {
           "slot": 0,
@@ -25758,6 +25767,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 92,
+      "sourceMobItemIdx": 92,
       "slots": [
         {
           "slot": 0,
@@ -25782,6 +25792,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 1,
+      "sourceMobItemIdx": 1,
       "slots": [
         {
           "slot": 0,
@@ -25806,6 +25817,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 2,
+      "sourceMobItemIdx": 2,
       "slots": [
         {
           "slot": 0,
@@ -25830,6 +25842,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 5,
+      "sourceMobItemIdx": 5,
       "slots": [
         {
           "slot": 0,
@@ -25854,6 +25867,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 6,
+      "sourceMobItemIdx": 6,
       "slots": [
         {
           "slot": 0,
@@ -25878,6 +25892,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 8,
+      "sourceMobItemIdx": 8,
       "slots": [
         {
           "slot": 0,
@@ -25902,6 +25917,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 11,
+      "sourceMobItemIdx": 11,
       "slots": [
         {
           "slot": 0,
@@ -25926,6 +25942,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 12,
+      "sourceMobItemIdx": 12,
       "slots": [
         {
           "slot": 0,
@@ -25950,6 +25967,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 13,
+      "sourceMobItemIdx": 13,
       "slots": [
         {
           "slot": 0,
@@ -25974,6 +25992,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 14,
+      "sourceMobItemIdx": 14,
       "slots": [
         {
           "slot": 0,
@@ -25998,6 +26017,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 16,
+      "sourceMobItemIdx": 16,
       "slots": [
         {
           "slot": 0,
@@ -26022,6 +26042,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 17,
+      "sourceMobItemIdx": 17,
       "slots": [
         {
           "slot": 0,
@@ -26046,6 +26067,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 18,
+      "sourceMobItemIdx": 18,
       "slots": [
         {
           "slot": 0,
@@ -26070,6 +26092,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 337,
+      "sourceMobItemIdx": 337,
       "slots": [
         {
           "slot": 0,
@@ -26094,6 +26117,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 190,
+      "sourceMobItemIdx": 190,
       "slots": [
         {
           "slot": 0,
@@ -26118,6 +26142,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 191,
+      "sourceMobItemIdx": 191,
       "slots": [
         {
           "slot": 0,
@@ -26142,6 +26167,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 192,
+      "sourceMobItemIdx": 192,
       "slots": [
         {
           "slot": 0,
@@ -26166,6 +26192,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 201,
+      "sourceMobItemIdx": 201,
       "slots": [
         {
           "slot": 0,
@@ -26190,6 +26217,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 237,
+      "sourceMobItemIdx": 237,
       "slots": [
         {
           "slot": 0,
@@ -26214,6 +26242,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 238,
+      "sourceMobItemIdx": 238,
       "slots": [
         {
           "slot": 0,
@@ -26238,6 +26267,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 239,
+      "sourceMobItemIdx": 239,
       "slots": [
         {
           "slot": 0,
@@ -26262,6 +26292,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 260,
+      "sourceMobItemIdx": 260,
       "slots": [
         {
           "slot": 0,
@@ -26286,6 +26317,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 59,
+      "sourceMobItemIdx": 59,
       "slots": [
         {
           "slot": 0,
@@ -26310,6 +26342,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 60,
+      "sourceMobItemIdx": 60,
       "slots": [
         {
           "slot": 0,
@@ -26334,6 +26367,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 63,
+      "sourceMobItemIdx": 63,
       "slots": [
         {
           "slot": 0,
@@ -26358,6 +26392,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 64,
+      "sourceMobItemIdx": 64,
       "slots": [
         {
           "slot": 0,
@@ -26382,6 +26417,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 65,
+      "sourceMobItemIdx": 65,
       "slots": [
         {
           "slot": 0,
@@ -26406,6 +26442,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 66,
+      "sourceMobItemIdx": 66,
       "slots": [
         {
           "slot": 0,
@@ -26430,6 +26467,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 71,
+      "sourceMobItemIdx": 71,
       "slots": [
         {
           "slot": 0,
@@ -26454,6 +26492,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 72,
+      "sourceMobItemIdx": 72,
       "slots": [
         {
           "slot": 0,
@@ -26478,6 +26517,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 73,
+      "sourceMobItemIdx": 73,
       "slots": [
         {
           "slot": 0,
@@ -26502,6 +26542,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 295,
+      "sourceMobItemIdx": 295,
       "slots": [
         {
           "slot": 0,
@@ -26526,6 +26567,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 296,
+      "sourceMobItemIdx": 296,
       "slots": [
         {
           "slot": 0,
@@ -26550,6 +26592,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 297,
+      "sourceMobItemIdx": 297,
       "slots": [
         {
           "slot": 0,
@@ -26574,6 +26617,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 324,
+      "sourceMobItemIdx": 324,
       "slots": [
         {
           "slot": 0,
@@ -26598,6 +26642,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 368,
+      "sourceMobItemIdx": 368,
       "slots": [
         {
           "slot": 0,
@@ -26622,6 +26667,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26646,6 +26692,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26670,6 +26717,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26694,6 +26742,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26718,6 +26767,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26742,6 +26792,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26766,6 +26817,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26790,6 +26842,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 633,
+      "sourceMobItemIdx": 633,
       "slots": [
         {
           "slot": 0,
@@ -26814,6 +26867,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26838,6 +26892,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26862,6 +26917,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26886,6 +26942,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26910,6 +26967,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26934,6 +26992,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26958,6 +27017,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -26982,6 +27042,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 634,
+      "sourceMobItemIdx": 634,
       "slots": [
         {
           "slot": 0,
@@ -27006,6 +27067,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27030,6 +27092,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27054,6 +27117,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27078,6 +27142,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27102,6 +27167,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27126,6 +27192,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27150,6 +27217,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27174,6 +27242,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27198,6 +27267,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27222,6 +27292,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27246,6 +27317,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27270,6 +27342,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27294,6 +27367,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27318,6 +27392,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27342,6 +27417,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27366,6 +27442,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27390,6 +27467,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27414,6 +27492,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27438,6 +27517,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27462,6 +27542,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27486,6 +27567,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27510,6 +27592,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -27534,6 +27617,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 57,
+      "sourceMobItemIdx": 57,
       "slots": [
         {
           "slot": 0,
@@ -27558,6 +27642,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 58,
+      "sourceMobItemIdx": 58,
       "slots": [
         {
           "slot": 0,
@@ -27582,6 +27667,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 61,
+      "sourceMobItemIdx": 61,
       "slots": [
         {
           "slot": 0,
@@ -27606,6 +27692,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 62,
+      "sourceMobItemIdx": 62,
       "slots": [
         {
           "slot": 0,
@@ -27630,6 +27717,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 67,
+      "sourceMobItemIdx": 67,
       "slots": [
         {
           "slot": 0,
@@ -27654,6 +27742,7 @@
       "aggressive": 0,
       "sightRange": 0,
       "mobItemIdx": 68,
+      "sourceMobItemIdx": 68,
       "slots": [
         {
           "slot": 0,
@@ -27678,6 +27767,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 69,
+      "sourceMobItemIdx": 69,
       "slots": [
         {
           "slot": 0,
@@ -27702,6 +27792,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 70,
+      "sourceMobItemIdx": 70,
       "slots": [
         {
           "slot": 0,
@@ -27726,6 +27817,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 97,
+      "sourceMobItemIdx": 97,
       "slots": [
         {
           "slot": 0,
@@ -27750,6 +27842,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 99,
+      "sourceMobItemIdx": 99,
       "slots": [
         {
           "slot": 0,
@@ -27774,6 +27867,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 100,
+      "sourceMobItemIdx": 100,
       "slots": [
         {
           "slot": 0,
@@ -27798,6 +27892,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 101,
+      "sourceMobItemIdx": 101,
       "slots": [
         {
           "slot": 0,
@@ -27834,6 +27929,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 102,
+      "sourceMobItemIdx": 102,
       "slots": [
         {
           "slot": 0,
@@ -27858,6 +27954,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 106,
+      "sourceMobItemIdx": 106,
       "slots": [
         {
           "slot": 0,
@@ -27882,6 +27979,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 108,
+      "sourceMobItemIdx": 108,
       "slots": [
         {
           "slot": 0,
@@ -27906,6 +28004,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 109,
+      "sourceMobItemIdx": 109,
       "slots": [
         {
           "slot": 0,
@@ -27930,6 +28029,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 110,
+      "sourceMobItemIdx": 110,
       "slots": [
         {
           "slot": 0,
@@ -27954,6 +28054,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 115,
+      "sourceMobItemIdx": 115,
       "slots": [
         {
           "slot": 0,
@@ -27978,6 +28079,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 117,
+      "sourceMobItemIdx": 117,
       "slots": [
         {
           "slot": 0,
@@ -28002,6 +28104,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 118,
+      "sourceMobItemIdx": 118,
       "slots": [
         {
           "slot": 0,
@@ -28026,6 +28129,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 119,
+      "sourceMobItemIdx": 119,
       "slots": [
         {
           "slot": 0,
@@ -28050,6 +28154,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 121,
+      "sourceMobItemIdx": 121,
       "slots": [
         {
           "slot": 0,
@@ -28074,6 +28179,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 20,
+      "sourceMobItemIdx": 20,
       "slots": [
         {
           "slot": 0,
@@ -28098,6 +28204,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 21,
+      "sourceMobItemIdx": 21,
       "slots": [
         {
           "slot": 0,
@@ -28122,6 +28229,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 23,
+      "sourceMobItemIdx": 23,
       "slots": [
         {
           "slot": 0,
@@ -28146,6 +28254,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 25,
+      "sourceMobItemIdx": 25,
       "slots": [
         {
           "slot": 0,
@@ -28170,6 +28279,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 27,
+      "sourceMobItemIdx": 27,
       "slots": [
         {
           "slot": 0,
@@ -28194,6 +28304,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 28,
+      "sourceMobItemIdx": 28,
       "slots": [
         {
           "slot": 0,
@@ -28218,6 +28329,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 29,
+      "sourceMobItemIdx": 29,
       "slots": [
         {
           "slot": 0,
@@ -28242,6 +28354,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 31,
+      "sourceMobItemIdx": 31,
       "slots": [
         {
           "slot": 0,
@@ -28266,6 +28379,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 34,
+      "sourceMobItemIdx": 34,
       "slots": [
         {
           "slot": 0,
@@ -28290,6 +28404,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 35,
+      "sourceMobItemIdx": 35,
       "slots": [
         {
           "slot": 0,
@@ -28314,6 +28429,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 37,
+      "sourceMobItemIdx": 37,
       "slots": [
         {
           "slot": 0,
@@ -28338,6 +28454,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 125,
+      "sourceMobItemIdx": 125,
       "slots": [
         {
           "slot": 0,
@@ -28362,6 +28479,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 126,
+      "sourceMobItemIdx": 126,
       "slots": [
         {
           "slot": 0,
@@ -28386,6 +28504,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 134,
+      "sourceMobItemIdx": 134,
       "slots": [
         {
           "slot": 0,
@@ -28410,6 +28529,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 149,
+      "sourceMobItemIdx": 149,
       "slots": [
         {
           "slot": 0,
@@ -28434,6 +28554,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 151,
+      "sourceMobItemIdx": 151,
       "slots": [
         {
           "slot": 0,
@@ -28458,6 +28579,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 156,
+      "sourceMobItemIdx": 156,
       "slots": [
         {
           "slot": 0,
@@ -28482,6 +28604,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 163,
+      "sourceMobItemIdx": 163,
       "slots": [
         {
           "slot": 0,
@@ -28506,6 +28629,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 39,
+      "sourceMobItemIdx": 39,
       "slots": [
         {
           "slot": 0,
@@ -28530,6 +28654,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 40,
+      "sourceMobItemIdx": 40,
       "slots": [
         {
           "slot": 0,
@@ -28554,6 +28679,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 41,
+      "sourceMobItemIdx": 41,
       "slots": [
         {
           "slot": 0,
@@ -28578,6 +28704,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 42,
+      "sourceMobItemIdx": 42,
       "slots": [
         {
           "slot": 0,
@@ -28602,6 +28729,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 43,
+      "sourceMobItemIdx": 43,
       "slots": [
         {
           "slot": 0,
@@ -28626,6 +28754,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 44,
+      "sourceMobItemIdx": 44,
       "slots": [
         {
           "slot": 0,
@@ -28650,6 +28779,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 45,
+      "sourceMobItemIdx": 45,
       "slots": [
         {
           "slot": 0,
@@ -28674,6 +28804,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 46,
+      "sourceMobItemIdx": 46,
       "slots": [
         {
           "slot": 0,
@@ -28698,6 +28829,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 47,
+      "sourceMobItemIdx": 47,
       "slots": [
         {
           "slot": 0,
@@ -28722,6 +28854,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 48,
+      "sourceMobItemIdx": 48,
       "slots": [
         {
           "slot": 0,
@@ -28746,6 +28879,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 50,
+      "sourceMobItemIdx": 50,
       "slots": [
         {
           "slot": 0,
@@ -28770,6 +28904,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 52,
+      "sourceMobItemIdx": 52,
       "slots": [
         {
           "slot": 0,
@@ -28794,6 +28929,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 53,
+      "sourceMobItemIdx": 53,
       "slots": [
         {
           "slot": 0,
@@ -28818,6 +28954,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 54,
+      "sourceMobItemIdx": 54,
       "slots": [
         {
           "slot": 0,
@@ -28842,6 +28979,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 55,
+      "sourceMobItemIdx": 55,
       "slots": [
         {
           "slot": 0,
@@ -28866,6 +29004,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 56,
+      "sourceMobItemIdx": 56,
       "slots": [
         {
           "slot": 0,
@@ -28890,6 +29029,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 77,
+      "sourceMobItemIdx": 77,
       "slots": [
         {
           "slot": 0,
@@ -28914,6 +29054,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 81,
+      "sourceMobItemIdx": 81,
       "slots": [
         {
           "slot": 0,
@@ -28938,6 +29079,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 82,
+      "sourceMobItemIdx": 82,
       "slots": [
         {
           "slot": 0,
@@ -28962,6 +29104,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 83,
+      "sourceMobItemIdx": 83,
       "slots": [
         {
           "slot": 0,
@@ -28986,6 +29129,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 86,
+      "sourceMobItemIdx": 86,
       "slots": [
         {
           "slot": 0,
@@ -29010,6 +29154,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 89,
+      "sourceMobItemIdx": 89,
       "slots": [
         {
           "slot": 0,
@@ -29034,6 +29179,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 90,
+      "sourceMobItemIdx": 90,
       "slots": [
         {
           "slot": 0,
@@ -29058,6 +29204,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 93,
+      "sourceMobItemIdx": 93,
       "slots": [
         {
           "slot": 0,
@@ -29082,6 +29229,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 94,
+      "sourceMobItemIdx": 94,
       "slots": [
         {
           "slot": 0,
@@ -29106,6 +29254,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 95,
+      "sourceMobItemIdx": 95,
       "slots": [
         {
           "slot": 0,
@@ -29130,6 +29279,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 96,
+      "sourceMobItemIdx": 96,
       "slots": [
         {
           "slot": 0,
@@ -29154,6 +29304,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 196,
+      "sourceMobItemIdx": 196,
       "slots": [
         {
           "slot": 0,
@@ -29178,6 +29329,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 206,
+      "sourceMobItemIdx": 206,
       "slots": [
         {
           "slot": 0,
@@ -29202,6 +29354,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 214,
+      "sourceMobItemIdx": 214,
       "slots": [
         {
           "slot": 0,
@@ -29226,6 +29379,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 216,
+      "sourceMobItemIdx": 216,
       "slots": [
         {
           "slot": 0,
@@ -29250,6 +29404,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 160,
+      "sourceMobItemIdx": 160,
       "slots": [
         {
           "slot": 0,
@@ -29274,6 +29429,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 169,
+      "sourceMobItemIdx": 169,
       "slots": [
         {
           "slot": 0,
@@ -29298,6 +29454,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 181,
+      "sourceMobItemIdx": 181,
       "slots": [
         {
           "slot": 0,
@@ -29322,6 +29479,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 183,
+      "sourceMobItemIdx": 183,
       "slots": [
         {
           "slot": 0,
@@ -29346,6 +29504,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 188,
+      "sourceMobItemIdx": 188,
       "slots": [
         {
           "slot": 0,
@@ -29370,6 +29529,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 233,
+      "sourceMobItemIdx": 233,
       "slots": [
         {
           "slot": 0,
@@ -29394,6 +29554,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 243,
+      "sourceMobItemIdx": 243,
       "slots": [
         {
           "slot": 0,
@@ -29418,6 +29579,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 275,
+      "sourceMobItemIdx": 275,
       "slots": [
         {
           "slot": 0,
@@ -29442,6 +29604,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 210,
+      "sourceMobItemIdx": 210,
       "slots": [
         {
           "slot": 0,
@@ -29466,6 +29629,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 218,
+      "sourceMobItemIdx": 218,
       "slots": [
         {
           "slot": 0,
@@ -29490,6 +29654,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 220,
+      "sourceMobItemIdx": 220,
       "slots": [
         {
           "slot": 0,
@@ -29514,6 +29679,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 177,
+      "sourceMobItemIdx": 177,
       "slots": [
         {
           "slot": 0,
@@ -29538,6 +29704,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 178,
+      "sourceMobItemIdx": 178,
       "slots": [
         {
           "slot": 0,
@@ -29562,6 +29729,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 179,
+      "sourceMobItemIdx": 179,
       "slots": [
         {
           "slot": 0,
@@ -29586,6 +29754,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 197,
+      "sourceMobItemIdx": 197,
       "slots": [
         {
           "slot": 0,
@@ -29610,6 +29779,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 600,
+      "sourceMobItemIdx": 600,
       "slots": [
         {
           "slot": 0,
@@ -29658,6 +29828,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 600,
+      "sourceMobItemIdx": 600,
       "slots": [
         {
           "slot": 0,
@@ -29706,6 +29877,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 600,
+      "sourceMobItemIdx": 600,
       "slots": [
         {
           "slot": 0,
@@ -29754,6 +29926,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 600,
+      "sourceMobItemIdx": 600,
       "slots": [
         {
           "slot": 0,
@@ -29802,6 +29975,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 600,
+      "sourceMobItemIdx": 600,
       "slots": [
         {
           "slot": 0,
@@ -29850,6 +30024,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 601,
+      "sourceMobItemIdx": 601,
       "slots": [
         {
           "slot": 0,
@@ -29898,6 +30073,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 601,
+      "sourceMobItemIdx": 601,
       "slots": [
         {
           "slot": 0,
@@ -29946,6 +30122,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 601,
+      "sourceMobItemIdx": 601,
       "slots": [
         {
           "slot": 0,
@@ -29994,6 +30171,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 601,
+      "sourceMobItemIdx": 601,
       "slots": [
         {
           "slot": 0,
@@ -30042,6 +30220,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 601,
+      "sourceMobItemIdx": 601,
       "slots": [
         {
           "slot": 0,
@@ -30090,6 +30269,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 602,
+      "sourceMobItemIdx": 602,
       "slots": [
         {
           "slot": 0,
@@ -30138,6 +30318,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 602,
+      "sourceMobItemIdx": 602,
       "slots": [
         {
           "slot": 0,
@@ -30186,6 +30367,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 602,
+      "sourceMobItemIdx": 602,
       "slots": [
         {
           "slot": 0,
@@ -30234,6 +30416,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 602,
+      "sourceMobItemIdx": 602,
       "slots": [
         {
           "slot": 0,
@@ -30282,6 +30465,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 602,
+      "sourceMobItemIdx": 602,
       "slots": [
         {
           "slot": 0,
@@ -30330,6 +30514,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 603,
+      "sourceMobItemIdx": 603,
       "slots": [
         {
           "slot": 0,
@@ -30378,6 +30563,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 603,
+      "sourceMobItemIdx": 603,
       "slots": [
         {
           "slot": 0,
@@ -30426,6 +30612,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 603,
+      "sourceMobItemIdx": 603,
       "slots": [
         {
           "slot": 0,
@@ -30474,6 +30661,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 603,
+      "sourceMobItemIdx": 603,
       "slots": [
         {
           "slot": 0,
@@ -30522,6 +30710,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 604,
+      "sourceMobItemIdx": 604,
       "slots": [
         {
           "slot": 0,
@@ -30570,6 +30759,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 604,
+      "sourceMobItemIdx": 604,
       "slots": [
         {
           "slot": 0,
@@ -30618,6 +30808,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 604,
+      "sourceMobItemIdx": 604,
       "slots": [
         {
           "slot": 0,
@@ -30666,6 +30857,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 605,
+      "sourceMobItemIdx": 605,
       "slots": [
         {
           "slot": 0,
@@ -30714,6 +30906,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 605,
+      "sourceMobItemIdx": 605,
       "slots": [
         {
           "slot": 0,
@@ -30762,6 +30955,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 606,
+      "sourceMobItemIdx": 606,
       "slots": [
         {
           "slot": 0,
@@ -30810,6 +31004,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 638,
+      "sourceMobItemIdx": 638,
       "slots": [
         {
           "slot": 0,
@@ -30858,6 +31053,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 638,
+      "sourceMobItemIdx": 638,
       "slots": [
         {
           "slot": 0,
@@ -30906,6 +31102,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 128,
+      "sourceMobItemIdx": 128,
       "slots": [
         {
           "slot": 0,
@@ -30930,6 +31127,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 132,
+      "sourceMobItemIdx": 132,
       "slots": [
         {
           "slot": 0,
@@ -30954,6 +31152,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 136,
+      "sourceMobItemIdx": 136,
       "slots": [
         {
           "slot": 0,
@@ -30978,6 +31177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 137,
+      "sourceMobItemIdx": 137,
       "slots": [
         {
           "slot": 0,
@@ -31002,6 +31202,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 158,
+      "sourceMobItemIdx": 158,
       "slots": [
         {
           "slot": 0,
@@ -31026,6 +31227,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 103,
+      "sourceMobItemIdx": 103,
       "slots": [
         {
           "slot": 0,
@@ -31050,6 +31252,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 104,
+      "sourceMobItemIdx": 104,
       "slots": [
         {
           "slot": 0,
@@ -31074,6 +31277,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 105,
+      "sourceMobItemIdx": 105,
       "slots": [
         {
           "slot": 0,
@@ -31098,6 +31302,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 114,
+      "sourceMobItemIdx": 114,
       "slots": [
         {
           "slot": 0,
@@ -31122,6 +31327,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 120,
+      "sourceMobItemIdx": 120,
       "slots": [
         {
           "slot": 0,
@@ -31146,6 +31352,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 139,
+      "sourceMobItemIdx": 139,
       "slots": [
         {
           "slot": 0,
@@ -31170,6 +31377,7 @@
       "aggressive": 0,
       "sightRange": 8,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31194,6 +31402,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31218,6 +31427,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31242,6 +31452,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31266,6 +31477,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31290,6 +31502,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31314,6 +31527,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -31338,6 +31552,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 155,
+      "sourceMobItemIdx": 155,
       "slots": [
         {
           "slot": 0,
@@ -31362,6 +31577,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 167,
+      "sourceMobItemIdx": 167,
       "slots": [
         {
           "slot": 0,
@@ -31386,6 +31602,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 172,
+      "sourceMobItemIdx": 172,
       "slots": [
         {
           "slot": 0,
@@ -31410,6 +31627,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 173,
+      "sourceMobItemIdx": 173,
       "slots": [
         {
           "slot": 0,
@@ -31434,6 +31652,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 36,
+      "sourceMobItemIdx": 36,
       "slots": [
         {
           "slot": 0,
@@ -31458,6 +31677,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 49,
+      "sourceMobItemIdx": 49,
       "slots": [
         {
           "slot": 0,
@@ -31482,6 +31702,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 51,
+      "sourceMobItemIdx": 51,
       "slots": [
         {
           "slot": 0,
@@ -31506,6 +31727,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 98,
+      "sourceMobItemIdx": 98,
       "slots": [
         {
           "slot": 0,
@@ -31530,6 +31752,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 107,
+      "sourceMobItemIdx": 107,
       "slots": [
         {
           "slot": 0,
@@ -31554,6 +31777,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 199,
+      "sourceMobItemIdx": 199,
       "slots": [
         {
           "slot": 0,
@@ -31578,6 +31802,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 200,
+      "sourceMobItemIdx": 200,
       "slots": [
         {
           "slot": 0,
@@ -31602,6 +31827,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 208,
+      "sourceMobItemIdx": 208,
       "slots": [
         {
           "slot": 0,
@@ -31626,6 +31852,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 209,
+      "sourceMobItemIdx": 209,
       "slots": [
         {
           "slot": 0,
@@ -31650,6 +31877,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 230,
+      "sourceMobItemIdx": 230,
       "slots": [
         {
           "slot": 0,
@@ -31674,6 +31902,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 231,
+      "sourceMobItemIdx": 231,
       "slots": [
         {
           "slot": 0,
@@ -31698,6 +31927,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 245,
+      "sourceMobItemIdx": 245,
       "slots": [
         {
           "slot": 0,
@@ -31722,6 +31952,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 246,
+      "sourceMobItemIdx": 246,
       "slots": [
         {
           "slot": 0,
@@ -31746,6 +31977,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 247,
+      "sourceMobItemIdx": 247,
       "slots": [
         {
           "slot": 0,
@@ -31770,6 +32002,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 248,
+      "sourceMobItemIdx": 248,
       "slots": [
         {
           "slot": 0,
@@ -31794,6 +32027,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 251,
+      "sourceMobItemIdx": 251,
       "slots": [
         {
           "slot": 0,
@@ -31818,6 +32052,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 252,
+      "sourceMobItemIdx": 252,
       "slots": [
         {
           "slot": 0,
@@ -31842,6 +32077,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 253,
+      "sourceMobItemIdx": 253,
       "slots": [
         {
           "slot": 0,
@@ -31866,6 +32102,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 254,
+      "sourceMobItemIdx": 254,
       "slots": [
         {
           "slot": 0,
@@ -31890,6 +32127,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 256,
+      "sourceMobItemIdx": 256,
       "slots": [
         {
           "slot": 0,
@@ -31914,6 +32152,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 257,
+      "sourceMobItemIdx": 257,
       "slots": [
         {
           "slot": 0,
@@ -31938,6 +32177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 258,
+      "sourceMobItemIdx": 258,
       "slots": [
         {
           "slot": 0,
@@ -31962,6 +32202,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 259,
+      "sourceMobItemIdx": 259,
       "slots": [
         {
           "slot": 0,
@@ -31986,6 +32227,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 262,
+      "sourceMobItemIdx": 262,
       "slots": [
         {
           "slot": 0,
@@ -32010,6 +32252,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 263,
+      "sourceMobItemIdx": 263,
       "slots": [
         {
           "slot": 0,
@@ -32034,6 +32277,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 286,
+      "sourceMobItemIdx": 286,
       "slots": [
         {
           "slot": 0,
@@ -32058,6 +32302,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 287,
+      "sourceMobItemIdx": 287,
       "slots": [
         {
           "slot": 0,
@@ -32082,6 +32327,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 301,
+      "sourceMobItemIdx": 301,
       "slots": [
         {
           "slot": 0,
@@ -32106,6 +32352,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 302,
+      "sourceMobItemIdx": 302,
       "slots": [
         {
           "slot": 0,
@@ -32130,6 +32377,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 293,
+      "sourceMobItemIdx": 293,
       "slots": [
         {
           "slot": 0,
@@ -32154,6 +32402,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 294,
+      "sourceMobItemIdx": 294,
       "slots": [
         {
           "slot": 0,
@@ -32178,6 +32427,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 310,
+      "sourceMobItemIdx": 310,
       "slots": [
         {
           "slot": 0,
@@ -32202,6 +32452,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 311,
+      "sourceMobItemIdx": 311,
       "slots": [
         {
           "slot": 0,
@@ -32226,6 +32477,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 326,
+      "sourceMobItemIdx": 326,
       "slots": [
         {
           "slot": 0,
@@ -32250,6 +32502,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 327,
+      "sourceMobItemIdx": 327,
       "slots": [
         {
           "slot": 0,
@@ -32274,6 +32527,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 331,
+      "sourceMobItemIdx": 331,
       "slots": [
         {
           "slot": 0,
@@ -32298,6 +32552,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 332,
+      "sourceMobItemIdx": 332,
       "slots": [
         {
           "slot": 0,
@@ -32322,6 +32577,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 74,
+      "sourceMobItemIdx": 74,
       "slots": [
         {
           "slot": 0,
@@ -32346,6 +32602,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 75,
+      "sourceMobItemIdx": 75,
       "slots": [
         {
           "slot": 0,
@@ -32370,6 +32627,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 111,
+      "sourceMobItemIdx": 111,
       "slots": [
         {
           "slot": 0,
@@ -32394,6 +32652,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 112,
+      "sourceMobItemIdx": 112,
       "slots": [
         {
           "slot": 0,
@@ -32418,6 +32677,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 122,
+      "sourceMobItemIdx": 122,
       "slots": [
         {
           "slot": 0,
@@ -32442,6 +32702,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 123,
+      "sourceMobItemIdx": 123,
       "slots": [
         {
           "slot": 0,
@@ -32466,6 +32727,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 174,
+      "sourceMobItemIdx": 174,
       "slots": [
         {
           "slot": 0,
@@ -32490,6 +32752,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 175,
+      "sourceMobItemIdx": 175,
       "slots": [
         {
           "slot": 0,
@@ -32514,6 +32777,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 185,
+      "sourceMobItemIdx": 185,
       "slots": [
         {
           "slot": 0,
@@ -32538,6 +32802,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 186,
+      "sourceMobItemIdx": 186,
       "slots": [
         {
           "slot": 0,
@@ -32562,6 +32827,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 203,
+      "sourceMobItemIdx": 203,
       "slots": [
         {
           "slot": 0,
@@ -32586,6 +32852,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 204,
+      "sourceMobItemIdx": 204,
       "slots": [
         {
           "slot": 0,
@@ -32610,6 +32877,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 339,
+      "sourceMobItemIdx": 339,
       "slots": [
         {
           "slot": 0,
@@ -32634,6 +32902,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 340,
+      "sourceMobItemIdx": 340,
       "slots": [
         {
           "slot": 0,
@@ -32658,6 +32927,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 343,
+      "sourceMobItemIdx": 343,
       "slots": [
         {
           "slot": 0,
@@ -32682,6 +32952,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 344,
+      "sourceMobItemIdx": 344,
       "slots": [
         {
           "slot": 0,
@@ -32706,6 +32977,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 345,
+      "sourceMobItemIdx": 345,
       "slots": [
         {
           "slot": 0,
@@ -32730,6 +33002,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 346,
+      "sourceMobItemIdx": 346,
       "slots": [
         {
           "slot": 0,
@@ -32754,6 +33027,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 348,
+      "sourceMobItemIdx": 348,
       "slots": [
         {
           "slot": 0,
@@ -32778,6 +33052,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 349,
+      "sourceMobItemIdx": 349,
       "slots": [
         {
           "slot": 0,
@@ -32802,6 +33077,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 440,
+      "sourceMobItemIdx": 440,
       "slots": [
         {
           "slot": 0,
@@ -32826,6 +33102,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 443,
+      "sourceMobItemIdx": 443,
       "slots": [
         {
           "slot": 0,
@@ -32850,6 +33127,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 350,
+      "sourceMobItemIdx": 350,
       "slots": [
         {
           "slot": 0,
@@ -32874,6 +33152,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 351,
+      "sourceMobItemIdx": 351,
       "slots": [
         {
           "slot": 0,
@@ -32898,6 +33177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 352,
+      "sourceMobItemIdx": 352,
       "slots": [
         {
           "slot": 0,
@@ -32922,6 +33202,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 353,
+      "sourceMobItemIdx": 353,
       "slots": [
         {
           "slot": 0,
@@ -32946,6 +33227,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 360,
+      "sourceMobItemIdx": 360,
       "slots": [
         {
           "slot": 0,
@@ -32970,6 +33252,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 361,
+      "sourceMobItemIdx": 361,
       "slots": [
         {
           "slot": 0,
@@ -32994,6 +33277,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 364,
+      "sourceMobItemIdx": 364,
       "slots": [
         {
           "slot": 0,
@@ -33018,6 +33302,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 365,
+      "sourceMobItemIdx": 365,
       "slots": [
         {
           "slot": 0,
@@ -33042,6 +33327,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 380,
+      "sourceMobItemIdx": 380,
       "slots": [
         {
           "slot": 0,
@@ -33066,6 +33352,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 381,
+      "sourceMobItemIdx": 381,
       "slots": [
         {
           "slot": 0,
@@ -33090,6 +33377,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 386,
+      "sourceMobItemIdx": 386,
       "slots": [
         {
           "slot": 0,
@@ -33114,6 +33402,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 387,
+      "sourceMobItemIdx": 387,
       "slots": [
         {
           "slot": 0,
@@ -33138,6 +33427,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 389,
+      "sourceMobItemIdx": 389,
       "slots": [
         {
           "slot": 0,
@@ -33162,6 +33452,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 390,
+      "sourceMobItemIdx": 390,
       "slots": [
         {
           "slot": 0,
@@ -33186,6 +33477,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 391,
+      "sourceMobItemIdx": 391,
       "slots": [
         {
           "slot": 0,
@@ -33210,6 +33502,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 392,
+      "sourceMobItemIdx": 392,
       "slots": [
         {
           "slot": 0,
@@ -33234,6 +33527,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 393,
+      "sourceMobItemIdx": 393,
       "slots": [
         {
           "slot": 0,
@@ -33258,6 +33552,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 394,
+      "sourceMobItemIdx": 394,
       "slots": [
         {
           "slot": 0,
@@ -33282,6 +33577,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 397,
+      "sourceMobItemIdx": 397,
       "slots": [
         {
           "slot": 0,
@@ -33306,6 +33602,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 398,
+      "sourceMobItemIdx": 398,
       "slots": [
         {
           "slot": 0,
@@ -33330,6 +33627,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 408,
+      "sourceMobItemIdx": 408,
       "slots": [
         {
           "slot": 0,
@@ -33354,6 +33652,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 409,
+      "sourceMobItemIdx": 409,
       "slots": [
         {
           "slot": 0,
@@ -33378,6 +33677,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 404,
+      "sourceMobItemIdx": 404,
       "slots": [
         {
           "slot": 0,
@@ -33402,6 +33702,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 405,
+      "sourceMobItemIdx": 405,
       "slots": [
         {
           "slot": 0,
@@ -33426,6 +33727,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 410,
+      "sourceMobItemIdx": 410,
       "slots": [
         {
           "slot": 0,
@@ -33450,6 +33752,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 411,
+      "sourceMobItemIdx": 411,
       "slots": [
         {
           "slot": 0,
@@ -33474,6 +33777,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 414,
+      "sourceMobItemIdx": 414,
       "slots": [
         {
           "slot": 0,
@@ -33498,6 +33802,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 415,
+      "sourceMobItemIdx": 415,
       "slots": [
         {
           "slot": 0,
@@ -33522,6 +33827,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 419,
+      "sourceMobItemIdx": 419,
       "slots": [
         {
           "slot": 0,
@@ -33546,6 +33852,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 420,
+      "sourceMobItemIdx": 420,
       "slots": [
         {
           "slot": 0,
@@ -33570,6 +33877,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 448,
+      "sourceMobItemIdx": 448,
       "slots": [
         {
           "slot": 0,
@@ -33594,6 +33902,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 449,
+      "sourceMobItemIdx": 449,
       "slots": [
         {
           "slot": 0,
@@ -33618,6 +33927,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 366,
+      "sourceMobItemIdx": 366,
       "slots": [
         {
           "slot": 0,
@@ -33642,6 +33952,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 367,
+      "sourceMobItemIdx": 367,
       "slots": [
         {
           "slot": 0,
@@ -33666,6 +33977,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 370,
+      "sourceMobItemIdx": 370,
       "slots": [
         {
           "slot": 0,
@@ -33690,6 +34002,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 371,
+      "sourceMobItemIdx": 371,
       "slots": [
         {
           "slot": 0,
@@ -33714,6 +34027,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 373,
+      "sourceMobItemIdx": 373,
       "slots": [
         {
           "slot": 0,
@@ -33738,6 +34052,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 374,
+      "sourceMobItemIdx": 374,
       "slots": [
         {
           "slot": 0,
@@ -33762,6 +34077,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 377,
+      "sourceMobItemIdx": 377,
       "slots": [
         {
           "slot": 0,
@@ -33786,6 +34102,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 378,
+      "sourceMobItemIdx": 378,
       "slots": [
         {
           "slot": 0,
@@ -33810,6 +34127,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 382,
+      "sourceMobItemIdx": 382,
       "slots": [
         {
           "slot": 0,
@@ -33834,6 +34152,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 383,
+      "sourceMobItemIdx": 383,
       "slots": [
         {
           "slot": 0,
@@ -33858,6 +34177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 400,
+      "sourceMobItemIdx": 400,
       "slots": [
         {
           "slot": 0,
@@ -33882,6 +34202,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 401,
+      "sourceMobItemIdx": 401,
       "slots": [
         {
           "slot": 0,
@@ -33906,6 +34227,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 406,
+      "sourceMobItemIdx": 406,
       "slots": [
         {
           "slot": 0,
@@ -33930,6 +34252,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 407,
+      "sourceMobItemIdx": 407,
       "slots": [
         {
           "slot": 0,
@@ -33954,6 +34277,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 412,
+      "sourceMobItemIdx": 412,
       "slots": [
         {
           "slot": 0,
@@ -33978,6 +34302,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 413,
+      "sourceMobItemIdx": 413,
       "slots": [
         {
           "slot": 0,
@@ -34002,6 +34327,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 416,
+      "sourceMobItemIdx": 416,
       "slots": [
         {
           "slot": 0,
@@ -34026,6 +34352,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 417,
+      "sourceMobItemIdx": 417,
       "slots": [
         {
           "slot": 0,
@@ -34050,6 +34377,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 421,
+      "sourceMobItemIdx": 421,
       "slots": [
         {
           "slot": 0,
@@ -34074,6 +34402,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 422,
+      "sourceMobItemIdx": 422,
       "slots": [
         {
           "slot": 0,
@@ -34098,6 +34427,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 423,
+      "sourceMobItemIdx": 423,
       "slots": [
         {
           "slot": 0,
@@ -34122,6 +34452,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 424,
+      "sourceMobItemIdx": 424,
       "slots": [
         {
           "slot": 0,
@@ -34146,6 +34477,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 425,
+      "sourceMobItemIdx": 425,
       "slots": [
         {
           "slot": 0,
@@ -34170,6 +34502,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 426,
+      "sourceMobItemIdx": 426,
       "slots": [
         {
           "slot": 0,
@@ -34194,6 +34527,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 431,
+      "sourceMobItemIdx": 431,
       "slots": [
         {
           "slot": 0,
@@ -34218,6 +34552,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 432,
+      "sourceMobItemIdx": 432,
       "slots": [
         {
           "slot": 0,
@@ -34242,6 +34577,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 433,
+      "sourceMobItemIdx": 433,
       "slots": [
         {
           "slot": 0,
@@ -34266,6 +34602,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 434,
+      "sourceMobItemIdx": 434,
       "slots": [
         {
           "slot": 0,
@@ -34290,6 +34627,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 435,
+      "sourceMobItemIdx": 435,
       "slots": [
         {
           "slot": 0,
@@ -34314,6 +34652,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 436,
+      "sourceMobItemIdx": 436,
       "slots": [
         {
           "slot": 0,
@@ -34338,6 +34677,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 437,
+      "sourceMobItemIdx": 437,
       "slots": [
         {
           "slot": 0,
@@ -34362,6 +34702,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 438,
+      "sourceMobItemIdx": 438,
       "slots": [
         {
           "slot": 0,
@@ -34386,6 +34727,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 441,
+      "sourceMobItemIdx": 441,
       "slots": [
         {
           "slot": 0,
@@ -34410,6 +34752,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 442,
+      "sourceMobItemIdx": 442,
       "slots": [
         {
           "slot": 0,
@@ -34434,6 +34777,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 444,
+      "sourceMobItemIdx": 444,
       "slots": [
         {
           "slot": 0,
@@ -34458,6 +34802,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 445,
+      "sourceMobItemIdx": 445,
       "slots": [
         {
           "slot": 0,
@@ -34482,6 +34827,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 450,
+      "sourceMobItemIdx": 450,
       "slots": [
         {
           "slot": 0,
@@ -34506,6 +34852,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 451,
+      "sourceMobItemIdx": 451,
       "slots": [
         {
           "slot": 0,
@@ -34530,6 +34877,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 458,
+      "sourceMobItemIdx": 458,
       "slots": [
         {
           "slot": 0,
@@ -34554,6 +34902,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 271,
+      "sourceMobItemIdx": 271,
       "slots": [
         {
           "slot": 0,
@@ -34578,6 +34927,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 276,
+      "sourceMobItemIdx": 276,
       "slots": [
         {
           "slot": 0,
@@ -34602,6 +34952,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 290,
+      "sourceMobItemIdx": 290,
       "slots": [
         {
           "slot": 0,
@@ -34626,6 +34977,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 313,
+      "sourceMobItemIdx": 313,
       "slots": [
         {
           "slot": 0,
@@ -34650,6 +35002,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 446,
+      "sourceMobItemIdx": 446,
       "slots": [
         {
           "slot": 0,
@@ -34674,6 +35027,7 @@
       "aggressive": 1,
       "sightRange": 17,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -34710,6 +35064,7 @@
       "aggressive": 1,
       "sightRange": 17,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -34746,6 +35101,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 312,
+      "sourceMobItemIdx": 312,
       "slots": [
         {
           "slot": 0,
@@ -34770,6 +35126,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 330,
+      "sourceMobItemIdx": 330,
       "slots": [
         {
           "slot": 0,
@@ -34794,6 +35151,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 335,
+      "sourceMobItemIdx": 335,
       "slots": [
         {
           "slot": 0,
@@ -34818,6 +35176,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 336,
+      "sourceMobItemIdx": 336,
       "slots": [
         {
           "slot": 0,
@@ -34842,6 +35201,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 362,
+      "sourceMobItemIdx": 362,
       "slots": [
         {
           "slot": 0,
@@ -34878,6 +35238,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 363,
+      "sourceMobItemIdx": 363,
       "slots": [
         {
           "slot": 0,
@@ -34902,6 +35263,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 372,
+      "sourceMobItemIdx": 372,
       "slots": [
         {
           "slot": 0,
@@ -34926,6 +35288,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 375,
+      "sourceMobItemIdx": 375,
       "slots": [
         {
           "slot": 0,
@@ -34950,6 +35313,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 376,
+      "sourceMobItemIdx": 376,
       "slots": [
         {
           "slot": 0,
@@ -34974,6 +35338,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 395,
+      "sourceMobItemIdx": 395,
       "slots": [
         {
           "slot": 0,
@@ -34998,6 +35363,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 379,
+      "sourceMobItemIdx": 379,
       "slots": [
         {
           "slot": 0,
@@ -35022,6 +35388,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 384,
+      "sourceMobItemIdx": 384,
       "slots": [
         {
           "slot": 0,
@@ -35046,6 +35413,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 385,
+      "sourceMobItemIdx": 385,
       "slots": [
         {
           "slot": 0,
@@ -35070,6 +35438,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 388,
+      "sourceMobItemIdx": 388,
       "slots": [
         {
           "slot": 0,
@@ -35094,6 +35463,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 403,
+      "sourceMobItemIdx": 403,
       "slots": [
         {
           "slot": 0,
@@ -35118,6 +35488,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 161,
+      "sourceMobItemIdx": 161,
       "slots": [
         {
           "slot": 0,
@@ -35142,6 +35513,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 170,
+      "sourceMobItemIdx": 170,
       "slots": [
         {
           "slot": 0,
@@ -35166,6 +35538,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 182,
+      "sourceMobItemIdx": 182,
       "slots": [
         {
           "slot": 0,
@@ -35190,6 +35563,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 184,
+      "sourceMobItemIdx": 184,
       "slots": [
         {
           "slot": 0,
@@ -35214,6 +35588,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 189,
+      "sourceMobItemIdx": 189,
       "slots": [
         {
           "slot": 0,
@@ -35238,6 +35613,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 396,
+      "sourceMobItemIdx": 396,
       "slots": [
         {
           "slot": 0,
@@ -35262,6 +35638,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 399,
+      "sourceMobItemIdx": 399,
       "slots": [
         {
           "slot": 0,
@@ -35286,6 +35663,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 402,
+      "sourceMobItemIdx": 402,
       "slots": [
         {
           "slot": 0,
@@ -35310,6 +35688,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 418,
+      "sourceMobItemIdx": 418,
       "slots": [
         {
           "slot": 0,
@@ -35334,6 +35713,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 427,
+      "sourceMobItemIdx": 427,
       "slots": [
         {
           "slot": 0,
@@ -35370,6 +35750,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 459,
+      "sourceMobItemIdx": 459,
       "slots": [
         {
           "slot": 0,
@@ -35394,6 +35775,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 428,
+      "sourceMobItemIdx": 428,
       "slots": [
         {
           "slot": 0,
@@ -35418,6 +35800,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -35442,6 +35825,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 430,
+      "sourceMobItemIdx": 430,
       "slots": [
         {
           "slot": 0,
@@ -35466,6 +35850,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 439,
+      "sourceMobItemIdx": 439,
       "slots": [
         {
           "slot": 0,
@@ -35490,6 +35875,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 447,
+      "sourceMobItemIdx": 447,
       "slots": [
         {
           "slot": 0,
@@ -35514,6 +35900,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 460,
+      "sourceMobItemIdx": 460,
       "slots": [
         {
           "slot": 0,
@@ -35538,6 +35925,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 316,
+      "sourceMobItemIdx": 316,
       "slots": [
         {
           "slot": 0,
@@ -35562,6 +35950,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 329,
+      "sourceMobItemIdx": 329,
       "slots": [
         {
           "slot": 0,
@@ -35586,6 +35975,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 338,
+      "sourceMobItemIdx": 338,
       "slots": [
         {
           "slot": 0,
@@ -35610,6 +36000,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 342,
+      "sourceMobItemIdx": 342,
       "slots": [
         {
           "slot": 0,
@@ -35634,6 +36025,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 347,
+      "sourceMobItemIdx": 347,
       "slots": [
         {
           "slot": 0,
@@ -35658,6 +36050,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 501,
+      "sourceMobItemIdx": 501,
       "slots": [
         {
           "slot": 0,
@@ -35706,6 +36099,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 501,
+      "sourceMobItemIdx": 501,
       "slots": [
         {
           "slot": 0,
@@ -35754,6 +36148,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 501,
+      "sourceMobItemIdx": 501,
       "slots": [
         {
           "slot": 0,
@@ -35802,6 +36197,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 501,
+      "sourceMobItemIdx": 501,
       "slots": [
         {
           "slot": 0,
@@ -35850,6 +36246,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 502,
+      "sourceMobItemIdx": 502,
       "slots": [
         {
           "slot": 0,
@@ -35898,6 +36295,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 502,
+      "sourceMobItemIdx": 502,
       "slots": [
         {
           "slot": 0,
@@ -35946,6 +36344,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 502,
+      "sourceMobItemIdx": 502,
       "slots": [
         {
           "slot": 0,
@@ -35994,6 +36393,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 502,
+      "sourceMobItemIdx": 502,
       "slots": [
         {
           "slot": 0,
@@ -36042,6 +36442,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 503,
+      "sourceMobItemIdx": 503,
       "slots": [
         {
           "slot": 0,
@@ -36090,6 +36491,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 503,
+      "sourceMobItemIdx": 503,
       "slots": [
         {
           "slot": 0,
@@ -36138,6 +36540,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 503,
+      "sourceMobItemIdx": 503,
       "slots": [
         {
           "slot": 0,
@@ -36186,6 +36589,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 503,
+      "sourceMobItemIdx": 503,
       "slots": [
         {
           "slot": 0,
@@ -36234,6 +36638,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 504,
+      "sourceMobItemIdx": 504,
       "slots": [
         {
           "slot": 0,
@@ -36282,6 +36687,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 504,
+      "sourceMobItemIdx": 504,
       "slots": [
         {
           "slot": 0,
@@ -36330,6 +36736,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 504,
+      "sourceMobItemIdx": 504,
       "slots": [
         {
           "slot": 0,
@@ -36378,6 +36785,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 504,
+      "sourceMobItemIdx": 504,
       "slots": [
         {
           "slot": 0,
@@ -36426,6 +36834,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 504,
+      "sourceMobItemIdx": 504,
       "slots": [
         {
           "slot": 0,
@@ -36474,6 +36883,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 505,
+      "sourceMobItemIdx": 505,
       "slots": [
         {
           "slot": 0,
@@ -36522,6 +36932,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 505,
+      "sourceMobItemIdx": 505,
       "slots": [
         {
           "slot": 0,
@@ -36570,6 +36981,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 505,
+      "sourceMobItemIdx": 505,
       "slots": [
         {
           "slot": 0,
@@ -36618,6 +37030,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 505,
+      "sourceMobItemIdx": 505,
       "slots": [
         {
           "slot": 0,
@@ -36666,6 +37079,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 506,
+      "sourceMobItemIdx": 506,
       "slots": [
         {
           "slot": 0,
@@ -36714,6 +37128,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 506,
+      "sourceMobItemIdx": 506,
       "slots": [
         {
           "slot": 0,
@@ -36762,6 +37177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 506,
+      "sourceMobItemIdx": 506,
       "slots": [
         {
           "slot": 0,
@@ -36810,6 +37226,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 506,
+      "sourceMobItemIdx": 506,
       "slots": [
         {
           "slot": 0,
@@ -36858,6 +37275,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 507,
+      "sourceMobItemIdx": 507,
       "slots": [
         {
           "slot": 0,
@@ -36906,6 +37324,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 636,
+      "sourceMobItemIdx": 636,
       "slots": [
         {
           "slot": 0,
@@ -36954,6 +37373,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 636,
+      "sourceMobItemIdx": 636,
       "slots": [
         {
           "slot": 0,
@@ -37002,6 +37422,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 509,
+      "sourceMobItemIdx": 509,
       "slots": [
         {
           "slot": 0,
@@ -37050,6 +37471,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 509,
+      "sourceMobItemIdx": 509,
       "slots": [
         {
           "slot": 0,
@@ -37098,6 +37520,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 509,
+      "sourceMobItemIdx": 509,
       "slots": [
         {
           "slot": 0,
@@ -37146,6 +37569,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 509,
+      "sourceMobItemIdx": 509,
       "slots": [
         {
           "slot": 0,
@@ -37194,6 +37618,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 509,
+      "sourceMobItemIdx": 509,
       "slots": [
         {
           "slot": 0,
@@ -37242,6 +37667,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 510,
+      "sourceMobItemIdx": 510,
       "slots": [
         {
           "slot": 0,
@@ -37290,6 +37716,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 510,
+      "sourceMobItemIdx": 510,
       "slots": [
         {
           "slot": 0,
@@ -37338,6 +37765,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 510,
+      "sourceMobItemIdx": 510,
       "slots": [
         {
           "slot": 0,
@@ -37386,6 +37814,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 510,
+      "sourceMobItemIdx": 510,
       "slots": [
         {
           "slot": 0,
@@ -37434,6 +37863,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 511,
+      "sourceMobItemIdx": 511,
       "slots": [
         {
           "slot": 0,
@@ -37482,6 +37912,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 511,
+      "sourceMobItemIdx": 511,
       "slots": [
         {
           "slot": 0,
@@ -37530,6 +37961,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 511,
+      "sourceMobItemIdx": 511,
       "slots": [
         {
           "slot": 0,
@@ -37578,6 +38010,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 511,
+      "sourceMobItemIdx": 511,
       "slots": [
         {
           "slot": 0,
@@ -37626,6 +38059,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 511,
+      "sourceMobItemIdx": 511,
       "slots": [
         {
           "slot": 0,
@@ -37674,6 +38108,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 474,
+      "sourceMobItemIdx": 474,
       "slots": [
         {
           "slot": 0,
@@ -37698,6 +38133,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 474,
+      "sourceMobItemIdx": 474,
       "slots": [
         {
           "slot": 0,
@@ -37722,6 +38158,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 533,
+      "sourceMobItemIdx": 533,
       "slots": [
         {
           "slot": 0,
@@ -37746,6 +38183,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 533,
+      "sourceMobItemIdx": 533,
       "slots": [
         {
           "slot": 0,
@@ -37770,6 +38208,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 534,
+      "sourceMobItemIdx": 534,
       "slots": [
         {
           "slot": 0,
@@ -37794,6 +38233,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 475,
+      "sourceMobItemIdx": 475,
       "slots": [
         {
           "slot": 0,
@@ -37818,6 +38258,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 475,
+      "sourceMobItemIdx": 475,
       "slots": [
         {
           "slot": 0,
@@ -37842,6 +38283,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 534,
+      "sourceMobItemIdx": 534,
       "slots": [
         {
           "slot": 0,
@@ -37866,6 +38308,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 476,
+      "sourceMobItemIdx": 476,
       "slots": [
         {
           "slot": 0,
@@ -37890,6 +38333,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 476,
+      "sourceMobItemIdx": 476,
       "slots": [
         {
           "slot": 0,
@@ -37914,6 +38358,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 222,
+      "sourceMobItemIdx": 222,
       "slots": [
         {
           "slot": 0,
@@ -37950,6 +38395,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 226,
+      "sourceMobItemIdx": 226,
       "slots": [
         {
           "slot": 0,
@@ -37986,6 +38432,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 227,
+      "sourceMobItemIdx": 227,
       "slots": [
         {
           "slot": 0,
@@ -38022,6 +38469,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 228,
+      "sourceMobItemIdx": 228,
       "slots": [
         {
           "slot": 0,
@@ -38058,6 +38506,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 232,
+      "sourceMobItemIdx": 232,
       "slots": [
         {
           "slot": 0,
@@ -38094,6 +38543,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 234,
+      "sourceMobItemIdx": 234,
       "slots": [
         {
           "slot": 0,
@@ -38130,6 +38580,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 512,
+      "sourceMobItemIdx": 512,
       "slots": [
         {
           "slot": 0,
@@ -38178,6 +38629,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 512,
+      "sourceMobItemIdx": 512,
       "slots": [
         {
           "slot": 0,
@@ -38226,6 +38678,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 512,
+      "sourceMobItemIdx": 512,
       "slots": [
         {
           "slot": 0,
@@ -38274,6 +38727,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 512,
+      "sourceMobItemIdx": 512,
       "slots": [
         {
           "slot": 0,
@@ -38322,6 +38776,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 512,
+      "sourceMobItemIdx": 512,
       "slots": [
         {
           "slot": 0,
@@ -38370,6 +38825,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 513,
+      "sourceMobItemIdx": 513,
       "slots": [
         {
           "slot": 0,
@@ -38418,6 +38874,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 513,
+      "sourceMobItemIdx": 513,
       "slots": [
         {
           "slot": 0,
@@ -38466,6 +38923,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 513,
+      "sourceMobItemIdx": 513,
       "slots": [
         {
           "slot": 0,
@@ -38514,6 +38972,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 513,
+      "sourceMobItemIdx": 513,
       "slots": [
         {
           "slot": 0,
@@ -38562,6 +39021,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 514,
+      "sourceMobItemIdx": 514,
       "slots": [
         {
           "slot": 0,
@@ -38610,6 +39070,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 514,
+      "sourceMobItemIdx": 514,
       "slots": [
         {
           "slot": 0,
@@ -38658,6 +39119,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 514,
+      "sourceMobItemIdx": 514,
       "slots": [
         {
           "slot": 0,
@@ -38706,6 +39168,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 514,
+      "sourceMobItemIdx": 514,
       "slots": [
         {
           "slot": 0,
@@ -38754,6 +39217,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 515,
+      "sourceMobItemIdx": 515,
       "slots": [
         {
           "slot": 0,
@@ -38802,6 +39266,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 637,
+      "sourceMobItemIdx": 637,
       "slots": [
         {
           "slot": 0,
@@ -38850,6 +39315,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 637,
+      "sourceMobItemIdx": 637,
       "slots": [
         {
           "slot": 0,
@@ -38898,6 +39364,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 517,
+      "sourceMobItemIdx": 517,
       "slots": [
         {
           "slot": 0,
@@ -38946,6 +39413,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 517,
+      "sourceMobItemIdx": 517,
       "slots": [
         {
           "slot": 0,
@@ -38994,6 +39462,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 518,
+      "sourceMobItemIdx": 518,
       "slots": [
         {
           "slot": 0,
@@ -39042,6 +39511,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 518,
+      "sourceMobItemIdx": 518,
       "slots": [
         {
           "slot": 0,
@@ -39090,6 +39560,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 518,
+      "sourceMobItemIdx": 518,
       "slots": [
         {
           "slot": 0,
@@ -39138,6 +39609,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 519,
+      "sourceMobItemIdx": 519,
       "slots": [
         {
           "slot": 0,
@@ -39186,6 +39658,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 519,
+      "sourceMobItemIdx": 519,
       "slots": [
         {
           "slot": 0,
@@ -39234,6 +39707,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 519,
+      "sourceMobItemIdx": 519,
       "slots": [
         {
           "slot": 0,
@@ -39282,6 +39756,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 520,
+      "sourceMobItemIdx": 520,
       "slots": [
         {
           "slot": 0,
@@ -39330,6 +39805,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 520,
+      "sourceMobItemIdx": 520,
       "slots": [
         {
           "slot": 0,
@@ -39378,6 +39854,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 520,
+      "sourceMobItemIdx": 520,
       "slots": [
         {
           "slot": 0,
@@ -39426,6 +39903,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 520,
+      "sourceMobItemIdx": 520,
       "slots": [
         {
           "slot": 0,
@@ -39474,6 +39952,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 521,
+      "sourceMobItemIdx": 521,
       "slots": [
         {
           "slot": 0,
@@ -39522,6 +40001,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 521,
+      "sourceMobItemIdx": 521,
       "slots": [
         {
           "slot": 0,
@@ -39570,6 +40050,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 521,
+      "sourceMobItemIdx": 521,
       "slots": [
         {
           "slot": 0,
@@ -39618,6 +40099,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 522,
+      "sourceMobItemIdx": 522,
       "slots": [
         {
           "slot": 0,
@@ -39666,6 +40148,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 523,
+      "sourceMobItemIdx": 523,
       "slots": [
         {
           "slot": 0,
@@ -39714,6 +40197,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 641,
+      "sourceMobItemIdx": 641,
       "slots": [
         {
           "slot": 0,
@@ -39762,6 +40246,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 641,
+      "sourceMobItemIdx": 641,
       "slots": [
         {
           "slot": 0,
@@ -39810,6 +40295,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 525,
+      "sourceMobItemIdx": 525,
       "slots": [
         {
           "slot": 0,
@@ -39858,6 +40344,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 525,
+      "sourceMobItemIdx": 525,
       "slots": [
         {
           "slot": 0,
@@ -39906,6 +40393,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 525,
+      "sourceMobItemIdx": 525,
       "slots": [
         {
           "slot": 0,
@@ -39954,6 +40442,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 526,
+      "sourceMobItemIdx": 526,
       "slots": [
         {
           "slot": 0,
@@ -40002,6 +40491,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 526,
+      "sourceMobItemIdx": 526,
       "slots": [
         {
           "slot": 0,
@@ -40050,6 +40540,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 526,
+      "sourceMobItemIdx": 526,
       "slots": [
         {
           "slot": 0,
@@ -40098,6 +40589,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 526,
+      "sourceMobItemIdx": 526,
       "slots": [
         {
           "slot": 0,
@@ -40146,6 +40638,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 527,
+      "sourceMobItemIdx": 527,
       "slots": [
         {
           "slot": 0,
@@ -40194,6 +40687,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 527,
+      "sourceMobItemIdx": 527,
       "slots": [
         {
           "slot": 0,
@@ -40242,6 +40736,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 527,
+      "sourceMobItemIdx": 527,
       "slots": [
         {
           "slot": 0,
@@ -40290,6 +40785,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 527,
+      "sourceMobItemIdx": 527,
       "slots": [
         {
           "slot": 0,
@@ -40338,6 +40834,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 528,
+      "sourceMobItemIdx": 528,
       "slots": [
         {
           "slot": 0,
@@ -40386,6 +40883,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 528,
+      "sourceMobItemIdx": 528,
       "slots": [
         {
           "slot": 0,
@@ -40434,6 +40932,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 528,
+      "sourceMobItemIdx": 528,
       "slots": [
         {
           "slot": 0,
@@ -40482,6 +40981,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 528,
+      "sourceMobItemIdx": 528,
       "slots": [
         {
           "slot": 0,
@@ -40530,6 +41030,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 528,
+      "sourceMobItemIdx": 528,
       "slots": [
         {
           "slot": 0,
@@ -40578,6 +41079,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 529,
+      "sourceMobItemIdx": 529,
       "slots": [
         {
           "slot": 0,
@@ -40626,6 +41128,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 529,
+      "sourceMobItemIdx": 529,
       "slots": [
         {
           "slot": 0,
@@ -40674,6 +41177,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 529,
+      "sourceMobItemIdx": 529,
       "slots": [
         {
           "slot": 0,
@@ -40722,6 +41226,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 264,
+      "sourceMobItemIdx": 264,
       "slots": [
         {
           "slot": 0,
@@ -40746,6 +41251,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 265,
+      "sourceMobItemIdx": 265,
       "slots": [
         {
           "slot": 0,
@@ -40770,6 +41276,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 277,
+      "sourceMobItemIdx": 277,
       "slots": [
         {
           "slot": 0,
@@ -40794,6 +41301,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 278,
+      "sourceMobItemIdx": 278,
       "slots": [
         {
           "slot": 0,
@@ -40818,6 +41326,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 279,
+      "sourceMobItemIdx": 279,
       "slots": [
         {
           "slot": 0,
@@ -40842,6 +41351,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 280,
+      "sourceMobItemIdx": 280,
       "slots": [
         {
           "slot": 0,
@@ -40866,6 +41376,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 303,
+      "sourceMobItemIdx": 303,
       "slots": [
         {
           "slot": 0,
@@ -40890,6 +41401,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 304,
+      "sourceMobItemIdx": 304,
       "slots": [
         {
           "slot": 0,
@@ -40914,6 +41426,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 314,
+      "sourceMobItemIdx": 314,
       "slots": [
         {
           "slot": 0,
@@ -40938,6 +41451,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 315,
+      "sourceMobItemIdx": 315,
       "slots": [
         {
           "slot": 0,
@@ -40962,6 +41476,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 317,
+      "sourceMobItemIdx": 317,
       "slots": [
         {
           "slot": 0,
@@ -40986,6 +41501,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 318,
+      "sourceMobItemIdx": 318,
       "slots": [
         {
           "slot": 0,
@@ -41010,6 +41526,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 266,
+      "sourceMobItemIdx": 266,
       "slots": [
         {
           "slot": 0,
@@ -41034,6 +41551,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 267,
+      "sourceMobItemIdx": 267,
       "slots": [
         {
           "slot": 0,
@@ -41058,6 +41576,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 272,
+      "sourceMobItemIdx": 272,
       "slots": [
         {
           "slot": 0,
@@ -41082,6 +41601,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 273,
+      "sourceMobItemIdx": 273,
       "slots": [
         {
           "slot": 0,
@@ -41106,6 +41626,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 281,
+      "sourceMobItemIdx": 281,
       "slots": [
         {
           "slot": 0,
@@ -41130,6 +41651,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 282,
+      "sourceMobItemIdx": 282,
       "slots": [
         {
           "slot": 0,
@@ -41154,6 +41676,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 288,
+      "sourceMobItemIdx": 288,
       "slots": [
         {
           "slot": 0,
@@ -41178,6 +41701,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 289,
+      "sourceMobItemIdx": 289,
       "slots": [
         {
           "slot": 0,
@@ -41202,6 +41726,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 305,
+      "sourceMobItemIdx": 305,
       "slots": [
         {
           "slot": 0,
@@ -41226,6 +41751,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 306,
+      "sourceMobItemIdx": 306,
       "slots": [
         {
           "slot": 0,
@@ -41250,6 +41776,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 319,
+      "sourceMobItemIdx": 319,
       "slots": [
         {
           "slot": 0,
@@ -41274,6 +41801,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 320,
+      "sourceMobItemIdx": 320,
       "slots": [
         {
           "slot": 0,
@@ -41298,6 +41826,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 268,
+      "sourceMobItemIdx": 268,
       "slots": [
         {
           "slot": 0,
@@ -41322,6 +41851,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 269,
+      "sourceMobItemIdx": 269,
       "slots": [
         {
           "slot": 0,
@@ -41346,6 +41876,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 283,
+      "sourceMobItemIdx": 283,
       "slots": [
         {
           "slot": 0,
@@ -41370,6 +41901,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 284,
+      "sourceMobItemIdx": 284,
       "slots": [
         {
           "slot": 0,
@@ -41394,6 +41926,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 291,
+      "sourceMobItemIdx": 291,
       "slots": [
         {
           "slot": 0,
@@ -41418,6 +41951,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 292,
+      "sourceMobItemIdx": 292,
       "slots": [
         {
           "slot": 0,
@@ -41442,6 +41976,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 307,
+      "sourceMobItemIdx": 307,
       "slots": [
         {
           "slot": 0,
@@ -41466,6 +42001,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 308,
+      "sourceMobItemIdx": 308,
       "slots": [
         {
           "slot": 0,
@@ -41490,6 +42026,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 321,
+      "sourceMobItemIdx": 321,
       "slots": [
         {
           "slot": 0,
@@ -41514,6 +42051,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 322,
+      "sourceMobItemIdx": 322,
       "slots": [
         {
           "slot": 0,
@@ -41538,6 +42076,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 333,
+      "sourceMobItemIdx": 333,
       "slots": [
         {
           "slot": 0,
@@ -41562,6 +42101,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 334,
+      "sourceMobItemIdx": 334,
       "slots": [
         {
           "slot": 0,
@@ -41586,6 +42126,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 270,
+      "sourceMobItemIdx": 270,
       "slots": [
         {
           "slot": 0,
@@ -41610,6 +42151,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 285,
+      "sourceMobItemIdx": 285,
       "slots": [
         {
           "slot": 0,
@@ -41634,6 +42176,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 309,
+      "sourceMobItemIdx": 309,
       "slots": [
         {
           "slot": 0,
@@ -41658,6 +42201,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 323,
+      "sourceMobItemIdx": 323,
       "slots": [
         {
           "slot": 0,
@@ -41682,6 +42226,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 328,
+      "sourceMobItemIdx": 328,
       "slots": [
         {
           "slot": 0,
@@ -41706,6 +42251,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 341,
+      "sourceMobItemIdx": 341,
       "slots": [
         {
           "slot": 0,
@@ -41730,6 +42276,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 530,
+      "sourceMobItemIdx": 530,
       "slots": [
         {
           "slot": 0,
@@ -41778,6 +42325,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 530,
+      "sourceMobItemIdx": 530,
       "slots": [
         {
           "slot": 0,
@@ -41826,6 +42374,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 530,
+      "sourceMobItemIdx": 530,
       "slots": [
         {
           "slot": 0,
@@ -41874,6 +42423,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 531,
+      "sourceMobItemIdx": 531,
       "slots": [
         {
           "slot": 0,
@@ -41922,6 +42472,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 643,
+      "sourceMobItemIdx": 643,
       "slots": [
         {
           "slot": 0,
@@ -41970,6 +42521,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 643,
+      "sourceMobItemIdx": 643,
       "slots": [
         {
           "slot": 0,
@@ -42018,6 +42570,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 3,
+      "sourceMobItemIdx": 3,
       "slots": [
         {
           "slot": 0,
@@ -42042,6 +42595,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 4,
+      "sourceMobItemIdx": 4,
       "slots": [
         {
           "slot": 0,
@@ -42066,6 +42620,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 7,
+      "sourceMobItemIdx": 7,
       "slots": [
         {
           "slot": 0,
@@ -42090,6 +42645,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 9,
+      "sourceMobItemIdx": 9,
       "slots": [
         {
           "slot": 0,
@@ -42114,6 +42670,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 10,
+      "sourceMobItemIdx": 10,
       "slots": [
         {
           "slot": 0,
@@ -42138,6 +42695,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 15,
+      "sourceMobItemIdx": 15,
       "slots": [
         {
           "slot": 0,
@@ -42162,6 +42720,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 19,
+      "sourceMobItemIdx": 19,
       "slots": [
         {
           "slot": 0,
@@ -42186,6 +42745,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 22,
+      "sourceMobItemIdx": 22,
       "slots": [
         {
           "slot": 0,
@@ -42210,6 +42770,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 24,
+      "sourceMobItemIdx": 24,
       "slots": [
         {
           "slot": 0,
@@ -42234,6 +42795,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 26,
+      "sourceMobItemIdx": 26,
       "slots": [
         {
           "slot": 0,
@@ -42258,6 +42820,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 30,
+      "sourceMobItemIdx": 30,
       "slots": [
         {
           "slot": 0,
@@ -42282,6 +42845,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 32,
+      "sourceMobItemIdx": 32,
       "slots": [
         {
           "slot": 0,
@@ -42306,6 +42870,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 33,
+      "sourceMobItemIdx": 33,
       "slots": [
         {
           "slot": 0,
@@ -42330,6 +42895,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 38,
+      "sourceMobItemIdx": 38,
       "slots": [
         {
           "slot": 0,
@@ -42354,6 +42920,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 608,
+      "sourceMobItemIdx": 608,
       "slots": [
         {
           "slot": 0,
@@ -42402,6 +42969,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 608,
+      "sourceMobItemIdx": 608,
       "slots": [
         {
           "slot": 0,
@@ -42450,6 +43018,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 608,
+      "sourceMobItemIdx": 608,
       "slots": [
         {
           "slot": 0,
@@ -42498,6 +43067,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 608,
+      "sourceMobItemIdx": 608,
       "slots": [
         {
           "slot": 0,
@@ -42546,6 +43116,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 609,
+      "sourceMobItemIdx": 609,
       "slots": [
         {
           "slot": 0,
@@ -42594,6 +43165,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 609,
+      "sourceMobItemIdx": 609,
       "slots": [
         {
           "slot": 0,
@@ -42642,6 +43214,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 609,
+      "sourceMobItemIdx": 609,
       "slots": [
         {
           "slot": 0,
@@ -42690,6 +43263,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 609,
+      "sourceMobItemIdx": 609,
       "slots": [
         {
           "slot": 0,
@@ -42738,6 +43312,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 609,
+      "sourceMobItemIdx": 609,
       "slots": [
         {
           "slot": 0,
@@ -42786,6 +43361,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 610,
+      "sourceMobItemIdx": 610,
       "slots": [
         {
           "slot": 0,
@@ -42834,6 +43410,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 610,
+      "sourceMobItemIdx": 610,
       "slots": [
         {
           "slot": 0,
@@ -42882,6 +43459,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 610,
+      "sourceMobItemIdx": 610,
       "slots": [
         {
           "slot": 0,
@@ -42930,6 +43508,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 610,
+      "sourceMobItemIdx": 610,
       "slots": [
         {
           "slot": 0,
@@ -42978,6 +43557,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 610,
+      "sourceMobItemIdx": 610,
       "slots": [
         {
           "slot": 0,
@@ -43026,6 +43606,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 611,
+      "sourceMobItemIdx": 611,
       "slots": [
         {
           "slot": 0,
@@ -43074,6 +43655,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 611,
+      "sourceMobItemIdx": 611,
       "slots": [
         {
           "slot": 0,
@@ -43122,6 +43704,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 611,
+      "sourceMobItemIdx": 611,
       "slots": [
         {
           "slot": 0,
@@ -43170,6 +43753,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 612,
+      "sourceMobItemIdx": 612,
       "slots": [
         {
           "slot": 0,
@@ -43218,6 +43802,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 612,
+      "sourceMobItemIdx": 612,
       "slots": [
         {
           "slot": 0,
@@ -43266,6 +43851,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 612,
+      "sourceMobItemIdx": 612,
       "slots": [
         {
           "slot": 0,
@@ -43314,6 +43900,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 613,
+      "sourceMobItemIdx": 613,
       "slots": [
         {
           "slot": 0,
@@ -43362,6 +43949,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 613,
+      "sourceMobItemIdx": 613,
       "slots": [
         {
           "slot": 0,
@@ -43410,6 +43998,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 613,
+      "sourceMobItemIdx": 613,
       "slots": [
         {
           "slot": 0,
@@ -43458,6 +44047,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 614,
+      "sourceMobItemIdx": 614,
       "slots": [
         {
           "slot": 0,
@@ -43506,6 +44096,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 639,
+      "sourceMobItemIdx": 639,
       "slots": [
         {
           "slot": 0,
@@ -43554,6 +44145,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 639,
+      "sourceMobItemIdx": 639,
       "slots": [
         {
           "slot": 0,
@@ -43602,6 +44194,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43626,6 +44219,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43650,6 +44244,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43674,6 +44269,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43698,6 +44294,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43722,6 +44319,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43746,6 +44344,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43770,6 +44369,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -43794,6 +44394,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 635,
+      "sourceMobItemIdx": 635,
       "slots": [
         {
           "slot": 0,
@@ -43818,6 +44419,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 461,
+      "sourceMobItemIdx": 461,
       "slots": [
         {
           "slot": 0,
@@ -43842,6 +44444,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 462,
+      "sourceMobItemIdx": 462,
       "slots": [
         {
           "slot": 0,
@@ -43866,6 +44469,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 463,
+      "sourceMobItemIdx": 463,
       "slots": [
         {
           "slot": 0,
@@ -43890,6 +44494,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 464,
+      "sourceMobItemIdx": 464,
       "slots": [
         {
           "slot": 0,
@@ -43914,6 +44519,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 465,
+      "sourceMobItemIdx": 465,
       "slots": [
         {
           "slot": 0,
@@ -43938,6 +44544,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 466,
+      "sourceMobItemIdx": 466,
       "slots": [
         {
           "slot": 0,
@@ -43962,6 +44569,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 467,
+      "sourceMobItemIdx": 467,
       "slots": [
         {
           "slot": 0,
@@ -43986,6 +44594,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 468,
+      "sourceMobItemIdx": 468,
       "slots": [
         {
           "slot": 0,
@@ -44010,6 +44619,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 469,
+      "sourceMobItemIdx": 469,
       "slots": [
         {
           "slot": 0,
@@ -44034,6 +44644,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 470,
+      "sourceMobItemIdx": 470,
       "slots": [
         {
           "slot": 0,
@@ -44058,6 +44669,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 471,
+      "sourceMobItemIdx": 471,
       "slots": [
         {
           "slot": 0,
@@ -44082,6 +44694,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 472,
+      "sourceMobItemIdx": 472,
       "slots": [
         {
           "slot": 0,
@@ -44106,6 +44719,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 473,
+      "sourceMobItemIdx": 473,
       "slots": [
         {
           "slot": 0,
@@ -44130,6 +44744,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 362,
+      "sourceMobItemIdx": 362,
       "slots": [
         {
           "slot": 0,
@@ -44154,6 +44769,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 363,
+      "sourceMobItemIdx": 363,
       "slots": [
         {
           "slot": 0,
@@ -44178,6 +44794,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 374,
+      "sourceMobItemIdx": 374,
       "slots": [
         {
           "slot": 0,
@@ -44202,6 +44819,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 395,
+      "sourceMobItemIdx": 395,
       "slots": [
         {
           "slot": 0,
@@ -44226,6 +44844,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 395,
+      "sourceMobItemIdx": 395,
       "slots": [
         {
           "slot": 0,
@@ -44250,6 +44869,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 396,
+      "sourceMobItemIdx": 396,
       "slots": [
         {
           "slot": 0,
@@ -44274,6 +44894,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 396,
+      "sourceMobItemIdx": 396,
       "slots": [
         {
           "slot": 0,
@@ -44298,6 +44919,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 399,
+      "sourceMobItemIdx": 399,
       "slots": [
         {
           "slot": 0,
@@ -44322,6 +44944,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 399,
+      "sourceMobItemIdx": 399,
       "slots": [
         {
           "slot": 0,
@@ -44346,6 +44969,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44370,6 +44994,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44394,6 +45019,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44418,6 +45044,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44442,6 +45069,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 464,
+      "sourceMobItemIdx": 464,
       "slots": [
         {
           "slot": 0,
@@ -44466,6 +45094,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 395,
+      "sourceMobItemIdx": 395,
       "slots": [
         {
           "slot": 0,
@@ -44490,6 +45119,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 403,
+      "sourceMobItemIdx": 403,
       "slots": [
         {
           "slot": 0,
@@ -44514,6 +45144,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 426,
+      "sourceMobItemIdx": 426,
       "slots": [
         {
           "slot": 0,
@@ -44538,6 +45169,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44562,6 +45194,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44586,6 +45219,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44610,6 +45244,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 429,
+      "sourceMobItemIdx": 429,
       "slots": [
         {
           "slot": 0,
@@ -44634,6 +45269,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 438,
+      "sourceMobItemIdx": 438,
       "slots": [
         {
           "slot": 0,
@@ -44658,6 +45294,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 439,
+      "sourceMobItemIdx": 439,
       "slots": [
         {
           "slot": 0,
@@ -44682,6 +45319,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 446,
+      "sourceMobItemIdx": 446,
       "slots": [
         {
           "slot": 0,
@@ -44706,6 +45344,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 446,
+      "sourceMobItemIdx": 446,
       "slots": [
         {
           "slot": 0,
@@ -44730,6 +45369,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 451,
+      "sourceMobItemIdx": 451,
       "slots": [
         {
           "slot": 0,
@@ -44754,6 +45394,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 451,
+      "sourceMobItemIdx": 451,
       "slots": [
         {
           "slot": 0,
@@ -44778,6 +45419,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 467,
+      "sourceMobItemIdx": 467,
       "slots": [
         {
           "slot": 0,
@@ -44802,6 +45444,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -44826,6 +45469,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -44850,6 +45494,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -44874,6 +45519,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -44898,6 +45544,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -44922,6 +45569,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -44946,6 +45594,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -44970,6 +45619,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -44994,6 +45644,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45018,6 +45669,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45042,6 +45694,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45066,6 +45719,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -45090,6 +45744,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -45114,6 +45769,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45138,6 +45794,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -45162,6 +45819,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -45186,6 +45844,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -45210,6 +45869,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -45234,6 +45894,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45258,6 +45919,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -45282,6 +45944,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45306,6 +45969,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45330,6 +45994,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -45354,6 +46019,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45378,6 +46044,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45402,6 +46069,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45426,6 +46094,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45450,6 +46119,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45474,6 +46144,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -45498,6 +46169,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45522,6 +46194,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45546,6 +46219,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -45570,6 +46244,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45594,6 +46269,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45618,6 +46294,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45642,6 +46319,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -45666,6 +46344,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45690,6 +46369,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -45714,6 +46394,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45738,6 +46419,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45762,6 +46444,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -45786,6 +46469,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -45810,6 +46494,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45834,6 +46519,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -45858,6 +46544,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -45882,6 +46569,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -45906,6 +46594,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -45930,6 +46619,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -45954,6 +46644,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -45978,6 +46669,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -46002,6 +46694,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -46026,6 +46719,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46050,6 +46744,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -46074,6 +46769,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -46098,6 +46794,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46122,6 +46819,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46146,6 +46844,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46170,6 +46869,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46194,6 +46894,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46218,6 +46919,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -46242,6 +46944,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -46266,6 +46969,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46290,6 +46994,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -46314,6 +47019,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46338,6 +47044,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46362,6 +47069,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46386,6 +47094,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -46410,6 +47119,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -46434,6 +47144,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -46458,6 +47169,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -46482,6 +47194,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -46506,6 +47219,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46530,6 +47244,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -46554,6 +47269,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -46578,6 +47294,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -46602,6 +47319,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46626,6 +47344,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46650,6 +47369,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46674,6 +47394,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -46698,6 +47419,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -46722,6 +47444,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -46746,6 +47469,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -46770,6 +47494,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -46794,6 +47519,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46818,6 +47544,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46842,6 +47569,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46866,6 +47594,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46890,6 +47619,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46914,6 +47644,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46938,6 +47669,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46962,6 +47694,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -46986,6 +47719,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47010,6 +47744,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47034,6 +47769,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47058,6 +47794,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47082,6 +47819,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47106,6 +47844,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47130,6 +47869,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47154,6 +47894,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47178,6 +47919,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47202,6 +47944,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47226,6 +47969,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47250,6 +47994,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47274,6 +48019,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47298,6 +48044,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47322,6 +48069,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 483,
+      "sourceMobItemIdx": 483,
       "slots": [
         {
           "slot": 0,
@@ -47346,6 +48094,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 484,
+      "sourceMobItemIdx": 484,
       "slots": [
         {
           "slot": 0,
@@ -47370,6 +48119,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47394,6 +48144,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 483,
+      "sourceMobItemIdx": 483,
       "slots": [
         {
           "slot": 0,
@@ -47418,6 +48169,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 484,
+      "sourceMobItemIdx": 484,
       "slots": [
         {
           "slot": 0,
@@ -47442,6 +48194,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47466,6 +48219,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47490,6 +48244,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 486,
+      "sourceMobItemIdx": 486,
       "slots": [
         {
           "slot": 0,
@@ -47514,6 +48269,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 487,
+      "sourceMobItemIdx": 487,
       "slots": [
         {
           "slot": 0,
@@ -47538,6 +48294,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47562,6 +48319,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 486,
+      "sourceMobItemIdx": 486,
       "slots": [
         {
           "slot": 0,
@@ -47586,6 +48344,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 487,
+      "sourceMobItemIdx": 487,
       "slots": [
         {
           "slot": 0,
@@ -47610,6 +48369,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47634,6 +48394,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 486,
+      "sourceMobItemIdx": 486,
       "slots": [
         {
           "slot": 0,
@@ -47658,6 +48419,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 487,
+      "sourceMobItemIdx": 487,
       "slots": [
         {
           "slot": 0,
@@ -47682,6 +48444,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 485,
+      "sourceMobItemIdx": 485,
       "slots": [
         {
           "slot": 0,
@@ -47706,6 +48469,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 486,
+      "sourceMobItemIdx": 486,
       "slots": [
         {
           "slot": 0,
@@ -47730,6 +48494,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 487,
+      "sourceMobItemIdx": 487,
       "slots": [
         {
           "slot": 0,
@@ -47753,7 +48518,8 @@
       "moveType": 0,
       "aggressive": 0,
       "sightRange": 5,
-      "mobItemIdx": 645,
+      "mobItemIdx": 644,
+      "sourceMobItemIdx": 645,
       "slots": [
         {
           "slot": 0,
@@ -47778,6 +48544,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47802,6 +48569,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47826,6 +48594,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47850,6 +48619,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47874,6 +48644,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47898,6 +48669,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 0,
+      "sourceMobItemIdx": 0,
       "slots": [
         {
           "slot": 0,
@@ -47922,6 +48694,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 499,
+      "sourceMobItemIdx": 499,
       "slots": [
         {
           "slot": 0,
@@ -47946,6 +48719,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 499,
+      "sourceMobItemIdx": 499,
       "slots": [
         {
           "slot": 0,
@@ -47970,6 +48744,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 636,
+      "sourceMobItemIdx": 636,
       "slots": [
         {
           "slot": 0,
@@ -47994,6 +48769,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 637,
+      "sourceMobItemIdx": 637,
       "slots": [
         {
           "slot": 0,
@@ -48018,6 +48794,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 638,
+      "sourceMobItemIdx": 638,
       "slots": [
         {
           "slot": 0,
@@ -48042,6 +48819,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 639,
+      "sourceMobItemIdx": 639,
       "slots": [
         {
           "slot": 0,
@@ -48066,6 +48844,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 640,
+      "sourceMobItemIdx": 640,
       "slots": [
         {
           "slot": 0,
@@ -48090,6 +48869,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 641,
+      "sourceMobItemIdx": 641,
       "slots": [
         {
           "slot": 0,
@@ -48114,6 +48894,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 642,
+      "sourceMobItemIdx": 642,
       "slots": [
         {
           "slot": 0,
@@ -48138,6 +48919,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 643,
+      "sourceMobItemIdx": 643,
       "slots": [
         {
           "slot": 0,
@@ -48162,6 +48944,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 616,
+      "sourceMobItemIdx": 616,
       "slots": [
         {
           "slot": 0,
@@ -48210,6 +48993,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 616,
+      "sourceMobItemIdx": 616,
       "slots": [
         {
           "slot": 0,
@@ -48258,6 +49042,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 616,
+      "sourceMobItemIdx": 616,
       "slots": [
         {
           "slot": 0,
@@ -48306,6 +49091,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 616,
+      "sourceMobItemIdx": 616,
       "slots": [
         {
           "slot": 0,
@@ -48354,6 +49140,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 617,
+      "sourceMobItemIdx": 617,
       "slots": [
         {
           "slot": 0,
@@ -48402,6 +49189,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 617,
+      "sourceMobItemIdx": 617,
       "slots": [
         {
           "slot": 0,
@@ -48450,6 +49238,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 617,
+      "sourceMobItemIdx": 617,
       "slots": [
         {
           "slot": 0,
@@ -48498,6 +49287,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 617,
+      "sourceMobItemIdx": 617,
       "slots": [
         {
           "slot": 0,
@@ -48546,6 +49336,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 617,
+      "sourceMobItemIdx": 617,
       "slots": [
         {
           "slot": 0,
@@ -48594,6 +49385,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 618,
+      "sourceMobItemIdx": 618,
       "slots": [
         {
           "slot": 0,
@@ -48642,6 +49434,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 618,
+      "sourceMobItemIdx": 618,
       "slots": [
         {
           "slot": 0,
@@ -48690,6 +49483,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 618,
+      "sourceMobItemIdx": 618,
       "slots": [
         {
           "slot": 0,
@@ -48738,6 +49532,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 618,
+      "sourceMobItemIdx": 618,
       "slots": [
         {
           "slot": 0,
@@ -48786,6 +49581,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 619,
+      "sourceMobItemIdx": 619,
       "slots": [
         {
           "slot": 0,
@@ -48834,6 +49630,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 619,
+      "sourceMobItemIdx": 619,
       "slots": [
         {
           "slot": 0,
@@ -48882,6 +49679,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 619,
+      "sourceMobItemIdx": 619,
       "slots": [
         {
           "slot": 0,
@@ -48930,6 +49728,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 619,
+      "sourceMobItemIdx": 619,
       "slots": [
         {
           "slot": 0,
@@ -48978,6 +49777,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 620,
+      "sourceMobItemIdx": 620,
       "slots": [
         {
           "slot": 0,
@@ -49026,6 +49826,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 620,
+      "sourceMobItemIdx": 620,
       "slots": [
         {
           "slot": 0,
@@ -49074,6 +49875,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 620,
+      "sourceMobItemIdx": 620,
       "slots": [
         {
           "slot": 0,
@@ -49122,6 +49924,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 621,
+      "sourceMobItemIdx": 621,
       "slots": [
         {
           "slot": 0,
@@ -49170,6 +49973,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 621,
+      "sourceMobItemIdx": 621,
       "slots": [
         {
           "slot": 0,
@@ -49218,6 +50022,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 622,
+      "sourceMobItemIdx": 622,
       "slots": [
         {
           "slot": 0,
@@ -49266,6 +50071,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 640,
+      "sourceMobItemIdx": 640,
       "slots": [
         {
           "slot": 0,
@@ -49314,6 +50120,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 640,
+      "sourceMobItemIdx": 640,
       "slots": [
         {
           "slot": 0,
@@ -49362,6 +50169,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 624,
+      "sourceMobItemIdx": 624,
       "slots": [
         {
           "slot": 0,
@@ -49410,6 +50218,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 624,
+      "sourceMobItemIdx": 624,
       "slots": [
         {
           "slot": 0,
@@ -49458,6 +50267,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 624,
+      "sourceMobItemIdx": 624,
       "slots": [
         {
           "slot": 0,
@@ -49506,6 +50316,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 624,
+      "sourceMobItemIdx": 624,
       "slots": [
         {
           "slot": 0,
@@ -49554,6 +50365,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 625,
+      "sourceMobItemIdx": 625,
       "slots": [
         {
           "slot": 0,
@@ -49602,6 +50414,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 625,
+      "sourceMobItemIdx": 625,
       "slots": [
         {
           "slot": 0,
@@ -49650,6 +50463,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 625,
+      "sourceMobItemIdx": 625,
       "slots": [
         {
           "slot": 0,
@@ -49698,6 +50512,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 625,
+      "sourceMobItemIdx": 625,
       "slots": [
         {
           "slot": 0,
@@ -49746,6 +50561,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 626,
+      "sourceMobItemIdx": 626,
       "slots": [
         {
           "slot": 0,
@@ -49794,6 +50610,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 626,
+      "sourceMobItemIdx": 626,
       "slots": [
         {
           "slot": 0,
@@ -49842,6 +50659,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 626,
+      "sourceMobItemIdx": 626,
       "slots": [
         {
           "slot": 0,
@@ -49890,6 +50708,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 626,
+      "sourceMobItemIdx": 626,
       "slots": [
         {
           "slot": 0,
@@ -49938,6 +50757,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 627,
+      "sourceMobItemIdx": 627,
       "slots": [
         {
           "slot": 0,
@@ -49986,6 +50806,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 627,
+      "sourceMobItemIdx": 627,
       "slots": [
         {
           "slot": 0,
@@ -50034,6 +50855,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 627,
+      "sourceMobItemIdx": 627,
       "slots": [
         {
           "slot": 0,
@@ -50082,6 +50904,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 627,
+      "sourceMobItemIdx": 627,
       "slots": [
         {
           "slot": 0,
@@ -50130,6 +50953,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 628,
+      "sourceMobItemIdx": 628,
       "slots": [
         {
           "slot": 0,
@@ -50178,6 +51002,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 628,
+      "sourceMobItemIdx": 628,
       "slots": [
         {
           "slot": 0,
@@ -50226,6 +51051,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 628,
+      "sourceMobItemIdx": 628,
       "slots": [
         {
           "slot": 0,
@@ -50274,6 +51100,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 629,
+      "sourceMobItemIdx": 629,
       "slots": [
         {
           "slot": 0,
@@ -50322,6 +51149,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 629,
+      "sourceMobItemIdx": 629,
       "slots": [
         {
           "slot": 0,
@@ -50370,6 +51198,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 629,
+      "sourceMobItemIdx": 629,
       "slots": [
         {
           "slot": 0,
@@ -50418,6 +51247,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 630,
+      "sourceMobItemIdx": 630,
       "slots": [
         {
           "slot": 0,
@@ -50466,6 +51296,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 642,
+      "sourceMobItemIdx": 642,
       "slots": [
         {
           "slot": 0,
@@ -50514,6 +51345,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 642,
+      "sourceMobItemIdx": 642,
       "slots": [
         {
           "slot": 0,
@@ -50562,6 +51394,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 76,
+      "sourceMobItemIdx": 76,
       "slots": [
         {
           "slot": 0,
@@ -50586,6 +51419,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 78,
+      "sourceMobItemIdx": 78,
       "slots": [
         {
           "slot": 0,
@@ -50610,6 +51444,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 85,
+      "sourceMobItemIdx": 85,
       "slots": [
         {
           "slot": 0,
@@ -50634,6 +51469,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 88,
+      "sourceMobItemIdx": 88,
       "slots": [
         {
           "slot": 0,
@@ -50658,6 +51494,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 113,
+      "sourceMobItemIdx": 113,
       "slots": [
         {
           "slot": 0,
@@ -50682,6 +51519,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 129,
+      "sourceMobItemIdx": 129,
       "slots": [
         {
           "slot": 0,
@@ -50706,6 +51544,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 140,
+      "sourceMobItemIdx": 140,
       "slots": [
         {
           "slot": 0,
@@ -50730,6 +51569,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 164,
+      "sourceMobItemIdx": 164,
       "slots": [
         {
           "slot": 0,
@@ -50754,6 +51594,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 452,
+      "sourceMobItemIdx": 452,
       "slots": [
         {
           "slot": 0,
@@ -50778,6 +51619,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 116,
+      "sourceMobItemIdx": 116,
       "slots": [
         {
           "slot": 0,
@@ -50802,6 +51644,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 124,
+      "sourceMobItemIdx": 124,
       "slots": [
         {
           "slot": 0,
@@ -50826,6 +51669,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 130,
+      "sourceMobItemIdx": 130,
       "slots": [
         {
           "slot": 0,
@@ -50850,6 +51694,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 133,
+      "sourceMobItemIdx": 133,
       "slots": [
         {
           "slot": 0,
@@ -50874,6 +51719,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 135,
+      "sourceMobItemIdx": 135,
       "slots": [
         {
           "slot": 0,
@@ -50898,6 +51744,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 138,
+      "sourceMobItemIdx": 138,
       "slots": [
         {
           "slot": 0,
@@ -50922,6 +51769,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 141,
+      "sourceMobItemIdx": 141,
       "slots": [
         {
           "slot": 0,
@@ -50946,6 +51794,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 159,
+      "sourceMobItemIdx": 159,
       "slots": [
         {
           "slot": 0,
@@ -50970,6 +51819,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 165,
+      "sourceMobItemIdx": 165,
       "slots": [
         {
           "slot": 0,
@@ -50994,6 +51844,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 453,
+      "sourceMobItemIdx": 453,
       "slots": [
         {
           "slot": 0,
@@ -51018,6 +51869,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 131,
+      "sourceMobItemIdx": 131,
       "slots": [
         {
           "slot": 0,
@@ -51042,6 +51894,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 142,
+      "sourceMobItemIdx": 142,
       "slots": [
         {
           "slot": 0,
@@ -51066,6 +51919,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 152,
+      "sourceMobItemIdx": 152,
       "slots": [
         {
           "slot": 0,
@@ -51090,6 +51944,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 166,
+      "sourceMobItemIdx": 166,
       "slots": [
         {
           "slot": 0,
@@ -51114,6 +51969,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 168,
+      "sourceMobItemIdx": 168,
       "slots": [
         {
           "slot": 0,
@@ -51138,6 +51994,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 171,
+      "sourceMobItemIdx": 171,
       "slots": [
         {
           "slot": 0,
@@ -51162,6 +52019,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 176,
+      "sourceMobItemIdx": 176,
       "slots": [
         {
           "slot": 0,
@@ -51186,6 +52044,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 223,
+      "sourceMobItemIdx": 223,
       "slots": [
         {
           "slot": 0,
@@ -51210,6 +52069,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 454,
+      "sourceMobItemIdx": 454,
       "slots": [
         {
           "slot": 0,
@@ -51234,6 +52094,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 187,
+      "sourceMobItemIdx": 187,
       "slots": [
         {
           "slot": 0,
@@ -51258,6 +52119,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 198,
+      "sourceMobItemIdx": 198,
       "slots": [
         {
           "slot": 0,
@@ -51282,6 +52144,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 205,
+      "sourceMobItemIdx": 205,
       "slots": [
         {
           "slot": 0,
@@ -51306,6 +52169,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 207,
+      "sourceMobItemIdx": 207,
       "slots": [
         {
           "slot": 0,
@@ -51330,6 +52194,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 212,
+      "sourceMobItemIdx": 212,
       "slots": [
         {
           "slot": 0,
@@ -51354,6 +52219,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 224,
+      "sourceMobItemIdx": 224,
       "slots": [
         {
           "slot": 0,
@@ -51378,6 +52244,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 455,
+      "sourceMobItemIdx": 455,
       "slots": [
         {
           "slot": 0,
@@ -51402,6 +52269,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 211,
+      "sourceMobItemIdx": 211,
       "slots": [
         {
           "slot": 0,
@@ -51426,6 +52294,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 213,
+      "sourceMobItemIdx": 213,
       "slots": [
         {
           "slot": 0,
@@ -51450,6 +52319,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 215,
+      "sourceMobItemIdx": 215,
       "slots": [
         {
           "slot": 0,
@@ -51474,6 +52344,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 217,
+      "sourceMobItemIdx": 217,
       "slots": [
         {
           "slot": 0,
@@ -51498,6 +52369,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 219,
+      "sourceMobItemIdx": 219,
       "slots": [
         {
           "slot": 0,
@@ -51522,6 +52394,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 221,
+      "sourceMobItemIdx": 221,
       "slots": [
         {
           "slot": 0,
@@ -51546,6 +52419,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 225,
+      "sourceMobItemIdx": 225,
       "slots": [
         {
           "slot": 0,
@@ -51570,6 +52444,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 229,
+      "sourceMobItemIdx": 229,
       "slots": [
         {
           "slot": 0,
@@ -51594,6 +52469,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 456,
+      "sourceMobItemIdx": 456,
       "slots": [
         {
           "slot": 0,
@@ -51618,6 +52494,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 235,
+      "sourceMobItemIdx": 235,
       "slots": [
         {
           "slot": 0,
@@ -51642,6 +52519,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 236,
+      "sourceMobItemIdx": 236,
       "slots": [
         {
           "slot": 0,
@@ -51666,6 +52544,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 244,
+      "sourceMobItemIdx": 244,
       "slots": [
         {
           "slot": 0,
@@ -51690,6 +52569,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 249,
+      "sourceMobItemIdx": 249,
       "slots": [
         {
           "slot": 0,
@@ -51714,6 +52594,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 255,
+      "sourceMobItemIdx": 255,
       "slots": [
         {
           "slot": 0,
@@ -51738,6 +52619,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 457,
+      "sourceMobItemIdx": 457,
       "slots": [
         {
           "slot": 0,
@@ -51762,6 +52644,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 250,
+      "sourceMobItemIdx": 250,
       "slots": [
         {
           "slot": 0,
@@ -51786,6 +52669,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 274,
+      "sourceMobItemIdx": 274,
       "slots": [
         {
           "slot": 0,
@@ -51810,6 +52694,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 127,
+      "sourceMobItemIdx": 127,
       "slots": [
         {
           "slot": 0,
@@ -51834,6 +52719,7 @@
       "aggressive": 1,
       "sightRange": 5,
       "mobItemIdx": 162,
+      "sourceMobItemIdx": 162,
       "slots": [
         {
           "slot": 0,
@@ -51858,6 +52744,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 180,
+      "sourceMobItemIdx": 180,
       "slots": [
         {
           "slot": 0,
@@ -51882,6 +52769,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 150,
+      "sourceMobItemIdx": 150,
       "slots": [
         {
           "slot": 0,
@@ -51906,6 +52794,7 @@
       "aggressive": 0,
       "sightRange": 5,
       "mobItemIdx": 157,
+      "sourceMobItemIdx": 157,
       "slots": [
         {
           "slot": 0,

@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-03-05T20:05:30.638998+00:00",
+  "builtAt": "2026-03-06T00:08:04.794891+00:00",
   "sourceTableCount": 39,
   "sourceRowCounts": {
     "Player": 3,
@@ -242,7 +242,7 @@
         ]
       },
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.193507+00:00",
+        "builtAt": "2026-03-06T00:08:04.473446+00:00",
         "sourceTables": {
           "s_zone": 201,
           "s_gate": 140
@@ -256,7 +256,7 @@
         "zonesWithSpawn": 173
       },
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.225913+00:00",
+        "builtAt": "2026-03-06T00:08:04.499794+00:00",
         "sourceTables": {
           "s_mob": 889,
           "s_monster": 1418
@@ -272,7 +272,7 @@
         "skillLevelRows": 140
       },
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.229877+00:00",
+        "builtAt": "2026-03-06T00:08:04.502064+00:00",
         "sourceTables": {
           "s_hero": 4,
           "s_LvUserInfo": 200,
@@ -293,7 +293,7 @@
         "unresolvedMonsterTypes": []
       },
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.237423+00:00",
+        "builtAt": "2026-03-06T00:08:04.507740+00:00",
         "sourceTables": {
           "s_mix": 720,
           "s_monster": 1418
@@ -303,20 +303,22 @@
     "economy": {
       "stats": {
         "itemCount": 4608,
-        "virtualItemCount": 20,
+        "virtualItemCount": 18,
         "validItemCount": 4593,
-        "npcCount": 1052,
+        "npcCount": 1053,
         "npcSaleCount": 1792,
-        "shopCatalogRows": 1790,
-        "productionRecipeCount": 167
+        "shopCatalogRows": 1269,
+        "productionRecipeCount": 167,
+        "aliasedItemCount": 2,
+        "aliasedMobDropSlots": 12
       },
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.267633+00:00",
+        "builtAt": "2026-03-06T00:08:04.535274+00:00",
         "sourceTables": {
           "s_item": 4608,
           "s_ItemEffectiveData": 7980,
           "s_mobitem": 634,
-          "s_npc": 1052,
+          "s_npc": 1053,
           "s_npc_sale": 1792,
           "s_Production": 167,
           "s_npc_fixed": 1052
@@ -326,7 +328,7 @@
     "ops": {
       "stats": {},
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.267825+00:00",
+        "builtAt": "2026-03-06T00:08:04.535429+00:00",
         "sourceTables": {
           "s_event": 1,
           "s_event_drop": 169,
@@ -339,7 +341,7 @@
     "save_schema": {
       "stats": {},
       "meta": {
-        "builtAt": "2026-03-05T20:05:30.267844+00:00",
+        "builtAt": "2026-03-06T00:08:04.535440+00:00",
         "sourceTables": {
           "Player": 3,
           "u_hero": 0,

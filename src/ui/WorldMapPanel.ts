@@ -6,7 +6,7 @@ import fusionRuntimeRaw from '../data/runtime/fusion.runtime.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
-import { canonicalRuntimeMapName, matchRuntimeMapToSceneZone, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
+import { canonicalRuntimeMapName, matchRuntimeZoneToSceneZone, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
 
 interface MapMonsterInfo {
       name: string;
@@ -573,10 +573,23 @@ export class WorldMapPanel {
       }
 
       private _teleportModeSuffix(mode: RuntimeZoneMatchMode): string {
+            if (mode === 'topology') return '（拓撲路由）';
+            if (mode === 'town') return '（城鎮路由）';
             if (mode === 'level') return '（等級近似）';
-            if (mode === 'keyword' || mode === 'series') return '（關鍵字映射）';
-            if (mode === 'none') return '（無）';
+            if (mode === 'none') return '（未映射）';
             return '';
+      }
+
+      private _deriveRegionFromTopology(zone: {
+            mobAble?: boolean;
+            rules?: { restriction?: number; pkZoneFlag?: number };
+      } | undefined): string {
+            if (!zone || zone.mobAble === false) return '城鎮/安全區';
+            const restriction = Number(zone.rules?.restriction ?? 0);
+            const pkZoneFlag = Number(zone.rules?.pkZoneFlag ?? 0);
+            if (restriction > 0) return `限制區（R${restriction}）`;
+            if (pkZoneFlag > 0) return 'PK 區域';
+            return '一般狩獵區';
       }
 
       private _indexListPetData(): void {
@@ -597,7 +610,7 @@ export class WorldMapPanel {
                         name: string;
                         mobAble?: boolean;
                         level?: { min?: number; max?: number };
-                        rules?: { restriction?: number };
+                        rules?: { restriction?: number; pkZoneFlag?: number };
                   }>;
             };
             const spawnData = worldSpawnRaw as {
@@ -793,11 +806,16 @@ export class WorldMapPanel {
                   const minLevel = hasLevelBand ? Math.max(1, levelMin) : (mons.length > 0 ? Math.min(...mons.map(item => item.level)) : 1);
                   const maxLevel = hasLevelBand ? Math.max(minLevel, levelMax) : (mons.length > 0 ? Math.max(...mons.map(item => item.level)) : minLevel);
 
-                  const zoneMatch = matchRuntimeMapToSceneZone(name, minLevel, maxLevel);
-                  const restriction = Number(zone?.rules?.restriction ?? -1);
-                  const region = restriction === 4
-                        ? '系列地區'
-                        : (minLevel >= 120 ? '高等地帶' : minLevel >= 60 ? '中階地帶' : '新手地帶');
+                  const zoneMatch = matchRuntimeZoneToSceneZone({
+                        runtimeZoneId: Number(zone?.zoneId ?? 0),
+                        zoneName: name,
+                        minLevel,
+                        maxLevel,
+                        mobAble: zone?.mobAble !== false,
+                        restriction: Number(zone?.rules?.restriction ?? 0),
+                        pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
+                  });
+                  const region = this._deriveRegionFromTopology(zone);
 
                   return {
                         name,

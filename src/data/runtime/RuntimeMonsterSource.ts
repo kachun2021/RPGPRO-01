@@ -2,7 +2,7 @@ import { PetSeries } from '../../pets/PetData';
 import worldSpawnRaw from './world.spawn.json';
 import worldTopologyRaw from './world.topology.json';
 import progressionRaw from './progression.json';
-import { canonicalRuntimeMapName, matchRuntimeMapToSceneZone } from './RuntimeZoneBridge';
+import { matchRuntimeZoneToSceneZone } from './RuntimeZoneBridge';
 
 export type RuntimeMonsterBehavior = 'aggressive' | 'passive';
 
@@ -57,7 +57,9 @@ interface RuntimeMonsterLevelRow {
 interface RuntimeZoneRow {
       zoneId: number;
       name: string;
+      mobAble?: boolean;
       level?: { min?: number; max?: number };
+      rules?: { restriction?: number; pkZoneFlag?: number };
 }
 
 let POOL_BY_SCENE_ZONE: Map<string, RuntimeMonsterTemplate[]> | null = null;
@@ -171,12 +173,17 @@ function ensurePool(): Map<string, RuntimeMonsterTemplate[]> {
                   if (zoneId <= 0) continue;
 
                   const zone = zoneById.get(zoneId);
-                  const mapName = canonicalRuntimeMapName(String(zone?.name ?? ''));
-                  if (!mapName) continue;
-
                   const levelMin = toInt(zone?.level?.min, baseLevel);
                   const levelMax = toInt(zone?.level?.max, Math.max(levelMin, baseLevel));
-                  const match = matchRuntimeMapToSceneZone(mapName, levelMin, levelMax);
+                  const match = matchRuntimeZoneToSceneZone({
+                        runtimeZoneId: zoneId,
+                        zoneName: String(zone?.name ?? '').trim(),
+                        minLevel: levelMin,
+                        maxLevel: levelMax,
+                        mobAble: zone?.mobAble !== false,
+                        restriction: toInt(zone?.rules?.restriction, 0),
+                        pkZoneFlag: toInt(zone?.rules?.pkZoneFlag, 0),
+                  });
                   if (!match.zoneId) continue;
 
                   const intervalSec = Math.max(8, toInt(slot.intervalTime, 20));

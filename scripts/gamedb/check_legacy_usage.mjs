@@ -21,6 +21,14 @@ const FORBIDDEN_PATTERNS = [
             label: 'Direct scripts\\/gamedb runtime bypass import',
             regex: /from\s+['"][^'"]*scripts\/gamedb[^'"]*['"]/,
       },
+      {
+            label: 'Legacy runtime zone exact-map hardcode table',
+            regex: /\bEXACT_ZONE_MAP\b/,
+      },
+      {
+            label: 'Legacy runtime zone keyword hardcode table',
+            regex: /\bKEYWORD_ZONE_MAP\b/,
+      },
 ];
 
 const FORBIDDEN_PATHS = [
@@ -86,4 +94,3 @@ main().catch((err) => {
       console.error('[gamedb:check-legacy] ERROR', err);
       process.exitCode = 1;
 });
-

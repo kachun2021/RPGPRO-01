@@ -102,6 +102,38 @@ def load_reference_overrides(source_dir: Path) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def load_runtime_repairs(source_dir: Path) -> dict[str, Any]:
+    path = source_dir / 'reference_runtime_repairs.json'
+    if not path.exists():
+        return {}
+    payload = load_json(path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def to_int_key_map(value: Any) -> dict[int, int]:
+    if not isinstance(value, dict):
+        return {}
+    out: dict[int, int] = {}
+    for k, v in value.items():
+        key = to_int(k, 0)
+        val = to_int(v, 0)
+        if key <= 0 or val <= 0:
+            continue
+        out[key] = val
+    return out
+
+
+def to_int_set(values: Any) -> set[int]:
+    if not isinstance(values, (list, tuple, set)):
+        return set()
+    out: set[int] = set()
+    for v in values:
+        x = to_int(v, 0)
+        if x > 0:
+            out.add(x)
+    return out
+
+
 def build_world_topology(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     zrows = tables.get('s_zone', [])
     grows = tables.get('s_gate', [])
@@ -186,9 +218,12 @@ def build_world_topology(tables: dict[str, list[dict[str, Any]]]) -> dict[str, A
     }
 
 
-def build_world_spawn(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+def build_world_spawn(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, Any] | None = None) -> dict[str, Any]:
     mrows = tables.get('s_mob', [])
     monster_rows = tables.get('s_monster', [])
+    mobitem_rows = tables.get('s_mobitem', [])
+    mobitem_ids = {to_int(r.get('idx')) for r in mobitem_rows}
+    mobitem_alias = to_int_key_map((repairs or {}).get('mobItemAlias'))
 
     monster_catalog: list[dict[str, Any]] = []
     monster_name_by_type: dict[int, str] = {}
@@ -246,6 +281,11 @@ def build_world_spawn(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]
             slots.append(slot_data)
             zone_spawn_index[str(zone_id)].append(mob_idx)
 
+        raw_mobitem_idx = to_int(pick(row, 'mobitem_idx'))
+        mobitem_idx = mobitem_alias.get(raw_mobitem_idx, raw_mobitem_idx)
+        if mobitem_idx > 0 and mobitem_idx not in mobitem_ids:
+            mobitem_idx = 0
+
         spawn = {
             'mobIdx': mob_idx,
             'monsterType': monster_type,
@@ -254,7 +294,8 @@ def build_world_spawn(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]
             'moveType': to_int(pick(row, 'move_type')),
             'aggressive': to_int(pick(row, 'agressive')),
             'sightRange': to_int(pick(row, 'sight_range')),
-            'mobItemIdx': to_int(pick(row, 'mobitem_idx')),
+            'mobItemIdx': mobitem_idx,
+            'sourceMobItemIdx': raw_mobitem_idx,
             'slots': slots,
         }
         mob_spawns.append(spawn)
@@ -504,13 +545,39 @@ def build_fusion_runtime(tables: dict[str, list[dict[str, Any]]]) -> dict[str, A
     }
 
 
-def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, Any] | None = None) -> dict[str, Any]:
+    repairs = repairs or {}
     items = tables.get('s_item', [])
     item_by_idx = {to_int(r.get('idx')): r for r in items}
+    item_alias_map = to_int_key_map(repairs.get('itemAlias'))
+    virtual_item_specs = repairs.get('virtualItems', {}) if isinstance(repairs.get('virtualItems', {}), dict) else {}
 
     npcs_raw = tables.get('s_npc', [])
     npcs_fixed = tables.get('s_npc_fixed', [])
-    npcs = npcs_fixed if npcs_fixed else npcs_raw
+    npc_birth_zone_alias = to_int_key_map(repairs.get('npcBirthZoneAlias'))
+    base_npcs = npcs_fixed if npcs_fixed else npcs_raw
+    npcs: list[dict[str, Any]] = []
+    for row in base_npcs:
+        copied = dict(row)
+        birth_zone = to_int(copied.get('birth_zone_idx'))
+        if birth_zone in npc_birth_zone_alias:
+            copied['source_birth_zone_idx'] = birth_zone
+            copied['birth_zone_idx'] = npc_birth_zone_alias[birth_zone]
+            copied['isZoneAliased'] = True
+        npcs.append(copied)
+
+    synthetic_npcs = repairs.get('syntheticNpcs', [])
+    if isinstance(synthetic_npcs, list):
+        existing_npc_ids = {to_int(r.get('idx')) for r in npcs}
+        for npc in synthetic_npcs:
+            if not isinstance(npc, dict):
+                continue
+            npc_idx = to_int(npc.get('idx'))
+            if npc_idx <= 0 or npc_idx in existing_npc_ids:
+                continue
+            npcs.append(dict(npc))
+            existing_npc_ids.add(npc_idx)
+
     npc_by_idx = {to_int(r.get('idx')): r for r in npcs}
     npc_sales = tables.get('s_npc_sale', [])
     mob_drops = tables.get('s_mobitem', [])
@@ -519,7 +586,12 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     # missing in s_item. This preserves source-of-truth references and keeps UI usable.
     missing_item_names: dict[int, str] = {}
 
+    def resolve_item_idx(item_idx: int) -> int:
+        mapped = item_alias_map.get(item_idx, item_idx)
+        return mapped if mapped > 0 else item_idx
+
     def register_missing_item_name(item_idx: int, name: str) -> None:
+        item_idx = resolve_item_idx(item_idx)
         if item_idx <= 0 or item_idx in item_by_idx:
             return
         text = str(name or '').strip()
@@ -545,30 +617,47 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     for row in npc_sales:
         register_missing_item_name(to_int(pick(row, 'sale_idx')), '')
 
+    for key in virtual_item_specs.keys():
+        item_idx = to_int(key, 0)
+        if item_idx <= 0 or item_idx in item_by_idx:
+            continue
+        if item_idx not in missing_item_names:
+            missing_item_names[item_idx] = ''
+
     virtual_items: list[dict[str, Any]] = []
     for item_idx in sorted(k for k in missing_item_names.keys() if k > 0):
+        spec = virtual_item_specs.get(str(item_idx), {})
+        if not isinstance(spec, dict):
+            spec = {}
+        name = str(spec.get('name') or missing_item_names[item_idx] or f'未知道具 #{item_idx}').strip()
         virtual_items.append(
             {
                 'idx': item_idx,
-                'name': missing_item_names[item_idx] or f'未知道具 #{item_idx}',
-                'price': 0,
-                'rarity': 0,
-                'type': 0,
+                'name': name,
+                'price': max(0, to_int(spec.get('price'), 0)),
+                'rarity': max(0, to_int(spec.get('rarity'), 0)),
+                'type': max(0, to_int(spec.get('type'), 0)),
                 'isVirtual': True,
             }
         )
     virtual_item_by_idx = {to_int(r['idx']): r for r in virtual_items}
 
     shop_catalog: list[dict[str, Any]] = []
+    shop_dedupe: set[tuple[int, int, int]] = set()
     for row in npc_sales:
         npc_idx = to_int(pick(row, 'npc_idx'))
-        item_idx = to_int(pick(row, 'sale_idx'))
+        item_idx_raw = to_int(pick(row, 'sale_idx'))
+        item_idx = resolve_item_idx(item_idx_raw)
         npc = npc_by_idx.get(npc_idx)
         item = item_by_idx.get(item_idx)
         virtual = virtual_item_by_idx.get(item_idx)
         resolved_item = item if item else virtual
         if not npc or not resolved_item:
             continue
+        dedupe_key = (npc_idx, to_int(pick(row, 'sale_type')), item_idx)
+        if dedupe_key in shop_dedupe:
+            continue
+        shop_dedupe.add(dedupe_key)
         shop_catalog.append(
             {
                 'npcIdx': npc_idx,
@@ -576,11 +665,13 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
                 'saleType': to_int(pick(row, 'sale_type')),
                 'buyRatio': to_int(pick(row, 'buy_ratio')),
                 'itemIdx': item_idx,
+                'sourceItemIdx': item_idx_raw,
                 'itemName': str(pick(resolved_item, 'name', '')).strip(),
                 'itemType': to_int(pick(resolved_item, 'type')),
                 'price': to_int(pick(resolved_item, 'price')),
                 'rarity': to_int(pick(resolved_item, 'rarity')),
                 'isVirtualItem': bool(virtual and not item),
+                'isAliasedItem': bool(item_idx != item_idx_raw),
             }
         )
 
@@ -594,29 +685,34 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
             if not m:
                 continue
             slot = int(m.group(1))
-            mat_idx = to_int(value)
+            mat_idx_raw = to_int(value)
+            mat_idx = resolve_item_idx(mat_idx_raw)
             if mat_idx <= 0:
                 continue
-                mats.append(
+            mats.append(
                 {
                     'slot': slot,
                     'itemIdx': mat_idx,
+                    'sourceItemIdx': mat_idx_raw,
                     'itemName': str(
                         pick(item_by_idx.get(mat_idx, {}), 'name')
                         or pick(virtual_item_by_idx.get(mat_idx, {}), 'name')
                         or pick(row, f'stuff_name{slot}', '')
                     ).strip(),
                     'count': to_int(pick(row, f'stuff_count{slot}')),
+                    'isAliasedItem': bool(mat_idx != mat_idx_raw),
                 }
             )
 
-        result_idx = to_int(pick(row, 'result_idx'))
+        result_idx_raw = to_int(pick(row, 'result_idx'))
+        result_idx = resolve_item_idx(result_idx_raw)
         production_recipes.append(
             {
                 'idx': to_int(pick(row, 'idx')),
                 'docIdx': to_int(pick(row, 'doc_idx')),
                 'docName': str(pick(row, 'doc_name', '')).strip(),
                 'resultIdx': result_idx,
+                'sourceResultIdx': result_idx_raw,
                 'resultName': str(
                     pick(item_by_idx.get(result_idx, {}), 'name')
                     or pick(virtual_item_by_idx.get(result_idx, {}), 'name')
@@ -628,8 +724,21 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
                 'addPro': to_int(pick(row, 'add_pro')),
                 'optSlotCnt': to_int(pick(row, 'opt_slot_cnt')),
                 'materials': sorted(mats, key=lambda x: x['slot']),
+                'isAliasedResult': bool(result_idx != result_idx_raw),
             }
         )
+
+    normalized_mob_drops: list[dict[str, Any]] = []
+    alias_applied_mob_drop_slots = 0
+    for row in mob_drops:
+        copied = dict(row)
+        for i in range(10):
+            raw_idx = to_int(copied.get(f'item_idx{i}'), 0)
+            mapped_idx = resolve_item_idx(raw_idx)
+            if mapped_idx != raw_idx:
+                alias_applied_mob_drop_slots += 1
+            copied[f'item_idx{i}'] = mapped_idx
+        normalized_mob_drops.append(copied)
 
     valid_items = [
         r
@@ -654,7 +763,7 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
         'virtualItems': virtual_items,
         'validItems': valid_items,
         'itemEffectiveData': tables.get('s_ItemEffectiveData', []),
-        'mobDrops': mob_drops,
+        'mobDrops': normalized_mob_drops,
         'npcs': npcs,
         'npcSales': npc_sales,
         'shopCatalog': shop_catalog,
@@ -675,6 +784,8 @@ def build_economy(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
             'npcSaleCount': len(npc_sales),
             'shopCatalogRows': len(shop_catalog),
             'productionRecipeCount': len(production_recipes),
+            'aliasedItemCount': len(item_alias_map),
+            'aliasedMobDropSlots': alias_applied_mob_drop_slots,
         },
     }
 
@@ -780,6 +891,7 @@ def main() -> None:
 
     tables = load_source_tables(paths.source_dir)
     reference_overrides = load_reference_overrides(paths.source_dir)
+    runtime_repairs = load_runtime_repairs(paths.source_dir)
     index_payload = load_json(paths.source_dir / '_index.json')
 
     domain_table_usage = {
@@ -794,10 +906,10 @@ def main() -> None:
 
     outputs = {
         'world.topology': build_world_topology(tables),
-        'world.spawn': build_world_spawn(tables),
+        'world.spawn': build_world_spawn(tables, runtime_repairs),
         'progression': build_progression(tables),
         'fusion.runtime': build_fusion_runtime(tables),
-        'economy': build_economy(tables),
+        'economy': build_economy(tables, runtime_repairs),
         'ops': build_ops(tables),
         'save_schema': build_save_schema(tables),
     }
@@ -820,6 +932,7 @@ def main() -> None:
         'files': sorted([f.name for f in paths.out_dir.glob('*.json')]),
         'manifest': manifest,
         'referenceOverrides': reference_overrides,
+        'runtimeRepairs': runtime_repairs,
     }
     write_json(paths.report_dir / 'runtime_build_report.json', build_report)
 

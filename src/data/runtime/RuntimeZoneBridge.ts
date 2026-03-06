@@ -1,123 +1,109 @@
 import { ZONE_DEFS } from '../../world/ZoneDefinitions';
 
-export type RuntimeZoneMatchMode = 'exact' | 'keyword' | 'series' | 'level' | 'none';
+export type RuntimeZoneMatchMode = 'topology' | 'town' | 'level' | 'none';
 
-const EXACT_ZONE_MAP: Record<string, string> = {
-      '巴爾幹入口': 'thunder_plains',
-      '巴爾幹峽谷': 'thunder_plains',
-      '命運的沙漠岔道': 'thunder_plains',
-      '黑暗森林': 'dark_hollow',
-      '迷幻沼澤': 'moonlit_grove',
-      '魯那特地獄入口': 'lava_sanctum',
-      '魯那特地獄1層': 'lava_sanctum',
-      '魯那特地獄2層': 'lava_sanctum',
-      '魯那特地獄3層': 'lava_sanctum',
-      '魯那特地獄4層': 'lava_sanctum',
-      '魯那特地獄5層': 'lava_sanctum',
-      '魯狄斯地城廢墟': 'ancient_ruins',
-      '2號魯狄斯南部': 'ancient_ruins',
-      '魯狄斯廢墟[高]': 'ancient_ruins',
-      '魯狄斯廢墟[低]': 'ancient_ruins',
-      '29號靜音廢墟': 'ancient_ruins',
-      '貝赫魯廢墟[高]': 'storm_coast',
-      '貝赫魯廢墟[低]': 'storm_coast',
-      '馬吉利塔廢墟[高]': 'storm_coast',
-      '馬吉利塔廢墟[低]': 'storm_coast',
-      '13號馬吉利塔西部海岸': 'storm_coast',
-      '26號布買': 'ancient_ruins',
-      '布買廢墟': 'ancient_ruins',
-      '4號白色荒野': 'frost_peaks',
-      '5號雙子峽谷': 'thunder_plains',
-      '28號伊斯凱森林': 'misty_forest',
-      '地城-機械之屋': 'dragon_nest',
-      '地城-龍之屋': 'dragon_nest',
-      '地城-鳥之屋': 'dragon_nest',
-      '地城-植物之屋': 'dragon_nest',
-      '地城-惡魔之屋': 'dragon_nest',
-      '地城-獸之屋': 'dragon_nest',
-      '地城-神秘之屋': 'dragon_nest',
-      '地城-蟲之屋': 'dragon_nest',
-      '勇氣試煉城1層': 'sky_temple',
-      '勇氣試煉城2層': 'sky_temple',
-      '勇氣試煉城3層': 'sky_temple',
-      '勇氣試煉城4層': 'sky_temple',
-      '勞吉塔地牢6層': 'dragon_nest',
-      '勞吉塔地牢7層': 'dragon_nest',
-      '勞吉塔地牢8層': 'dragon_nest',
-      '勞吉塔地牢9層': 'dragon_nest',
-      '希南的秘密通道': 'main_city',
-      '西奈的遺址': 'ancient_ruins',
-      '混亂的島': 'coral_beach',
-      '流氓兔地圖': 'main_city',
-};
-
-const KEYWORD_ZONE_MAP: Array<{ keyword: string; zoneId: string }> = [
-      { keyword: '巴爾克牧場', zoneId: 'starter_meadow' },
-      { keyword: '河谷農場', zoneId: 'echo_valley' },
-      { keyword: '巴爾幹', zoneId: 'thunder_plains' },
-      { keyword: '魯那特地獄', zoneId: 'lava_sanctum' },
-      { keyword: '魯狄斯', zoneId: 'ancient_ruins' },
-      { keyword: '靜音廢墟', zoneId: 'ancient_ruins' },
-      { keyword: '布買', zoneId: 'ancient_ruins' },
-      { keyword: '貝赫魯', zoneId: 'storm_coast' },
-      { keyword: '馬吉利塔', zoneId: 'storm_coast' },
-      { keyword: '海岸', zoneId: 'storm_coast' },
-      { keyword: '伊斯凱森林', zoneId: 'misty_forest' },
-      { keyword: '森林', zoneId: 'misty_forest' },
-      { keyword: '沼澤', zoneId: 'moonlit_grove' },
-      { keyword: '白色荒野', zoneId: 'frost_peaks' },
-      { keyword: '地城', zoneId: 'dragon_nest' },
-      { keyword: '地牢', zoneId: 'dragon_nest' },
-      { keyword: '試煉城', zoneId: 'sky_temple' },
-      { keyword: '秘密通道', zoneId: 'main_city' },
-      { keyword: '混亂的島', zoneId: 'coral_beach' },
-];
-
-const SERIES_FLOOR_PATTERN = /^(植物|龍系|龙系|獸系|兽系|蟲系|虫系|機械|机械|神秘|惡魔|恶魔|鳥系|鸟系)\d+層$/;
-
-export function canonicalRuntimeMapName(raw: string): string {
-      let clean = String(raw ?? '').trim();
-      if (!clean) return '';
-      clean = clean.replace(/［/g, '[').replace(/］/g, ']');
-      clean = clean.replace(/\s+/g, '');
-      clean = clean.replace(/巴爾克牧場([abc])/i, (_all, letter: string) => `巴爾克牧場${String(letter).toUpperCase()}`);
-      clean = clean.replace(/\?+$/g, '');
-      return clean;
+export interface RuntimeZoneRouteInput {
+      runtimeZoneId?: number;
+      zoneName?: string;
+      minLevel: number;
+      maxLevel: number;
+      mobAble?: boolean;
+      restriction?: number;
+      pkZoneFlag?: number;
 }
 
-export function matchRuntimeMapToSceneZone(mapName: string, minLevel: number, maxLevel: number): { zoneId: string | null; mode: RuntimeZoneMatchMode } {
-      const key = canonicalRuntimeMapName(mapName);
-      if (!key) return { zoneId: null, mode: 'none' };
+export function canonicalRuntimeMapName(raw: string): string {
+      const text = String(raw ?? '').trim();
+      if (!text) return '';
+      return text.replace(/\s+/g, '');
+}
 
-      const lower = key.toLowerCase();
-      for (const [exact, zoneId] of Object.entries(EXACT_ZONE_MAP)) {
-            if (lower === exact.toLowerCase()) return { zoneId, mode: 'exact' };
-      }
+function toInt(value: unknown, fallback = 0): number {
+      if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return fallback;
+      return Math.floor(parsed);
+}
 
-      if (SERIES_FLOOR_PATTERN.test(key)) return { zoneId: 'dragon_nest', mode: 'series' };
+function clampLevel(value: number, fallback: number): number {
+      if (!Number.isFinite(value)) return Math.max(1, fallback);
+      return Math.max(1, Math.floor(value));
+}
 
-      for (const hint of KEYWORD_ZONE_MAP) {
-            if (key.includes(hint.keyword)) return { zoneId: hint.zoneId, mode: 'keyword' };
-      }
+function overlapScore(
+      runtimeMin: number,
+      runtimeMax: number,
+      sceneMin: number,
+      sceneMax: number,
+): number {
+      const overlapMin = Math.max(runtimeMin, sceneMin);
+      const overlapMax = Math.min(runtimeMax, sceneMax);
+      if (overlapMax < overlapMin) return 0;
+      return overlapMax - overlapMin + 1;
+}
 
-      const zones = ZONE_DEFS.filter(zone => !zone.isTown);
-      if (zones.length === 0) return { zoneId: null, mode: 'none' };
-
-      const avgLevel = (Math.max(1, minLevel) + Math.max(1, maxLevel)) / 2;
-      let bestZone = zones[0];
+function selectBestSceneZone(
+      candidates: typeof ZONE_DEFS,
+      runtimeMin: number,
+      runtimeMax: number,
+      pkZoneFlag: number,
+): string | null {
+      if (candidates.length <= 0) return null;
+      const runtimeAvg = (runtimeMin + runtimeMax) / 2;
+      let bestId: string | null = null;
       let bestScore = Number.POSITIVE_INFINITY;
 
-      for (const zone of zones) {
-            const center = (zone.levelMin + zone.levelMax) / 2;
-            let score = Math.abs(center - avgLevel);
-            if (avgLevel < zone.levelMin) score += (zone.levelMin - avgLevel) * 0.6;
-            if (avgLevel > zone.levelMax) score += (avgLevel - zone.levelMax) * 0.6;
+      for (const zone of candidates) {
+            const sceneAvg = (zone.levelMin + zone.levelMax) / 2;
+            const overlap = overlapScore(runtimeMin, runtimeMax, zone.levelMin, zone.levelMax);
+            const levelDistance = Math.abs(sceneAvg - runtimeAvg);
+            const outOfRangePenalty = runtimeAvg < zone.levelMin
+                  ? (zone.levelMin - runtimeAvg) * 0.8
+                  : runtimeAvg > zone.levelMax
+                        ? (runtimeAvg - zone.levelMax) * 0.8
+                        : 0;
+
+            const pkPenalty = pkZoneFlag > 0 && zone.levelMax < runtimeAvg ? 4 : 0;
+            const overlapBonus = overlap > 0 ? Math.max(0, 10 - overlap * 0.3) : 0;
+            const score = levelDistance + outOfRangePenalty + pkPenalty + overlapBonus;
+
             if (score < bestScore) {
                   bestScore = score;
-                  bestZone = zone;
+                  bestId = zone.id;
             }
       }
 
-      return { zoneId: bestZone.id, mode: 'level' };
+      return bestId;
 }
 
+export function matchRuntimeZoneToSceneZone(input: RuntimeZoneRouteInput): { zoneId: string | null; mode: RuntimeZoneMatchMode } {
+      const runtimeMin = clampLevel(toInt(input.minLevel, 1), 1);
+      const runtimeMax = Math.max(runtimeMin, clampLevel(toInt(input.maxLevel, runtimeMin), runtimeMin));
+      const mobAble = input.mobAble !== false;
+      const restriction = Math.max(0, toInt(input.restriction, 0));
+      const pkZoneFlag = Math.max(0, toInt(input.pkZoneFlag, 0));
+
+      if (ZONE_DEFS.length <= 0) return { zoneId: null, mode: 'none' };
+
+      const towns = ZONE_DEFS.filter((zone) => zone.isTown);
+      const fields = ZONE_DEFS.filter((zone) => !zone.isTown);
+
+      const preferTown = !mobAble || (restriction > 0 && runtimeMax <= 5);
+      if (preferTown && towns.length > 0) {
+            const townId = selectBestSceneZone(towns, runtimeMin, runtimeMax, pkZoneFlag);
+            if (townId) return { zoneId: townId, mode: 'town' };
+      }
+
+      const fieldId = selectBestSceneZone(fields.length > 0 ? fields : ZONE_DEFS, runtimeMin, runtimeMax, pkZoneFlag);
+      if (fieldId) return { zoneId: fieldId, mode: mobAble ? 'topology' : 'level' };
+
+      return { zoneId: null, mode: 'none' };
+}
+
+export function matchRuntimeMapToSceneZone(_mapName: string, minLevel: number, maxLevel: number): { zoneId: string | null; mode: RuntimeZoneMatchMode } {
+      return matchRuntimeZoneToSceneZone({
+            minLevel,
+            maxLevel,
+            mobAble: true,
+      });
+}

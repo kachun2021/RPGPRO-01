@@ -3,7 +3,9 @@ import { Registry } from './core/Registry';
 import { OrientationManager } from './core/OrientationManager';
 import { MainScene } from './scenes/MainScene';
 import { Player } from './entities/Player';
-import { getRuntimeHeroTemplate, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
+import worldTopologyRaw from './data/runtime/world.topology.json';
+import { getRuntimeHeroTemplate, listRuntimeHeroTemplates, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
+import { matchRuntimeZoneToSceneZone } from './data/runtime/RuntimeZoneBridge';
 import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
@@ -186,6 +188,50 @@ function initUiFeedbackSfx(): void {
       }, true);
 }
 
+const HERO_TYPE_STORAGE_KEY = 'fpo.hero.type.v1';
+
+interface RuntimeZoneForSpawn {
+      zoneId?: number;
+      name?: string;
+      mobAble?: boolean;
+      level?: { min?: number; max?: number };
+      rules?: { restriction?: number; pkZoneFlag?: number };
+}
+
+function resolveSelectedHeroType(): number {
+      const heroes = listRuntimeHeroTemplates();
+      if (heroes.length <= 0) return 0;
+
+      const validTypes = new Set(heroes.map((hero) => hero.type));
+      const storedRaw = localStorage.getItem(HERO_TYPE_STORAGE_KEY);
+      const storedType = Number(storedRaw ?? NaN);
+      if (Number.isFinite(storedType) && validTypes.has(Math.floor(storedType))) {
+            return Math.floor(storedType);
+      }
+
+      const fallback = heroes[0].type;
+      localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(fallback));
+      return fallback;
+}
+
+function resolveHeroStartZoneId(runtimeBirthZoneId: number): string {
+      const payload = worldTopologyRaw as { zones?: RuntimeZoneForSpawn[] };
+      const zones = Array.isArray(payload.zones) ? payload.zones : [];
+      const zone = zones.find((entry) => Number(entry?.zoneId ?? 0) === runtimeBirthZoneId);
+      const minLevel = Number(zone?.level?.min ?? 1);
+      const maxLevel = Number(zone?.level?.max ?? minLevel);
+      const route = matchRuntimeZoneToSceneZone({
+            runtimeZoneId: Number(zone?.zoneId ?? runtimeBirthZoneId),
+            zoneName: String(zone?.name ?? ''),
+            minLevel,
+            maxLevel,
+            mobAble: zone?.mobAble !== false,
+            restriction: Number(zone?.rules?.restriction ?? 0),
+            pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
+      });
+      return route.zoneId ?? 'starter_meadow';
+}
+
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
       initUiFeedbackSfx();
@@ -204,12 +250,15 @@ async function bootstrap(): Promise<void> {
       const mainScene = new MainScene(engineManager);
       await mainScene.build();
 
-      // 4. Player
-      const runtimeHero = getRuntimeHeroTemplate(0);
+      // 4. Player (P12: fully runtime-driven hero template)
+      const selectedHeroType = resolveSelectedHeroType();
+      const runtimeHero = getRuntimeHeroTemplate(selectedHeroType);
       const player = new Player(Registry.scene, mainScene.shadowGenerator, {
             expToNextResolver: resolveRuntimeExpToNext,
             initialStats: runtimeHero
                   ? {
+                        atk: runtimeHero.baseAtk,
+                        def: runtimeHero.baseDef,
                         hp: runtimeHero.baseHp,
                         maxHp: runtimeHero.baseHp,
                         mp: runtimeHero.baseMp,
@@ -218,6 +267,9 @@ async function bootstrap(): Promise<void> {
                   : undefined,
       });
       Registry.player = player;
+      if (runtimeHero) {
+            console.log(`[Hero] Runtime template selected: type=${runtimeHero.type}, name=${runtimeHero.name}, birthZoneId=${runtimeHero.birthZoneId}`);
+      }
 
       // 5. Camera
       const landscapeCamera = new LandscapeCamera(Registry.scene, engineManager.canvas);
@@ -460,8 +512,11 @@ async function bootstrap(): Promise<void> {
             },
       });
 
-      // Build initial zone (Starter Meadow)
-      await zoneManager.buildInitialZone('starter_meadow');
+      // Build initial zone from selected hero birth zone (runtime topology routed)
+      const heroStartZoneId = runtimeHero
+            ? resolveHeroStartZoneId(runtimeHero.birthZoneId)
+            : 'starter_meadow';
+      await zoneManager.buildInitialZone(heroStartZoneId);
 
       // 14. Pet Panel
       const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
@@ -501,6 +556,14 @@ async function bootstrap(): Promise<void> {
       const systemPanel = new SystemPanel({
             onSettingsChange: (settings) => {
                   console.log('[System] Settings updated:', settings);
+            },
+            getCurrentHeroType: () => {
+                  const current = Number(localStorage.getItem(HERO_TYPE_STORAGE_KEY) ?? NaN);
+                  return Number.isFinite(current) ? Math.floor(current) : selectedHeroType;
+            },
+            onHeroTypeChange: (heroType) => {
+                  localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(Math.floor(heroType)));
+                  console.log(`[System] Hero template changed to type=${heroType}. Restart required to apply.`);
             },
             onSaveProgress: () => {
                   const result = saveRuntimeGame({

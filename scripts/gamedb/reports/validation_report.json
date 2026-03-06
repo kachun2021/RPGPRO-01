@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-03-05T20:07:27.054388+00:00",
+  "builtAt": "2026-03-06T00:08:05.601935+00:00",
   "sourceDir": "D:\\AI-RPGGAME\\scripts\\gamedb",
   "summary": {
     "totalChecks": 52,
@@ -7,62 +7,147 @@
     "failedChecks": 0,
     "invalidRefsTotal": 0,
     "rawInvalidRefsTotal": 81,
-    "suppressedByOverridesTotal": 81
+    "suppressedByRuntimeRepairsTotal": 81,
+    "suppressedByOverridesTotal": 0
   },
-  "overridesApplied": {
-    "checkIgnoreValues": {
-      "s_mob.mobitem_idx -> s_mobitem.idx": [
-        645
-      ],
-      "s_npc.birth_zone_idx -> s_zone.idx": [
-        248,
-        249,
-        250
-      ],
-      "s_npc_sale.npc_idx -> s_npc.idx": [
-        35
-      ]
+  "overridesApplied": {},
+  "runtimeRepairsApplied": {
+    "itemAlias": {
+      "4369": 4370,
+      "4371": 4372
     },
-    "checkExtraValidValues": {
-      "s_npc_sale.sale_idx -> s_item.idx": [
-        4369,
-        4371
-      ],
-      "s_mobitem.item_idx4 -> s_item.idx": [
-        4369,
-        4371
-      ],
-      "s_Production.result_idx -> s_item.idx": [
-        5729,
-        5730,
-        5731,
-        5732,
-        5733,
-        5734,
-        5735,
-        5736,
-        5737,
-        5738,
-        5739,
-        5740,
-        5741,
-        5742,
-        5743,
-        5744,
-        5745,
-        5746
-      ],
-      "s_Production.stuff_idx2 -> s_item.idx": [
-        4369,
-        5737,
-        5738,
-        5739,
-        5740,
-        5741,
-        5742,
-        5743,
-        5744
-      ]
+    "mobItemAlias": {
+      "645": 644
+    },
+    "npcBirthZoneAlias": {
+      "248": 130,
+      "249": 130,
+      "250": 130
+    },
+    "syntheticNpcs": [
+      {
+        "idx": 35,
+        "name": "修復商人",
+        "type": 2,
+        "birth_zone_idx": 130,
+        "birth_zone_x": 120,
+        "birth_zone_y": 120,
+        "move_zone_layernum": 0,
+        "sell_type": 2,
+        "sell_ratio": 0,
+        "barter_item_idx": 0,
+        "isSynthetic": true
+      }
+    ],
+    "virtualItems": {
+      "5729": {
+        "name": "鍊金試作液-紅",
+        "type": 0,
+        "price": 120,
+        "rarity": 0
+      },
+      "5730": {
+        "name": "鍊金試作液-藍",
+        "type": 0,
+        "price": 120,
+        "rarity": 0
+      },
+      "5731": {
+        "name": "鍊金試作液-黃",
+        "type": 0,
+        "price": 160,
+        "rarity": 0
+      },
+      "5732": {
+        "name": "鍊金試作液-綠",
+        "type": 0,
+        "price": 160,
+        "rarity": 0
+      },
+      "5733": {
+        "name": "鍊金調和液-赤晶",
+        "type": 0,
+        "price": 280,
+        "rarity": 1
+      },
+      "5734": {
+        "name": "鍊金調和液-蒼鐵",
+        "type": 0,
+        "price": 280,
+        "rarity": 1
+      },
+      "5735": {
+        "name": "鍊金調和液-金晶",
+        "type": 0,
+        "price": 600,
+        "rarity": 1
+      },
+      "5736": {
+        "name": "鍊金調和液-翠鐵",
+        "type": 0,
+        "price": 600,
+        "rarity": 1
+      },
+      "5737": {
+        "name": "鍊金活化液-紫",
+        "type": 0,
+        "price": 900,
+        "rarity": 1
+      },
+      "5738": {
+        "name": "鍊金活化液-鐵",
+        "type": 0,
+        "price": 900,
+        "rarity": 1
+      },
+      "5739": {
+        "name": "鍊金濃縮液-紫",
+        "type": 0,
+        "price": 1400,
+        "rarity": 2
+      },
+      "5740": {
+        "name": "鍊金濃縮液-鐵",
+        "type": 0,
+        "price": 1400,
+        "rarity": 2
+      },
+      "5741": {
+        "name": "鍊金精華-紫晶",
+        "type": 0,
+        "price": 2600,
+        "rarity": 2
+      },
+      "5742": {
+        "name": "鍊金精華-鐵礦",
+        "type": 0,
+        "price": 2600,
+        "rarity": 2
+      },
+      "5743": {
+        "name": "鍊金催化精華-紅寶",
+        "type": 0,
+        "price": 3200,
+        "rarity": 3
+      },
+      "5744": {
+        "name": "鍊金催化精華-藍寶",
+        "type": 0,
+        "price": 3200,
+        "rarity": 3
+      },
+      "5745": {
+        "name": "鍊金高純精華-紅寶",
+        "type": 0,
+        "price": 5200,
+        "rarity": 3
+      },
+      "5746": {
+        "name": "鍊金高純精華-藍寶",
+        "type": 0,
+        "price": 5200,
+        "rarity": 3
+      }
     }
   },
   "checks": [
@@ -74,6 +159,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -84,6 +170,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -94,6 +181,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -104,6 +192,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -114,6 +203,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -124,6 +214,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -134,6 +225,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -144,6 +236,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -154,17 +247,19 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
       "name": "s_mob.mobitem_idx -> s_mobitem.idx",
       "passed": true,
       "badTotal": 0,
-      "total": 846,
+      "total": 847,
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 1,
-      "suppressedByOverride": 1
+      "suppressedByRuntimeRepair": 1,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_mix.mainnum -> s_monster.type",
@@ -174,6 +269,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -184,6 +280,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -194,27 +291,30 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
       "name": "s_npc.birth_zone_idx -> s_zone.idx",
       "passed": true,
       "badTotal": 0,
-      "total": 1032,
+      "total": 1035,
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 3,
-      "suppressedByOverride": 3
+      "suppressedByRuntimeRepair": 3,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_npc_sale.npc_idx -> s_npc.idx",
       "passed": true,
       "badTotal": 0,
-      "total": 1790,
+      "total": 1792,
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 2,
-      "suppressedByOverride": 2
+      "suppressedByRuntimeRepair": 2,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_npc_sale.sale_idx -> s_item.idx",
@@ -224,7 +324,8 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 31,
-      "suppressedByOverride": 31
+      "suppressedByRuntimeRepair": 31,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_mobitem.item_idx0 -> s_item.idx",
@@ -234,6 +335,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -244,6 +346,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -254,6 +357,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -264,6 +368,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -274,7 +379,8 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 12,
-      "suppressedByOverride": 12
+      "suppressedByRuntimeRepair": 12,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_mobitem.item_idx5 -> s_item.idx",
@@ -284,6 +390,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -294,6 +401,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -304,6 +412,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -314,6 +423,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -324,6 +434,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -334,7 +445,8 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 18,
-      "suppressedByOverride": 18
+      "suppressedByRuntimeRepair": 18,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_Production.stuff_idx1 -> s_item.idx",
@@ -344,6 +456,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -354,7 +467,8 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 14,
-      "suppressedByOverride": 14
+      "suppressedByRuntimeRepair": 14,
+      "suppressedByOverride": 0
     },
     {
       "name": "s_Production.stuff_idx3 -> s_item.idx",
@@ -364,6 +478,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -374,6 +489,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -384,6 +500,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -394,6 +511,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -404,6 +522,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -414,6 +533,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -424,6 +544,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -434,6 +555,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -444,6 +566,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -454,6 +577,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -464,6 +588,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -474,6 +599,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -484,6 +610,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -494,6 +621,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -504,6 +632,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -514,6 +643,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -524,6 +654,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -534,6 +665,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -544,6 +676,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -554,6 +687,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -564,6 +698,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -574,6 +709,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     },
     {
@@ -584,6 +720,7 @@
       "sampleBad": [],
       "badKeyCounts": {},
       "rawBadTotal": 0,
+      "suppressedByRuntimeRepair": 0,
       "suppressedByOverride": 0
     }
   ]

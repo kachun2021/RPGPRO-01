@@ -13,6 +13,12 @@ interface RuntimeHeroRow {
       birthZoneId?: number;
       birthLayer?: number;
       baseStats?: {
+            str?: number;
+            dex?: number;
+            aim?: number;
+            luck?: number;
+            ap?: number;
+            dp?: number;
             hp?: number;
             mp?: number;
       };
@@ -49,6 +55,12 @@ export interface RuntimeHeroTemplate {
       sex: number;
       birthZoneId: number;
       birthLayer: number;
+      baseStr: number;
+      baseDex: number;
+      baseAim: number;
+      baseLuck: number;
+      baseAtk: number;
+      baseDef: number;
       baseHp: number;
       baseMp: number;
 }
@@ -110,6 +122,12 @@ for (const row of HERO_ROWS) {
             sex: toInt(row.sex, 0),
             birthZoneId: toInt(row.birthZoneId, 0),
             birthLayer: toInt(row.birthLayer, 0),
+            baseStr: Math.max(1, toInt(row.baseStats?.str, 4)),
+            baseDex: Math.max(1, toInt(row.baseStats?.dex, 4)),
+            baseAim: Math.max(1, toInt(row.baseStats?.aim, 4)),
+            baseLuck: Math.max(1, toInt(row.baseStats?.luck, 4)),
+            baseAtk: Math.max(1, toInt(row.baseStats?.ap, 10)),
+            baseDef: Math.max(1, toInt(row.baseStats?.dp, 5)),
             baseHp: Math.max(1, toInt(row.baseStats?.hp, 100)),
             baseMp: Math.max(1, toInt(row.baseStats?.mp, 120)),
       });
@@ -195,6 +213,12 @@ export function getRuntimeHeroTemplate(heroType = 0): RuntimeHeroTemplate | null
       return fallback ? { ...fallback } : null;
 }
 
+export function listRuntimeHeroTemplates(): RuntimeHeroTemplate[] {
+      return Array.from(HERO_BY_TYPE.values())
+            .map((row) => ({ ...row }))
+            .sort((a, b) => a.type - b.type);
+}
+
 export function getRuntimeSkillUpgradeMeta(skillId: string, currentLevel: number): RuntimeSkillUpgradeMeta {
       const index = getRuntimeSkillIndex(skillId);
       if (!index) {
@@ -250,4 +274,3 @@ export function resolveRuntimeSkillTuning(skillId: string, level: number, base: 
             maxLevel,
       };
 }
-
