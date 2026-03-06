@@ -45,7 +45,7 @@ export class CharacterPanel {
             this._el = document.createElement('div');
             this._el.id = 'char-panel';
             this._el.className = 'sa-panel cp-root';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
@@ -401,12 +401,12 @@ export class CharacterPanel {
       toggle(): void { this._visible ? this.hide() : this.show(); }
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
       }
       dispose(): void {

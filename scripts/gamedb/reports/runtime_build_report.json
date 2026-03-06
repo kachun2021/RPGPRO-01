@@ -1,9 +1,13 @@
 {
-  "builtAt": "2026-03-06T00:46:36.537266+00:00",
+  "builtAt": "2026-03-06T19:07:56.726452+00:00",
   "outDir": "D:\\AI-RPGGAME\\src\\data\\runtime",
   "files": [
     "_manifest.json",
     "data.health.json",
+    "economy.combat.core.json",
+    "economy.combat.ext.json",
+    "economy.combat.json",
+    "economy.commerce.json",
     "economy.json",
     "fusion.runtime.json",
     "ops.json",
@@ -11,10 +15,11 @@
     "reference.repairs.json",
     "save_schema.json",
     "world.spawn.json",
+    "world.spawn.zone_templates.json",
     "world.topology.json"
   ],
   "manifest": {
-    "builtAt": "2026-03-06T00:46:36.536808+00:00",
+    "builtAt": "2026-03-06T19:07:56.725888+00:00",
     "sourceTableCount": 39,
     "sourceRowCounts": {
       "Player": 3,
@@ -95,6 +100,29 @@
         "s_LootTypeInfo",
         "s_OptInfo",
         "s_OptLvInfo",
+        "s_npc_fixed"
+      ],
+      "economy_combat": [
+        "s_mobitem",
+        "s_item",
+        "s_Production",
+        "s_npc_sale"
+      ],
+      "economy_combat_core": [
+        "s_mobitem",
+        "s_mob",
+        "s_zone"
+      ],
+      "economy_combat_ext": [
+        "s_mobitem",
+        "s_mob",
+        "s_zone"
+      ],
+      "economy_commerce": [
+        "s_item",
+        "s_npc",
+        "s_npc_sale",
+        "s_Production",
         "s_npc_fixed"
       ],
       "ops": [
@@ -257,7 +285,7 @@
           ]
         },
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.145626+00:00",
+          "builtAt": "2026-03-06T19:07:56.343652+00:00",
           "sourceTables": {
             "s_zone": 201,
             "s_gate": 140
@@ -271,7 +299,7 @@
           "zonesWithSpawn": 173
         },
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.169180+00:00",
+          "builtAt": "2026-03-06T19:07:56.360029+00:00",
           "sourceTables": {
             "s_mob": 889,
             "s_monster": 1418
@@ -287,7 +315,7 @@
           "skillLevelRows": 140
         },
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.172315+00:00",
+          "builtAt": "2026-03-06T19:07:56.361911+00:00",
           "sourceTables": {
             "s_hero": 4,
             "s_LvUserInfo": 200,
@@ -308,7 +336,7 @@
           "unresolvedMonsterTypes": []
         },
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.176366+00:00",
+          "builtAt": "2026-03-06T19:07:56.378176+00:00",
           "sourceTables": {
             "s_mix": 720,
             "s_monster": 1418
@@ -328,7 +356,7 @@
           "aliasedMobDropSlots": 0
         },
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.258162+00:00",
+          "builtAt": "2026-03-06T19:07:56.341975+00:00",
           "sourceTables": {
             "s_item": 4608,
             "s_ItemEffectiveData": 7980,
@@ -340,10 +368,67 @@
           }
         }
       },
+      "economy.combat": {
+        "stats": {
+          "combatItemCount": 456,
+          "mobDropTableCount": 634,
+          "unresolvedCombatItemCount": 0,
+          "unresolvedCombatItemIds": [],
+          "starterMobDropTableCount": 515,
+          "deferredMobDropTableCount": 119
+        },
+        "meta": {
+          "builtAt": "2026-03-06T19:07:56.374764+00:00",
+          "sourceDomain": "economy",
+          "split": "all",
+          "starterLevelCap": 30
+        }
+      },
+      "economy.combat.core": {
+        "stats": {
+          "combatItemCount": 386,
+          "mobDropTableCount": 515,
+          "unresolvedCombatItemCount": 0,
+          "unresolvedCombatItemIds": [],
+          "deferredMobDropTableCount": 119
+        },
+        "meta": {
+          "builtAt": "2026-03-06T19:07:56.374779+00:00",
+          "sourceDomain": "economy",
+          "split": "core",
+          "starterLevelCap": 30
+        }
+      },
+      "economy.combat.ext": {
+        "stats": {
+          "combatItemCount": 133,
+          "mobDropTableCount": 119,
+          "unresolvedCombatItemCount": 0,
+          "unresolvedCombatItemIds": []
+        },
+        "meta": {
+          "builtAt": "2026-03-06T19:07:56.374783+00:00",
+          "sourceDomain": "economy",
+          "split": "ext",
+          "starterLevelCap": 30
+        }
+      },
+      "economy.commerce": {
+        "stats": {
+          "validItemCount": 4593,
+          "virtualItemCount": 20,
+          "shopCatalogRows": 1299,
+          "productionRecipeCount": 167
+        },
+        "meta": {
+          "builtAt": "2026-03-06T19:07:56.378433+00:00",
+          "sourceDomain": "economy"
+        }
+      },
       "ops": {
         "stats": {},
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.258367+00:00",
+          "builtAt": "2026-03-06T19:07:56.378438+00:00",
           "sourceTables": {
             "s_event": 1,
             "s_event_drop": 169,
@@ -356,7 +441,7 @@
       "save_schema": {
         "stats": {},
         "meta": {
-          "builtAt": "2026-03-06T00:46:36.258378+00:00",
+          "builtAt": "2026-03-06T19:07:56.378445+00:00",
           "sourceTables": {
             "Player": 3,
             "u_hero": 0,
@@ -364,6 +449,16 @@
             "u_item": 13,
             "u_MixSkill": 1
           }
+        }
+      },
+      "world.spawn.zone_templates": {
+        "stats": {
+          "runtimeZoneCount": 173,
+          "templateCount": 768
+        },
+        "meta": {
+          "builtAt": "2026-03-06T19:07:56.390768+00:00",
+          "sourceDomain": "world_spawn+progression"
         }
       }
     }

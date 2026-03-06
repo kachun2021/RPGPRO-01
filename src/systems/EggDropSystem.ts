@@ -27,9 +27,12 @@ export class EggDropSystem {
                   gap: '8px',
             });
             document.getElementById('ui-layer')?.appendChild(this._container);
+            void this._initRuntimeMessages();
+      }
 
-            this._runtimeMessages = getRuntimeServerMessages();
-            if (this._runtimeMessages.length > 0) {
+      private async _initRuntimeMessages(): Promise<void> {
+            this._runtimeMessages = await getRuntimeServerMessages();
+            if (this._runtimeMessages.length > 0 && this._runtimeTimer === null) {
                   this._runtimeTimer = window.setInterval(() => this._announceNextRuntimeMessage(), 90_000);
             }
       }
@@ -120,4 +123,3 @@ export class EggDropSystem {
             this._container.remove();
       }
 }
-

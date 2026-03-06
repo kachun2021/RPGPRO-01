@@ -20,6 +20,7 @@
     "gamedb:validate": "python -X utf8 ./scripts/gamedb/validate_relations.py",
     "gamedb:repair-audit": "python -X utf8 ./scripts/gamedb/repair_audit.py",
     "gamedb:check-legacy": "node ./scripts/gamedb/check_legacy_usage.mjs",
+    "ci:guardrails": "node ./scripts/ci/guardrails.mjs",
     "gamedb:p0": "npm run gamedb:build-runtime && npm run gamedb:validate"
   },
   "dependencies": {

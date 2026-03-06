@@ -6,10 +6,10 @@ import type { ShopManager, ShopCategory, ShopItem } from '../systems/ShopManager
 import { SHOP_CATEGORIES } from '../systems/ShopManager';
 import type { Inventory, InventoryItem } from '../systems/Inventory';
 import {
-      getRuntimeItemMetaByIdx,
+      getRuntimeCommerceItemMetaByIdx,
       getRuntimeProductionRecipes,
       type RuntimeProductionRecipe,
-} from '../data/runtime/RuntimeEconomySource';
+} from '../data/runtime/RuntimeEconomyCommerceSource';
 
 const RARITY_COLORS: Record<string, string> = {
       common: 'rgba(200,195,185,0.5)',
@@ -50,7 +50,7 @@ export class ShopPanel {
             this._el = document.createElement('div');
             this._el.id = 'shop-panel';
             this._el.className = 'sa-panel shop-root';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
 
             this._inventory.onChange = () => {
@@ -273,7 +273,7 @@ export class ShopPanel {
                   const successRate = selected.defaultPro > 0 ? Math.min(1, selected.defaultPro / 100000) : 1;
                   const success = Math.random() <= successRate;
                   if (success) {
-                        const resultMeta = getRuntimeItemMetaByIdx(selected.resultIdx);
+                        const resultMeta = getRuntimeCommerceItemMetaByIdx(selected.resultIdx);
                         for (let i = 0; i < selected.resultCount; i++) {
                               this._inventory.addItem({
                                     itemId: resultMeta?.itemId ?? `db_item_${selected.resultIdx}`,
@@ -592,20 +592,21 @@ export class ShopPanel {
             }, 2000);
       }
 
-      show(mode: 'buy' | 'sell' | 'craft' = 'buy'): void {
+      async show(mode: 'buy' | 'sell' | 'craft' = 'buy'): Promise<void> {
+            await this._shop.ensureRuntimeLoaded();
             this._mode = mode;
             this._visible = true;
             this._quantities.clear();
             this._selectedBuyId = null;
             this._selectedSellId = null;
             this._selectedRecipeId = null;
-            this._el.style.display = 'flex';
+            this._el.hidden = false;
             this._render();
       }
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }

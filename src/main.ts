@@ -14,8 +14,6 @@ import { PetEncyclopedia } from './pets/PetEncyclopedia';
 import { PetEquipment } from './pets/PetEquipment';
 import { PetBuff } from './pets/PetBuff';
 import { PetPanel } from './ui/PetPanel';
-import { FusionPanel } from './ui/FusionPanel';
-import { EncyclopediaPanel } from './ui/EncyclopediaPanel';
 import { RenamePanel } from './ui/RenamePanel';
 import { RevivalPanel } from './ui/RevivalPanel';
 import { ChatBox } from './ui/ChatBox';
@@ -33,7 +31,6 @@ import { CombatLoop } from './combat/CombatLoop';
 import { ZoneManager } from './world/ZoneManager';
 import { TeleportSystem } from './world/TeleportSystem';
 import { ZoneTransition } from './ui/ZoneTransition';
-import { WorldMapPanel } from './ui/WorldMapPanel';
 // P7 Drops + Inventory
 import { DropTable } from './systems/DropTable';
 import { DropItemManager } from './entities/DropItem';
@@ -61,7 +58,6 @@ import { CommunityPanel } from './ui/CommunityPanel';
 import { QuestTracker } from './ui/QuestTracker';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
-import { ShopPanel } from './ui/ShopPanel';
 // P9 System Settings
 import { SystemPanel } from './ui/SystemPanel';
 
@@ -197,6 +193,11 @@ interface RuntimeZoneForSpawn {
       level?: { min?: number; max?: number };
       rules?: { restriction?: number; pkZoneFlag?: number };
 }
+
+type FusionPanelType = import('./ui/FusionPanel').FusionPanel;
+type EncyclopediaPanelType = import('./ui/EncyclopediaPanel').EncyclopediaPanel;
+type WorldMapPanelType = import('./ui/WorldMapPanel').WorldMapPanel;
+type ShopPanelType = import('./ui/ShopPanel').ShopPanel;
 
 function resolveSelectedHeroType(): number {
       const heroes = listRuntimeHeroTemplates();
@@ -371,7 +372,6 @@ async function bootstrap(): Promise<void> {
 
       // P5: Shop system
       const shopManager = new ShopManager();
-      const shopPanel = new ShopPanel(shopManager, inventory);
 
       // Wire NPC interaction → dialogue
       npcManager.onInteract = (npc) => {
@@ -379,7 +379,7 @@ async function bootstrap(): Promise<void> {
       };
 
       let openShopPanelByDialogue = (mode: 'buy' | 'sell'): void => {
-            shopPanel.show(mode);
+            console.warn('[UI] ShopPanel is not ready yet:', mode);
       };
       let openSkillPanelByDialogue = (): void => {
             skillPanel.show();
@@ -493,7 +493,6 @@ async function bootstrap(): Promise<void> {
       // ── P6 Zone System ──
       const zoneTransition = new ZoneTransition();
       const zoneManager = new ZoneManager(Registry.scene, mainScene.shadowGenerator);
-      const worldMapPanel = new WorldMapPanel(zoneManager);
       const teleportSystem = new TeleportSystem(zoneManager, () => player.position);
 
       // Wire zone manager dependencies
@@ -522,8 +521,6 @@ async function bootstrap(): Promise<void> {
       const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
 
       // 15. Sub-Panels (Fusion / Encyclopedia / Rename / Revival)
-      const fusionPanel = new FusionPanel(petManager);
-      const encyclopediaPanel = new EncyclopediaPanel(encyclopedia);
       const renamePanel = new RenamePanel();
       const revivalPanel = new RevivalPanel(petManager);
 
@@ -615,50 +612,216 @@ async function bootstrap(): Promise<void> {
             },
       });
 
+      // Heavy data panels are lazy-loaded on first use to reduce initial startup cost.
+      let fusionPanel: FusionPanelType | null = null;
+      let fusionPanelLoading: Promise<FusionPanelType> | null = null;
+      let encyclopediaPanel: EncyclopediaPanelType | null = null;
+      let encyclopediaPanelLoading: Promise<EncyclopediaPanelType> | null = null;
+      let worldMapPanel: WorldMapPanelType | null = null;
+      let worldMapPanelLoading: Promise<WorldMapPanelType> | null = null;
+      let shopPanel: ShopPanelType | null = null;
+      let shopPanelLoading: Promise<ShopPanelType> | null = null;
+
+      async function ensureShopPanel(): Promise<ShopPanelType> {
+            if (shopPanel) return shopPanel;
+            if (shopPanelLoading) return shopPanelLoading;
+            shopPanelLoading = import('./ui/ShopPanel')
+                  .then(({ ShopPanel }) => {
+                        const panel = new ShopPanel(shopManager, inventory);
+                        shopPanel = panel;
+                        return panel;
+                  })
+                  .finally(() => {
+                        shopPanelLoading = null;
+                  });
+            return shopPanelLoading;
+      }
+
+      async function ensureFusionPanel(): Promise<FusionPanelType> {
+            if (fusionPanel) return fusionPanel;
+            if (fusionPanelLoading) return fusionPanelLoading;
+            fusionPanelLoading = import('./ui/FusionPanel')
+                  .then(({ FusionPanel }) => {
+                        const panel = new FusionPanel(petManager);
+                        panel.setMapNavigator((mapName, petName) => {
+                              void openWorldMapAt(mapName, petName);
+                        });
+                        fusionPanel = panel;
+                        return panel;
+                  })
+                  .finally(() => {
+                        fusionPanelLoading = null;
+                  });
+            return fusionPanelLoading;
+      }
+
+      async function ensureEncyclopediaPanel(): Promise<EncyclopediaPanelType> {
+            if (encyclopediaPanel) return encyclopediaPanel;
+            if (encyclopediaPanelLoading) return encyclopediaPanelLoading;
+            encyclopediaPanelLoading = import('./ui/EncyclopediaPanel')
+                  .then(({ EncyclopediaPanel }) => {
+                        const panel = new EncyclopediaPanel(encyclopedia);
+                        panel.setNavigationHandlers({
+                              onOpenRecipe: (petName, sourceMap) => {
+                                    void openFusionByTarget(petName, sourceMap);
+                              },
+                              onOpenMap: (mapName, petName) => {
+                                    void openWorldMapAt(mapName, petName);
+                              },
+                        });
+                        encyclopediaPanel = panel;
+                        return panel;
+                  })
+                  .finally(() => {
+                        encyclopediaPanelLoading = null;
+                  });
+            return encyclopediaPanelLoading;
+      }
+
+      async function ensureWorldMapPanel(): Promise<WorldMapPanelType> {
+            if (worldMapPanel) return worldMapPanel;
+            if (worldMapPanelLoading) return worldMapPanelLoading;
+            worldMapPanelLoading = import('./ui/WorldMapPanel')
+                  .then(({ WorldMapPanel }) => {
+                        const panel = new WorldMapPanel(zoneManager);
+                        panel.setNavigationHandlers({
+                              onOpenEncyclopedia: (petName, mapName) => {
+                                    void openEncyclopediaPetByName(petName, mapName);
+                              },
+                              onOpenFusionByIngredient: (petName, mapName) => {
+                                    void openFusionByIngredient(petName, mapName);
+                              },
+                              onOpenFusionByTarget: (targetName, mapName) => {
+                                    void openFusionByTarget(targetName, mapName);
+                              },
+                        });
+                        worldMapPanel = panel;
+                        return panel;
+                  })
+                  .finally(() => {
+                        worldMapPanelLoading = null;
+                  });
+            return worldMapPanelLoading;
+      }
+
       // Global panel rule: opening one sub-panel closes others to avoid overlap.
-      const closeSubPanels = (except?: string): void => {
+      function closeSubPanels(except?: string): void {
             if (except !== 'pet') petPanel.close();
-            if (except !== 'fusion') fusionPanel.close();
-            if (except !== 'book') encyclopediaPanel.close();
+            if (except !== 'fusion') fusionPanel?.close();
+            if (except !== 'book') encyclopediaPanel?.close();
             if (except !== 'rename') renamePanel.close();
             if (except !== 'revival') revivalPanel.close();
-            if (except !== 'shop') shopPanel.hide();
+            if (except !== 'shop') shopPanel?.hide();
             if (except !== 'quest') questPanel.hide();
             if (except !== 'community') communityPanel.hide();
             if (except !== 'char') characterPanel.hide();
             if (except !== 'bag') inventoryPanel.hide();
-            if (except !== 'map') worldMapPanel.hide();
+            if (except !== 'map') worldMapPanel?.hide();
             if (except !== 'skill') skillPanel.hide();
             if (except !== 'settings') systemPanel.hide();
             if (except !== 'afk') afkPanel.hide();
             syncAutoUi();
             schedulePanelViewportFit();
-      };
+      }
 
-      const openPetPanel = (): void => {
+      function openPetPanel(): void {
             closeSubPanels('pet');
             petPanel.open();
             petPanel.refresh();
             schedulePanelViewportFit();
-      };
+      }
 
-      const openFusionPanel = (): void => {
+      async function openShopPanel(mode: 'buy' | 'sell' | 'craft' = 'buy'): Promise<void> {
+            closeSubPanels('shop');
+            try {
+                  const panel = await ensureShopPanel();
+                  await panel.show(mode);
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open ShopPanel:', err);
+            }
+      }
+
+      async function openFusionPanel(): Promise<void> {
             closeSubPanels('fusion');
-            fusionPanel.refresh();
-            fusionPanel.open();
-            schedulePanelViewportFit();
-      };
+            try {
+                  const panel = await ensureFusionPanel();
+                  panel.refresh();
+                  panel.open();
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open FusionPanel:', err);
+            }
+      }
 
-      const openEncyclopediaPanel = (): void => {
+      async function openFusionByTarget(targetName: string, sourceMap?: string): Promise<void> {
+            closeSubPanels('fusion');
+            try {
+                  const panel = await ensureFusionPanel();
+                  panel.openToRecipesByTargetName(targetName, sourceMap);
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open Fusion by target:', err);
+            }
+      }
+
+      async function openFusionByIngredient(ingredientName: string, sourceMap?: string): Promise<void> {
+            closeSubPanels('fusion');
+            try {
+                  const panel = await ensureFusionPanel();
+                  panel.openToRecipesByIngredientName(ingredientName, sourceMap);
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open Fusion by ingredient:', err);
+            }
+      }
+
+      async function openEncyclopediaPanel(): Promise<void> {
             closeSubPanels('book');
-            encyclopediaPanel.open();
-            schedulePanelViewportFit();
-      };
+            try {
+                  const panel = await ensureEncyclopediaPanel();
+                  panel.open();
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open EncyclopediaPanel:', err);
+            }
+      }
+
+      async function openEncyclopediaPetByName(petName: string, mapName?: string): Promise<void> {
+            closeSubPanels('book');
+            try {
+                  const panel = await ensureEncyclopediaPanel();
+                  panel.openPetByName(petName, mapName);
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open Encyclopedia pet detail:', err);
+            }
+      }
+
+      async function openWorldMapPanel(): Promise<void> {
+            closeSubPanels('map');
+            try {
+                  const panel = await ensureWorldMapPanel();
+                  panel.show();
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open WorldMapPanel:', err);
+            }
+      }
+
+      async function openWorldMapAt(mapName: string, petName?: string): Promise<void> {
+            closeSubPanels('map');
+            try {
+                  const panel = await ensureWorldMapPanel();
+                  panel.openAtMap(mapName, petName);
+                  schedulePanelViewportFit();
+            } catch (err) {
+                  console.error('[UI] Failed to open WorldMap target:', err);
+            }
+      }
 
       openShopPanelByDialogue = (mode) => {
-            closeSubPanels('shop');
-            shopPanel.show(mode);
-            schedulePanelViewportFit();
+            void openShopPanel(mode);
       };
       openSkillPanelByDialogue = () => {
             closeSubPanels('skill');
@@ -683,8 +846,8 @@ async function bootstrap(): Promise<void> {
       };
 
       // Re-wire callbacks with exclusive-open behavior.
-      petPanel.onOpenFusion = () => openFusionPanel();
-      petPanel.onOpenEncyclopedia = () => openEncyclopediaPanel();
+      petPanel.onOpenFusion = () => { void openFusionPanel(); };
+      petPanel.onOpenEncyclopedia = () => { void openEncyclopediaPanel(); };
       petPanel.onOpenRename = (pet) => {
             closeSubPanels('rename');
             renamePanel.openFor(pet, () => petPanel.refresh());
@@ -695,43 +858,6 @@ async function bootstrap(): Promise<void> {
             revivalPanel.open(() => petPanel.refresh());
             schedulePanelViewportFit();
       };
-
-      fusionPanel.setMapNavigator((mapName, petName) => {
-            closeSubPanels('map');
-            worldMapPanel.openAtMap(mapName, petName);
-            schedulePanelViewportFit();
-      });
-
-      worldMapPanel.setNavigationHandlers({
-            onOpenEncyclopedia: (petName, mapName) => {
-                  closeSubPanels('book');
-                  encyclopediaPanel.openPetByName(petName, mapName);
-                  schedulePanelViewportFit();
-            },
-            onOpenFusionByIngredient: (petName, mapName) => {
-                  closeSubPanels('fusion');
-                  fusionPanel.openToRecipesByIngredientName(petName, mapName);
-                  schedulePanelViewportFit();
-            },
-            onOpenFusionByTarget: (targetName, mapName) => {
-                  closeSubPanels('fusion');
-                  fusionPanel.openToRecipesByTargetName(targetName, mapName);
-                  schedulePanelViewportFit();
-            },
-      });
-
-      encyclopediaPanel.setNavigationHandlers({
-            onOpenRecipe: (petName, sourceMap) => {
-                  closeSubPanels('fusion');
-                  fusionPanel.openToRecipesByTargetName(petName, sourceMap);
-                  schedulePanelViewportFit();
-            },
-            onOpenMap: (mapName, petName) => {
-                  closeSubPanels('map');
-                  worldMapPanel.openAtMap(mapName, petName);
-                  schedulePanelViewportFit();
-            },
-      });
 
       // Wire portraits
       hud.getPortrait(0)?.addEventListener('click', () => {
@@ -747,16 +873,14 @@ async function bootstrap(): Promise<void> {
 
       // Wire nav buttons
       hud.getNavButton('nav-pet')?.addEventListener('click', () => openPetPanel());
-      hud.getNavButton('nav-book')?.addEventListener('click', () => openEncyclopediaPanel());
+      hud.getNavButton('nav-book')?.addEventListener('click', () => { void openEncyclopediaPanel(); });
       hud.getNavButton('nav-settings')?.addEventListener('click', () => {
             closeSubPanels('settings');
             systemPanel.show();
             schedulePanelViewportFit();
       });
       hud.getNavButton('nav-shop')?.addEventListener('click', () => {
-            closeSubPanels('shop');
-            shopPanel.show('buy');
-            schedulePanelViewportFit();
+            void openShopPanel('buy');
       });
       hud.getNavButton('nav-community')?.addEventListener('click', () => {
             closeSubPanels('community');
@@ -779,9 +903,7 @@ async function bootstrap(): Promise<void> {
             schedulePanelViewportFit();
       });
       hud.getNavButton('nav-map')?.addEventListener('click', () => {
-            closeSubPanels('map');
-            worldMapPanel.show();
-            schedulePanelViewportFit();
+            void openWorldMapPanel();
       });
       hud.getNavButton('nav-skill')?.addEventListener('click', () => {
             closeSubPanels('skill');

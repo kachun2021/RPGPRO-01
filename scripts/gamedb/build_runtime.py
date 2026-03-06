@@ -336,6 +336,169 @@ def build_world_spawn(tables: dict[str, list[dict[str, Any]]], repairs: dict[str
     }
 
 
+def build_world_spawn_zone_templates(world_spawn: dict[str, Any], progression: dict[str, Any]) -> dict[str, Any]:
+    monster_catalog = world_spawn.get('monsterCatalog', []) if isinstance(world_spawn.get('monsterCatalog', []), list) else []
+    mob_spawns = world_spawn.get('mobSpawns', []) if isinstance(world_spawn.get('mobSpawns', []), list) else []
+    monster_levels = progression.get('monsterLevels', []) if isinstance(progression.get('monsterLevels', []), list) else []
+
+    level_rows = sorted(
+        [row for row in monster_levels if isinstance(row, dict)],
+        key=lambda row: to_int(row.get('lv'), 1),
+    )
+
+    monster_by_type: dict[int, dict[str, Any]] = {}
+    for row in monster_catalog:
+        if not isinstance(row, dict):
+            continue
+        mtype = to_int(row.get('monsterType'), 0)
+        if mtype <= 0:
+            continue
+        monster_by_type[mtype] = row
+
+    def nearest_level_row(target_level: int) -> dict[str, Any] | None:
+        if not level_rows:
+            return None
+        target = max(1, min(210, to_int(target_level, 1)))
+        lo, hi = 0, len(level_rows) - 1
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            lv = to_int(level_rows[mid].get('lv'), 1)
+            if lv == target:
+                return level_rows[mid]
+            if lv < target:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        idx = max(0, min(len(level_rows) - 1, hi))
+        return level_rows[idx]
+
+    def map_race_to_series(race: int) -> str:
+        return {
+            0: 'Dragon',
+            1: 'Demon',
+            2: 'Beast',
+            3: 'Bird',
+            4: 'Insect',
+            5: 'Plant',
+            6: 'Metal',
+            7: 'Mystery',
+        }.get(race, 'Mystery')
+
+    def is_boss_heuristic(name: str, level: int, interval_sec: int, core_rate: int) -> bool:
+        text = str(name or '').lower()
+        if any(token in text for token in ['boss', '王']):
+            return True
+        if interval_sec >= 300:
+            return True
+        if level >= 120 and core_rate <= 0:
+            return True
+        return False
+
+    zone_map: dict[int, dict[int, dict[str, Any]]] = {}
+
+    for spawn in mob_spawns:
+        if not isinstance(spawn, dict):
+            continue
+        monster_type = to_int(spawn.get('monsterType'), 0)
+        if monster_type <= 0:
+            continue
+
+        catalog = monster_by_type.get(monster_type)
+        if not catalog:
+            continue
+
+        name = str(catalog.get('name', '')).strip()
+        if not name:
+            continue
+
+        base_level = max(1, to_int(catalog.get('startBaseLevel'), 1))
+        stat_rate = to_float(catalog.get('statRate'), 1.0)
+        hp_rate = to_float(catalog.get('hpRate'), 1.0)
+        race = to_int(catalog.get('race'), 7)
+        core_rate = max(0, to_int(catalog.get('coreRate'), 0))
+        behavior = 'aggressive' if to_int(spawn.get('aggressive'), 0) > 0 else 'passive'
+        source_mob_idx = to_int(spawn.get('mobIdx'), 0)
+        mob_item_idx = max(0, to_int(spawn.get('mobItemIdx'), 0))
+        slots = spawn.get('slots', [])
+        if not isinstance(slots, list):
+            slots = []
+
+        level_curve = nearest_level_row(base_level) or {}
+
+        for slot in slots:
+            if not isinstance(slot, dict):
+                continue
+            zone_id = to_int(slot.get('zoneId'), 0)
+            if zone_id <= 0:
+                continue
+
+            interval_sec = max(8, to_int(slot.get('intervalTime'), 20))
+            is_boss = is_boss_heuristic(name, base_level, interval_sec, core_rate)
+            hp_base = max(10, to_int(level_curve.get('hp'), round(base_level * 12)))
+            atk_base = max(2, to_int(level_curve.get('att'), round(base_level * 2.2)))
+            def_base = max(1, to_int(level_curve.get('dp'), round(base_level * 1.1)))
+            max_hp = max(10, round(hp_base * max(0.2, hp_rate) * max(0.2, stat_rate) * (4.2 if is_boss else 1.25)))
+            atk = max(1, round(atk_base * max(0.2, stat_rate) * (1.6 if is_boss else 1.0)))
+            dfn = max(1, round(def_base * max(0.2, stat_rate)))
+            egg_drop_rate = max(0.0, min(0.08, core_rate / 1_200_000_000))
+            spawn_weight = max(1, to_int(slot.get('appearRate'), 10))
+
+            by_monster = zone_map.setdefault(zone_id, {})
+            prev = by_monster.get(monster_type)
+            if prev is None:
+                by_monster[monster_type] = {
+                    'sourceMobIdx': source_mob_idx,
+                    'monsterType': monster_type,
+                    'mobItemIdx': mob_item_idx,
+                    'name': name,
+                    'level': base_level,
+                    'series': map_race_to_series(race),
+                    'behavior': behavior,
+                    'respawnSec': max(8, min(interval_sec, 1800 if is_boss else 300)),
+                    'isBoss': is_boss,
+                    'maxHp': max_hp,
+                    'atk': atk,
+                    'def': dfn,
+                    'eggDropRate': egg_drop_rate,
+                    'spawnWeight': spawn_weight,
+                }
+                continue
+
+            prev['level'] = max(to_int(prev.get('level'), base_level), base_level)
+            if to_int(prev.get('mobItemIdx'), 0) <= 0:
+                prev['mobItemIdx'] = mob_item_idx
+            prev['behavior'] = 'aggressive' if prev.get('behavior') == 'aggressive' or behavior == 'aggressive' else 'passive'
+            prev['respawnSec'] = max(8, min(to_int(prev.get('respawnSec'), interval_sec), interval_sec))
+            prev['isBoss'] = bool(prev.get('isBoss')) or is_boss
+            prev['maxHp'] = max(to_int(prev.get('maxHp'), max_hp), max_hp)
+            prev['atk'] = max(to_int(prev.get('atk'), atk), atk)
+            prev['def'] = max(to_int(prev.get('def'), dfn), dfn)
+            prev['eggDropRate'] = max(float(prev.get('eggDropRate', egg_drop_rate)), egg_drop_rate)
+            prev['spawnWeight'] = to_int(prev.get('spawnWeight'), 0) + spawn_weight
+
+    zone_templates: dict[str, list[dict[str, Any]]] = {}
+    template_count = 0
+    for zone_id, by_monster in sorted(zone_map.items(), key=lambda kv: kv[0]):
+        rows = sorted(
+            [dict(v) for v in by_monster.values()],
+            key=lambda row: (to_int(row.get('level'), 1), str(row.get('name', ''))),
+        )
+        zone_templates[str(zone_id)] = rows
+        template_count += len(rows)
+
+    return {
+        'meta': {
+            'builtAt': now_iso(),
+            'sourceDomain': 'world_spawn+progression',
+        },
+        'zoneTemplates': zone_templates,
+        'stats': {
+            'runtimeZoneCount': len(zone_templates),
+            'templateCount': template_count,
+        },
+    }
+
+
 def build_progression(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     heroes_raw = tables.get('s_hero', [])
     user_lv_raw = tables.get('s_LvUserInfo', [])
@@ -828,6 +991,173 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
     }
 
 
+def _collect_drop_item_ids(mob_drops: list[dict[str, Any]]) -> set[int]:
+    item_ids: set[int] = set()
+    for row in mob_drops:
+        if not isinstance(row, dict):
+            continue
+        for i in range(10):
+            idx = to_int(row.get(f'item_idx{i}'), 0)
+            if idx <= 0 or idx == 9999:
+                continue
+            item_ids.add(idx)
+    return item_ids
+
+
+def _pick_combat_items(
+    valid_items: list[dict[str, Any]],
+    virtual_items: list[dict[str, Any]],
+    item_ids: set[int],
+) -> tuple[list[dict[str, Any]], list[int]]:
+    item_by_idx: dict[int, dict[str, Any]] = {}
+    for row in [*valid_items, *virtual_items]:
+        if not isinstance(row, dict):
+            continue
+        idx = to_int(row.get('idx'), 0)
+        if idx <= 0 or idx in item_by_idx:
+            continue
+        item_by_idx[idx] = row
+    items = [item_by_idx[idx] for idx in sorted(item_ids) if idx in item_by_idx]
+    unresolved = sorted([idx for idx in item_ids if idx not in item_by_idx])
+    return items, unresolved
+
+
+def build_economy_combat_split(
+    economy: dict[str, Any],
+    world_spawn: dict[str, Any],
+    world_topology: dict[str, Any],
+    starter_level_cap: int = 30,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    mob_drops = economy.get('mobDrops', []) if isinstance(economy.get('mobDrops', []), list) else []
+    valid_items = economy.get('validItems', []) if isinstance(economy.get('validItems', []), list) else []
+    virtual_items = economy.get('virtualItems', []) if isinstance(economy.get('virtualItems', []), list) else []
+    mob_spawns = world_spawn.get('mobSpawns', []) if isinstance(world_spawn.get('mobSpawns', []), list) else []
+    zones = world_topology.get('zones', []) if isinstance(world_topology.get('zones', []), list) else []
+
+    starter_zone_ids: set[int] = set()
+    for row in zones:
+        if not isinstance(row, dict):
+            continue
+        zone_id = to_int(row.get('zoneId'), 0)
+        level = row.get('level', {})
+        min_level = to_int(level.get('min') if isinstance(level, dict) else None, 1)
+        if zone_id > 0 and min_level <= starter_level_cap:
+            starter_zone_ids.add(zone_id)
+
+    core_drop_ids: set[int] = set()
+    all_drop_ids = {to_int(row.get('idx'), 0) for row in mob_drops if isinstance(row, dict) and to_int(row.get('idx'), 0) > 0}
+    for spawn in mob_spawns:
+        if not isinstance(spawn, dict):
+            continue
+        mob_item_idx = to_int(spawn.get('mobItemIdx'), 0)
+        if mob_item_idx <= 0:
+            continue
+        slots = spawn.get('slots', [])
+        if not isinstance(slots, list):
+            continue
+        if any(to_int(slot.get('zoneId') if isinstance(slot, dict) else 0, 0) in starter_zone_ids for slot in slots):
+            core_drop_ids.add(mob_item_idx)
+
+    core_drop_ids = {idx for idx in core_drop_ids if idx in all_drop_ids}
+    if not core_drop_ids and all_drop_ids:
+        core_drop_ids = set(sorted(all_drop_ids)[: max(1, min(32, len(all_drop_ids)))])
+
+    ext_drop_ids = set(all_drop_ids) - core_drop_ids
+    core_mob_drops = [row for row in mob_drops if to_int(row.get('idx'), 0) in core_drop_ids]
+    ext_mob_drops = [row for row in mob_drops if to_int(row.get('idx'), 0) in ext_drop_ids]
+
+    all_item_ids = _collect_drop_item_ids(mob_drops)
+    core_item_ids = _collect_drop_item_ids(core_mob_drops)
+    ext_item_ids = _collect_drop_item_ids(ext_mob_drops)
+
+    all_items, all_unresolved = _pick_combat_items(valid_items, virtual_items, all_item_ids)
+    core_items, core_unresolved = _pick_combat_items(valid_items, virtual_items, core_item_ids)
+    ext_items, ext_unresolved = _pick_combat_items(valid_items, virtual_items, ext_item_ids)
+
+    all_payload = {
+        'meta': {
+            'builtAt': now_iso(),
+            'sourceDomain': 'economy',
+            'split': 'all',
+            'starterLevelCap': starter_level_cap,
+        },
+        'combatItems': all_items,
+        'virtualItems': virtual_items,
+        'mobDrops': mob_drops,
+        'stats': {
+            'combatItemCount': len(all_items),
+            'mobDropTableCount': len(mob_drops),
+            'unresolvedCombatItemCount': len(all_unresolved),
+            'unresolvedCombatItemIds': all_unresolved,
+            'starterMobDropTableCount': len(core_mob_drops),
+            'deferredMobDropTableCount': len(ext_mob_drops),
+        },
+    }
+
+    core_payload = {
+        'meta': {
+            'builtAt': now_iso(),
+            'sourceDomain': 'economy',
+            'split': 'core',
+            'starterLevelCap': starter_level_cap,
+        },
+        'combatItems': core_items,
+        'virtualItems': virtual_items,
+        'mobDrops': core_mob_drops,
+        'stats': {
+            'combatItemCount': len(core_items),
+            'mobDropTableCount': len(core_mob_drops),
+            'unresolvedCombatItemCount': len(core_unresolved),
+            'unresolvedCombatItemIds': core_unresolved,
+            'deferredMobDropTableCount': len(ext_mob_drops),
+        },
+    }
+
+    ext_payload = {
+        'meta': {
+            'builtAt': now_iso(),
+            'sourceDomain': 'economy',
+            'split': 'ext',
+            'starterLevelCap': starter_level_cap,
+        },
+        'combatItems': ext_items,
+        'virtualItems': virtual_items,
+        'mobDrops': ext_mob_drops,
+        'stats': {
+            'combatItemCount': len(ext_items),
+            'mobDropTableCount': len(ext_mob_drops),
+            'unresolvedCombatItemCount': len(ext_unresolved),
+            'unresolvedCombatItemIds': ext_unresolved,
+        },
+    }
+
+    return all_payload, core_payload, ext_payload
+
+
+def build_economy_commerce(economy: dict[str, Any]) -> dict[str, Any]:
+    valid_items = economy.get('validItems', []) if isinstance(economy.get('validItems', []), list) else []
+    virtual_items = economy.get('virtualItems', []) if isinstance(economy.get('virtualItems', []), list) else []
+    shop_catalog = economy.get('shopCatalog', []) if isinstance(economy.get('shopCatalog', []), list) else []
+    production = economy.get('production', []) if isinstance(economy.get('production', []), list) else []
+
+    return {
+        'meta': {
+            'builtAt': now_iso(),
+            'sourceDomain': 'economy',
+        },
+        'validItems': valid_items,
+        'virtualItems': virtual_items,
+        'shopCatalog': shop_catalog,
+        'production': production,
+        'stats': {
+            'validItemCount': len(valid_items),
+            'virtualItemCount': len(virtual_items),
+            'shopCatalogRows': len(shop_catalog),
+            'productionRecipeCount': len(production),
+        },
+    }
+
+
 def build_ops(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     return {
         'meta': {
@@ -937,19 +1267,37 @@ def main() -> None:
         'progression': ['s_hero', 's_LvUserInfo', 's_LvMonInfo', 's_SkillProperty', 's_SkillData', 's_MixSkill', 's_hero_skill', 's_PartyExpRate', 's_PartyPenaltyRate'],
         'fusion_runtime': ['s_mix'],
         'economy': ['s_item', 's_ItemEffectiveData', 's_mobitem', 's_npc', 's_npc_sale', 's_Production', 's_ItemRankInfo', 's_Itempoweradd', 's_ItemBox', 's_ItemTypeInfo', 's_LootRankInfo', 's_LootTypeInfo', 's_OptInfo', 's_OptLvInfo', 's_npc_fixed'],
+        'economy_combat': ['s_mobitem', 's_item', 's_Production', 's_npc_sale'],
+        'economy_combat_core': ['s_mobitem', 's_mob', 's_zone'],
+        'economy_combat_ext': ['s_mobitem', 's_mob', 's_zone'],
+        'economy_commerce': ['s_item', 's_npc', 's_npc_sale', 's_Production', 's_npc_fixed'],
         'ops': ['s_event', 's_event_drop', 's_CastleWarInfo', 'ZoneServerMessage', 's_QuestScheduler'],
         'save_schema': ['Player', 'u_hero', 'u_hench_1', 'u_item', 'u_MixSkill'],
     }
 
+    economy_payload = build_economy(tables, runtime_repairs)
+    world_topology_payload = build_world_topology(tables)
+    world_spawn_payload = build_world_spawn(tables, runtime_repairs)
+    progression_payload = build_progression(tables)
+    economy_combat_payload, economy_combat_core_payload, economy_combat_ext_payload = build_economy_combat_split(
+        economy=economy_payload,
+        world_spawn=world_spawn_payload,
+        world_topology=world_topology_payload,
+    )
     outputs = {
-        'world.topology': build_world_topology(tables),
-        'world.spawn': build_world_spawn(tables, runtime_repairs),
-        'progression': build_progression(tables),
+        'world.topology': world_topology_payload,
+        'world.spawn': world_spawn_payload,
+        'progression': progression_payload,
         'fusion.runtime': build_fusion_runtime(tables),
-        'economy': build_economy(tables, runtime_repairs),
+        'economy': economy_payload,
+        'economy.combat': economy_combat_payload,
+        'economy.combat.core': economy_combat_core_payload,
+        'economy.combat.ext': economy_combat_ext_payload,
+        'economy.commerce': build_economy_commerce(economy_payload),
         'ops': build_ops(tables),
         'save_schema': build_save_schema(tables),
     }
+    outputs['world.spawn.zone_templates'] = build_world_spawn_zone_templates(world_spawn_payload, progression_payload)
 
     for name, payload in outputs.items():
         write_json(paths.out_dir / f'{name}.json', payload)

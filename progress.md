@@ -330,3 +330,77 @@
     - `npm run -s test:smoke` passed (all scenarios).
   - Report:
     - `scripts/reports/implementation/P22_REMOVE_ZONEDEFINITIONS_FULL.md`
+- 2026-03-07 (economy split: combat vs commerce deferred):
+  - Added runtime split outputs:
+    - `economy.combat.json` (戰鬥必需：mobDrops + combatItems)
+    - `economy.commerce.json` (商店/製作延後：validItems/virtualItems/shopCatalog/production)
+  - Added new runtime adapters:
+    - `src/data/runtime/RuntimeEconomyShared.ts`
+    - `src/data/runtime/RuntimeEconomyCombatSource.ts`
+    - `src/data/runtime/RuntimeEconomyCommerceSource.ts`
+  - `DropTable` now reads from combat source only (no shop/craft dependency on startup path).
+  - `ShopManager` now lazy-loads commerce source via `ensureRuntimeLoaded()` (constructor no longer pulls runtime economy payload).
+  - `ShopPanel.show()` changed to async and awaits `shopManager.ensureRuntimeLoaded()` before rendering.
+  - `main.ts` open-shop flow now `await panel.show(mode)`.
+  - `vite.config.ts` chunk split added:
+    - `runtime-economy-combat(-data)`
+    - `runtime-economy-commerce(-data)`
+    - `runtime-economy-shared`
+  - Validation:
+    - `npm run -s gamedb:build-runtime` passed.
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed (all scenarios).
+    - `npm run -s ci:guardrails` passed.
+  - Build result snapshot:
+    - `runtime-economy-combat-data`: ~758 kB minified
+    - `runtime-economy-commerce-data`: ~3930 kB minified (deferred until shop panel load)
+
+## TODO / Next Agent
+- Consider shrinking `economy.commerce.json` by splitting `production` into separate lazy file if craft tab is much less used than buy/sell.
+- Consider compressing combat drop payload further (e.g., sparse slot encoding) if startup memory still needs reduction.
+  - Cleanup:
+    - Removed legacy `src/data/runtime/RuntimeEconomySource.ts` to avoid accidental full-economy import path.
+    - Re-validated after cleanup: `typecheck/build/test:smoke/ci:guardrails` all pass.
+- 2026-03-07 (skip SystemPanel; world monster startup data optimization):
+  - Added runtime output `world.spawn.zone_templates.json` (pre-aggregated runtime-zone monster templates).
+  - Reworked `RuntimeMonsterSource` to consume `world.spawn.zone_templates.json` + `RuntimeZoneCatalog` runtimeZoneIds.
+  - Removed startup dependency on full `world.spawn.json` inside monster spawn pipeline.
+  - Updated chunk strategy:
+    - `runtime-world-core-data` (topology)
+    - `runtime-world-combat-data` (zone_templates)
+    - `runtime-world-panel-data` (full world.spawn for map/fusion panels, deferred)
+  - Result: `runtime-world-panel-data` is no longer modulepreload on first load.
+  - Validation:
+    - `npm run -s gamedb:build-runtime` passed
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed
+- 2026-03-07 (combat economy core/ext split + RuntimeOps lazy load):
+  - Runtime build pipeline:
+    - Added `economy.combat.core.json` (starter-zone required drop tables/items)
+    - Added `economy.combat.ext.json` (high-level deferred drop tables/items)
+    - Kept `economy.combat.json` as compatibility aggregate
+    - Split logic based on `s_zone.min_level <= 30` + `s_mob.mobitem_idx` zone usage
+  - Runtime combat loader:
+    - `RuntimeEconomyCombatSource` now uses core payload by default.
+    - Added `ensureRuntimeCombatDropsForZoneLevel(levelMin)` to lazy-import ext payload on high-level zones.
+    - `ZoneManager.buildInitialZone/travelTo` now awaits this preload before spawning monsters.
+  - Runtime ops loader:
+    - `RuntimeOpsSource` switched from static `ops.json` import to lazy dynamic import.
+    - `EggDropSystem` runtime announcements now async init.
+    - `CommunityPanel` bulletin data now async lazy load (`_loadBulletinData`) and render with loading/error states.
+  - Chunking updates (`vite.config.ts`):
+    - `runtime-economy-combat-core-data`
+    - `runtime-economy-combat-ext-data` (deferred, non-preload)
+    - `runtime-ops-loader` + `runtime-ops-data` (data deferred)
+  - Preload outcome:
+    - removed preload of `runtime-ops-data`.
+    - removed preload of combat ext payload (high-level drops only).
+  - Validation:
+    - `npm run -s gamedb:build-runtime` passed
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed

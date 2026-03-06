@@ -7,6 +7,7 @@ import type { DropItemManager } from '../entities/DropItem';
 import type { ZoneTransition } from '../ui/ZoneTransition';
 import type { Minimap } from '../ui/Minimap';
 import { getSceneZoneNeighbors, isSceneZonesConnected } from '../data/runtime/RuntimeWorldRoutes';
+import { ensureRuntimeCombatDropsForZoneLevel } from '../data/runtime/RuntimeEconomyCombatSource';
 import {
       getDefaultRuntimeSceneZoneId,
       getRuntimeSceneZone,
@@ -80,6 +81,7 @@ export class ZoneManager {
             if (!zoneDef) return;
             this._currentZone = zoneDef;
             this._unlockAround(zoneDef.id);
+            await ensureRuntimeCombatDropsForZoneLevel(zoneDef.levelMin);
 
             this._renderer = new ZoneRenderer(this._scene, this._shadowGen);
             await this._renderer.build(zoneDef);
@@ -135,6 +137,7 @@ export class ZoneManager {
             // 5. Build new zone
             this._currentZone = zoneDef;
             this._unlockAround(zoneDef.id);
+            await ensureRuntimeCombatDropsForZoneLevel(zoneDef.levelMin);
             this._renderer = new ZoneRenderer(this._scene, this._shadowGen);
             await this._renderer.build(zoneDef);
 

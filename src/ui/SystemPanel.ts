@@ -99,7 +99,7 @@ export class SystemPanel {
             this._el = document.createElement('div');
             this._el.id = 'sys-panel';
             this._el.className = 'sa-panel sys-root';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
@@ -517,13 +517,13 @@ export class SystemPanel {
 
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
       }
 

@@ -1,10 +1,10 @@
 /**
- * ShopManager - NPC shop items data + buy/sell logic.
+ * ShopManager - NPC shop data and buy/sell logic.
+ * Runtime commerce data is loaded lazily to keep startup path light.
  */
 
 import type { Inventory } from './Inventory';
 import type { ItemType, ItemRarity } from './DropTable';
-import { getRuntimeItemMetaByIdx, getRuntimeShopItems } from '../data/runtime/RuntimeEconomySource';
 
 export type ShopCategory = 'weapon' | 'armor' | 'accessory' | 'potion' | 'pet_food' | 'scroll';
 
@@ -22,7 +22,7 @@ export interface ShopItem {
 export const SHOP_CATEGORIES: { id: ShopCategory; label: string; icon: string }[] = [
       { id: 'weapon', label: '武器', icon: '⚔️' },
       { id: 'armor', label: '防具', icon: '🛡️' },
-      { id: 'accessory', label: '飾品', icon: '💎' },
+      { id: 'accessory', label: '飾品', icon: '💍' },
       { id: 'potion', label: '藥水', icon: '🧪' },
       { id: 'pet_food', label: '寵糧', icon: '🍖' },
       { id: 'scroll', label: '卷軸', icon: '📜' },
@@ -32,10 +32,12 @@ const ESSENTIAL_ITEMS: ShopItem[] = [
       { id: 'hp_potion_s', name: 'HP藥水(小)', category: 'potion', price: 30, icon: '🧪', description: 'HP +50', itemType: 'consumable', rarity: 'common' },
       { id: 'hp_potion_m', name: 'HP藥水(中)', category: 'potion', price: 80, icon: '🧪', description: 'HP +150', itemType: 'consumable', rarity: 'uncommon' },
       { id: 'hp_potion_l', name: 'HP藥水(大)', category: 'potion', price: 200, icon: '🧪', description: 'HP 全回復', itemType: 'consumable', rarity: 'rare' },
-      { id: 'mp_potion_s', name: 'MP藥水(小)', category: 'potion', price: 30, icon: '🧴', description: 'MP +30', itemType: 'consumable', rarity: 'common' },
-      { id: 'mp_potion_m', name: 'MP藥水(中)', category: 'potion', price: 80, icon: '🧴', description: 'MP +80', itemType: 'consumable', rarity: 'uncommon' },
-      { id: 'mp_potion_l', name: 'MP藥水(大)', category: 'potion', price: 200, icon: '🧴', description: 'MP 全回復', itemType: 'consumable', rarity: 'rare' },
+      { id: 'mp_potion_s', name: 'MP藥水(小)', category: 'potion', price: 30, icon: '💧', description: 'MP +30', itemType: 'consumable', rarity: 'common' },
+      { id: 'mp_potion_m', name: 'MP藥水(中)', category: 'potion', price: 80, icon: '💧', description: 'MP +80', itemType: 'consumable', rarity: 'uncommon' },
+      { id: 'mp_potion_l', name: 'MP藥水(大)', category: 'potion', price: 200, icon: '💧', description: 'MP 全回復', itemType: 'consumable', rarity: 'rare' },
 ];
+
+type RuntimeEconomyCommerceModule = typeof import('../data/runtime/RuntimeEconomyCommerceSource');
 
 function parseRuntimeItemIdx(itemId: string): number | null {
       if (!itemId.startsWith('db_item_')) return null;
@@ -44,12 +46,13 @@ function parseRuntimeItemIdx(itemId: string): number | null {
       return Math.floor(raw);
 }
 
-function buildShopItemsFromRuntime(): ShopItem[] {
-      const runtimeItems = getRuntimeShopItems();
+function buildShopItemsFromRuntime(
+      runtimeItems: ReturnType<RuntimeEconomyCommerceModule['getRuntimeShopItems']>,
+): ShopItem[] {
       const fromRuntime: ShopItem[] = runtimeItems.map((row) => ({
             id: row.id,
             name: row.name,
-            category: row.category,
+            category: row.category as ShopCategory,
             price: Math.max(1, row.price),
             icon: row.icon,
             description: row.description,
@@ -75,21 +78,45 @@ function buildShopItemsFromRuntime(): ShopItem[] {
 
 export class ShopManager {
       private _items: ShopItem[];
+      private _runtimeModule: RuntimeEconomyCommerceModule | null = null;
+      private _runtimeLoadPromise: Promise<void> | null = null;
+      private _runtimeLoaded = false;
 
       constructor() {
-            const runtimeItems = buildShopItemsFromRuntime();
-            this._items = runtimeItems.length > 0 ? runtimeItems : [...ESSENTIAL_ITEMS];
+            this._items = [...ESSENTIAL_ITEMS];
       }
 
-      /** Get all items for a category */
+      async ensureRuntimeLoaded(): Promise<void> {
+            if (this._runtimeLoaded) return;
+            if (this._runtimeLoadPromise) return this._runtimeLoadPromise;
+
+            this._runtimeLoadPromise = import('../data/runtime/RuntimeEconomyCommerceSource')
+                  .then((mod) => {
+                        this._runtimeModule = mod;
+                        const runtimeItems = buildShopItemsFromRuntime(mod.getRuntimeShopItems());
+                        if (runtimeItems.length > 0) {
+                              this._items = runtimeItems;
+                        }
+                        this._runtimeLoaded = true;
+                  })
+                  .catch((err) => {
+                        console.warn('[ShopManager] Failed to load runtime commerce data; using essentials fallback.', err);
+                  })
+                  .finally(() => {
+                        this._runtimeLoadPromise = null;
+                  });
+
+            return this._runtimeLoadPromise;
+      }
+
       getByCategory(cat: ShopCategory): ShopItem[] {
             return this._items.filter((item) => item.category === cat);
       }
 
-      /** Get all shop items */
-      get allItems(): ShopItem[] { return this._items; }
+      get allItems(): ShopItem[] {
+            return this._items;
+      }
 
-      /** Buy an item - deducts gold, adds to inventory */
       buy(itemId: string, qty: number, inventory: Inventory): boolean {
             const item = this._items.find((entry) => entry.id === itemId);
             if (!item) return false;
@@ -110,7 +137,6 @@ export class ShopManager {
             return true;
       }
 
-      /** Sell an item - removes from inventory, adds 50% gold */
       sell(itemId: string, qty: number, inventory: Inventory): number {
             const amount = Math.max(1, Math.floor(qty));
             const sellPrice = this.getSellPrice(itemId) * amount;
@@ -119,16 +145,16 @@ export class ShopManager {
             return sellPrice;
       }
 
-      /** Get sell price for an item */
       getSellPrice(itemId: string): number {
             const direct = this._items.find((entry) => entry.id === itemId);
             if (direct) return Math.max(1, Math.floor(direct.price * 0.5));
 
             const runtimeIdx = parseRuntimeItemIdx(itemId);
-            if (runtimeIdx) {
-                  const meta = getRuntimeItemMetaByIdx(runtimeIdx);
+            if (runtimeIdx && this._runtimeModule) {
+                  const meta = this._runtimeModule.getRuntimeCommerceItemMetaByIdx(runtimeIdx);
                   if (meta) return Math.max(1, Math.floor(meta.price * 0.5));
             }
+
             return 10;
       }
 }

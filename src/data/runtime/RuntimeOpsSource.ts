@@ -1,5 +1,3 @@
-import opsRaw from './ops.json';
-
 export interface RuntimeServerMessage {
       index: number;
       type: string;
@@ -46,7 +44,8 @@ interface OpsPayload {
       }>;
 }
 
-const OPS = opsRaw as OpsPayload;
+let OPS_CACHE: OpsPayload | null = null;
+let OPS_LOADING: Promise<OpsPayload> | null = null;
 
 function toInt(value: unknown, fallback = 0): number {
       if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
@@ -55,8 +54,30 @@ function toInt(value: unknown, fallback = 0): number {
       return Math.floor(parsed);
 }
 
-export function getRuntimeServerMessages(): RuntimeServerMessage[] {
-      const rows = Array.isArray(OPS.zoneServerMessages) ? OPS.zoneServerMessages : [];
+async function ensureOpsPayload(): Promise<OpsPayload> {
+      if (OPS_CACHE) return OPS_CACHE;
+      if (OPS_LOADING) return OPS_LOADING;
+
+      OPS_LOADING = import('./ops.json')
+            .then((mod) => {
+                  OPS_CACHE = (mod.default ?? {}) as OpsPayload;
+                  return OPS_CACHE;
+            })
+            .catch((err) => {
+                  console.warn('[RuntimeOps] Failed to load ops payload; returning empty fallback.', err);
+                  OPS_CACHE = {};
+                  return OPS_CACHE;
+            })
+            .finally(() => {
+                  OPS_LOADING = null;
+            });
+
+      return OPS_LOADING;
+}
+
+export async function getRuntimeServerMessages(): Promise<RuntimeServerMessage[]> {
+      const ops = await ensureOpsPayload();
+      const rows = Array.isArray(ops.zoneServerMessages) ? ops.zoneServerMessages : [];
       return rows
             .map((row) => ({
                   index: toInt(row.MsgIndex, 0),
@@ -68,8 +89,9 @@ export function getRuntimeServerMessages(): RuntimeServerMessage[] {
             .sort((a, b) => a.index - b.index);
 }
 
-export function getRuntimeEventConfigs(): RuntimeEventConfig[] {
-      const rows = Array.isArray(OPS.event) ? OPS.event : [];
+export async function getRuntimeEventConfigs(): Promise<RuntimeEventConfig[]> {
+      const ops = await ensureOpsPayload();
+      const rows = Array.isArray(ops.event) ? ops.event : [];
       return rows
             .map((row) => ({
                   idx: toInt(row.idx, 0),
@@ -83,8 +105,9 @@ export function getRuntimeEventConfigs(): RuntimeEventConfig[] {
             .filter((row) => row.idx >= 0);
 }
 
-export function getRuntimeEventDropMaps(): RuntimeEventDropMap[] {
-      const rows = Array.isArray(OPS.eventDrops) ? OPS.eventDrops : [];
+export async function getRuntimeEventDropMaps(): Promise<RuntimeEventDropMap[]> {
+      const ops = await ensureOpsPayload();
+      const rows = Array.isArray(ops.eventDrops) ? ops.eventDrops : [];
       return rows
             .map((row) => {
                   let configuredDropSlots = 0;
@@ -101,3 +124,4 @@ export function getRuntimeEventDropMaps(): RuntimeEventDropMap[] {
             .filter((row) => row.idx > 0)
             .sort((a, b) => b.configuredDropSlots - a.configuredDropSlots || a.mapName.localeCompare(b.mapName, 'zh-Hant'));
 }
+

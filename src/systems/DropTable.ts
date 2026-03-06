@@ -3,7 +3,7 @@
  * Runtime-first: uses economy mob-drop tables when available.
  */
 
-import { getRuntimeItemMetaByIdx, getRuntimeMobDropTable } from '../data/runtime/RuntimeEconomySource';
+import { getRuntimeCombatItemMetaByIdx, getRuntimeMobDropTable } from '../data/runtime/RuntimeEconomyCombatSource';
 
 export type ItemRarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 export type ItemType = 'gold' | 'material' | 'consumable' | 'equipment' | 'egg' | 'recipe' | 'quest';
@@ -154,7 +154,7 @@ export class DropTable {
                         continue;
                   }
 
-                  const meta = getRuntimeItemMetaByIdx(slot.itemIdx);
+                  const meta = getRuntimeCombatItemMetaByIdx(slot.itemIdx);
                   if (!meta) continue;
                   results.push({
                         itemId: meta.itemId,
@@ -193,4 +193,3 @@ export class DropTable {
             return min + Math.floor(Math.random() * (max - min + 1));
       }
 }
-
