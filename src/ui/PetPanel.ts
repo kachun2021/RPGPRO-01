@@ -40,17 +40,6 @@ export class PetPanel {
             this._el = document.createElement('div');
             this._el.id = 'petPanel';
             this._el.className = 'sa-panel pet-panel-root';
-            Object.assign(this._el.style, {
-                  position: 'fixed',
-                  right: '70px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: '340px',
-                  zIndex: '300',
-                  display: 'none',
-                  maxHeight: '85vh',
-                  overflow: 'hidden',
-            });
 
             this._bodyRoot = document.createElement('div');
             this._bodyRoot.className = 'pet-panel-body';
@@ -65,7 +54,7 @@ export class PetPanel {
 
       open(): void {
             this._syncAnchor();
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._render();
       }
 
@@ -250,11 +239,9 @@ export class PetPanel {
 
             const grid = document.createElement('div');
             grid.className = 'sa-grid';
-            grid.style.gridTemplateColumns = `repeat(${STORAGE_COLS},1fr)`;
             const start = this._page * STORAGE_COLS * STORAGE_ROWS;
             for (let i = 0; i < STORAGE_COLS * STORAGE_ROWS; i++) {
                   const slot = this._makeSlot(0, 32, false);
-                  slot.style.width = 'auto';
                   const pet = inactive[start + i];
                   if (pet) {
                         slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="sa-slot-icon-md" alt="">`;
@@ -343,9 +330,16 @@ export class PetPanel {
 
       private _makeSlot(w: number, h: number, isDeploy: boolean): HTMLDivElement {
             const el = document.createElement('div');
-            el.className = isDeploy ? 'sa-pet-slot sa-pet-slot-deploy' : 'sa-pet-slot';
-            if (w) el.style.width = `${w}px`;
-            if (h) el.style.height = `${h}px`;
+            el.className = isDeploy
+                  ? 'sa-pet-slot sa-pet-slot-deploy sa-pet-slot-36'
+                  : 'sa-pet-slot';
+            if (!isDeploy) {
+                  if (w === 32 && h === 32) {
+                        el.classList.add('sa-pet-slot-32');
+                  } else if (h === 32) {
+                        el.classList.add('sa-pet-slot-grid');
+                  }
+            }
             return el;
       }
 
@@ -364,4 +358,3 @@ export class PetPanel {
             this._el.remove();
       }
 }
-

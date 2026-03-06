@@ -229,3 +229,104 @@
     - `npm run -s typecheck` passed.
     - `npm run -s build` passed.
     - `npm run -s test:smoke` passed.
+- 2026-03-06 (P14 encoding audit + repair unification hardening):
+  - Performed UTF-8 integrity scan on game runtime/code (`src/**/*.ts|json|html|css`) for replacement/private-use chars:
+    - `U+FFFD` and `U+E000..U+F8FF` hits: `0`.
+  - Rewrote `scripts/gamedb/reference_runtime_repairs.json` as clean UTF-8 and replaced garbled entries with player-friendly zh-Hant text.
+  - Added `itemNameOverrides` (runtime-safe) for known bad source item names:
+    - `516 -> 未知魚`
+    - `5003 -> [模板]帕荅拳套`
+    - `5404 -> 帕荅的皮`
+    - `5603 -> 帕荅拳套`
+  - Changed 4369/4371 handling from alias to explicit virtual items:
+    - `4369 = 特殊藥水`
+    - `4371 = 魔力恢復藥水`
+  - Removed item alias dependency for those ids (`itemAlias = {}`); kept `mobItemAlias` (`645 -> 644`) and zone/NPC repairs.
+  - `build_runtime.py` now emits `src/data/runtime/reference.repairs.json` snapshot to reduce maintenance split between source repair rules and runtime payloads.
+  - `build_runtime.py` now sanitizes `itemEffectiveData.name` by linking to `s_item` via `item_idx`, fixing corrupted rows (e.g. 9500~9507 blessing entries) in runtime payload.
+  - `validate_relations.py` no longer executes override-based extra-valid/ignore logic; effective validation now reflects runtime-repair normalization only.
+  - DATA health metrics now clearly separate:
+    - `rawInvalidRefsTotal`
+    - `invalidRefsTotal`
+    - `suppressedByRuntimeRepairsTotal`
+    - `suppressedByOverridesTotal` (compat field, now 0)
+  - `SystemPanel` DATA tab updated to show runtime-repair suppression metric.
+  - Runtime audit after rebuild: `economy.json` question-mark display strings reduced to `0`.
+  - Validation:
+    - `npm run -s gamedb:p0` passed.
+    - `npm run -s gamedb:check-legacy` passed.
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed.
+- 2026-03-06 (P15 inline-style class unification + runtime map semantics update):
+  - Removed static `Object.assign(...style)` usage from key subpanels (`Minimap/Pet/Rename/Revival/Encyclopedia/Fusion`).
+  - Added root/backdrop/minimap class styles in `index.html` and moved slot sizing to CSS classes.
+  - Refactored `WorldMapPanel` map summary model to runtime-oriented fields (`runtimeZoneId`, `teleportSceneZoneId`, `neighborMaps`).
+  - Added topology neighbor chips in world-map detail and removed legacy zone-name dependency in map display.
+  - Rebuilt `RuntimeWorldRoutes` with clean labels and added `getSceneZonePrimaryRuntimeName(...)` export.
+  - Updated `AFKPanel` map labels to prefer runtime topology names.
+  - Expanded `SkillPanel` runtime meta line to include polarity/affected-stat/target-range-class.
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+  - Reports:
+    - `scripts/reports/implementation/P15_INLINE_STYLE_UNIFICATION.md`
+    - `scripts/reports/implementation/P16_WORLDMAP_RUNTIME_TOPOLOGY.md`
+    - `scripts/reports/implementation/P17_SKILL_META_EXPANSION.md`
+    - `scripts/reports/implementation/P18_VALIDATION.md`
+- 2026-03-06 (P19 inline audit follow-up):
+  - `Object.assign(...style)` usage in `src/ui` reduced to `0`.
+  - Remaining `.style.*` are mostly runtime-driven updates (visibility, transform, width/position, icon/cooldown visuals).
+  - Added audit report: `scripts/reports/implementation/P19_INLINE_AUDIT.md`.
+- 2026-03-06 (P18 validation fixback):
+  - Found and fixed panel-open regression after CSS `display:none` migration (`Pet/Rename/Revival/Encyclopedia/Fusion` now use `display='block'` on open).
+  - Re-ran `npm run -s test:smoke`: all 10 scenarios passed.
+- 2026-03-06 (P20 skill/inventory style-state + worldmap route tracking polish):
+  - Cleared unused legacy map field: removed `mapMonIds` from `ZoneDefinitions` (type + data rows).
+  - `SkillBar` refined to CSS-variable driven runtime states:
+    - `--skill-cd-deg` for cooldown overlay
+    - `--skill-icon-url` for icon binding
+  - `InventoryPanel` moved from inline display/transform to class state + CSS variable:
+    - `is-open`, `is-scaled`
+    - `--inv2-panel-scale`
+  - Inventory floating feedback colors now class-based:
+    - `pickup-text--success|error|info|gold`
+  - WorldMap route UX visualized with dedicated classes:
+    - row states `wmp-on-route`, `wmp-tracked`
+    - route card/action styles `wmp-route-*`
+    - focus/phone-landscape responsive tuning for route card/buttons.
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed (all scenarios).
+  - Report:
+    - `scripts/reports/implementation/P20_UI_STYLE_ROUTE_TRACKING.md`
+- 2026-03-07 (P21 Zone runtime-topology migration):
+  - Added `src/world/RuntimeZoneCatalog.ts` to aggregate runtime scene-zone definitions from `world.topology`.
+  - `ZoneManager` no longer imports `ZoneDefinitions`; now reads zones via:
+    - `getDefaultRuntimeSceneZoneId`
+    - `getRuntimeSceneZone`
+    - `listRuntimeSceneZones`
+  - `ZoneRenderer` no longer imports `ZoneDefinitions`; now:
+    - accepts `RuntimeSceneZoneDef`
+    - uses runtime-neighbor/runtime-gate labels for teleports
+    - keeps biome render theme in renderer-local tables (textures/PBR/light presets).
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed (all scenarios).
+  - Report:
+    - `scripts/reports/implementation/P21_ZONE_RUNTIME_TOPOLOGY_DRIVEN.md`
+- 2026-03-07 (P22 full de-ZoneDefinitions):
+  - Added `src/world/SceneZoneProfiles.ts` as scene-zone mapping baseline (`id/name/nameCN/biome/level/isTown`).
+  - `src/data/runtime/RuntimeZoneBridge.ts` no longer imports `ZoneDefinitions`; now maps with `SCENE_ZONE_PROFILES`.
+  - `src/entities/MonsterManager.ts` switched zone metadata source from `getZoneDef(...)` to `getRuntimeSceneZone(...)`.
+  - `src/ui/AFKPanel.ts` switched loot-zone source from `ZONE_DEFS` to `listRuntimeSceneZones()`.
+  - Removed legacy file: `src/world/ZoneDefinitions.ts`.
+  - `RuntimeZoneCatalog` now prefers profile-based display names and biome presets to avoid runtime raw-name encoding noise in player-facing UI.
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - `npm run -s test:smoke` passed (all scenarios).
+  - Report:
+    - `scripts/reports/implementation/P22_REMOVE_ZONEDEFINITIONS_FULL.md`

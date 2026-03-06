@@ -30,6 +30,12 @@ interface RuntimeSkillPropertyRow {
       maxLevel?: number;
       learningSP?: number;
       learningGold?: number;
+      targetClass?: string;
+      pkTargetClass?: string;
+      targetRangeClass?: number;
+      positiveEffect?: number;
+      effectIndex?: number;
+      effectingStat?: number;
 }
 
 interface RuntimeSkillLevelRow {
@@ -38,6 +44,9 @@ interface RuntimeSkillLevelRow {
       consumedMp?: number;
       coolTime?: number;
       requireSP?: number;
+      maxTargetDistance?: number;
+      targetRange?: number;
+      continuityTime?: number;
 }
 
 interface RuntimeProgressionPayload {
@@ -71,6 +80,27 @@ export interface RuntimeSkillUpgradeMeta {
       runtimeName: string | null;
 }
 
+export interface RuntimeSkillDetail {
+      runtimeIndex: number;
+      runtimeName: string | null;
+      currentLevel: number;
+      maxLevel: number;
+      consumedMp: number;
+      coolTime: number;
+      requireSp: number;
+      targetClass: string | null;
+      pkTargetClass: string | null;
+      targetRangeClass: number;
+      maxTargetDistance: number;
+      targetRange: number;
+      continuityTime: number;
+      positiveEffect: boolean;
+      effectIndex: number;
+      effectingStat: number;
+      learningGold: number;
+      learningSP: number;
+}
+
 interface RuntimeSkillTuneResult {
       mpCost: number;
       cooldown: number;
@@ -81,7 +111,11 @@ interface RuntimeSkillTuneResult {
 const RUNTIME = progressionRaw as RuntimeProgressionPayload;
 
 const SKILL_ID_TO_RUNTIME_INDEX: Record<string, number> = {
+      evade: 1,
       slash: 2,
+      counter: 3,
+      stun: 4,
+      steal: 5,
       power_strike: 14,
       whirlwind: 28,
       fire_bolt: 8,
@@ -92,7 +126,23 @@ const SKILL_ID_TO_RUNTIME_INDEX: Record<string, number> = {
       shield: 7,
       berserk: 21,
       weaken: 9,
+      bind: 10,
+      aoe_stun: 11,
       poison: 23,
+      power_strike_alt: 14,
+      stun_alt: 15,
+      steal_alt: 16,
+      heal_alt: 17,
+      shield_alt: 18,
+      fire_bolt_alt: 19,
+      weaken_alt: 20,
+      thunder_alt: 22,
+      fire_poison: 24,
+      detox: 25,
+      thorns: 26,
+      haste: 29,
+      group_detox: 30,
+      group_poison: 31,
 };
 
 const USER_LEVELS: RuntimeUserLevelRow[] = Array.isArray(RUNTIME.userLevels) ? RUNTIME.userLevels : [];
@@ -272,5 +322,36 @@ export function resolveRuntimeSkillTuning(skillId: string, level: number, base: 
             cooldown: Number(tunedCd.toFixed(1)),
             runtimeName: String(property?.name ?? '').trim() || null,
             maxLevel,
+      };
+}
+
+export function getRuntimeSkillDetail(skillId: string, level: number): RuntimeSkillDetail | null {
+      const runtimeIndex = getRuntimeSkillIndex(skillId);
+      if (!runtimeIndex) return null;
+
+      const property = SKILL_PROPERTY_BY_INDEX.get(runtimeIndex);
+      const maxLevel = resolveSkillMaxLevel(runtimeIndex);
+      const currentLevel = Math.min(maxLevel, Math.max(1, Math.floor(level)));
+      const row = findRuntimeSkillLevelRow(runtimeIndex, currentLevel);
+
+      return {
+            runtimeIndex,
+            runtimeName: String(property?.name ?? '').trim() || null,
+            currentLevel,
+            maxLevel,
+            consumedMp: Math.max(0, toInt(row?.consumedMp, 0)),
+            coolTime: Math.max(0, toInt(row?.coolTime, 0)),
+            requireSp: Math.max(0, toInt(row?.requireSP, 0)),
+            targetClass: String(property?.targetClass ?? '').trim() || null,
+            pkTargetClass: String(property?.pkTargetClass ?? '').trim() || null,
+            targetRangeClass: Math.max(0, toInt(property?.targetRangeClass, 0)),
+            maxTargetDistance: Math.max(0, toInt(row?.maxTargetDistance, 0)),
+            targetRange: Math.max(0, toInt(row?.targetRange, 0)),
+            continuityTime: Math.max(0, toInt(row?.continuityTime, 0)),
+            positiveEffect: toInt(property?.positiveEffect, 1) > 0,
+            effectIndex: Math.max(0, toInt(property?.effectIndex, 0)),
+            effectingStat: Math.max(0, toInt(property?.effectingStat, 0)),
+            learningGold: Math.max(0, toInt(property?.learningGold, 0)),
+            learningSP: Math.max(0, toInt(property?.learningSP, 0)),
       };
 }

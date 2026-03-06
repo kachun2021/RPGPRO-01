@@ -1,4 +1,4 @@
-import { ZONE_DEFS } from '../../world/ZoneDefinitions';
+import { SCENE_ZONE_PROFILES, type SceneZoneProfile } from '../../world/SceneZoneProfiles';
 
 export type RuntimeZoneMatchMode = 'topology' | 'town' | 'level' | 'none';
 
@@ -43,7 +43,7 @@ function overlapScore(
 }
 
 function selectBestSceneZone(
-      candidates: typeof ZONE_DEFS,
+      candidates: readonly SceneZoneProfile[],
       runtimeMin: number,
       runtimeMax: number,
       pkZoneFlag: number,
@@ -83,10 +83,10 @@ export function matchRuntimeZoneToSceneZone(input: RuntimeZoneRouteInput): { zon
       const restriction = Math.max(0, toInt(input.restriction, 0));
       const pkZoneFlag = Math.max(0, toInt(input.pkZoneFlag, 0));
 
-      if (ZONE_DEFS.length <= 0) return { zoneId: null, mode: 'none' };
+      if (SCENE_ZONE_PROFILES.length <= 0) return { zoneId: null, mode: 'none' };
 
-      const towns = ZONE_DEFS.filter((zone) => zone.isTown);
-      const fields = ZONE_DEFS.filter((zone) => !zone.isTown);
+      const towns = SCENE_ZONE_PROFILES.filter((zone) => zone.isTown);
+      const fields = SCENE_ZONE_PROFILES.filter((zone) => !zone.isTown);
 
       const preferTown = !mobAble || (restriction > 0 && runtimeMax <= 5);
       if (preferTown && towns.length > 0) {
@@ -94,7 +94,7 @@ export function matchRuntimeZoneToSceneZone(input: RuntimeZoneRouteInput): { zon
             if (townId) return { zoneId: townId, mode: 'town' };
       }
 
-      const fieldId = selectBestSceneZone(fields.length > 0 ? fields : ZONE_DEFS, runtimeMin, runtimeMax, pkZoneFlag);
+      const fieldId = selectBestSceneZone(fields.length > 0 ? fields : SCENE_ZONE_PROFILES, runtimeMin, runtimeMax, pkZoneFlag);
       if (fieldId) return { zoneId: fieldId, mode: mobAble ? 'topology' : 'level' };
 
       return { zoneId: null, mode: 'none' };

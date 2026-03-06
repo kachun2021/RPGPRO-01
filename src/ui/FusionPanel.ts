@@ -121,39 +121,13 @@ export class FusionPanel {
             this._trackedRecipeKeys = this._loadTrackedRecipes();
 
             this._backdrop = document.createElement('div');
-            Object.assign(this._backdrop.style, {
-                  position: 'fixed',
-                  inset: '0',
-                  background: 'rgba(0,0,0,0.56)',
-                  zIndex: '399',
-                  display: 'none',
-                  transition: 'opacity 0.2s',
-                  opacity: '0',
-            });
+            this._backdrop.className = 'fusion-backdrop';
             this._backdrop.addEventListener('click', () => this.close());
             document.getElementById('ui-layer')?.appendChild(this._backdrop);
 
             this._el = document.createElement('div');
             this._el.id = 'fusionPanel';
             this._el.className = 'fusion-root';
-            Object.assign(this._el.style, {
-                  position: 'fixed',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%) scale(0.92)',
-                  width: 'min(96vw, 1060px)',
-                  maxHeight: '88vh',
-                  zIndex: '400',
-                  display: 'none',
-                  opacity: '0',
-                  transition: 'transform 0.25s ease-out, opacity 0.25s ease-out',
-                  overflow: 'hidden',
-                  background: 'linear-gradient(180deg, #2A2040 0%, #1A1530 42%, #12101E 100%)',
-                  border: '2px solid rgba(160,130,80,0.5)',
-                  borderRadius: '10px',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 24px rgba(160,130,80,0.12)',
-                  pointerEvents: 'auto',
-            });
             this._el.addEventListener('click', (e) => e.stopPropagation());
             this._el.addEventListener('mousedown', (e) => e.stopPropagation());
             document.getElementById('ui-layer')?.appendChild(this._el);
@@ -228,10 +202,10 @@ export class FusionPanel {
             this._recipeTrackedOnly = false;
             this._notice = null;
 
-            this._backdrop.style.display = '';
+            this._backdrop.style.display = 'block';
             requestAnimationFrame(() => { this._backdrop.style.opacity = '1'; });
 
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._syncResponsiveMode();
             requestAnimationFrame(() => {
                   this._el.style.transform = 'translate(-50%, -50%) scale(1)';

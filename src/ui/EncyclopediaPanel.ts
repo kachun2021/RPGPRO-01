@@ -15,14 +15,14 @@ interface EncyclopediaMeta {
 }
 
 const SERIES_NAMES: Record<PetSeries, string> = {
-      [PetSeries.Plant]: '植物',
-      [PetSeries.Dragon]: '龍族',
-      [PetSeries.Beast]: '野獸',
-      [PetSeries.Insect]: '昆蟲',
-      [PetSeries.Metal]: '機械',
-      [PetSeries.Mystery]: '神秘',
-      [PetSeries.Demon]: '惡魔',
-      [PetSeries.Bird]: '飛禽',
+      [PetSeries.Plant]: '\u690d\u7269',
+      [PetSeries.Dragon]: '\u9f8d\u65cf',
+      [PetSeries.Beast]: '\u91ce\u7378',
+      [PetSeries.Insect]: '\u6606\u87f2',
+      [PetSeries.Metal]: '\u6a5f\u68b0',
+      [PetSeries.Mystery]: '\u795e\u7955',
+      [PetSeries.Demon]: '\u60e1\u9b54',
+      [PetSeries.Bird]: '\u98db\u79bd',
 };
 
 
@@ -51,21 +51,9 @@ export class EncyclopediaPanel {
             this._enc = enc;
             this._buildPetDefNameIndex();
             this._buildMetaIndex();
-
             this._el = document.createElement('div');
             this._el.id = 'encyclopediaPanel';
             this._el.className = 'sa-panel book-root';
-            Object.assign(this._el.style, {
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%,-50%)',
-                  width: 'min(96vw, 760px)',
-                  maxHeight: '86vh',
-                  zIndex: '350',
-                  display: 'none',
-                  overflow: 'hidden',
-            });
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
@@ -83,7 +71,7 @@ export class EncyclopediaPanel {
       open(): void {
             this._selectedSourceMap = null;
             if (!this._selectedPetId) this._selectedPetId = PET_DEFS[0]?.id ?? null;
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._syncResponsiveMode();
             this._render();
       }
@@ -92,7 +80,7 @@ export class EncyclopediaPanel {
             const id = this._findPetDefIdByName(petName);
             this._selectedPetId = id ?? this._selectedPetId ?? PET_DEFS[0]?.id ?? null;
             this._selectedSourceMap = sourceMap?.trim() || null;
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._syncResponsiveMode();
             this._render();
       }
@@ -553,8 +541,8 @@ export class EncyclopediaPanel {
       }
 
       private _dropEggLabel(dropEgg: boolean | null): string {
-            if (dropEgg === null) return '掉蛋未知';
-            return dropEgg ? '可掉蛋' : '不掉蛋';
+            if (dropEgg === null) return '\u6389\u86cb\u672a\u77e5';
+            return dropEgg ? '\u53ef\u6389\u86cb' : '\u4e0d\u6389\u86cb';
       }
 
       private _escapeHtml(value: string): string {

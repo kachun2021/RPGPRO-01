@@ -1,12 +1,19 @@
 import type { Scene } from '@babylonjs/core/scene';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { ZoneRenderer } from './ZoneRenderer';
-import { ZONE_DEFS, getZoneDef, type ZoneDef } from './ZoneDefinitions';
 import type { MonsterManager } from '../entities/MonsterManager';
 import type { NPCManager } from '../entities/NPC';
 import type { DropItemManager } from '../entities/DropItem';
 import type { ZoneTransition } from '../ui/ZoneTransition';
 import type { Minimap } from '../ui/Minimap';
+import { getSceneZoneNeighbors, isSceneZonesConnected } from '../data/runtime/RuntimeWorldRoutes';
+import {
+      getDefaultRuntimeSceneZoneId,
+      getRuntimeSceneZone,
+      getRuntimeSceneZoneOrFallback,
+      listRuntimeSceneZones,
+      type RuntimeSceneZoneDef,
+} from './RuntimeZoneCatalog';
 
 /**
  * ZoneManager — Orchestrates zone transitions.
@@ -16,7 +23,7 @@ export class ZoneManager {
       private _scene: Scene;
       private _shadowGen: ShadowGenerator;
       private _renderer: ZoneRenderer | null = null;
-      private _currentZone: ZoneDef;
+      private _currentZone: RuntimeSceneZoneDef;
       private _monsterManager: MonsterManager | null = null;
       private _npcManager: NPCManager | null = null;
       private _dropItemManager: DropItemManager | null = null;
@@ -30,12 +37,13 @@ export class ZoneManager {
       constructor(scene: Scene, shadowGen: ShadowGenerator) {
             this._scene = scene;
             this._shadowGen = shadowGen;
-            // TODO: Restore progressive unlock for production
-            // Temporarily unlock ALL zones for testing
-            for (const zone of ZONE_DEFS) {
-                  this._unlockedZones.add(zone.id);
+            this._currentZone = getRuntimeSceneZoneOrFallback(getDefaultRuntimeSceneZoneId());
+            this._unlockAround(this._currentZone.id);
+
+            // Fallback: if runtime topology cannot map route, keep all zones unlocked to avoid dead-end.
+            if (this._unlockedZones.size <= 1) {
+                  for (const zone of listRuntimeSceneZones()) this._unlockedZones.add(zone.id);
             }
-            this._currentZone = ZONE_DEFS[0]; // starter meadow
       }
 
       /** Wire dependencies */
@@ -55,7 +63,7 @@ export class ZoneManager {
             this._dropItemManager = opts.dropItemManager ?? null;
       }
 
-      get currentZone(): ZoneDef { return this._currentZone; }
+      get currentZone(): RuntimeSceneZoneDef { return this._currentZone; }
       get renderer(): ZoneRenderer | null { return this._renderer; }
 
       isUnlocked(zoneId: string): boolean {
@@ -66,15 +74,16 @@ export class ZoneManager {
             this._unlockedZones.add(zoneId);
       }
 
-      getUnlockedZones(): ZoneDef[] {
-            return ZONE_DEFS.filter(z => this._unlockedZones.has(z.id));
+      getUnlockedZones(): RuntimeSceneZoneDef[] {
+            return listRuntimeSceneZones().filter(z => this._unlockedZones.has(z.id));
       }
 
       /** Build initial zone (no transition animation) */
       async buildInitialZone(zoneId: string): Promise<void> {
-            const zoneDef = getZoneDef(zoneId);
+            const zoneDef = getRuntimeSceneZone(zoneId);
             if (!zoneDef) return;
             this._currentZone = zoneDef;
+            this._unlockAround(zoneDef.id);
 
             this._renderer = new ZoneRenderer(this._scene, this._shadowGen);
             await this._renderer.build(zoneDef);
@@ -93,7 +102,7 @@ export class ZoneManager {
 
       /** Travel to a new zone with transition animation */
       async travelTo(zoneId: string): Promise<void> {
-            const zoneDef = getZoneDef(zoneId);
+            const zoneDef = getRuntimeSceneZone(zoneId);
             if (!zoneDef) {
                   console.warn('[ZoneManager] Zone not found:', zoneId);
                   return;
@@ -101,7 +110,8 @@ export class ZoneManager {
 
             if (zoneDef.id === this._currentZone.id) return;
 
-            if (!this.isUnlocked(zoneId)) {
+            const canByRoute = isSceneZonesConnected(this._currentZone.id, zoneId);
+            if (!this.isUnlocked(zoneId) && !canByRoute) {
                   console.warn('[ZoneManager] Zone locked:', zoneId);
                   return;
             }
@@ -128,6 +138,7 @@ export class ZoneManager {
 
             // 5. Build new zone
             this._currentZone = zoneDef;
+            this._unlockAround(zoneDef.id);
             this._renderer = new ZoneRenderer(this._scene, this._shadowGen);
             await this._renderer.build(zoneDef);
 
@@ -156,6 +167,12 @@ export class ZoneManager {
 
       private _delay(ms: number): Promise<void> {
             return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      private _unlockAround(zoneId: string): void {
+            this._unlockedZones.add(zoneId);
+            const neighbors = getSceneZoneNeighbors(zoneId);
+            for (const next of neighbors) this._unlockedZones.add(next);
       }
 
       dispose(): void {

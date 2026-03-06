@@ -1,12 +1,13 @@
 # Runtime Data Validation Report
 
-- Built At: 2026-03-06T00:08:05.601935+00:00
+- Built At: 2026-03-06T00:46:37.292310+00:00
 - Source Dir: `D:\AI-RPGGAME\scripts\gamedb`
 - Total Checks: 52
 - Passed: 52
 - Failed: 0
 - Invalid Refs (Effective): 0
 - Invalid Refs (Raw): 81
+- Suppressed By Runtime Repairs: 81
 - Suppressed By Overrides: 0
 
 ## Check Results

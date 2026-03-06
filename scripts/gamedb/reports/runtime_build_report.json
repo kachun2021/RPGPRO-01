@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-03-06T00:08:04.795370+00:00",
+  "builtAt": "2026-03-06T00:46:36.537266+00:00",
   "outDir": "D:\\AI-RPGGAME\\src\\data\\runtime",
   "files": [
     "_manifest.json",
@@ -8,12 +8,13 @@
     "fusion.runtime.json",
     "ops.json",
     "progression.json",
+    "reference.repairs.json",
     "save_schema.json",
     "world.spawn.json",
     "world.topology.json"
   ],
   "manifest": {
-    "builtAt": "2026-03-06T00:08:04.794891+00:00",
+    "builtAt": "2026-03-06T00:46:36.536808+00:00",
     "sourceTableCount": 39,
     "sourceRowCounts": {
       "Player": 3,
@@ -256,7 +257,7 @@
           ]
         },
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.473446+00:00",
+          "builtAt": "2026-03-06T00:46:36.145626+00:00",
           "sourceTables": {
             "s_zone": 201,
             "s_gate": 140
@@ -270,7 +271,7 @@
           "zonesWithSpawn": 173
         },
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.499794+00:00",
+          "builtAt": "2026-03-06T00:46:36.169180+00:00",
           "sourceTables": {
             "s_mob": 889,
             "s_monster": 1418
@@ -286,7 +287,7 @@
           "skillLevelRows": 140
         },
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.502064+00:00",
+          "builtAt": "2026-03-06T00:46:36.172315+00:00",
           "sourceTables": {
             "s_hero": 4,
             "s_LvUserInfo": 200,
@@ -307,7 +308,7 @@
           "unresolvedMonsterTypes": []
         },
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.507740+00:00",
+          "builtAt": "2026-03-06T00:46:36.176366+00:00",
           "sourceTables": {
             "s_mix": 720,
             "s_monster": 1418
@@ -317,17 +318,17 @@
       "economy": {
         "stats": {
           "itemCount": 4608,
-          "virtualItemCount": 18,
+          "virtualItemCount": 20,
           "validItemCount": 4593,
           "npcCount": 1053,
           "npcSaleCount": 1792,
-          "shopCatalogRows": 1269,
+          "shopCatalogRows": 1299,
           "productionRecipeCount": 167,
-          "aliasedItemCount": 2,
-          "aliasedMobDropSlots": 12
+          "aliasedItemCount": 0,
+          "aliasedMobDropSlots": 0
         },
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.535274+00:00",
+          "builtAt": "2026-03-06T00:46:36.258162+00:00",
           "sourceTables": {
             "s_item": 4608,
             "s_ItemEffectiveData": 7980,
@@ -342,7 +343,7 @@
       "ops": {
         "stats": {},
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.535429+00:00",
+          "builtAt": "2026-03-06T00:46:36.258367+00:00",
           "sourceTables": {
             "s_event": 1,
             "s_event_drop": 169,
@@ -355,7 +356,7 @@
       "save_schema": {
         "stats": {},
         "meta": {
-          "builtAt": "2026-03-06T00:08:04.535440+00:00",
+          "builtAt": "2026-03-06T00:46:36.258378+00:00",
           "sourceTables": {
             "Player": 3,
             "u_hero": 0,
@@ -367,12 +368,8 @@
       }
     }
   },
-  "referenceOverrides": {},
   "runtimeRepairs": {
-    "itemAlias": {
-      "4369": 4370,
-      "4371": 4372
-    },
+    "itemAlias": {},
     "mobItemAlias": {
       "645": 644
     },
@@ -397,114 +394,132 @@
       }
     ],
     "virtualItems": {
+      "4369": {
+        "name": "特殊藥水",
+        "type": 2,
+        "price": 200,
+        "rarity": 0
+      },
+      "4371": {
+        "name": "魔力恢復藥水",
+        "type": 2,
+        "price": 1000,
+        "rarity": 0
+      },
       "5729": {
-        "name": "鍊金試作液-紅",
+        "name": "煉金試作液-紅",
         "type": 0,
         "price": 120,
         "rarity": 0
       },
       "5730": {
-        "name": "鍊金試作液-藍",
+        "name": "煉金試作液-藍",
         "type": 0,
         "price": 120,
         "rarity": 0
       },
       "5731": {
-        "name": "鍊金試作液-黃",
+        "name": "煉金試作液-黃",
         "type": 0,
         "price": 160,
         "rarity": 0
       },
       "5732": {
-        "name": "鍊金試作液-綠",
+        "name": "煉金試作液-綠",
         "type": 0,
         "price": 160,
         "rarity": 0
       },
       "5733": {
-        "name": "鍊金調和液-赤晶",
+        "name": "煉金調和液-赤晶",
         "type": 0,
         "price": 280,
         "rarity": 1
       },
       "5734": {
-        "name": "鍊金調和液-蒼鐵",
+        "name": "煉金調和液-蒼鐵",
         "type": 0,
         "price": 280,
         "rarity": 1
       },
       "5735": {
-        "name": "鍊金調和液-金晶",
+        "name": "煉金調和液-金晶",
         "type": 0,
         "price": 600,
         "rarity": 1
       },
       "5736": {
-        "name": "鍊金調和液-翠鐵",
+        "name": "煉金調和液-翠鐵",
         "type": 0,
         "price": 600,
         "rarity": 1
       },
       "5737": {
-        "name": "鍊金活化液-紫",
+        "name": "煉金活化液-紫",
         "type": 0,
         "price": 900,
         "rarity": 1
       },
       "5738": {
-        "name": "鍊金活化液-鐵",
+        "name": "煉金活化液-鐵",
         "type": 0,
         "price": 900,
         "rarity": 1
       },
       "5739": {
-        "name": "鍊金濃縮液-紫",
+        "name": "煉金濃縮液-紫",
         "type": 0,
         "price": 1400,
         "rarity": 2
       },
       "5740": {
-        "name": "鍊金濃縮液-鐵",
+        "name": "煉金濃縮液-鐵",
         "type": 0,
         "price": 1400,
         "rarity": 2
       },
       "5741": {
-        "name": "鍊金精華-紫晶",
+        "name": "煉金精華-紫晶",
         "type": 0,
         "price": 2600,
         "rarity": 2
       },
       "5742": {
-        "name": "鍊金精華-鐵礦",
+        "name": "煉金精華-鐵礦",
         "type": 0,
         "price": 2600,
         "rarity": 2
       },
       "5743": {
-        "name": "鍊金催化精華-紅寶",
+        "name": "煉金催化精華-紅寶",
         "type": 0,
         "price": 3200,
         "rarity": 3
       },
       "5744": {
-        "name": "鍊金催化精華-藍寶",
+        "name": "煉金催化精華-藍寶",
         "type": 0,
         "price": 3200,
         "rarity": 3
       },
       "5745": {
-        "name": "鍊金高純精華-紅寶",
+        "name": "煉金高純精華-紅寶",
         "type": 0,
         "price": 5200,
         "rarity": 3
       },
       "5746": {
-        "name": "鍊金高純精華-藍寶",
+        "name": "煉金高純精華-藍寶",
         "type": 0,
         "price": 5200,
         "rarity": 3
       }
+    },
+    "itemNameOverrides": {
+      "516": "未知魚",
+      "5003": "[模板]帕荅拳套",
+      "5404": "帕荅的皮",
+      "5603": "帕荅拳套"
     }
   }
 }

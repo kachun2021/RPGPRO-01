@@ -1,4 +1,4 @@
-import type { PetManager } from '../pets/PetManager';
+﻿import type { PetManager } from '../pets/PetManager';
 import { SERIES_ICONS } from '../pets/PetData';
 
 export class RevivalPanel {
@@ -11,24 +11,16 @@ export class RevivalPanel {
             this._el = document.createElement('div');
             this._el.id = 'revivalPanel';
             this._el.className = 'sa-panel revival-root';
-            Object.assign(this._el.style, {
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%,-50%)',
-                  width: '320px',
-                  maxHeight: '70vh',
-                  zIndex: '360',
-                  display: 'none',
-            });
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
-      get element(): HTMLElement { return this._el; }
+      get element(): HTMLElement {
+            return this._el;
+      }
 
       open(onDone?: () => void): void {
             this._onDone = onDone || null;
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._render();
       }
 
@@ -42,7 +34,7 @@ export class RevivalPanel {
 
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>🩺 寵物復活</span>';
+            title.innerHTML = '<span>💀 寵物復活</span>';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '✕';
@@ -134,4 +126,3 @@ export class RevivalPanel {
             this._el.remove();
       }
 }
-

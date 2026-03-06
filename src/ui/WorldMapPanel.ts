@@ -1,5 +1,4 @@
 import type { ZoneManager } from '../world/ZoneManager';
-import { ZONE_DEFS } from '../world/ZoneDefinitions';
 import worldTopologyRaw from '../data/runtime/world.topology.json';
 import worldSpawnRaw from '../data/runtime/world.spawn.json';
 import fusionRuntimeRaw from '../data/runtime/fusion.runtime.json';
@@ -32,8 +31,10 @@ interface MapSummary {
       targetCount: number;
       minLevel: number;
       maxLevel: number;
-      teleportZoneId: string | null;
+      runtimeZoneId: number | null;
+      teleportSceneZoneId: string | null;
       teleportMode: RuntimeZoneMatchMode;
+      neighborMaps: string[];
 }
 
 type MapLevelBand = 'all' | '1-30' | '31-60' | '61-90' | '91+';
@@ -54,6 +55,9 @@ export class WorldMapPanel {
       private _onlyDropEgg = false;
       private _minLevel = 1;
       private _focusedPetName: string | null = null;
+      private _trackedTargetMapName: string | null = null;
+      private _trackedRouteNodes = new Set<string>();
+      private readonly _trackStorageKey = 'fpo.worldmap.route.track.v1';
 
       private _mapSummaries: MapSummary[] = [];
       private _monstersByMap = new Map<string, MapMonsterInfo[]>();
@@ -74,6 +78,8 @@ export class WorldMapPanel {
             this._zoneManager = zoneManager;
             this._indexListPetData();
             this._buildMapDataFromFusion();
+            this._trackedTargetMapName = this._loadTrackedTarget();
+            this._refreshTrackedRouteFromCurrent();
 
             this._el = document.createElement('div');
             this._el.id = 'world-map-panel';
@@ -147,6 +153,7 @@ export class WorldMapPanel {
             this._listFilterCol.innerHTML = '';
             this._listZoneCol.innerHTML = '';
             const currentZoneId = this._zoneManager.currentZone.id;
+            this._refreshTrackedRouteFromCurrent();
 
             const searchWrap = document.createElement('div');
             searchWrap.className = 'wmp-filter-wrap';
@@ -212,44 +219,46 @@ export class WorldMapPanel {
                   const row = document.createElement('div');
                   row.className = 'wmp-zone-row';
                   if (this._selectedMapName === map.name) row.classList.add('wmp-selected');
-
+                  if (this._trackedTargetMapName === map.name) row.classList.add('wmp-tracked');
+                  if (this._trackedRouteNodes.has(map.name)) row.classList.add('wmp-on-route');
                   const info = document.createElement('div');
                   info.className = 'wmp-zone-info';
-                  info.style.cursor = 'pointer';
                   info.innerHTML = `
                         <div class="wmp-zone-top">
-                              <span class="wmp-zone-emoji">🧭</span>
+                              <span class="wmp-zone-emoji">\u5340</span>
                               <span class="wmp-zone-name">${this._escapeHtml(map.name)}</span>
                         </div>
-                        <div class="wmp-zone-lv">${this._escapeHtml(map.region)} · Lv.${map.minLevel}-${map.maxLevel} · 怪 ${map.monsterCount} / 目標 ${map.targetCount}</div>
+                        <div class="wmp-zone-lv">${this._escapeHtml(map.region)} · Lv.${map.minLevel}-${map.maxLevel} · \u602a\u7269 ${map.monsterCount} / \u76ee\u6a19 ${map.targetCount}</div>
                   `;
                   info.addEventListener('click', () => this._selectMap(map.name));
 
                   const teleBtn = document.createElement('button');
                   teleBtn.className = 'wmp-teleport-btn game-btn game-btn-primary';
-                  const zoneDef = map.teleportZoneId ? ZONE_DEFS.find(z => z.id === map.teleportZoneId) : null;
-                  if (!zoneDef) {
-                        teleBtn.textContent = '資料地圖';
+                  const sceneZoneId = map.teleportSceneZoneId;
+                  if (!sceneZoneId) {
+                        teleBtn.textContent = '\u7121\u6620\u5c04';
                         teleBtn.disabled = true;
                         teleBtn.classList.add('wmp-btn-disabled');
-                  } else if (zoneDef.id === currentZoneId) {
-                        teleBtn.textContent = '所在地';
+                  } else if (sceneZoneId === currentZoneId) {
+                        teleBtn.textContent = '\u6240\u5728\u5730';
                         teleBtn.disabled = true;
                         teleBtn.classList.add('wmp-btn-disabled');
-                  } else if (!this._zoneManager.isUnlocked(zoneDef.id)) {
-                        teleBtn.textContent = '🔒';
+                  } else if (!this._zoneManager.isUnlocked(sceneZoneId)) {
+                        teleBtn.textContent = '\ud83d\udd12 \u672a\u89e3\u9396';
                         teleBtn.disabled = true;
                         teleBtn.classList.add('wmp-btn-disabled');
                   } else {
-                        teleBtn.textContent = map.teleportMode === 'level' ? '近似傳送' : '⚡ 傳送';
+                        teleBtn.textContent = map.teleportMode === 'level'
+                              ? '\u8fd1\u4f3c\u50b3\u9001'
+                              : '\u50b3\u9001';
                         teleBtn.addEventListener('click', (e) => {
                               e.stopPropagation();
                               this.hide();
-                              this._zoneManager.travelTo(zoneDef.id);
+                              this._zoneManager.travelTo(sceneZoneId);
                         });
                   }
 
-                  if ((this._isLandscapeFocusMode() || this._isPhoneLandscapeMode()) && !teleBtn.disabled) teleBtn.textContent = '傳送';
+                  if ((this._isLandscapeFocusMode() || this._isPhoneLandscapeMode()) && !teleBtn.disabled) teleBtn.textContent = '\u50b3\u9001';
                   row.appendChild(info);
                   row.appendChild(teleBtn);
                   this._listZoneCol.appendChild(row);
@@ -299,7 +308,7 @@ export class WorldMapPanel {
                   return true;
             });
 
-            const zoneDef = summary.teleportZoneId ? ZONE_DEFS.find(z => z.id === summary.teleportZoneId) : null;
+            const sceneZoneId = summary.teleportSceneZoneId;
 
             this._detailCol.innerHTML = '';
 
@@ -314,14 +323,88 @@ export class WorldMapPanel {
             const navRow = document.createElement('div');
             navRow.className = 'wmp-nav-row';
             if (compactMode) navRow.classList.add('is-compact');
-            const teleportLabel = zoneDef
-                  ? `傳送映射：${this._escapeHtml(zoneDef.nameCN)}${this._teleportModeSuffix(summary.teleportMode)}`
-                  : '傳送映射：暫無';
+            const teleportLabel = sceneZoneId
+                  ? `\u50b3\u9001\u6620\u5c04\u5834\u666f\uff1a${sceneZoneId}${this._teleportModeSuffix(summary.teleportMode)}`
+                  : '\u50b3\u9001\u6620\u5c04\u5834\u666f\uff1a\u66ab\u7121';
+            const neighborLabel = summary.neighborMaps.length > 0
+                  ? `\u9023\u63a5\u5730\u5340\uff1a${summary.neighborMaps.length}`
+                  : '\u9023\u63a5\u5730\u5340\uff1a0';
             navRow.innerHTML = `
-                  <span class="sa-tag">資料來源：GAME DB</span>
+                  <span class="sa-tag">\u8cc7\u6599\u4f86\u6e90\uff1aGAME DB</span>
                   <span class="sa-tag">${teleportLabel}</span>
+                  <span class="sa-tag">${neighborLabel}</span>
             `;
             this._detailCol.appendChild(navRow);
+
+            if (summary.neighborMaps.length > 0) {
+                  const linkRow = document.createElement('div');
+                  linkRow.className = 'wmp-link-row';
+                  for (const neighborMap of summary.neighborMaps.slice(0, 12)) {
+                        const chip = document.createElement('button');
+                        chip.type = 'button';
+                        chip.className = 'wmp-link-chip';
+                        chip.textContent = neighborMap;
+                        chip.addEventListener('click', () => this._selectMap(neighborMap));
+                        linkRow.appendChild(chip);
+                  }
+                  if (summary.neighborMaps.length > 12) {
+                        const more = document.createElement('span');
+                        more.className = 'wmp-link-more';
+                        more.textContent = `+${summary.neighborMaps.length - 12}`;
+                        linkRow.appendChild(more);
+                  }
+                  this._detailCol.appendChild(linkRow);
+            }
+
+            const currentMapName = this._getCurrentMapName();
+            const route = currentMapName ? this._findRoute(currentMapName, mapName) : [];
+            const routeCard = document.createElement('div');
+            routeCard.className = 'wmp-route-card';
+            const routeTitle = document.createElement('div');
+            routeTitle.className = 'wmp-route-title';
+            routeTitle.textContent = '拓撲路徑導引';
+            routeCard.appendChild(routeTitle);
+
+            const routeText = document.createElement('div');
+            routeText.className = 'wmp-route-path';
+            if (!currentMapName) {
+                  routeText.textContent = '目前場景尚未對應到 runtime 地圖，無法計算路徑。';
+            } else if (currentMapName === mapName) {
+                  routeText.textContent = `你目前就在「${mapName}」。`;
+            } else if (route.length <= 0) {
+                  routeText.textContent = `找不到「${currentMapName} -> ${mapName}」可達路線。`;
+            } else {
+                  routeText.textContent = route.join(' -> ');
+            }
+            routeCard.appendChild(routeText);
+
+            const routeActions = document.createElement('div');
+            routeActions.className = 'wmp-route-actions';
+            const trackBtn = document.createElement('button');
+            trackBtn.type = 'button';
+            trackBtn.className = 'wmp-route-btn game-btn game-btn-primary';
+            trackBtn.textContent = this._trackedTargetMapName === mapName ? '已追蹤' : '一鍵追蹤';
+            trackBtn.disabled = !currentMapName || route.length <= 0 || this._trackedTargetMapName === mapName;
+            trackBtn.addEventListener('click', () => {
+                  this._setTrackedTarget(mapName);
+                  this._render();
+            });
+            routeActions.appendChild(trackBtn);
+
+            if (this._trackedTargetMapName) {
+                  const clearBtn = document.createElement('button');
+                  clearBtn.type = 'button';
+                  clearBtn.className = 'wmp-route-btn game-btn game-btn-secondary';
+                  clearBtn.textContent = '清除追蹤';
+                  clearBtn.addEventListener('click', () => {
+                        this._setTrackedTarget(null);
+                        this._render();
+                  });
+                  routeActions.appendChild(clearBtn);
+            }
+
+            routeCard.appendChild(routeActions);
+            this._detailCol.appendChild(routeCard);
 
             const filterRow = document.createElement('div');
             filterRow.className = 'wmp-detail-filters';
@@ -512,26 +595,29 @@ export class WorldMapPanel {
             footer.className = 'wmp-detail-footer';
             const teleBtn = document.createElement('button');
             teleBtn.className = 'wmp-teleport-footer-btn game-btn game-btn-primary';
-            if (!zoneDef) {
-                  teleBtn.textContent = '此地圖暫無傳送映射';
+            if (!sceneZoneId) {
+                  teleBtn.textContent = '\u6b64\u5730\u5716\u66ab\u7121\u50b3\u9001\u6620\u5c04';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
-            } else if (zoneDef.id === this._zoneManager.currentZone.id) {
-                  teleBtn.textContent = '📍 目前所在';
+            } else if (sceneZoneId === this._zoneManager.currentZone.id) {
+                  teleBtn.textContent = '\ud83d\udccd \u76ee\u524d\u6240\u5728';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
-            } else if (!this._zoneManager.isUnlocked(zoneDef.id)) {
-                  teleBtn.textContent = '🔒 尚未解鎖';
+            } else if (!this._zoneManager.isUnlocked(sceneZoneId)) {
+                  teleBtn.textContent = '\ud83d\udd12 \u5c1a\u672a\u89e3\u9396';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
             } else {
-                  teleBtn.textContent = `${summary.teleportMode === 'level' ? '近似傳送至' : '⚡ 傳送至'} ${zoneDef.nameCN}`;
+                  const modePrefix = summary.teleportMode === 'level'
+                        ? '\u8fd1\u4f3c\u50b3\u9001\u81f3'
+                        : '\u26a1 \u50b3\u9001\u81f3';
+                  teleBtn.textContent = `${modePrefix} ${sceneZoneId}`;
                   teleBtn.addEventListener('click', () => {
                         this.hide();
-                        this._zoneManager.travelTo(zoneDef.id);
+                        this._zoneManager.travelTo(sceneZoneId);
                   });
             }
-            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '傳送';
+            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '\u50b3\u9001';
             footer.appendChild(teleBtn);
             this._detailCol.appendChild(footer);
       }
@@ -612,6 +698,10 @@ export class WorldMapPanel {
                         level?: { min?: number; max?: number };
                         rules?: { restriction?: number; pkZoneFlag?: number };
                   }>;
+                  gates?: Array<{
+                        fromZoneId: number;
+                        toZoneId: number;
+                  }>;
             };
             const spawnData = worldSpawnRaw as {
                   monsterCatalog?: Array<{ monsterType: number; name: string; race?: number; startBaseLevel?: number; coreRate?: number }>;
@@ -629,6 +719,7 @@ export class WorldMapPanel {
             };
 
             const zones = Array.isArray(topology.zones) ? topology.zones : [];
+            const gates = Array.isArray(topology.gates) ? topology.gates : [];
             const monsterCatalog = Array.isArray(spawnData.monsterCatalog) ? spawnData.monsterCatalog : [];
             const mobSpawns = Array.isArray(spawnData.mobSpawns) ? spawnData.mobSpawns : [];
             const fusionRecipes = Array.isArray(fusionData.recipes) ? fusionData.recipes : [];
@@ -785,10 +876,25 @@ export class WorldMapPanel {
             }
 
             const zoneByMapName = new Map<string, (typeof zones)[number]>();
+            const mapNameByZoneId = new Map<number, string>();
             for (const zone of zones) {
                   const mapName = this._canonicalMapName(String(zone.name ?? '').trim());
                   if (!mapName) continue;
                   zoneByMapName.set(mapName, zone);
+                  mapNameByZoneId.set(Number(zone.zoneId ?? 0), mapName);
+            }
+
+            const neighborMapsByMapName = new Map<string, Set<string>>();
+            for (const gate of gates) {
+                  const fromMap = mapNameByZoneId.get(Number(gate.fromZoneId ?? 0));
+                  const toMap = mapNameByZoneId.get(Number(gate.toZoneId ?? 0));
+                  if (!fromMap || !toMap || fromMap === toMap) continue;
+                  let neighbors = neighborMapsByMapName.get(fromMap);
+                  if (!neighbors) {
+                        neighbors = new Set<string>();
+                        neighborMapsByMapName.set(fromMap, neighbors);
+                  }
+                  neighbors.add(toMap);
             }
 
             const mapNames = new Set<string>();
@@ -816,6 +922,9 @@ export class WorldMapPanel {
                         pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
                   });
                   const region = this._deriveRegionFromTopology(zone);
+                  const runtimeZoneId = Number(zone?.zoneId ?? 0);
+                  const neighbors = Array.from(neighborMapsByMapName.get(name) ?? [])
+                        .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
 
                   return {
                         name,
@@ -824,13 +933,114 @@ export class WorldMapPanel {
                         targetCount: targets.length,
                         minLevel,
                         maxLevel,
-                        teleportZoneId: zoneMatch.zoneId,
+                        runtimeZoneId: Number.isFinite(runtimeZoneId) && runtimeZoneId > 0 ? runtimeZoneId : null,
+                        teleportSceneZoneId: zoneMatch.zoneId,
                         teleportMode: zoneMatch.mode,
+                        neighborMaps: neighbors,
                   };
             }).sort((a, b) => {
                   if (a.minLevel !== b.minLevel) return a.minLevel - b.minLevel;
                   return a.name.localeCompare(b.name, 'zh-Hant');
             });
+      }
+
+      private _getCurrentMapName(): string | null {
+            const currentSceneZoneId = this._zoneManager.currentZone.id;
+            const candidates = this._mapSummaries.filter((item) => item.teleportSceneZoneId === currentSceneZoneId);
+            if (candidates.length <= 0) return null;
+            const selected = this._selectedMapName
+                  ? candidates.find((item) => item.name === this._selectedMapName)
+                  : null;
+            if (selected) return selected.name;
+            candidates.sort((a, b) => a.minLevel - b.minLevel);
+            return candidates[0]?.name ?? null;
+      }
+
+      private _findRoute(fromMap: string, toMap: string): string[] {
+            if (fromMap === toMap) return [fromMap];
+            const graph = new Map<string, Set<string>>();
+            const ensureNode = (name: string): Set<string> => {
+                  let row = graph.get(name);
+                  if (!row) {
+                        row = new Set<string>();
+                        graph.set(name, row);
+                  }
+                  return row;
+            };
+
+            for (const map of this._mapSummaries) {
+                  const row = ensureNode(map.name);
+                  for (const next of map.neighborMaps) {
+                        row.add(next);
+                        ensureNode(next).add(map.name);
+                  }
+            }
+
+            if (!graph.has(fromMap) || !graph.has(toMap)) return [];
+            const queue: string[] = [fromMap];
+            const prev = new Map<string, string | null>([[fromMap, null]]);
+
+            while (queue.length > 0) {
+                  const now = queue.shift()!;
+                  if (now === toMap) break;
+                  for (const next of graph.get(now) ?? []) {
+                        if (prev.has(next)) continue;
+                        prev.set(next, now);
+                        queue.push(next);
+                  }
+            }
+
+            if (!prev.has(toMap)) return [];
+            const path: string[] = [];
+            let cursor: string | null = toMap;
+            while (cursor) {
+                  path.push(cursor);
+                  cursor = prev.get(cursor) ?? null;
+            }
+            path.reverse();
+            return path;
+      }
+
+      private _refreshTrackedRouteFromCurrent(): void {
+            if (!this._trackedTargetMapName) {
+                  this._trackedRouteNodes.clear();
+                  return;
+            }
+            const mappedTarget = this._findMapName(this._trackedTargetMapName);
+            if (!mappedTarget) {
+                  this._trackedTargetMapName = null;
+                  this._trackedRouteNodes.clear();
+                  return;
+            }
+            this._trackedTargetMapName = mappedTarget;
+            const currentMapName = this._getCurrentMapName();
+            if (!currentMapName) {
+                  this._trackedRouteNodes = new Set([mappedTarget]);
+                  return;
+            }
+            const route = this._findRoute(currentMapName, mappedTarget);
+            this._trackedRouteNodes = new Set(route.length > 0 ? route : [mappedTarget]);
+      }
+
+      private _setTrackedTarget(targetMapName: string | null): void {
+            this._trackedTargetMapName = targetMapName;
+            this._refreshTrackedRouteFromCurrent();
+            try {
+                  if (targetMapName) localStorage.setItem(this._trackStorageKey, targetMapName);
+                  else localStorage.removeItem(this._trackStorageKey);
+            } catch {
+                  // ignore storage write failures
+            }
+      }
+
+      private _loadTrackedTarget(): string | null {
+            try {
+                  const saved = localStorage.getItem(this._trackStorageKey);
+                  const normalized = this._findMapName(saved ?? '');
+                  return normalized ?? null;
+            } catch {
+                  return null;
+            }
       }
 
       private _findMapName(input: string): string | null {
@@ -872,34 +1082,9 @@ export class WorldMapPanel {
             return normalizeFusionNameKey(raw);
       }
 
-      private _normalizeStringArray(value: unknown): string[] {
-            if (Array.isArray(value)) {
-                  const arr = value.map(item => String(item ?? '').trim()).filter(Boolean);
-                  return Array.from(new Set(arr));
-            }
-            if (typeof value === 'string') {
-                  const one = value.trim();
-                  return one ? [one] : [];
-            }
-            return [];
-      }
-
-      private _normalizeMapArray(value: unknown): string[] {
-            return this._normalizeStringArray(value)
-                  .map(name => this._canonicalMapName(name))
-                  .filter(Boolean);
-      }
-
       private _toLevel(raw: unknown, fallback = 1): number {
             if (typeof raw === 'number' && Number.isFinite(raw)) return Math.max(1, Math.floor(raw));
             return Math.max(1, Math.floor(fallback));
-      }
-
-      private _parseDropEgg(value: string | null): boolean | null {
-            if (!value) return null;
-            const v = value.trim();
-            if (!v) return null;
-            return v !== '0';
       }
 
       private _mergeDropEgg(a: boolean | null, b: boolean | null): boolean | null {

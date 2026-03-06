@@ -94,14 +94,6 @@ def load_source_tables(source_dir: Path) -> dict[str, list[dict[str, Any]]]:
     return tables
 
 
-def load_reference_overrides(source_dir: Path) -> dict[str, Any]:
-    path = source_dir / 'reference_overrides.json'
-    if not path.exists():
-        return {}
-    payload = load_json(path)
-    return payload if isinstance(payload, dict) else {}
-
-
 def load_runtime_repairs(source_dir: Path) -> dict[str, Any]:
     path = source_dir / 'reference_runtime_repairs.json'
     if not path.exists():
@@ -132,6 +124,30 @@ def to_int_set(values: Any) -> set[int]:
         if x > 0:
             out.add(x)
     return out
+
+
+def to_int_text_map(value: Any) -> dict[int, str]:
+    if not isinstance(value, dict):
+        return {}
+    out: dict[int, str] = {}
+    for k, v in value.items():
+        key = to_int(k, 0)
+        text = str(v or '').strip()
+        if key <= 0 or not text:
+            continue
+        out[key] = text
+    return out
+
+
+def sanitize_display_name(value: Any, fallback: str = '') -> str:
+    text = str(value or '').strip()
+    if not text:
+        return fallback
+    if any(ord(ch) < 32 for ch in text):
+        return fallback or text
+    if '?' in text:
+        return fallback or text
+    return text
 
 
 def build_world_topology(tables: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
@@ -547,7 +563,16 @@ def build_fusion_runtime(tables: dict[str, list[dict[str, Any]]]) -> dict[str, A
 
 def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, Any] | None = None) -> dict[str, Any]:
     repairs = repairs or {}
-    items = tables.get('s_item', [])
+    item_name_overrides = to_int_text_map(repairs.get('itemNameOverrides'))
+    source_items = tables.get('s_item', [])
+    items: list[dict[str, Any]] = []
+    for row in source_items:
+        copied = dict(row)
+        item_idx = to_int(copied.get('idx'))
+        override_name = item_name_overrides.get(item_idx, '')
+        if override_name:
+            copied['name'] = override_name
+        items.append(copied)
     item_by_idx = {to_int(r.get('idx')): r for r in items}
     item_alias_map = to_int_key_map(repairs.get('itemAlias'))
     virtual_item_specs = repairs.get('virtualItems', {}) if isinstance(repairs.get('virtualItems', {}), dict) else {}
@@ -629,7 +654,7 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
         spec = virtual_item_specs.get(str(item_idx), {})
         if not isinstance(spec, dict):
             spec = {}
-        name = str(spec.get('name') or missing_item_names[item_idx] or f'未知道具 #{item_idx}').strip()
+        name = sanitize_display_name(spec.get('name') or missing_item_names[item_idx], f'未知道具 #{item_idx}')
         virtual_items.append(
             {
                 'idx': item_idx,
@@ -661,12 +686,12 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
         shop_catalog.append(
             {
                 'npcIdx': npc_idx,
-                'npcName': str(pick(npc, 'name', '')).strip(),
+                'npcName': sanitize_display_name(pick(npc, 'name', ''), f'NPC#{npc_idx}'),
                 'saleType': to_int(pick(row, 'sale_type')),
                 'buyRatio': to_int(pick(row, 'buy_ratio')),
                 'itemIdx': item_idx,
                 'sourceItemIdx': item_idx_raw,
-                'itemName': str(pick(resolved_item, 'name', '')).strip(),
+                'itemName': sanitize_display_name(pick(resolved_item, 'name', ''), f'道具#{item_idx}'),
                 'itemType': to_int(pick(resolved_item, 'type')),
                 'price': to_int(pick(resolved_item, 'price')),
                 'rarity': to_int(pick(resolved_item, 'rarity')),
@@ -689,16 +714,18 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
             mat_idx = resolve_item_idx(mat_idx_raw)
             if mat_idx <= 0:
                 continue
+            mat_name = sanitize_display_name(
+                pick(item_by_idx.get(mat_idx, {}), 'name')
+                or pick(virtual_item_by_idx.get(mat_idx, {}), 'name')
+                or pick(row, f'stuff_name{slot}', ''),
+                f'材料#{mat_idx}',
+            )
             mats.append(
                 {
                     'slot': slot,
                     'itemIdx': mat_idx,
                     'sourceItemIdx': mat_idx_raw,
-                    'itemName': str(
-                        pick(item_by_idx.get(mat_idx, {}), 'name')
-                        or pick(virtual_item_by_idx.get(mat_idx, {}), 'name')
-                        or pick(row, f'stuff_name{slot}', '')
-                    ).strip(),
+                    'itemName': mat_name,
                     'count': to_int(pick(row, f'stuff_count{slot}')),
                     'isAliasedItem': bool(mat_idx != mat_idx_raw),
                 }
@@ -706,18 +733,21 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
 
         result_idx_raw = to_int(pick(row, 'result_idx'))
         result_idx = resolve_item_idx(result_idx_raw)
+        result_name = sanitize_display_name(
+            pick(item_by_idx.get(result_idx, {}), 'name')
+            or pick(virtual_item_by_idx.get(result_idx, {}), 'name')
+            or pick(row, 'result_name', ''),
+            f'道具#{result_idx}',
+        )
+        doc_name = sanitize_display_name(pick(row, 'doc_name', ''), f'[配方] {result_name}')
         production_recipes.append(
             {
                 'idx': to_int(pick(row, 'idx')),
                 'docIdx': to_int(pick(row, 'doc_idx')),
-                'docName': str(pick(row, 'doc_name', '')).strip(),
+                'docName': doc_name,
                 'resultIdx': result_idx,
                 'sourceResultIdx': result_idx_raw,
-                'resultName': str(
-                    pick(item_by_idx.get(result_idx, {}), 'name')
-                    or pick(virtual_item_by_idx.get(result_idx, {}), 'name')
-                    or pick(row, 'result_name', '')
-                ).strip(),
+                'resultName': result_name,
                 'resultCount': to_int(pick(row, 'result_count'), 1),
                 'money': to_int(pick(row, 'money')),
                 'defaultPro': to_int(pick(row, 'default_pro')),
@@ -746,6 +776,14 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
         if to_int(pick(r, 'idx')) >= 16 and str(pick(r, 'name', '')).strip() not in {'B', 'C', 'F', 'G', 'H'}
     ]
 
+    item_effective_data: list[dict[str, Any]] = []
+    for row in tables.get('s_ItemEffectiveData', []):
+        copied = dict(row)
+        item_idx = to_int(copied.get('item_idx'))
+        linked_item_name = sanitize_display_name(pick(item_by_idx.get(item_idx, {}), 'name'), f'效果資料#{item_idx}')
+        copied['name'] = sanitize_display_name(copied.get('name', ''), linked_item_name)
+        item_effective_data.append(copied)
+
     return {
         'meta': {
             'builtAt': now_iso(),
@@ -762,7 +800,7 @@ def build_economy(tables: dict[str, list[dict[str, Any]]], repairs: dict[str, An
         'items': items,
         'virtualItems': virtual_items,
         'validItems': valid_items,
-        'itemEffectiveData': tables.get('s_ItemEffectiveData', []),
+        'itemEffectiveData': item_effective_data,
         'mobDrops': normalized_mob_drops,
         'npcs': npcs,
         'npcSales': npc_sales,
@@ -890,7 +928,6 @@ def main() -> None:
     paths.report_dir.mkdir(parents=True, exist_ok=True)
 
     tables = load_source_tables(paths.source_dir)
-    reference_overrides = load_reference_overrides(paths.source_dir)
     runtime_repairs = load_runtime_repairs(paths.source_dir)
     index_payload = load_json(paths.source_dir / '_index.json')
 
@@ -916,6 +953,7 @@ def main() -> None:
 
     for name, payload in outputs.items():
         write_json(paths.out_dir / f'{name}.json', payload)
+    write_json(paths.out_dir / 'reference.repairs.json', runtime_repairs)
 
     source_tables_actual = {name: len(rows) for name, rows in tables.items()}
     manifest = build_manifest(
@@ -931,7 +969,6 @@ def main() -> None:
         'outDir': str(paths.out_dir),
         'files': sorted([f.name for f in paths.out_dir.glob('*.json')]),
         'manifest': manifest,
-        'referenceOverrides': reference_overrides,
         'runtimeRepairs': runtime_repairs,
     }
     write_json(paths.report_dir / 'runtime_build_report.json', build_report)

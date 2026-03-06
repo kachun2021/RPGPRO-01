@@ -38,6 +38,24 @@ export interface RuntimeMobDropTable {
       }>;
 }
 
+export interface RuntimeProductionRecipe {
+      recipeIdx: number;
+      docIdx: number;
+      docName: string;
+      resultIdx: number;
+      resultName: string;
+      resultCount: number;
+      costGold: number;
+      defaultPro: number;
+      addPro: number;
+      materials: Array<{
+            slot: number;
+            itemIdx: number;
+            itemName: string;
+            count: number;
+      }>;
+}
+
 interface EconomyItemRow {
       idx?: number;
       name?: string;
@@ -60,18 +78,40 @@ interface EconomyMobDropRow {
       [key: string]: unknown;
 }
 
+interface EconomyProductionMaterialRow {
+      slot?: number;
+      itemIdx?: number;
+      itemName?: string;
+      count?: number;
+}
+
+interface EconomyProductionRow {
+      idx?: number;
+      docIdx?: number;
+      docName?: string;
+      resultIdx?: number;
+      resultName?: string;
+      resultCount?: number;
+      money?: number;
+      defaultPro?: number;
+      addPro?: number;
+      materials?: EconomyProductionMaterialRow[];
+}
+
 interface EconomyPayload {
       items?: EconomyItemRow[];
       validItems?: EconomyItemRow[];
       virtualItems?: EconomyItemRow[];
       shopCatalog?: EconomyShopCatalogRow[];
       mobDrops?: EconomyMobDropRow[];
+      production?: EconomyProductionRow[];
 }
 
 interface RuntimeEconomyCache {
       itemByIdx: Map<number, RuntimeEconomyItemMeta>;
       shopItems: RuntimeEconomyShopItem[];
       mobDropByIdx: Map<number, RuntimeMobDropTable>;
+      productionRecipes: RuntimeProductionRecipe[];
 }
 
 const DATA = economyRaw as EconomyPayload;
@@ -145,6 +185,7 @@ function ensureCache(): RuntimeEconomyCache {
       const virtualRows = Array.isArray(DATA.virtualItems) ? DATA.virtualItems : [];
       const catalogRows = Array.isArray(DATA.shopCatalog) ? DATA.shopCatalog : [];
       const mobDropRows = Array.isArray(DATA.mobDrops) ? DATA.mobDrops : [];
+      const productionRows = Array.isArray(DATA.production) ? DATA.production : [];
 
       const mergedRows: EconomyItemRow[] = [...itemRows];
       const mergedIds = new Set<number>();
@@ -248,7 +289,44 @@ function ensureCache(): RuntimeEconomyCache {
             });
       }
 
-      CACHE = { itemByIdx, shopItems, mobDropByIdx };
+      const productionRecipes: RuntimeProductionRecipe[] = [];
+      for (const row of productionRows) {
+            const recipeIdx = toInt(row.idx, 0);
+            const resultIdx = toInt(row.resultIdx, 0);
+            if (recipeIdx <= 0 || resultIdx <= 0) continue;
+            const meta = itemByIdx.get(resultIdx);
+            const resultName = String(row.resultName ?? '').trim() || meta?.name || `製作結果 #${resultIdx}`;
+            const materials: RuntimeProductionRecipe['materials'] = [];
+            const rawMaterials = Array.isArray(row.materials) ? row.materials : [];
+            for (const mat of rawMaterials) {
+                  const itemIdx = toInt(mat.itemIdx, 0);
+                  if (itemIdx <= 0) continue;
+                  const itemMeta = itemByIdx.get(itemIdx);
+                  const itemName = String(mat.itemName ?? '').trim() || itemMeta?.name || `素材 #${itemIdx}`;
+                  materials.push({
+                        slot: Math.max(1, toInt(mat.slot, materials.length + 1)),
+                        itemIdx,
+                        itemName,
+                        count: Math.max(1, toInt(mat.count, 1)),
+                  });
+            }
+            productionRecipes.push({
+                  recipeIdx,
+                  docIdx: Math.max(0, toInt(row.docIdx, 0)),
+                  docName: String(row.docName ?? '').trim() || `製作文件 #${recipeIdx}`,
+                  resultIdx,
+                  resultName,
+                  resultCount: Math.max(1, toInt(row.resultCount, 1)),
+                  costGold: Math.max(0, toInt(row.money, 0)),
+                  defaultPro: Math.max(0, toInt(row.defaultPro, 0)),
+                  addPro: Math.max(0, toInt(row.addPro, 0)),
+                  materials,
+            });
+      }
+
+      productionRecipes.sort((a, b) => a.costGold - b.costGold || a.resultName.localeCompare(b.resultName, 'zh-Hant'));
+
+      CACHE = { itemByIdx, shopItems, mobDropByIdx, productionRecipes };
       return CACHE;
 }
 
@@ -280,4 +358,11 @@ export function getRuntimeMobDropTable(mobItemIdx: number): RuntimeMobDropTable 
             ...row,
             slots: row.slots.map((slot) => ({ ...slot })),
       };
+}
+
+export function getRuntimeProductionRecipes(): RuntimeProductionRecipe[] {
+      return ensureCache().productionRecipes.map((row) => ({
+            ...row,
+            materials: row.materials.map((m) => ({ ...m })),
+      }));
 }

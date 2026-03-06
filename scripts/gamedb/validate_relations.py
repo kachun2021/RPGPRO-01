@@ -85,16 +85,6 @@ def run_fk_check(
     )
 
 
-def load_reference_overrides(source_dir: Path) -> dict[str, Any]:
-    path = source_dir / 'reference_overrides.json'
-    if not path.exists():
-        return {}
-    payload = load_json(path)
-    if not isinstance(payload, dict):
-        return {}
-    return payload
-
-
 def load_runtime_repairs(source_dir: Path) -> dict[str, Any]:
     path = source_dir / 'reference_runtime_repairs.json'
     if not path.exists():
@@ -118,16 +108,6 @@ def to_int_key_map(value: Any) -> dict[int, int]:
     return out
 
 
-def get_override_values(overrides: dict[str, Any], section: str, check_name: str) -> set[int]:
-    section_map = overrides.get(section, {})
-    if not isinstance(section_map, dict):
-        return set()
-    raw = section_map.get(check_name, [])
-    if not isinstance(raw, list):
-        return set()
-    return {to_int(v) for v in raw}
-
-
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -144,6 +124,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.append(f"- Failed: {payload['summary']['failedChecks']}")
     lines.append(f"- Invalid Refs (Effective): {payload['summary']['invalidRefsTotal']}")
     lines.append(f"- Invalid Refs (Raw): {payload['summary']['rawInvalidRefsTotal']}")
+    lines.append(f"- Suppressed By Runtime Repairs: {payload['summary']['suppressedByRuntimeRepairsTotal']}")
     lines.append(f"- Suppressed By Overrides: {payload['summary']['suppressedByOverridesTotal']}")
     lines.append('')
     lines.append('## Check Results')
@@ -192,7 +173,6 @@ def main() -> None:
         if isinstance(payload, list):
             tables[json_file.stem] = payload
 
-    overrides = load_reference_overrides(source_dir)
     runtime_repairs = load_runtime_repairs(source_dir)
 
     zone_ids = {to_int(r.get('idx')) for r in tables.get('s_zone', [])}
@@ -275,20 +255,10 @@ def main() -> None:
             ignore_values=normalized_ignore,
         )
 
-        merged_valid = set(normalized_valid)
-        merged_valid.update(get_override_values(overrides, 'checkExtraValidValues', name))
-        merged_ignore = set(normalized_ignore)
-        merged_ignore.update(get_override_values(overrides, 'checkIgnoreValues', name))
-        effective = run_fk_check(
-            name=name,
-            rows=rows,
-            key_fn=key_fn,
-            valid_set=merged_valid,
-            ignore_values=merged_ignore,
-        )
+        effective = normalized
         effective.raw_bad_total = raw.bad_total
         effective.suppressed_by_runtime_repair = max(0, raw.bad_total - normalized.bad_total)
-        effective.suppressed_by_override = max(0, normalized.bad_total - effective.bad_total)
+        effective.suppressed_by_override = 0
         return effective
 
     checks.append(
@@ -553,7 +523,7 @@ def main() -> None:
             'suppressedByRuntimeRepairsTotal': suppressed_runtime_repair_total,
             'suppressedByOverridesTotal': suppressed_total,
         },
-        'overridesApplied': overrides,
+        'overridesApplied': {},
         'runtimeRepairsApplied': runtime_repairs,
         'checks': check_payloads,
     }
@@ -588,7 +558,7 @@ def main() -> None:
             **report_payload['summary'],
             'reportBuiltAt': report_payload['builtAt'],
         },
-        'overridesApplied': overrides,
+        'overridesApplied': {},
         'runtimeRepairsApplied': runtime_repairs,
         'runtime': {
             'manifestBuiltAt': manifest_payload.get('builtAt') if isinstance(manifest_payload, dict) else None,

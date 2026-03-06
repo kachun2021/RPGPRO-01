@@ -5,12 +5,12 @@ import { EQUIP_TEMPLATES } from '../systems/EquipmentSystem';
 import type { EnhanceSystem } from '../systems/EnhanceSystem';
 import type { PlayerStats } from '../entities/Player';
 
-const RARITY_BORDER: Record<ItemRarity, string> = {
-      common: 'rgba(160,160,160,0.35)',
-      uncommon: 'rgba(60,130,255,0.6)',
-      rare: 'rgba(155,80,220,0.6)',
-      epic: 'rgba(232,201,106,0.7)',
-      legendary: 'rgba(255,100,30,0.8)',
+const RARITY_CLASS: Record<ItemRarity, string> = {
+      common: 'inv2-rarity-common',
+      uncommon: 'inv2-rarity-uncommon',
+      rare: 'inv2-rarity-rare',
+      epic: 'inv2-rarity-epic',
+      legendary: 'inv2-rarity-legendary',
 };
 
 const SLOT_LABELS: Record<EquipSlot, string> = {
@@ -75,12 +75,10 @@ export class InventoryPanel {
             this._el = document.createElement('div');
             this._el.id = 'inventory-panel';
             this._el.className = 'sa-panel inv2-root';
-            this._el.style.display = 'none';
             document.getElementById('ui-layer')?.appendChild(this._el);
 
             this._tooltip = document.createElement('div');
             this._tooltip.className = 'inv-tooltip';
-            this._tooltip.style.display = 'none';
             this._el.appendChild(this._tooltip);
 
             inventory.onChange = () => { if (this._visible) this._render(); };
@@ -89,10 +87,10 @@ export class InventoryPanel {
       }
 
       /** Show floating feedback text */
-      private _showFeedback(msg: string, color: string): void {
+      private _showFeedback(msg: string, tone: 'success' | 'error' | 'info' | 'gold'): void {
             const el = document.createElement('div');
             el.className = 'pickup-text';
-            el.style.color = color;
+            el.classList.add(`pickup-text--${tone}`);
             el.textContent = msg;
             document.getElementById('ui-layer')?.appendChild(el);
             requestAnimationFrame(() => el.classList.add('show'));
@@ -157,9 +155,7 @@ export class InventoryPanel {
             grid.appendChild(mkSlot('bracelet'));
             grid.appendChild(mkSlot('head'));
             const charCell = document.createElement('div');
-            charCell.className = 'inv2-char-cell';
-            charCell.style.gridRow = '1 / 4';
-            charCell.style.gridColumn = '3';
+            charCell.className = 'inv2-char-cell inv2-char-cell-span';
             charCell.innerHTML = `<div class="inv2-char-preview">👤</div>`;
             grid.appendChild(charCell);
             grid.appendChild(mkSlot('necklace'));
@@ -217,7 +213,7 @@ export class InventoryPanel {
                   if (i < items.length) {
                         const item = items[i];
                         slot.classList.add('inv2-item-filled');
-                        slot.style.borderColor = RARITY_BORDER[item.rarity];
+                        slot.classList.add(RARITY_CLASS[item.rarity]);
                         slot.innerHTML = `
                               <span class="inv2-item-icon">${item.icon}</span>
                               ${item.qty > 1 ? `<span class="inv2-item-qty">×${item.qty}</span>` : ''}
@@ -287,8 +283,8 @@ export class InventoryPanel {
       }
 
       private _fitPanelScale(): void {
-            this._el.style.transformOrigin = 'center center';
-            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+            this._el.style.setProperty('--inv2-panel-scale', '1');
+            this._el.classList.remove('is-scaled');
 
             const vh = window.innerHeight || 0;
             const available = Math.max(0, Math.floor(vh * 0.88) - 6);
@@ -298,7 +294,12 @@ export class InventoryPanel {
             if (needed <= 0 || needed <= available) return;
 
             const scale = Math.max(0.55, Math.min(1, available / needed));
-            this._el.style.setProperty('transform', `translate(-50%, -50%) scale(${scale})`, 'important');
+            this._el.style.setProperty('--inv2-panel-scale', String(scale));
+            if (scale < 0.999) this._el.classList.add('is-scaled');
+      }
+
+      private _hideTooltip(): void {
+            this._tooltip.classList.remove('is-visible', 'is-centered', 'is-follow-pointer');
       }
 
       private _showEquipActions(equip: EquipDef, slot: EquipSlot): void {
@@ -321,33 +322,31 @@ export class InventoryPanel {
                         <button class="inv-tt-btn inv2-unequip-btn">↩️ 卸下</button>
                   </div>
             `;
-            this._tooltip.style.display = 'block';
-            this._tooltip.style.left = '50%';
-            this._tooltip.style.top = '40%';
-            this._tooltip.style.transform = 'translate(-50%, -50%)';
+            this._tooltip.classList.remove('is-follow-pointer');
+            this._tooltip.classList.add('is-visible', 'is-centered');
 
             this._tooltip.querySelector('.inv2-enhance-btn')?.addEventListener('click', () => {
                   if (!this._inventory.spendGold(cost)) {
-                        this._showFeedback('❌ 金幣不足', '#E74C3C');
+                        this._showFeedback('❌ 金幣不足', 'error');
                         return;
                   }
                   const useProtect = (this._tooltip.querySelector('#enh-protect') as HTMLInputElement)?.checked ?? false;
                   if (useProtect) this._inventory.removeItem('protect_scroll', 1);
                   const result = this._enhanceSystem.enhance(equip, useProtect);
                   if (result.success) {
-                        this._showFeedback(`✅ 強化成功！+${result.newLevel}`, '#27AE60');
+                        this._showFeedback(`✅ 強化成功！+${result.newLevel}`, 'success');
                         this._el.classList.add('enhance-flash');
                         setTimeout(() => this._el.classList.remove('enhance-flash'), 400);
                   } else {
                         this._showFeedback(
                               result.protected ? `🛡️ 保護生效！維持 +${result.newLevel}` : `❌ 強化失敗 → +${result.newLevel}`,
-                              result.protected ? '#3498DB' : '#E74C3C',
+                              result.protected ? 'info' : 'error',
                         );
                         this._el.classList.add('enhance-shake');
                         setTimeout(() => this._el.classList.remove('enhance-shake'), 400);
                   }
                   // Re-open tooltip with updated stats (allow continuous enhance)
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
                   setTimeout(() => this._showEquipActions(equip, slot), 50);
             });
@@ -362,7 +361,7 @@ export class InventoryPanel {
                               description: `ATK+${removed.stats.atk} DEF+${removed.stats.def} HP+${removed.stats.hp} MP+${removed.stats.mp}`,
                         });
                   }
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
             });
 
@@ -393,10 +392,8 @@ export class InventoryPanel {
                         `;
             }).join('')}
             `;
-            this._tooltip.style.display = 'block';
-            this._tooltip.style.left = '50%';
-            this._tooltip.style.top = '40%';
-            this._tooltip.style.transform = 'translate(-50%, -50%)';
+            this._tooltip.classList.remove('is-follow-pointer');
+            this._tooltip.classList.add('is-visible', 'is-centered');
 
             this._tooltip.querySelectorAll('.eq-equip-row').forEach(row => {
                   row.addEventListener('click', () => {
@@ -414,7 +411,7 @@ export class InventoryPanel {
                                     });
                               }
                         }
-                        this._tooltip.style.display = 'none';
+                        this._hideTooltip();
                         this._render();
                   });
             });
@@ -457,13 +454,13 @@ export class InventoryPanel {
                         ${actionsHtml}
                   </div>
             `;
-            this._tooltip.style.display = 'block';
             const rect = this._el.getBoundingClientRect();
             const x = Math.min(e.clientX - rect.left + 8, rect.width - 180);
             const y = Math.min(e.clientY - rect.top + 8, rect.height - 140);
-            this._tooltip.style.left = x + 'px';
-            this._tooltip.style.top = y + 'px';
-            this._tooltip.style.transform = 'none';
+            this._tooltip.classList.remove('is-centered');
+            this._tooltip.classList.add('is-visible', 'is-follow-pointer');
+            this._tooltip.style.setProperty('--inv-tt-x', `${x}px`);
+            this._tooltip.style.setProperty('--inv-tt-y', `${y}px`);
 
             // Equip button (equipment items only)
             this._tooltip.querySelector('.inv-equip-btn')?.addEventListener('click', () => {
@@ -481,7 +478,7 @@ export class InventoryPanel {
                               });
                         }
                   }
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
             });
 
@@ -489,9 +486,9 @@ export class InventoryPanel {
             this._tooltip.querySelector('.inv-use-btn')?.addEventListener('click', () => {
                   const effect = this._inventory.useItem(item.itemId, this._playerStats);
                   if (effect) {
-                        this._showFeedback(`✅ ${effect}`, '#27AE60');
+                        this._showFeedback(`✅ ${effect}`, 'success');
                   }
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
             });
 
@@ -499,16 +496,16 @@ export class InventoryPanel {
             this._tooltip.querySelector('.inv-decompose-btn')?.addEventListener('click', () => {
                   const result = this._inventory.decomposeEquipment(item.itemId);
                   if (result) {
-                        this._showFeedback(`🔨 分解獲得 ${result.goldGained}💰 + ${result.materialName}`, '#E8C96A');
+                        this._showFeedback(`🔨 分解獲得 ${result.goldGained}💰 + ${result.materialName}`, 'gold');
                   }
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
             });
 
             // Discard
             this._tooltip.querySelector('.inv-discard-btn')?.addEventListener('click', () => {
                   this._inventory.removeItem(item.itemId, item.qty);
-                  this._tooltip.style.display = 'none';
+                  this._hideTooltip();
                   this._render();
             });
 
@@ -520,7 +517,7 @@ export class InventoryPanel {
             setTimeout(() => {
                   const close = (ev: MouseEvent) => {
                         if (!this._tooltip.contains(ev.target as Node)) {
-                              this._tooltip.style.display = 'none';
+                              this._hideTooltip();
                               document.removeEventListener('mousedown', close);
                         }
                   };
@@ -531,14 +528,14 @@ export class InventoryPanel {
       toggle(): void { this._visible ? this.hide() : this.show(); }
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.classList.add('is-open');
             this._render();
       }
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
-            this._tooltip.style.display = 'none';
-            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+            this._el.classList.remove('is-open', 'is-scaled');
+            this._hideTooltip();
+            this._el.style.setProperty('--inv2-panel-scale', '1');
       }
       dispose(): void {
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);

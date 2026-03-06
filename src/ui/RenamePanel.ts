@@ -1,4 +1,4 @@
-import type { Pet } from '../pets/Pet';
+﻿import type { Pet } from '../pets/Pet';
 
 export class RenamePanel {
       private _el: HTMLDivElement;
@@ -9,24 +9,17 @@ export class RenamePanel {
             this._el = document.createElement('div');
             this._el.id = 'renamePanel';
             this._el.className = 'sa-panel rename-root';
-            Object.assign(this._el.style, {
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%,-50%)',
-                  width: '280px',
-                  zIndex: '360',
-                  display: 'none',
-            });
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
-      get element(): HTMLElement { return this._el; }
+      get element(): HTMLElement {
+            return this._el;
+      }
 
       openFor(pet: Pet, onDone?: () => void): void {
             this._pet = pet;
             this._onDone = onDone || null;
-            this._el.style.display = '';
+            this._el.style.display = 'block';
             this._render();
       }
 
@@ -114,4 +107,3 @@ export class RenamePanel {
             this._el.remove();
       }
 }
-

@@ -1,6 +1,7 @@
 import type { Inventory } from '../systems/Inventory';
-import { ZONE_DEFS } from '../world/ZoneDefinitions';
 import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
+import { getSceneZonePrimaryRuntimeName } from '../data/runtime/RuntimeWorldRoutes';
+import { listRuntimeSceneZones } from '../world/RuntimeZoneCatalog';
 
 type AFKTabId = 'quick' | 'combat' | 'loot' | 'safety';
 type AFKMode = 'safe' | 'balanced' | 'efficient';
@@ -28,7 +29,7 @@ const TAB_IDS: AFKTabId[] = ['quick', 'combat', 'loot', 'safety'];
 const MODE_IDS: AFKMode[] = ['safe', 'balanced', 'efficient'];
 const FILTER_CHAR_LIMIT = 300;
 
-const LOOT_ZONES: LootZoneOption[] = ZONE_DEFS
+const LOOT_ZONES: LootZoneOption[] = listRuntimeSceneZones()
       .filter((zone) => !zone.isTown)
       .map((zone) => {
             const monsterMap = new Map<string, LootZoneMonsterOption>();
@@ -49,9 +50,12 @@ const LOOT_ZONES: LootZoneOption[] = ZONE_DEFS
                   if (monster.isBoss) existing.isBoss = true;
             });
             const monsters = Array.from(monsterMap.values()).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name, 'zh-Hant'));
+            const levelMin = monsters.length > 0 ? Math.min(...monsters.map((row) => row.level)) : zone.levelMin;
+            const levelMax = monsters.length > 0 ? Math.max(...monsters.map((row) => row.level)) : zone.levelMax;
+            const runtimeName = zone.nameCN || getSceneZonePrimaryRuntimeName(zone.id) || zone.name;
             return {
                   id: zone.id,
-                  label: `${zone.nameCN} (Lv.${zone.levelMin}-${zone.levelMax})`,
+                  label: `${runtimeName} (Lv.${levelMin}-${levelMax})`,
                   monsters,
             };
       })

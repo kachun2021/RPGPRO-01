@@ -20,7 +20,7 @@ export interface SkillDef {
       icon: string;
 }
 
-/** 12 base skill definitions */
+/** Runtime-aligned skill definitions (31 entries) */
 export const SKILL_DEFS: SkillDef[] = [
       { id: 'slash', name: '強擊術', type: 'attack', mpCost: 0, cooldown: 1.2, multiplier: 1.0, icon: 'skill_slash.png' },
       { id: 'power_strike', name: '強力一擊', type: 'attack', mpCost: 8, cooldown: 3.0, multiplier: 1.8, icon: 'skill_power.png' },
@@ -34,6 +34,26 @@ export const SKILL_DEFS: SkillDef[] = [
       { id: 'berserk', name: '大地之力', type: 'buff', mpCost: 20, cooldown: 15.0, multiplier: 1.5, icon: 'skill_berserk.png' },
       { id: 'weaken', name: '虛弱術', type: 'debuff', mpCost: 12, cooldown: 8.0, multiplier: 0.7, icon: 'skill_weaken.png' },
       { id: 'poison', name: '施毒術', type: 'debuff', mpCost: 14, cooldown: 10.0, multiplier: 0.5, icon: 'skill_poison.png' },
+      { id: 'evade', name: '迴避術', type: 'buff', mpCost: 8, cooldown: 6.0, multiplier: 0.6, icon: 'skill_shield.png' },
+      { id: 'counter', name: '反擊術', type: 'attack', mpCost: 8, cooldown: 4.0, multiplier: 1.4, icon: 'skill_power.png' },
+      { id: 'stun', name: '昏迷術', type: 'debuff', mpCost: 12, cooldown: 7.0, multiplier: 1.0, icon: 'skill_weaken.png' },
+      { id: 'steal', name: '搶奪術', type: 'attack', mpCost: 9, cooldown: 6.0, multiplier: 1.1, icon: 'skill_slash.png' },
+      { id: 'bind', name: '束縛術', type: 'debuff', mpCost: 11, cooldown: 8.0, multiplier: 0.9, icon: 'skill_ice.png' },
+      { id: 'aoe_stun', name: '群體昏迷術', type: 'debuff', mpCost: 20, cooldown: 12.0, multiplier: 1.1, icon: 'skill_thunder.png' },
+      { id: 'power_strike_alt', name: '強擊術(進階)', type: 'attack', mpCost: 14, cooldown: 3.5, multiplier: 2.0, icon: 'skill_power.png' },
+      { id: 'stun_alt', name: '昏迷術(進階)', type: 'debuff', mpCost: 16, cooldown: 8.5, multiplier: 1.1, icon: 'skill_weaken.png' },
+      { id: 'steal_alt', name: '搶奪術(進階)', type: 'attack', mpCost: 12, cooldown: 7.0, multiplier: 1.2, icon: 'skill_slash.png' },
+      { id: 'heal_alt', name: '治癒術(進階)', type: 'heal', mpCost: 18, cooldown: 9.0, multiplier: 1.7, icon: 'skill_heal.png' },
+      { id: 'shield_alt', name: '遮蔽術(進階)', type: 'buff', mpCost: 14, cooldown: 11.0, multiplier: 0.45, icon: 'skill_shield.png' },
+      { id: 'fire_bolt_alt', name: '火球術(進階)', type: 'attack', mpCost: 16, cooldown: 4.5, multiplier: 2.2, icon: 'skill_fireball.png' },
+      { id: 'weaken_alt', name: '虛弱術(進階)', type: 'debuff', mpCost: 14, cooldown: 9.0, multiplier: 0.85, icon: 'skill_weaken.png' },
+      { id: 'thunder_alt', name: '爆裂火焰(進階)', type: 'attack', mpCost: 22, cooldown: 7.0, multiplier: 2.8, icon: 'skill_thunder.png' },
+      { id: 'fire_poison', name: '火毒術', type: 'debuff', mpCost: 16, cooldown: 10.0, multiplier: 1.0, icon: 'skill_fireball.png' },
+      { id: 'detox', name: '解毒術', type: 'heal', mpCost: 12, cooldown: 7.0, multiplier: 1.1, icon: 'skill_groupheal.png' },
+      { id: 'thorns', name: '荊棘術', type: 'buff', mpCost: 18, cooldown: 12.0, multiplier: 1.1, icon: 'skill_berserk.png' },
+      { id: 'haste', name: '急行術', type: 'buff', mpCost: 14, cooldown: 9.0, multiplier: 1.2, icon: 'skill_whirlwind.png' },
+      { id: 'group_detox', name: '群體解毒術', type: 'heal', mpCost: 22, cooldown: 13.0, multiplier: 1.3, icon: 'skill_groupheal.png' },
+      { id: 'group_poison', name: '群體施毒術', type: 'debuff', mpCost: 20, cooldown: 12.0, multiplier: 0.9, icon: 'skill_poison.png' },
 ];
 
 /** Cooldown tracker for a single entity */

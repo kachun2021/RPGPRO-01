@@ -2,7 +2,7 @@ import { SKILL_DEFS, type SkillDef } from '../combat/CombatSystem';
 import type { SkillBar } from './SkillBar';
 import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
-import { getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
+import { getRuntimeSkillDetail, getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
 
 type SkillTab = 'player' | 'pet';
 
@@ -227,6 +227,7 @@ export class SkillPanel {
             const upgradeMeta = getRuntimeSkillUpgradeMeta(baseSkill.id, level);
             const safeLevel = Math.min(level, Math.max(1, upgradeMeta.maxLevel));
             const skill = this._runtimeSkill(baseSkill);
+            const runtimeDetail = getRuntimeSkillDetail(baseSkill.id, safeLevel);
             const focusMode = this._isLandscapeFocusMode();
             const isMaxed = safeLevel >= upgradeMeta.maxLevel;
             const upgradeCost = Math.max(1, upgradeMeta.nextUpgradeSp);
@@ -270,9 +271,19 @@ export class SkillPanel {
             mult.className = 'skill-card-mult';
             mult.textContent = `x${skill.multiplier.toFixed(2)}`;
 
+            const effect = document.createElement('div');
+            effect.className = 'skill-card-effect';
+            effect.textContent = this._buildSkillEffectText(baseSkill, skill, runtimeDetail?.continuityTime ?? 0);
+
+            const runtimeMeta = document.createElement('div');
+            runtimeMeta.className = 'skill-card-runtime';
+            runtimeMeta.textContent = this._buildRuntimeMetaText(runtimeDetail);
+
             info.appendChild(name);
             info.appendChild(stats);
             info.appendChild(mult);
+            info.appendChild(effect);
+            info.appendChild(runtimeMeta);
 
             const upBtn = document.createElement('button');
             upBtn.className = 'btn-gold skill-up-btn';
@@ -297,6 +308,64 @@ export class SkillPanel {
             card.appendChild(info);
             card.appendChild(upBtn);
             return card;
+      }
+
+      private _buildSkillEffectText(baseSkill: SkillDef, tunedSkill: SkillDef, continuityMs: number): string {
+            const durationSec = continuityMs > 0 ? Math.max(0.1, continuityMs / 1000) : 0;
+            switch (baseSkill.type) {
+                  case 'heal':
+                        return durationSec > 0
+                              ? `效果：恢復生命（持續 ${durationSec.toFixed(1)} 秒）`
+                              : '效果：恢復生命';
+                  case 'buff':
+                        return durationSec > 0
+                              ? `效果：增益強化（持續 ${durationSec.toFixed(1)} 秒）`
+                              : '效果：增益強化';
+                  case 'debuff':
+                        return durationSec > 0
+                              ? `效果：削弱敵方（持續 ${durationSec.toFixed(1)} 秒）`
+                              : '效果：削弱敵方';
+                  default:
+                        return `效果：造成約 ${tunedSkill.multiplier.toFixed(2)} 倍傷害`;
+            }
+      }
+
+      private _buildRuntimeMetaText(
+            detail: ReturnType<typeof getRuntimeSkillDetail> | null,
+      ): string {
+            if (!detail) return '資料：未接入 runtime 詳細參數';
+            const target = this._formatTargetClass(detail.targetClass);
+            const range = detail.maxTargetDistance > 0 ? `距離 ${detail.maxTargetDistance}` : '距離 -';
+            const area = detail.targetRange > 0 ? `範圍 ${detail.targetRange}` : '單體';
+            const duration = detail.continuityTime > 0 ? `持續 ${(detail.continuityTime / 1000).toFixed(1)}s` : '瞬發';
+            const polarity = detail.positiveEffect ? '增益' : '減益';
+            const stat = this._formatEffectStat(detail.effectingStat);
+            const shape = detail.targetRangeClass > 0 ? `範圍類型 ${detail.targetRangeClass}` : '範圍類型 0';
+            return `目標 ${target} · ${range} · ${area} · ${duration} · ${polarity}/${stat} · ${shape}`;
+      }
+
+      private _formatTargetClass(raw: string | null): string {
+            const v = String(raw ?? '').trim();
+            if (!v) return '一般';
+            if (/^t0+1$/.test(v)) return '敵方單體';
+            if (/^t1+0+$/.test(v)) return '我方/友方';
+            if (v === 't1111110') return '敵方範圍';
+            if (v === 't1111000') return '我方範圍';
+            return v;
+      }
+
+      private _formatEffectStat(code: number): string {
+            switch (code) {
+                  case 1: return 'HP';
+                  case 2: return 'MP';
+                  case 3: return '攻擊';
+                  case 4: return '防禦';
+                  case 5: return '力量';
+                  case 6: return '敏捷';
+                  case 7: return '命中';
+                  case 8: return '幸運';
+                  default: return `屬性${code}`;
+            }
       }
 
       private _upgradeSkill(skillId: string): void {
@@ -486,4 +555,3 @@ export class SkillPanel {
             this._el.remove();
       }
 }
-

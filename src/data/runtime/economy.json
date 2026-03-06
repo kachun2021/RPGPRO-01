@@ -1,6 +1,6 @@
 {
   "meta": {
-    "builtAt": "2026-03-06T00:08:04.535274+00:00",
+    "builtAt": "2026-03-06T00:46:36.258162+00:00",
     "sourceTables": {
       "s_item": 4608,
       "s_ItemEffectiveData": 7980,
@@ -26378,7 +26378,7 @@
     },
     {
       "idx": 516,
-      "name": "?魚",
+      "name": "未知魚",
       "price": 0,
       "barter_price": 0,
       "rarity": 0,
@@ -122474,7 +122474,7 @@
     },
     {
       "idx": 5003,
-      "name": "[模板]帕?拳套",
+      "name": "[模板]帕荅拳套",
       "price": 700000,
       "barter_price": 0,
       "rarity": 0,
@@ -128662,7 +128662,7 @@
     },
     {
       "idx": 5404,
-      "name": "帕?的皮",
+      "name": "帕荅的皮",
       "price": 20000,
       "barter_price": 0,
       "rarity": 0,
@@ -129598,7 +129598,7 @@
     },
     {
       "idx": 5603,
-      "name": "帕?拳套",
+      "name": "帕荅拳套",
       "price": 1542000,
       "barter_price": 0,
       "rarity": 0,
@@ -239631,8 +239631,24 @@
   ],
   "virtualItems": [
     {
+      "idx": 4369,
+      "name": "特殊藥水",
+      "price": 200,
+      "rarity": 0,
+      "type": 2,
+      "isVirtual": true
+    },
+    {
+      "idx": 4371,
+      "name": "魔力恢復藥水",
+      "price": 1000,
+      "rarity": 0,
+      "type": 2,
+      "isVirtual": true
+    },
+    {
       "idx": 5729,
-      "name": "鍊金試作液-紅",
+      "name": "煉金試作液-紅",
       "price": 120,
       "rarity": 0,
       "type": 0,
@@ -239640,7 +239656,7 @@
     },
     {
       "idx": 5730,
-      "name": "鍊金試作液-藍",
+      "name": "煉金試作液-藍",
       "price": 120,
       "rarity": 0,
       "type": 0,
@@ -239648,7 +239664,7 @@
     },
     {
       "idx": 5731,
-      "name": "鍊金試作液-黃",
+      "name": "煉金試作液-黃",
       "price": 160,
       "rarity": 0,
       "type": 0,
@@ -239656,7 +239672,7 @@
     },
     {
       "idx": 5732,
-      "name": "鍊金試作液-綠",
+      "name": "煉金試作液-綠",
       "price": 160,
       "rarity": 0,
       "type": 0,
@@ -239664,7 +239680,7 @@
     },
     {
       "idx": 5733,
-      "name": "鍊金調和液-赤晶",
+      "name": "煉金調和液-赤晶",
       "price": 280,
       "rarity": 1,
       "type": 0,
@@ -239672,7 +239688,7 @@
     },
     {
       "idx": 5734,
-      "name": "鍊金調和液-蒼鐵",
+      "name": "煉金調和液-蒼鐵",
       "price": 280,
       "rarity": 1,
       "type": 0,
@@ -239680,7 +239696,7 @@
     },
     {
       "idx": 5735,
-      "name": "鍊金調和液-金晶",
+      "name": "煉金調和液-金晶",
       "price": 600,
       "rarity": 1,
       "type": 0,
@@ -239688,7 +239704,7 @@
     },
     {
       "idx": 5736,
-      "name": "鍊金調和液-翠鐵",
+      "name": "煉金調和液-翠鐵",
       "price": 600,
       "rarity": 1,
       "type": 0,
@@ -239696,7 +239712,7 @@
     },
     {
       "idx": 5737,
-      "name": "鍊金活化液-紫",
+      "name": "煉金活化液-紫",
       "price": 900,
       "rarity": 1,
       "type": 0,
@@ -239704,7 +239720,7 @@
     },
     {
       "idx": 5738,
-      "name": "鍊金活化液-鐵",
+      "name": "煉金活化液-鐵",
       "price": 900,
       "rarity": 1,
       "type": 0,
@@ -239712,7 +239728,7 @@
     },
     {
       "idx": 5739,
-      "name": "鍊金濃縮液-紫",
+      "name": "煉金濃縮液-紫",
       "price": 1400,
       "rarity": 2,
       "type": 0,
@@ -239720,7 +239736,7 @@
     },
     {
       "idx": 5740,
-      "name": "鍊金濃縮液-鐵",
+      "name": "煉金濃縮液-鐵",
       "price": 1400,
       "rarity": 2,
       "type": 0,
@@ -239728,7 +239744,7 @@
     },
     {
       "idx": 5741,
-      "name": "鍊金精華-紫晶",
+      "name": "煉金精華-紫晶",
       "price": 2600,
       "rarity": 2,
       "type": 0,
@@ -239736,7 +239752,7 @@
     },
     {
       "idx": 5742,
-      "name": "鍊金精華-鐵礦",
+      "name": "煉金精華-鐵礦",
       "price": 2600,
       "rarity": 2,
       "type": 0,
@@ -239744,7 +239760,7 @@
     },
     {
       "idx": 5743,
-      "name": "鍊金催化精華-紅寶",
+      "name": "煉金催化精華-紅寶",
       "price": 3200,
       "rarity": 3,
       "type": 0,
@@ -239752,7 +239768,7 @@
     },
     {
       "idx": 5744,
-      "name": "鍊金催化精華-藍寶",
+      "name": "煉金催化精華-藍寶",
       "price": 3200,
       "rarity": 3,
       "type": 0,
@@ -239760,7 +239776,7 @@
     },
     {
       "idx": 5745,
-      "name": "鍊金高純精華-紅寶",
+      "name": "煉金高純精華-紅寶",
       "price": 5200,
       "rarity": 3,
       "type": 0,
@@ -239768,7 +239784,7 @@
     },
     {
       "idx": 5746,
-      "name": "鍊金高純精華-藍寶",
+      "name": "煉金高純精華-藍寶",
       "price": 5200,
       "rarity": 3,
       "type": 0,
@@ -265362,7 +265378,7 @@
     },
     {
       "idx": 516,
-      "name": "?魚",
+      "name": "未知魚",
       "price": 0,
       "barter_price": 0,
       "rarity": 0,
@@ -361458,7 +361474,7 @@
     },
     {
       "idx": 5003,
-      "name": "[模板]帕?拳套",
+      "name": "[模板]帕荅拳套",
       "price": 700000,
       "barter_price": 0,
       "rarity": 0,
@@ -367646,7 +367662,7 @@
     },
     {
       "idx": 5404,
-      "name": "帕?的皮",
+      "name": "帕荅的皮",
       "price": 20000,
       "barter_price": 0,
       "rarity": 0,
@@ -368582,7 +368598,7 @@
     },
     {
       "idx": 5603,
-      "name": "帕?拳套",
+      "name": "帕荅拳套",
       "price": 1542000,
       "barter_price": 0,
       "rarity": 0,
@@ -542392,7 +542408,7 @@
     },
     {
       "item_idx": 9500,
-      "name": "祝福龍之鱗(龍4??",
+      "name": "祝福龍之鱗(龍4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542400,7 +542416,7 @@
     },
     {
       "item_idx": 9501,
-      "name": "ç¥ç¦?? ä¹ç¿??¶é",
+      "name": "祝福蝙蝠之翼(惡魔4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542408,7 +542424,7 @@
     },
     {
       "item_idx": 9502,
-      "name": "ç¥ç¦å°?? ?(????",
+      "name": "祝福尖銳獠牙(獸4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542416,7 +542432,7 @@
     },
     {
       "item_idx": 9503,
-      "name": "ç¥ç¦é£ä¹ç¾?é¸4??",
+      "name": "祝福風之羽(鳥4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542424,7 +542440,7 @@
     },
     {
       "item_idx": 9504,
-      "name": "ç¥ç¦???(?",
+      "name": "祝福蜂蜜酒(蟲4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542432,7 +542448,7 @@
     },
     {
       "item_idx": 9505,
-      "name": "ç¥ç¦??½æ ?(æ¤????",
+      "name": "祝福生命樹杈(植物4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542440,7 +542456,7 @@
     },
     {
       "item_idx": 9506,
-      "name": "ç¥ç¦çº¢è²éå±?(?ºæ?4??",
+      "name": "祝福紅色金屬塊(機械4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -542448,7 +542464,7 @@
     },
     {
       "item_idx": 9507,
-      "name": "ç¥ç¦?°ç°é?(ç¥ç§4??",
+      "name": "祝福冰焰釘矛(神秘4階)",
       "effective_type": 3,
       "effective_sub_type": 2,
       "effective_value": 4,
@@ -549079,7 +549095,7 @@
       "item_idx1": 3505,
       "item_idx2": 80,
       "item_idx3": 3704,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -549114,7 +549130,7 @@
       "item_idx1": 158,
       "item_idx2": 431,
       "item_idx3": 3704,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -549149,7 +549165,7 @@
       "item_idx1": 917,
       "item_idx2": 895,
       "item_idx3": 314,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -549184,7 +549200,7 @@
       "item_idx1": 3505,
       "item_idx2": 80,
       "item_idx3": 3704,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -549219,7 +549235,7 @@
       "item_idx1": 158,
       "item_idx2": 431,
       "item_idx3": 3704,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -549254,7 +549270,7 @@
       "item_idx1": 917,
       "item_idx2": 895,
       "item_idx3": 314,
-      "item_idx4": 4370,
+      "item_idx4": 4369,
       "item_idx5": 4377,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552754,7 +552770,7 @@
       "item_idx1": 3505,
       "item_idx2": 80,
       "item_idx3": 3704,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552789,7 +552805,7 @@
       "item_idx1": 158,
       "item_idx2": 431,
       "item_idx3": 3704,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552824,7 +552840,7 @@
       "item_idx1": 917,
       "item_idx2": 895,
       "item_idx3": 316,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552859,7 +552875,7 @@
       "item_idx1": 3505,
       "item_idx2": 80,
       "item_idx3": 3704,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552894,7 +552910,7 @@
       "item_idx1": 158,
       "item_idx2": 431,
       "item_idx3": 3704,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -552929,7 +552945,7 @@
       "item_idx1": 917,
       "item_idx2": 895,
       "item_idx3": 316,
-      "item_idx4": 4372,
+      "item_idx4": 4371,
       "item_idx5": 4379,
       "item_idx6": 0,
       "item_idx7": 0,
@@ -588080,14 +588096,42 @@
       "npcName": "岡特爾鎧甲",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 8,
+      "npcName": "岡特爾鎧甲",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 8,
+      "npcName": "岡特爾鎧甲",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 8,
@@ -588095,13 +588139,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 8,
@@ -596984,14 +597028,28 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 59,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 59,
@@ -597166,14 +597224,28 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 60,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 60,
@@ -597320,14 +597392,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 61,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 61,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 61,
@@ -597335,13 +597435,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 61,
@@ -597530,14 +597630,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 62,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 62,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 62,
@@ -597545,13 +597673,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 62,
@@ -597642,14 +597770,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 63,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 63,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 63,
@@ -597657,13 +597813,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 63,
@@ -597810,14 +597966,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 64,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 64,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 64,
@@ -597825,13 +598009,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 64,
@@ -597978,14 +598162,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 65,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 65,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 65,
@@ -597993,13 +598205,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 65,
@@ -598132,14 +598344,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 66,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 66,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 66,
@@ -598147,13 +598387,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 66,
@@ -598272,28 +598512,42 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
-      "itemName": "超級藥水",
+      "itemName": "特殊藥水",
       "itemType": 2,
-      "price": 600,
+      "price": 200,
       "rarity": 0,
-      "isVirtualItem": false,
-      "isAliasedItem": true
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 67,
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4372,
-      "sourceItemIdx": 4371,
-      "itemName": "藍色恢復藥水",
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
+      "itemName": "超級藥水",
       "itemType": 2,
-      "price": 1300,
+      "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 67,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 67,
@@ -598650,14 +598904,28 @@
       "npcName": "萊恩防具",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 69,
+      "npcName": "萊恩防具",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 69,
@@ -603396,14 +603664,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 368,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 368,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 368,
@@ -603411,13 +603707,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 368,
@@ -603466,14 +603762,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 369,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 369,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 369,
@@ -603481,13 +603805,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 369,
@@ -603536,14 +603860,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 370,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 370,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 370,
@@ -603551,13 +603903,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 370,
@@ -603606,14 +603958,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 371,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 371,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 371,
@@ -603621,13 +604001,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 371,
@@ -605608,14 +605988,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 1204,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 1204,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 1204,
@@ -605623,13 +606031,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 1204,
@@ -605720,14 +606128,42 @@
       "npcName": "賽高鑄造",
       "saleType": 2,
       "buyRatio": 50,
-      "itemIdx": 4370,
+      "itemIdx": 4369,
       "sourceItemIdx": 4369,
+      "itemName": "特殊藥水",
+      "itemType": 2,
+      "price": 200,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 1205,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4370,
+      "sourceItemIdx": 4370,
       "itemName": "超級藥水",
       "itemType": 2,
       "price": 600,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
+    },
+    {
+      "npcIdx": 1205,
+      "npcName": "賽高鑄造",
+      "saleType": 2,
+      "buyRatio": 50,
+      "itemIdx": 4371,
+      "sourceItemIdx": 4371,
+      "itemName": "魔力恢復藥水",
+      "itemType": 2,
+      "price": 1000,
+      "rarity": 0,
+      "isVirtualItem": true,
+      "isAliasedItem": false
     },
     {
       "npcIdx": 1205,
@@ -605735,13 +606171,13 @@
       "saleType": 2,
       "buyRatio": 50,
       "itemIdx": 4372,
-      "sourceItemIdx": 4371,
+      "sourceItemIdx": 4372,
       "itemName": "藍色恢復藥水",
       "itemType": 2,
       "price": 1300,
       "rarity": 0,
       "isVirtualItem": false,
-      "isAliasedItem": true
+      "isAliasedItem": false
     },
     {
       "npcIdx": 1205,
@@ -605949,7 +606385,7 @@
       "docName": "[模板]帕荅拳套",
       "resultIdx": 5603,
       "sourceResultIdx": 5603,
-      "resultName": "帕?拳套",
+      "resultName": "帕荅拳套",
       "resultCount": 1,
       "money": 1120,
       "defaultPro": 35000,
@@ -605960,7 +606396,7 @@
           "slot": 1,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 10,
           "isAliasedItem": false
         },
@@ -607854,11 +608290,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 30,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -607894,11 +608330,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 60,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -607934,11 +608370,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 90,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -608094,11 +608530,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 30,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -608134,11 +608570,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 60,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -608174,11 +608610,11 @@
         },
         {
           "slot": 2,
-          "itemIdx": 4370,
+          "itemIdx": 4369,
           "sourceItemIdx": 4369,
-          "itemName": "超級藥水",
+          "itemName": "特殊藥水",
           "count": 90,
-          "isAliasedItem": true
+          "isAliasedItem": false
         },
         {
           "slot": 3,
@@ -609048,7 +609484,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609088,7 +609524,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609128,7 +609564,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609168,7 +609604,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609208,7 +609644,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609248,7 +609684,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -609288,7 +609724,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         }
@@ -610368,7 +610804,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 2,
           "isAliasedItem": false
         },
@@ -611533,7 +611969,7 @@
       "docName": "未知",
       "resultIdx": 5729,
       "sourceResultIdx": 5729,
-      "resultName": "鍊金試作液-紅",
+      "resultName": "煉金試作液-紅",
       "resultCount": 10,
       "money": 20,
       "defaultPro": 90000,
@@ -611565,7 +612001,7 @@
       "docName": "未知",
       "resultIdx": 5730,
       "sourceResultIdx": 5730,
-      "resultName": "鍊金試作液-藍",
+      "resultName": "煉金試作液-藍",
       "resultCount": 10,
       "money": 20,
       "defaultPro": 90000,
@@ -611597,7 +612033,7 @@
       "docName": "未知",
       "resultIdx": 5731,
       "sourceResultIdx": 5731,
-      "resultName": "鍊金試作液-黃",
+      "resultName": "煉金試作液-黃",
       "resultCount": 10,
       "money": 40,
       "defaultPro": 90000,
@@ -611629,7 +612065,7 @@
       "docName": "未知",
       "resultIdx": 5732,
       "sourceResultIdx": 5732,
-      "resultName": "鍊金試作液-綠",
+      "resultName": "煉金試作液-綠",
       "resultCount": 10,
       "money": 40,
       "defaultPro": 90000,
@@ -611661,7 +612097,7 @@
       "docName": "未知",
       "resultIdx": 5733,
       "sourceResultIdx": 5733,
-      "resultName": "鍊金調和液-赤晶",
+      "resultName": "煉金調和液-赤晶",
       "resultCount": 30,
       "money": 80,
       "defaultPro": 70000,
@@ -611701,7 +612137,7 @@
       "docName": "未知",
       "resultIdx": 5734,
       "sourceResultIdx": 5734,
-      "resultName": "鍊金調和液-蒼鐵",
+      "resultName": "煉金調和液-蒼鐵",
       "resultCount": 30,
       "money": 80,
       "defaultPro": 70000,
@@ -611741,7 +612177,7 @@
       "docName": "未知",
       "resultIdx": 5735,
       "sourceResultIdx": 5735,
-      "resultName": "鍊金調和液-金晶",
+      "resultName": "煉金調和液-金晶",
       "resultCount": 30,
       "money": 300,
       "defaultPro": 70000,
@@ -611781,7 +612217,7 @@
       "docName": "未知",
       "resultIdx": 5736,
       "sourceResultIdx": 5736,
-      "resultName": "鍊金調和液-翠鐵",
+      "resultName": "煉金調和液-翠鐵",
       "resultCount": 30,
       "money": 300,
       "defaultPro": 70000,
@@ -611821,7 +612257,7 @@
       "docName": "未知",
       "resultIdx": 5737,
       "sourceResultIdx": 5737,
-      "resultName": "鍊金活化液-紫",
+      "resultName": "煉金活化液-紫",
       "resultCount": 30,
       "money": 500,
       "defaultPro": 70000,
@@ -611848,7 +612284,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 15,
           "isAliasedItem": false
         }
@@ -611861,7 +612297,7 @@
       "docName": "未知",
       "resultIdx": 5738,
       "sourceResultIdx": 5738,
-      "resultName": "鍊金活化液-鐵",
+      "resultName": "煉金活化液-鐵",
       "resultCount": 30,
       "money": 500,
       "defaultPro": 70000,
@@ -611888,7 +612324,7 @@
           "slot": 3,
           "itemIdx": 5404,
           "sourceItemIdx": 5404,
-          "itemName": "帕?的皮",
+          "itemName": "帕荅的皮",
           "count": 15,
           "isAliasedItem": false
         }
@@ -611901,7 +612337,7 @@
       "docName": "未知",
       "resultIdx": 5739,
       "sourceResultIdx": 5739,
-      "resultName": "鍊金濃縮液-紫",
+      "resultName": "煉金濃縮液-紫",
       "resultCount": 30,
       "money": 1000,
       "defaultPro": 70000,
@@ -611920,7 +612356,7 @@
           "slot": 2,
           "itemIdx": 5737,
           "sourceItemIdx": 5737,
-          "itemName": "鍊金活化液-紫",
+          "itemName": "煉金活化液-紫",
           "count": 15,
           "isAliasedItem": false
         },
@@ -611941,7 +612377,7 @@
       "docName": "未知",
       "resultIdx": 5740,
       "sourceResultIdx": 5740,
-      "resultName": "鍊金濃縮液-鐵",
+      "resultName": "煉金濃縮液-鐵",
       "resultCount": 30,
       "money": 1000,
       "defaultPro": 70000,
@@ -611960,7 +612396,7 @@
           "slot": 2,
           "itemIdx": 5738,
           "sourceItemIdx": 5738,
-          "itemName": "鍊金活化液-鐵",
+          "itemName": "煉金活化液-鐵",
           "count": 15,
           "isAliasedItem": false
         },
@@ -611981,7 +612417,7 @@
       "docName": "未知",
       "resultIdx": 5741,
       "sourceResultIdx": 5741,
-      "resultName": "鍊金精華-紫晶",
+      "resultName": "煉金精華-紫晶",
       "resultCount": 30,
       "money": 2500,
       "defaultPro": 70000,
@@ -612000,7 +612436,7 @@
           "slot": 2,
           "itemIdx": 5739,
           "sourceItemIdx": 5739,
-          "itemName": "鍊金濃縮液-紫",
+          "itemName": "煉金濃縮液-紫",
           "count": 15,
           "isAliasedItem": false
         },
@@ -612021,7 +612457,7 @@
       "docName": "未知",
       "resultIdx": 5742,
       "sourceResultIdx": 5742,
-      "resultName": "鍊金精華-鐵礦",
+      "resultName": "煉金精華-鐵礦",
       "resultCount": 30,
       "money": 2500,
       "defaultPro": 70000,
@@ -612040,7 +612476,7 @@
           "slot": 2,
           "itemIdx": 5740,
           "sourceItemIdx": 5740,
-          "itemName": "鍊金濃縮液-鐵",
+          "itemName": "煉金濃縮液-鐵",
           "count": 15,
           "isAliasedItem": false
         },
@@ -612061,7 +612497,7 @@
       "docName": "未知",
       "resultIdx": 5743,
       "sourceResultIdx": 5743,
-      "resultName": "鍊金催化精華-紅寶",
+      "resultName": "煉金催化精華-紅寶",
       "resultCount": 30,
       "money": 3000,
       "defaultPro": 56000,
@@ -612080,7 +612516,7 @@
           "slot": 2,
           "itemIdx": 5741,
           "sourceItemIdx": 5741,
-          "itemName": "鍊金精華-紫晶",
+          "itemName": "煉金精華-紫晶",
           "count": 15,
           "isAliasedItem": false
         },
@@ -612101,7 +612537,7 @@
       "docName": "未知",
       "resultIdx": 5744,
       "sourceResultIdx": 5744,
-      "resultName": "鍊金催化精華-藍寶",
+      "resultName": "煉金催化精華-藍寶",
       "resultCount": 30,
       "money": 3000,
       "defaultPro": 56000,
@@ -612120,7 +612556,7 @@
           "slot": 2,
           "itemIdx": 5742,
           "sourceItemIdx": 5742,
-          "itemName": "鍊金精華-鐵礦",
+          "itemName": "煉金精華-鐵礦",
           "count": 15,
           "isAliasedItem": false
         },
@@ -612141,7 +612577,7 @@
       "docName": "未知",
       "resultIdx": 5745,
       "sourceResultIdx": 5745,
-      "resultName": "鍊金高純精華-紅寶",
+      "resultName": "煉金高純精華-紅寶",
       "resultCount": 60,
       "money": 5000,
       "defaultPro": 56000,
@@ -612160,7 +612596,7 @@
           "slot": 2,
           "itemIdx": 5743,
           "sourceItemIdx": 5743,
-          "itemName": "鍊金催化精華-紅寶",
+          "itemName": "煉金催化精華-紅寶",
           "count": 15,
           "isAliasedItem": false
         },
@@ -612181,7 +612617,7 @@
       "docName": "未知",
       "resultIdx": 5746,
       "sourceResultIdx": 5746,
-      "resultName": "鍊金高純精華-藍寶",
+      "resultName": "煉金高純精華-藍寶",
       "resultCount": 60,
       "money": 5000,
       "defaultPro": 56000,
@@ -612200,7 +612636,7 @@
           "slot": 2,
           "itemIdx": 5744,
           "sourceItemIdx": 5744,
-          "itemName": "鍊金催化精華-藍寶",
+          "itemName": "煉金催化精華-藍寶",
           "count": 15,
           "isAliasedItem": false
         },
@@ -614867,13 +615303,13 @@
   ],
   "stats": {
     "itemCount": 4608,
-    "virtualItemCount": 18,
+    "virtualItemCount": 20,
     "validItemCount": 4593,
     "npcCount": 1053,
     "npcSaleCount": 1792,
-    "shopCatalogRows": 1269,
+    "shopCatalogRows": 1299,
     "productionRecipeCount": 167,
-    "aliasedItemCount": 2,
-    "aliasedMobDropSlots": 12
+    "aliasedItemCount": 0,
+    "aliasedMobDropSlots": 0
   }
 }

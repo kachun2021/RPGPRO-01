@@ -1,0 +1,53 @@
+name: gamedb-repair-audit
+
+on:
+  pull_request:
+    paths:
+      - "scripts/gamedb/**"
+      - "src/data/runtime/**"
+      - "src/ui/SystemPanel.ts"
+      - "package.json"
+      - ".github/workflows/gamedb-repair-audit.yml"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "scripts/gamedb/**"
+      - "src/data/runtime/**"
+      - "src/ui/SystemPanel.ts"
+      - "package.json"
+      - ".github/workflows/gamedb-repair-audit.yml"
+
+jobs:
+  repair-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Runtime + Validate
+        run: npm run gamedb:p0
+
+      - name: Repair Audit (blocking on violations)
+        run: npm run gamedb:repair-audit
+
+      - name: Legacy Guard
+        run: npm run gamedb:check-legacy
+
+      - name: Typecheck
+        run: npm run typecheck

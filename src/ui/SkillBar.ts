@@ -36,7 +36,7 @@ export class SkillBar {
 
             const playerLabel = document.createElement('div');
             playerLabel.className = 'skillbar-label';
-            playerLabel.textContent = '⚔ 角色';
+            playerLabel.textContent = '⚔️ 角色';
             this._el.appendChild(playerLabel);
 
             for (let i = 0; i < 5; i++) {
@@ -80,12 +80,7 @@ export class SkillBar {
 
       private _toggleCollapse(): void {
             this._collapsed = !this._collapsed;
-            const display = this._collapsed ? 'none' : '';
-            this._playerSlots.forEach((s) => (s.el.style.display = display));
-            this._petSlots.forEach((s) => (s.el.style.display = display));
-            this._el.querySelectorAll('.skillbar-label,.skillbar-divider').forEach((el) => {
-                  (el as HTMLElement).style.display = display;
-            });
+            this._el.classList.toggle('is-collapsed', this._collapsed);
             this._toggleBtn.textContent = this._collapsed ? '▶ Skills' : '▼ Skills';
       }
 
@@ -178,31 +173,26 @@ class SkillSlot {
 
             this._iconEl = document.createElement('div');
             this._iconEl.className = 'skill-icon';
-            if (skill) {
-                  this._iconEl.style.backgroundImage = `url(assets/icons/${skill.icon})`;
-                  this._iconEl.title = `${skill.name} (MP:${skill.mpCost} CD:${skill.cooldown}s)`;
-            }
             this.el.appendChild(this._iconEl);
 
             this._cdOverlay = document.createElement('div');
             this._cdOverlay.className = 'skill-cd-overlay';
-            this._cdOverlay.style.display = 'none';
             this.el.appendChild(this._cdOverlay);
 
             this._cdText = document.createElement('span');
             this._cdText.className = 'skill-cd-text';
-            this._cdText.style.display = 'none';
             this.el.appendChild(this._cdText);
 
             this._nameEl = document.createElement('span');
             this._nameEl.className = 'skill-pet-name';
-            this._nameEl.style.display = 'none';
             this.el.appendChild(this._nameEl);
 
             const key = document.createElement('span');
             key.className = 'skill-key-label';
             key.textContent = keyLabel;
             this.el.appendChild(key);
+
+            this.setPlayerSkill(skill);
       }
 
       get isOnCooldown(): boolean { return this._cooldown > 0; }
@@ -210,9 +200,9 @@ class SkillSlot {
       startCooldown(duration: number): void {
             this._cooldown = duration;
             this._maxCooldown = duration;
-            this._cdOverlay.style.display = 'block';
-            this._cdText.style.display = 'block';
-            this._iconEl.style.filter = 'brightness(0.4)';
+            this.el.classList.add('is-on-cooldown');
+            this._cdText.textContent = duration.toFixed(1);
+            this.el.style.setProperty('--skill-cd-deg', '360deg');
       }
 
       update(dt: number): void {
@@ -220,16 +210,16 @@ class SkillSlot {
             this._cooldown -= dt;
             if (this._cooldown <= 0) {
                   this._cooldown = 0;
-                  this._cdOverlay.style.display = 'none';
-                  this._cdText.style.display = 'none';
-                  this._iconEl.style.filter = '';
-                  this.el.style.boxShadow = '0 0 8px rgba(39,174,96,0.6)';
-                  setTimeout(() => (this.el.style.boxShadow = ''), 400);
+                  this.el.classList.remove('is-on-cooldown');
+                  this._cdText.textContent = '';
+                  this.el.style.removeProperty('--skill-cd-deg');
+                  this.el.classList.add('is-ready-flash');
+                  setTimeout(() => this.el.classList.remove('is-ready-flash'), 400);
                   return;
             }
             const pct = this._cooldown / this._maxCooldown;
             const deg = pct * 360;
-            this._cdOverlay.style.background = `conic-gradient(rgba(0,0,0,0.7) ${deg}deg, transparent ${deg}deg)`;
+            this.el.style.setProperty('--skill-cd-deg', `${deg}deg`);
             this._cdText.textContent = this._cooldown.toFixed(1);
       }
 
@@ -238,13 +228,17 @@ class SkillSlot {
       }
 
       setPlayerSkill(skill: SkillDef | null): void {
+            this._petName = null;
+            this.el.classList.remove('has-pet-name');
+            this._nameEl.textContent = '';
             if (skill) {
-                  this._iconEl.style.backgroundImage = `url(assets/icons/${skill.icon})`;
-                  this._iconEl.style.background = '';
+                  this._setIconImage(skill.icon);
                   this._iconEl.title = `${skill.name} (MP:${skill.mpCost} CD:${skill.cooldown}s)`;
+                  this.el.classList.remove('is-empty');
             } else {
-                  this._iconEl.style.backgroundImage = 'none';
+                  this._setIconImage(null);
                   this._iconEl.title = '';
+                  this.el.classList.add('is-empty');
             }
       }
 
@@ -253,29 +247,30 @@ class SkillSlot {
             this._petName = petName;
             if (petName && skill) {
                   const iconFile = series !== undefined ? SERIES_ICONS[series] : '';
-                  if (iconFile) {
-                        this._iconEl.style.background = '';
-                        this._iconEl.style.backgroundImage = `url(assets/icons/${iconFile})`;
-                        this._iconEl.style.backgroundSize = 'cover';
-                        this._iconEl.style.backgroundPosition = 'center';
-                  } else {
-                        this._iconEl.style.backgroundImage = 'none';
-                        this._iconEl.style.background = 'radial-gradient(circle, rgba(232,201,106,0.3), rgba(20,16,30,0.8))';
-                  }
+                  this._setIconImage(iconFile || null);
                   this._iconEl.title = `${petName}: ${skill.name} (DMG:${skill.damage} CD:${skill.cooldown}s)`;
                   this._nameEl.textContent = petName.substring(0, 3);
-                  this._nameEl.style.display = 'block';
+                  this.el.classList.add('has-pet-name');
+                  this.el.classList.remove('is-empty');
             } else {
-                  this._iconEl.style.backgroundImage = 'none';
-                  this._iconEl.style.background = 'rgba(30,25,40,0.5)';
+                  this._setIconImage(null);
                   this._iconEl.title = '';
-                  this._nameEl.style.display = 'none';
+                  this._nameEl.textContent = '';
+                  this.el.classList.remove('has-pet-name');
+                  this.el.classList.add('is-empty');
             }
       }
 
       flashPress(): void {
-            this.el.style.transform = 'scale(0.88)';
-            setTimeout(() => (this.el.style.transform = ''), 100);
+            this.el.classList.add('is-pressed');
+            setTimeout(() => this.el.classList.remove('is-pressed'), 120);
+      }
+
+      private _setIconImage(icon: string | null): void {
+            if (icon) {
+                  this.el.style.setProperty('--skill-icon-url', `url("assets/icons/${icon}")`);
+            } else {
+                  this.el.style.removeProperty('--skill-icon-url');
+            }
       }
 }
-

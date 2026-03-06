@@ -2,7 +2,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { Scene } from '@babylonjs/core/scene';
 import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
-import { getZoneDef } from '../world/ZoneDefinitions';
+import { getRuntimeSceneZone } from '../world/RuntimeZoneCatalog';
 import { Monster, type MonsterDef } from './Monster';
 
 export interface ZoneMonsterConfig {
@@ -15,7 +15,7 @@ export interface ZoneMonsterConfig {
 export type OnMonsterDamage = (damage: number, monsterName: string) => void;
 
 function buildDefsForZone(zoneId: string): MonsterDef[] {
-      const zoneDef = getZoneDef(zoneId);
+      const zoneDef = getRuntimeSceneZone(zoneId);
       if (!zoneDef || zoneDef.isTown) return [];
 
       const runtimeRows = getRuntimeMonstersForSceneZone(zoneId);
@@ -59,7 +59,7 @@ function weightedPick(defs: MonsterDef[]): MonsterDef {
 }
 
 function resolveMaxActive(zoneId: string, defs: MonsterDef[]): number {
-      const zoneDef = getZoneDef(zoneId);
+      const zoneDef = getRuntimeSceneZone(zoneId);
       if (!zoneDef || zoneDef.isTown) return 0;
 
       let baseline = 10;
@@ -121,7 +121,7 @@ export class MonsterManager {
             }
 
             if (this._config.monsters.length === 0) {
-                  const zoneDef = getZoneDef(this._config.zoneId);
+                  const zoneDef = getRuntimeSceneZone(this._config.zoneId);
                   if (!zoneDef?.isTown) {
                         console.warn(`[MonsterManager] no runtime monster pool for zone: ${this._config.zoneId}`);
                   }

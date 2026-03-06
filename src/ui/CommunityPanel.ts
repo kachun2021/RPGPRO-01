@@ -1,9 +1,15 @@
 /**
- * CommunityPanel — CHM-style social panel with 3 tabs: 好友/隊伍/公會
+ * CommunityPanel — CHM-style social panel with tabs: 好友/隊伍/公會/公告
  * Center popup with bottom tab bar, friend table, watermark icon.
  */
 
-type CommTab = 'friends' | 'party' | 'guild';
+import {
+      getRuntimeEventConfigs,
+      getRuntimeEventDropMaps,
+      getRuntimeServerMessages,
+} from '../data/runtime/RuntimeOpsSource';
+
+type CommTab = 'friends' | 'party' | 'guild' | 'bulletin';
 
 interface FriendEntry {
       name: string;
@@ -57,8 +63,8 @@ export class CommunityPanel {
             // Title bar
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            const tabIcons: Record<CommTab, string> = { friends: '👥', party: '⚔️', guild: '🏰' };
-            const tabNames: Record<CommTab, string> = { friends: '好友', party: '隊伍', guild: '公會' };
+            const tabIcons: Record<CommTab, string> = { friends: '👥', party: '⚔️', guild: '🏰', bulletin: '📢' };
+            const tabNames: Record<CommTab, string> = { friends: '好友', party: '隊伍', guild: '公會', bulletin: '公告' };
             title.innerHTML = `${tabIcons[this._currentTab]} ${tabNames[this._currentTab]}`;
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
@@ -75,6 +81,7 @@ export class CommunityPanel {
                   case 'friends': this._renderFriends(body); break;
                   case 'party': this._renderParty(body); break;
                   case 'guild': this._renderGuild(body); break;
+                  case 'bulletin': this._renderBulletin(body); break;
             }
             this._el.appendChild(body);
 
@@ -85,6 +92,7 @@ export class CommunityPanel {
                   { id: 'friends', label: '好友' },
                   { id: 'party', label: '隊伍' },
                   { id: 'guild', label: '公會' },
+                  { id: 'bulletin', label: '公告' },
             ];
             for (const t of tabs) {
                   const btn = document.createElement('button');
@@ -257,6 +265,72 @@ export class CommunityPanel {
                   </div>
             `;
             body.appendChild(empty);
+      }
+
+      private _renderBulletin(body: HTMLDivElement): void {
+            const events = getRuntimeEventConfigs();
+            const messages = getRuntimeServerMessages();
+            const dropMaps = getRuntimeEventDropMaps().slice(0, 8);
+
+            const sectionTop = document.createElement('div');
+            sectionTop.className = 'comm-section-title';
+            sectionTop.textContent = '系統公告';
+            body.appendChild(sectionTop);
+
+            const list = document.createElement('div');
+            list.className = 'comm-friend-list';
+            if (messages.length <= 0) {
+                  const empty = document.createElement('div');
+                  empty.className = 'comm-empty';
+                  empty.textContent = '目前沒有公告訊息';
+                  list.appendChild(empty);
+            } else {
+                  for (const msg of messages) {
+                        const row = document.createElement('div');
+                        row.className = 'comm-friend-row';
+                        row.innerHTML = `
+                              <span class="comm-col-status">📣</span>
+                              <span class="comm-col-name">${msg.message}</span>
+                              <span class="comm-col-zone">${msg.type || 'SYSTEM'}</span>
+                        `;
+                        list.appendChild(row);
+                  }
+            }
+            body.appendChild(list);
+
+            const sectionMid = document.createElement('div');
+            sectionMid.className = 'comm-section-title';
+            sectionMid.textContent = '活動倍率';
+            body.appendChild(sectionMid);
+            const eventCard = document.createElement('div');
+            eventCard.className = 'comm-party-card';
+            const active = events[0];
+            if (!active) {
+                  eventCard.innerHTML = '<span class="comm-party-name">目前無活動設定</span>';
+            } else {
+                  eventCard.innerHTML = `
+                        <span class="comm-party-name">掉蛋 x${active.coreRate || 0} · 經驗 x${active.expRate || 0} · 掉寶 x${active.itemRate || 0} · GP x${active.gpRate || 0}</span>
+                        <span class="comm-party-role">${active.eventStart || '-'} ~ ${active.eventEnd || '-'}</span>
+                  `;
+            }
+            body.appendChild(eventCard);
+
+            const sectionBottom = document.createElement('div');
+            sectionBottom.className = 'comm-section-title';
+            sectionBottom.textContent = '活動地圖掉落配置';
+            body.appendChild(sectionBottom);
+            const mapWrap = document.createElement('div');
+            mapWrap.className = 'comm-guild-info';
+            if (dropMaps.length <= 0) {
+                  mapWrap.innerHTML = '<p>• 目前沒有活動地圖掉落設定</p>';
+            } else {
+                  for (const row of dropMaps) {
+                        const p = document.createElement('p');
+                        p.textContent = `• ${row.mapName}：${row.configuredDropSlots} 格活動掉落`;
+                        mapWrap.appendChild(p);
+                  }
+            }
+            body.appendChild(mapWrap);
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }

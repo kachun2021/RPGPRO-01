@@ -1,4 +1,5 @@
 import dataHealthRaw from '../data/runtime/data.health.json';
+import runtimeRepairsRaw from '../data/runtime/reference.repairs.json';
 import { listRuntimeHeroTemplates, type RuntimeHeroTemplate } from '../data/runtime/RuntimeProgression';
 
 type SysTabId = 'general' | 'controls' | 'account' | 'data' | 'about';
@@ -33,6 +34,7 @@ interface RuntimeDataHealthPayload {
             failedChecks?: number;
             invalidRefsTotal?: number;
             rawInvalidRefsTotal?: number;
+            suppressedByRuntimeRepairsTotal?: number;
             suppressedByOverridesTotal?: number;
       };
       runtime?: {
@@ -44,8 +46,14 @@ interface RuntimeDataHealthPayload {
       };
 }
 
+interface RuntimeRepairsPayload {
+      itemNameOverrides?: Record<string, string>;
+      virtualItems?: Record<string, { name?: string; type?: number; price?: number; rarity?: number }>;
+}
+
 const STORAGE_KEY = 'fpo.system.settings.v1';
 const DATA_HEALTH = (dataHealthRaw as RuntimeDataHealthPayload) ?? {};
+const RUNTIME_REPAIRS = (runtimeRepairsRaw as RuntimeRepairsPayload) ?? {};
 const HEROES = listRuntimeHeroTemplates();
 
 const DEFAULT_SETTINGS: SystemSettings = {
@@ -378,8 +386,8 @@ export class SystemPanel {
                         </div>
                         <div class="sys-health-card">
                               <div class="sys-health-label">Suppressed</div>
-                              <div class="sys-health-value">${Number(validation.suppressedByOverridesTotal ?? 0)}</div>
-                              <div class="sys-health-sub">規則覆蓋</div>
+                              <div class="sys-health-value">${Number(validation.suppressedByRuntimeRepairsTotal ?? validation.suppressedByOverridesTotal ?? 0)}</div>
+                              <div class="sys-health-sub">資料修復補齊</div>
                         </div>
                   </div>
 
