@@ -20,6 +20,7 @@ import { ChatBox } from './ui/ChatBox';
 import { Minimap } from './ui/Minimap';
 import { SkillBar } from './ui/SkillBar';
 import { SkillPanel } from './ui/SkillPanel';
+import { HeroCreationPanel } from './ui/HeroCreationPanel';
 // P5 Combat
 import { CombatSystem } from './combat/CombatSystem';
 import { ProjectileSystem } from './combat/ProjectileSystem';
@@ -185,6 +186,13 @@ function initUiFeedbackSfx(): void {
 }
 
 const HERO_TYPE_STORAGE_KEY = 'fpo.hero.type.v1';
+const HERO_PROFILE_STORAGE_KEY = 'fpo.hero.profile.v1';
+
+interface StoredHeroProfile {
+      heroType: number;
+      playerName: string;
+      createdAt: string;
+}
 
 interface RuntimeZoneForSpawn {
       zoneId?: number;
@@ -213,6 +221,94 @@ function resolveSelectedHeroType(): number {
       const fallback = heroes[0].type;
       localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(fallback));
       return fallback;
+}
+
+function sanitizePlayerName(raw: string, fallback: string): string {
+      const cleaned = String(raw ?? '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 12);
+      return cleaned || fallback;
+}
+
+function loadStoredHeroProfile(): StoredHeroProfile | null {
+      const heroes = listRuntimeHeroTemplates();
+      if (heroes.length <= 0) return null;
+      const validTypes = new Set(heroes.map((hero) => hero.type));
+      const fallbackType = resolveSelectedHeroType();
+      const fallbackHero = getRuntimeHeroTemplate(fallbackType);
+      const fallbackName = sanitizePlayerName(fallbackHero?.name ?? '玩家', '玩家');
+
+      const raw = localStorage.getItem(HERO_PROFILE_STORAGE_KEY);
+      if (raw) {
+            try {
+                  const parsed = JSON.parse(raw) as Partial<StoredHeroProfile>;
+                  const type = Number(parsed.heroType ?? NaN);
+                  const heroType = Number.isFinite(type) && validTypes.has(Math.floor(type))
+                        ? Math.floor(type)
+                        : fallbackType;
+                  const playerName = sanitizePlayerName(String(parsed.playerName ?? ''), fallbackName);
+                  return {
+                        heroType,
+                        playerName,
+                        createdAt: String(parsed.createdAt ?? new Date().toISOString()),
+                  };
+            } catch {
+                  // Continue with migration / creation fallback.
+            }
+      }
+
+      const legacyTypeRaw = localStorage.getItem(HERO_TYPE_STORAGE_KEY);
+      const legacyType = Number(legacyTypeRaw ?? NaN);
+      if (Number.isFinite(legacyType) && validTypes.has(Math.floor(legacyType))) {
+            return {
+                  heroType: Math.floor(legacyType),
+                  playerName: fallbackName,
+                  createdAt: new Date().toISOString(),
+            };
+      }
+
+      return null;
+}
+
+function persistHeroProfile(profile: StoredHeroProfile): void {
+      const payload: StoredHeroProfile = {
+            heroType: Math.floor(profile.heroType),
+            playerName: sanitizePlayerName(profile.playerName, '玩家'),
+            createdAt: profile.createdAt || new Date().toISOString(),
+      };
+      localStorage.setItem(HERO_PROFILE_STORAGE_KEY, JSON.stringify(payload));
+      localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(payload.heroType));
+}
+
+async function ensureHeroProfile(
+      schedulePanelViewportFit: () => void,
+): Promise<StoredHeroProfile> {
+      const heroes = listRuntimeHeroTemplates();
+      if (heroes.length <= 0) {
+            return {
+                  heroType: 0,
+                  playerName: '玩家',
+                  createdAt: new Date().toISOString(),
+            };
+      }
+
+      const stored = loadStoredHeroProfile();
+      if (stored) {
+            persistHeroProfile(stored);
+            return stored;
+      }
+
+      const panel = new HeroCreationPanel(heroes);
+      const result = await panel.show();
+      const profile: StoredHeroProfile = {
+            heroType: Math.floor(result.heroType),
+            playerName: sanitizePlayerName(result.playerName, '玩家'),
+            createdAt: new Date().toISOString(),
+      };
+      persistHeroProfile(profile);
+      schedulePanelViewportFit();
+      return profile;
 }
 
 function resolveHeroStartZoneId(runtimeBirthZoneId: number): string {
@@ -252,7 +348,9 @@ async function bootstrap(): Promise<void> {
       await mainScene.build();
 
       // 4. Player (P12: fully runtime-driven hero template)
-      const selectedHeroType = resolveSelectedHeroType();
+      const heroProfile = await ensureHeroProfile(schedulePanelViewportFit);
+      const selectedHeroType = heroProfile.heroType;
+      const selectedPlayerName = heroProfile.playerName;
       const runtimeHero = getRuntimeHeroTemplate(selectedHeroType);
       const player = new Player(Registry.scene, mainScene.shadowGenerator, {
             expToNextResolver: resolveRuntimeExpToNext,
@@ -269,7 +367,7 @@ async function bootstrap(): Promise<void> {
       });
       Registry.player = player;
       if (runtimeHero) {
-            console.log(`[Hero] Runtime template selected: type=${runtimeHero.type}, name=${runtimeHero.name}, birthZoneId=${runtimeHero.birthZoneId}`);
+            console.log(`[Hero] Runtime template selected: type=${runtimeHero.type}, name=${runtimeHero.name}, birthZoneId=${runtimeHero.birthZoneId}, player=${selectedPlayerName}`);
       }
 
       // 5. Camera
@@ -346,7 +444,7 @@ async function bootstrap(): Promise<void> {
             () => player.position,
             (pos) => { player.combatTarget = pos; },
             () => player.stats.atk,
-            'Player',
+            selectedPlayerName,
       );
       combatLoop.setSkillBar(skillBar);
 
@@ -555,11 +653,18 @@ async function bootstrap(): Promise<void> {
                   console.log('[System] Settings updated:', settings);
             },
             getCurrentHeroType: () => {
+                  const profile = loadStoredHeroProfile();
+                  if (profile) return profile.heroType;
                   const current = Number(localStorage.getItem(HERO_TYPE_STORAGE_KEY) ?? NaN);
                   return Number.isFinite(current) ? Math.floor(current) : selectedHeroType;
             },
             onHeroTypeChange: (heroType) => {
-                  localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(Math.floor(heroType)));
+                  const currentProfile = loadStoredHeroProfile();
+                  persistHeroProfile({
+                        heroType: Math.floor(heroType),
+                        playerName: currentProfile?.playerName ?? selectedPlayerName,
+                        createdAt: currentProfile?.createdAt ?? new Date().toISOString(),
+                  });
                   console.log(`[System] Hero template changed to type=${heroType}. Restart required to apply.`);
             },
             onSaveProgress: () => {
@@ -967,7 +1072,10 @@ async function bootstrap(): Promise<void> {
 
       // Game loop
       let lastTime = performance.now();
-      let panelFitTick = 0;
+      let hudUpdateTimer = 0;
+      let minimapUpdateTimer = 0;
+      const HUD_UPDATE_INTERVAL = 1 / 15;
+      const MINIMAP_UPDATE_INTERVAL = 1 / 10;
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
             const dt = (now - lastTime) / 1000;
@@ -991,21 +1099,33 @@ async function bootstrap(): Promise<void> {
             // Update skill bar CD overlays
             skillBar.update(dt);
 
-            // Update HUD portraits
-            hud.updateStats(player.stats);
-            hud.updatePets(petManager);
+            // UI updates are throttled to reduce mobile frame drops.
+            hudUpdateTimer += dt;
+            if (hudUpdateTimer >= HUD_UPDATE_INTERVAL) {
+                  hudUpdateTimer = 0;
+                  hud.updateStats(player.stats);
+                  hud.updatePets(petManager);
+            }
 
-            // Update minimap radar (player + monsters + NPCs)
-            minimap.updatePosition(
-                  player.position.x,
-                  player.position.z,
-                  monsterManager.alive.map(m => ({
-                        x: m.root.position.x,
-                        z: m.root.position.z,
-                        isBoss: m.def.isBoss,
-                  })),
-                  npcManager.getPositions(),
-            );
+            minimapUpdateTimer += dt;
+            if (minimapUpdateTimer >= MINIMAP_UPDATE_INTERVAL) {
+                  minimapUpdateTimer = 0;
+                  const radarMonsters: Array<{ x: number; z: number; isBoss: boolean }> = [];
+                  for (const monster of monsterManager.all) {
+                        if (monster.isDead) continue;
+                        radarMonsters.push({
+                              x: monster.root.position.x,
+                              z: monster.root.position.z,
+                              isBoss: monster.def.isBoss,
+                        });
+                  }
+                  minimap.updatePosition(
+                        player.position.x,
+                        player.position.z,
+                        radarMonsters,
+                        npcManager.getPositions(),
+                  );
+            }
 
             // P6: Teleport gate proximity check
             teleportSystem.update(dt);
@@ -1016,10 +1136,6 @@ async function bootstrap(): Promise<void> {
             // P9: NPC billboard + proximity
             npcManager.update(dt, player.position);
 
-            panelFitTick++;
-            if (panelFitTick % 24 === 0) {
-                  schedulePanelViewportFit();
-            }
       });
 
       // Start render loop

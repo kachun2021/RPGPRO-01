@@ -16,6 +16,8 @@ export class SkillBar {
       private _globalPlayerLock = 0;
       private _equipped: (SkillDef | null)[] = [];
       private _toggleBtn: HTMLDivElement;
+      private _petRefreshCountdown = 0;
+      private readonly PET_REFRESH_INTERVAL = 0.25;
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
@@ -104,7 +106,11 @@ export class SkillBar {
             this._globalPlayerLock = Math.max(0, this._globalPlayerLock - dt);
             this._playerSlots.forEach((slot) => slot.update(dt));
             this._petSlots.forEach((slot) => slot.update(dt));
-            this._refreshPetSlots();
+            this._petRefreshCountdown = Math.max(0, this._petRefreshCountdown - dt);
+            if (this._petRefreshCountdown <= 0) {
+                  this._petRefreshCountdown = this.PET_REFRESH_INTERVAL;
+                  this._refreshPetSlots();
+            }
       }
 
       private _refreshPetSlots(): void {

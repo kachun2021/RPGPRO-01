@@ -68,6 +68,10 @@ export class CombatLoop {
 
       // Retarget cooldown after kill (prevents stutter)
       private _retargetDelay = 0;
+      private _autoConfigSyncCountdown = 0;
+      private _autoConfigDirty = true;
+      private _autoConfigSignature = '';
+      private readonly AUTO_CONFIG_SYNC_INTERVAL = 0.25;
 
       // Player references
       private _getPlayerPos: () => Vector3;
@@ -113,7 +117,8 @@ export class CombatLoop {
       /** Connect SkillBar for CD visualization */
       setSkillBar(bar: SkillBar): void {
             this._skillBar = bar;
-            this._syncAutoSkillConfig();
+            this._autoConfigDirty = true;
+            this._syncAutoSkillConfig(true);
       }
 
       /** P7: Connect drop system */
@@ -170,7 +175,8 @@ export class CombatLoop {
                   this._petWaitCD = 0;
             }
 
-            this._syncAutoSkillConfig();
+            this._autoConfigDirty = true;
+            this._syncAutoSkillConfig(true);
             console.log('[Combat] Auto-grind:', enabled ? 'ON' : 'OFF');
       }
 
@@ -200,7 +206,11 @@ export class CombatLoop {
       update(dt: number): void {
             const playerPos = this._getPlayerPos();
 
-            this._syncAutoSkillConfig();
+            this._autoConfigSyncCountdown = Math.max(0, this._autoConfigSyncCountdown - dt);
+            if (this._autoConfigDirty || this._autoConfigSyncCountdown <= 0) {
+                  this._syncAutoSkillConfig(this._autoConfigDirty);
+                  this._autoConfigSyncCountdown = this.AUTO_CONFIG_SYNC_INTERVAL;
+            }
             this._tickCooldowns(dt);
             this._regenMp(dt);
 
@@ -229,7 +239,8 @@ export class CombatLoop {
             if (this._autoGrind && !this._target) {
                   let nearest: Monster | null = null;
                   let minDist = Infinity;
-                  for (const candidate of this._monsterManager.alive) {
+                  for (const candidate of this._monsterManager.all) {
+                        if (candidate.isDead) continue;
                         if (this._skipBossTargets && candidate.def.isBoss) continue;
                         const dist = candidate.distanceTo(playerPos);
                         if (dist < minDist) {
@@ -263,8 +274,26 @@ export class CombatLoop {
 
       // -- Auto Skill Config --
 
-      private _syncAutoSkillConfig(): void {
+      private _syncAutoSkillConfig(force = false): void {
             const playerEquipped = this._skillBar?.getEquipped() ?? [];
+            const activePets = this._petManager.active;
+
+            const playerSig = playerEquipped.map(skill => skill?.id ?? '_').join('|');
+            const petSig = activePets
+                  .slice(0, 3)
+                  .map(pet => {
+                        if (!pet) return '_';
+                        const skill = pet.def.skills[0];
+                        return `${pet.def.id}:${pet.isDead ? 1 : 0}:${skill?.id ?? '_'}`;
+                  })
+                  .join('|');
+            const signature = `${this._autoGrind ? 1 : 0}#${playerSig}#${petSig}`;
+            if (!force && !this._autoConfigDirty && signature === this._autoConfigSignature) {
+                  return;
+            }
+            this._autoConfigSignature = signature;
+            this._autoConfigDirty = false;
+
             const nextPlayerQueue: PlayerQueueEntry[] = [];
             const playerAutoQueue: { skillId: string; enabled: boolean }[] = [];
 
@@ -294,7 +323,6 @@ export class CombatLoop {
                   this._skillBar?.setAutoCast(i, this._autoGrind && hasSkill);
             }
 
-            const activePets = this._petManager.active;
             const nextPetQueue: PetQueueEntry[] = [];
 
             for (let i = 0; i < 3; i++) {

@@ -165,7 +165,8 @@ export class MonsterManager {
       findClosest(pos: Vector3): Monster | null {
             let closest: Monster | null = null;
             let minDist = Infinity;
-            for (const m of this.alive) {
+            for (const m of this._monsters) {
+                  if (m.isDead) continue;
                   const d = m.distanceTo(pos);
                   if (d < minDist) { minDist = d; closest = m; }
             }

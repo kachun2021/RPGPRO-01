@@ -10,6 +10,7 @@ export class HUD {
       private _topRight: HTMLDivElement;
       private _navBar: HTMLDivElement;
       private _portraits: HTMLDivElement[] = [];
+      private _petLabelCache: (string | null)[] = [null, null, null];
       private _collapsed = false;
       private _toggleBtn: HTMLDivElement;
 
@@ -164,14 +165,21 @@ export class HUD {
                   const inner = w.querySelector('.hud-portrait-inner') as HTMLDivElement;
                   const expFill = w.querySelector('.hud-exp-fill') as HTMLDivElement | null;
                   if (pet) {
-                        inner.innerHTML = `<span class="hud-portrait-text is-pet">${pet.def.name.substring(0, 3)}</span>`;
+                        const petLabel = pet.def.name.substring(0, 3);
+                        if (this._petLabelCache[i] !== petLabel) {
+                              inner.innerHTML = `<span class="hud-portrait-text is-pet">${petLabel}</span>`;
+                              this._petLabelCache[i] = petLabel;
+                        }
                         this._setArc(w, 'hp-arc', pet.stats.hp / pet.stats.maxHp, 180, 360);
                         this._setArc(w, 'mp-arc', pet.stats.mp / pet.stats.maxMp, 0, 180);
                         const petExpNeeded = pet.stats.level * 80;
                         const petExpPct = petExpNeeded > 0 ? Math.min(1, (pet.stats.exp ?? 0) / petExpNeeded) : 0;
                         if (expFill) expFill.style.width = `${petExpPct * 100}%`;
                   } else {
-                        inner.innerHTML = '<span class="hud-portrait-text is-empty">—</span>';
+                        if (this._petLabelCache[i] !== null) {
+                              inner.innerHTML = '<span class="hud-portrait-text is-empty">—</span>';
+                              this._petLabelCache[i] = null;
+                        }
                         this._setArc(w, 'hp-arc', 0, 180, 360);
                         this._setArc(w, 'mp-arc', 0, 0, 180);
                         if (expFill) expFill.style.width = '0%';
@@ -200,4 +208,3 @@ export class HUD {
             this._navBar.remove();
       }
 }
-
