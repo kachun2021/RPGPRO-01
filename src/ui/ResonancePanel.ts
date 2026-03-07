@@ -30,7 +30,7 @@ export class ResonancePanel {
 
             this._el = document.createElement('div');
             this._el.id = 'resonance-panel';
-            this._el.className = 'sa-panel reso-root';
+            this._el.className = 'sa-panel reso-root ui-panel-fullscreen';
             this._el.style.display = 'none';
 
             this._buildShell();

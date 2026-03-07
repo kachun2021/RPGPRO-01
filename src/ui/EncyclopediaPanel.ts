@@ -53,7 +53,7 @@ export class EncyclopediaPanel {
             this._buildMetaIndex();
             this._el = document.createElement('div');
             this._el.id = 'encyclopediaPanel';
-            this._el.className = 'sa-panel book-root';
+            this._el.className = 'sa-panel book-root ui-panel-fullscreen';
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }

@@ -49,7 +49,7 @@ export class ShopPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'shop-panel';
-            this._el.className = 'sa-panel shop-root';
+            this._el.className = 'sa-panel shop-root ui-panel-fullscreen';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
 
@@ -73,9 +73,9 @@ export class ShopPanel {
                   <div class="shop-layout">
                         <aside class="shop-side">
                               <div class="shop-mode-bar">
-                                    <button class="shop-mode-btn${this._mode === 'buy' ? ' active' : ''}" data-mode="buy">🛍 購買</button>
-                                    <button class="shop-mode-btn${this._mode === 'sell' ? ' active' : ''}" data-mode="sell">🪙 出售</button>
-                                    <button class="shop-mode-btn${this._mode === 'craft' ? ' active' : ''}" data-mode="craft">🛠 製作</button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'buy' ? ' active is-active' : ''}" data-mode="buy"><span class="shop-mode-icon">🛍</span><span class="shop-mode-label">購買</span></button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'sell' ? ' active is-active' : ''}" data-mode="sell"><span class="shop-mode-icon">🪙</span><span class="shop-mode-label">出售</span></button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'craft' ? ' active is-active' : ''}" data-mode="craft"><span class="shop-mode-icon">🛠</span><span class="shop-mode-label">製作</span></button>
                               </div>
                               ${this._mode === 'buy'
                                     ? this._renderCategoryTabs()
@@ -93,7 +93,10 @@ export class ShopPanel {
                                                 : '先選配方，再確認材料與金幣'}</span>
                               </div>
                               <div class="shop-content">
-                                    <div class="shop-grid" id="shop-grid"></div>
+                                    <div class="shop-list-pane">
+                                          <div class="shop-list-head" id="shop-list-head"></div>
+                                          <div class="shop-grid" id="shop-grid"></div>
+                                    </div>
                                     <div class="shop-detail" id="shop-detail"></div>
                               </div>
                               <div class="shop-bottom-bar" id="shop-bottom"></div>
@@ -122,29 +125,31 @@ export class ShopPanel {
             });
 
             const grid = this._el.querySelector('#shop-grid') as HTMLDivElement;
+            const listHead = this._el.querySelector('#shop-list-head') as HTMLDivElement;
             const detail = this._el.querySelector('#shop-detail') as HTMLDivElement;
             const bottom = this._el.querySelector('#shop-bottom') as HTMLDivElement;
 
             if (this._mode === 'buy') {
-                  this._renderBuyMode(grid, detail, bottom);
+                  this._renderBuyMode(grid, detail, bottom, listHead);
             } else if (this._mode === 'sell') {
-                  this._renderSellMode(grid, detail, bottom);
+                  this._renderSellMode(grid, detail, bottom, listHead);
             } else {
-                  this._renderCraftMode(grid, detail, bottom);
+                  this._renderCraftMode(grid, detail, bottom, listHead);
             }
       }
 
       private _renderCategoryTabs(): string {
             return `<div class="shop-cat-bar">${SHOP_CATEGORIES.map((cat) => `
-                  <button class="shop-cat-btn${cat.id === this._category ? ' active' : ''}" data-cat="${cat.id}">
+                  <button class="shop-cat-btn rpg-chip rpg-chip-filter${cat.id === this._category ? ' active is-active' : ''}" data-cat="${cat.id}">
                         <span class="shop-cat-icon">${cat.icon}</span>
                         <span class="shop-cat-label">${cat.label}</span>
                   </button>
             `).join('')}</div>`;
       }
 
-      private _renderBuyMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement): void {
+      private _renderBuyMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
             const items = this._shop.getByCategory(this._category);
+            listHead.textContent = `商品清單（${items.length}）`;
             if (items.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">此分類暫時沒有商品</div>';
                   detail.innerHTML = '<div class="shop-empty">請切換其他分類</div>';
@@ -189,8 +194,9 @@ export class ShopPanel {
             bottom.innerHTML = this._buildBottomBar('buy', selected, qty);
       }
 
-      private _renderSellMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement): void {
+      private _renderSellMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
             const invItems = this._inventory.items.filter((i) => i.type !== 'quest');
+            listHead.textContent = `可出售（${invItems.length}）`;
             if (invItems.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">背包沒有可出售物品</div>';
                   detail.innerHTML = '<div class="shop-empty">沒有可出售物品</div>';
@@ -234,8 +240,9 @@ export class ShopPanel {
             }, qty);
       }
 
-      private _renderCraftMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement): void {
+      private _renderCraftMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
             const recipes = getRuntimeProductionRecipes();
+            listHead.textContent = `製作配方（${recipes.length}）`;
             if (recipes.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">目前沒有可用製作配方</div>';
                   detail.innerHTML = '<div class="shop-empty">尚未載入製作資料</div>';
@@ -423,7 +430,7 @@ export class ShopPanel {
                         <div class="shop-detail-row"><span>成功率</span><span>${successRatePct.toFixed(1)}%</span></div>
                         ${materialRows}
                   </div>
-                  <button class="shop-action-btn buy-btn btn-gold shop-detail-action${craftable ? '' : ' disabled'}" type="button">${craftable ? '確認製作' : '材料不足'}</button>
+                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-primary${craftable ? '' : ' disabled is-disabled'}" type="button">${craftable ? '確認製作' : '材料不足'}</button>
             `;
       }
 
@@ -454,7 +461,7 @@ export class ShopPanel {
                               <span class="${canAfford ? '' : 'insufficient'}">🪙 ${totalCost}</span>
                         </div>
                   </div>
-                  <button class="shop-action-btn buy-btn btn-gold shop-detail-action${canAfford ? '' : ' disabled'}" type="button">${canAfford ? '確認購買' : '金幣不足'}</button>
+                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-primary${canAfford ? '' : ' disabled is-disabled'}" type="button">${canAfford ? '確認購買' : '金幣不足'}</button>
             `;
       }
 
@@ -481,7 +488,7 @@ export class ShopPanel {
                         </div>
                         <div class="shop-detail-row shop-detail-row-total"><span>總計可得</span><span class="sell">+🪙 ${unitSellPrice * qty}</span></div>
                   </div>
-                  <button class="shop-action-btn sell-btn shop-detail-action" type="button">確認出售</button>
+                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary" type="button">確認出售</button>
             `;
       }
 

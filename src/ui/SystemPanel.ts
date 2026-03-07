@@ -98,7 +98,7 @@ export class SystemPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'sys-panel';
-            this._el.className = 'sa-panel sys-root';
+            this._el.className = 'sa-panel sys-root ui-panel-fullscreen';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
@@ -141,12 +141,18 @@ export class SystemPanel {
       }
 
       private _scheduleFit(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) return;
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             this._fitPanelScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
       }
 
       private _fitPanelScale(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) {
+                  this._el.style.removeProperty('transform');
+                  this._el.style.removeProperty('transform-origin');
+                  return;
+            }
             this._el.style.transformOrigin = 'center center';
             this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
 
@@ -524,7 +530,12 @@ export class SystemPanel {
       hide(): void {
             this._visible = false;
             this._el.hidden = true;
-            this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+            if (!this._el.classList.contains('ui-panel-fullscreen')) {
+                  this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
+            } else {
+                  this._el.style.removeProperty('transform');
+                  this._el.style.removeProperty('transform-origin');
+            }
       }
 
       dispose(): void {

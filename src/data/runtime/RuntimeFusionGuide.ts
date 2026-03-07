@@ -22,6 +22,12 @@ export interface RuntimeFusionGuideEntry {
       mainMaps: string[];
       subMaps: string[];
       resultMaps: string[];
+      mainMapZoneIds: number[];
+      subMapZoneIds: number[];
+      resultMapZoneIds: number[];
+      mainPrimaryZoneId: number | null;
+      subPrimaryZoneId: number | null;
+      resultPrimaryZoneId: number | null;
       mainAdjust: number;
       subAdjust: number;
 }
@@ -64,6 +70,7 @@ interface RuntimeMonsterMeta {
       series: string | null;
       dropEgg: boolean | null;
       maps: string[];
+      mapZoneIds: number[];
 }
 
 let CACHE: RuntimeFusionGuideEntry[] | null = null;
@@ -126,6 +133,7 @@ function buildMonsterMetaByType(): Map<number, RuntimeMonsterMeta> {
                   series: raceToSeriesLabel(toInt(row.race, -1)),
                   dropEgg: toInt(row.coreRate, 0) > 0,
                   maps: [],
+                  mapZoneIds: [],
             });
       }
 
@@ -141,11 +149,14 @@ function buildMonsterMetaByType(): Map<number, RuntimeMonsterMeta> {
                   const zoneName = zoneNameById.get(zoneId);
                   if (!zoneName) continue;
                   meta.maps.push(zoneName);
+                  meta.mapZoneIds.push(zoneId);
             }
       }
 
       for (const meta of metaByType.values()) {
             meta.maps = normalizeMapNames(meta.maps);
+            meta.mapZoneIds = Array.from(new Set(meta.mapZoneIds.filter((id) => Number.isFinite(id) && id > 0)))
+                  .sort((a, b) => a - b);
       }
 
       return metaByType;
@@ -201,6 +212,12 @@ function buildEntries(): RuntimeFusionGuideEntry[] {
                   mainMaps: mainMeta?.maps ?? [],
                   subMaps: subMeta?.maps ?? [],
                   resultMaps: resultMeta?.maps ?? [],
+                  mainMapZoneIds: mainMeta?.mapZoneIds ?? [],
+                  subMapZoneIds: subMeta?.mapZoneIds ?? [],
+                  resultMapZoneIds: resultMeta?.mapZoneIds ?? [],
+                  mainPrimaryZoneId: mainMeta?.mapZoneIds?.[0] ?? null,
+                  subPrimaryZoneId: subMeta?.mapZoneIds?.[0] ?? null,
+                  resultPrimaryZoneId: resultMeta?.mapZoneIds?.[0] ?? null,
                   mainAdjust,
                   subAdjust,
             });
@@ -219,6 +236,8 @@ export function getRuntimeFusionGuideEntries(): RuntimeFusionGuideEntry[] {
             mainMaps: [...entry.mainMaps],
             subMaps: [...entry.subMaps],
             resultMaps: [...entry.resultMaps],
+            mainMapZoneIds: [...entry.mainMapZoneIds],
+            subMapZoneIds: [...entry.subMapZoneIds],
+            resultMapZoneIds: [...entry.resultMapZoneIds],
       }));
 }
-

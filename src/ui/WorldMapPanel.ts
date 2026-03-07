@@ -83,7 +83,7 @@ export class WorldMapPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'world-map-panel';
-            this._el.className = 'sa-panel wmp-root';
+            this._el.className = 'sa-panel wmp-root ui-panel-fullscreen';
             this._el.style.display = 'none';
 
             this._buildShell();
@@ -114,7 +114,7 @@ export class WorldMapPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span class="wmp-title-icon">🗺️</span> 世界地圖（DB分佈）';
+            title.innerHTML = '<span class="wmp-title-icon">🗺️</span> 世界地圖';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -124,7 +124,7 @@ export class WorldMapPanel {
 
             const note = document.createElement('div');
             note.className = 'wmp-note';
-            note.textContent = '地圖與怪物分佈以 GAME DB 為準；可用快篩：只看可合成、只看可掉蛋、最低等級。';
+            note.textContent = '依地區快速查怪物、合成來源與傳送。';
             this._el.appendChild(note);
 
             const body = document.createElement('div');
@@ -141,7 +141,7 @@ export class WorldMapPanel {
 
             this._detailCol = document.createElement('div');
             this._detailCol.className = 'wmp-detail';
-            this._detailCol.innerHTML = '<div class="wmp-detail-empty">← 選擇地圖查看怪物分佈與合成目標</div>';
+            this._detailCol.innerHTML = '<div class="wmp-detail-empty">← 先選擇左側地圖</div>';
 
             body.appendChild(this._listCol);
             body.appendChild(this._detailCol);
@@ -228,12 +228,12 @@ export class WorldMapPanel {
                               <span class="wmp-zone-emoji">\u5340</span>
                               <span class="wmp-zone-name">${this._escapeHtml(map.name)}</span>
                         </div>
-                        <div class="wmp-zone-lv">${this._escapeHtml(map.region)} · Lv.${map.minLevel}-${map.maxLevel} · \u602a\u7269 ${map.monsterCount} / \u76ee\u6a19 ${map.targetCount}</div>
+                        <div class="wmp-zone-lv">Lv.${map.minLevel}-${map.maxLevel} · 怪${map.monsterCount} · 合${map.targetCount}</div>
                   `;
                   info.addEventListener('click', () => this._selectMap(map.name));
 
                   const teleBtn = document.createElement('button');
-                  teleBtn.className = 'wmp-teleport-btn game-btn game-btn-primary';
+                  teleBtn.className = 'wmp-teleport-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
                   const sceneZoneId = map.teleportSceneZoneId;
                   if (!sceneZoneId) {
                         teleBtn.textContent = '\u7121\u6620\u5c04';
@@ -265,7 +265,7 @@ export class WorldMapPanel {
             }
 
             if (mapList.length === 0) {
-                  this._detailCol.innerHTML = '<div class="wmp-detail-empty">找不到符合搜尋條件的地圖</div>';
+                  this._detailCol.innerHTML = '<div class="wmp-detail-empty">找不到符合條件的地圖</div>';
                   return;
             }
 
@@ -295,6 +295,8 @@ export class WorldMapPanel {
             const minLevel = Math.max(1, this._minLevel);
             const focusMode = this._isLandscapeFocusMode();
             const compactMode = focusMode || this._isPhoneLandscapeMode();
+            const monsterRenderLimit = compactMode ? 40 : 120;
+            const targetRenderLimit = compactMode ? 32 : 80;
             this._detailCol.classList.toggle('is-compact', compactMode);
             const monsters = monstersAll.filter(mon => {
                   if (mon.level < minLevel) return false;
@@ -311,30 +313,34 @@ export class WorldMapPanel {
             const sceneZoneId = summary.teleportSceneZoneId;
 
             this._detailCol.innerHTML = '';
+            const sticky = document.createElement('div');
+            sticky.className = 'wmp-detail-sticky';
+            const content = document.createElement('div');
+            content.className = 'wmp-detail-content';
 
             const header = document.createElement('div');
             header.className = 'wmp-detail-header';
             header.innerHTML = `
                   <div class="wmp-detail-title">${this._escapeHtml(mapName)}</div>
-                  <div class="wmp-detail-sub">${this._escapeHtml(summary.region)} · Lv.${summary.minLevel}-${summary.maxLevel} · 怪物 ${monsters.length}/${summary.monsterCount} · 合成目標 ${targets.length}/${summary.targetCount}</div>
+                  <div class="wmp-detail-sub">${this._escapeHtml(summary.region)} · Lv.${summary.minLevel}-${summary.maxLevel} · 怪${monsters.length}/${summary.monsterCount} · 合${targets.length}/${summary.targetCount}</div>
             `;
-            this._detailCol.appendChild(header);
+            sticky.appendChild(header);
 
             const navRow = document.createElement('div');
             navRow.className = 'wmp-nav-row';
             if (compactMode) navRow.classList.add('is-compact');
             const teleportLabel = sceneZoneId
-                  ? `\u50b3\u9001\u6620\u5c04\u5834\u666f\uff1a${sceneZoneId}${this._teleportModeSuffix(summary.teleportMode)}`
-                  : '\u50b3\u9001\u6620\u5c04\u5834\u666f\uff1a\u66ab\u7121';
+                  ? `傳送點：${sceneZoneId}${this._teleportModeSuffix(summary.teleportMode)}`
+                  : '傳送點：無';
             const neighborLabel = summary.neighborMaps.length > 0
-                  ? `\u9023\u63a5\u5730\u5340\uff1a${summary.neighborMaps.length}`
-                  : '\u9023\u63a5\u5730\u5340\uff1a0';
+                  ? `連接：${summary.neighborMaps.length}`
+                  : '連接：0';
             navRow.innerHTML = `
-                  <span class="sa-tag">\u8cc7\u6599\u4f86\u6e90\uff1aGAME DB</span>
+                  <span class="sa-tag">資料：DB</span>
                   <span class="sa-tag">${teleportLabel}</span>
                   <span class="sa-tag">${neighborLabel}</span>
             `;
-            this._detailCol.appendChild(navRow);
+            sticky.appendChild(navRow);
 
             if (summary.neighborMaps.length > 0) {
                   const linkRow = document.createElement('div');
@@ -342,7 +348,7 @@ export class WorldMapPanel {
                   for (const neighborMap of summary.neighborMaps.slice(0, 12)) {
                         const chip = document.createElement('button');
                         chip.type = 'button';
-                        chip.className = 'wmp-link-chip';
+                        chip.className = 'wmp-link-chip rpg-chip rpg-chip-filter';
                         chip.textContent = neighborMap;
                         chip.addEventListener('click', () => this._selectMap(neighborMap));
                         linkRow.appendChild(chip);
@@ -353,7 +359,7 @@ export class WorldMapPanel {
                         more.textContent = `+${summary.neighborMaps.length - 12}`;
                         linkRow.appendChild(more);
                   }
-                  this._detailCol.appendChild(linkRow);
+                  sticky.appendChild(linkRow);
             }
 
             const currentMapName = this._getCurrentMapName();
@@ -362,17 +368,17 @@ export class WorldMapPanel {
             routeCard.className = 'wmp-route-card';
             const routeTitle = document.createElement('div');
             routeTitle.className = 'wmp-route-title';
-            routeTitle.textContent = '拓撲路徑導引';
+            routeTitle.textContent = '路線導引';
             routeCard.appendChild(routeTitle);
 
             const routeText = document.createElement('div');
             routeText.className = 'wmp-route-path';
             if (!currentMapName) {
-                  routeText.textContent = '目前場景尚未對應到 runtime 地圖，無法計算路徑。';
+                  routeText.textContent = '目前區域未映射，無法計算路線。';
             } else if (currentMapName === mapName) {
-                  routeText.textContent = `你目前就在「${mapName}」。`;
+                  routeText.textContent = `目前所在：${mapName}`;
             } else if (route.length <= 0) {
-                  routeText.textContent = `找不到「${currentMapName} -> ${mapName}」可達路線。`;
+                  routeText.textContent = `不可達：${currentMapName} -> ${mapName}`;
             } else {
                   routeText.textContent = route.join(' -> ');
             }
@@ -382,8 +388,8 @@ export class WorldMapPanel {
             routeActions.className = 'wmp-route-actions';
             const trackBtn = document.createElement('button');
             trackBtn.type = 'button';
-            trackBtn.className = 'wmp-route-btn game-btn game-btn-primary';
-            trackBtn.textContent = this._trackedTargetMapName === mapName ? '已追蹤' : '一鍵追蹤';
+            trackBtn.className = 'wmp-route-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
+            trackBtn.textContent = this._trackedTargetMapName === mapName ? '已追蹤' : '追蹤';
             trackBtn.disabled = !currentMapName || route.length <= 0 || this._trackedTargetMapName === mapName;
             trackBtn.addEventListener('click', () => {
                   this._setTrackedTarget(mapName);
@@ -394,8 +400,8 @@ export class WorldMapPanel {
             if (this._trackedTargetMapName) {
                   const clearBtn = document.createElement('button');
                   clearBtn.type = 'button';
-                  clearBtn.className = 'wmp-route-btn game-btn game-btn-secondary';
-                  clearBtn.textContent = '清除追蹤';
+                  clearBtn.className = 'wmp-route-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-secondary';
+                  clearBtn.textContent = '清除';
                   clearBtn.addEventListener('click', () => {
                         this._setTrackedTarget(null);
                         this._render();
@@ -404,7 +410,7 @@ export class WorldMapPanel {
             }
 
             routeCard.appendChild(routeActions);
-            this._detailCol.appendChild(routeCard);
+            content.appendChild(routeCard);
 
             const filterRow = document.createElement('div');
             filterRow.className = 'wmp-detail-filters';
@@ -413,22 +419,22 @@ export class WorldMapPanel {
                   const btn = document.createElement('button');
                   btn.type = 'button';
                   btn.textContent = label;
-                  btn.className = `wmp-toggle-chip${active ? ' is-active' : ''}`;
+                  btn.className = `wmp-toggle-chip rpg-chip rpg-chip-filter${active ? ' is-active' : ''}`;
                   btn.addEventListener('click', onToggle);
                   return btn;
             };
-            filterRow.appendChild(createToggle('只看可合成', this._onlyFusible, () => {
+            filterRow.appendChild(createToggle('可合成', this._onlyFusible, () => {
                   this._onlyFusible = !this._onlyFusible;
                   this._render();
             }));
-            filterRow.appendChild(createToggle('只看可掉蛋', this._onlyDropEgg, () => {
+            filterRow.appendChild(createToggle('可掉蛋', this._onlyDropEgg, () => {
                   this._onlyDropEgg = !this._onlyDropEgg;
                   this._render();
             }));
 
             const minWrap = document.createElement('label');
             minWrap.className = 'wmp-min-level-wrap';
-            minWrap.textContent = '最低等級';
+            minWrap.textContent = '最低Lv';
             const minInput = document.createElement('input');
             minInput.type = 'number';
             minInput.min = '1';
@@ -446,22 +452,22 @@ export class WorldMapPanel {
             minInput.addEventListener('blur', applyMin);
             minWrap.appendChild(minInput);
             filterRow.appendChild(minWrap);
-            this._detailCol.appendChild(filterRow);
+            sticky.appendChild(filterRow);
 
             const monsterTitle = document.createElement('div');
             monsterTitle.className = 'wmp-section-title';
             monsterTitle.textContent = `🐾 地圖怪物（${monsters.length}/${monstersAll.length}）`;
-            this._detailCol.appendChild(monsterTitle);
+            content.appendChild(monsterTitle);
 
             if (monsters.length === 0) {
                   const empty = document.createElement('div');
                   empty.className = 'wmp-detail-empty';
                   empty.textContent = '此地圖沒有怪物分佈資料。';
-                  this._detailCol.appendChild(empty);
+                  content.appendChild(empty);
             } else {
                   const list = document.createElement('div');
                   list.className = 'wmp-result-list';
-                  for (const mon of monsters.slice(0, 120)) {
+                  for (const mon of monsters.slice(0, monsterRenderLimit)) {
                         const focused = this._focusedPetName !== null && this._focusedPetName === this._canonicalName(mon.name);
                         const card = document.createElement('div');
                         card.className = `wmp-result-card wmp-monster-card game-card${focused ? ' is-focused' : ''}`;
@@ -482,13 +488,13 @@ export class WorldMapPanel {
 
                         const sourceTag = document.createElement('span');
                         sourceTag.className = 'wmp-source-tag';
-                        sourceTag.textContent = mon.asIngredientCount > 0 ? `可作素材(${mon.asIngredientCount})` : '暫無合成用途';
+                        sourceTag.textContent = mon.asIngredientCount > 0 ? `可作素材(${mon.asIngredientCount})` : '無合成用途';
                         if (compactMode) sourceTag.classList.add('is-hidden');
                         actions.appendChild(sourceTag);
 
                         const bookBtn = document.createElement('button');
                         bookBtn.type = 'button';
-                        bookBtn.className = 'wmp-teleport-btn game-btn game-btn-secondary wmp-card-btn';
+                        bookBtn.className = 'wmp-teleport-btn wmp-card-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-secondary';
                         bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
@@ -498,7 +504,7 @@ export class WorldMapPanel {
 
                         const fusionBtn = document.createElement('button');
                         fusionBtn.type = 'button';
-                        fusionBtn.className = 'wmp-teleport-btn game-btn game-btn-primary wmp-card-btn';
+                        fusionBtn.className = 'wmp-teleport-btn wmp-card-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
                         fusionBtn.textContent = compactMode ? '合成' : '查看可合成目標';
                         fusionBtn.disabled = mon.asIngredientCount <= 0;
                         if (mon.asIngredientCount <= 0) fusionBtn.classList.add('wmp-btn-disabled');
@@ -512,30 +518,30 @@ export class WorldMapPanel {
                         list.appendChild(card);
                   }
 
-                  if (monsters.length > 120) {
+                  if (monsters.length > monsterRenderLimit) {
                         const more = document.createElement('div');
                         more.className = 'wmp-more-line';
-                        more.textContent = `還有 ${monsters.length - 120} 隻怪物未展開。`;
+                        more.textContent = `還有 ${monsters.length - monsterRenderLimit} 隻怪物未展開。`;
                         list.appendChild(more);
                   }
 
-                  this._detailCol.appendChild(list);
+                  content.appendChild(list);
             }
 
             const targetTitle = document.createElement('div');
             targetTitle.className = 'wmp-section-title';
-            targetTitle.textContent = `⚗️ 此地圖可合成目標（${targets.length}/${targetsAll.length}）`;
-            this._detailCol.appendChild(targetTitle);
+            targetTitle.textContent = `⚗️ 可合成目標（${targets.length}/${targetsAll.length}）`;
+            content.appendChild(targetTitle);
 
             if (targets.length === 0) {
                   const empty = document.createElement('div');
                   empty.className = 'wmp-detail-empty';
-                  empty.textContent = '此地圖暫無合成目標資料。';
-                  this._detailCol.appendChild(empty);
+                  empty.textContent = '此地圖暫無合成目標。';
+                  content.appendChild(empty);
             } else {
                   const list = document.createElement('div');
                   list.className = 'wmp-result-list';
-                  for (const target of targets.slice(0, 80)) {
+                  for (const target of targets.slice(0, targetRenderLimit)) {
                         const focused = this._focusedPetName !== null && this._focusedPetName === this._canonicalName(target.resultName);
                         const item = document.createElement('div');
                         item.className = `wmp-result-card wmp-target-card game-card${focused ? ' is-focused' : ''}`;
@@ -559,7 +565,7 @@ export class WorldMapPanel {
 
                         const bookBtn = document.createElement('button');
                         bookBtn.type = 'button';
-                        bookBtn.className = 'wmp-teleport-btn game-btn game-btn-secondary wmp-card-btn';
+                        bookBtn.className = 'wmp-teleport-btn wmp-card-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-secondary';
                         bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
@@ -568,7 +574,7 @@ export class WorldMapPanel {
 
                         const btn = document.createElement('button');
                         btn.type = 'button';
-                        btn.className = 'wmp-teleport-btn game-btn game-btn-primary wmp-card-btn';
+                        btn.className = 'wmp-teleport-btn wmp-card-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
                         btn.textContent = compactMode ? '配方' : '查看配方';
                         btn.addEventListener('click', () => {
                               this.hide();
@@ -582,43 +588,42 @@ export class WorldMapPanel {
                         item.appendChild(row);
                         list.appendChild(item);
                   }
-                  if (targets.length > 80) {
+                  if (targets.length > targetRenderLimit) {
                         const more = document.createElement('div');
                         more.className = 'wmp-more-line';
-                        more.textContent = `還有 ${targets.length - 80} 個目標未展開。`;
+                        more.textContent = `還有 ${targets.length - targetRenderLimit} 個目標未展開。`;
                         list.appendChild(more);
                   }
-                  this._detailCol.appendChild(list);
+                  content.appendChild(list);
             }
 
             const footer = document.createElement('div');
             footer.className = 'wmp-detail-footer';
             const teleBtn = document.createElement('button');
-            teleBtn.className = 'wmp-teleport-footer-btn game-btn game-btn-primary';
+            teleBtn.className = 'wmp-teleport-footer-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary';
             if (!sceneZoneId) {
-                  teleBtn.textContent = '\u6b64\u5730\u5716\u66ab\u7121\u50b3\u9001\u6620\u5c04';
+                  teleBtn.textContent = '無傳送';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
             } else if (sceneZoneId === this._zoneManager.currentZone.id) {
-                  teleBtn.textContent = '\ud83d\udccd \u76ee\u524d\u6240\u5728';
+                  teleBtn.textContent = '所在';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
             } else if (!this._zoneManager.isUnlocked(sceneZoneId)) {
-                  teleBtn.textContent = '\ud83d\udd12 \u5c1a\u672a\u89e3\u9396';
+                  teleBtn.textContent = '未解鎖';
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
             } else {
-                  const modePrefix = summary.teleportMode === 'level'
-                        ? '\u8fd1\u4f3c\u50b3\u9001\u81f3'
-                        : '\u26a1 \u50b3\u9001\u81f3';
-                  teleBtn.textContent = `${modePrefix} ${sceneZoneId}`;
+                  teleBtn.textContent = summary.teleportMode === 'level' ? '近似傳送' : '⚡ 傳送';
                   teleBtn.addEventListener('click', () => {
                         this.hide();
                         this._zoneManager.travelTo(sceneZoneId);
                   });
             }
-            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '\u50b3\u9001';
+            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '傳送';
             footer.appendChild(teleBtn);
+            this._detailCol.appendChild(sticky);
+            this._detailCol.appendChild(content);
             this._detailCol.appendChild(footer);
       }
 
@@ -653,7 +658,7 @@ export class WorldMapPanel {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.textContent = label;
-            btn.className = `wmp-quick-chip${active ? ' is-active' : ''}`;
+            btn.className = `wmp-quick-chip rpg-chip rpg-chip-filter${active ? ' is-active' : ''}`;
             btn.addEventListener('click', onClick);
             return btn;
       }

@@ -18,16 +18,25 @@ export class PetManager {
             this._shadowGen = shadowGen;
       }
 
-      /** Give 3 ranged starter pets + 2 fusion test ingredients */
-      giveStarterPets(): void {
-            const starters = [
-                  { id: 'd_draco', gender: 'male' as Gender },     // Dragon, ranged
-                  { id: 'r_birdco', gender: 'female' as Gender },  // Bird, ranged
-                  { id: 'd_imon', gender: 'male' as Gender },      // Dragon, ranged
-                  // Fusion test ingredients
-                  { id: 'p_flowco', gender: 'male' as Gender },
-                  { id: 'p_manglock', gender: 'female' as Gender },
-            ];
+      /** Give starter pets and auto-deploy first 3. */
+      giveStarterPets(options?: {
+            starterPetIds?: string[];
+            includeFusionTestIngredients?: boolean;
+      }): void {
+            const fallbackStarterIds = ['d_draco', 'r_birdco', 'd_imon'];
+            const starterIds = Array.isArray(options?.starterPetIds) && options!.starterPetIds!.length > 0
+                  ? options!.starterPetIds!
+                  : fallbackStarterIds;
+
+            const starters = starterIds.map((id, idx) => ({
+                  id,
+                  gender: (idx % 2 === 0 ? 'male' : 'female') as Gender,
+            }));
+
+            if (options?.includeFusionTestIngredients === true) {
+                  starters.push({ id: 'p_flowco', gender: 'male' as Gender });
+                  starters.push({ id: 'p_manglock', gender: 'female' as Gender });
+            }
 
             for (const s of starters) {
                   const def = PET_DEFS.find(d => d.id === s.id);
@@ -41,7 +50,7 @@ export class PetManager {
                   this.deploy(i);
             }
 
-            console.log(`[PetManager] Gave ${starters.length} starter pets, ${this.active.length} deployed`);
+            console.log(`[PetManager] Gave ${this.owned.length} starter pets, ${this.active.length} deployed`);
       }
 
       /** Deploy pet at owned index to an active slot */

@@ -128,7 +128,7 @@ export class FusionPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'fusionPanel';
-            this._el.className = 'fusion-root';
+            this._el.className = 'fusion-root ui-panel-fullscreen';
             this._el.addEventListener('click', (e) => e.stopPropagation());
             this._el.addEventListener('mousedown', (e) => e.stopPropagation());
             document.getElementById('ui-layer')?.appendChild(this._el);

@@ -86,7 +86,7 @@ function installGlobalPanelViewportFit(): () => void {
             const maxW = Math.max(260, vw - safeSide * 2);
             const maxH = Math.max(220, vh - safeTop - safeBottom);
 
-            const panels = uiLayer.querySelectorAll<HTMLElement>('.sa-panel');
+            const panels = uiLayer.querySelectorAll<HTMLElement>('.sa-panel:not(.ui-panel-fullscreen)');
             panels.forEach((el) => {
                   const cs = window.getComputedStyle(el);
                   if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return;

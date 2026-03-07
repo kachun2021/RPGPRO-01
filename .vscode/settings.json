@@ -1,4 +1,21 @@
 {
+     "files.encoding": "utf8",
+     "files.autoGuessEncoding": false,
+     "terminal.integrated.defaultProfile.windows": "PowerShell 7",
+     "terminal.integrated.profiles.windows": {
+          "PowerShell 7": {
+               "path": "C:\\Users\\prokc\\AppData\\Local\\Programs\\PowerShell\\7\\pwsh.exe",
+               "args": [
+                    "-NoLogo"
+               ]
+          }
+     },
+     "terminal.integrated.automationProfile.windows": {
+          "path": "C:\\Users\\prokc\\AppData\\Local\\Programs\\PowerShell\\7\\pwsh.exe",
+          "args": [
+               "-NoLogo"
+          ]
+     },
      "files.autoSave": "onFocusChange",
      "editor.tabSize": 6,
      "editor.wordWrap": "on",

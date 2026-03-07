@@ -404,3 +404,119 @@
     - `npm run -s build` passed
     - `npm run -s test:smoke` passed
     - `npm run -s ci:guardrails` passed
+- 2026-03-07 (P31-P44 continuation: map-key routing + hero creation + bootstrap hardening):
+  - World map identity and routing:
+    - `WorldMapPanel` switched map identity from map name to `mapKey=zone:<id>`.
+    - route tracking persistence now stores map key, not display name.
+    - map list/search supports runtime zone id (`#<zoneId>`).
+    - map detail/open supports `openAtZone(runtimeZoneId)`.
+  - Fusion/map deep-link consistency:
+    - `RuntimeFusionGuide` exports `main/sub/resultMapZoneIds` + primary zone ids.
+    - `FusionPanel` recipe filtering prefers zone-id map filter when provided.
+    - map jump button now carries zone id into world-map panel.
+  - Hero creation and starting profile:
+    - Added `src/data/runtime/HeroArchetypes.ts`.
+    - Added `src/ui/HeroCreationPanel.ts` and first-time flow in `main.ts`.
+    - Added storage keys:
+      - `fpo.hero.created.v1`
+      - `fpo.player.name.v1`
+    - Starter pets + player loadout now use selected hero archetype.
+  - Bootstrap and smoke compatibility:
+    - Added `dismissLoadingScreen()` lifecycle helper.
+    - Added automated-run fallback (`navigator.webdriver` / `?autotest=1`) for first-entry hero selection.
+    - `task_smoke.ps1` pause increased to 3000ms for startup stability.
+  - Cleanup:
+    - Removed unused `starterPetPool` and `listHeroArchetypeProfiles` from `HeroArchetypes`.
+    - Normalized touched-file garbled strings in `main.ts` and `CombatSystem.ts`.
+  - Reports:
+    - `scripts/reports/implementation/P31_P34_RUNTIME_MAP_AND_HERO.md`
+    - `scripts/reports/implementation/P35_P39_BOOTSTRAP_AND_TEXT_HARDENING.md`
+    - `scripts/reports/implementation/P40_P44_VALIDATION_AND_DEPRECATION_CLEANUP.md`
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (10/10 scenarios)
+    - `npm run -s ci:guardrails` passed
+    - `npm run -s gamedb:check-legacy` passed
+- 2026-03-07 (hero creation click hotfix):
+  - Root cause: `#ui-layer` uses `pointer-events: none`, and `.hero-create-overlay` lacked explicit pointer enable.
+  - Fix: added `pointer-events: auto` to `.hero-create-overlay` in `index.html`.
+  - Re-validated:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+- 2026-03-07 (all sub-panel mobile landscape scroll + hidden scrollbar):
+  - Updated global panel scroll policy:
+    - `.sa-panel` switched to touch-scroll (`overflow-y:auto`, `overflow-x:hidden`, `touch-action: pan-y`).
+    - `.skill-panel .panel-body` enabled vertical scroll.
+    - `.pet-panel-root` enabled vertical scroll.
+  - Hidden all panel scrollbars (WebKit/Firefox/legacy) under `#ui-layer .sa-panel*`.
+  - `installGlobalPanelViewportFit()` now reserves extra side-safe area based on visible right dock UI (`.skillbar-root`) to reduce right-edge clipping on landscape phone.
+  - Re-validated:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed
+- 2026-03-07 (UI cleanup + split-panel fixed-column behavior):
+  - Removed obsolete custom scrollbar blocks:
+    - `shop-grid::-webkit-scrollbar*`
+    - `sys-body::-webkit-scrollbar*`
+  - Skill panel now uses split scroll in phone-landscape:
+    - left column remains stable
+    - right column scrolls independently
+    - disabled SkillPanel auto-scale in focus mode to preserve fixed-column readability.
+  - Added split-panel root policy:
+    - `.skill-panel / .wmp-root / .fpo-root / .shop-root` now keep root overflow hidden and use internal scrollers.
+  - Adjusted panel fit safe-area logic:
+    - reserve right-side dock width without over-shrinking left side.
+  - Re-validated:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed
+- 2026-03-07 (Fusion/WorldMap right-pane sticky segmentation):
+  - WorldMap detail pane refactor:
+    - `WorldMapPanel._renderDetail` now renders into:
+      - `wmp-detail-sticky` (header/nav/route/filters fixed)
+      - `wmp-detail-content` (monster/target cards scrollable)
+      - footer action bar remains fixed at bottom of right pane.
+  - Fusion recipe pane clarity:
+    - `FusionPanel._buildRecipePanelView` now adds `fpo-main-head` in right pane with section title and table header (desktop), while list stays in `fpo-recipe-list` scroll area.
+  - Style updates:
+    - Added `.wmp-detail-sticky`, `.wmp-detail-content`, `.fpo-main-head`, `.fpo-main-title`.
+    - Updated responsive rules for phone-landscape paddings in the right pane.
+  - Compatibility fix:
+    - Restored `FusionPanel` map callback compatibility with runtime zone id:
+      - `setMapNavigator(..., runtimeZoneId?)`
+      - `openToRecipesByTargetName(..., sourceZoneId?)`
+      - `openToRecipesByIngredientName(..., sourceZoneId?)`
+      - `openToTreeByName(..., sourceZoneId?)`
+      - runtime formula entries now include `resultMapZoneIds` + `resultPrimaryZoneId`.
+  - Re-validated:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed
+- 2026-03-07 (mobile landscape panel stability + iPhone layout hardening):
+  - Fixed panel auto-fit logic to avoid over-shrinking scrollable panels:
+    - `installGlobalPanelViewportFit` now uses rendered panel rect as fit baseline (not scrollHeight/scrollWidth).
+    - reduced right-dock safe inset aggressiveness to prevent tiny centered panels on narrow landscape screens.
+  - Removed conflicting per-panel scale behavior for:
+    - `CharacterPanel`
+    - `InventoryPanel`
+    - now these panels rely on panel max-height + internal scroll instead of extra transform scaling.
+  - Inventory panel (`inv2-root`) updated:
+    - removed CSS variable transform scaling path
+    - enabled vertical touch scrolling in-panel for landscape devices.
+  - World map landscape tuning:
+    - narrowed left list column in phone landscape (`228px`, `206px` at <=940px)
+    - reduced row density and text truncation for list secondary line.
+  - Quest/Shop interaction consistency polish (no logic change):
+    - quest detail in focus mode uses sticky title/progress for better right-pane readability.
+    - shop main header and detail header made sticky; list/detail reading flow improved.
+    - added <=940px landscape sizing overrides for `cp-root`, `inv2-root`, `qp-root`, `shop-root`.
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (10/10 scenarios)
+    - `npm run -s ci:guardrails` passed

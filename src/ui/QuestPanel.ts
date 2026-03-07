@@ -31,7 +31,7 @@ export class QuestPanel {
             this._questManager = questManager;
             this._el = document.createElement('div');
             this._el.id = 'quest-panel';
-            this._el.className = 'sa-panel qp-root';
+            this._el.className = 'sa-panel qp-root ui-panel-fullscreen';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             questManager.onChange = () => { if (this._visible) this._render(); };
@@ -46,7 +46,7 @@ export class QuestPanel {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
             const prog = this._questManager.mainProgress;
-            title.innerHTML = `📜 任務信息 <span class="qp-progress">${prog.current}/${prog.total}</span>`;
+            title.innerHTML = `<span class="qp-title-icon">📜</span> 任務信息 <span class="qp-progress">${prog.current}/${prog.total}</span>`;
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -59,9 +59,9 @@ export class QuestPanel {
             tabBar.className = 'qp-tab-bar';
             for (const t of TAB_LABELS) {
                   const btn = document.createElement('button');
-                  btn.className = 'qp-tab';
-                  if (t.id === this._currentTab) btn.classList.add('qp-tab-active');
-                  btn.innerHTML = `${t.icon} ${t.label}`;
+                  btn.className = 'qp-tab rpg-chip rpg-chip-tab';
+                  if (t.id === this._currentTab) btn.classList.add('qp-tab-active', 'is-active');
+                  btn.innerHTML = `<span class="qp-tab-icon">${t.icon}</span><span class="qp-tab-label">${t.label}</span>`;
                   btn.addEventListener('click', () => {
                         this._currentTab = t.id;
                         this._selectedQuestId = null;
@@ -122,17 +122,8 @@ export class QuestPanel {
                   const status = this._questManager.getStatus(selectedQuest);
                   const obj = selectedQuest.objectives[0];
                   const pct = Math.min(100, Math.round((obj.current / obj.required) * 100));
-
-                  detail.innerHTML = `
-                        <div class="qp-detail-name">${selectedQuest.name}</div>
-                        <div class="qp-detail-desc">${selectedQuest.description}</div>
-                        <div class="qp-detail-progress">
-                              <div class="qp-detail-pbar">
-                                    <div class="qp-detail-pfill"></div>
-                              </div>
-                              <span class="qp-detail-ptext">${obj.label}: ${obj.current}/${obj.required}</span>
-                        </div>
-                        ${selectedQuest.rewards.gold || selectedQuest.rewards.exp ? `
+                  const rewardHtml = selectedQuest.rewards.gold || selectedQuest.rewards.exp
+                        ? `
                               <div class="qp-detail-section">
                                     <span class="qp-detail-label">獎勵:</span>
                                     ${selectedQuest.rewards.gold ? `<span class="qp-detail-reward">💰 ${selectedQuest.rewards.gold}GP</span>` : ''}
@@ -140,8 +131,27 @@ export class QuestPanel {
                                     ${selectedQuest.rewards.petId ? `<span class="qp-detail-reward">🐾 寵物蛋</span>` : ''}
                                     ${selectedQuest.rewards.unlockZone ? `<span class="qp-detail-reward">🗺️ 解鎖地圖</span>` : ''}
                               </div>
-                        ` : ''}
-                        ${status === 'complete' ? '<button class="qp-claim-btn btn-gold">🎁 領取獎勵</button>' : ''}
+                        `
+                        : '';
+                  const claimBtnHtml = status === 'complete'
+                        ? '<button class="qp-claim-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary">🎁 領取獎勵</button>'
+                        : '';
+
+                  detail.innerHTML = `
+                        <div class="qp-detail-head">
+                              <div class="qp-detail-name">${selectedQuest.name}</div>
+                              <div class="qp-detail-progress">
+                                    <div class="qp-detail-pbar">
+                                          <div class="qp-detail-pfill"></div>
+                                    </div>
+                                    <span class="qp-detail-ptext">${obj.label}: ${obj.current}/${obj.required}</span>
+                              </div>
+                        </div>
+                        <div class="qp-detail-content">
+                              <div class="qp-detail-desc">${selectedQuest.description}</div>
+                              ${rewardHtml}
+                              ${claimBtnHtml}
+                        </div>
                   `;
                   const fill = detail.querySelector('.qp-detail-pfill') as HTMLDivElement | null;
                   if (fill) fill.style.width = `${pct}%`;
@@ -157,7 +167,7 @@ export class QuestPanel {
                         });
                   }
             } else {
-                  detail.innerHTML = '<div class="qp-detail-empty">選擇一個任務查看詳情</div>';
+                  detail.innerHTML = '<div class="qp-detail-content"><div class="qp-detail-empty">選擇一個任務查看詳情</div></div>';
             }
             body.appendChild(detail);
             this._el.appendChild(body);

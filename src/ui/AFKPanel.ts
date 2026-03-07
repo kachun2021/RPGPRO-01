@@ -216,7 +216,7 @@ export class AFKPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'afk-panel';
-            this._el.className = 'sa-panel afk-root';
+            this._el.className = 'sa-panel afk-root ui-panel-fullscreen';
             this._el.style.display = 'none';
 
             this._buildShell();

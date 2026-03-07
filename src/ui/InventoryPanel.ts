@@ -25,15 +25,12 @@ const SLOT_ICONS: Record<EquipSlot, string> = {
       bracelet: '⭕', bracelet2: '⭕',
 };
 
-/**
- * Layout matching Image 2 reference (CHM 庫存):
- * 4 rows × 3 cols — character preview in center
- */
-const EQUIP_LAYOUT: (EquipSlot | null)[][] = [
-      ['head', null, 'necklace'],
-      ['weapon', null, 'armor'],
-      ['gloves', null, 'ring'],
-      ['bracelet', null, 'boots'],
+const EQUIP_SLOT_ORDER: EquipSlot[] = [
+      'weapon', 'head',
+      'armor', 'necklace',
+      'gloves', 'ring',
+      'boots', 'ring2',
+      'bracelet', 'bracelet2',
 ];
 
 type Tab = 'equipment' | 'consumable' | 'material' | 'quest';
@@ -59,11 +56,9 @@ export class InventoryPanel {
       private _playerStats: PlayerStats;
       private _tooltip!: HTMLDivElement;
       private _page = 0;
-      private readonly SLOTS_PER_PAGE = 15;
-      private _fitFrameId = 0;
       private _onResize = (): void => {
             if (!this._visible) return;
-            this._scheduleFit();
+            this._render();
       };
 
       constructor(inventory: Inventory, equipSystem: EquipmentSystem, enhanceSystem: EnhanceSystem, playerStats: PlayerStats) {
@@ -74,7 +69,7 @@ export class InventoryPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'inventory-panel';
-            this._el.className = 'sa-panel inv2-root';
+            this._el.className = 'sa-panel inv2-root ui-panel-fullscreen';
             document.getElementById('ui-layer')?.appendChild(this._el);
 
             this._tooltip = document.createElement('div');
@@ -98,6 +93,7 @@ export class InventoryPanel {
       }
 
       private _render(): void {
+            this._syncResponsiveMode();
             const ttSaved = this._tooltip;
             this._el.innerHTML = '';
             this._el.appendChild(ttSaved);
@@ -113,73 +109,71 @@ export class InventoryPanel {
             title.appendChild(closeBtn);
             this._el.appendChild(title);
 
-            // ===== EQUIPMENT SECTION (5-col CHM layout) =====
-            // Col0=bracelet  Col1=head/weapon/boots  Col2=3D preview  Col3=necklace/armor/gloves  Col4=ring
-            const equipSection = document.createElement('div');
-            equipSection.className = 'inv2-equip-section';
+            const panelMain = document.createElement('div');
+            panelMain.className = 'inv2-main';
 
-            // Stats summary bar
-            const statsTotal = this._equipSystem.getTotalStats();
-            const statsBar = document.createElement('div');
-            statsBar.className = 'inv2-stats-bar';
-            statsBar.innerHTML = `<span>⚔️${statsTotal.atk}</span> <span>🛡️${statsTotal.def}</span> <span>❤️${statsTotal.hp}</span> <span>💧${statsTotal.mp}</span>`;
-            equipSection.appendChild(statsBar);
+            const top = document.createElement('section');
+            top.className = 'inv2-top';
 
-            const grid = document.createElement('div');
-            grid.className = 'inv2-equip-grid';
-
-            // Slot builder
-            const mkSlot = (key: EquipSlot | null, locked = false) => {
-                  const c = document.createElement('div');
+            const mkSlot = (key: EquipSlot): HTMLButtonElement => {
+                  const c = document.createElement('button');
+                  c.type = 'button';
                   c.className = 'inv2-eq-slot';
-                  if (locked) {
-                        c.classList.add('inv2-eq-locked');
-                        c.innerHTML = `<span class="inv2-eq-x">✕</span>`;
-                        return c;
-                  }
-                  if (!key) return c;
+                  c.title = SLOT_LABELS[key];
                   const eq = this._equipSystem.getSlot(key);
                   if (eq) {
                         c.classList.add('inv2-eq-filled');
-                        c.innerHTML = `<span class="inv2-eq-icon">${eq.icon}</span>${eq.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${eq.enhanceLevel}</span>` : ''}`;
+                        c.innerHTML = `<span class="inv2-eq-icon">${eq.icon}</span>${eq.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${eq.enhanceLevel}</span>` : ''}<span class="inv2-eq-label">${SLOT_LABELS[key]}</span>`;
                         c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipActions(eq, key); });
                   } else {
-                        c.innerHTML = `<span class="inv2-eq-ghost">${SLOT_ICONS[key]}</span>`;
+                        c.innerHTML = `<span class="inv2-eq-ghost">${SLOT_ICONS[key]}</span><span class="inv2-eq-label">${SLOT_LABELS[key]}</span>`;
                         c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipList(key); });
-                        c.title = SLOT_LABELS[key];
                   }
                   return c;
             };
 
-            // Row 0: bracelet | head | [3D CHAR] | necklace | bracelet2
-            grid.appendChild(mkSlot('bracelet'));
-            grid.appendChild(mkSlot('head'));
-            const charCell = document.createElement('div');
-            charCell.className = 'inv2-char-cell inv2-char-cell-span';
-            charCell.innerHTML = `<div class="inv2-char-preview">👤</div>`;
-            grid.appendChild(charCell);
-            grid.appendChild(mkSlot('necklace'));
-            grid.appendChild(mkSlot('bracelet2'));
+            const equipCol = document.createElement('section');
+            equipCol.className = 'inv2-top-panel inv2-top-panel-equip';
+            const equipTitle = document.createElement('div');
+            equipTitle.className = 'inv2-sec-title';
+            equipTitle.textContent = '裝備欄';
+            const equipGrid = document.createElement('div');
+            equipGrid.className = 'inv2-equip-grid';
+            for (const slot of EQUIP_SLOT_ORDER) equipGrid.appendChild(mkSlot(slot));
+            equipCol.appendChild(equipTitle);
+            equipCol.appendChild(equipGrid);
+            top.appendChild(equipCol);
 
-            // Row 1: ring | weapon | [spans] | armor | ring2
-            grid.appendChild(mkSlot('ring'));
-            grid.appendChild(mkSlot('weapon'));
-            grid.appendChild(mkSlot('armor'));
-            grid.appendChild(mkSlot('ring2'));
+            const charCol = document.createElement('section');
+            charCol.className = 'inv2-top-panel inv2-top-panel-char';
+            charCol.innerHTML = `
+                  <div class="inv2-sec-title">角色</div>
+                  <div class="inv2-char-preview">👤</div>
+                  <div class="inv2-char-meta">Lv.${Math.max(1, Math.floor(this._playerStats.level || 1))}</div>
+            `;
+            top.appendChild(charCol);
 
-            // Row 2: X(locked) | boots | [spans] | gloves | X(locked)
-            grid.appendChild(mkSlot(null, true));
-            grid.appendChild(mkSlot('boots'));
-            grid.appendChild(mkSlot('gloves'));
-            grid.appendChild(mkSlot(null, true));
+            const statsTotal = this._equipSystem.getTotalStats();
+            const setBonuses = this._equipSystem.getSetBonuses();
+            const quickCol = document.createElement('section');
+            quickCol.className = 'inv2-top-panel inv2-top-panel-quick';
+            quickCol.innerHTML = `
+                  <div class="inv2-sec-title">快速屬性</div>
+                  <div class="inv2-quick-grid">
+                        <div class="inv2-quick-row"><span>攻擊</span><b>${statsTotal.atk}</b></div>
+                        <div class="inv2-quick-row"><span>防禦</span><b>${statsTotal.def}</b></div>
+                        <div class="inv2-quick-row"><span>HP</span><b>${this._playerStats.hp}/${this._playerStats.maxHp}</b></div>
+                        <div class="inv2-quick-row"><span>MP</span><b>${this._playerStats.mp}/${this._playerStats.maxMp}</b></div>
+                        <div class="inv2-quick-row"><span>背包項目</span><b>${this._inventory.count}</b></div>
+                        <div class="inv2-quick-row"><span>套裝效果</span><b>${setBonuses.length > 0 ? `${setBonuses.length} 組` : '無'}</b></div>
+                  </div>
+            `;
+            top.appendChild(quickCol);
 
-            equipSection.appendChild(grid);
-            this._el.appendChild(equipSection);
+            panelMain.appendChild(top);
 
-            // ===== DIVIDER =====
-            const divider = document.createElement('div');
-            divider.className = 'inv2-divider';
-            this._el.appendChild(divider);
+            const bottom = document.createElement('section');
+            bottom.className = 'inv2-bottom';
 
             // ===== ITEM TABS =====
             const tabBar = document.createElement('div');
@@ -196,18 +190,21 @@ export class InventoryPanel {
                   });
                   tabBar.appendChild(btn);
             }
-            this._el.appendChild(tabBar);
+            bottom.appendChild(tabBar);
 
-            // ===== ITEM GRID (5 columns, paginated) =====
+            // ===== ITEM GRID (adaptive columns, paginated) =====
             const allItems = this._inventory.getByTab(this._currentTab);
-            const totalPages = Math.max(1, Math.ceil(allItems.length / this.SLOTS_PER_PAGE));
+            const slotsPerPage = this._getSlotsPerPage();
+            const totalPages = Math.max(1, Math.ceil(allItems.length / slotsPerPage));
             if (this._page >= totalPages) this._page = totalPages - 1;
-            const pageStart = this._page * this.SLOTS_PER_PAGE;
-            const items = allItems.slice(pageStart, pageStart + this.SLOTS_PER_PAGE);
+            const pageStart = this._page * slotsPerPage;
+            const items = allItems.slice(pageStart, pageStart + slotsPerPage);
+            const itemColumns = this._isPhoneLandscapeMode() ? 10 : 8;
 
             const itemGrid = document.createElement('div');
             itemGrid.className = 'inv2-item-grid';
-            for (let i = 0; i < this.SLOTS_PER_PAGE; i++) {
+            itemGrid.style.setProperty('--inv2-item-cols', String(itemColumns));
+            for (let i = 0; i < slotsPerPage; i++) {
                   const slot = document.createElement('div');
                   slot.className = 'inv2-item-slot';
                   if (i < items.length) {
@@ -216,6 +213,7 @@ export class InventoryPanel {
                         slot.classList.add(RARITY_CLASS[item.rarity]);
                         slot.innerHTML = `
                               <span class="inv2-item-icon">${item.icon}</span>
+                              <span class="inv2-item-name">${item.name}</span>
                               ${item.qty > 1 ? `<span class="inv2-item-qty">×${item.qty}</span>` : ''}
                         `;
                         slot.addEventListener('click', (e) => {
@@ -225,9 +223,15 @@ export class InventoryPanel {
                   }
                   itemGrid.appendChild(slot);
             }
-            this._el.appendChild(itemGrid);
+            bottom.appendChild(itemGrid);
 
-            // ===== PAGE NAV (always visible) =====
+            const bottomBar = document.createElement('div');
+            bottomBar.className = 'inv2-bottom-bar';
+
+            const summary = document.createElement('div');
+            summary.className = 'inv2-bag-summary';
+            summary.textContent = `${TAB_LABELS.find((t) => t.id === this._currentTab)?.label ?? ''} ${allItems.length} 項`;
+
             const pageNav = document.createElement('div');
             pageNav.className = 'inv2-page-nav';
             const prevBtn = document.createElement('button');
@@ -246,56 +250,31 @@ export class InventoryPanel {
             pageNav.appendChild(prevBtn);
             pageNav.appendChild(label);
             pageNav.appendChild(nextBtn);
-            this._el.appendChild(pageNav);
+            const gold = document.createElement('div');
+            gold.className = 'inv2-gold-bar';
+            gold.innerHTML = `💰 <span class="inv2-gold-val">${this._inventory.gold.toLocaleString()}</span> <span class="inv2-gold-label">GP</span>`;
 
-            // ===== SET BONUSES =====
-            const setBonuses = this._equipSystem.getSetBonuses();
-            if (setBonuses.length > 0) {
-                  const setSection = document.createElement('div');
-                  setSection.className = 'inv2-set-section';
-                  for (const { set, count, activeEffects } of setBonuses) {
-                        const setRow = document.createElement('div');
-                        setRow.className = 'inv2-set-row';
-                        setRow.innerHTML = `
-                              <div class="inv2-set-name">🏅 ${set.name} <span class="inv2-set-count">(${count}件)</span></div>
-                              ${activeEffects.map(e => `<div class="inv2-set-effect">✅ ${e}</div>`).join('')}
-                              ${count < 2 ? `<div class="inv2-set-next">2件: ${set.pieces2}</div>` : ''}
-                              ${count >= 2 && count < 4 ? `<div class="inv2-set-next">4件: ${set.pieces4}</div>` : ''}
-                              ${count >= 4 && count < 6 ? `<div class="inv2-set-next">6件: ${set.pieces6}</div>` : ''}
-                        `;
-                        setSection.appendChild(setRow);
-                  }
-                  this._el.appendChild(setSection);
-            }
+            bottomBar.appendChild(summary);
+            bottomBar.appendChild(pageNav);
+            bottomBar.appendChild(gold);
+            bottom.appendChild(bottomBar);
 
-            // ===== GOLD BAR =====
-            const goldBar = document.createElement('div');
-            goldBar.className = 'inv2-gold-bar';
-            goldBar.innerHTML = `💰 <span class="inv2-gold-val">${this._inventory.gold.toLocaleString()}</span> <span class="inv2-gold-label">GP</span>`;
-            this._el.appendChild(goldBar);
-            this._scheduleFit();
+            panelMain.appendChild(bottom);
+            this._el.appendChild(panelMain);
       }
 
-      private _scheduleFit(): void {
-            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
-            this._fitPanelScale();
-            this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
+      private _isPhoneLandscapeMode(): boolean {
+            const width = window.innerWidth || this._el.clientWidth || 0;
+            const height = window.innerHeight || 0;
+            return width > height && width <= 1280 && height <= 560;
       }
 
-      private _fitPanelScale(): void {
-            this._el.style.setProperty('--inv2-panel-scale', '1');
-            this._el.classList.remove('is-scaled');
+      private _syncResponsiveMode(): void {
+            this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
+      }
 
-            const vh = window.innerHeight || 0;
-            const available = Math.max(0, Math.floor(vh * 0.88) - 6);
-            if (available <= 0) return;
-
-            const needed = this._el.scrollHeight;
-            if (needed <= 0 || needed <= available) return;
-
-            const scale = Math.max(0.55, Math.min(1, available / needed));
-            this._el.style.setProperty('--inv2-panel-scale', String(scale));
-            if (scale < 0.999) this._el.classList.add('is-scaled');
+      private _getSlotsPerPage(): number {
+            return this._isPhoneLandscapeMode() ? 20 : 24;
       }
 
       private _hideTooltip(): void {
@@ -528,17 +507,16 @@ export class InventoryPanel {
       toggle(): void { this._visible ? this.hide() : this.show(); }
       show(): void {
             this._visible = true;
+            this._syncResponsiveMode();
             this._el.classList.add('is-open');
             this._render();
       }
       hide(): void {
             this._visible = false;
-            this._el.classList.remove('is-open', 'is-scaled');
+            this._el.classList.remove('is-open', 'is-scaled', 'is-phone-landscape');
             this._hideTooltip();
-            this._el.style.setProperty('--inv2-panel-scale', '1');
       }
       dispose(): void {
-            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }

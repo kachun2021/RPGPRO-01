@@ -8,7 +8,7 @@ export class RenamePanel {
       constructor() {
             this._el = document.createElement('div');
             this._el.id = 'renamePanel';
-            this._el.className = 'sa-panel rename-root';
+            this._el.className = 'sa-panel rename-root ui-panel-fullscreen';
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 

@@ -83,7 +83,7 @@ function Run-Scenario {
         $webGameClient,
         "--url", $Url,
         "--iterations", "1",
-        "--pause-ms", "1400",
+        "--pause-ms", "3000",
         "--headless", $headlessArg,
         "--screenshot-dir", $scenarioDir,
         "--actions-file", $actionsPath

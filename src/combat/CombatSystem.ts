@@ -69,7 +69,7 @@ export interface AutoSkillEntry {
 }
 
 /**
- * CombatSystem 鈥?damage calculation, target management, auto-skill engine.
+ * CombatSystem - damage calculation, target management, auto-skill engine.
  * No pet AI: pets follow player's selected target.
  */
 export class CombatSystem {
@@ -90,7 +90,7 @@ export class CombatSystem {
             this.setAutoQueue('player', [{ skillId: 'slash', enabled: true }]);
       }
 
-      // 鈹€鈹€ Target Management 鈹€鈹€
+      // --- Target Management ---
 
       selectTarget(targetId: string, position: Vector3): void {
             this._targetId = targetId;
@@ -106,12 +106,12 @@ export class CombatSystem {
       get targetPosition(): Vector3 | null { return this._targetPosition; }
       get hasTarget(): boolean { return this._targetId !== null; }
 
-      // 鈹€鈹€ Damage Calculation 鈹€鈹€
+      // --- Damage Calculation ---
 
       /**
        * Calculate damage with formula:
        * damage = (atk * skillMultiplier - def * 0.5) * elementMod * (0.9 + random * 0.2)
-       * Crit: 10% chance 脳 1.5
+       * Crit: 10% chance x1.5
        */
       calculateDamage(
             atk: number,
@@ -140,7 +140,7 @@ export class CombatSystem {
             return { damage: Math.round(damage), isCrit, type, elementMod };
       }
 
-      // 鈹€鈹€ Auto-Skill Queue 鈹€鈹€
+      // --- Auto-Skill Queue ---
 
       setAutoQueue(entityId: string, queue: AutoSkillEntry[]): void {
             this._autoQueues.set(entityId, [...queue]);

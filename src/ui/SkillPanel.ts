@@ -46,7 +46,7 @@ export class SkillPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'skill-panel';
-            this._el.className = 'sa-panel skill-panel';
+            this._el.className = 'sa-panel skill-panel ui-panel-fullscreen';
             this._el.hidden = true;
 
             this._buildShell();
@@ -124,6 +124,11 @@ export class SkillPanel {
       }
 
       private _fitBodyScale(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) {
+                  this._el.style.removeProperty('transform');
+                  this._el.style.removeProperty('transform-origin');
+                  return;
+            }
             const root = this._body.firstElementChild as HTMLElement | null;
             if (!root) return;
             this._el.style.transformOrigin = 'center center';

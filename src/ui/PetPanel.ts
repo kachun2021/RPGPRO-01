@@ -40,7 +40,7 @@ export class PetPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'petPanel';
-            this._el.className = 'sa-panel pet-panel-root';
+            this._el.className = 'sa-panel pet-panel-root ui-panel-fullscreen';
 
             this._bodyRoot = document.createElement('div');
             this._bodyRoot.className = 'pet-panel-body';
@@ -304,12 +304,17 @@ export class PetPanel {
       }
 
       private _scheduleFit(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) return;
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             this._fitBodyScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitBodyScale());
       }
 
       private _syncAnchor(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) {
+                  this._el.style.removeProperty('right');
+                  return;
+            }
             const skillBar = document.getElementById('skillBar');
             const skillBarWidth = skillBar ? Math.ceil(skillBar.getBoundingClientRect().width) : 0;
             const rightGap = Math.max(70, skillBarWidth + 12);
@@ -317,6 +322,11 @@ export class PetPanel {
       }
 
       private _fitBodyScale(): void {
+            if (this._el.classList.contains('ui-panel-fullscreen')) {
+                  this._el.style.removeProperty('transform');
+                  this._el.style.removeProperty('transform-origin');
+                  return;
+            }
             this._el.style.transformOrigin = 'right center';
             this._el.style.transform = 'translateY(-50%) scale(1)';
 
