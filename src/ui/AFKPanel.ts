@@ -2,6 +2,7 @@ import type { Inventory } from '../systems/Inventory';
 import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
 import { getSceneZonePrimaryRuntimeName } from '../data/runtime/RuntimeWorldRoutes';
 import { listRuntimeSceneZones } from '../world/RuntimeZoneCatalog';
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 
 type AFKTabId = 'quick' | 'combat' | 'loot' | 'safety';
 type AFKMode = 'safe' | 'balanced' | 'efficient';
@@ -28,6 +29,7 @@ const LOOT_ZONE_STORAGE_KEY = 'fpo.afk.settings.v3.loot.zone';
 const TAB_IDS: AFKTabId[] = ['quick', 'combat', 'loot', 'safety'];
 const MODE_IDS: AFKMode[] = ['safe', 'balanced', 'efficient'];
 const FILTER_CHAR_LIMIT = 300;
+const AFK_SAVE_VERSION = 1;
 
 const LOOT_ZONES: LootZoneOption[] = listRuntimeSceneZones()
       .filter((zone) => !zone.isTown)
@@ -135,6 +137,12 @@ export interface AFKPanelCallbacks {
       onVisibilityChange?: (visible: boolean) => void;
 }
 
+export interface AFKSaveState {
+      version: number;
+      settings: AFKSettings;
+      lootZoneId: string;
+}
+
 const DEFAULT_SETTINGS: AFKSettings = {
       mode: 'balanced',
       autoFindEnabled: true,
@@ -195,6 +203,7 @@ const MODE_PRESETS: Record<AFKMode, Partial<AFKSettings>> = {
 type AFKSettingKey = keyof AFKSettings;
 
 export class AFKPanel {
+      readonly panelId = 'afk';
       private _el: HTMLDivElement;
       private _visible = false;
       private _inventory: Inventory;
@@ -217,7 +226,7 @@ export class AFKPanel {
             this._el = document.createElement('div');
             this._el.id = 'afk-panel';
             this._el.className = 'sa-panel afk-root ui-panel-fullscreen';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
 
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
@@ -779,31 +788,23 @@ export class AFKPanel {
 
       private _loadLootZoneId(): string {
             const fallback = LOOT_ZONES[0]?.id ?? '';
-            try {
-                  const raw = localStorage.getItem(LOOT_ZONE_STORAGE_KEY);
-                  if (!raw) return fallback;
-                  return LOOT_ZONES.some((zone) => zone.id === raw) ? raw : fallback;
-            } catch {
-                  return fallback;
-            }
+            const raw = localKeyValueStore.getString(LOOT_ZONE_STORAGE_KEY);
+            if (!raw) return fallback;
+            return LOOT_ZONES.some((zone) => zone.id === raw) ? raw : fallback;
       }
 
       private _saveLootZoneId(): void {
-            localStorage.setItem(LOOT_ZONE_STORAGE_KEY, this._selectedLootZoneId);
+            localKeyValueStore.setString(LOOT_ZONE_STORAGE_KEY, this._selectedLootZoneId);
       }
 
       private _loadSettings(): AFKSettings {
-            try {
-                  const raw = localStorage.getItem(STORAGE_KEY);
-                  if (!raw) return { ...DEFAULT_SETTINGS };
-                  return this._normalizeSettings(JSON.parse(raw) as Partial<AFKSettings>);
-            } catch {
-                  return { ...DEFAULT_SETTINGS };
-            }
+            const raw = localKeyValueStore.getJson<Partial<AFKSettings>>(STORAGE_KEY);
+            if (!raw) return { ...DEFAULT_SETTINGS };
+            return this._normalizeSettings(raw);
       }
 
       private _saveSettings(): void {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(this._settings));
+            localKeyValueStore.setJson(STORAGE_KEY, this._settings);
       }
 
       notifyAutoStateChanged(enabled: boolean): void {
@@ -836,7 +837,7 @@ export class AFKPanel {
 
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._callbacks.onVisibilityChange?.(true);
             this._updateStats();
             this._intervalId = window.setInterval(() => this._updateStats(), 1000);
@@ -844,7 +845,7 @@ export class AFKPanel {
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             this._callbacks.onVisibilityChange?.(false);
             if (this._intervalId) {
                   clearInterval(this._intervalId);
@@ -859,5 +860,23 @@ export class AFKPanel {
             }
             this.hide();
             this._el.remove();
+      }
+
+      exportState(): AFKSaveState {
+            return {
+                  version: AFK_SAVE_VERSION,
+                  settings: { ...this._settings },
+                  lootZoneId: this._selectedLootZoneId,
+            };
+      }
+
+      importState(state: Partial<AFKSaveState> | null): void {
+            this._settings = this._normalizeSettings(state?.settings ?? DEFAULT_SETTINGS);
+            const fallbackLootZoneId = LOOT_ZONES[0]?.id ?? '';
+            const nextLootZoneId = typeof state?.lootZoneId === 'string' ? state.lootZoneId : fallbackLootZoneId;
+            this._selectedLootZoneId = LOOT_ZONES.some((zone) => zone.id === nextLootZoneId) ? nextLootZoneId : fallbackLootZoneId;
+            this._saveSettings();
+            this._saveLootZoneId();
+            this._syncFormFromSettings();
       }
 }

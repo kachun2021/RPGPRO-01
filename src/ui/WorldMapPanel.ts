@@ -7,6 +7,7 @@ import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { canonicalRuntimeMapName, matchRuntimeZoneToSceneZone, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
 import { getRuntimeMapByZoneId, listRuntimeMapNeighbors, resolveRuntimeMapEntry } from '../data/runtime/RuntimeMapCatalog';
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 
 interface MapMonsterInfo {
       name: string;
@@ -43,6 +44,7 @@ interface MapSummary {
 type MapLevelBand = 'all' | '1-30' | '31-60' | '61-90' | '91+';
 
 export class WorldMapPanel {
+      readonly panelId = 'map';
       private _el: HTMLDivElement;
       private _listCol!: HTMLDivElement;
       private _listFilterCol!: HTMLDivElement;
@@ -87,7 +89,7 @@ export class WorldMapPanel {
             this._el = document.createElement('div');
             this._el.id = 'world-map-panel';
             this._el.className = 'sa-panel wmp-root ui-panel-fullscreen';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
 
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
@@ -1063,22 +1065,14 @@ export class WorldMapPanel {
       private _setTrackedTarget(targetMapKey: string | null): void {
             this._trackedTargetMapKey = targetMapKey;
             this._refreshTrackedRouteFromCurrent();
-            try {
-                  if (targetMapKey) localStorage.setItem(this._trackStorageKey, targetMapKey);
-                  else localStorage.removeItem(this._trackStorageKey);
-            } catch {
-                  // ignore storage write failures
-            }
+            if (targetMapKey) localKeyValueStore.setString(this._trackStorageKey, targetMapKey);
+            else localKeyValueStore.remove(this._trackStorageKey);
       }
 
       private _loadTrackedTarget(): string | null {
-            try {
-                  const saved = localStorage.getItem(this._trackStorageKey);
-                  const normalized = this._findMapKey(saved ?? '');
-                  return normalized ?? null;
-            } catch {
-                  return null;
-            }
+            const saved = localKeyValueStore.getString(this._trackStorageKey);
+            const normalized = this._findMapKey(saved ?? '');
+            return normalized ?? null;
       }
 
       private _findMapKey(input: string): string | null {
@@ -1172,19 +1166,20 @@ export class WorldMapPanel {
             this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
       }
 
+      get isVisible(): boolean { return this._visible; }
       toggle(): void { this._visible ? this.hide() : this.show(); }
 
       show(): void {
             this._visible = true;
             this._syncResponsiveMode();
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             if (!this._selectedMapKey && this._mapSummaries.length > 0) this._selectedMapKey = this._mapSummaries[0].mapKey;
             this._render();
       }
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
       }
 
       dispose(): void {

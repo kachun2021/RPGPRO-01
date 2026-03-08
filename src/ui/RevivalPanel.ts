@@ -3,11 +3,13 @@ import { SERIES_ICONS } from '../pets/PetData';
 import type { Inventory } from '../systems/Inventory';
 
 export class RevivalPanel {
+      readonly panelId = 'revival';
       private _el: HTMLDivElement;
       private _pm: PetManager;
       private _inventory: Inventory;
       private _onDone: (() => void) | null = null;
       private _statusText = '';
+      private _visible = false;
 
       constructor(pm: PetManager, inventory: Inventory) {
             this._pm = pm;
@@ -23,15 +25,33 @@ export class RevivalPanel {
             return this._el;
       }
 
+      get isVisible(): boolean {
+            return this._visible;
+      }
+
       open(onDone?: () => void): void {
             this._onDone = onDone || null;
             this._statusText = '';
+            this._visible = true;
             this._el.hidden = false;
             this._render();
       }
 
       close(): void {
+            this._visible = false;
             this._el.hidden = true;
+      }
+
+      show(): void {
+            this.open(this._onDone ?? undefined);
+      }
+
+      hide(): void {
+            this.close();
+      }
+
+      toggle(): void {
+            this._visible ? this.close() : this.open(this._onDone ?? undefined);
       }
 
       private _render(): void {
@@ -147,7 +167,7 @@ export class RevivalPanel {
       }
 
       refresh(): void {
-            if (!this._el.hidden) this._render();
+            if (this._visible) this._render();
       }
 
       dispose(): void {

@@ -10,6 +10,7 @@ const STORAGE_COLS = 5;
 const STORAGE_ROWS = 4;
 
 export class PetPanel {
+      readonly panelId = 'pet';
       private _el: HTMLDivElement;
       private _bodyRoot: HTMLDivElement;
       private _pm: PetManager;
@@ -52,6 +53,7 @@ export class PetPanel {
       }
 
       get element(): HTMLElement { return this._el; }
+      get isVisible(): boolean { return this._visible; }
 
       open(): void {
             this._visible = true;
@@ -67,6 +69,14 @@ export class PetPanel {
 
       toggle(): void {
             this._visible ? this.close() : this.open();
+      }
+
+      show(): void {
+            this.open();
+      }
+
+      hide(): void {
+            this.close();
       }
 
       private _render(): void {

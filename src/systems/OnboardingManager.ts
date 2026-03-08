@@ -1,4 +1,5 @@
 import type { PlayerIdentitySnapshot } from '../core/PlayerIdentity';
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 
 export type OnboardingStepId =
       | 'meet_elder'
@@ -17,7 +18,7 @@ export interface OnboardingStepState {
       locked: boolean;
 }
 
-interface PersistedOnboardingState {
+export interface OnboardingSaveState {
       version: number;
       completed: OnboardingStepId[];
       introSeen: boolean;
@@ -121,6 +122,35 @@ export class OnboardingManager {
             });
       }
 
+      exportState(): OnboardingSaveState {
+            return {
+                  version: STORAGE_VERSION,
+                  completed: Array.from(this._completed),
+                  introSeen: this._introSeen,
+                  collapsed: this._collapsed,
+            };
+      }
+
+      importState(state: Partial<OnboardingSaveState> | null): void {
+            this._completed.clear();
+            this._introSeen = false;
+            this._collapsed = false;
+
+            if (state && Number(state.version ?? 0) === STORAGE_VERSION) {
+                  const completed = Array.isArray(state.completed) ? state.completed : [];
+                  for (const stepId of completed) {
+                        if (this._blueprints.some((step) => step.id === stepId)) {
+                              this._completed.add(stepId);
+                        }
+                  }
+                  this._introSeen = state.introSeen === true;
+                  this._collapsed = state.collapsed === true;
+            }
+
+            this._save();
+            this._emitChange(false);
+      }
+
       private get _blueprints(): Array<Pick<OnboardingStepState, 'id' | 'title' | 'description'>> {
             const fusionGoal = this._identity.starterFusionGoal
                   ? `先看推薦線：${this._identity.starterFusionGoal}`
@@ -161,36 +191,21 @@ export class OnboardingManager {
       }
 
       private _load(): void {
-            try {
-                  const raw = localStorage.getItem(STORAGE_KEY);
-                  if (!raw) return;
-                  const parsed = JSON.parse(raw) as Partial<PersistedOnboardingState>;
-                  if (Number(parsed.version ?? 0) !== STORAGE_VERSION) return;
-                  const completed = Array.isArray(parsed.completed) ? parsed.completed : [];
-                  for (const stepId of completed) {
-                        if (this._blueprints.some((step) => step.id === stepId)) {
-                              this._completed.add(stepId);
-                        }
+            const parsed = localKeyValueStore.getJson<Partial<OnboardingSaveState>>(STORAGE_KEY);
+            if (!parsed || Number(parsed.version ?? 0) !== STORAGE_VERSION) return;
+
+            const completed = Array.isArray(parsed.completed) ? parsed.completed : [];
+            for (const stepId of completed) {
+                  if (this._blueprints.some((step) => step.id === stepId)) {
+                        this._completed.add(stepId);
                   }
-                  this._introSeen = parsed.introSeen === true;
-                  this._collapsed = parsed.collapsed === true;
-            } catch {
-                  // Ignore malformed onboarding state.
             }
+            this._introSeen = parsed.introSeen === true;
+            this._collapsed = parsed.collapsed === true;
       }
 
       private _save(): void {
-            const payload: PersistedOnboardingState = {
-                  version: STORAGE_VERSION,
-                  completed: Array.from(this._completed),
-                  introSeen: this._introSeen,
-                  collapsed: this._collapsed,
-            };
-            try {
-                  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-            } catch {
-                  // Ignore storage quota issues.
-            }
+            localKeyValueStore.setJson(STORAGE_KEY, this.exportState());
       }
 
       private _emitChange(persist = true): void {

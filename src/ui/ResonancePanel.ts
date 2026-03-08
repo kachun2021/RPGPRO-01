@@ -17,6 +17,7 @@ const SERIES_NAMES: Record<string, string> = {
  * ResonancePanel - apply resonance boosts by pet series.
  */
 export class ResonancePanel {
+      readonly panelId = 'resonance';
       private _el: HTMLDivElement;
       private _visible = false;
       private _resonanceSystem: ResonanceSystem;
@@ -31,11 +32,13 @@ export class ResonancePanel {
             this._el = document.createElement('div');
             this._el.id = 'resonance-panel';
             this._el.className = 'sa-panel reso-root ui-panel-fullscreen';
-            this._el.style.display = 'none';
+            this._el.hidden = true;
 
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       private _buildShell(): void {
             const title = document.createElement('div');
@@ -95,6 +98,7 @@ export class ResonancePanel {
                   `;
 
                   const btn = row.querySelector('.reso-apply-btn') as HTMLButtonElement;
+                  btn.disabled = level >= 5;
                   if (level < 5) {
                         btn.addEventListener('click', () => {
                               const goldCost = (level + 1) * 200;
@@ -130,13 +134,17 @@ export class ResonancePanel {
 
       show(): void {
             this._visible = true;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
 
       hide(): void {
             this._visible = false;
-            this._el.style.display = 'none';
+            this._el.hidden = true;
+      }
+
+      refresh(): void {
+            if (this._visible) this._render();
       }
 
       dispose(): void {

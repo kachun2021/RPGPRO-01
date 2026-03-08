@@ -56,7 +56,7 @@ export class QuestTracker {
             const tracked = allQuests
                   .filter((q) => {
                         const s = this._questManager.getStatus(q);
-                        return s === 'active' || s === 'complete';
+                        return s === 'active' || s === 'turn_in' || s === 'complete';
                   })
                   .slice(0, 2);
 
@@ -73,7 +73,7 @@ export class QuestTracker {
                   const card = document.createElement('div');
                   card.className = 'qt-quest';
                   card.innerHTML = `
-                        <div class="qt-quest-name">${status === 'complete' ? '✅' : '⚡'} ${quest.name}</div>
+                        <div class="qt-quest-name">${status === 'turn_in' ? '📣' : status === 'complete' ? '✅' : '⚡'} ${quest.name}</div>
                         <div class="qt-quest-obj">${obj.label}: ${obj.current}/${obj.required}</div>
                         <div class="qt-pbar">
                               <div class="qt-pfill"></div>

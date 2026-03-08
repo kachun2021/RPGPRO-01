@@ -16,6 +16,7 @@ import {
       listRuntimeSceneZones,
       type RuntimeSceneZoneDef,
 } from './RuntimeZoneCatalog';
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 
 /**
  * ZoneManager — Orchestrates zone transitions.
@@ -108,6 +109,35 @@ export class ZoneManager {
 
       getUnlockedZones(): RuntimeSceneZoneDef[] {
             return listRuntimeSceneZones().filter(z => this._unlockedZones.has(z.id));
+      }
+
+      exportState(): { currentZoneId: string; unlockedZoneIds: string[] } {
+            return {
+                  currentZoneId: this._currentZone.id,
+                  unlockedZoneIds: Array.from(this._unlockedZones).sort((a, b) => a.localeCompare(b)),
+            };
+      }
+
+      async importState(state: { currentZoneId?: string; unlockedZoneIds?: string[] } | null): Promise<void> {
+            if (!state) return;
+
+            const validZoneIds = new Set(listRuntimeSceneZones().map((zone) => zone.id));
+            const unlocked = Array.isArray(state.unlockedZoneIds)
+                  ? state.unlockedZoneIds.filter((zoneId) => validZoneIds.has(zoneId))
+                  : [];
+            this._unlockedZones = new Set(unlocked);
+
+            const targetZoneId = typeof state.currentZoneId === 'string' && validZoneIds.has(state.currentZoneId)
+                  ? state.currentZoneId
+                  : getDefaultRuntimeSceneZoneId();
+            this._unlockedZones.add(targetZoneId);
+
+            if (!this._renderer || this._currentZone.id !== targetZoneId) {
+                  await this.travelTo(targetZoneId, { ignoreLock: true });
+                  return;
+            }
+
+            this._unlockAround(targetZoneId);
       }
 
       /** Build initial zone (no transition animation) */
@@ -216,12 +246,7 @@ export class ZoneManager {
       }
 
       private _isDebugUnlockFallbackEnabled(): boolean {
-            if (typeof window === 'undefined') return false;
-            try {
-                  return localStorage.getItem('fpo.debug.unlockFallback') === '1';
-            } catch {
-                  return false;
-            }
+            return localKeyValueStore.getString('fpo.debug.unlockFallback') === '1';
       }
 
       /**

@@ -228,6 +228,10 @@ export class NPCManager {
             }));
       }
 
+      getNpcById(npcId: string): NPC | null {
+            return this._npcs.find((npc) => npc.def.id === npcId) ?? null;
+      }
+
       despawnAll(): void {
             this._detachPointerObserver();
             for (const npc of this._npcs) npc.dispose();

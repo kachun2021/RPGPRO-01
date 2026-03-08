@@ -42,6 +42,7 @@ const MOCK_FRIENDS: FriendEntry[] = [
 const MOCK_PARTY: PartyMember[] = [];
 
 export class CommunityPanel {
+      readonly panelId = 'community';
       private _el: HTMLDivElement;
       private _visible = false;
       private _currentTab: CommTab = 'friends';
@@ -133,6 +134,8 @@ export class CommunityPanel {
             this._fitPanelScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       private _fitPanelScale(): void {
             if (this._el.classList.contains('ui-panel-fullscreen')) {

@@ -9,8 +9,10 @@
  * - Daily auto-reset based on last reset date
  */
 
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
+
 export type QuestType = 'main' | 'side' | 'daily';
-export type QuestStatus = 'locked' | 'available' | 'active' | 'complete' | 'claimed';
+export type QuestStatus = 'locked' | 'available' | 'active' | 'turn_in' | 'complete' | 'claimed';
 export type QuestObjectiveType = 'kill' | 'collect' | 'talk' | 'exchange_pet';
 
 export interface QuestObjective {
@@ -43,10 +45,21 @@ export interface QuestDef {
       claimed: boolean;       // Prevents double-claiming
 }
 
-interface SavedQuestProgress {
+export interface SavedQuestProgress {
       progress: number[];
       claimed: boolean;
       accepted?: boolean;
+}
+
+export interface QuestSaveState {
+      version: number;
+      dailyReset: string | null;
+      quests: Record<string, SavedQuestProgress>;
+}
+
+export interface QuestTurnInResult {
+      quest: QuestDef;
+      reward: QuestReward;
 }
 
 // 25 Main Story Chapters (every 5 unlocks a new zone)
@@ -139,11 +152,13 @@ const PET_EXCHANGE_QUESTS: QuestDef[] = [
 
 const SAVE_KEY = 'fpo_quests_v2';
 const DAILY_RESET_KEY = 'fpo_daily_reset';
+const SAVE_VERSION = 1;
 
 export class QuestManager {
       private _quests: Map<string, QuestDef> = new Map();
       private _onChange: (() => void) | null = null;
       private readonly _listeners = new Set<() => void>();
+      private _lastDailyReset: string | null = null;
 
       set onChange(cb: (() => void) | null) { this._onChange = cb; }
 
@@ -179,9 +194,9 @@ export class QuestManager {
                   if (prereq && !prereq.claimed) return 'locked';
             }
 
-            // All objectives met → ready to claim
+            // All objectives met → ready to turn in / claim
             const allDone = quest.objectives.every(o => o.current >= o.required);
-            if (allDone) return 'complete';
+            if (allDone) return this.requiresTurnIn(quest) ? 'turn_in' : 'complete';
 
             // NPC-gated quests should not progress until explicitly accepted.
             if (quest.npcId && !quest.accepted) return 'available';
@@ -190,6 +205,10 @@ export class QuestManager {
             if (quest.objectives.some(o => o.current > 0) || quest.accepted) return 'active';
 
             return 'available';
+      }
+
+      requiresTurnIn(quest: QuestDef): boolean {
+            return Boolean(quest.npcId);
       }
 
       getQuest(questId: string): QuestDef | null {
@@ -214,7 +233,24 @@ export class QuestManager {
             const available = this.allQuests.find((quest) => quest.npcId === npcId && this.getStatus(quest) === 'available');
             if (available) return this.acceptQuest(available.id);
 
-            return this.allQuests.find((quest) => quest.npcId === npcId && ['active', 'complete'].includes(this.getStatus(quest))) ?? null;
+            return this.allQuests.find((quest) => quest.npcId === npcId && ['active', 'turn_in', 'complete'].includes(this.getStatus(quest))) ?? null;
+      }
+
+      getFirstQuestByNpc(npcId: string, statuses: QuestStatus[]): QuestDef | null {
+            const wanted = new Set(statuses);
+            return this.allQuests.find((quest) => quest.npcId === npcId && wanted.has(this.getStatus(quest))) ?? null;
+      }
+
+      getFirstReportableByNpc(npcId: string): QuestDef | null {
+            return this.getFirstQuestByNpc(npcId, ['turn_in']);
+      }
+
+      reportFirstByNpc(npcId: string): QuestTurnInResult | null {
+            const quest = this.getFirstReportableByNpc(npcId);
+            if (!quest) return null;
+            const reward = this.claimReward(quest.id);
+            if (!reward) return null;
+            return { quest, reward };
       }
 
       /** Track a kill — only on non-locked, non-claimed quests */
@@ -269,22 +305,21 @@ export class QuestManager {
       /** Auto-check and reset daily quests if date changed */
       private _checkDailyReset(): void {
             const today = new Date().toDateString();
-            try {
-                  const lastReset = localStorage.getItem(DAILY_RESET_KEY);
-                  if (lastReset !== today) {
-                        // Reset all daily quests
-                        for (const q of this._quests.values()) {
-                              if (q.type === 'daily') {
-                                    q.claimed = false;
-                                    for (const obj of q.objectives) obj.current = 0;
-                              }
-                        }
-                        localStorage.setItem(DAILY_RESET_KEY, today);
-                        this._saveProgress();
-                        console.log('[Quest] Daily quests reset for', today);
-                        this._emitChange();
+            const lastReset = localKeyValueStore.getString(DAILY_RESET_KEY);
+            this._lastDailyReset = lastReset;
+            if (lastReset === today) return;
+
+            for (const q of this._quests.values()) {
+                  if (q.type === 'daily') {
+                        q.claimed = false;
+                        for (const obj of q.objectives) obj.current = 0;
                   }
-            } catch { /* ignore */ }
+            }
+            this._lastDailyReset = today;
+            localKeyValueStore.setString(DAILY_RESET_KEY, today);
+            this._saveProgress();
+            console.log('[Quest] Daily quests reset for', today);
+            this._emitChange();
       }
 
       get mainProgress(): { current: number; total: number } {
@@ -293,33 +328,67 @@ export class QuestManager {
             return { current: done, total: main.length };
       }
 
-      private _saveProgress(): void {
-            const data: Record<string, SavedQuestProgress> = {};
-            for (const [id, q] of this._quests) {
-                  data[id] = {
-                        progress: q.objectives.map(o => o.current),
-                        claimed: q.claimed,
-                        accepted: !!q.accepted,
+      exportState(): QuestSaveState {
+            const quests: Record<string, SavedQuestProgress> = {};
+            for (const [id, quest] of this._quests) {
+                  quests[id] = {
+                        progress: quest.objectives.map((o) => o.current),
+                        claimed: quest.claimed,
+                        accepted: !!quest.accepted,
                   };
             }
-            try { localStorage.setItem(SAVE_KEY, JSON.stringify(data)); } catch { /* ignore */ }
+            return {
+                  version: SAVE_VERSION,
+                  dailyReset: this._lastDailyReset,
+                  quests,
+            };
+      }
+
+      importState(state: QuestSaveState | null): void {
+            for (const quest of this._quests.values()) {
+                  quest.claimed = false;
+                  quest.accepted = quest.npcId ? false : quest.accepted;
+                  for (const obj of quest.objectives) obj.current = 0;
+            }
+
+            if (state?.quests) {
+                  for (const [id, saved] of Object.entries(state.quests)) {
+                        const quest = this._quests.get(id);
+                        if (!quest) continue;
+                        quest.claimed = saved.claimed ?? false;
+                        quest.accepted = saved.accepted ?? quest.accepted ?? false;
+                        for (let i = 0; i < quest.objectives.length && i < saved.progress.length; i += 1) {
+                              quest.objectives[i].current = saved.progress[i];
+                        }
+                  }
+            }
+
+            this._lastDailyReset = state?.dailyReset ?? null;
+            if (this._lastDailyReset) {
+                  localKeyValueStore.setString(DAILY_RESET_KEY, this._lastDailyReset);
+            } else {
+                  localKeyValueStore.remove(DAILY_RESET_KEY);
+            }
+            this._saveProgress();
+            this._emitChange();
+      }
+
+      private _saveProgress(): void {
+            localKeyValueStore.setJson(SAVE_KEY, this.exportState());
       }
 
       private _loadProgress(): void {
-            try {
-                  const raw = localStorage.getItem(SAVE_KEY);
-                  if (!raw) return;
-                  const data: Record<string, SavedQuestProgress> = JSON.parse(raw);
-                  for (const [id, saved] of Object.entries(data)) {
-                        const q = this._quests.get(id);
-                        if (!q) continue;
-                        q.claimed = saved.claimed ?? false;
-                        q.accepted = saved.accepted ?? q.accepted ?? false;
-                        for (let i = 0; i < q.objectives.length && i < saved.progress.length; i++) {
-                              q.objectives[i].current = saved.progress[i];
-                        }
-                  }
-            } catch { /* ignore */ }
+            const snapshot = localKeyValueStore.getJson<QuestSaveState | Record<string, SavedQuestProgress>>(SAVE_KEY);
+            if (!snapshot) return;
+
+            const state = (typeof snapshot === 'object' && snapshot !== null && 'quests' in snapshot)
+                  ? (snapshot as QuestSaveState)
+                  : {
+                        version: SAVE_VERSION,
+                        dailyReset: localKeyValueStore.getString(DAILY_RESET_KEY),
+                        quests: snapshot as Record<string, SavedQuestProgress>,
+                  };
+            this.importState(state);
       }
 
       private _emitChange(): void {

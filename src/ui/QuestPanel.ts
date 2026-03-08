@@ -8,13 +8,14 @@ const TAB_LABELS: { id: QTab; label: string; icon: string; types: QuestType[] }[
 ];
 
 const STATUS_ICONS: Record<QuestStatus, string> = {
-      locked: '🔒', available: '📌', active: '⚡', complete: '✅', claimed: '🏆',
+      locked: '🔒', available: '📌', active: '⚡', turn_in: '📣', complete: '✅', claimed: '🏆',
 };
 
 /**
  * QuestPanel — CHM-style quest info panel with directory + detail view.
  */
 export class QuestPanel {
+      readonly panelId = 'quest';
       private _el: HTMLDivElement;
       private _visible = false;
       private _currentTab: QTab = 'world';
@@ -40,6 +41,8 @@ export class QuestPanel {
             });
             window.addEventListener('resize', this._onResize);
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       private _render(): void {
             this._syncResponsiveMode();
@@ -145,6 +148,9 @@ export class QuestPanel {
                   const claimBtnHtml = status === 'complete'
                         ? '<button class="qp-claim-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary">🎁 領取獎勵</button>'
                         : '';
+                  const turnInNoticeHtml = status === 'turn_in'
+                        ? '<div class="qp-detail-guidance">請回對應 NPC 回報，獎勵與世界解鎖會在對話完成後發放。</div>'
+                        : '';
 
                   detail.innerHTML = `
                         <div class="qp-detail-head">
@@ -160,6 +166,7 @@ export class QuestPanel {
                         <div class="qp-detail-content">
                               <div class="qp-detail-desc">${selectedQuest.description}</div>
                               ${rewardHtml}
+                              ${turnInNoticeHtml}
                               ${acceptBtnHtml}
                               ${claimBtnHtml}
                         </div>
@@ -176,12 +183,7 @@ export class QuestPanel {
 
                   if (status === 'complete') {
                         detail.querySelector('.qp-claim-btn')?.addEventListener('click', () => {
-                              const reward = this._questManager.claimReward(selectedQuest.id);
-                              if (reward) {
-                                    this._applyReward(reward, selectedQuest);
-                                    this._showRewardText(selectedQuest.name, reward);
-                              }
-                              this._render();
+                              this.claimQuest(selectedQuest.id);
                         });
                   }
             } else {
@@ -196,7 +198,7 @@ export class QuestPanel {
             summary.className = 'qp-overview-strip';
             const quests = this._questManager.allQuests;
             const active = quests.filter((quest) => this._questManager.getStatus(quest) === 'active').length;
-            const complete = quests.filter((quest) => this._questManager.getStatus(quest) === 'complete').length;
+            const complete = quests.filter((quest) => ['turn_in', 'complete'].includes(this._questManager.getStatus(quest))).length;
             const available = quests.filter((quest) => this._questManager.getStatus(quest) === 'available').length;
 
             summary.innerHTML = `
@@ -221,6 +223,9 @@ export class QuestPanel {
             if (status === 'available') {
                   return quest.npcId ? '先找對應 NPC 接取，任務才會開始累積。' : '先接受任務，之後才會開始追蹤進度。';
             }
+            if (status === 'turn_in') {
+                  return quest.npcId ? '條件已達成，回到對應 NPC 回報後才會發獎勵與推進世界。' : '條件已達成，準備回報。';
+            }
             if (status === 'complete') {
                   return '條件已達成，現在回報並領取獎勵。';
             }
@@ -231,6 +236,21 @@ export class QuestPanel {
                   return `完成後會推進世界進度，解鎖 ${quest.rewards.unlockZone}。`;
             }
             return '先照著目前目標推進，再回來查看獎勵與後續解鎖。';
+      }
+
+      claimQuest(questId: string): { quest: QuestDef; reward: QuestReward } | null {
+            const quest = this._questManager.getQuest(questId);
+            if (!quest) return null;
+            const status = this._questManager.getStatus(quest);
+            if (status !== 'complete' && status !== 'turn_in') return null;
+
+            const reward = this._questManager.claimReward(quest.id);
+            if (!reward) return null;
+
+            this._applyReward(reward, quest);
+            this._showRewardText(quest.name, reward);
+            if (this._visible) this._render();
+            return { quest, reward };
       }
 
       private _isLandscapeFocusMode(): boolean {

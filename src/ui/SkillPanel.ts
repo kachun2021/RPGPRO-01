@@ -24,6 +24,7 @@ const SKILL_TYPE_LABELS: Record<SkillDef['type'], string> = {
  * SkillPanel - player/pet skill management panel.
  */
 export class SkillPanel {
+      readonly panelId = 'skill';
       private _el: HTMLDivElement;
       private _visible = false;
       private _skillBar: SkillBar;
@@ -53,6 +54,8 @@ export class SkillPanel {
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       setPetManager(pm: PetManager): void {
             this._petManager = pm;

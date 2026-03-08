@@ -56,12 +56,19 @@ import { StatAllocation } from './systems/StatAllocation';
 import { SkillTree } from './systems/SkillTree';
 import { AwakeningSystem } from './systems/AwakeningSystem';
 import { RebirthSystem } from './systems/RebirthSystem';
-import { loadRuntimeGame, saveRuntimeGame } from './systems/RuntimeSaveManager';
+import type { HeroProfileRecord } from './services/AuthService';
+import { LocalAuthService } from './services/adapters/local/LocalAuthService';
+import { LocalSaveService } from './services/adapters/local/LocalSaveService';
+import { LocalSocialService } from './services/adapters/local/LocalSocialService';
+import { LocalRoomService } from './services/adapters/local/LocalRoomService';
+import { localKeyValueStore } from './services/adapters/local/LocalStorageKV';
+import { GameSettingsRuntime } from './core/GameSettingsRuntime';
+import { PanelRegistry } from './ui/PanelRegistry';
 // P9 Quest + NPC
-import { QuestManager } from './systems/QuestManager';
-import { NPCManager } from './entities/NPC';
+import { QuestManager, type QuestDef } from './systems/QuestManager';
+import { NPCManager, type NPC } from './entities/NPC';
 import { QuestPanel } from './ui/QuestPanel';
-import { DialoguePanel } from './ui/DialoguePanel';
+import { DialoguePanel, type DialogueActionSpec, type DialoguePanelOpenOptions } from './ui/DialoguePanel';
 import { CommunityPanel } from './ui/CommunityPanel';
 import { QuestTracker } from './ui/QuestTracker';
 import { OnboardingManager } from './systems/OnboardingManager';
@@ -194,14 +201,12 @@ function initUiFeedbackSfx(): void {
       }, true);
 }
 
-const HERO_TYPE_STORAGE_KEY = 'fpo.hero.type.v1';
-const HERO_PROFILE_STORAGE_KEY = 'fpo.hero.profile.v1';
+type StoredHeroProfile = HeroProfileRecord;
 
-interface StoredHeroProfile {
-      heroType: number;
-      playerName: string;
-      createdAt: string;
-}
+const authService = new LocalAuthService();
+const saveService = new LocalSaveService();
+const socialService = new LocalSocialService();
+const roomService = new LocalRoomService();
 
 interface RuntimeZoneForSpawn {
       zoneId?: number;
@@ -221,14 +226,13 @@ function resolveSelectedHeroType(): number {
       if (heroes.length <= 0) return 0;
 
       const validTypes = new Set(heroes.map((hero) => hero.type));
-      const storedRaw = localStorage.getItem(HERO_TYPE_STORAGE_KEY);
-      const storedType = Number(storedRaw ?? NaN);
-      if (Number.isFinite(storedType) && validTypes.has(Math.floor(storedType))) {
-            return Math.floor(storedType);
+      const storedType = authService.loadPreferredHeroType();
+      if (storedType !== null && validTypes.has(storedType)) {
+            return storedType;
       }
 
       const fallback = heroes[0].type;
-      localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(fallback));
+      authService.savePreferredHeroType(fallback);
       return fallback;
 }
 
@@ -248,30 +252,26 @@ function loadStoredHeroProfile(): StoredHeroProfile | null {
       const fallbackHero = getRuntimeHeroTemplate(fallbackType);
       const fallbackName = sanitizePlayerName(fallbackHero?.name ?? '玩家', '玩家');
 
-      const raw = localStorage.getItem(HERO_PROFILE_STORAGE_KEY);
-      if (raw) {
-            try {
-                  const parsed = JSON.parse(raw) as Partial<StoredHeroProfile>;
-                  const type = Number(parsed.heroType ?? NaN);
-                  const heroType = Number.isFinite(type) && validTypes.has(Math.floor(type))
-                        ? Math.floor(type)
-                        : fallbackType;
-                  const playerName = sanitizePlayerName(String(parsed.playerName ?? ''), fallbackName);
-                  return {
-                        heroType,
-                        playerName,
-                        createdAt: String(parsed.createdAt ?? new Date().toISOString()),
-                  };
-            } catch {
-                  // Continue with migration / creation fallback.
-            }
+      const stored = authService.loadHeroProfile();
+      if (stored) {
+            const type = Number(stored.heroType ?? NaN);
+            const heroType = Number.isFinite(type) && validTypes.has(Math.floor(type))
+                  ? Math.floor(type)
+                  : fallbackType;
+            const playerName = sanitizePlayerName(String(stored.playerName ?? ''), fallbackName);
+            return {
+                  version: 1,
+                  heroType,
+                  playerName,
+                  createdAt: String(stored.createdAt ?? new Date().toISOString()),
+            };
       }
 
-      const legacyTypeRaw = localStorage.getItem(HERO_TYPE_STORAGE_KEY);
-      const legacyType = Number(legacyTypeRaw ?? NaN);
-      if (Number.isFinite(legacyType) && validTypes.has(Math.floor(legacyType))) {
+      const legacyType = authService.loadPreferredHeroType();
+      if (legacyType !== null && validTypes.has(legacyType)) {
             return {
-                  heroType: Math.floor(legacyType),
+                  version: 1,
+                  heroType: legacyType,
                   playerName: fallbackName,
                   createdAt: new Date().toISOString(),
             };
@@ -282,12 +282,28 @@ function loadStoredHeroProfile(): StoredHeroProfile | null {
 
 function persistHeroProfile(profile: StoredHeroProfile): void {
       const payload: StoredHeroProfile = {
+            version: 1,
             heroType: Math.floor(profile.heroType),
             playerName: sanitizePlayerName(profile.playerName, '玩家'),
             createdAt: profile.createdAt || new Date().toISOString(),
       };
-      localStorage.setItem(HERO_PROFILE_STORAGE_KEY, JSON.stringify(payload));
-      localStorage.setItem(HERO_TYPE_STORAGE_KEY, String(payload.heroType));
+      authService.saveHeroProfile(payload);
+}
+
+function isAutomatedRun(): boolean {
+      const search = typeof window !== 'undefined'
+            ? new URLSearchParams(window.location.search)
+            : null;
+      if (search?.get('manualtest') === '1') return false;
+      if (search?.get('autotest') === '1') return true;
+      return typeof navigator !== 'undefined' && navigator.webdriver === true;
+}
+
+function shouldForceHeroCreation(): boolean {
+      const search = typeof window !== 'undefined'
+            ? new URLSearchParams(window.location.search)
+            : null;
+      return search?.get('heroCreate') === '1';
 }
 
 async function ensureHeroProfile(
@@ -296,6 +312,7 @@ async function ensureHeroProfile(
       const heroes = listRuntimeHeroTemplates();
       if (heroes.length <= 0) {
             return {
+                  version: 1,
                   heroType: 0,
                   playerName: '玩家',
                   createdAt: new Date().toISOString(),
@@ -303,14 +320,27 @@ async function ensureHeroProfile(
       }
 
       const stored = loadStoredHeroProfile();
-      if (stored) {
+      if (stored && !shouldForceHeroCreation()) {
             persistHeroProfile(stored);
             return stored;
+      }
+
+      if (isAutomatedRun() && !shouldForceHeroCreation()) {
+            const fallback = heroes[0];
+            const automatedProfile: StoredHeroProfile = {
+                  version: 1,
+                  heroType: Math.floor(fallback.type),
+                  playerName: sanitizePlayerName(fallback.name || '玩家', '玩家'),
+                  createdAt: new Date().toISOString(),
+            };
+            persistHeroProfile(automatedProfile);
+            return automatedProfile;
       }
 
       const panel = new HeroCreationPanel(heroes);
       const result = await panel.show();
       const profile: StoredHeroProfile = {
+            version: 1,
             heroType: Math.floor(result.heroType),
             playerName: sanitizePlayerName(result.playerName, '玩家'),
             createdAt: new Date().toISOString(),
@@ -540,9 +570,76 @@ async function bootstrap(): Promise<void> {
       // P5: Shop system
       const shopManager = new ShopManager();
 
-      // Wire NPC interaction → dialogue
-      npcManager.onInteract = (npc) => {
-            dialoguePanel.openForNpc(npc);
+      const describeQuestObjective = (quest: QuestDef): string => {
+            const objective = quest.objectives[0];
+            if (!objective) return '先查看任務面板確認目前目標。';
+            return `${objective.label}: ${objective.current}/${objective.required}`;
+      };
+
+      const buildQuestDialogueOptions = (npc: NPC): DialoguePanelOpenOptions => {
+            const reportableQuest = questManager.getFirstReportableByNpc(npc.def.id);
+            if (reportableQuest) {
+                  const lines = [
+                        `${reportableQuest.name} 已完成。`,
+                        describeQuestObjective(reportableQuest),
+                        reportableQuest.rewards.unlockZone
+                              ? '回報後我會替你開放下一段區域，記得先補給再出發。'
+                              : '回報後就能領取獎勵，準備推進下一步。',
+                  ];
+                  const actions: DialogueActionSpec[] = [
+                        { action: 'report', label: '📣 回報任務' },
+                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'close', label: '結束對話', tone: 'close' },
+                  ];
+                  return { lines, actions };
+            }
+
+            const availableQuest = questManager.getFirstQuestByNpc(npc.def.id, ['available']);
+            if (availableQuest) {
+                  const lines = [
+                        ...npc.def.dialogue,
+                        `委託內容：${describeQuestObjective(availableQuest)}`,
+                  ];
+                  const actions: DialogueActionSpec[] = [
+                        { action: 'accept', label: '✅ 接受任務' },
+                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'close', label: '結束對話', tone: 'close' },
+                  ];
+                  return { lines, actions };
+            }
+
+            const activeQuest = questManager.getFirstQuestByNpc(npc.def.id, ['active']);
+            if (activeQuest) {
+                  return {
+                        lines: [
+                              `${activeQuest.name} 進行中。`,
+                              describeQuestObjective(activeQuest),
+                              activeQuest.rewards.unlockZone
+                                    ? '做完記得回來找我，世界進度會在這裡正式推進。'
+                                    : '先把目前目標完成，再回來回報。',
+                        ],
+                        actions: [
+                              { action: 'view_quest', label: '📜 查看任務' },
+                              { action: 'close', label: '結束對話', tone: 'close' },
+                        ],
+                  };
+            }
+
+            return {
+                  lines: [
+                        '目前沒有新的委託。',
+                        '先把手邊目標清乾淨，再回來找我。',
+                  ],
+                  actions: [
+                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'close', label: '結束對話', tone: 'close' },
+                  ],
+            };
+      };
+
+      const buildDialogueOptions = (npc: NPC): DialoguePanelOpenOptions | undefined => {
+            if (npc.def.type === 'quest') return buildQuestDialogueOptions(npc);
+            return undefined;
       };
 
       let openShopPanelByDialogue = (mode: 'buy' | 'sell'): void => {
@@ -567,6 +664,18 @@ async function bootstrap(): Promise<void> {
                         openQuestPanelByDialogue(acceptedQuest?.id);
                         break;
                   }
+                  case 'report': {
+                        const reportableQuest = questManager.getFirstReportableByNpc(_npc.def.id);
+                        if (!reportableQuest) break;
+                        questPanel.claimQuest(reportableQuest.id);
+                        openQuestPanelByDialogue(reportableQuest.id);
+                        break;
+                  }
+                  case 'view_quest':
+                        openQuestPanelByDialogue(
+                              questManager.getFirstQuestByNpc(_npc.def.id, ['available', 'active', 'turn_in', 'complete'])?.id,
+                        );
+                        break;
                   case 'trade': {
                         const exchangeQuests = questManager.allQuests.filter(
                               q => q.type === 'side' && q.objectives.some(o => o.type === 'exchange_pet') && !q.claimed
@@ -711,6 +820,11 @@ async function bootstrap(): Promise<void> {
       const characterPanel = new CharacterPanel(player, playerIdentity, statAlloc, skillTree, awakeningSystem, rebirthSystem, {
             getPrimaryPetName: () => petManager.active[0]?.displayName ?? petManager.owned[0]?.displayName ?? null,
             getObjectiveHint: () => onboardingManager.currentStep?.title ?? null,
+            onOpenResonance: () => {
+                  closeSubPanels('resonance');
+                  resonancePanel.show();
+                  schedulePanelViewportFit();
+            },
       });
       player.onLevelUp(() => {
             characterPanel.onLevelUp();
@@ -744,14 +858,25 @@ async function bootstrap(): Promise<void> {
       }
       syncGuidanceHint();
 
-      const applyRuntimeSettings = (settings: SystemSettings): void => {
-            joystick.setSensitivity(settings.joystickSensitivity);
-            landscapeCamera.setTouchSettings({
-                  sensitivity: settings.cameraSensitivity,
-                  invertY: settings.invertCameraY,
-            });
-            combatLoop.setAutoLockEnabled(settings.autoLockTarget);
-      };
+      const settingsRuntime = new GameSettingsRuntime({
+            joystick,
+            camera: landscapeCamera,
+            combat: combatLoop,
+      });
+
+      const panelRegistry = new PanelRegistry();
+      Registry.panelManager = panelRegistry;
+      panelRegistry.register(petPanel, 'primary');
+      panelRegistry.register(dialoguePanel, 'modal');
+      panelRegistry.register(renamePanel, 'modal');
+      panelRegistry.register(revivalPanel, 'modal');
+      panelRegistry.register(questPanel, 'primary');
+      panelRegistry.register(communityPanel, 'primary');
+      panelRegistry.register(characterPanel, 'primary');
+      panelRegistry.register(inventoryPanel, 'primary');
+      panelRegistry.register(skillPanel, 'primary');
+      panelRegistry.register(resonancePanel, 'primary');
+      panelRegistry.register(afkPanel, 'primary');
 
       let reviveSequence = 0;
       let shouldResumeAutoAfterFieldRevive = false;
@@ -865,26 +990,34 @@ async function bootstrap(): Promise<void> {
       // System Settings Panel
       const systemPanel = new SystemPanel({
             onSettingsChange: (settings) => {
-                  applyRuntimeSettings(settings);
+                  settingsRuntime.apply(settings);
                   console.log('[System] Settings applied:', settings);
             },
-            getCurrentHeroType: () => {
+            getAccountView: () => {
                   const profile = loadStoredHeroProfile();
-                  if (profile) return profile.heroType;
-                  const current = Number(localStorage.getItem(HERO_TYPE_STORAGE_KEY) ?? NaN);
-                  return Number.isFinite(current) ? Math.floor(current) : selectedHeroType;
+                  return {
+                        ...authService.getAccountSummary(),
+                        currentHeroType: profile?.heroType ?? resolveSelectedHeroType() ?? selectedHeroType,
+                        socialNote: socialService.getAvailability().reason,
+                        roomNote: roomService.getAvailability().reason,
+                  };
             },
-            onHeroTypeChange: (heroType) => {
+            onHeroTypeChange: async (heroType) => {
                   const currentProfile = loadStoredHeroProfile();
                   persistHeroProfile({
+                        version: 1,
                         heroType: Math.floor(heroType),
                         playerName: currentProfile?.playerName ?? selectedPlayerName,
                         createdAt: currentProfile?.createdAt ?? new Date().toISOString(),
                   });
                   console.log(`[System] Hero template changed to type=${heroType}. Restart required to apply.`);
+                  return {
+                        ok: true,
+                        message: '已更新職業模板，重開後生效',
+                  };
             },
-            onSaveProgress: () => {
-                  const result = saveRuntimeGame({
+            onSaveProgress: async () => {
+                  const result = saveService.save({
                         player,
                         inventory,
                         petManager,
@@ -892,15 +1025,22 @@ async function bootstrap(): Promise<void> {
                         skillTree,
                         awakening: awakeningSystem,
                         rebirth: rebirthSystem,
+                        getSystemSettings: () => systemPanel.settings,
+                        getAfkState: () => afkPanel.exportState(),
+                        getOnboardingState: () => onboardingManager.exportState(),
+                        getQuestState: () => questManager.exportState(),
+                        getHeroProfile: () => loadStoredHeroProfile(),
+                        getWorldState: () => ({
+                              ...zoneManager.exportState(),
+                              questChapter: player.stats.questChapter,
+                        }),
                   });
-                  if (result.ok) {
-                        console.log(`[System] Save completed at ${result.savedAt}`);
-                  } else {
-                        console.warn(`[System] Save failed: ${result.message}`);
-                  }
+                  if (result.ok) console.log(`[System] Save completed at ${result.savedAt}`);
+                  else console.warn(`[System] Save failed: ${result.message}`);
+                  return result;
             },
-            onLoadProgress: () => {
-                  const result = loadRuntimeGame({
+            onLoadProgress: async () => {
+                  const result = await saveService.load({
                         player,
                         inventory,
                         petManager,
@@ -908,6 +1048,18 @@ async function bootstrap(): Promise<void> {
                         skillTree,
                         awakening: awakeningSystem,
                         rebirth: rebirthSystem,
+                        applySystemSettings: (settings) => systemPanel.applySettings(settings),
+                        applyAfkState: (state) => afkPanel.importState(state),
+                        applyOnboardingState: (state) => onboardingManager.importState(state),
+                        applyQuestState: (state) => questManager.importState(state),
+                        applyHeroProfile: (profile) => {
+                              if (profile) persistHeroProfile(profile);
+                        },
+                        applyWorldState: async (state) => {
+                              if (!state) return;
+                              await zoneManager.importState(state);
+                              hud.setZoneName(zoneManager.currentZone.nameCN);
+                        },
                   });
                   if (result.ok) {
                         console.log(`[System] Load completed from ${result.savedAt}`);
@@ -920,21 +1072,23 @@ async function bootstrap(): Promise<void> {
                   } else {
                         console.warn(`[System] Load failed: ${result.message}`);
                   }
+                  return result;
             },
-            onResetAll: () => {
+            onResetAll: async () => {
                   console.log('[System] Reset all data requested');
-                  const gameKeys: string[] = [];
-                  for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-                        if (!key) continue;
-                        if (/^fpo([._]|$)/.test(key)) gameKeys.push(key);
-                  }
-                  gameKeys.forEach((key) => localStorage.removeItem(key));
+                  const gameKeys = localKeyValueStore.keys().filter((key) => /^fpo([._]|$)/.test(key));
+                  saveService.clear();
+                  gameKeys.forEach((key) => localKeyValueStore.remove(key));
                   console.log(`[System] Cleared ${gameKeys.length} game storage keys`);
-                  location.reload();
+                  window.setTimeout(() => location.reload(), 80);
+                  return {
+                        ok: true,
+                        message: '已清除本機資料，正在重新載入',
+                  };
             },
       });
-      applyRuntimeSettings(systemPanel.settings);
+      panelRegistry.register(systemPanel, 'primary');
+      settingsRuntime.apply(systemPanel.settings);
 
       // Heavy data panels are lazy-loaded on first use to reduce initial startup cost.
       let fusionPanel: FusionPanelType | null = null;
@@ -952,6 +1106,7 @@ async function bootstrap(): Promise<void> {
             shopPanelLoading = import('./ui/ShopPanel')
                   .then(({ ShopPanel }) => {
                         const panel = new ShopPanel(shopManager, inventory);
+                        panelRegistry.register(panel, 'primary');
                         shopPanel = panel;
                         return panel;
                   })
@@ -970,6 +1125,7 @@ async function bootstrap(): Promise<void> {
                         panel.setMapNavigator((mapName, petName) => {
                               void openWorldMapAt(mapName, petName);
                         });
+                        panelRegistry.register(panel, 'primary');
                         fusionPanel = panel;
                         return panel;
                   })
@@ -993,6 +1149,7 @@ async function bootstrap(): Promise<void> {
                                     void openWorldMapAt(mapName, petName);
                               },
                         });
+                        panelRegistry.register(panel, 'primary');
                         encyclopediaPanel = panel;
                         return panel;
                   })
@@ -1019,6 +1176,7 @@ async function bootstrap(): Promise<void> {
                                     void openFusionByTarget(targetName, mapName);
                               },
                         });
+                        panelRegistry.register(panel, 'primary');
                         worldMapPanel = panel;
                         return panel;
                   })
@@ -1030,23 +1188,16 @@ async function bootstrap(): Promise<void> {
 
       // Global panel rule: opening one sub-panel closes others to avoid overlap.
       function closeSubPanels(except?: string): void {
-            if (except !== 'pet') petPanel.close();
-            if (except !== 'fusion') fusionPanel?.close();
-            if (except !== 'book') encyclopediaPanel?.close();
-            if (except !== 'rename') renamePanel.close();
-            if (except !== 'revival') revivalPanel.close();
-            if (except !== 'shop') shopPanel?.hide();
-            if (except !== 'quest') questPanel.hide();
-            if (except !== 'community') communityPanel.hide();
-            if (except !== 'char') characterPanel.hide();
-            if (except !== 'bag') inventoryPanel.hide();
-            if (except !== 'map') worldMapPanel?.hide();
-            if (except !== 'skill') skillPanel.hide();
-            if (except !== 'settings') systemPanel.hide();
-            if (except !== 'afk') afkPanel.hide();
+            panelRegistry.hideAllExcept(except);
             syncAutoUi();
             schedulePanelViewportFit();
       }
+
+      npcManager.onInteract = (npc) => {
+            closeSubPanels('dialogue');
+            dialoguePanel.openForNpc(npc, buildDialogueOptions(npc));
+            schedulePanelViewportFit();
+      };
 
       function openPetPanel(): void {
             closeSubPanels('pet');
@@ -1157,9 +1308,9 @@ async function bootstrap(): Promise<void> {
             skillPanel.show();
             schedulePanelViewportFit();
       };
-      openQuestPanelByDialogue = () => {
+      openQuestPanelByDialogue = (questId?: string) => {
             closeSubPanels('quest');
-            questPanel.show();
+            questPanel.show(questId);
             schedulePanelViewportFit();
       };
       openPetPanelByDialogue = () => openPetPanel();
@@ -1241,18 +1392,21 @@ async function bootstrap(): Promise<void> {
       });
 
       // Expose concise state for automated game checks.
-      const isUiVisible = (id: string): boolean => {
-            const el = document.getElementById(id);
-            if (!el) return false;
-            const cs = window.getComputedStyle(el);
-            return cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0';
-      };
       (window as any).render_game_to_text = (): string => {
+            const visiblePanels = panelRegistry.getVisibilitySnapshot();
+            const starterMainQuest = questManager.getQuest('main_1');
             const payload = {
                   mode: document.getElementById('loading-screen') ? 'loading' : 'play',
+                  viewport: {
+                        width: window.innerWidth || 0,
+                        height: window.innerHeight || 0,
+                        orientation: (window.innerWidth || 0) >= (window.innerHeight || 0) ? 'landscape' : 'portrait',
+                  },
                   zone: {
                         id: zoneManager.currentZone.id,
                         name: zoneManager.currentZone.name,
+                        sceneZoneId: zoneManager.currentZone.id,
+                        runtimeZoneIds: zoneManager.currentZone.runtimeZoneIds,
                   },
                   player: {
                         x: Number(player.position.x.toFixed(2)),
@@ -1266,6 +1420,7 @@ async function bootstrap(): Promise<void> {
                         exp: Math.round(player.stats.exp),
                         gold: inventory.gold,
                         lifeState: playerLife.state,
+                        playerDead: playerLife.isDeadLike,
                         invulnerabilitySec: Number(playerLife.remainingInvulnerabilitySec.toFixed(1)),
                   },
                   world: {
@@ -1273,6 +1428,12 @@ async function bootstrap(): Promise<void> {
                         inventoryCount: inventory.count,
                         autoGrind: combatLoop.isAutoGrind,
                   },
+                  pets: {
+                        owned: petManager.owned.length,
+                        deadCount: petManager.owned.filter((pet) => pet.isDead).length,
+                  },
+                  currentPanel: panelRegistry.getCurrentPanel(),
+                  modalStack: panelRegistry.getModalStack(),
                   identity: {
                         playerName: playerIdentity.playerName,
                         roleLabel: playerIdentity.roleLabel,
@@ -1282,17 +1443,32 @@ async function bootstrap(): Promise<void> {
                         total: onboardingManager.progress.total,
                         currentStep: onboardingManager.currentStep?.id ?? null,
                   },
+                  quests: {
+                        starterMainStatus: starterMainQuest ? questManager.getStatus(starterMainQuest) : null,
+                        reportableCount: questManager.allQuests.filter((quest) => questManager.getStatus(quest) === 'turn_in').length,
+                  },
+                  settingsApplied: settingsRuntime.snapshot,
+                  autoConfig: combatLoop.getAutoConfig(),
                   openPanels: {
-                        quest: isUiVisible('quest-panel'),
-                        inventory: isUiVisible('inventory-panel'),
-                        skill: isUiVisible('skill-panel'),
-                        system: isUiVisible('sys-panel'),
-                        pet: isUiVisible('petPanel'),
-                        map: isUiVisible('world-map-panel'),
-                        shop: isUiVisible('shop-panel'),
-                        community: isUiVisible('community-panel'),
-                        character: isUiVisible('char-panel'),
-                        afk: isUiVisible('afk-panel'),
+                        quest: visiblePanels.quest ?? false,
+                        inventory: visiblePanels.bag ?? false,
+                        bag: visiblePanels.bag ?? false,
+                        skill: visiblePanels.skill ?? false,
+                        system: visiblePanels.settings ?? false,
+                        settings: visiblePanels.settings ?? false,
+                        pet: visiblePanels.pet ?? false,
+                        map: visiblePanels.map ?? false,
+                        shop: visiblePanels.shop ?? false,
+                        community: visiblePanels.community ?? false,
+                        character: visiblePanels.char ?? false,
+                        char: visiblePanels.char ?? false,
+                        afk: visiblePanels.afk ?? false,
+                        fusion: visiblePanels.fusion ?? false,
+                        book: visiblePanels.book ?? false,
+                        resonance: visiblePanels.resonance ?? false,
+                        dialogue: visiblePanels.dialogue ?? false,
+                        rename: visiblePanels.rename ?? false,
+                        revival: visiblePanels.revival ?? false,
                   },
             };
             return JSON.stringify(payload);
@@ -1313,6 +1489,34 @@ async function bootstrap(): Promise<void> {
             openRevivalPanel: () => {
                   closeSubPanels('revival');
                   revivalPanel.open(() => petPanel.refresh());
+                  return true;
+            },
+            openNpcDialogue: (npcId = 'npc_quest_01') => {
+                  const npc = npcManager.getNpcById(npcId);
+                  if (!npc) return false;
+                  closeSubPanels('dialogue');
+                  dialoguePanel.openForNpc(npc, buildDialogueOptions(npc));
+                  return true;
+            },
+            prepareQuestTurnIn: (npcId = 'npc_quest_01') => {
+                  const quest = questManager.acceptFirstByNpc(npcId);
+                  if (!quest) return null;
+                  for (const objective of quest.objectives) {
+                        const missing = Math.max(0, objective.required - objective.current);
+                        for (let i = 0; i < missing; i += 1) {
+                              if (objective.type === 'kill') {
+                                    questManager.trackKill(objective.target === 'any' || objective.target === 'boss' ? 'smoke_target' : objective.target, objective.target === 'boss');
+                              } else if (objective.type === 'collect') {
+                                    questManager.trackCollect(objective.target === 'any_material' ? 'herb' : objective.target);
+                              }
+                        }
+                  }
+                  return questManager.getFirstReportableByNpc(npcId)?.id ?? null;
+            },
+            openResonancePanel: () => {
+                  closeSubPanels('resonance');
+                  resonancePanel.show();
+                  return true;
             },
             getPlayerLife: () => ({
                   state: playerLife.state,
@@ -1330,8 +1534,8 @@ async function bootstrap(): Promise<void> {
             }),
             applySettings: (partial: Partial<SystemSettings>) => {
                   const next = { ...systemPanel.settings, ...partial };
-                  applyRuntimeSettings(next);
-                  return next;
+                  systemPanel.applySettings(next);
+                  return systemPanel.settings;
             },
             getCameraState: () => ({
                   alpha: Number(landscapeCamera.camera.alpha.toFixed(4)),

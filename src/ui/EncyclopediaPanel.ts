@@ -28,8 +28,10 @@ const SERIES_NAMES: Record<PetSeries, string> = {
 
 
 export class EncyclopediaPanel {
+      readonly panelId = 'book';
       private _el: HTMLDivElement;
       private _enc: PetEncyclopedia;
+      private _visible = false;
       private _seriesFilter: SeriesFilter = 'all';
       private _searchKeyword = '';
       private _onlyDiscovered = false;
@@ -40,7 +42,7 @@ export class EncyclopediaPanel {
       private _metaByDefId = new Map<string, EncyclopediaMeta>();
       private _petDefIdByName = new Map<string, string>();
       private _onResize = (): void => {
-            if (this._el.style.display === 'none') return;
+            if (!this._visible) return;
             this._syncResponsiveMode();
       };
 
@@ -54,11 +56,13 @@ export class EncyclopediaPanel {
             this._el = document.createElement('div');
             this._el.id = 'encyclopediaPanel';
             this._el.className = 'sa-panel book-root ui-panel-fullscreen';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
       }
 
       get element(): HTMLElement { return this._el; }
+      get isVisible(): boolean { return this._visible; }
 
       setNavigationHandlers(handlers: {
             onOpenRecipe?: (petName: string, sourceMapKey?: string) => void;
@@ -71,7 +75,8 @@ export class EncyclopediaPanel {
       open(): void {
             this._selectedSourceMapKey = null;
             if (!this._selectedPetId) this._selectedPetId = PET_DEFS[0]?.id ?? null;
-            this._el.style.display = 'block';
+            this._visible = true;
+            this._el.hidden = false;
             this._syncResponsiveMode();
             this._render();
       }
@@ -80,17 +85,31 @@ export class EncyclopediaPanel {
             const id = this._findPetDefIdByName(petName);
             this._selectedPetId = id ?? this._selectedPetId ?? PET_DEFS[0]?.id ?? null;
             this._selectedSourceMapKey = sourceMapKey?.trim() || null;
-            this._el.style.display = 'block';
+            this._visible = true;
+            this._el.hidden = false;
             this._syncResponsiveMode();
             this._render();
       }
 
       close(): void {
-            this._el.style.display = 'none';
+            this._visible = false;
+            this._el.hidden = true;
+      }
+
+      show(): void {
+            this.open();
+      }
+
+      hide(): void {
+            this.close();
+      }
+
+      toggle(): void {
+            this._visible ? this.close() : this.open();
       }
 
       refresh(): void {
-            if (this._el.style.display !== 'none') this._render();
+            if (this._visible) this._render();
       }
 
       dispose(): void {

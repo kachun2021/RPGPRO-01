@@ -7,6 +7,7 @@ import type { Inventory } from './Inventory';
 import type { ItemType, ItemRarity } from './DropTable';
 
 export type ShopCategory = 'weapon' | 'armor' | 'accessory' | 'potion' | 'pet_food' | 'scroll';
+export type ShopCatalogScope = 'starter' | 'all';
 
 export interface ShopItem {
       id: string;
@@ -36,6 +37,17 @@ const ESSENTIAL_ITEMS: ShopItem[] = [
       { id: 'mp_potion_m', name: 'MP藥水(中)', category: 'potion', price: 80, icon: '💧', description: 'MP +80', itemType: 'consumable', rarity: 'uncommon' },
       { id: 'mp_potion_l', name: 'MP藥水(大)', category: 'potion', price: 200, icon: '💧', description: 'MP 全回復', itemType: 'consumable', rarity: 'rare' },
 ];
+
+const STARTER_ITEM_IDS = new Set(ESSENTIAL_ITEMS.map((item) => item.id));
+
+function isStarterFriendlyItem(item: ShopItem): boolean {
+      if (STARTER_ITEM_IDS.has(item.id)) return true;
+      if (item.category === 'potion') return item.price <= 120;
+      if (item.category === 'pet_food') return item.price <= 150;
+      if (item.category === 'scroll') return item.price <= 180;
+      if (item.itemType === 'equipment') return item.price <= 260;
+      return item.price <= 120;
+}
 
 type RuntimeEconomyCommerceModule = typeof import('../data/runtime/RuntimeEconomyCommerceSource');
 
@@ -109,8 +121,11 @@ export class ShopManager {
             return this._runtimeLoadPromise;
       }
 
-      getByCategory(cat: ShopCategory): ShopItem[] {
-            return this._items.filter((item) => item.category === cat);
+      getByCategory(cat: ShopCategory, scope: ShopCatalogScope = 'all'): ShopItem[] {
+            const items = this._items.filter((item) => item.category === cat);
+            if (scope === 'all') return items;
+            const starter = items.filter((item) => isStarterFriendlyItem(item));
+            return starter.length > 0 ? starter : items;
       }
 
       get allItems(): ShopItem[] {
@@ -158,4 +173,3 @@ export class ShopManager {
             return 10;
       }
 }
-

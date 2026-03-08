@@ -714,3 +714,155 @@
       - `output/web-game/manual-combat-hud/combat-hud-phone-landscape.png`
   - Next:
     - proceed to `P11` touch target audit and global `44x44+` control sizing
+- 2026-03-08 (canonical P11-P30 closure batch: touch sizing, honest system/data boundaries, panel truth, smoke hardening):
+  - Repo-grounded audit result:
+    - canonical `P1_P30_EXECUTION_SPEC.md` had numbering drift versus older historical reports.
+    - existing repo state already covered large parts of canonical `P11-P24` through earlier shipped work (pet revive spend, mobile controls/HUD, onboarding/identity, map/fusion world consistency).
+    - this batch focused on the remaining real blockers needed to treat `P11-P30` as complete in the current codebase.
+  - P16 touch target audit:
+    - raised shared chip/button minimum heights in `index.html` to `44px` for phone-landscape safety.
+    - tightened common tag/button hit areas and added `SystemPanel` error-toast styling.
+  - P22 starter-first shop catalog:
+    - `ShopManager` now supports starter-curated vs full-catalog scopes.
+    - `ShopPanel` defaults to `新手精選` so first-time players see a short supply list instead of the full DB catalog.
+  - P25 honest runtime settings/account surface:
+    - rewrote `SystemPanel` to keep only actually wired runtime settings:
+      - `joystickSensitivity`
+      - `cameraSensitivity`
+      - `invertCameraY`
+      - `autoLockTarget`
+    - removed fake general/audio/graphics settings from the interactive UI.
+    - account tab now clearly reports local-only account/storage state instead of pretending cloud/live social exists.
+    - DATA tab remains readonly diagnostic output.
+  - P26 render/state observability:
+    - added `src/ui/PanelRegistry.ts` and switched `render_game_to_text()` to registry-backed truth instead of DOM style guessing.
+    - state payload now includes:
+      - `zone.sceneZoneId`
+      - `zone.runtimeZoneIds`
+      - `player.playerDead`
+      - `currentPanel`
+      - `modalStack`
+      - `settingsApplied`
+      - compatibility aliases under `openPanels`
+    - smoke artifacts now line up with actual visible panel state (`settings/shop/afk/...`).
+  - P27 panel framework unification:
+    - `main.ts` `closeSubPanels()` now delegates to `panelRegistry.hideAllExcept(...)` instead of maintaining a hand-written mutual-exclusion list.
+    - primary gameplay panels now expose stable `panelId`/visibility hooks for registry tracking.
+    - several panels moved from mixed `display` toggles to `hidden`/single-visibility paths.
+  - P28 smoke gate hardening:
+    - restored deterministic automated bootstrap path in `main.ts` via `isAutomatedRun()` (`navigator.webdriver` or `?autotest=1`) so smoke does not depend on manual hero-creation clicks.
+    - `scripts/task_smoke.ps1` now appends `?autotest=1` automatically and validates:
+      - `currentPanel`
+      - `zone.sceneZoneId`
+      - `zone.runtimeZoneIds`
+      - `player.playerDead`
+      - `identity.playerName`
+      - `settingsApplied.*`
+    - current smoke still runs the 10 core scenarios, but now rejects panel/state mismatches instead of only checking `openPanels`.
+  - P29 future backend/service boundary:
+    - added service interfaces:
+      - `src/services/AuthService.ts`
+      - `src/services/SaveService.ts`
+      - `src/services/SocialService.ts`
+      - `src/services/RoomService.ts`
+    - added local adapters:
+      - `src/services/adapters/local/LocalAuthService.ts`
+      - `src/services/adapters/local/LocalSaveService.ts`
+      - `src/services/adapters/local/LocalSocialService.ts`
+      - `src/services/adapters/local/LocalRoomService.ts`
+      - `src/services/adapters/local/LocalStorageKV.ts`
+    - main flow now goes through services instead of touching storage/save payloads directly from UI.
+  - P30 save DTO/schema stabilization:
+    - rewrote `RuntimeSaveManager.ts` to a versioned `v2` payload with migration from legacy `v1`.
+    - runtime save is now separated into:
+      - profile / hero identity
+      - player
+      - world
+      - inventory
+      - pets
+      - growth
+      - system settings
+      - AFK settings
+      - onboarding
+      - quests
+    - added import/export boundaries for onboarding, quests, AFK, world-state, and hero profile so future cloud adapters can reuse the same DTO edges.
+  - Boundary cleanup:
+    - feature modules no longer directly use `localStorage`; the only remaining runtime access is concentrated in `LocalStorageKV`.
+    - `main.ts` no longer directly reads/writes hero profile or runtime save payload storage keys.
+    - `window.__fpoDebug.applySettings()` now routes through the real `SystemPanel`/runtime settings path.
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed
+    - `npm run -s ci:guardrails` passed
+  - Observed smoke/runtime state after the hardening pass:
+    - all 10 smoke scenarios reported `sceneZoneId = starter_meadow`
+    - all 10 smoke scenarios reported `runtimeZoneIds` including `130`
+    - panel scenarios now report matching `currentPanel` ids (`quest`, `bag`, `skill`, `settings`, `shop`, `map`, `pet`, `afk`)
+    - `ci:guardrails` inline-style count reduced to `81`
+    - `system-panel/errors-0.json` only contains the known ignorable WebGPU fallback message; smoke still passes because no actionable console/page errors remain
+  - Next:
+    - local-first `P1-P30` closure is now aligned with the canonical spec; future work should switch to `scripts/reports/implementation/P31_P35_BACKEND_STAGE_SPEC.md`
+- 2026-03-08 (P16/P21/P23/P24/P27/P28 correction pass + smoke closure):
+  - Correction:
+    - the earlier same-day `P11-P30 closure batch` entry was too early; a repo audit reopened `P16 / P21 / P23 / P24 / P27 / P28`.
+    - this pass fixes those reopened gaps and replaces the optimistic claim with repo-verified state.
+  - P16 touch audit follow-up:
+    - lifted the remaining high-frequency controls under `44px` in `index.html`, including:
+      - inventory tabs / page buttons / equip slots
+      - AFK auto/settings buttons
+      - dialogue actions / resonance apply buttons
+      - community / character / system / map / book / rename / revival buttons
+      - phone-landscape responsive overrides that had shrunk tabs/buttons back to `24-40px`
+  - P21 NPC report loop:
+    - `QuestManager` now exposes `turn_in` state for NPC-gated quests instead of treating them as panel-claimable completes.
+    - `DialoguePanel` quest NPC flow now branches to:
+      - accept quest
+      - view progress
+      - report quest
+    - `QuestPanel` direct reward claim is now restricted to non-NPC quests; NPC-gated rewards/world progression flow through report dialogue.
+  - P23 craft guidance:
+    - `ShopPanel` craft detail now shows:
+      - result-use hint
+      - material source hint per ingredient
+    - craft view is now closer to a first-use gameplay guide instead of raw DB recipe listing.
+  - P24 fusion onboarding:
+    - `FusionPanel` generic open path now defaults to `推薦` formulas instead of dumping the entire formula list first.
+    - explicit target / ingredient / map searches still switch to full-filter mode automatically.
+  - P27 panel state cleanup:
+    - `DialoguePanel` moved fully onto `panelId + hidden + isVisible`, and is now registered in `PanelRegistry` as a modal.
+    - `ResonancePanel` moved off `style.display`, gained registry visibility, and is now reachable from `CharacterPanel` growth tab.
+    - fixed the leftover CSS conflict where `.dlg-root` was still hard-coded to `display:none`, which caused registry/state truth to diverge from the actual screen.
+  - P28 smoke hardening v2:
+    - replaced the old `task_smoke.ps1` scenario loop with a repo-local Playwright runner:
+      - `scripts/task_smoke_runner.mjs`
+    - smoke now covers 15 scenarios:
+      - hero creation bootstrap
+      - baseline play
+      - quest / inventory / skill / system / shop / map / pet / afk panels
+      - auto combat toggle
+      - resonance panel
+      - player death -> field revive
+      - pet revival
+      - NPC quest report loop
+    - added explicit manual/smoke hooks in `main.ts`:
+      - `?manualtest=1`
+      - `?heroCreate=1`
+    - `render_game_to_text()` now exposes:
+      - viewport orientation/size
+      - pet dead count
+      - starter main quest status / reportable count
+      - dialogue + resonance panel visibility
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (15/15 scenarios)
+    - `npm run -s ci:guardrails` passed
+  - Observed smoke/runtime state after the correction pass:
+    - hero creation smoke now goes through the actual UI path before entering the world
+    - landscape smoke opens `map` at `844x390` and still reports `sceneZoneId = starter_meadow`, `runtimeZoneIds` containing `130`
+    - `player-death-revive` now verifies `playerDead = false` plus post-revive invulnerability
+    - `pet-revival` now verifies `deadCount = 0` and gold spend after revival
+    - `npc-report-loop` now verifies `starterMainStatus = claimed` after reporting to the quest NPC
+  - Next:
+    - local-first `P11-P30` can now be treated as closed on the current repo state; future work can move to `scripts/reports/implementation/P31_P35_BACKEND_STAGE_SPEC.md`

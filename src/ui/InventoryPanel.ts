@@ -47,6 +47,7 @@ const TAB_LABELS: { id: Tab; label: string; icon: string }[] = [
  * Bottom: tabbed item grid + gold counter.
  */
 export class InventoryPanel {
+      readonly panelId = 'bag';
       private _el: HTMLDivElement;
       private _visible = false;
       private _currentTab: Tab = 'equipment';
@@ -83,6 +84,8 @@ export class InventoryPanel {
             equipSystem.onChange = () => { if (this._visible) this._render(); };
             window.addEventListener('resize', this._onResize);
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       /** Show floating feedback text */
       private _showFeedback(msg: string, tone: 'success' | 'error' | 'info' | 'gold'): void {

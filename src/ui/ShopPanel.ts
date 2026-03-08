@@ -2,7 +2,7 @@
  * ShopPanel - NPC shop UI with mode/category sidebar and item detail workflow.
  */
 
-import type { ShopManager, ShopCategory, ShopItem } from '../systems/ShopManager';
+import type { ShopManager, ShopCategory, ShopCatalogScope, ShopItem } from '../systems/ShopManager';
 import { SHOP_CATEGORIES } from '../systems/ShopManager';
 import type { Inventory, InventoryItem } from '../systems/Inventory';
 import {
@@ -28,10 +28,12 @@ const RARITY_LABELS: Record<string, string> = {
 };
 
 export class ShopPanel {
+      readonly panelId = 'shop';
       private _el: HTMLDivElement;
       private _visible = false;
       private _mode: 'buy' | 'sell' | 'craft' = 'buy';
       private _category: ShopCategory = 'potion';
+      private _buyCatalogScope: ShopCatalogScope = 'starter';
       private _shop: ShopManager;
       private _inventory: Inventory;
       private _quantities: Map<string, number> = new Map();
@@ -58,6 +60,10 @@ export class ShopPanel {
                   if (this._visible) this._render();
             });
             window.addEventListener('resize', this._onResize);
+      }
+
+      get isVisible(): boolean {
+            return this._visible;
       }
 
       private _render(): void {
@@ -124,6 +130,13 @@ export class ShopPanel {
                         this._render();
                   });
             });
+            this._el.querySelectorAll('.shop-scope-btn').forEach((btn) => {
+                  btn.addEventListener('click', () => {
+                        this._buyCatalogScope = ((btn as HTMLElement).dataset.scope as ShopCatalogScope) || 'starter';
+                        this._selectedBuyId = null;
+                        this._render();
+                  });
+            });
 
             const grid = this._el.querySelector('#shop-grid') as HTMLDivElement;
             const listHead = this._el.querySelector('#shop-list-head') as HTMLDivElement;
@@ -140,17 +153,25 @@ export class ShopPanel {
       }
 
       private _renderCategoryTabs(): string {
-            return `<div class="shop-cat-bar">${SHOP_CATEGORIES.map((cat) => `
+            return `
+                  <div class="shop-cat-bar shop-scope-bar">
+                        <button class="shop-scope-btn rpg-chip rpg-chip-filter${this._buyCatalogScope === 'starter' ? ' active is-active' : ''}" data-scope="starter">新手精選</button>
+                        <button class="shop-scope-btn rpg-chip rpg-chip-filter${this._buyCatalogScope === 'all' ? ' active is-active' : ''}" data-scope="all">完整目錄</button>
+                  </div>
+                  <div class="shop-cat-bar">${SHOP_CATEGORIES.map((cat) => `
                   <button class="shop-cat-btn rpg-chip rpg-chip-filter${cat.id === this._category ? ' active is-active' : ''}" data-cat="${cat.id}">
                         <span class="shop-cat-icon">${cat.icon}</span>
                         <span class="shop-cat-label">${cat.label}</span>
                   </button>
-            `).join('')}</div>`;
+                  `).join('')}</div>
+            `;
       }
 
       private _renderBuyMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
-            const items = this._shop.getByCategory(this._category);
-            listHead.textContent = `商品清單（${items.length}）`;
+            const items = this._shop.getByCategory(this._category, this._buyCatalogScope);
+            listHead.textContent = this._buyCatalogScope === 'starter'
+                  ? `新手精選（${items.length}）`
+                  : `商品清單（${items.length}）`;
             if (items.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">此分類暫時沒有商品</div>';
                   detail.innerHTML = '<div class="shop-empty">請切換其他分類</div>';
@@ -406,17 +427,24 @@ export class ShopPanel {
       }
 
       private _buildCraftDetail(recipe: RuntimeProductionRecipe, craftable: boolean): string {
+            const resultMeta = getRuntimeCommerceItemMetaByIdx(recipe.resultIdx);
             const successRatePct = recipe.defaultPro > 0 ? Math.min(100, recipe.defaultPro / 1000) : 100;
             const materialRows = recipe.materials.map((mat) => {
                   const have = this._getInventoryCount(`db_item_${mat.itemIdx}`);
                   const ok = have >= mat.count;
+                  const materialMeta = getRuntimeCommerceItemMetaByIdx(mat.itemIdx);
+                  const sourceHint = this._buildCraftMaterialSourceHint(mat.itemName, materialMeta?.category, materialMeta?.itemType);
                   return `
-                        <div class="shop-detail-row">
-                              <span>${mat.itemName}</span>
-                              <span class="${ok ? '' : 'insufficient'}">${have}/${mat.count}</span>
+                        <div class="shop-detail-source-item">
+                              <div class="shop-detail-row">
+                                    <span>${mat.itemName}</span>
+                                    <span class="${ok ? '' : 'insufficient'}">${have}/${mat.count}</span>
+                              </div>
+                              <div class="shop-detail-source-text">來源：${sourceHint}</div>
                         </div>
                   `;
             }).join('');
+            const useHint = this._buildCraftUseHint(recipe.resultName, resultMeta?.itemType, resultMeta?.category);
             return `
                   <div class="shop-detail-header">
                         <div class="shop-detail-icon">⚗️</div>
@@ -427,9 +455,13 @@ export class ShopPanel {
                   </div>
                   <div class="shop-detail-body">
                         <div class="shop-detail-desc">製作後可獲得 ${recipe.resultName} x${recipe.resultCount}</div>
+                        <div class="shop-detail-tip">
+                              <span class="shop-detail-tip-label">用途</span>
+                              <span class="shop-detail-tip-text">${useHint}</span>
+                        </div>
                         <div class="shop-detail-row"><span>金幣費用</span><span>${recipe.costGold}🪙</span></div>
                         <div class="shop-detail-row"><span>成功率</span><span>${successRatePct.toFixed(1)}%</span></div>
-                        ${materialRows}
+                        <div class="shop-detail-source-list">${materialRows}</div>
                   </div>
                   <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-primary${craftable ? '' : ' disabled is-disabled'}" type="button">${craftable ? '確認製作' : '材料不足'}</button>
             `;
@@ -585,6 +617,60 @@ export class ShopPanel {
                   case 'quest': return '🧾';
                   default: return '📦';
             }
+      }
+
+      private _buildCraftUseHint(
+            resultName: string,
+            itemType?: ShopItem['itemType'],
+            category?: ShopCategory,
+      ): string {
+            const name = resultName.toLowerCase();
+            if (itemType === 'equipment') {
+                  return '優先補空位或替換低階裝備，做完後先回背包確認是否能直接穿上。';
+            }
+            if (itemType === 'consumable' || category === 'potion' || /藥|potion/.test(name)) {
+                  return '屬於續戰補給，建議在離村前或長時間掛機前先做 3 到 5 份。';
+            }
+            if (itemType === 'egg') {
+                  return '可補收藏或交換線，通常比直接賣掉更有中期價值。';
+            }
+            if (itemType === 'recipe') {
+                  return '這是後續製作線的中繼品，先保留，別急著賣。';
+            }
+            if (/保護|protect/.test(name)) {
+                  return '適合留給高階強化使用，尤其是 +5 以上再用更划算。';
+            }
+            if (/卷|scroll|符/.test(name)) {
+                  return '多半會接到強化或功能線，先放背包，不建議早期脫手。';
+            }
+            return '通常是後續配方或主線周邊材料，先留著，等上位製作再消耗。';
+      }
+
+      private _buildCraftMaterialSourceHint(
+            materialName: string,
+            category?: ShopCategory,
+            itemType?: ShopItem['itemType'],
+      ): string {
+            const key = materialName.toLowerCase();
+            if (/草|herb/.test(key)) {
+                  return '新手草原採集點與一般怪掉落最穩。';
+            }
+            if (/鐵|礦|ore|metal/.test(key)) {
+                  return '礦區、洞窟與岩系怪常見，先推主線到洞窟線會更快。';
+            }
+            if (/晶|crystal|魔力/.test(key)) {
+                  return '洞窟精英、魔力節點與中階採集線比較常出。';
+            }
+            if (/骨|牙|爪|皮|毛/.test(key)) {
+                  return '多刷對應野怪即可，這類材料通常靠清怪累積。';
+            }
+            if (/藥|potion/.test(key) || category === 'potion') {
+                  return '缺口太大時可先回商店補貨，再回來做高階配方。';
+            }
+            if (itemType === 'equipment') {
+                  return '先刷地圖掉裝或拆裝備回收，再回製作所補部位。';
+            }
+            return '先推主線、清怪與撿掉落；缺料時再回背包比對來源。';
       }
 
       private _showToast(msg: string, color: string): void {

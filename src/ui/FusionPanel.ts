@@ -7,6 +7,7 @@ import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
+import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 
 type SeriesFilter = 'all' | PetSeries;
 type NoticeTone = 'ok' | 'warn';
@@ -69,6 +70,7 @@ const SERIES_LABELS: Record<PetSeries, string> = {
 
 
 export class FusionPanel {
+      readonly panelId = 'fusion';
       private _el: HTMLDivElement;
       private _backdrop: HTMLDivElement;
       private _petManager: PetManager;
@@ -76,6 +78,7 @@ export class FusionPanel {
 
       private _mainTab: MainFusionTab = 'recipes';
       private _seriesFilter: SeriesFilter = 'all';
+      private _recipeRecommendedOnly = true;
       private _recipeTrackedOnly = false;
       private _treeTargetResultId: string | null = null;
       private _treeExpandedNodes = new Set<string>();
@@ -138,6 +141,7 @@ export class FusionPanel {
       }
 
       get element(): HTMLElement { return this._el; }
+      get isVisible(): boolean { return this._visible; }
 
       setMapNavigator(handler: ((mapKey: string, petName?: string) => void) | null): void {
             this._onNavigateMap = handler;
@@ -150,6 +154,7 @@ export class FusionPanel {
             this._recipeIngredientNameFilter = null;
             this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
+            this._recipeRecommendedOnly = false;
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
             this._setNotice(`已切到配方：${this._recipeResultNameFilter}`, 'ok');
@@ -163,6 +168,7 @@ export class FusionPanel {
             this._recipeIngredientNameFilter = this._canonicalPetName(ingredientName);
             this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
+            this._recipeRecommendedOnly = false;
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
             this._setNotice(`已按素材篩選：${this._recipeIngredientNameFilter}`, 'ok');
@@ -180,6 +186,7 @@ export class FusionPanel {
             this._recipeIngredientNameFilter = null;
             this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
+            this._recipeRecommendedOnly = false;
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
             this._setNotice(targetId ? `已切到合成樹：${this._canonicalPetName(targetName)}` : `找不到目標寵物：${targetName}`, targetId ? 'ok' : 'warn');
@@ -202,6 +209,7 @@ export class FusionPanel {
             this._recipeIngredientNameFilter = null;
             this._recipeMapFilterKey = null;
             this._recipeKeywordFilter = '';
+            this._recipeRecommendedOnly = true;
             this._recipeTrackedOnly = false;
             this._notice = null;
 
@@ -231,6 +239,18 @@ export class FusionPanel {
             this._onClose?.();
       }
 
+      show(): void {
+            this.open();
+      }
+
+      hide(): void {
+            this.close();
+      }
+
+      toggle(): void {
+            this._visible ? this.close() : this.open();
+      }
+
       refresh(): void {
             this._mainPet = null;
             this._subPet = null;
@@ -240,6 +260,7 @@ export class FusionPanel {
             this._recipeIngredientNameFilter = null;
             this._recipeMapFilterKey = null;
             this._recipeKeywordFilter = '';
+            this._recipeRecommendedOnly = true;
             this._notice = null;
             if (this._visible) this._render();
       }
@@ -424,14 +445,23 @@ export class FusionPanel {
                   btn.addEventListener('click', onClick);
                   return btn;
             };
-            modeWrap.appendChild(makeModeBtn('全部', !this._recipeTrackedOnly, () => {
-                  if (!this._recipeTrackedOnly) return;
+            modeWrap.appendChild(makeModeBtn('推薦', this._recipeRecommendedOnly, () => {
+                  if (this._recipeRecommendedOnly) return;
+                  this._recipeRecommendedOnly = true;
+                  this._recipeTrackedOnly = false;
+                  this._recipeRenderLimit = GUIDE_RENDER_STEP;
+                  this._render();
+            }));
+            modeWrap.appendChild(makeModeBtn('全部', !this._recipeRecommendedOnly && !this._recipeTrackedOnly, () => {
+                  if (!this._recipeRecommendedOnly && !this._recipeTrackedOnly) return;
+                  this._recipeRecommendedOnly = false;
                   this._recipeTrackedOnly = false;
                   this._recipeRenderLimit = GUIDE_RENDER_STEP;
                   this._render();
             }));
             modeWrap.appendChild(makeModeBtn(`收藏 ${this._trackedRecipeKeys.size}`, this._recipeTrackedOnly, () => {
                   if (this._recipeTrackedOnly) return;
+                  this._recipeRecommendedOnly = false;
                   this._recipeTrackedOnly = true;
                   this._recipeRenderLimit = GUIDE_RENDER_STEP;
                   this._render();
@@ -445,21 +475,23 @@ export class FusionPanel {
             keywordInput.value = this._recipeKeywordFilter;
             keywordInput.addEventListener('input', () => {
                   this._recipeKeywordFilter = keywordInput.value.trim();
+                  this._recipeRecommendedOnly = false;
                   this._recipeRenderLimit = GUIDE_RENDER_STEP;
                   this._render();
             });
             row.appendChild(keywordInput);
 
+            if (this._recipeRecommendedOnly) addInfo('新手推薦公式');
             if (this._recipeResultNameFilter) addInfo(`目標：${this._recipeResultNameFilter}`);
             if (this._recipeIngredientNameFilter) addInfo(`素材：${this._recipeIngredientNameFilter}`);
             if (this._recipeMapFilterKey) addInfo(`地圖：${this._getMapLabelByKey(this._recipeMapFilterKey) ?? this._recipeMapFilterKey}`);
             if (this._recipeKeywordFilter) addInfo(`關鍵字：${this._recipeKeywordFilter}`);
 
-            if (!this._recipeResultNameFilter && !this._recipeIngredientNameFilter && !this._recipeMapFilterKey && !this._recipeTrackedOnly && !this._recipeKeywordFilter) {
+            if (!this._recipeRecommendedOnly && !this._recipeResultNameFilter && !this._recipeIngredientNameFilter && !this._recipeMapFilterKey && !this._recipeTrackedOnly && !this._recipeKeywordFilter) {
                   addInfo('顯示全部配方');
             }
 
-            if (this._recipeResultNameFilter || this._recipeIngredientNameFilter || this._recipeMapFilterKey || this._recipeTrackedOnly || this._recipeKeywordFilter) {
+            if (this._recipeRecommendedOnly || this._recipeResultNameFilter || this._recipeIngredientNameFilter || this._recipeMapFilterKey || this._recipeTrackedOnly || this._recipeKeywordFilter) {
                   const clearBtn = document.createElement('button');
                   clearBtn.type = 'button';
                   clearBtn.className = 'fpo-filter-clear';
@@ -469,6 +501,7 @@ export class FusionPanel {
                         this._recipeIngredientNameFilter = null;
                         this._recipeMapFilterKey = null;
                         this._recipeKeywordFilter = '';
+                        this._recipeRecommendedOnly = true;
                         this._recipeTrackedOnly = false;
                         this._recipeRenderLimit = GUIDE_RENDER_STEP;
                         this._render();
@@ -1191,6 +1224,11 @@ export class FusionPanel {
             const bySeries = this._formulaEntries.filter(entry => this._seriesFilter === 'all' || entry.resultDef.series === this._seriesFilter);
             let entries = bySeries;
 
+            if (this._recipeRecommendedOnly && !this._hasExplicitRecipeFilter()) {
+                  const starterKeys = this._buildStarterRecommendedKeys(entries, snapshot);
+                  entries = entries.filter((entry) => starterKeys.has(entry.key));
+            }
+
             if (this._recipeTrackedOnly) {
                   entries = entries.filter(entry => this._trackedRecipeKeys.has(entry.key));
             }
@@ -1230,6 +1268,16 @@ export class FusionPanel {
                   if (a.resultBaseLevel !== b.resultBaseLevel) return a.resultBaseLevel - b.resultBaseLevel;
                   return a.resultName.localeCompare(b.resultName, 'zh-Hant');
             });
+      }
+
+      private _hasExplicitRecipeFilter(): boolean {
+            return Boolean(
+                  this._recipeTrackedOnly ||
+                  this._recipeResultNameFilter ||
+                  this._recipeIngredientNameFilter ||
+                  this._recipeMapFilterKey ||
+                  this._recipeKeywordFilter,
+            );
       }
 
       private _toggleTracked(key: string): void {
@@ -1358,6 +1406,41 @@ export class FusionPanel {
             const subCount = snapshot.usableById.get(entry.recipe.sub)?.length ?? 0;
             if (entry.recipe.main === entry.recipe.sub) return Math.max(0, 2 - mainCount);
             return Math.max(0, 1 - mainCount) + Math.max(0, 1 - subCount);
+      }
+
+      private _buildStarterRecommendedKeys(entries: FormulaEntry[], snapshot: OwnedSnapshot): Set<string> {
+            const ranked = entries
+                  .filter((entry) => entry.isResolvedResult && entry.isResolvedMain && entry.isResolvedSub)
+                  .map((entry) => ({
+                        entry,
+                        score: this._scoreEntryForStarter(entry, snapshot),
+                  }))
+                  .sort((a, b) => b.score - a.score || a.entry.resultBaseLevel - b.entry.resultBaseLevel || a.entry.resultName.localeCompare(b.entry.resultName, 'zh-Hant'));
+
+            const keys = new Set<string>();
+            const seenResults = new Set<string>();
+            for (const row of ranked) {
+                  if (seenResults.has(row.entry.resultDef.id)) continue;
+                  seenResults.add(row.entry.resultDef.id);
+                  keys.add(row.entry.key);
+                  if (keys.size >= 12) break;
+            }
+
+            if (keys.size > 0) return keys;
+            for (const entry of entries.slice(0, 12)) keys.add(entry.key);
+            return keys;
+      }
+
+      private _scoreEntryForStarter(entry: FormulaEntry, snapshot: OwnedSnapshot): number {
+            const mainAlive = snapshot.aliveById.get(entry.recipe.main)?.length ?? 0;
+            const subAlive = snapshot.aliveById.get(entry.recipe.sub)?.length ?? 0;
+            const craftableBonus = this._isEntryCraftable(entry, snapshot) ? 420 : 0;
+            const lowLevelBonus = Math.max(0, 220 - entry.resultBaseLevel * 9);
+            const ownershipBonus = Math.min(2, mainAlive) * 95 + Math.min(2, subAlive) * 95;
+            const routeBonus = entry.resultMapRefs.length > 0 ? 24 : 0;
+            const eggBonus = entry.resultDropEgg === true ? 12 : 0;
+            const missingPenalty = this._missingIngredientCount(entry, snapshot) * 70;
+            return craftableBonus + lowLevelBonus + ownershipBonus + routeBonus + eggBonus - missingPenalty;
       }
 
       private _canExpandTreeChild(def: PetDef | null): def is PetDef {
@@ -1851,24 +1934,14 @@ export class FusionPanel {
       }
 
       private _saveTrackedRecipes(): void {
-            try {
-                  localStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(Array.from(this._trackedRecipeKeys)));
-            } catch {
-                  // ignore storage failures
-            }
+            localKeyValueStore.setJson(TRACKING_STORAGE_KEY, Array.from(this._trackedRecipeKeys));
       }
 
       private _loadTrackedRecipes(): Set<string> {
-            try {
-                  const raw = localStorage.getItem(TRACKING_STORAGE_KEY);
-                  if (!raw) return new Set<string>();
-                  const parsed = JSON.parse(raw);
-                  if (!Array.isArray(parsed)) return new Set<string>();
-                  const keys = parsed.filter((value): value is string => typeof value === 'string');
-                  return new Set<string>(keys);
-            } catch {
-                  return new Set<string>();
-            }
+            const parsed = localKeyValueStore.getJson<unknown[]>(TRACKING_STORAGE_KEY);
+            if (!Array.isArray(parsed)) return new Set<string>();
+            const keys = parsed.filter((value): value is string => typeof value === 'string');
+            return new Set<string>(keys);
       }
 
       private _setNotice(text: string, tone: NoticeTone): void {

@@ -14,12 +14,14 @@ type TabId = 'stats' | 'skilltree' | 'growth';
  * Tab 3: Growth — Awakening + Rebirth conditions & actions
  */
 export class CharacterPanel {
+      readonly panelId = 'char';
       private _el: HTMLDivElement;
       private _visible = false;
       private _player: Player;
       private _identity: PlayerIdentitySnapshot;
       private _getPrimaryPetName: (() => string | null) | null;
       private _getObjectiveHint: (() => string | null) | null;
+      private _onOpenResonance: (() => void) | null;
       private _tab: TabId = 'stats';
       private _fitFrameId = 0;
       private _onResize = (): void => {
@@ -43,6 +45,7 @@ export class CharacterPanel {
             options: {
                   getPrimaryPetName?: () => string | null;
                   getObjectiveHint?: () => string | null;
+                  onOpenResonance?: () => void;
             } = {},
       ) {
             this._player = player;
@@ -53,6 +56,7 @@ export class CharacterPanel {
             this._rebirth = rebirth;
             this._getPrimaryPetName = options.getPrimaryPetName ?? null;
             this._getObjectiveHint = options.getObjectiveHint ?? null;
+            this._onOpenResonance = options.onOpenResonance ?? null;
 
             this._el = document.createElement('div');
             this._el.id = 'char-panel';
@@ -113,6 +117,8 @@ export class CharacterPanel {
             this._fitPanelScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
       }
+
+      get isVisible(): boolean { return this._visible; }
 
       private _fitPanelScale(): void {
             if (this._el.classList.contains('ui-panel-fullscreen')) {
@@ -400,6 +406,16 @@ export class CharacterPanel {
                               ${canRb ? '🔄 轉生！' : '條件未達成'}
                         </button>
                   </div>
+                  ${this._onOpenResonance ? `
+                  <div class="gw-divider"></div>
+                  <div class="gw-section">
+                        <div class="gw-title">🔭 共鳴</div>
+                        <div class="gw-desc">
+                              消耗金幣與共鳴藥提升系列加成。先把主力系列拉起來，再回頭補其他收藏。
+                        </div>
+                        <button class="btn-gold gw-btn" id="gw-resonance">開啟共鳴</button>
+                  </div>
+                  ` : ''}
             `;
 
             // Awakening button
@@ -416,6 +432,9 @@ export class CharacterPanel {
                               this._render();
                         }
                   }
+            });
+            body.querySelector('#gw-resonance')?.addEventListener('click', () => {
+                  this._onOpenResonance?.();
             });
       }
 

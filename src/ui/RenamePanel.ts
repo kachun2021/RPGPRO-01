@@ -1,9 +1,11 @@
 ﻿import type { Pet } from '../pets/Pet';
 
 export class RenamePanel {
+      readonly panelId = 'rename';
       private _el: HTMLDivElement;
       private _pet: Pet | null = null;
       private _onDone: (() => void) | null = null;
+      private _visible = false;
 
       constructor() {
             this._el = document.createElement('div');
@@ -17,16 +19,34 @@ export class RenamePanel {
             return this._el;
       }
 
+      get isVisible(): boolean {
+            return this._visible;
+      }
+
       openFor(pet: Pet, onDone?: () => void): void {
             this._pet = pet;
             this._onDone = onDone || null;
+            this._visible = true;
             this._el.hidden = false;
             this._render();
       }
 
       close(): void {
+            this._visible = false;
             this._el.hidden = true;
             this._pet = null;
+      }
+
+      show(): void {
+            if (this._pet) this.openFor(this._pet, this._onDone ?? undefined);
+      }
+
+      hide(): void {
+            this.close();
+      }
+
+      toggle(): void {
+            this._visible ? this.close() : this.show();
       }
 
       private _render(): void {
