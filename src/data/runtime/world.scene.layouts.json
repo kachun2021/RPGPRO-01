@@ -1,0 +1,243 @@
+{
+  "zones": {
+    "starter_meadow": {
+      "size": { "width": 220, "height": 180 },
+      "safeZone": { "x": 0, "z": -18, "radius": 22 },
+      "starterPockets": [
+        { "x": -18, "z": 24, "radius": 12 },
+        { "x": 18, "z": 28, "radius": 14 }
+      ],
+      "fieldPockets": [
+        { "x": -34, "z": 52, "radius": 18 },
+        { "x": 0, "z": 68, "radius": 20 },
+        { "x": 36, "z": 50, "radius": 18 }
+      ],
+      "elitePockets": [
+        { "x": -48, "z": 78, "radius": 14 },
+        { "x": 46, "z": 80, "radius": 14 }
+      ],
+      "bossPocket": { "x": 0, "z": 90, "radius": 16 },
+      "gateAnchors": [
+        { "x": -54, "z": -58 },
+        { "x": 54, "z": -58 },
+        { "x": 0, "z": 94 }
+      ],
+      "roads": [
+        { "x": 0, "z": 12, "width": 18, "depth": 82, "rotationDeg": 0 },
+        { "x": 0, "z": -34, "width": 72, "depth": 16, "rotationDeg": 0 }
+      ],
+      "obstacles": [
+        { "x": -58, "z": 6, "width": 10, "depth": 34, "height": 5 },
+        { "x": 58, "z": 6, "width": 10, "depth": 34, "height": 5 }
+      ],
+      "landmarks": [
+        { "kind": "monolith", "x": 0, "z": -20, "scale": 1.2 },
+        { "kind": "tree", "x": -24, "z": -4, "scale": 1.1 },
+        { "kind": "tree", "x": 26, "z": -2, "scale": 1.1 }
+      ]
+    },
+    "misty_forest": {
+      "size": { "width": 240, "height": 220 },
+      "safeZone": { "x": 0, "z": -26, "radius": 18 },
+      "fieldPockets": [
+        { "x": -42, "z": 18, "radius": 20 },
+        { "x": 0, "z": 42, "radius": 24 },
+        { "x": 40, "z": 20, "radius": 20 }
+      ],
+      "elitePockets": [
+        { "x": -56, "z": 74, "radius": 16 },
+        { "x": 58, "z": 70, "radius": 16 }
+      ],
+      "bossPocket": { "x": 0, "z": 86, "radius": 18 },
+      "roads": [
+        { "x": 0, "z": 8, "width": 16, "depth": 110, "rotationDeg": 0 }
+      ],
+      "obstacles": [
+        { "x": -20, "z": 34, "width": 14, "depth": 14, "height": 7 },
+        { "x": 22, "z": 56, "width": 16, "depth": 12, "height": 7 }
+      ],
+      "landmarks": [
+        { "kind": "tree", "x": -64, "z": 14, "scale": 1.6 },
+        { "kind": "tree", "x": 62, "z": 26, "scale": 1.5 },
+        { "kind": "crystal", "x": 0, "z": 68, "scale": 1.1 }
+      ]
+    },
+    "ancient_ruins": {
+      "size": { "width": 260, "height": 220 },
+      "safeZone": { "x": 0, "z": -30, "radius": 16 },
+      "fieldPockets": [
+        { "x": -48, "z": 12, "radius": 18 },
+        { "x": 0, "z": 38, "radius": 22 },
+        { "x": 52, "z": 20, "radius": 18 }
+      ],
+      "elitePockets": [
+        { "x": -68, "z": 70, "radius": 18 },
+        { "x": 66, "z": 68, "radius": 18 }
+      ],
+      "bossPocket": { "x": 0, "z": 84, "radius": 20 },
+      "roads": [
+        { "x": 0, "z": 6, "width": 20, "depth": 118, "rotationDeg": 0 }
+      ],
+      "obstacles": [
+        { "x": -22, "z": 46, "width": 22, "depth": 10, "height": 8 },
+        { "x": 20, "z": 64, "width": 18, "depth": 14, "height": 8 }
+      ],
+      "landmarks": [
+        { "kind": "pillar", "x": -34, "z": 24, "scale": 1.2 },
+        { "kind": "pillar", "x": 32, "z": 18, "scale": 1.2 },
+        { "kind": "monolith", "x": 0, "z": 78, "scale": 1.5 }
+      ]
+    },
+    "crystal_caves": {
+      "size": { "width": 210, "height": 210 },
+      "safeZone": { "x": 0, "z": -24, "radius": 14 },
+      "fieldPockets": [
+        { "x": -30, "z": 12, "radius": 18 },
+        { "x": 22, "z": 24, "radius": 18 }
+      ],
+      "elitePockets": [
+        { "x": -50, "z": 60, "radius": 14 },
+        { "x": 52, "z": 60, "radius": 14 }
+      ],
+      "bossPocket": { "x": 0, "z": 76, "radius": 16 },
+      "landmarks": [
+        { "kind": "crystal", "x": -16, "z": 40, "scale": 1.4 },
+        { "kind": "crystal", "x": 18, "z": 54, "scale": 1.3 }
+      ]
+    },
+    "baluk_farm": {
+      "size": { "width": 240, "height": 200 },
+      "safeZone": { "x": 0, "z": -20, "radius": 18 },
+      "fieldPockets": [
+        { "x": -46, "z": 18, "radius": 20 },
+        { "x": 0, "z": 30, "radius": 24 },
+        { "x": 46, "z": 18, "radius": 20 }
+      ],
+      "elitePockets": [
+        { "x": -54, "z": 66, "radius": 16 },
+        { "x": 56, "z": 68, "radius": 16 }
+      ],
+      "bossPocket": { "x": 0, "z": 80, "radius": 16 },
+      "roads": [
+        { "x": 0, "z": 0, "width": 88, "depth": 12, "rotationDeg": 0 },
+        { "x": 0, "z": 32, "width": 18, "depth": 96, "rotationDeg": 0 }
+      ],
+      "landmarks": [
+        { "kind": "tree", "x": -68, "z": -4, "scale": 1.2 },
+        { "kind": "tree", "x": 68, "z": 2, "scale": 1.2 }
+      ]
+    },
+    "storm_coast": {
+      "size": { "width": 250, "height": 210 },
+      "safeZone": { "x": 0, "z": -24, "radius": 18 },
+      "fieldPockets": [
+        { "x": -52, "z": 22, "radius": 20 },
+        { "x": 0, "z": 34, "radius": 22 },
+        { "x": 52, "z": 22, "radius": 20 }
+      ],
+      "elitePockets": [
+        { "x": -60, "z": 72, "radius": 16 },
+        { "x": 60, "z": 74, "radius": 16 }
+      ],
+      "bossPocket": { "x": 0, "z": 88, "radius": 18 },
+      "landmarks": [
+        { "kind": "pillar", "x": -26, "z": 8, "scale": 1.1 },
+        { "kind": "pillar", "x": 28, "z": 10, "scale": 1.1 }
+      ]
+    },
+    "dark_hollow": {
+      "size": { "width": 230, "height": 230 },
+      "safeZone": { "x": 0, "z": -26, "radius": 14 },
+      "fieldPockets": [
+        { "x": -32, "z": 18, "radius": 16 },
+        { "x": 28, "z": 18, "radius": 16 }
+      ],
+      "elitePockets": [
+        { "x": -52, "z": 58, "radius": 16 },
+        { "x": 54, "z": 60, "radius": 16 }
+      ],
+      "bossPocket": { "x": 0, "z": 84, "radius": 18 },
+      "obstacles": [
+        { "x": 0, "z": 42, "width": 24, "depth": 12, "height": 10 }
+      ],
+      "landmarks": [
+        { "kind": "monolith", "x": 0, "z": 78, "scale": 1.4 }
+      ]
+    },
+    "sky_temple": {
+      "size": { "width": 260, "height": 220 },
+      "safeZone": { "x": 0, "z": -28, "radius": 18 },
+      "fieldPockets": [
+        { "x": -54, "z": 12, "radius": 18 },
+        { "x": 0, "z": 30, "radius": 22 },
+        { "x": 56, "z": 14, "radius": 18 }
+      ],
+      "elitePockets": [
+        { "x": -64, "z": 66, "radius": 16 },
+        { "x": 64, "z": 66, "radius": 16 }
+      ],
+      "bossPocket": { "x": 0, "z": 82, "radius": 18 },
+      "gateAnchors": [
+        { "x": -92, "z": -40 },
+        { "x": -62, "z": 56 },
+        { "x": -20, "z": 92 },
+        { "x": 20, "z": 92 },
+        { "x": 62, "z": 56 },
+        { "x": 92, "z": -40 },
+        { "x": 48, "z": -92 },
+        { "x": -48, "z": -92 }
+      ],
+      "roads": [
+        { "x": 0, "z": 0, "width": 24, "depth": 124, "rotationDeg": 0 },
+        { "x": 0, "z": -40, "width": 108, "depth": 18, "rotationDeg": 0 }
+      ],
+      "landmarks": [
+        { "kind": "pillar", "x": -30, "z": 6, "scale": 1.3 },
+        { "kind": "pillar", "x": 30, "z": 6, "scale": 1.3 },
+        { "kind": "crystal", "x": 0, "z": 62, "scale": 1.5 }
+      ]
+    },
+    "town_magilita": {
+      "size": { "width": 210, "height": 180 },
+      "safeZone": { "x": 0, "z": -8, "radius": 30 },
+      "gateAnchors": [
+        { "x": -64, "z": 26 },
+        { "x": 64, "z": 26 },
+        { "x": 0, "z": 76 }
+      ],
+      "roads": [
+        { "x": 0, "z": -8, "width": 92, "depth": 18, "rotationDeg": 0 },
+        { "x": 0, "z": 18, "width": 18, "depth": 96, "rotationDeg": 0 }
+      ],
+      "landmarks": [
+        { "kind": "pillar", "x": -24, "z": -10, "scale": 1.1 },
+        { "kind": "pillar", "x": 24, "z": -10, "scale": 1.1 }
+      ]
+    },
+    "town_migrita": {
+      "size": { "width": 210, "height": 180 },
+      "safeZone": { "x": 0, "z": -8, "radius": 30 },
+      "gateAnchors": [
+        { "x": -64, "z": 26 },
+        { "x": 64, "z": 26 },
+        { "x": 0, "z": 76 }
+      ],
+      "roads": [
+        { "x": 0, "z": -8, "width": 92, "depth": 18, "rotationDeg": 0 },
+        { "x": 0, "z": 18, "width": 18, "depth": 96, "rotationDeg": 0 }
+      ]
+    },
+    "town_beheru": {
+      "size": { "width": 210, "height": 180 },
+      "safeZone": { "x": 0, "z": -8, "radius": 30 },
+      "gateAnchors": [
+        { "x": -64, "z": 18 },
+        { "x": 64, "z": 18 },
+        { "x": 0, "z": 76 }
+      ],
+      "roads": [
+        { "x": 0, "z": -8, "width": 92, "depth": 18, "rotationDeg": 0 }
+      ]
+    }
+  }
+}

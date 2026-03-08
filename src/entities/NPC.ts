@@ -35,15 +35,15 @@ const NPC_TYPE_ICONS: Record<NPCType, string> = {
 export const NPC_DEFS: NPCDef[] = [
       {
             id: 'npc_merchant', name: '商人 老王', type: 'merchant', position: new Vector3(5, 0, 3), color: NPC_TYPE_COLORS.merchant, zoneId: 'starter_meadow',
-            dialogue: ['歡迎光臨！', '需要買點什麼嗎？', '今天有特價哦！']
+            dialogue: ['歡迎光臨！', '新手先帶幾瓶 HP 藥水再出村，比較安全。', '買完補給再往草原前方練功吧。']
       },
       {
             id: 'npc_skill_master', name: '技能導師 李風', type: 'skill_master', position: new Vector3(-5, 0, 8), color: NPC_TYPE_COLORS.skill_master, zoneId: 'starter_meadow',
-            dialogue: ['想學新技能嗎？', '修煉需要時間和金幣。', '集中精神，跟我練！']
+            dialogue: ['想學新技能嗎？', '你的開局技能已經配置好了，先熟悉戰鬥節奏。', '等你清完村長的委託，再來找我精進。']
       },
       {
             id: 'npc_quest_01', name: '村長 趙伯', type: 'quest', position: new Vector3(3, 0, -5), color: NPC_TYPE_COLORS.quest, zoneId: 'starter_meadow',
-            dialogue: ['冒險者你好！', '附近的怪物越來越多了...', '能幫忙清理一下嗎？']
+            dialogue: ['冒險者你好！', '先接下委託，到前方草原清理 5 隻擾民怪物。', '藥水不夠就先去找商人老王補給，再回來報告。']
       },
       {
             id: 'npc_pet_trader', name: '換寵商人 阿暗', type: 'pet_trader', position: new Vector3(-8, 0, -3), color: NPC_TYPE_COLORS.pet_trader, zoneId: 'starter_meadow',

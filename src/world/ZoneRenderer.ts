@@ -9,6 +9,7 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
+import { getRuntimeSceneLayout, type RuntimeSceneLayout } from '../data/runtime/RuntimeSceneLayout';
 import { getSceneGateLabels, getSceneZoneNeighbors } from '../data/runtime/RuntimeWorldRoutes';
 import { getRuntimeSceneZoneName, type RuntimeBiomeType, type RuntimeSceneZoneDef } from './RuntimeZoneCatalog';
 
@@ -119,6 +120,8 @@ export class ZoneRenderer {
       private _disposed = false;
       private _zoneDef: RuntimeSceneZoneDef;
       private _resolvedGates: RenderGateDef[] = [];
+      private _decoMeshes: Mesh[] = [];
+      private _decoMaterials: StandardMaterial[] = [];
 
       constructor(scene: Scene, private _shadowGen: ShadowGenerator) {
             this._scene = scene;
@@ -127,6 +130,7 @@ export class ZoneRenderer {
 
       async build(zoneDef: RuntimeSceneZoneDef): Promise<void> {
             this._zoneDef = zoneDef;
+            const layout = getRuntimeSceneLayout(zoneDef);
             const light = BIOME_LIGHT[zoneDef.biome] ?? BIOME_LIGHT.grass;
 
             // --- Sky Gradient ---
@@ -146,22 +150,23 @@ export class ZoneRenderer {
 
             // --- PBR Ground ---
             this._ground = MeshBuilder.CreateGround('zone_ground', {
-                  width: 200, height: 200, subdivisions: 16,
+                  width: layout.size.width, height: layout.size.height, subdivisions: 16,
             }, this._scene);
             this._ground.receiveShadows = true;
 
             this._groundMat = new PBRMaterial('zone_groundMat', this._scene);
             const texInfo = BIOME_TEXTURES[zoneDef.biome];
             const pbrInfo = BIOME_PBR[zoneDef.biome];
+            const textureScale = Math.max(8, Math.round(Math.max(layout.size.width, layout.size.height) / 20));
 
             const diffTex = new Texture(`assets/textures/${texInfo.diffuse}`, this._scene);
-            diffTex.uScale = 10; diffTex.vScale = 10;
+            diffTex.uScale = textureScale; diffTex.vScale = textureScale;
             diffTex.wrapU = Texture.WRAP_ADDRESSMODE;
             diffTex.wrapV = Texture.WRAP_ADDRESSMODE;
             this._groundMat.albedoTexture = diffTex;
 
             const normTex = new Texture(`assets/textures/${texInfo.normal}`, this._scene);
-            normTex.uScale = 10; normTex.vScale = 10;
+            normTex.uScale = textureScale; normTex.vScale = textureScale;
             normTex.wrapU = Texture.WRAP_ADDRESSMODE;
             normTex.wrapV = Texture.WRAP_ADDRESSMODE;
             normTex.level = 0.4;  // soften bump to prevent visible tile-seam grid
@@ -180,15 +185,16 @@ export class ZoneRenderer {
             }
 
             this._ground.material = this._groundMat;
+            this._buildLayoutDecor(zoneDef, layout);
 
             // --- Teleport Gates ---
-            this._buildGates(zoneDef);
+            this._buildGates(zoneDef, layout);
 
             console.log(`[ZoneRenderer] Built zone: ${zoneDef.name} (${zoneDef.biome})`);
       }
 
-      private _buildGates(zoneDef: RuntimeSceneZoneDef): void {
-            this._resolvedGates = this._resolveGates(zoneDef);
+      private _buildGates(zoneDef: RuntimeSceneZoneDef, layout: RuntimeSceneLayout): void {
+            this._resolvedGates = this._resolveGates(zoneDef, layout);
             for (const gate of this._resolvedGates) {
                   // Gate pillar (glowing cylinder)
                   const pillar = MeshBuilder.CreateCylinder(`gate_${gate.targetZoneId}`, {
@@ -220,7 +226,7 @@ export class ZoneRenderer {
             }
       }
 
-      private _resolveGates(zoneDef: RuntimeSceneZoneDef): RenderGateDef[] {
+      private _resolveGates(zoneDef: RuntimeSceneZoneDef, layout: RuntimeSceneLayout): RenderGateDef[] {
             const runtimeGates = getSceneGateLabels(zoneDef.id);
             const gates = runtimeGates.length > 0
                   ? runtimeGates
@@ -229,9 +235,24 @@ export class ZoneRenderer {
                         label: `前往 ${getRuntimeSceneZoneName(targetZoneId)}`,
                   }));
 
-            const radius = 78;
+            const anchors = layout.gateAnchors;
+            if (anchors.length > 0) {
+                  return gates.map((gate, idx) => {
+                        const anchor = anchors[idx % anchors.length];
+                        return {
+                              targetZoneId: gate.targetZoneId,
+                              label: gate.label,
+                              position: {
+                                    x: Math.round(anchor.x),
+                                    z: Math.round(anchor.z),
+                              },
+                        };
+                  });
+            }
+
+            const radius = Math.min(layout.size.width, layout.size.height) * 0.38;
             return gates.map((gate, idx) => {
-                  const angle = (idx / gates.length) * Math.PI * 2;
+                  const angle = (idx / Math.max(1, gates.length)) * Math.PI * 2;
                   return {
                         targetZoneId: gate.targetZoneId,
                         label: gate.label,
@@ -241,6 +262,108 @@ export class ZoneRenderer {
                         },
                   };
             });
+      }
+
+      private _buildLayoutDecor(zoneDef: RuntimeSceneZoneDef, layout: RuntimeSceneLayout): void {
+            const safeMat = new StandardMaterial(`safeZoneMat_${zoneDef.id}`, this._scene);
+            safeMat.diffuseColor = zoneDef.isTown ? Color3.FromHexString('#6BA1D6') : Color3.FromHexString('#6BB06B');
+            safeMat.alpha = zoneDef.isTown ? 0.18 : 0.14;
+            safeMat.disableLighting = true;
+            this._decoMaterials.push(safeMat);
+
+            const safeDisc = MeshBuilder.CreateCylinder(`safeZone_${zoneDef.id}`, {
+                  diameter: layout.safeZone.radius * 2,
+                  height: 0.05,
+                  tessellation: 36,
+            }, this._scene);
+            safeDisc.position = new Vector3(layout.safeZone.x, 0.03, layout.safeZone.z);
+            safeDisc.material = safeMat;
+            this._decoMeshes.push(safeDisc);
+
+            for (const road of layout.roads) {
+                  const roadMesh = MeshBuilder.CreateBox(`road_${zoneDef.id}_${this._decoMeshes.length}`, {
+                        width: road.width,
+                        depth: road.depth,
+                        height: 0.06,
+                  }, this._scene);
+                  roadMesh.position = new Vector3(road.x, 0.02, road.z);
+                  roadMesh.rotation.y = (road.rotationDeg ?? 0) * Math.PI / 180;
+                  const roadMat = new StandardMaterial(`roadMat_${zoneDef.id}_${this._decoMaterials.length}`, this._scene);
+                  roadMat.diffuseColor = zoneDef.isTown ? Color3.FromHexString('#716454') : Color3.FromHexString('#786853');
+                  roadMat.alpha = 0.95;
+                  this._decoMaterials.push(roadMat);
+                  roadMesh.material = roadMat;
+                  this._decoMeshes.push(roadMesh);
+            }
+
+            for (const obstacle of layout.obstacles) {
+                  const obstacleMesh = MeshBuilder.CreateBox(`obstacle_${zoneDef.id}_${this._decoMeshes.length}`, {
+                        width: obstacle.width,
+                        depth: obstacle.depth,
+                        height: obstacle.height,
+                  }, this._scene);
+                  obstacleMesh.position = new Vector3(obstacle.x, obstacle.height * 0.5, obstacle.z);
+                  const obstacleMat = new StandardMaterial(`obstacleMat_${zoneDef.id}_${this._decoMaterials.length}`, this._scene);
+                  obstacleMat.diffuseColor = zoneDef.biome === 'forest'
+                        ? Color3.FromHexString('#3B5A2C')
+                        : zoneDef.biome === 'desert'
+                              ? Color3.FromHexString('#8A6B4C')
+                              : Color3.FromHexString('#5C5A62');
+                  this._decoMaterials.push(obstacleMat);
+                  obstacleMesh.material = obstacleMat;
+                  this._decoMeshes.push(obstacleMesh);
+            }
+
+            for (const landmark of layout.landmarks) {
+                  const scale = Math.max(0.8, landmark.scale ?? 1);
+                  let landmarkMesh: Mesh;
+                  switch (landmark.kind) {
+                        case 'tree':
+                              landmarkMesh = MeshBuilder.CreateCylinder(`landmark_tree_${zoneDef.id}_${this._decoMeshes.length}`, {
+                                    height: 6 * scale,
+                                    diameterTop: 0.7 * scale,
+                                    diameterBottom: 2.2 * scale,
+                                    tessellation: 8,
+                              }, this._scene);
+                              break;
+                        case 'crystal':
+                              landmarkMesh = MeshBuilder.CreateCylinder(`landmark_crystal_${zoneDef.id}_${this._decoMeshes.length}`, {
+                                    height: 5 * scale,
+                                    diameterTop: 0.2 * scale,
+                                    diameterBottom: 2 * scale,
+                                    tessellation: 6,
+                              }, this._scene);
+                              break;
+                        case 'monolith':
+                              landmarkMesh = MeshBuilder.CreateBox(`landmark_monolith_${zoneDef.id}_${this._decoMeshes.length}`, {
+                                    width: 2.4 * scale,
+                                    depth: 2.4 * scale,
+                                    height: 8 * scale,
+                              }, this._scene);
+                              break;
+                        case 'pillar':
+                        default:
+                              landmarkMesh = MeshBuilder.CreateCylinder(`landmark_pillar_${zoneDef.id}_${this._decoMeshes.length}`, {
+                                    height: 7 * scale,
+                                    diameter: 1.4 * scale,
+                                    tessellation: 12,
+                              }, this._scene);
+                              break;
+                  }
+                  landmarkMesh.position = new Vector3(landmark.x, landmarkMesh.getBoundingInfo().boundingBox.extendSize.y, landmark.z);
+                  const landmarkMat = new StandardMaterial(`landmarkMat_${zoneDef.id}_${this._decoMaterials.length}`, this._scene);
+                  landmarkMat.diffuseColor = landmark.kind === 'tree'
+                        ? Color3.FromHexString('#4F7B3A')
+                        : landmark.kind === 'crystal'
+                              ? Color3.FromHexString('#7BD6FF')
+                              : Color3.FromHexString('#B79A64');
+                  if (landmark.kind === 'crystal') {
+                        landmarkMat.emissiveColor = Color3.FromHexString('#4AA2C8');
+                  }
+                  this._decoMaterials.push(landmarkMat);
+                  landmarkMesh.material = landmarkMat;
+                  this._decoMeshes.push(landmarkMesh);
+            }
       }
 
       private _createGateLabel(text: string, x: number, z: number): void {
@@ -268,6 +391,8 @@ export class ZoneRenderer {
             this._ground?.dispose(false, true);
             this._groundMat?.dispose();
             for (const m of this._gateMeshes) m.dispose(false, true);
+            for (const mesh of this._decoMeshes) mesh.dispose(false, true);
+            for (const mat of this._decoMaterials) mat.dispose();
             this._sun?.dispose();
             this._hemi?.dispose();
 
@@ -277,6 +402,8 @@ export class ZoneRenderer {
             this._ground = null;
             this._groundMat = null;
             this._gateMeshes = [];
+            this._decoMeshes = [];
+            this._decoMaterials = [];
             this._resolvedGates = [];
             this._sun = null;
             this._hemi = null;

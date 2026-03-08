@@ -20,6 +20,7 @@ export class QuestPanel {
       private _currentTab: QTab = 'world';
       private _selectedQuestId: string | null = null;
       private _questManager: QuestManager;
+      private _disposeQuestListener: (() => void) | null = null;
       private _onResize = (): void => {
             if (!this._visible) return;
             this._syncResponsiveMode();
@@ -34,7 +35,9 @@ export class QuestPanel {
             this._el.className = 'sa-panel qp-root ui-panel-fullscreen';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
-            questManager.onChange = () => { if (this._visible) this._render(); };
+            this._disposeQuestListener = questManager.subscribe(() => {
+                  if (this._visible) this._render();
+            });
             window.addEventListener('resize', this._onResize);
       }
 
@@ -70,6 +73,7 @@ export class QuestPanel {
                   tabBar.appendChild(btn);
             }
             this._el.appendChild(tabBar);
+            this._el.appendChild(this._buildOverviewStrip());
 
             // Get quests for current tab
             const tabDef = TAB_LABELS.find(t => t.id === this._currentTab)!;
@@ -106,7 +110,8 @@ export class QuestPanel {
                         directory.appendChild(item);
                   }
                   if (!this._selectedQuestId && quests.length > 0) {
-                        this._selectedQuestId = quests[0].id;
+                        const preferred = quests.find((q) => ['active', 'complete'].includes(this._questManager.getStatus(q))) ?? quests[0];
+                        this._selectedQuestId = preferred.id;
                   }
             }
             const body = document.createElement('div');
@@ -122,6 +127,7 @@ export class QuestPanel {
                   const status = this._questManager.getStatus(selectedQuest);
                   const obj = selectedQuest.objectives[0];
                   const pct = Math.min(100, Math.round((obj.current / obj.required) * 100));
+                  const guidance = this._buildGuidanceText(selectedQuest, status);
                   const rewardHtml = selectedQuest.rewards.gold || selectedQuest.rewards.exp
                         ? `
                               <div class="qp-detail-section">
@@ -133,6 +139,9 @@ export class QuestPanel {
                               </div>
                         `
                         : '';
+                  const acceptBtnHtml = status === 'available'
+                        ? '<button class="qp-accept-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary">✅ 接受任務</button>'
+                        : '';
                   const claimBtnHtml = status === 'complete'
                         ? '<button class="qp-claim-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary">🎁 領取獎勵</button>'
                         : '';
@@ -140,6 +149,7 @@ export class QuestPanel {
                   detail.innerHTML = `
                         <div class="qp-detail-head">
                               <div class="qp-detail-name">${selectedQuest.name}</div>
+                              <div class="qp-detail-guidance">${guidance}</div>
                               <div class="qp-detail-progress">
                                     <div class="qp-detail-pbar">
                                           <div class="qp-detail-pfill"></div>
@@ -150,11 +160,19 @@ export class QuestPanel {
                         <div class="qp-detail-content">
                               <div class="qp-detail-desc">${selectedQuest.description}</div>
                               ${rewardHtml}
+                              ${acceptBtnHtml}
                               ${claimBtnHtml}
                         </div>
                   `;
                   const fill = detail.querySelector('.qp-detail-pfill') as HTMLDivElement | null;
                   if (fill) fill.style.width = `${pct}%`;
+
+                  if (status === 'available') {
+                        detail.querySelector('.qp-accept-btn')?.addEventListener('click', () => {
+                              this._questManager.acceptQuest(selectedQuest.id);
+                              this._render();
+                        });
+                  }
 
                   if (status === 'complete') {
                         detail.querySelector('.qp-claim-btn')?.addEventListener('click', () => {
@@ -171,6 +189,48 @@ export class QuestPanel {
             }
             body.appendChild(detail);
             this._el.appendChild(body);
+      }
+
+      private _buildOverviewStrip(): HTMLDivElement {
+            const summary = document.createElement('div');
+            summary.className = 'qp-overview-strip';
+            const quests = this._questManager.allQuests;
+            const active = quests.filter((quest) => this._questManager.getStatus(quest) === 'active').length;
+            const complete = quests.filter((quest) => this._questManager.getStatus(quest) === 'complete').length;
+            const available = quests.filter((quest) => this._questManager.getStatus(quest) === 'available').length;
+
+            summary.innerHTML = `
+                  <div class="qp-overview-card">
+                        <span class="qp-overview-label">進行中</span>
+                        <span class="qp-overview-value">${active}</span>
+                  </div>
+                  <div class="qp-overview-card">
+                        <span class="qp-overview-label">可回報</span>
+                        <span class="qp-overview-value">${complete}</span>
+                  </div>
+                  <div class="qp-overview-card">
+                        <span class="qp-overview-label">待接取</span>
+                        <span class="qp-overview-value">${available}</span>
+                  </div>
+            `;
+
+            return summary;
+      }
+
+      private _buildGuidanceText(quest: QuestDef, status: QuestStatus): string {
+            if (status === 'available') {
+                  return quest.npcId ? '先找對應 NPC 接取，任務才會開始累積。' : '先接受任務，之後才會開始追蹤進度。';
+            }
+            if (status === 'complete') {
+                  return '條件已達成，現在回報並領取獎勵。';
+            }
+            if (status === 'claimed') {
+                  return '這個任務已完成，建議切到下一個主線節點。';
+            }
+            if (quest.rewards.unlockZone) {
+                  return `完成後會推進世界進度，解鎖 ${quest.rewards.unlockZone}。`;
+            }
+            return '先照著目前目標推進，再回來查看獎勵與後續解鎖。';
       }
 
       private _isLandscapeFocusMode(): boolean {
@@ -233,7 +293,8 @@ export class QuestPanel {
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
-      show(): void {
+      show(questId?: string): void {
+            if (questId) this._selectedQuestId = questId;
             this._visible = true;
             this._syncResponsiveMode();
             this._el.hidden = false;
@@ -241,6 +302,7 @@ export class QuestPanel {
       }
       hide(): void { this._visible = false; this._el.hidden = true; }
       dispose(): void {
+            this._disposeQuestListener?.();
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }

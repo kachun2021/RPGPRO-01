@@ -15,6 +15,9 @@ export class Registry {
 
       // Player (P2)
       static player: any = null;
+      static playerLife: any = null;
+      static playerIdentity: any = null;
+      static onboarding: any = null;
 
       // Pets (P3-P4)
       static petManager: any = null;

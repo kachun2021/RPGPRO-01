@@ -3,9 +3,14 @@ import { Registry } from './core/Registry';
 import { OrientationManager } from './core/OrientationManager';
 import { MainScene } from './scenes/MainScene';
 import { Player } from './entities/Player';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import worldTopologyRaw from './data/runtime/world.topology.json';
 import { getRuntimeHeroTemplate, listRuntimeHeroTemplates, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
+import { getHeroArchetypeProfile } from './data/runtime/HeroArchetypes';
+import { getRuntimeFusionGuideEntries } from './data/runtime/RuntimeFusionGuide';
 import { matchRuntimeZoneToSceneZone } from './data/runtime/RuntimeZoneBridge';
+import { getExplicitSceneZoneIdForRuntimeZoneId } from './data/runtime/RuntimeZoneSceneMap';
+import type { PlayerIdentitySnapshot } from './core/PlayerIdentity';
 import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
 import { HUD } from './ui/HUD';
@@ -16,6 +21,7 @@ import { PetBuff } from './pets/PetBuff';
 import { PetPanel } from './ui/PetPanel';
 import { RenamePanel } from './ui/RenamePanel';
 import { RevivalPanel } from './ui/RevivalPanel';
+import { PlayerDeathOverlay } from './ui/PlayerDeathOverlay';
 import { ChatBox } from './ui/ChatBox';
 import { Minimap } from './ui/Minimap';
 import { SkillBar } from './ui/SkillBar';
@@ -36,6 +42,7 @@ import { ZoneTransition } from './ui/ZoneTransition';
 import { DropTable } from './systems/DropTable';
 import { DropItemManager } from './entities/DropItem';
 import { Inventory } from './systems/Inventory';
+import { PlayerLifeStateMachine } from './systems/PlayerLifeStateMachine';
 import { InventoryPanel } from './ui/InventoryPanel';
 import { AFKPanel } from './ui/AFKPanel';
 // P8 Equipment + Enhance + Resonance
@@ -57,10 +64,12 @@ import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel } from './ui/DialoguePanel';
 import { CommunityPanel } from './ui/CommunityPanel';
 import { QuestTracker } from './ui/QuestTracker';
+import { OnboardingManager } from './systems/OnboardingManager';
+import { OnboardingPanel } from './ui/OnboardingPanel';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
 // P9 System Settings
-import { SystemPanel } from './ui/SystemPanel';
+import { SystemPanel, type SystemSettings } from './ui/SystemPanel';
 
 function installGlobalPanelViewportFit(): () => void {
       let fitRaf = 0;
@@ -312,6 +321,9 @@ async function ensureHeroProfile(
 }
 
 function resolveHeroStartZoneId(runtimeBirthZoneId: number): string {
+      const explicit = getExplicitSceneZoneIdForRuntimeZoneId(runtimeBirthZoneId);
+      if (explicit) return explicit;
+
       const payload = worldTopologyRaw as { zones?: RuntimeZoneForSpawn[] };
       const zones = Array.isArray(payload.zones) ? payload.zones : [];
       const zone = zones.find((entry) => Number(entry?.zoneId ?? 0) === runtimeBirthZoneId);
@@ -327,6 +339,40 @@ function resolveHeroStartZoneId(runtimeBirthZoneId: number): string {
             pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
       });
       return route.zoneId ?? 'starter_meadow';
+}
+
+function normalizeGuideName(value: string): string {
+      return String(value ?? '')
+            .replace(/\s+/g, '')
+            .trim()
+            .toLowerCase();
+}
+
+function resolveStarterFusionGoal(starterPetNames: string[]): string | null {
+      const starterSet = new Set(
+            starterPetNames
+                  .map((name) => normalizeGuideName(name))
+                  .filter(Boolean),
+      );
+      if (starterSet.size <= 0) return null;
+
+      const entries = getRuntimeFusionGuideEntries()
+            .filter((entry) => {
+                  const main = normalizeGuideName(entry.mainName);
+                  const sub = normalizeGuideName(entry.subName);
+                  return starterSet.has(main) || starterSet.has(sub);
+            })
+            .sort((a, b) => {
+                  const aDirect = Number(starterSet.has(normalizeGuideName(a.mainName)) && starterSet.has(normalizeGuideName(a.subName)));
+                  const bDirect = Number(starterSet.has(normalizeGuideName(b.mainName)) && starterSet.has(normalizeGuideName(b.subName)));
+                  if (aDirect !== bDirect) return bDirect - aDirect;
+                  if (a.resultLevel !== b.resultLevel) return a.resultLevel - b.resultLevel;
+                  return a.resultName.localeCompare(b.resultName, 'zh-Hant');
+            });
+
+      const picked = entries[0];
+      if (!picked) return null;
+      return `${picked.mainName} + ${picked.subName} -> ${picked.resultName}`;
 }
 
 async function bootstrap(): Promise<void> {
@@ -352,6 +398,7 @@ async function bootstrap(): Promise<void> {
       const selectedHeroType = heroProfile.heroType;
       const selectedPlayerName = heroProfile.playerName;
       const runtimeHero = getRuntimeHeroTemplate(selectedHeroType);
+      const heroArchetype = getHeroArchetypeProfile(selectedHeroType);
       const player = new Player(Registry.scene, mainScene.shadowGenerator, {
             expToNextResolver: resolveRuntimeExpToNext,
             initialStats: runtimeHero
@@ -366,6 +413,8 @@ async function bootstrap(): Promise<void> {
                   : undefined,
       });
       Registry.player = player;
+      const playerLife = new PlayerLifeStateMachine(player);
+      Registry.playerLife = playerLife;
       if (runtimeHero) {
             console.log(`[Hero] Runtime template selected: type=${runtimeHero.type}, name=${runtimeHero.name}, birthZoneId=${runtimeHero.birthZoneId}, player=${selectedPlayerName}`);
       }
@@ -377,8 +426,23 @@ async function bootstrap(): Promise<void> {
 
       // 6. Pets
       const petManager = new PetManager(Registry.scene, mainScene.shadowGenerator);
-      petManager.giveStarterPets();
+      petManager.giveStarterPets({
+            starterPetIds: heroArchetype.starterPetIds,
+      });
       Registry.petManager = petManager;
+      const starterPetNames = petManager.owned.slice(0, 3).map((pet) => pet.displayName || pet.def.name);
+      const playerIdentity: PlayerIdentitySnapshot = {
+            playerName: selectedPlayerName,
+            heroType: selectedHeroType,
+            heroName: runtimeHero?.name || `Type ${selectedHeroType}`,
+            roleLabel: heroArchetype.roleLabel,
+            starterPetNames,
+            growthGoal: '完成第一章主線，確認主寵編隊後再開始第一條融合線。',
+            starterFusionGoal: resolveStarterFusionGoal(starterPetNames),
+      };
+      Registry.playerIdentity = playerIdentity;
+      const onboardingManager = new OnboardingManager(playerIdentity);
+      Registry.onboarding = onboardingManager;
 
       // 7. Pet Encyclopedia + Equipment + Buff
       const encyclopedia = new PetEncyclopedia();
@@ -395,6 +459,7 @@ async function bootstrap(): Promise<void> {
 
       // 9. HUD (Stone Age: 4 portraits + 10 nav buttons)
       const hud = new HUD();
+      hud.setPlayerIdentity(playerIdentity);
       hud.updateStats(player.stats);
       hud.updatePets(petManager);
       Registry.hud = hud;
@@ -405,12 +470,14 @@ async function bootstrap(): Promise<void> {
       // 11. Skill Bar (F1-F5 player + P1-P3 pets)
       const skillBar = new SkillBar();
       skillBar.setPetManager(petManager);
+      skillBar.setPlayerLoadout(heroArchetype.starterSkillIds);
 
       // 11b. Skill Panel (config sub-panel)
       const skillPanel = new SkillPanel(skillBar, petManager);
 
       // 12. Chat Box
       const chatBox = new ChatBox();
+      new OnboardingPanel(onboardingManager);
 
       // ── P5 Combat Systems ──
 
@@ -450,10 +517,11 @@ async function bootstrap(): Promise<void> {
 
       // P7: Drop + Inventory system
       const inventory = new Inventory();
-      inventory.addGold(500); // Starter gold for new players
+      inventory.addGold(240); // Starter gold is enough for first supply run without trivializing shop decisions.
       // Starter consumables
-      inventory.addItem({ itemId: 'hp_potion_s', name: 'HP藥水(小)', type: 'consumable', rarity: 'common', qty: 5, icon: '🧪', description: 'HP +50' });
-      inventory.addItem({ itemId: 'mp_potion_s', name: 'MP藥水(小)', type: 'consumable', rarity: 'common', qty: 3, icon: '💧', description: 'MP +30' });
+      inventory.addItem({ itemId: 'hp_potion_s', name: 'HP藥水(小)', type: 'consumable', rarity: 'common', qty: 2, icon: '🧪', description: 'HP +50' });
+      inventory.addItem({ itemId: 'mp_potion_s', name: 'MP藥水(小)', type: 'consumable', rarity: 'common', qty: 1, icon: '💧', description: 'MP +30' });
+      const onboardingStarterItemBaseline = inventory.totalItemsFound;
       const dropTable = new DropTable();
       const dropItemManager = new DropItemManager(Registry.scene, inventory);
       combatLoop.setDropSystem(dropTable, dropItemManager, inventory);
@@ -461,6 +529,7 @@ async function bootstrap(): Promise<void> {
 
       // P9: Quest + NPC system
       const questManager = new QuestManager();
+      Registry.questManager = questManager;
       combatLoop.setQuestManager(questManager);
       const npcManager = new NPCManager(Registry.scene);
       // NPCs are spawned by ZoneManager.buildInitialZone()
@@ -482,8 +551,8 @@ async function bootstrap(): Promise<void> {
       let openSkillPanelByDialogue = (): void => {
             skillPanel.show();
       };
-      let openQuestPanelByDialogue = (): void => {
-            questPanel.show();
+      let openQuestPanelByDialogue = (questId?: string): void => {
+            questPanel.show(questId);
       };
       let openPetPanelByDialogue = (): void => { };
 
@@ -493,7 +562,11 @@ async function bootstrap(): Promise<void> {
                   case 'buy': openShopPanelByDialogue('buy'); break;
                   case 'sell': openShopPanelByDialogue('sell'); break;
                   case 'learn': openSkillPanelByDialogue(); break;
-                  case 'accept': openQuestPanelByDialogue(); break;
+                  case 'accept': {
+                        const acceptedQuest = questManager.acceptFirstByNpc(_npc.def.id) ?? questManager.acceptQuest('main_1');
+                        openQuestPanelByDialogue(acceptedQuest?.id);
+                        break;
+                  }
                   case 'trade': {
                         const exchangeQuests = questManager.allQuests.filter(
                               q => q.type === 'side' && q.objectives.some(o => o.type === 'exchange_pet') && !q.claimed
@@ -525,8 +598,8 @@ async function bootstrap(): Promise<void> {
 
       // Wire monster damage to player
       monsterManager.onDamagePlayer = (dmg: number, monName: string) => {
-            const actualDmg = Math.max(1, dmg - player.stats.def * 0.5);
-            player.stats.hp = Math.max(0, player.stats.hp - actualDmg);
+            const actualDmg = playerLife.applyDamage(Math.max(1, dmg - player.stats.def * 0.5), monName);
+            if (actualDmg <= 0) return;
             console.log('[Combat] ' + monName + ' hit player for ' + Math.round(actualDmg));
       };
 
@@ -591,6 +664,7 @@ async function bootstrap(): Promise<void> {
       // ── P6 Zone System ──
       const zoneTransition = new ZoneTransition();
       const zoneManager = new ZoneManager(Registry.scene, mainScene.shadowGenerator);
+      Registry.zoneManager = zoneManager;
       const teleportSystem = new TeleportSystem(zoneManager, () => player.position);
 
       // Wire zone manager dependencies
@@ -600,6 +674,9 @@ async function bootstrap(): Promise<void> {
             minimap,
             npcManager,
             dropItemManager,
+            onZoneChanged: (zone) => {
+                  hud.setZoneName(zone.nameCN);
+            },
             onPlayerReset: (x, z) => {
                   player.position.x = x;
                   player.position.z = z;
@@ -620,7 +697,8 @@ async function bootstrap(): Promise<void> {
 
       // 15. Sub-Panels (Fusion / Encyclopedia / Rename / Revival)
       const renamePanel = new RenamePanel();
-      const revivalPanel = new RevivalPanel(petManager);
+      const revivalPanel = new RevivalPanel(petManager, inventory);
+      const playerDeathOverlay = new PlayerDeathOverlay();
 
       // P8: Equipment + Enhance + Resonance
       const equipmentSystem = new EquipmentSystem();
@@ -630,7 +708,10 @@ async function bootstrap(): Promise<void> {
       const skillTree = new SkillTree();
       const awakeningSystem = new AwakeningSystem();
       const rebirthSystem = new RebirthSystem();
-      const characterPanel = new CharacterPanel(player, statAlloc, skillTree, awakeningSystem, rebirthSystem);
+      const characterPanel = new CharacterPanel(player, playerIdentity, statAlloc, skillTree, awakeningSystem, rebirthSystem, {
+            getPrimaryPetName: () => petManager.active[0]?.displayName ?? petManager.owned[0]?.displayName ?? null,
+            getObjectiveHint: () => onboardingManager.currentStep?.title ?? null,
+      });
       player.onLevelUp(() => {
             characterPanel.onLevelUp();
       });
@@ -646,11 +727,146 @@ async function bootstrap(): Promise<void> {
       const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem, player.stats);
 
       const communityPanel = new CommunityPanel();
+      const syncGuidanceHint = (): void => {
+            hud.setObjectiveHint(onboardingManager.currentStep?.title ?? '查看任務面板');
+            characterPanel.updateIdentity(Registry.playerIdentity);
+      };
+      questManager.subscribe(() => {
+            const starterQuest = questManager.getQuest('main_1');
+            if (starterQuest?.accepted) onboardingManager.mark('meet_elder');
+            syncGuidanceHint();
+      });
+      onboardingManager.subscribe(() => {
+            syncGuidanceHint();
+      });
+      if (questManager.getQuest('main_1')?.accepted) {
+            onboardingManager.mark('meet_elder');
+      }
+      syncGuidanceHint();
+
+      const applyRuntimeSettings = (settings: SystemSettings): void => {
+            joystick.setSensitivity(settings.joystickSensitivity);
+            landscapeCamera.setTouchSettings({
+                  sensitivity: settings.cameraSensitivity,
+                  invertY: settings.invertCameraY,
+            });
+            combatLoop.setAutoLockEnabled(settings.autoLockTarget);
+      };
+
+      let reviveSequence = 0;
+      let shouldResumeAutoAfterFieldRevive = false;
+
+      const lockCombatForDeath = (): void => {
+            shouldResumeAutoAfterFieldRevive = combatLoop.isAutoGrind;
+            combatLoop.setAutoGrind(false);
+            combatLoop.clearTarget();
+            player.combatTarget = null;
+            player.setMoveDirection(Vector3.Zero());
+            syncAutoUi();
+      };
+
+      const restorePlayerPosition = (x: number, z: number): void => {
+            player.position.x = x;
+            player.position.z = z;
+            player.position.y = 0;
+            player.combatTarget = null;
+            combatLoop.clearTarget();
+      };
+
+      const finishRevive = (message: string, hpRatio: number, mpRatio: number, autoResume = false): void => {
+            playerLife.completeRevive({
+                  hpRatio,
+                  mpRatio,
+                  invulnerabilitySec: 6,
+            });
+            hud.updateStats(player.stats);
+            playerDeathOverlay.hide();
+            playerDeathOverlay.showReviveBanner(message);
+            if (autoResume) {
+                  combatLoop.setAutoGrind(true);
+                  syncAutoUi();
+            } else {
+                  syncAutoUi();
+            }
+      };
+
+      const reviveInPlace = async (autoResume = false): Promise<void> => {
+            if (!playerLife.queueRevive('field')) return;
+            const seq = ++reviveSequence;
+            playerDeathOverlay.showPending('原地復活中...');
+            try {
+                  await new Promise((resolve) => window.setTimeout(resolve, autoResume ? 900 : 500));
+                  if (seq !== reviveSequence) return;
+                  const point = zoneManager.getSafeRespawnPoint();
+                  restorePlayerPosition(point.x, point.z);
+                  finishRevive('原地復活完成，6 秒內不受傷害。', autoResume ? 0.55 : 0.7, 0.45, autoResume);
+            } catch (error) {
+                  console.error('[Life] Field revive failed:', error);
+                  playerLife.cancelPendingRevive();
+                  showDeathChoices();
+            }
+      };
+
+      const reviveInTown = async (): Promise<void> => {
+            if (!playerLife.queueRevive('town')) return;
+            const seq = ++reviveSequence;
+            playerDeathOverlay.showPending('回城復活中...');
+            try {
+                  const townZoneId = zoneManager.findNearestTownZoneId();
+                  if (zoneManager.currentZone.id === townZoneId) {
+                        const point = zoneManager.getSpawnPoint(townZoneId);
+                        restorePlayerPosition(point.x, point.z);
+                  } else {
+                        await zoneManager.travelTo(townZoneId, { ignoreLock: true });
+                  }
+                  if (seq !== reviveSequence) return;
+                  finishRevive(`已回到 ${zoneManager.currentZone.nameCN}，獲得 6 秒保護。`, 1, 1, false);
+            } catch (error) {
+                  console.error('[Life] Town revive failed:', error);
+                  playerLife.cancelPendingRevive();
+                  showDeathChoices();
+            }
+      };
+
+      const showDeathChoices = (): void => {
+            playerDeathOverlay.showDown(playerLife.sourceName, {
+                  onReviveHere: () => { void reviveInPlace(false); },
+                  onReturnTown: () => { void reviveInTown(); },
+                  onStop: () => {
+                        shouldResumeAutoAfterFieldRevive = false;
+                        syncAutoUi();
+                        playerDeathOverlay.showReviveBanner('已停止掛機，請手動選擇復活方式。');
+                  },
+            });
+      };
+
+      playerLife.onStateChange(({ state }) => {
+            if (state === 'down') {
+                  lockCombatForDeath();
+                  const deathAction = shouldResumeAutoAfterFieldRevive ? afkPanel.settings.deathAction : 'stop';
+                  if (deathAction === 'revive') {
+                        void reviveInPlace(true);
+                        return;
+                  }
+                  if (deathAction === 'town') {
+                        shouldResumeAutoAfterFieldRevive = false;
+                        void reviveInTown();
+                        return;
+                  }
+                  showDeathChoices();
+                  return;
+            }
+
+            if (state === 'alive') {
+                  playerDeathOverlay.hide();
+            }
+      });
 
       // System Settings Panel
       const systemPanel = new SystemPanel({
             onSettingsChange: (settings) => {
-                  console.log('[System] Settings updated:', settings);
+                  applyRuntimeSettings(settings);
+                  console.log('[System] Settings applied:', settings);
             },
             getCurrentHeroType: () => {
                   const profile = loadStoredHeroProfile();
@@ -695,6 +911,8 @@ async function bootstrap(): Promise<void> {
                   });
                   if (result.ok) {
                         console.log(`[System] Load completed from ${result.savedAt}`);
+                        playerLife.syncFromStats();
+                        if (!playerLife.isDeadLike) playerDeathOverlay.hide();
                         petPanel.refresh();
                         hud.updateStats(player.stats);
                         hud.updatePets(petManager);
@@ -716,6 +934,7 @@ async function bootstrap(): Promise<void> {
                   location.reload();
             },
       });
+      applyRuntimeSettings(systemPanel.settings);
 
       // Heavy data panels are lazy-loaded on first use to reduce initial startup cost.
       let fusionPanel: FusionPanelType | null = null;
@@ -833,6 +1052,7 @@ async function bootstrap(): Promise<void> {
             closeSubPanels('pet');
             petPanel.open();
             petPanel.refresh();
+            onboardingManager.mark('open_pet_panel');
             schedulePanelViewportFit();
       }
 
@@ -841,6 +1061,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureShopPanel();
                   await panel.show(mode);
+                  onboardingManager.mark('visit_shop');
                   schedulePanelViewportFit();
             } catch (err) {
                   console.error('[UI] Failed to open ShopPanel:', err);
@@ -853,6 +1074,7 @@ async function bootstrap(): Promise<void> {
                   const panel = await ensureFusionPanel();
                   panel.refresh();
                   panel.open();
+                  onboardingManager.mark('view_fusion_goal');
                   schedulePanelViewportFit();
             } catch (err) {
                   console.error('[UI] Failed to open FusionPanel:', err);
@@ -864,6 +1086,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureFusionPanel();
                   panel.openToRecipesByTargetName(targetName, sourceMap);
+                  onboardingManager.mark('view_fusion_goal');
                   schedulePanelViewportFit();
             } catch (err) {
                   console.error('[UI] Failed to open Fusion by target:', err);
@@ -875,6 +1098,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureFusionPanel();
                   panel.openToRecipesByIngredientName(ingredientName, sourceMap);
+                  onboardingManager.mark('view_fusion_goal');
                   schedulePanelViewportFit();
             } catch (err) {
                   console.error('[UI] Failed to open Fusion by ingredient:', err);
@@ -1041,11 +1265,22 @@ async function bootstrap(): Promise<void> {
                         level: player.stats.level,
                         exp: Math.round(player.stats.exp),
                         gold: inventory.gold,
+                        lifeState: playerLife.state,
+                        invulnerabilitySec: Number(playerLife.remainingInvulnerabilitySec.toFixed(1)),
                   },
                   world: {
                         aliveMonsters: monsterManager.alive.length,
                         inventoryCount: inventory.count,
                         autoGrind: combatLoop.isAutoGrind,
+                  },
+                  identity: {
+                        playerName: playerIdentity.playerName,
+                        roleLabel: playerIdentity.roleLabel,
+                  },
+                  onboarding: {
+                        completed: onboardingManager.progress.completed,
+                        total: onboardingManager.progress.total,
+                        currentStep: onboardingManager.currentStep?.id ?? null,
                   },
                   openPanels: {
                         quest: isUiVisible('quest-panel'),
@@ -1062,6 +1297,47 @@ async function bootstrap(): Promise<void> {
             };
             return JSON.stringify(payload);
       };
+      (window as any).__fpoDebug = {
+            damagePlayer: (amount = 999, sourceName = 'debug') => playerLife.applyDamage(amount, sourceName),
+            reviveHere: () => { void reviveInPlace(false); },
+            reviveTown: () => { void reviveInTown(); },
+            killPet: (index = 0) => {
+                  const pet = petManager.owned[index];
+                  if (!pet) return false;
+                  pet.kill();
+                  petPanel.refresh();
+                  revivalPanel.refresh();
+                  hud.updatePets(petManager);
+                  return true;
+            },
+            openRevivalPanel: () => {
+                  closeSubPanels('revival');
+                  revivalPanel.open(() => petPanel.refresh());
+            },
+            getPlayerLife: () => ({
+                  state: playerLife.state,
+                  sourceName: playerLife.sourceName,
+                  invulnerabilitySec: Number(playerLife.remainingInvulnerabilitySec.toFixed(1)),
+                  hp: player.stats.hp,
+                  maxHp: player.stats.maxHp,
+                  zoneId: zoneManager.currentZone.id,
+            }),
+            getEconomy: () => ({
+                  gold: inventory.gold,
+                  deadPets: petManager.owned
+                        .filter((pet) => pet.isDead)
+                        .map((pet) => ({ name: pet.displayName, cost: pet.revivalCost })),
+            }),
+            applySettings: (partial: Partial<SystemSettings>) => {
+                  const next = { ...systemPanel.settings, ...partial };
+                  applyRuntimeSettings(next);
+                  return next;
+            },
+            getCameraState: () => ({
+                  alpha: Number(landscapeCamera.camera.alpha.toFixed(4)),
+                  beta: Number(landscapeCamera.camera.beta.toFixed(4)),
+            }),
+      };
 
       // 16. Fade out loading screen
       const loadingScreen = document.getElementById('loading-screen');
@@ -1074,15 +1350,18 @@ async function bootstrap(): Promise<void> {
       let lastTime = performance.now();
       let hudUpdateTimer = 0;
       let minimapUpdateTimer = 0;
+      let onboardingSyncTimer = 0;
       const HUD_UPDATE_INTERVAL = 1 / 15;
       const MINIMAP_UPDATE_INTERVAL = 1 / 10;
+      const ONBOARDING_SYNC_INTERVAL = 0.2;
       Registry.scene.onBeforeRenderObservable.add(() => {
             const now = performance.now();
             const dt = (now - lastTime) / 1000;
             lastTime = now;
 
             // Joystick → Player movement
-            player.setMoveDirection(joystick.direction);
+            playerLife.update(dt);
+            player.setMoveDirection(playerLife.isDeadLike ? Vector3.Zero() : joystick.direction);
             player.update(dt);
 
             // Camera follow
@@ -1094,7 +1373,9 @@ async function bootstrap(): Promise<void> {
             // P5: Update combat systems
             projectileSystem.update(dt);
             monsterManager.update(dt, player.position);
-            combatLoop.update(dt);
+            if (!playerLife.isDeadLike) {
+                  combatLoop.update(dt);
+            }
 
             // Update skill bar CD overlays
             skillBar.update(dt);
@@ -1105,6 +1386,13 @@ async function bootstrap(): Promise<void> {
                   hudUpdateTimer = 0;
                   hud.updateStats(player.stats);
                   hud.updatePets(petManager);
+            }
+
+            onboardingSyncTimer += dt;
+            if (onboardingSyncTimer >= ONBOARDING_SYNC_INTERVAL) {
+                  onboardingSyncTimer = 0;
+                  if (inventory.totalKills > 0) onboardingManager.mark('win_first_battle');
+                  if (inventory.totalItemsFound > onboardingStarterItemBaseline) onboardingManager.mark('pickup_first_drop');
             }
 
             minimapUpdateTimer += dt;
@@ -1128,10 +1416,14 @@ async function bootstrap(): Promise<void> {
             }
 
             // P6: Teleport gate proximity check
-            teleportSystem.update(dt);
+            if (!playerLife.isDeadLike) {
+                  teleportSystem.update(dt);
+            }
 
             // P7: Drop item pickup
-            dropItemManager.update(dt, player.position);
+            if (!playerLife.isDeadLike) {
+                  dropItemManager.update(dt, player.position);
+            }
 
             // P9: NPC billboard + proximity
             npcManager.update(dt, player.position);

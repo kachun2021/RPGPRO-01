@@ -2,6 +2,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import type { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { Scene } from '@babylonjs/core/scene';
 import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
+import { getRuntimeSceneLayout, type ScenePocket } from '../data/runtime/RuntimeSceneLayout';
 import { getRuntimeSceneZone } from '../world/RuntimeZoneCatalog';
 import { Monster, type MonsterDef } from './Monster';
 
@@ -62,6 +63,8 @@ function resolveMaxActive(zoneId: string, defs: MonsterDef[]): number {
       const zoneDef = getRuntimeSceneZone(zoneId);
       if (!zoneDef || zoneDef.isTown) return 0;
 
+      if (zoneId === 'starter_meadow') return Math.min(6, Math.max(4, defs.filter(def => !def.isBoss).length));
+
       let baseline = 10;
       if (zoneDef.levelMax >= 120) baseline = 14;
       else if (zoneDef.levelMax >= 60) baseline = 12;
@@ -109,13 +112,11 @@ export class MonsterManager {
             for (let i = 0; i < this._config.maxActive; i++) {
                   if (normalDefs.length === 0) break;
                   const picked = weightedPick(normalDefs);
-                  this._spawnMonster(picked, this._randomPosition());
+                  this._spawnMonster(picked, this._randomPosition(false));
             }
 
             for (const bossDef of bossDefs) {
-                  const bossPos = new Vector3(
-                        (Math.random() - 0.5) * 40, 0, (Math.random() - 0.5) * 40,
-                  );
+                  const bossPos = this._randomPosition(true);
                   this._spawnMonster(bossDef, bossPos);
                   this._showBossAlert(bossDef.name, bossDef.level);
             }
@@ -136,7 +137,39 @@ export class MonsterManager {
             return monster;
       }
 
-      private _randomPosition(): Vector3 {
+      private _pickPocketPoint(pocket: ScenePocket): Vector3 {
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.sqrt(Math.random()) * Math.max(4, pocket.radius);
+            return new Vector3(
+                  pocket.x + Math.cos(angle) * distance,
+                  0,
+                  pocket.z + Math.sin(angle) * distance,
+            );
+      }
+
+      private _randomPosition(isBoss: boolean): Vector3 {
+            const zoneDef = getRuntimeSceneZone(this._config.zoneId);
+            if (zoneDef) {
+                  const layout = getRuntimeSceneLayout(zoneDef);
+                  const safeZone = layout.safeZone;
+
+                  const pockets = isBoss
+                        ? [layout.bossPocket]
+                        : zoneDef.levelMax <= 10 && layout.starterPockets.length > 0
+                              ? (Math.random() < 0.6 ? layout.starterPockets : layout.fieldPockets)
+                              : (layout.elitePockets.length > 0 && Math.random() < 0.22 ? layout.elitePockets : layout.fieldPockets);
+
+                  for (let attempt = 0; attempt < 24; attempt++) {
+                        const pocket = pockets[Math.floor(Math.random() * pockets.length)] ?? layout.bossPocket;
+                        const point = this._pickPocketPoint(pocket);
+                        if (Math.hypot(point.x - safeZone.x, point.z - safeZone.z) < safeZone.radius + (isBoss ? 10 : 4)) continue;
+                        return point;
+                  }
+
+                  const fallbackPocket = (isBoss ? layout.bossPocket : layout.fieldPockets[0]) ?? layout.bossPocket;
+                  return new Vector3(fallbackPocket.x, 0, fallbackPocket.z);
+            }
+
             return new Vector3(
                   (Math.random() - 0.5) * 60, 0, (Math.random() - 0.5) * 60,
             );
@@ -218,7 +251,7 @@ export class MonsterManager {
                   const t = this._respawnTimers[i];
                   t.remaining -= dt;
                   if (t.remaining > 0) continue;
-                  this._spawnMonster(t.def, this._randomPosition());
+                  this._spawnMonster(t.def, this._randomPosition(!!t.def.isBoss));
                   if (t.def.isBoss) this._showBossAlert(t.def.name, t.def.level);
                   this._respawnTimers.splice(i, 1);
             }

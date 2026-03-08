@@ -1,6 +1,7 @@
 import { SCENE_ZONE_PROFILES, type SceneZoneProfile } from '../../world/SceneZoneProfiles';
+import { getExplicitSceneZoneIdForRuntimeZoneId } from './RuntimeZoneSceneMap';
 
-export type RuntimeZoneMatchMode = 'topology' | 'town' | 'level' | 'none';
+export type RuntimeZoneMatchMode = 'explicit' | 'town' | 'level' | 'none';
 
 export interface RuntimeZoneRouteInput {
       runtimeZoneId?: number;
@@ -77,6 +78,12 @@ function selectBestSceneZone(
 }
 
 export function matchRuntimeZoneToSceneZone(input: RuntimeZoneRouteInput): { zoneId: string | null; mode: RuntimeZoneMatchMode } {
+      const runtimeZoneId = toInt(input.runtimeZoneId, 0);
+      const explicit = runtimeZoneId > 0 ? getExplicitSceneZoneIdForRuntimeZoneId(runtimeZoneId) : null;
+      if (explicit) {
+            return { zoneId: explicit, mode: 'explicit' };
+      }
+
       const runtimeMin = clampLevel(toInt(input.minLevel, 1), 1);
       const runtimeMax = Math.max(runtimeMin, clampLevel(toInt(input.maxLevel, runtimeMin), runtimeMin));
       const mobAble = input.mobAble !== false;
@@ -95,7 +102,7 @@ export function matchRuntimeZoneToSceneZone(input: RuntimeZoneRouteInput): { zon
       }
 
       const fieldId = selectBestSceneZone(fields.length > 0 ? fields : SCENE_ZONE_PROFILES, runtimeMin, runtimeMax, pkZoneFlag);
-      if (fieldId) return { zoneId: fieldId, mode: mobAble ? 'topology' : 'level' };
+      if (fieldId) return { zoneId: fieldId, mode: 'level' };
 
       return { zoneId: null, mode: 'none' };
 }

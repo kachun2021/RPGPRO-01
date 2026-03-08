@@ -6,6 +6,7 @@ import type { NPCManager } from '../entities/NPC';
 import type { DropItemManager } from '../entities/DropItem';
 import type { ZoneTransition } from '../ui/ZoneTransition';
 import type { Minimap } from '../ui/Minimap';
+import { getRuntimeSceneLayout } from '../data/runtime/RuntimeSceneLayout';
 import { getSceneZoneNeighbors, isSceneZonesConnected } from '../data/runtime/RuntimeWorldRoutes';
 import { ensureRuntimeCombatDropsForZoneLevel } from '../data/runtime/RuntimeEconomyCombatSource';
 import {
@@ -31,6 +32,7 @@ export class ZoneManager {
       private _transition: ZoneTransition | null = null;
       private _minimap: Minimap | null = null;
       private _onPlayerReset: ((x: number, z: number) => void) | null = null;
+      private _onZoneChanged: ((zone: RuntimeSceneZoneDef) => void) | null = null;
 
       /** Unlocked zone IDs */
       private _unlockedZones: Set<string> = new Set();
@@ -40,7 +42,7 @@ export class ZoneManager {
             this._shadowGen = shadowGen;
             this._currentZone = getRuntimeSceneZoneOrFallback(getDefaultRuntimeSceneZoneId());
             this._unlockAround(this._currentZone.id);
-            this._applyFallbackUnlockPolicy();
+            this._applyDebugUnlockFallbackIfEnabled();
       }
 
       /** Wire dependencies */
@@ -51,6 +53,7 @@ export class ZoneManager {
             onPlayerReset: (x: number, z: number) => void;
             npcManager?: NPCManager;
             dropItemManager?: DropItemManager;
+            onZoneChanged?: (zone: RuntimeSceneZoneDef) => void;
       }): void {
             this._monsterManager = opts.monsterManager;
             this._transition = opts.transition;
@@ -58,6 +61,7 @@ export class ZoneManager {
             this._onPlayerReset = opts.onPlayerReset;
             this._npcManager = opts.npcManager ?? null;
             this._dropItemManager = opts.dropItemManager ?? null;
+            this._onZoneChanged = opts.onZoneChanged ?? null;
       }
 
       get currentZone(): RuntimeSceneZoneDef { return this._currentZone; }
@@ -69,6 +73,37 @@ export class ZoneManager {
 
       unlockZone(zoneId: string): void {
             this._unlockedZones.add(zoneId);
+      }
+
+      getSpawnPoint(zoneId = this._currentZone.id): { x: number; z: number } {
+            const zone = getRuntimeSceneZone(zoneId) ?? this._currentZone;
+            return { x: zone.spawnPoint.x, z: zone.spawnPoint.z };
+      }
+
+      getSafeRespawnPoint(zoneId = this._currentZone.id): { x: number; z: number } {
+            const zone = getRuntimeSceneZone(zoneId) ?? this._currentZone;
+            const layout = getRuntimeSceneLayout(zone);
+            return { x: layout.safeZone.x, z: layout.safeZone.z };
+      }
+
+      findNearestTownZoneId(fromZoneId = this._currentZone.id): string {
+            const fallbackTown = listRuntimeSceneZones().find((zone) => zone.isTown)?.id ?? 'town_magilita';
+            const visited = new Set<string>([fromZoneId]);
+            const queue: string[] = [fromZoneId];
+
+            while (queue.length > 0) {
+                  const current = queue.shift()!;
+                  const zone = getRuntimeSceneZone(current);
+                  if (zone?.isTown) return zone.id;
+
+                  for (const next of getSceneZoneNeighbors(current)) {
+                        if (visited.has(next)) continue;
+                        visited.add(next);
+                        queue.push(next);
+                  }
+            }
+
+            return fallbackTown;
       }
 
       getUnlockedZones(): RuntimeSceneZoneDef[] {
@@ -86,6 +121,10 @@ export class ZoneManager {
             this._renderer = new ZoneRenderer(this._scene, this._shadowGen);
             await this._renderer.build(zoneDef);
 
+            // Initial spawn must honor the zone spawn point just like travel.
+            const sp = zoneDef.spawnPoint;
+            this._onPlayerReset?.(sp.x, sp.z);
+
             // Spawn monsters
             this._monsterManager?.spawnForZone(zoneDef.id);
 
@@ -94,12 +133,13 @@ export class ZoneManager {
 
             // Update minimap
             this._minimap?.setZoneName(zoneDef.nameCN);
+            this._onZoneChanged?.(zoneDef);
 
             console.log(`[ZoneManager] Initial zone: ${zoneDef.name}`);
       }
 
       /** Travel to a new zone with transition animation */
-      async travelTo(zoneId: string): Promise<void> {
+      async travelTo(zoneId: string, options: { ignoreLock?: boolean } = {}): Promise<void> {
             const zoneDef = getRuntimeSceneZone(zoneId);
             if (!zoneDef) {
                   console.warn('[ZoneManager] Zone not found:', zoneId);
@@ -109,7 +149,7 @@ export class ZoneManager {
             if (zoneDef.id === this._currentZone.id) return;
 
             const canByRoute = isSceneZonesConnected(this._currentZone.id, zoneId);
-            if (!this.isUnlocked(zoneId) && !canByRoute) {
+            if (!options.ignoreLock && !this.isUnlocked(zoneId) && !canByRoute) {
                   console.warn('[ZoneManager] Zone locked:', zoneId);
                   return;
             }
@@ -153,6 +193,7 @@ export class ZoneManager {
 
             // 8. Update minimap
             this._minimap?.setZoneName(zoneDef.nameCN);
+            this._onZoneChanged?.(zoneDef);
 
             // 9. Progress bar animation
             this._transition?.setProgress(100);
@@ -174,12 +215,21 @@ export class ZoneManager {
             for (const next of neighbors) this._unlockedZones.add(next);
       }
 
+      private _isDebugUnlockFallbackEnabled(): boolean {
+            if (typeof window === 'undefined') return false;
+            try {
+                  return localStorage.getItem('fpo.debug.unlockFallback') === '1';
+            } catch {
+                  return false;
+            }
+      }
+
       /**
-       * Safety fallback when topology mapping is sparse.
-       * Keeps progression intact by unlocking only nearby/low-level candidates,
-       * instead of unlocking every zone.
+       * Optional debug escape hatch for topology experiments.
+       * Normal progression must work without this path.
        */
-      private _applyFallbackUnlockPolicy(): void {
+      private _applyDebugUnlockFallbackIfEnabled(): void {
+            if (!this._isDebugUnlockFallbackEnabled()) return;
             if (this._unlockedZones.size > 1) return;
 
             const baseId = this._currentZone.id;
@@ -206,7 +256,7 @@ export class ZoneManager {
             for (const zone of seeded) this._unlockedZones.add(zone.id);
 
             console.warn(
-                  `[ZoneManager] Topology has no route neighbors for ${baseId}; seeded ${seeded.map((z) => z.id).join(', ') || 'none'}.`,
+                  `[ZoneManager] Debug unlock fallback seeded ${seeded.map((z) => z.id).join(', ') || 'none'} for ${baseId}.`,
             );
       }
 

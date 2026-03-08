@@ -134,10 +134,93 @@ function buildSceneZonePool(sceneZoneId: string): RuntimeMonsterTemplate[] {
             }
       }
 
-      return Array.from(byMonsterType.values()).sort((a, b) => {
+      const rows = Array.from(byMonsterType.values()).sort((a, b) => {
             if (a.level !== b.level) return a.level - b.level;
             return a.name.localeCompare(b.name, 'zh-Hant');
       });
+
+      const normalRows = rows
+            .filter((row) => !row.isBoss)
+            .sort((a, b) => {
+                  const aDistance = Math.abs(a.level - zone.levelMin);
+                  const bDistance = Math.abs(b.level - zone.levelMin);
+                  if (aDistance !== bDistance) return aDistance - bDistance;
+                  if (a.level !== b.level) return a.level - b.level;
+                  return a.name.localeCompare(b.name, 'zh-Hant');
+            });
+      const bossRows = rows
+            .filter((row) => row.isBoss)
+            .sort((a, b) => b.level - a.level);
+
+      const minNormalKeep = Math.max(4, Math.min(8, Math.ceil(normalRows.length * 0.35)));
+      const profileAnchoredNormals = normalRows.filter((row) => row.level >= zone.levelMin - 4 && row.level <= zone.levelMax + 12);
+      const sampledSourceRows = profileAnchoredNormals.length >= minNormalKeep
+            ? profileAnchoredNormals
+            : normalRows;
+
+      const sampledNormalLevels = sampledSourceRows
+            .map((row) => row.level)
+            .sort((a, b) => a - b);
+      const sampledMinLevel = sampledNormalLevels[0] ?? zone.levelMin;
+      const sampledMaxLevel = sampledNormalLevels.length > 0
+            ? sampledNormalLevels[Math.max(0, Math.ceil(sampledNormalLevels.length * 0.85) - 1)]
+            : zone.levelMax;
+      const targetLevelMin = sampledMinLevel;
+      const targetLevelMax = Math.max(targetLevelMin, sampledMaxLevel);
+      const sceneSpan = Math.max(1, targetLevelMax - targetLevelMin);
+      const normalBandAttempts = [
+            { min: targetLevelMin - 4, max: targetLevelMax + Math.max(8, Math.round(sceneSpan * 0.35)) },
+            { min: targetLevelMin - 8, max: targetLevelMax + Math.max(14, Math.round(sceneSpan * 0.6)) },
+            { min: targetLevelMin - 16, max: targetLevelMax + Math.max(22, Math.round(sceneSpan * 0.9)) },
+      ];
+      const bossBandAttempts = [
+            { min: Math.max(1, targetLevelMax - Math.max(8, Math.round(sceneSpan * 0.25))), max: targetLevelMax + Math.max(18, Math.round(sceneSpan * 0.45)) },
+            { min: Math.max(1, targetLevelMin - 4), max: targetLevelMax + Math.max(30, Math.round(sceneSpan * 0.8)) },
+      ];
+
+      const filterByBand = (
+            source: RuntimeMonsterTemplate[],
+            bands: Array<{ min: number; max: number }>,
+            minKeep: number,
+            fallbackToSource = true,
+      ): RuntimeMonsterTemplate[] => {
+            for (const band of bands) {
+                  const filtered = source.filter((row) => row.level >= band.min && row.level <= band.max);
+                  if (filtered.length >= minKeep) return filtered;
+            }
+            return fallbackToSource ? source : [];
+      };
+
+      const minBossKeep = Math.min(1, bossRows.length);
+      const bandedNormals = filterByBand(normalRows, normalBandAttempts, minNormalKeep);
+      const preferredBosses = filterByBand(bossRows, bossBandAttempts, minBossKeep, false);
+      const bossTargetLevel = targetLevelMax + Math.max(4, Math.round(sceneSpan * 0.2));
+      const bossGapAllowance = Math.max(18, Math.round(sceneSpan * 0.65));
+      const sortedBossFallback = bossRows
+            .slice()
+            .sort((a, b) => {
+                  const aGap = Math.abs(a.level - bossTargetLevel);
+                  const bGap = Math.abs(b.level - bossTargetLevel);
+                  if (aGap !== bGap) return aGap - bGap;
+                  return a.level - b.level;
+            });
+      const bandedBosses = preferredBosses.length > 0
+            ? preferredBosses
+            : sortedBossFallback.filter((row) => Math.abs(row.level - bossTargetLevel) <= bossGapAllowance);
+
+      const normalCap = zone.id === 'starter_meadow'
+            ? 8
+            : zone.levelMax >= 120
+                  ? 18
+                  : zone.levelMax >= 60
+                        ? 16
+                        : 12;
+      const bossCap = zone.levelMax >= 120 ? 3 : 2;
+
+      return [
+            ...bandedNormals.slice(0, normalCap),
+            ...bandedBosses.slice(0, bossCap),
+      ];
 }
 
 export function getRuntimeMonstersForSceneZone(sceneZoneId: string): RuntimeMonsterTemplate[] {
@@ -148,4 +231,3 @@ export function getRuntimeMonstersForSceneZone(sceneZoneId: string): RuntimeMons
       CACHE_BY_SCENE_ZONE.set(sceneZoneId, rows);
       return rows.map((entry) => ({ ...entry }));
 }
-

@@ -6,7 +6,7 @@ import type { Pet } from '../pets/Pet';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
-import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
+import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
 
 type SeriesFilter = 'all' | PetSeries;
 type NoticeTone = 'ok' | 'warn';
@@ -22,6 +22,8 @@ interface FormulaEntry {
       resultDropEgg: boolean | null;
       resultDropEggRaw: string | null;
       resultMapNames: string[];
+      resultMapKeys: string[];
+      resultMapRefs: RuntimeMapRef[];
       recipe: FusionIngredient;
       mainName: string;
       mainDef: PetDef | null;
@@ -100,9 +102,9 @@ export class FusionPanel {
       private _displayLevelByDefId = new Map<string, number>();
       private _recipeResultNameFilter: string | null = null;
       private _recipeIngredientNameFilter: string | null = null;
-      private _recipeMapFilterName: string | null = null;
+      private _recipeMapFilterKey: string | null = null;
       private _recipeKeywordFilter = '';
-      private _onNavigateMap: ((mapName: string, petName?: string) => void) | null = null;
+      private _onNavigateMap: ((mapKey: string, petName?: string) => void) | null = null;
       private _onResize = (): void => {
             if (!this._visible) return;
             this._syncResponsiveMode();
@@ -137,16 +139,16 @@ export class FusionPanel {
 
       get element(): HTMLElement { return this._el; }
 
-      setMapNavigator(handler: ((mapName: string, petName?: string) => void) | null): void {
+      setMapNavigator(handler: ((mapKey: string, petName?: string) => void) | null): void {
             this._onNavigateMap = handler;
       }
 
-      openToRecipesByTargetName(targetName: string, sourceMap?: string): void {
+      openToRecipesByTargetName(targetName: string, sourceMapKey?: string): void {
             this.open();
             this._mainTab = 'recipes';
             this._recipeResultNameFilter = this._canonicalPetName(targetName);
             this._recipeIngredientNameFilter = null;
-            this._recipeMapFilterName = sourceMap ? sourceMap.trim() : null;
+            this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
@@ -154,12 +156,12 @@ export class FusionPanel {
             this._render();
       }
 
-      openToRecipesByIngredientName(ingredientName: string, sourceMap?: string): void {
+      openToRecipesByIngredientName(ingredientName: string, sourceMapKey?: string): void {
             this.open();
             this._mainTab = 'recipes';
             this._recipeResultNameFilter = null;
             this._recipeIngredientNameFilter = this._canonicalPetName(ingredientName);
-            this._recipeMapFilterName = sourceMap ? sourceMap.trim() : null;
+            this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
@@ -167,7 +169,7 @@ export class FusionPanel {
             this._render();
       }
 
-      openToTreeByName(targetName: string, sourceMap?: string): void {
+      openToTreeByName(targetName: string, sourceMapKey?: string): void {
             this.open();
             const targetId = this._findPetDefIdByName(targetName);
             this._mainTab = 'tree';
@@ -176,7 +178,7 @@ export class FusionPanel {
             this._treeExpandAll = false;
             this._recipeResultNameFilter = null;
             this._recipeIngredientNameFilter = null;
-            this._recipeMapFilterName = sourceMap ? sourceMap.trim() : null;
+            this._recipeMapFilterKey = sourceMapKey ? sourceMapKey.trim() : null;
             this._recipeKeywordFilter = '';
             this._recipeTrackedOnly = false;
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
@@ -198,7 +200,7 @@ export class FusionPanel {
             this._recipeRenderLimit = GUIDE_RENDER_STEP;
             this._recipeResultNameFilter = null;
             this._recipeIngredientNameFilter = null;
-            this._recipeMapFilterName = null;
+            this._recipeMapFilterKey = null;
             this._recipeKeywordFilter = '';
             this._recipeTrackedOnly = false;
             this._notice = null;
@@ -236,7 +238,7 @@ export class FusionPanel {
             this._selectingSlot = null;
             this._recipeResultNameFilter = null;
             this._recipeIngredientNameFilter = null;
-            this._recipeMapFilterName = null;
+            this._recipeMapFilterKey = null;
             this._recipeKeywordFilter = '';
             this._notice = null;
             if (this._visible) this._render();
@@ -450,14 +452,14 @@ export class FusionPanel {
 
             if (this._recipeResultNameFilter) addInfo(`目標：${this._recipeResultNameFilter}`);
             if (this._recipeIngredientNameFilter) addInfo(`素材：${this._recipeIngredientNameFilter}`);
-            if (this._recipeMapFilterName) addInfo(`地圖：${this._recipeMapFilterName}`);
+            if (this._recipeMapFilterKey) addInfo(`地圖：${this._getMapLabelByKey(this._recipeMapFilterKey) ?? this._recipeMapFilterKey}`);
             if (this._recipeKeywordFilter) addInfo(`關鍵字：${this._recipeKeywordFilter}`);
 
-            if (!this._recipeResultNameFilter && !this._recipeIngredientNameFilter && !this._recipeMapFilterName && !this._recipeTrackedOnly && !this._recipeKeywordFilter) {
+            if (!this._recipeResultNameFilter && !this._recipeIngredientNameFilter && !this._recipeMapFilterKey && !this._recipeTrackedOnly && !this._recipeKeywordFilter) {
                   addInfo('顯示全部配方');
             }
 
-            if (this._recipeResultNameFilter || this._recipeIngredientNameFilter || this._recipeMapFilterName || this._recipeTrackedOnly || this._recipeKeywordFilter) {
+            if (this._recipeResultNameFilter || this._recipeIngredientNameFilter || this._recipeMapFilterKey || this._recipeTrackedOnly || this._recipeKeywordFilter) {
                   const clearBtn = document.createElement('button');
                   clearBtn.type = 'button';
                   clearBtn.className = 'fpo-filter-clear';
@@ -465,7 +467,7 @@ export class FusionPanel {
                   clearBtn.addEventListener('click', () => {
                         this._recipeResultNameFilter = null;
                         this._recipeIngredientNameFilter = null;
-                        this._recipeMapFilterName = null;
+                        this._recipeMapFilterKey = null;
                         this._recipeKeywordFilter = '';
                         this._recipeTrackedOnly = false;
                         this._recipeRenderLimit = GUIDE_RENDER_STEP;
@@ -928,16 +930,16 @@ export class FusionPanel {
             const mapBtn = document.createElement('button');
             mapBtn.type = 'button';
             mapBtn.className = 'game-btn game-btn-ghost fpo-card-btn fpo-card-btn-map';
-            const mapName = entry.resultMapNames[0] ?? '';
-            const canMapJump = Boolean(mapName && this._onNavigateMap);
-            mapBtn.textContent = mapName
+            const mapRef = entry.resultMapRefs[0] ?? null;
+            const canMapJump = Boolean(mapRef?.mapKey && this._onNavigateMap);
+            mapBtn.textContent = mapRef?.displayName
                   ? (compactActionMode ? '地圖' : '去地圖')
                   : (compactActionMode ? '無地圖' : '暫無地圖');
-            mapBtn.title = mapName ? `前往地圖：${mapName}` : '暫無地圖';
+            mapBtn.title = mapRef?.displayName ? `前往地圖：${mapRef.displayName}` : '暫無地圖';
             mapBtn.disabled = !canMapJump;
             mapBtn.addEventListener('click', () => {
-                  if (!canMapJump || !mapName || !this._onNavigateMap) return;
-                  this._onNavigateMap(mapName, entry.resultName);
+                  if (!canMapJump || !mapRef?.mapKey || !this._onNavigateMap) return;
+                  this._onNavigateMap(mapRef.mapKey, entry.resultName);
             });
 
             actions.appendChild(applyBtn);
@@ -1206,9 +1208,9 @@ export class FusionPanel {
                   );
             }
 
-            if (this._recipeMapFilterName) {
-                  const mapName = this._recipeMapFilterName.trim();
-                  entries = entries.filter(entry => entry.resultMapNames.some(name => name === mapName));
+            if (this._recipeMapFilterKey) {
+                  const mapKey = this._recipeMapFilterKey.trim();
+                  entries = entries.filter(entry => entry.resultMapKeys.some(value => value === mapKey));
             }
 
             if (this._recipeKeywordFilter) {
@@ -1403,15 +1405,15 @@ export class FusionPanel {
             if (this._recipeIngredientNameFilter) {
                   this._recipeIngredientNameFilter = this._canonicalPetName(this._recipeIngredientNameFilter);
             }
-            if (this._recipeMapFilterName && !this._isKnownMapName(this._recipeMapFilterName)) {
-                  this._recipeMapFilterName = null;
+            if (this._recipeMapFilterKey && !this._isKnownMapKey(this._recipeMapFilterKey)) {
+                  this._recipeMapFilterKey = null;
             }
       }
 
-      private _isKnownMapName(mapName: string): boolean {
-            const target = mapName.trim();
+      private _isKnownMapKey(mapKey: string): boolean {
+            const target = mapKey.trim();
             if (!target) return false;
-            return this._formulaEntries.some(entry => entry.resultMapNames.some(name => name === target));
+            return this._formulaEntries.some(entry => entry.resultMapKeys.some(value => value === target));
       }
 
       private _buildOwnedSnapshot(): OwnedSnapshot {
@@ -1457,6 +1459,8 @@ export class FusionPanel {
                               resultDropEgg: null,
                               resultDropEggRaw: null,
                               resultMapNames: [],
+                              resultMapKeys: [],
+                              resultMapRefs: [],
                               recipe,
                               mainName: mainDef?.nameCN ?? recipe.main,
                               mainDef,
@@ -1523,6 +1527,10 @@ export class FusionPanel {
                   const resultDropEggRaw = typeof row.resultDropEgg === 'boolean' ? (row.resultDropEgg ? '1' : '0') : null;
                   const resultDropEgg = typeof row.resultDropEgg === 'boolean' ? row.resultDropEgg : null;
                   const resultMapNames = this._normalizeStringArray(row.resultMaps);
+                  const resultMapRefs = Array.isArray(row.resultMapRefs) ? row.resultMapRefs.map((mapRef) => ({ ...mapRef })) : [];
+                  const resultMapKeys = Array.isArray(row.resultMapKeys)
+                        ? row.resultMapKeys.slice()
+                        : resultMapRefs.map((mapRef) => mapRef.mapKey);
 
                   entries.push({
                         key: `runtime::${row.recipeId ?? 0}::${dedupeKey}::${i}`,
@@ -1534,6 +1542,8 @@ export class FusionPanel {
                         resultDropEgg,
                         resultDropEggRaw,
                         resultMapNames,
+                        resultMapKeys,
+                        resultMapRefs,
                         recipe: {
                               main: mainResolved?.id ?? mainDef.id,
                               sub: subResolved?.id ?? subDef.id,
@@ -1711,6 +1721,16 @@ export class FusionPanel {
       private _formatDropEggLabel(dropEgg: boolean | null): string {
             if (dropEgg === null) return '未知';
             return dropEgg ? '會掉蛋' : '不掉蛋';
+      }
+
+      private _getMapLabelByKey(mapKey: string): string | null {
+            const target = String(mapKey ?? '').trim();
+            if (!target) return null;
+            for (const entry of this._formulaEntries) {
+                  const mapRef = entry.resultMapRefs.find((candidate) => candidate.mapKey === target);
+                  if (mapRef) return mapRef.displayName;
+            }
+            return null;
       }
 
       private _mapBadgeMarkup(maps: string[]): string {

@@ -9,6 +9,7 @@ export class TouchJoystick {
       private _startY = 0;
       private _keys = { w: false, a: false, s: false, d: false };
       private _radius = 50;
+      private _sensitivity = 1;
 
       constructor() {
             // Container
@@ -70,9 +71,14 @@ export class TouchJoystick {
             this._knob.style.transform = `translate(${dx}px, ${dy}px)`;
 
             // Normalize to -1..1
-            const nx = dx / this._radius;
-            const ny = -dy / this._radius; // invert Y for 3D
-            this.direction.set(nx, 0, ny);
+            const nx = (dx / this._radius) * this._sensitivity;
+            const ny = (-dy / this._radius) * this._sensitivity; // invert Y for 3D
+            const length = Math.hypot(nx, ny);
+            if (length > 1) {
+                  this.direction.set(nx / length, 0, ny / length);
+            } else {
+                  this.direction.set(nx, 0, ny);
+            }
       }
 
       private _onUp(e: PointerEvent): void {
@@ -98,6 +104,11 @@ export class TouchJoystick {
             } else if (!this._active) {
                   this.direction.set(0, 0, 0);
             }
+      }
+
+      setSensitivity(multiplier: number): void {
+            if (!Number.isFinite(multiplier)) return;
+            this._sensitivity = Math.max(0.5, Math.min(2, multiplier));
       }
 
       dispose(): void {

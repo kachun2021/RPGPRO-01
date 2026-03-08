@@ -140,6 +140,17 @@ export class SkillBar {
             }
       }
 
+      setPlayerLoadout(skillIds: string[]): void {
+            const next = skillIds
+                  .map((skillId) => SKILL_DEFS.find((skill) => skill.id === skillId) ?? null)
+                  .filter((skill): skill is SkillDef => !!skill)
+                  .slice(0, 5);
+
+            for (let i = 0; i < 5; i++) {
+                  this.setSkill(i, next[i] ?? null);
+            }
+      }
+
       getEquipped(): (SkillDef | null)[] {
             return [...this._equipped];
       }

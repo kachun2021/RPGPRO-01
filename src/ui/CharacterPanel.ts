@@ -1,4 +1,5 @@
 import type { Player } from '../entities/Player';
+import type { PlayerIdentitySnapshot } from '../core/PlayerIdentity';
 import { StatAllocation, type BaseStats } from '../systems/StatAllocation';
 import { SkillTree, type SkillTreeNode } from '../systems/SkillTree';
 import { AwakeningSystem } from '../systems/AwakeningSystem';
@@ -16,6 +17,9 @@ export class CharacterPanel {
       private _el: HTMLDivElement;
       private _visible = false;
       private _player: Player;
+      private _identity: PlayerIdentitySnapshot;
+      private _getPrimaryPetName: (() => string | null) | null;
+      private _getObjectiveHint: (() => string | null) | null;
       private _tab: TabId = 'stats';
       private _fitFrameId = 0;
       private _onResize = (): void => {
@@ -31,16 +35,24 @@ export class CharacterPanel {
 
       constructor(
             player: Player,
+            identity: PlayerIdentitySnapshot,
             statAlloc: StatAllocation,
             skillTree: SkillTree,
             awakening: AwakeningSystem,
             rebirth: RebirthSystem,
+            options: {
+                  getPrimaryPetName?: () => string | null;
+                  getObjectiveHint?: () => string | null;
+            } = {},
       ) {
             this._player = player;
+            this._identity = identity;
             this._statAlloc = statAlloc;
             this._skillTree = skillTree;
             this._awakening = awakening;
             this._rebirth = rebirth;
+            this._getPrimaryPetName = options.getPrimaryPetName ?? null;
+            this._getObjectiveHint = options.getObjectiveHint ?? null;
 
             this._el = document.createElement('div');
             this._el.id = 'char-panel';
@@ -59,7 +71,7 @@ export class CharacterPanel {
 
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        📊 角色信息
+                        角色檔案
                         <span class="panel-close" id="cp-close">×</span>
                   </div>
                   <div class="cp-tabs">
@@ -132,16 +144,31 @@ export class CharacterPanel {
             const expNeed = Math.max(1, this._player.expToNext);
             const expPct = ((s.exp / expNeed) * 100).toFixed(1);
             const rebirthInfo = this._rebirth.getInfo();
+            const primaryPetName = this._getPrimaryPetName?.() ?? this._identity.starterPetNames[0] ?? '未設定';
+            const objectiveHint = this._getObjectiveHint?.() ?? this._identity.growthGoal;
 
             body.innerHTML = `
                   <div class="cp-header">
                         <div class="cp-portrait"><div class="cp-portrait-inner">👤</div></div>
                         <div class="cp-info">
-                              <div class="cp-name">Player${rebirthInfo.count > 0 ? ` ⭐×${rebirthInfo.count}` : ''}</div>
+                              <div class="cp-name">${this._escapeHtml(this._identity.playerName)}${rebirthInfo.count > 0 ? ` ⭐×${rebirthInfo.count}` : ''}</div>
+                              <div class="cp-role">${this._escapeHtml(this._identity.heroName)} · ${this._escapeHtml(this._identity.roleLabel)}</div>
                               <div class="cp-row-pair"><span class="cp-label-sm">LV</span><span class="cp-val-sm">${s.level}</span></div>
                               <div class="cp-row-pair"><span class="cp-label-sm">EXP</span><span class="cp-val-sm">${expPct}%</span></div>
+                              <div class="cp-row-pair"><span class="cp-label-sm">主寵</span><span class="cp-val-sm">${this._escapeHtml(primaryPetName)}</span></div>
                         </div>
                         ${this._renderRadarSVG(bs)}
+                  </div>
+
+                  <div class="cp-focus-strip">
+                        <div class="cp-focus-card">
+                              <span class="cp-focus-label">成長目標</span>
+                              <span class="cp-focus-value">${this._escapeHtml(this._identity.growthGoal)}</span>
+                        </div>
+                        <div class="cp-focus-card">
+                              <span class="cp-focus-label">目前引導</span>
+                              <span class="cp-focus-value">${this._escapeHtml(objectiveHint)}</span>
+                        </div>
                   </div>
 
                   <div class="cp-bars">
@@ -419,6 +446,20 @@ export class CharacterPanel {
                   this._el.style.removeProperty('transform');
                   this._el.style.removeProperty('transform-origin');
             }
+      }
+
+      updateIdentity(identity: PlayerIdentitySnapshot): void {
+            this._identity = identity;
+            if (this._visible) this._render();
+      }
+
+      private _escapeHtml(value: string): string {
+            return value
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
       }
       dispose(): void {
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);

@@ -85,6 +85,8 @@ export class CombatLoop {
       private _autoDetectRange = 20;
       /** Skip boss targets for low-risk AFK */
       private _skipBossTargets = false;
+      /** Reacquire a nearby target after a manual kill */
+      private _autoLockTarget = true;
 
       constructor(
             scene: Scene,
@@ -166,6 +168,10 @@ export class CombatLoop {
       get target(): Monster | null { return this._target; }
       get isAutoGrind(): boolean { return this._autoGrind; }
 
+      setAutoLockEnabled(enabled: boolean): void {
+            this._autoLockTarget = enabled;
+      }
+
       setAutoGrind(enabled: boolean): void {
             this._autoGrind = enabled;
 
@@ -226,6 +232,13 @@ export class CombatLoop {
                   this._target = null;
                   this._combatSystem.clearTarget();
                   this._setPlayerTarget(null);
+                  if (!this._autoGrind && this._autoLockTarget) {
+                        const replacement = this._findNearestTarget(playerPos, this.MELEE_RANGE + 1.5, false);
+                        if (replacement) {
+                              this.selectTarget(replacement);
+                              return;
+                        }
+                  }
                   this._retargetDelay = 0.4;
                   return;
             }
@@ -270,6 +283,22 @@ export class CombatLoop {
 
             this._tryPlayerSkill();
             this._tryPetSkills();
+      }
+
+      private _findNearestTarget(playerPos: Vector3, maxDistance: number, skipBoss: boolean): Monster | null {
+            let nearest: Monster | null = null;
+            let minDist = Infinity;
+            for (const candidate of this._monsterManager.all) {
+                  if (candidate.isDead) continue;
+                  if (skipBoss && candidate.def.isBoss) continue;
+                  const dist = candidate.distanceTo(playerPos);
+                  if (dist > maxDistance) continue;
+                  if (dist < minDist) {
+                        minDist = dist;
+                        nearest = candidate;
+                  }
+            }
+            return nearest;
       }
 
       // -- Auto Skill Config --

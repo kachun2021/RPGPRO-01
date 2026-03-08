@@ -3,14 +3,14 @@ import { PET_DEFS, PetSeries, SERIES_EMOJI, type PetDef } from '../pets/PetData'
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
-import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
+import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
 
 type SeriesFilter = 'all' | PetSeries;
 
 interface EncyclopediaMeta {
       level: number;
       dropEgg: boolean | null;
-      mapNames: string[];
+      mapRefs: RuntimeMapRef[];
       fusible: boolean;
 }
 
@@ -36,7 +36,7 @@ export class EncyclopediaPanel {
       private _onlyFusible = false;
       private _onlyDropEgg = false;
       private _selectedPetId: string | null = null;
-      private _selectedSourceMap: string | null = null;
+      private _selectedSourceMapKey: string | null = null;
       private _metaByDefId = new Map<string, EncyclopediaMeta>();
       private _petDefIdByName = new Map<string, string>();
       private _onResize = (): void => {
@@ -44,8 +44,8 @@ export class EncyclopediaPanel {
             this._syncResponsiveMode();
       };
 
-      private _onOpenRecipe: ((petName: string, sourceMap?: string) => void) | null = null;
-      private _onOpenMap: ((mapName: string, petName?: string) => void) | null = null;
+      private _onOpenRecipe: ((petName: string, sourceMapKey?: string) => void) | null = null;
+      private _onOpenMap: ((mapKey: string, petName?: string) => void) | null = null;
 
       constructor(enc: PetEncyclopedia) {
             this._enc = enc;
@@ -61,25 +61,25 @@ export class EncyclopediaPanel {
       get element(): HTMLElement { return this._el; }
 
       setNavigationHandlers(handlers: {
-            onOpenRecipe?: (petName: string, sourceMap?: string) => void;
-            onOpenMap?: (mapName: string, petName?: string) => void;
+            onOpenRecipe?: (petName: string, sourceMapKey?: string) => void;
+            onOpenMap?: (mapKey: string, petName?: string) => void;
       }): void {
             this._onOpenRecipe = handlers.onOpenRecipe ?? null;
             this._onOpenMap = handlers.onOpenMap ?? null;
       }
 
       open(): void {
-            this._selectedSourceMap = null;
+            this._selectedSourceMapKey = null;
             if (!this._selectedPetId) this._selectedPetId = PET_DEFS[0]?.id ?? null;
             this._el.style.display = 'block';
             this._syncResponsiveMode();
             this._render();
       }
 
-      openPetByName(petName: string, sourceMap?: string): void {
+      openPetByName(petName: string, sourceMapKey?: string): void {
             const id = this._findPetDefIdByName(petName);
             this._selectedPetId = id ?? this._selectedPetId ?? PET_DEFS[0]?.id ?? null;
-            this._selectedSourceMap = sourceMap?.trim() || null;
+            this._selectedSourceMapKey = sourceMapKey?.trim() || null;
             this._el.style.display = 'block';
             this._syncResponsiveMode();
             this._render();
@@ -271,7 +271,7 @@ export class EncyclopediaPanel {
             `;
             row.addEventListener('click', () => {
                   this._selectedPetId = def.id;
-                  this._selectedSourceMap = null;
+                  this._selectedSourceMapKey = null;
                   this._render();
             });
             return row;
@@ -292,10 +292,10 @@ export class EncyclopediaPanel {
 
             const meta = this._metaByDefId.get(def.id);
             const level = meta?.level ?? def.baseLevel;
-            const mapNames = meta?.mapNames ?? [];
-            const preferredMap = this._selectedSourceMap && mapNames.includes(this._selectedSourceMap)
-                  ? this._selectedSourceMap
-                  : (mapNames[0] ?? null);
+            const mapRefs = meta?.mapRefs ?? [];
+            const preferredMap = this._selectedSourceMapKey
+                  ? (mapRefs.find((mapRef) => mapRef.mapKey === this._selectedSourceMapKey) ?? null)
+                  : (mapRefs[0] ?? null);
 
             const card = document.createElement('div');
             card.className = 'book-card game-card';
@@ -308,10 +308,10 @@ export class EncyclopediaPanel {
                         </div>
                   </div>
             `;
-            card.appendChild(this._buildDetailRow('主要地圖', preferredMap ? this._escapeHtml(preferredMap) : '尚無資料'));
+            card.appendChild(this._buildDetailRow('主要地圖', preferredMap ? this._escapeHtml(preferredMap.displayName) : '尚無資料'));
             card.appendChild(this._buildDetailRow('掉蛋', this._dropEggLabel(meta?.dropEgg ?? null)));
             card.appendChild(this._buildDetailRow('是否可合成', meta?.fusible ? '是' : '否'));
-            card.appendChild(this._buildDetailRow('來源地圖', this._mapChipsMarkup(mapNames)));
+            card.appendChild(this._buildDetailRow('來源地圖', this._mapChipsMarkup(mapRefs)));
             pane.appendChild(card);
 
             const actionRow = document.createElement('div');
@@ -325,7 +325,7 @@ export class EncyclopediaPanel {
             recipeBtn.addEventListener('click', () => {
                   if (!this._onOpenRecipe) return;
                   this.close();
-                  this._onOpenRecipe(def.nameCN, preferredMap ?? undefined);
+                  this._onOpenRecipe(def.nameCN, preferredMap?.mapKey ?? undefined);
             });
 
             const mapBtn = document.createElement('button');
@@ -336,7 +336,7 @@ export class EncyclopediaPanel {
             mapBtn.addEventListener('click', () => {
                   if (!preferredMap || !this._onOpenMap) return;
                   this.close();
-                  this._onOpenMap(preferredMap, def.nameCN);
+                  this._onOpenMap(preferredMap.mapKey, def.nameCN);
             });
 
             actionRow.appendChild(recipeBtn);
@@ -355,10 +355,10 @@ export class EncyclopediaPanel {
             return row;
       }
 
-      private _mapChipsMarkup(mapNames: string[]): string {
-            if (mapNames.length === 0) return '<span class="book-map-chip-empty">尚無地圖資料</span>';
-            const chips = mapNames.slice(0, 10).map((name) => `<span class="book-map-chip">${this._escapeHtml(name)}</span>`);
-            if (mapNames.length > 10) chips.push(`<span class="book-map-chip-more">+${mapNames.length - 10}</span>`);
+      private _mapChipsMarkup(mapRefs: RuntimeMapRef[]): string {
+            if (mapRefs.length === 0) return '<span class="book-map-chip-empty">尚無地圖資料</span>';
+            const chips = mapRefs.slice(0, 10).map((mapRef) => `<span class="book-map-chip">${this._escapeHtml(mapRef.displayName)}</span>`);
+            if (mapRefs.length > 10) chips.push(`<span class="book-map-chip-more">+${mapRefs.length - 10}</span>`);
             return chips.join('');
       }
 
@@ -426,7 +426,7 @@ export class EncyclopediaPanel {
                   const base = {
                         level: Math.max(1, Math.floor(def.baseLevel || 1)),
                         dropEgg: null,
-                        mapNames: [] as string[],
+                        mapRefs: [] as RuntimeMapRef[],
                         fusible: def.acquisition === 'fusion' || def.fusionRecipes.length > 0,
                   };
                   metaById.set(def.id, base);
@@ -463,13 +463,12 @@ export class EncyclopediaPanel {
                               const listHint = listByCanonicalName.get(resultName)?.level;
                               meta.level = Math.max(meta.level, this._toLevel(row.resultLevel, this._toLevel(listHint, meta.level)));
                               meta.dropEgg = this._mergeDropEgg(meta.dropEgg, row.resultDropEgg ?? null);
-                              meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(row.resultMaps));
+                              meta.mapRefs = this._mergeMapRefs(meta.mapRefs, row.resultMapRefs ?? []);
                               meta.fusible = true;
                         }
                   }
 
                   const ingredientNames = [row.mainName, row.subName];
-                  const ingredientMaps = [row.mainMaps, row.subMaps];
                   const ingredientEggs = [row.mainDropEgg, row.subDropEgg];
                   const ingredientLevels = [row.mainLevel, row.subLevel];
                   for (let i = 0; i < ingredientNames.length; i++) {
@@ -482,14 +481,18 @@ export class EncyclopediaPanel {
                         const listHint = listByCanonicalName.get(ingredientName)?.level;
                         meta.level = Math.max(meta.level, this._toLevel(ingredientLevels[i], this._toLevel(listHint, meta.level)));
                         meta.dropEgg = this._mergeDropEgg(meta.dropEgg, ingredientEggs[i] ?? null);
-                        meta.mapNames = this._mergeStringArray(meta.mapNames, this._normalizeStringArray(ingredientMaps[i]));
+                        meta.mapRefs = this._mergeMapRefs(
+                              meta.mapRefs,
+                              i === 0 ? (row.mainMapRefs ?? []) : (row.subMapRefs ?? []),
+                        );
                   }
             }
 
             for (const def of PET_DEFS) {
                   const meta = ensureMeta(def);
-                  meta.mapNames = Array.from(new Set(meta.mapNames.map((name) => name.trim()).filter(Boolean)))
-                        .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+                  meta.mapRefs = meta.mapRefs
+                        .slice()
+                        .sort((a, b) => a.runtimeZoneId - b.runtimeZoneId);
             }
 
             this._metaByDefId = metaById;
@@ -503,22 +506,14 @@ export class EncyclopediaPanel {
             return normalizeFusionNameKey(raw);
       }
 
-      private _normalizeStringArray(value: unknown): string[] {
-            if (Array.isArray(value)) {
-                  const arr = value.map((item) => String(item ?? '').trim()).filter(Boolean);
-                  return Array.from(new Set(arr));
+      private _mergeMapRefs(a: RuntimeMapRef[], b: RuntimeMapRef[]): RuntimeMapRef[] {
+            const merged = new Map<string, RuntimeMapRef>();
+            for (const mapRef of a) merged.set(mapRef.mapKey, { ...mapRef });
+            for (const mapRef of b) {
+                  if (!mapRef?.mapKey) continue;
+                  merged.set(mapRef.mapKey, { ...mapRef });
             }
-            if (typeof value === 'string') {
-                  const one = value.trim();
-                  return one ? [one] : [];
-            }
-            return [];
-      }
-
-      private _mergeStringArray(a: string[], b: string[]): string[] {
-            const set = new Set<string>(a);
-            for (const item of b) set.add(item);
-            return Array.from(set);
+            return Array.from(merged.values());
       }
 
       private _toLevel(raw: unknown, fallback = 1): number {

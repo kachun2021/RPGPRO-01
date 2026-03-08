@@ -38,6 +38,7 @@ export class ShopPanel {
       private _selectedBuyId: string | null = null;
       private _selectedSellId: string | null = null;
       private _selectedRecipeId: number | null = null;
+      private _disposeInventoryListener: (() => void) | null = null;
       private _onResize = (): void => {
             if (!this._visible) return;
             this._render();
@@ -53,9 +54,9 @@ export class ShopPanel {
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
 
-            this._inventory.onChange = () => {
+            this._disposeInventoryListener = this._inventory.subscribe(() => {
                   if (this._visible) this._render();
-            };
+            });
             window.addEventListener('resize', this._onResize);
       }
 
@@ -619,6 +620,7 @@ export class ShopPanel {
       toggle(): void { this._visible ? this.hide() : this.show(); }
 
       dispose(): void {
+            this._disposeInventoryListener?.();
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }

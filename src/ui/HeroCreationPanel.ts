@@ -1,5 +1,6 @@
 import type { RuntimeHeroTemplate } from '../data/runtime/RuntimeProgression';
 import { getHeroArchetypeProfile } from '../data/runtime/HeroArchetypes';
+import { PET_DEFS } from '../pets/PetData';
 
 export interface HeroCreationResult {
       heroType: number;
@@ -11,6 +12,7 @@ export class HeroCreationPanel {
       private _el: HTMLDivElement | null = null;
       private _selectedHeroType = 0;
       private _resolve: ((value: HeroCreationResult) => void) | null = null;
+      private readonly _petNameById = new Map(PET_DEFS.map((pet) => [pet.id, pet.name] as const));
 
       constructor(heroes: RuntimeHeroTemplate[]) {
             this._heroes = heroes
@@ -46,7 +48,17 @@ export class HeroCreationPanel {
             root.innerHTML = `
                   <div class="hero-create-panel">
                         <div class="hero-create-title">建立角色</div>
-                        <div class="hero-create-sub">選擇職業與名稱，之後可在系統面板重設角色。</div>
+                        <div class="hero-create-sub">先選擇開局定位，再沿著新手導引完成找村長、首戰、補給、寵物、融合這條基本流程。</div>
+                        <div class="hero-create-brief">
+                              <div class="hero-create-brief-card">
+                                    <div class="hero-create-brief-title">開局 5 分鐘</div>
+                                    <div class="hero-create-brief-text">接主線、出村打一場、撿第一個掉落。</div>
+                              </div>
+                              <div class="hero-create-brief-card">
+                                    <div class="hero-create-brief-title">接著做什麼</div>
+                                    <div class="hero-create-brief-text">補給藥水、確認主寵編隊，再看第一個融合目標。</div>
+                              </div>
+                        </div>
                         <div class="hero-create-grid" id="hero-create-grid"></div>
                         <label class="hero-create-name-wrap">
                               <span>角色名稱</span>
@@ -77,6 +89,14 @@ export class HeroCreationPanel {
                               <div class="hero-create-role">${this._escape(profile.roleLabel)}</div>
                               <div class="hero-create-desc">${this._escape(profile.shortDesc)}</div>
                               <div class="hero-create-stat">HP ${hero.baseHp} · MP ${hero.baseMp}</div>
+                              <div class="hero-create-starter-label">起始寵物</div>
+                              <div class="hero-create-pet-row">
+                                    ${profile.starterPetIds
+                                          .slice(0, 3)
+                                          .map((petId) => `<span class="hero-create-pet-chip">${this._escape(this._petNameById.get(petId) ?? petId)}</span>`)
+                                          .join('')}
+                              </div>
+                              <div class="hero-create-route">成長方向：先穩定完成新手主線，再沿著推薦融合線往上推。</div>
                         `;
                         card.addEventListener('click', () => {
                               this._selectedHeroType = hero.type;
@@ -139,4 +159,3 @@ export class HeroCreationPanel {
                   .replace(/'/g, '&#39;');
       }
 }
-

@@ -1,4 +1,5 @@
 import type { PlayerStats } from '../entities/Player';
+import { formatStarterPetSummary, type PlayerIdentitySnapshot } from '../core/PlayerIdentity';
 import type { PetManager } from '../pets/PetManager';
 
 /**
@@ -7,15 +8,37 @@ import type { PetManager } from '../pets/PetManager';
  * - Bottom nav bar
  */
 export class HUD {
+      private _identityBar: HTMLDivElement;
+      private _identityName: HTMLDivElement;
+      private _identityMeta: HTMLDivElement;
+      private _identityObjective: HTMLDivElement;
       private _topRight: HTMLDivElement;
       private _navBar: HTMLDivElement;
       private _portraits: HTMLDivElement[] = [];
       private _petLabelCache: (string | null)[] = [null, null, null];
       private _collapsed = false;
       private _toggleBtn: HTMLDivElement;
+      private _identity: PlayerIdentitySnapshot | null = null;
+      private _zoneName = '新手草原';
+      private _primaryPetName = '未設定';
+      private _objectiveHint = '先找村長接主線';
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
+
+            this._identityBar = document.createElement('div');
+            this._identityBar.id = 'hudIdentity';
+            this._identityBar.className = 'hud-identity';
+            this._identityName = document.createElement('div');
+            this._identityName.className = 'hud-identity-name';
+            this._identityMeta = document.createElement('div');
+            this._identityMeta.className = 'hud-identity-meta';
+            this._identityObjective = document.createElement('div');
+            this._identityObjective.className = 'hud-identity-objective';
+            this._identityBar.appendChild(this._identityName);
+            this._identityBar.appendChild(this._identityMeta);
+            this._identityBar.appendChild(this._identityObjective);
+            uiLayer.appendChild(this._identityBar);
 
             this._topRight = document.createElement('div');
             this._topRight.id = 'hudPortraits';
@@ -70,6 +93,7 @@ export class HUD {
             }
 
             uiLayer.appendChild(this._navBar);
+            this._renderIdentity();
       }
 
       private _createPortrait(label: string): HTMLDivElement {
@@ -185,6 +209,30 @@ export class HUD {
                         if (expFill) expFill.style.width = '0%';
                   }
             }
+            const primaryPet = petManager.active[0]?.displayName ?? petManager.active[0]?.def.name ?? petManager.owned[0]?.displayName ?? '未設定';
+            this.setPrimaryPet(primaryPet);
+      }
+
+      setPlayerIdentity(identity: PlayerIdentitySnapshot): void {
+            this._identity = identity;
+            this._primaryPetName = identity.starterPetNames[0] ?? this._primaryPetName;
+            this._objectiveHint = identity.growthGoal;
+            this._renderIdentity();
+      }
+
+      setZoneName(zoneName: string): void {
+            this._zoneName = zoneName || this._zoneName;
+            this._renderIdentity();
+      }
+
+      setPrimaryPet(name: string | null): void {
+            this._primaryPetName = (name ?? '').trim() || '未設定';
+            this._renderIdentity();
+      }
+
+      setObjectiveHint(text: string | null): void {
+            this._objectiveHint = (text ?? '').trim() || this._objectiveHint;
+            this._renderIdentity();
       }
 
       getNavButton(id: string): HTMLElement | null {
@@ -203,7 +251,21 @@ export class HUD {
             this._toggleBtn.textContent = this._collapsed ? '▲' : '▼';
       }
 
+      private _renderIdentity(): void {
+            const playerName = this._identity?.playerName ?? '冒險者';
+            const roleLabel = this._identity?.roleLabel ?? '新手探索';
+            const heroName = this._identity?.heroName ?? '旅者';
+            const starterPetSummary = this._identity
+                  ? formatStarterPetSummary(this._identity.starterPetNames, 2)
+                  : this._primaryPetName;
+
+            this._identityName.textContent = `${playerName} · ${roleLabel}`;
+            this._identityMeta.textContent = `${heroName} | ${this._zoneName} | 主寵 ${this._primaryPetName || starterPetSummary}`;
+            this._identityObjective.textContent = this._objectiveHint;
+      }
+
       dispose(): void {
+            this._identityBar.remove();
             this._topRight.remove();
             this._navBar.remove();
       }

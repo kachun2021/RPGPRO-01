@@ -6,6 +6,7 @@ import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { canonicalRuntimeMapName, matchRuntimeZoneToSceneZone, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
+import { getRuntimeMapByZoneId, listRuntimeMapNeighbors, resolveRuntimeMapEntry } from '../data/runtime/RuntimeMapCatalog';
 
 interface MapMonsterInfo {
       name: string;
@@ -25,7 +26,9 @@ interface MapFusionTargetInfo {
 }
 
 interface MapSummary {
+      mapKey: string;
       name: string;
+      baseName: string;
       region: string;
       monsterCount: number;
       targetCount: number;
@@ -34,7 +37,7 @@ interface MapSummary {
       runtimeZoneId: number | null;
       teleportSceneZoneId: string | null;
       teleportMode: RuntimeZoneMatchMode;
-      neighborMaps: string[];
+      neighborMapKeys: string[];
 }
 
 type MapLevelBand = 'all' | '1-30' | '31-60' | '61-90' | '91+';
@@ -47,7 +50,7 @@ export class WorldMapPanel {
       private _detailCol!: HTMLDivElement;
       private _visible = false;
       private _zoneManager: ZoneManager;
-      private _selectedMapName: string | null = null;
+      private _selectedMapKey: string | null = null;
       private _mapSearchKeyword = '';
       private _regionFilter = 'all';
       private _levelBand: MapLevelBand = 'all';
@@ -55,7 +58,7 @@ export class WorldMapPanel {
       private _onlyDropEgg = false;
       private _minLevel = 1;
       private _focusedPetName: string | null = null;
-      private _trackedTargetMapName: string | null = null;
+      private _trackedTargetMapKey: string | null = null;
       private _trackedRouteNodes = new Set<string>();
       private readonly _trackStorageKey = 'fpo.worldmap.route.track.v1';
 
@@ -66,9 +69,9 @@ export class WorldMapPanel {
       private _listPetsByKey = new Map<string, ListPetRow>();
       private _ingredientCountByName = new Map<string, number>();
 
-      private _onOpenEncyclopedia: ((petName: string, mapName: string) => void) | null = null;
-      private _onOpenFusionByIngredient: ((petName: string, mapName: string) => void) | null = null;
-      private _onOpenFusionByTarget: ((targetName: string, mapName: string) => void) | null = null;
+      private _onOpenEncyclopedia: ((petName: string, mapKey: string) => void) | null = null;
+      private _onOpenFusionByIngredient: ((petName: string, mapKey: string) => void) | null = null;
+      private _onOpenFusionByTarget: ((targetName: string, mapKey: string) => void) | null = null;
       private _onResize = (): void => {
             if (!this._visible) return;
             this._syncResponsiveMode();
@@ -78,7 +81,7 @@ export class WorldMapPanel {
             this._zoneManager = zoneManager;
             this._indexListPetData();
             this._buildMapDataFromFusion();
-            this._trackedTargetMapName = this._loadTrackedTarget();
+            this._trackedTargetMapKey = this._loadTrackedTarget();
             this._refreshTrackedRouteFromCurrent();
 
             this._el = document.createElement('div');
@@ -92,22 +95,22 @@ export class WorldMapPanel {
       }
 
       setNavigationHandlers(handlers: {
-            onOpenEncyclopedia?: (petName: string, mapName: string) => void;
-            onOpenFusionByIngredient?: (petName: string, mapName: string) => void;
-            onOpenFusionByTarget?: (targetName: string, mapName: string) => void;
+            onOpenEncyclopedia?: (petName: string, mapKey: string) => void;
+            onOpenFusionByIngredient?: (petName: string, mapKey: string) => void;
+            onOpenFusionByTarget?: (targetName: string, mapKey: string) => void;
       }): void {
             this._onOpenEncyclopedia = handlers.onOpenEncyclopedia ?? null;
             this._onOpenFusionByIngredient = handlers.onOpenFusionByIngredient ?? null;
             this._onOpenFusionByTarget = handlers.onOpenFusionByTarget ?? null;
       }
 
-      openAtMap(mapName: string, petName?: string): void {
+      openAtMap(mapKeyOrName: string, petName?: string): void {
             this.show();
             this._mapSearchKeyword = '';
             this._regionFilter = 'all';
             this._levelBand = 'all';
             this._focusedPetName = petName ? this._canonicalName(petName) : null;
-            const matched = this._findMapName(mapName);
+            const matched = this._findMapKey(mapKeyOrName);
             if (matched) this._selectMap(matched);
       }
 
@@ -202,8 +205,8 @@ export class WorldMapPanel {
             this._listFilterCol.appendChild(searchWrap);
 
             const mapList = this._filteredMapSummaries();
-            if (!this._selectedMapName || !mapList.some(item => item.name === this._selectedMapName)) {
-                  this._selectedMapName = mapList[0]?.name ?? null;
+            if (!this._selectedMapKey || !mapList.some(item => item.mapKey === this._selectedMapKey)) {
+                  this._selectedMapKey = mapList[0]?.mapKey ?? null;
             }
 
             let lastRegion = '';
@@ -218,9 +221,9 @@ export class WorldMapPanel {
 
                   const row = document.createElement('div');
                   row.className = 'wmp-zone-row';
-                  if (this._selectedMapName === map.name) row.classList.add('wmp-selected');
-                  if (this._trackedTargetMapName === map.name) row.classList.add('wmp-tracked');
-                  if (this._trackedRouteNodes.has(map.name)) row.classList.add('wmp-on-route');
+                  if (this._selectedMapKey === map.mapKey) row.classList.add('wmp-selected');
+                  if (this._trackedTargetMapKey === map.mapKey) row.classList.add('wmp-tracked');
+                  if (this._trackedRouteNodes.has(map.mapKey)) row.classList.add('wmp-on-route');
                   const info = document.createElement('div');
                   info.className = 'wmp-zone-info';
                   info.innerHTML = `
@@ -230,7 +233,7 @@ export class WorldMapPanel {
                         </div>
                         <div class="wmp-zone-lv">Lv.${map.minLevel}-${map.maxLevel} · 怪${map.monsterCount} · 合${map.targetCount}</div>
                   `;
-                  info.addEventListener('click', () => this._selectMap(map.name));
+                  info.addEventListener('click', () => this._selectMap(map.mapKey));
 
                   const teleBtn = document.createElement('button');
                   teleBtn.className = 'wmp-teleport-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
@@ -269,28 +272,28 @@ export class WorldMapPanel {
                   return;
             }
 
-            if (!this._selectedMapName && mapList.length > 0) {
-                  this._selectedMapName = mapList[0].name;
+            if (!this._selectedMapKey && mapList.length > 0) {
+                  this._selectedMapKey = mapList[0].mapKey;
             }
-            if (this._selectedMapName) {
-                  this._renderDetail(this._selectedMapName);
+            if (this._selectedMapKey) {
+                  this._renderDetail(this._selectedMapKey);
             }
       }
 
-      private _selectMap(mapName: string): void {
-            this._selectedMapName = mapName;
+      private _selectMap(mapKey: string): void {
+            this._selectedMapKey = mapKey;
             this._render();
       }
 
-      private _renderDetail(mapName: string): void {
-            const summary = this._mapSummaries.find(item => item.name === mapName);
+      private _renderDetail(mapKey: string): void {
+            const summary = this._mapSummaries.find(item => item.mapKey === mapKey);
             if (!summary) {
                   this._detailCol.innerHTML = '<div class="wmp-detail-empty">找不到地圖資料</div>';
                   return;
             }
 
-            const monstersAll = this._monstersByMap.get(mapName) ?? [];
-            const targetsAll = this._targetsByMap.get(mapName) ?? [];
+            const monstersAll = this._monstersByMap.get(mapKey) ?? [];
+            const targetsAll = this._targetsByMap.get(mapKey) ?? [];
 
             const minLevel = Math.max(1, this._minLevel);
             const focusMode = this._isLandscapeFocusMode();
@@ -321,7 +324,7 @@ export class WorldMapPanel {
             const header = document.createElement('div');
             header.className = 'wmp-detail-header';
             header.innerHTML = `
-                  <div class="wmp-detail-title">${this._escapeHtml(mapName)}</div>
+                  <div class="wmp-detail-title">${this._escapeHtml(summary.name)}</div>
                   <div class="wmp-detail-sub">${this._escapeHtml(summary.region)} · Lv.${summary.minLevel}-${summary.maxLevel} · 怪${monsters.length}/${summary.monsterCount} · 合${targets.length}/${summary.targetCount}</div>
             `;
             sticky.appendChild(header);
@@ -332,8 +335,8 @@ export class WorldMapPanel {
             const teleportLabel = sceneZoneId
                   ? `傳送點：${sceneZoneId}${this._teleportModeSuffix(summary.teleportMode)}`
                   : '傳送點：無';
-            const neighborLabel = summary.neighborMaps.length > 0
-                  ? `連接：${summary.neighborMaps.length}`
+            const neighborLabel = summary.neighborMapKeys.length > 0
+                  ? `連接：${summary.neighborMapKeys.length}`
                   : '連接：0';
             navRow.innerHTML = `
                   <span class="sa-tag">資料：DB</span>
@@ -342,28 +345,30 @@ export class WorldMapPanel {
             `;
             sticky.appendChild(navRow);
 
-            if (summary.neighborMaps.length > 0) {
+            if (summary.neighborMapKeys.length > 0) {
                   const linkRow = document.createElement('div');
                   linkRow.className = 'wmp-link-row';
-                  for (const neighborMap of summary.neighborMaps.slice(0, 12)) {
+                  for (const neighborKey of summary.neighborMapKeys.slice(0, 12)) {
+                        const neighborMap = this._mapSummaries.find((item) => item.mapKey === neighborKey);
+                        if (!neighborMap) continue;
                         const chip = document.createElement('button');
                         chip.type = 'button';
                         chip.className = 'wmp-link-chip rpg-chip rpg-chip-filter';
-                        chip.textContent = neighborMap;
-                        chip.addEventListener('click', () => this._selectMap(neighborMap));
+                        chip.textContent = neighborMap.name;
+                        chip.addEventListener('click', () => this._selectMap(neighborMap.mapKey));
                         linkRow.appendChild(chip);
                   }
-                  if (summary.neighborMaps.length > 12) {
+                  if (summary.neighborMapKeys.length > 12) {
                         const more = document.createElement('span');
                         more.className = 'wmp-link-more';
-                        more.textContent = `+${summary.neighborMaps.length - 12}`;
+                        more.textContent = `+${summary.neighborMapKeys.length - 12}`;
                         linkRow.appendChild(more);
                   }
                   sticky.appendChild(linkRow);
             }
 
-            const currentMapName = this._getCurrentMapName();
-            const route = currentMapName ? this._findRoute(currentMapName, mapName) : [];
+            const currentMapKey = this._getCurrentMapKey();
+            const route = currentMapKey ? this._findRoute(currentMapKey, mapKey) : [];
             const routeCard = document.createElement('div');
             routeCard.className = 'wmp-route-card';
             const routeTitle = document.createElement('div');
@@ -373,14 +378,14 @@ export class WorldMapPanel {
 
             const routeText = document.createElement('div');
             routeText.className = 'wmp-route-path';
-            if (!currentMapName) {
+            if (!currentMapKey) {
                   routeText.textContent = '目前區域未映射，無法計算路線。';
-            } else if (currentMapName === mapName) {
-                  routeText.textContent = `目前所在：${mapName}`;
+            } else if (currentMapKey === mapKey) {
+                  routeText.textContent = `目前所在：${summary.name}`;
             } else if (route.length <= 0) {
-                  routeText.textContent = `不可達：${currentMapName} -> ${mapName}`;
+                  routeText.textContent = `不可達：${this._getMapNameByKey(currentMapKey) ?? currentMapKey} -> ${summary.name}`;
             } else {
-                  routeText.textContent = route.join(' -> ');
+                  routeText.textContent = route.map((routeMapKey) => this._getMapNameByKey(routeMapKey) ?? routeMapKey).join(' -> ');
             }
             routeCard.appendChild(routeText);
 
@@ -389,15 +394,15 @@ export class WorldMapPanel {
             const trackBtn = document.createElement('button');
             trackBtn.type = 'button';
             trackBtn.className = 'wmp-route-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-primary';
-            trackBtn.textContent = this._trackedTargetMapName === mapName ? '已追蹤' : '追蹤';
-            trackBtn.disabled = !currentMapName || route.length <= 0 || this._trackedTargetMapName === mapName;
+            trackBtn.textContent = this._trackedTargetMapKey === mapKey ? '已追蹤' : '追蹤';
+            trackBtn.disabled = !currentMapKey || route.length <= 0 || this._trackedTargetMapKey === mapKey;
             trackBtn.addEventListener('click', () => {
-                  this._setTrackedTarget(mapName);
+                  this._setTrackedTarget(mapKey);
                   this._render();
             });
             routeActions.appendChild(trackBtn);
 
-            if (this._trackedTargetMapName) {
+            if (this._trackedTargetMapKey) {
                   const clearBtn = document.createElement('button');
                   clearBtn.type = 'button';
                   clearBtn.className = 'wmp-route-btn rpg-op-btn rpg-op-btn-sm rpg-op-btn-secondary';
@@ -498,7 +503,7 @@ export class WorldMapPanel {
                         bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
-                              this._onOpenEncyclopedia?.(mon.name, mapName);
+                              this._onOpenEncyclopedia?.(mon.name, mapKey);
                         });
                         actions.appendChild(bookBtn);
 
@@ -510,7 +515,7 @@ export class WorldMapPanel {
                         if (mon.asIngredientCount <= 0) fusionBtn.classList.add('wmp-btn-disabled');
                         fusionBtn.addEventListener('click', () => {
                               this.hide();
-                              this._onOpenFusionByIngredient?.(mon.name, mapName);
+                              this._onOpenFusionByIngredient?.(mon.name, mapKey);
                         });
                         actions.appendChild(fusionBtn);
 
@@ -569,7 +574,7 @@ export class WorldMapPanel {
                         bookBtn.textContent = compactMode ? '圖鑑' : '查看圖鑑';
                         bookBtn.addEventListener('click', () => {
                               this.hide();
-                              this._onOpenEncyclopedia?.(target.resultName, mapName);
+                              this._onOpenEncyclopedia?.(target.resultName, mapKey);
                         });
 
                         const btn = document.createElement('button');
@@ -578,7 +583,7 @@ export class WorldMapPanel {
                         btn.textContent = compactMode ? '配方' : '查看配方';
                         btn.addEventListener('click', () => {
                               this.hide();
-                              this._onOpenFusionByTarget?.(target.resultName, mapName);
+                              this._onOpenFusionByTarget?.(target.resultName, mapKey);
                         });
 
                         const row = document.createElement('div');
@@ -630,7 +635,15 @@ export class WorldMapPanel {
       private _filteredMapSummaries(): MapSummary[] {
             const key = this._mapSearchKeyword.trim().toLowerCase();
             return this._mapSummaries.filter(item => {
-                  if (key && !item.name.toLowerCase().includes(key)) return false;
+                  if (key) {
+                        const haystacks = [
+                              item.name.toLowerCase(),
+                              item.baseName.toLowerCase(),
+                              this._canonicalMapName(item.name).toLowerCase(),
+                              this._canonicalMapName(item.baseName).toLowerCase(),
+                        ];
+                        if (!haystacks.some((value) => value.includes(key))) return false;
+                  }
                   if (this._regionFilter !== 'all' && item.region !== this._regionFilter) return false;
                   if (!this._passesLevelBand(item)) return false;
                   return true;
@@ -664,7 +677,7 @@ export class WorldMapPanel {
       }
 
       private _teleportModeSuffix(mode: RuntimeZoneMatchMode): string {
-            if (mode === 'topology') return '（拓撲路由）';
+            if (mode === 'explicit') return '（顯式映射）';
             if (mode === 'town') return '（城鎮路由）';
             if (mode === 'level') return '（等級近似）';
             if (mode === 'none') return '（未映射）';
@@ -784,16 +797,17 @@ export class WorldMapPanel {
             for (const zone of zones) {
                   const zoneId = Number(zone.zoneId ?? 0);
                   if (!Number.isFinite(zoneId) || zoneId <= 0) continue;
-                  const mapName = this._canonicalMapName(String(zone.name ?? '').trim());
-                  if (!mapName) continue;
+                  const mapEntry = getRuntimeMapByZoneId(zoneId);
+                  if (!mapEntry) continue;
+                  const mapKey = mapEntry.mapKey;
 
                   const monsterTypes = Array.from(monsterTypeSetByZone.get(zoneId) ?? []);
                   if (monsterTypes.length === 0) continue;
 
-                  let entries = monsterByMap.get(mapName);
+                  let entries = monsterByMap.get(mapKey);
                   if (!entries) {
                         entries = new Map<string, MapMonsterInfo>();
-                        monsterByMap.set(mapName, entries);
+                        monsterByMap.set(mapKey, entries);
                   }
 
                   for (const type of monsterTypes) {
@@ -828,15 +842,16 @@ export class WorldMapPanel {
             for (const zone of zones) {
                   const zoneId = Number(zone.zoneId ?? 0);
                   if (!Number.isFinite(zoneId) || zoneId <= 0) continue;
-                  const mapName = this._canonicalMapName(String(zone.name ?? '').trim());
-                  if (!mapName) continue;
+                  const mapEntry = getRuntimeMapByZoneId(zoneId);
+                  if (!mapEntry) continue;
+                  const mapKey = mapEntry.mapKey;
                   const ingredients = monsterTypeSetByZone.get(zoneId);
                   if (!ingredients || ingredients.size === 0) continue;
 
-                  let mapTargets = targetsByMapRaw.get(mapName);
+                  let mapTargets = targetsByMapRaw.get(mapKey);
                   if (!mapTargets) {
                         mapTargets = new Map<string, MapFusionTargetInfo>();
-                        targetsByMapRaw.set(mapName, mapTargets);
+                        targetsByMapRaw.set(mapKey, mapTargets);
                   }
 
                   for (const recipe of fusionRecipes) {
@@ -880,68 +895,86 @@ export class WorldMapPanel {
                   this._targetsByMap.set(mapName, list);
             }
 
-            const zoneByMapName = new Map<string, (typeof zones)[number]>();
-            const mapNameByZoneId = new Map<number, string>();
+            const zonesByMapKey = new Map<string, {
+                  zoneId: number;
+                  name: string;
+                  displayName: string;
+                  mobAble: boolean;
+                  levelMin: number;
+                  levelMax: number;
+                  restriction: number;
+                  pkZoneFlag: number;
+                  sceneZoneId: string | null;
+            }>();
+            const mapKeys = new Set<string>();
             for (const zone of zones) {
-                  const mapName = this._canonicalMapName(String(zone.name ?? '').trim());
-                  if (!mapName) continue;
-                  zoneByMapName.set(mapName, zone);
-                  mapNameByZoneId.set(Number(zone.zoneId ?? 0), mapName);
-            }
-
-            const neighborMapsByMapName = new Map<string, Set<string>>();
-            for (const gate of gates) {
-                  const fromMap = mapNameByZoneId.get(Number(gate.fromZoneId ?? 0));
-                  const toMap = mapNameByZoneId.get(Number(gate.toZoneId ?? 0));
-                  if (!fromMap || !toMap || fromMap === toMap) continue;
-                  let neighbors = neighborMapsByMapName.get(fromMap);
-                  if (!neighbors) {
-                        neighbors = new Set<string>();
-                        neighborMapsByMapName.set(fromMap, neighbors);
-                  }
-                  neighbors.add(toMap);
-            }
-
-            const mapNames = new Set<string>();
-            for (const mapName of this._monstersByMap.keys()) mapNames.add(mapName);
-            for (const mapName of this._targetsByMap.keys()) mapNames.add(mapName);
-
-            this._mapSummaries = Array.from(mapNames).map((name) => {
-                  const mons = this._monstersByMap.get(name) ?? [];
-                  const targets = this._targetsByMap.get(name) ?? [];
-                  const zone = zoneByMapName.get(name);
-
-                  const levelMin = Number(zone?.level?.min ?? NaN);
-                  const levelMax = Number(zone?.level?.max ?? NaN);
-                  const hasLevelBand = Number.isFinite(levelMin) && Number.isFinite(levelMax);
-                  const minLevel = hasLevelBand ? Math.max(1, levelMin) : (mons.length > 0 ? Math.min(...mons.map(item => item.level)) : 1);
-                  const maxLevel = hasLevelBand ? Math.max(minLevel, levelMax) : (mons.length > 0 ? Math.max(...mons.map(item => item.level)) : minLevel);
-
-                  const zoneMatch = matchRuntimeZoneToSceneZone({
-                        runtimeZoneId: Number(zone?.zoneId ?? 0),
-                        zoneName: name,
-                        minLevel,
-                        maxLevel,
-                        mobAble: zone?.mobAble !== false,
-                        restriction: Number(zone?.rules?.restriction ?? 0),
-                        pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
+                  const runtimeZoneId = Number(zone.zoneId ?? 0);
+                  const mapEntry = getRuntimeMapByZoneId(runtimeZoneId);
+                  if (!mapEntry) continue;
+                  zonesByMapKey.set(mapEntry.mapKey, {
+                        zoneId: mapEntry.runtimeZoneId,
+                        name: mapEntry.name,
+                        displayName: mapEntry.displayName,
+                        mobAble: mapEntry.mobAble,
+                        levelMin: mapEntry.minLevel,
+                        levelMax: mapEntry.maxLevel,
+                        restriction: mapEntry.restriction,
+                        pkZoneFlag: mapEntry.pkZoneFlag,
+                        sceneZoneId: mapEntry.sceneZoneId,
                   });
-                  const region = this._deriveRegionFromTopology(zone);
-                  const runtimeZoneId = Number(zone?.zoneId ?? 0);
-                  const neighbors = Array.from(neighborMapsByMapName.get(name) ?? [])
-                        .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+                  mapKeys.add(mapEntry.mapKey);
+            }
+            for (const mapKey of this._monstersByMap.keys()) mapKeys.add(mapKey);
+            for (const mapKey of this._targetsByMap.keys()) mapKeys.add(mapKey);
+
+            this._mapSummaries = Array.from(mapKeys).map((mapKey) => {
+                  const mons = this._monstersByMap.get(mapKey) ?? [];
+                  const targets = this._targetsByMap.get(mapKey) ?? [];
+                  const zone = zonesByMapKey.get(mapKey);
+
+                  const minLevel = zone
+                        ? Math.max(1, zone.levelMin)
+                        : (mons.length > 0 ? Math.min(...mons.map(item => item.level)) : 1);
+                  const maxLevel = zone
+                        ? Math.max(minLevel, zone.levelMax)
+                        : (mons.length > 0 ? Math.max(...mons.map(item => item.level)) : minLevel);
+
+                  const zoneMatch = zone
+                        ? matchRuntimeZoneToSceneZone({
+                              runtimeZoneId: zone.zoneId,
+                              zoneName: zone.name,
+                              minLevel,
+                              maxLevel,
+                              mobAble: zone.mobAble,
+                              restriction: zone.restriction,
+                              pkZoneFlag: zone.pkZoneFlag,
+                        })
+                        : { zoneId: null, mode: 'none' as RuntimeZoneMatchMode };
+                  const region = this._deriveRegionFromTopology(zone ? {
+                        mobAble: zone.mobAble,
+                        rules: { restriction: zone.restriction, pkZoneFlag: zone.pkZoneFlag },
+                  } : undefined);
+                  const neighbors = listRuntimeMapNeighbors(mapKey)
+                        .filter((neighborKey) => zonesByMapKey.has(neighborKey))
+                        .sort((a, b) => {
+                              const aName = zonesByMapKey.get(a)?.displayName ?? a;
+                              const bName = zonesByMapKey.get(b)?.displayName ?? b;
+                              return aName.localeCompare(bName, 'zh-Hant');
+                        });
 
                   return {
-                        name,
+                        mapKey,
+                        name: zone?.displayName ?? mapKey,
+                        baseName: zone?.name ?? mapKey,
                         region,
                         monsterCount: mons.length,
                         targetCount: targets.length,
                         minLevel,
                         maxLevel,
-                        runtimeZoneId: Number.isFinite(runtimeZoneId) && runtimeZoneId > 0 ? runtimeZoneId : null,
+                        runtimeZoneId: zone?.zoneId ?? null,
                         teleportSceneZoneId: zoneMatch.zoneId,
                         teleportMode: zoneMatch.mode,
-                        neighborMaps: neighbors,
+                        neighborMapKeys: neighbors,
                   };
             }).sort((a, b) => {
                   if (a.minLevel !== b.minLevel) return a.minLevel - b.minLevel;
@@ -949,45 +982,45 @@ export class WorldMapPanel {
             });
       }
 
-      private _getCurrentMapName(): string | null {
+      private _getCurrentMapKey(): string | null {
             const currentSceneZoneId = this._zoneManager.currentZone.id;
             const candidates = this._mapSummaries.filter((item) => item.teleportSceneZoneId === currentSceneZoneId);
             if (candidates.length <= 0) return null;
-            const selected = this._selectedMapName
-                  ? candidates.find((item) => item.name === this._selectedMapName)
+            const selected = this._selectedMapKey
+                  ? candidates.find((item) => item.mapKey === this._selectedMapKey)
                   : null;
-            if (selected) return selected.name;
+            if (selected) return selected.mapKey;
             candidates.sort((a, b) => a.minLevel - b.minLevel);
-            return candidates[0]?.name ?? null;
+            return candidates[0]?.mapKey ?? null;
       }
 
-      private _findRoute(fromMap: string, toMap: string): string[] {
-            if (fromMap === toMap) return [fromMap];
+      private _findRoute(fromMapKey: string, toMapKey: string): string[] {
+            if (fromMapKey === toMapKey) return [fromMapKey];
             const graph = new Map<string, Set<string>>();
-            const ensureNode = (name: string): Set<string> => {
-                  let row = graph.get(name);
+            const ensureNode = (mapKey: string): Set<string> => {
+                  let row = graph.get(mapKey);
                   if (!row) {
                         row = new Set<string>();
-                        graph.set(name, row);
+                        graph.set(mapKey, row);
                   }
                   return row;
             };
 
             for (const map of this._mapSummaries) {
-                  const row = ensureNode(map.name);
-                  for (const next of map.neighborMaps) {
+                  const row = ensureNode(map.mapKey);
+                  for (const next of map.neighborMapKeys) {
                         row.add(next);
-                        ensureNode(next).add(map.name);
+                        ensureNode(next).add(map.mapKey);
                   }
             }
 
-            if (!graph.has(fromMap) || !graph.has(toMap)) return [];
-            const queue: string[] = [fromMap];
-            const prev = new Map<string, string | null>([[fromMap, null]]);
+            if (!graph.has(fromMapKey) || !graph.has(toMapKey)) return [];
+            const queue: string[] = [fromMapKey];
+            const prev = new Map<string, string | null>([[fromMapKey, null]]);
 
             while (queue.length > 0) {
                   const now = queue.shift()!;
-                  if (now === toMap) break;
+                  if (now === toMapKey) break;
                   for (const next of graph.get(now) ?? []) {
                         if (prev.has(next)) continue;
                         prev.set(next, now);
@@ -995,9 +1028,9 @@ export class WorldMapPanel {
                   }
             }
 
-            if (!prev.has(toMap)) return [];
+            if (!prev.has(toMapKey)) return [];
             const path: string[] = [];
-            let cursor: string | null = toMap;
+            let cursor: string | null = toMapKey;
             while (cursor) {
                   path.push(cursor);
                   cursor = prev.get(cursor) ?? null;
@@ -1007,31 +1040,31 @@ export class WorldMapPanel {
       }
 
       private _refreshTrackedRouteFromCurrent(): void {
-            if (!this._trackedTargetMapName) {
+            if (!this._trackedTargetMapKey) {
                   this._trackedRouteNodes.clear();
                   return;
             }
-            const mappedTarget = this._findMapName(this._trackedTargetMapName);
+            const mappedTarget = this._findMapKey(this._trackedTargetMapKey);
             if (!mappedTarget) {
-                  this._trackedTargetMapName = null;
+                  this._trackedTargetMapKey = null;
                   this._trackedRouteNodes.clear();
                   return;
             }
-            this._trackedTargetMapName = mappedTarget;
-            const currentMapName = this._getCurrentMapName();
-            if (!currentMapName) {
+            this._trackedTargetMapKey = mappedTarget;
+            const currentMapKey = this._getCurrentMapKey();
+            if (!currentMapKey) {
                   this._trackedRouteNodes = new Set([mappedTarget]);
                   return;
             }
-            const route = this._findRoute(currentMapName, mappedTarget);
+            const route = this._findRoute(currentMapKey, mappedTarget);
             this._trackedRouteNodes = new Set(route.length > 0 ? route : [mappedTarget]);
       }
 
-      private _setTrackedTarget(targetMapName: string | null): void {
-            this._trackedTargetMapName = targetMapName;
+      private _setTrackedTarget(targetMapKey: string | null): void {
+            this._trackedTargetMapKey = targetMapKey;
             this._refreshTrackedRouteFromCurrent();
             try {
-                  if (targetMapName) localStorage.setItem(this._trackStorageKey, targetMapName);
+                  if (targetMapKey) localStorage.setItem(this._trackStorageKey, targetMapKey);
                   else localStorage.removeItem(this._trackStorageKey);
             } catch {
                   // ignore storage write failures
@@ -1041,24 +1074,34 @@ export class WorldMapPanel {
       private _loadTrackedTarget(): string | null {
             try {
                   const saved = localStorage.getItem(this._trackStorageKey);
-                  const normalized = this._findMapName(saved ?? '');
+                  const normalized = this._findMapKey(saved ?? '');
                   return normalized ?? null;
             } catch {
                   return null;
             }
       }
 
-      private _findMapName(input: string): string | null {
+      private _findMapKey(input: string): string | null {
+            const resolved = resolveRuntimeMapEntry(input, this._zoneManager.currentZone.id);
+            if (resolved) return resolved.mapKey;
+
             const key = this._canonicalMapName(input);
             if (!key) return null;
-            const direct = this._mapSummaries.find(item => this._canonicalMapName(item.name) === key);
-            if (direct) return direct.name;
+            const direct = this._mapSummaries.find(item => this._canonicalMapName(item.name) === key || this._canonicalMapName(item.baseName) === key);
+            if (direct) return direct.mapKey;
             const lowered = key.toLowerCase();
             const includes = this._mapSummaries.find(item => {
-                  const target = this._canonicalMapName(item.name).toLowerCase();
-                  return target.includes(lowered) || lowered.includes(target);
+                  const targets = [
+                        this._canonicalMapName(item.name).toLowerCase(),
+                        this._canonicalMapName(item.baseName).toLowerCase(),
+                  ];
+                  return targets.some((target) => target.includes(lowered) || lowered.includes(target));
             });
-            return includes?.name ?? null;
+            return includes?.mapKey ?? null;
+      }
+
+      private _getMapNameByKey(mapKey: string): string | null {
+            return this._mapSummaries.find((item) => item.mapKey === mapKey)?.name ?? null;
       }
 
       private _findListPetByName(name: string): ListPetRow | null {
@@ -1135,7 +1178,7 @@ export class WorldMapPanel {
             this._visible = true;
             this._syncResponsiveMode();
             this._el.style.display = 'block';
-            if (!this._selectedMapName && this._mapSummaries.length > 0) this._selectedMapName = this._mapSummaries[0].name;
+            if (!this._selectedMapKey && this._mapSummaries.length > 0) this._selectedMapKey = this._mapSummaries[0].mapKey;
             this._render();
       }
 

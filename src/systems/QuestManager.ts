@@ -39,12 +39,20 @@ export interface QuestDef {
       rewards: QuestReward;
       prereqId?: string;
       npcId?: string;
+      accepted?: boolean;
       claimed: boolean;       // Prevents double-claiming
+}
+
+interface SavedQuestProgress {
+      progress: number[];
+      claimed: boolean;
+      accepted?: boolean;
 }
 
 // 25 Main Story Chapters (every 5 unlocks a new zone)
 const MAIN_QUESTS: QuestDef[] = [];
 for (let i = 1; i <= 25; i++) {
+      const requiredKills = i === 1 ? 5 : 5 + i * 2;
       const unlockZones: Record<number, string> = {
             5: 'misty_forest',
             10: 'crystal_caves',
@@ -53,17 +61,20 @@ for (let i = 1; i <= 25; i++) {
             25: 'dark_hollow',
       };
       MAIN_QUESTS.push({
-            id: `main_${i}`, chapter: i, type: 'main', claimed: false,
+            id: `main_${i}`, chapter: i, type: 'main', claimed: false, accepted: i !== 1,
             name: `第 ${i} 章`,
-            description: `主線任務第 ${i} 章 — ${i <= 5 ? '新手冒險' : i <= 10 ? '深入迷霧' : i <= 15 ? '沙漠探索' : i <= 20 ? '冰峰挑戰' : '最終決戰'}`,
+            description: i === 1
+                  ? '先向村長領取委託，再到草原外圍清理 5 隻擾民怪物。藥水不足時可先找商人老王補給。'
+                  : `主線任務第 ${i} 章 — ${i <= 5 ? '新手冒險' : i <= 10 ? '深入迷霧' : i <= 15 ? '沙漠探索' : i <= 20 ? '冰峰挑戰' : '最終決戰'}`,
             objectives: [
-                  { type: 'kill', target: 'any', required: 5 + i * 2, current: 0, label: `擊殺 ${5 + i * 2} 隻怪物` },
+                  { type: 'kill', target: 'any', required: requiredKills, current: 0, label: `擊殺 ${requiredKills} 隻怪物` },
             ],
             rewards: {
                   exp: 100 * i, gold: 50 * i,
                   ...(unlockZones[i] ? { unlockZone: unlockZones[i] } : {}),
             },
             prereqId: i > 1 ? `main_${i - 1}` : undefined,
+            npcId: i === 1 ? 'npc_quest_01' : undefined,
       });
 }
 
@@ -132,8 +143,16 @@ const DAILY_RESET_KEY = 'fpo_daily_reset';
 export class QuestManager {
       private _quests: Map<string, QuestDef> = new Map();
       private _onChange: (() => void) | null = null;
+      private readonly _listeners = new Set<() => void>();
 
       set onChange(cb: (() => void) | null) { this._onChange = cb; }
+
+      subscribe(cb: () => void): () => void {
+            this._listeners.add(cb);
+            return () => {
+                  this._listeners.delete(cb);
+            };
+      }
 
       constructor() {
             for (const q of [...MAIN_QUESTS, ...SIDE_QUESTS, ...DAILY_TEMPLATES, ...PET_EXCHANGE_QUESTS]) {
@@ -164,10 +183,38 @@ export class QuestManager {
             const allDone = quest.objectives.every(o => o.current >= o.required);
             if (allDone) return 'complete';
 
+            // NPC-gated quests should not progress until explicitly accepted.
+            if (quest.npcId && !quest.accepted) return 'available';
+
             // Some progress → active
-            if (quest.objectives.some(o => o.current > 0)) return 'active';
+            if (quest.objectives.some(o => o.current > 0) || quest.accepted) return 'active';
 
             return 'available';
+      }
+
+      getQuest(questId: string): QuestDef | null {
+            return this._quests.get(questId) ?? null;
+      }
+
+      acceptQuest(questId: string): QuestDef | null {
+            const quest = this._quests.get(questId);
+            if (!quest) return null;
+
+            const status = this.getStatus(quest);
+            if (status === 'locked' || status === 'claimed') return null;
+            if (!quest.accepted) {
+                  quest.accepted = true;
+                  this._saveProgress();
+                  this._emitChange();
+            }
+            return quest;
+      }
+
+      acceptFirstByNpc(npcId: string): QuestDef | null {
+            const available = this.allQuests.find((quest) => quest.npcId === npcId && this.getStatus(quest) === 'available');
+            if (available) return this.acceptQuest(available.id);
+
+            return this.allQuests.find((quest) => quest.npcId === npcId && ['active', 'complete'].includes(this.getStatus(quest))) ?? null;
       }
 
       /** Track a kill — only on non-locked, non-claimed quests */
@@ -176,6 +223,7 @@ export class QuestManager {
             for (const q of this._quests.values()) {
                   const status = this.getStatus(q);
                   if (status === 'locked' || status === 'claimed') continue;
+                  if (q.npcId && !q.accepted) continue;
                   for (const obj of q.objectives) {
                         if (obj.type !== 'kill' || obj.current >= obj.required) continue;
                         if (obj.target === 'any' || obj.target === monsterName || (obj.target === 'boss' && isBoss)) {
@@ -184,7 +232,7 @@ export class QuestManager {
                         }
                   }
             }
-            if (changed) { this._saveProgress(); this._onChange?.(); }
+            if (changed) { this._saveProgress(); this._emitChange(); }
       }
 
       /** Track item collection — only on non-locked, non-claimed quests */
@@ -193,6 +241,7 @@ export class QuestManager {
             for (const q of this._quests.values()) {
                   const status = this.getStatus(q);
                   if (status === 'locked' || status === 'claimed') continue;
+                  if (q.npcId && !q.accepted) continue;
                   for (const obj of q.objectives) {
                         if (obj.type !== 'collect' || obj.current >= obj.required) continue;
                         if (obj.target === itemId || obj.target === 'any_material') {
@@ -201,7 +250,7 @@ export class QuestManager {
                         }
                   }
             }
-            if (changed) { this._saveProgress(); this._onChange?.(); }
+            if (changed) { this._saveProgress(); this._emitChange(); }
       }
 
       /** Claim reward — marks quest as claimed, prevents re-claiming */
@@ -212,7 +261,7 @@ export class QuestManager {
 
             quest.claimed = true;
             this._saveProgress();
-            this._onChange?.();
+            this._emitChange();
             console.log(`[Quest] Claimed: ${quest.name}`);
             return quest.rewards;
       }
@@ -233,6 +282,7 @@ export class QuestManager {
                         localStorage.setItem(DAILY_RESET_KEY, today);
                         this._saveProgress();
                         console.log('[Quest] Daily quests reset for', today);
+                        this._emitChange();
                   }
             } catch { /* ignore */ }
       }
@@ -244,9 +294,13 @@ export class QuestManager {
       }
 
       private _saveProgress(): void {
-            const data: Record<string, { progress: number[]; claimed: boolean }> = {};
+            const data: Record<string, SavedQuestProgress> = {};
             for (const [id, q] of this._quests) {
-                  data[id] = { progress: q.objectives.map(o => o.current), claimed: q.claimed };
+                  data[id] = {
+                        progress: q.objectives.map(o => o.current),
+                        claimed: q.claimed,
+                        accepted: !!q.accepted,
+                  };
             }
             try { localStorage.setItem(SAVE_KEY, JSON.stringify(data)); } catch { /* ignore */ }
       }
@@ -255,15 +309,23 @@ export class QuestManager {
             try {
                   const raw = localStorage.getItem(SAVE_KEY);
                   if (!raw) return;
-                  const data: Record<string, { progress: number[]; claimed: boolean }> = JSON.parse(raw);
+                  const data: Record<string, SavedQuestProgress> = JSON.parse(raw);
                   for (const [id, saved] of Object.entries(data)) {
                         const q = this._quests.get(id);
                         if (!q) continue;
                         q.claimed = saved.claimed ?? false;
+                        q.accepted = saved.accepted ?? q.accepted ?? false;
                         for (let i = 0; i < q.objectives.length && i < saved.progress.length; i++) {
                               q.objectives[i].current = saved.progress[i];
                         }
                   }
             } catch { /* ignore */ }
+      }
+
+      private _emitChange(): void {
+            this._onChange?.();
+            for (const listener of this._listeners) {
+                  listener();
+            }
       }
 }

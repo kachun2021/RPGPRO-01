@@ -9,6 +9,7 @@ export class RenamePanel {
             this._el = document.createElement('div');
             this._el.id = 'renamePanel';
             this._el.className = 'sa-panel rename-root ui-panel-fullscreen';
+            this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
@@ -19,12 +20,12 @@ export class RenamePanel {
       openFor(pet: Pet, onDone?: () => void): void {
             this._pet = pet;
             this._onDone = onDone || null;
-            this._el.style.display = 'block';
+            this._el.hidden = false;
             this._render();
       }
 
       close(): void {
-            this._el.style.display = 'none';
+            this._el.hidden = true;
             this._pet = null;
       }
 

@@ -1,6 +1,14 @@
 import fusionRuntimeRaw from './fusion.runtime.json';
 import worldSpawnRaw from './world.spawn.json';
-import worldTopologyRaw from './world.topology.json';
+import { getRuntimeMapByZoneId } from './RuntimeMapCatalog';
+
+export interface RuntimeMapRef {
+      mapKey: string;
+      runtimeZoneId: number;
+      name: string;
+      displayName: string;
+      sceneZoneId: string | null;
+}
 
 export interface RuntimeFusionGuideEntry {
       recipeId: number;
@@ -22,9 +30,18 @@ export interface RuntimeFusionGuideEntry {
       mainMaps: string[];
       subMaps: string[];
       resultMaps: string[];
+      mainMapKeys: string[];
+      subMapKeys: string[];
+      resultMapKeys: string[];
+      mainMapRefs: RuntimeMapRef[];
+      subMapRefs: RuntimeMapRef[];
+      resultMapRefs: RuntimeMapRef[];
       mainMapZoneIds: number[];
       subMapZoneIds: number[];
       resultMapZoneIds: number[];
+      mainPrimaryMapKey: string | null;
+      subPrimaryMapKey: string | null;
+      resultPrimaryMapKey: string | null;
       mainPrimaryZoneId: number | null;
       subPrimaryZoneId: number | null;
       resultPrimaryZoneId: number | null;
@@ -59,17 +76,14 @@ interface SpawnMobRow {
       slots?: Array<{ zoneId?: number }>;
 }
 
-interface ZoneRow {
-      zoneId: number;
-      name?: string;
-}
-
 interface RuntimeMonsterMeta {
       name: string;
       level: number;
       series: string | null;
       dropEgg: boolean | null;
       maps: string[];
+      mapKeys: string[];
+      mapRefs: RuntimeMapRef[];
       mapZoneIds: number[];
 }
 
@@ -106,20 +120,9 @@ function buildMonsterMetaByType(): Map<number, RuntimeMonsterMeta> {
             monsterCatalog?: SpawnCatalogRow[];
             mobSpawns?: SpawnMobRow[];
       };
-      const worldTopology = worldTopologyRaw as { zones?: ZoneRow[] };
 
       const catalogRows = Array.isArray(worldSpawn.monsterCatalog) ? worldSpawn.monsterCatalog : [];
       const mobRows = Array.isArray(worldSpawn.mobSpawns) ? worldSpawn.mobSpawns : [];
-      const zones = Array.isArray(worldTopology.zones) ? worldTopology.zones : [];
-
-      const zoneNameById = new Map<number, string>();
-      for (const zone of zones) {
-            const zoneId = toInt(zone.zoneId, 0);
-            if (zoneId <= 0) continue;
-            const name = String(zone.name ?? '').trim();
-            if (!name) continue;
-            zoneNameById.set(zoneId, name);
-      }
 
       const metaByType = new Map<number, RuntimeMonsterMeta>();
       for (const row of catalogRows) {
@@ -133,6 +136,8 @@ function buildMonsterMetaByType(): Map<number, RuntimeMonsterMeta> {
                   series: raceToSeriesLabel(toInt(row.race, -1)),
                   dropEgg: toInt(row.coreRate, 0) > 0,
                   maps: [],
+                  mapKeys: [],
+                  mapRefs: [],
                   mapZoneIds: [],
             });
       }
@@ -143,18 +148,36 @@ function buildMonsterMetaByType(): Map<number, RuntimeMonsterMeta> {
             const meta = metaByType.get(type);
             if (!meta) continue;
             const slots = Array.isArray(row.slots) ? row.slots : [];
+            const mapRefsByKey = new Map<string, RuntimeMapRef>(
+                  meta.mapRefs.map((mapRef) => [mapRef.mapKey, mapRef] as const),
+            );
             for (const slot of slots) {
                   const zoneId = toInt(slot?.zoneId, 0);
                   if (zoneId <= 0) continue;
-                  const zoneName = zoneNameById.get(zoneId);
-                  if (!zoneName) continue;
-                  meta.maps.push(zoneName);
+                  const mapEntry = getRuntimeMapByZoneId(zoneId);
+                  if (!mapEntry) continue;
+                  const mapRef: RuntimeMapRef = {
+                        mapKey: mapEntry.mapKey,
+                        runtimeZoneId: mapEntry.runtimeZoneId,
+                        name: mapEntry.name,
+                        displayName: mapEntry.displayName,
+                        sceneZoneId: mapEntry.sceneZoneId,
+                  };
+                  mapRefsByKey.set(mapRef.mapKey, mapRef);
+                  meta.maps.push(mapRef.displayName);
+                  meta.mapKeys.push(mapRef.mapKey);
                   meta.mapZoneIds.push(zoneId);
             }
+            meta.mapRefs = Array.from(mapRefsByKey.values());
       }
 
       for (const meta of metaByType.values()) {
             meta.maps = normalizeMapNames(meta.maps);
+            meta.mapKeys = Array.from(new Set(meta.mapKeys.filter(Boolean)))
+                  .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+            meta.mapRefs = meta.mapRefs
+                  .slice()
+                  .sort((a, b) => a.runtimeZoneId - b.runtimeZoneId);
             meta.mapZoneIds = Array.from(new Set(meta.mapZoneIds.filter((id) => Number.isFinite(id) && id > 0)))
                   .sort((a, b) => a - b);
       }
@@ -212,9 +235,18 @@ function buildEntries(): RuntimeFusionGuideEntry[] {
                   mainMaps: mainMeta?.maps ?? [],
                   subMaps: subMeta?.maps ?? [],
                   resultMaps: resultMeta?.maps ?? [],
+                  mainMapKeys: mainMeta?.mapKeys ?? [],
+                  subMapKeys: subMeta?.mapKeys ?? [],
+                  resultMapKeys: resultMeta?.mapKeys ?? [],
+                  mainMapRefs: mainMeta?.mapRefs ?? [],
+                  subMapRefs: subMeta?.mapRefs ?? [],
+                  resultMapRefs: resultMeta?.mapRefs ?? [],
                   mainMapZoneIds: mainMeta?.mapZoneIds ?? [],
                   subMapZoneIds: subMeta?.mapZoneIds ?? [],
                   resultMapZoneIds: resultMeta?.mapZoneIds ?? [],
+                  mainPrimaryMapKey: mainMeta?.mapKeys?.[0] ?? null,
+                  subPrimaryMapKey: subMeta?.mapKeys?.[0] ?? null,
+                  resultPrimaryMapKey: resultMeta?.mapKeys?.[0] ?? null,
                   mainPrimaryZoneId: mainMeta?.mapZoneIds?.[0] ?? null,
                   subPrimaryZoneId: subMeta?.mapZoneIds?.[0] ?? null,
                   resultPrimaryZoneId: resultMeta?.mapZoneIds?.[0] ?? null,
@@ -236,6 +268,12 @@ export function getRuntimeFusionGuideEntries(): RuntimeFusionGuideEntry[] {
             mainMaps: [...entry.mainMaps],
             subMaps: [...entry.subMaps],
             resultMaps: [...entry.resultMaps],
+            mainMapKeys: [...entry.mainMapKeys],
+            subMapKeys: [...entry.subMapKeys],
+            resultMapKeys: [...entry.resultMapKeys],
+            mainMapRefs: entry.mainMapRefs.map((mapRef) => ({ ...mapRef })),
+            subMapRefs: entry.subMapRefs.map((mapRef) => ({ ...mapRef })),
+            resultMapRefs: entry.resultMapRefs.map((mapRef) => ({ ...mapRef })),
             mainMapZoneIds: [...entry.mainMapZoneIds],
             subMapZoneIds: [...entry.subMapZoneIds],
             resultMapZoneIds: [...entry.resultMapZoneIds],

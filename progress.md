@@ -118,6 +118,55 @@
   - `EncyclopediaPanel` meta index now consumes runtime fusion guide for level/drop/map hints.
   - Validation: `npm run -s typecheck` passed; `npm run -s test:smoke` passed.
 - 2026-03-06 (P4 topology/teleport bridge consolidation):
+
+## 2026-03-08 (P2 implemented: explicit runtimeZone -> sceneZone mapping)
+
+- Added `src/data/runtime/RuntimeZoneSceneMap.ts` as the single explicit mapping source for runtime zone routing.
+- Expanded `src/world/SceneZoneProfiles.ts` from the old generic bucket set into 37 maintained scene groups (starter/towns/skies/special zones).
+- `RuntimeZoneBridge` now resolves `explicit -> town fallback -> level fallback`; heuristic is no longer the primary route.
+- `RuntimeZoneCatalog` now aggregates runtime scene data directly from the explicit mapping source where available.
+- `main.ts` hero birth-zone resolution now checks the explicit mapping source first.
+- `WorldMapPanel` teleport mode label updated from legacy `topology` to `explicit`.
+- Mapping coverage validation:
+  - runtime zones = 201
+  - explicit mappings = 201
+  - scene groups = 37
+  - missing mappings = 0
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed.
+  - `npm run -s ci:guardrails` passed.
+
+## 2026-03-08 (P3 implemented: scene route graph + controlled unlock fallback)
+
+- Rebuilt `src/data/runtime/RuntimeWorldRoutes.ts` to use explicit scene routing first and scene-name labels for route edges.
+- Added synthetic route support from `RuntimeZoneSceneMap` directly into the scene graph cache.
+- Normal gameplay no longer runs fallback unlock logic automatically; `ZoneManager` now requires `localStorage['fpo.debug.unlockFallback']='1'` for debug-only unlock seeding.
+- Verified route examples:
+  - `starter_meadow -> misty_forest`
+  - `town_magilita -> echo_valley, pk_arena`
+  - `sky_temple -> all sky-series scenes`
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed.
+  - `npm run -s ci:guardrails` passed.
+
+## 2026-03-08 (P4 implemented: mapKey identity across world map / book / fusion)
+
+- Added `src/data/runtime/RuntimeMapCatalog.ts` as the canonical runtime map identity source.
+- Runtime maps now expose stable keys in the form `rz:<runtimeZoneId>`.
+- Duplicate-name maps now render with disambiguated display labels (for example `巴爾克牧場 #183`).
+- `RuntimeFusionGuide` now emits `mapKeys`, `mapRefs`, and primary map keys for main/sub/result sides.
+- `EncyclopediaPanel` switched its source-map state and callbacks from map-name strings to `sourceMapKey`.
+- `FusionPanel` switched recipe map filters/navigation from map-name strings to `mapKey`.
+- `WorldMapPanel` now stores selected/tracked/route state by `mapKey` instead of map name and resolves legacy name input through the map catalog.
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed.
+  - `npm run -s ci:guardrails` passed.
   - Added shared matcher `src/data/runtime/RuntimeZoneBridge.ts` and switched `WorldMapPanel` to it.
   - Removed duplicated in-panel map matching constants and functions.
   - `AFKPanel` loot-zone monster options switched from legacy `ZoneMonsterData` to runtime monster pool source.
@@ -520,3 +569,148 @@
     - `npm run -s build` passed
     - `npm run -s test:smoke` passed (10/10 scenarios)
     - `npm run -s ci:guardrails` passed
+- 2026-03-08 (canonical execution spec refresh for next phase):
+  - Added active implementation spec:
+    - `scripts/reports/implementation/P1_P30_EXECUTION_SPEC.md`
+  - Added deferred backend/live-ops stage spec:
+    - `scripts/reports/implementation/P31_P35_BACKEND_STAGE_SPEC.md`
+  - Decision locked:
+    - `P1_P30_EXECUTION_SPEC.md` is now the canonical source for upcoming local-first gameplay/UI/world work.
+    - `P31_P35_BACKEND_STAGE_SPEC.md` stays on hold until `P1-P30` gets a separate completion report.
+    - Existing `scripts/reports/implementation/P15-P44` files remain as historical implementation records only, not as future roadmap sources.
+  - No gameplay code changed in this update; this turn only consolidated execution specs to reduce roadmap drift and maintenance ambiguity.
+- 2026-03-08 (execution spec hardening and repo-grounded cleanup policy):
+  - Refined `scripts/reports/implementation/P1_P30_EXECUTION_SPEC.md`:
+    - added repo-grounded baseline blockers for current modules:
+      - `RuntimeZoneBridge.ts`
+      - `WorldMapPanel.ts`
+      - `ZoneRenderer.ts`
+      - `MonsterManager.ts`
+      - `RevivalPanel.ts`
+      - `LandscapeCamera.ts`
+      - `SystemPanel.ts`
+      - `main.ts`
+    - corrected implementation file targets, including `src/assets/textures/*` and new data-driven layout source recommendations.
+    - added batch ordering (`P1-P4`, `P5-P8`, `P9-P14`, `P15-P20`, `P21-P25`, `P26-P30`) so future work can be executed without cross-step drift.
+    - added hard deprecation list so old name-based map state, DOM-guessed panel state, fallback unlock logic, and direct `localStorage` usage cannot remain after the corresponding phases land.
+  - Refined `scripts/reports/implementation/P31_P35_BACKEND_STAGE_SPEC.md`:
+    - added backend start gate for product honesty on `CommunityPanel` / `ChatBox`.
+    - added required interface contracts for `AuthService`, `SaveService`, `SocialService`, and `RoomService`.
+  - No gameplay code changed in this update; this turn only tightened the canonical specs to reduce future logic conflicts and maintenance overhead.
+- 2026-03-08 (P1 implemented: starter spawn + first 5 minutes loop):
+  - Added report:
+    - `scripts/reports/implementation/P1_STARTER_SPAWN_AND_FIRST_5_MINUTES.md`
+  - Starter routing:
+    - Added explicit runtime-zone override for `birthZoneId=130 -> starter_meadow`.
+    - `ZoneManager.buildInitialZone()` now applies the zone spawn point on first load.
+    - `starter_meadow` now has an explicit spawn point at `z=-10`.
+  - Starter safety:
+    - `MonsterManager` now limits `starter_meadow` to 4-6 active normal monsters.
+    - Starter monster spawn positions are pushed away from the NPC/safe-start pocket.
+  - Starter task loop:
+    - `QuestManager` now supports `accepted` state persistence plus `acceptQuest()` / `acceptFirstByNpc()`.
+    - `main_1` is now NPC-gated by `npc_quest_01` and reduced to `5` kills for first-session pacing.
+    - `QuestPanel` now supports direct focus + `接受任務` action.
+    - village elder dialogue now actually accepts the first quest before opening the panel.
+  - Starter class identity:
+    - `main.ts` now applies `HeroArchetypes` starter pets and starter skill loadout.
+    - added `SkillBar.setPlayerLoadout(...)`.
+  - Starter economy guidance:
+    - starter gold changed from `500` to `240`.
+    - starter potions changed to `HP x2 / MP x1` so merchant supply stays meaningful.
+    - starter NPC dialogue now explicitly points player to quest -> merchant -> field hunt flow.
+  - Cleanup:
+    - `RenamePanel` and `RevivalPanel` moved from `style.display` to `hidden`.
+    - `ci:guardrails` inline-style count reduced to `92`.
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (10/10 scenarios)
+    - `npm run -s ci:guardrails` passed
+  - Observed smoke state:
+    - `zone.id = starter_meadow`
+    - `player.z = -10`
+    - `world.aliveMonsters = 6`
+  - Next:
+    - proceed to `P2` explicit `runtimeZone -> sceneZone` mapping
+- 2026-03-08 (P2-P8 implemented: zone identity, layout, death loop, pet revive spend):
+  - Added reports:
+    - `scripts/reports/implementation/P2_RUNTIME_ZONE_SCENE_MAPPING.md`
+    - `scripts/reports/implementation/P3_SCENE_ROUTE_GRAPH.md`
+    - `scripts/reports/implementation/P4_MAP_KEY_IDENTITY.md`
+    - `scripts/reports/implementation/P5_SCENE_MONSTER_POOL_SECTIONING.md`
+    - `scripts/reports/implementation/P6_SCENE_LAYOUTS_AND_GATE_LAYOUT.md`
+    - `scripts/reports/implementation/P7_PLAYER_DEATH_AND_REVIVE_LOOP.md`
+    - `scripts/reports/implementation/P8_PET_REVIVE_COST_AND_FEEDBACK.md`
+  - P2:
+    - added explicit `RuntimeZoneSceneMap.ts`
+    - runtime-zone mapping coverage is now `201/201`
+    - `main.ts` hero birth-zone routing now resolves explicit mappings first
+  - P3:
+    - rewrote runtime world routes to explicit scene routing + synthetic connectors
+    - `ZoneManager` fallback unlock remains debug-only via `localStorage['fpo.debug.unlockFallback']='1'`
+  - P4:
+    - added `RuntimeMapCatalog.ts` with canonical `mapKey = rz:<runtimeZoneId>`
+    - map/fusion/book navigation now uses unique keys instead of ambiguous map names
+  - P5:
+    - `RuntimeMonsterSource.ts` now sections scene monster pools with scene caps and level-band heuristics
+    - early scenes such as `misty_forest` and `baluk_farm` no longer inherit `Lv.199-200` boss spillover
+  - P6:
+    - added data-driven scene layouts in `world.scene.layouts.json`
+    - `ZoneRenderer` now honors scene size, safe zones, roads, landmarks, obstacles, and anchor-based gates
+    - `MonsterManager` spawn positions now use starter / field / elite / boss pockets instead of center-random placement
+  - P7:
+    - added `PlayerLifeStateMachine.ts` with `alive/down/revive_pending/revived`
+    - added `PlayerDeathOverlay.ts`
+    - town revive now forces safe relocation through `ZoneManager.travelTo(..., { ignoreLock: true })`
+    - `render_game_to_text` now includes `player.lifeState` and `player.invulnerabilitySec`
+    - added `window.__fpoDebug` hooks for deterministic life-cycle checks
+  - P8:
+    - `RevivalPanel` now requires `Inventory`
+    - revive buttons now enforce GP cost and disable on insufficient gold
+    - verified end-to-end gold deduction: `240 -> 230` for a `10 GP` revive
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (10/10 scenarios)
+    - `npm run -s ci:guardrails` passed
+    - manual Playwright validation passed for death/town-revive/pet-revive:
+      - `output/web-game/manual-life-revival/state.json`
+      - `output/web-game/manual-life-revival/death-overlay.png`
+      - `output/web-game/manual-life-revival/after-town-revive.png`
+      - `output/web-game/manual-life-revival/pet-revival-before.png`
+      - `output/web-game/manual-life-revival/pet-revival-after.png`
+  - Notes:
+    - some later-game scene profiles still have level-label drift relative to mapped runtime families; early-game distortion is fixed first, full profile normalization remains a later data pass
+    - town and field geometry is now structurally correct but still uses placeholder primitive meshes for some landmarks
+  - Next:
+    - proceed to `P9` mobile camera drag + runtime control settings
+- 2026-03-08 (P9-P10 implemented: runtime controls + phone-landscape combat HUD):
+  - Added reports:
+    - `scripts/reports/implementation/P9_MOBILE_CAMERA_AND_RUNTIME_CONTROLS.md`
+    - `scripts/reports/implementation/P10_PHONE_LANDSCAPE_COMBAT_HUD.md`
+  - P9:
+    - `LandscapeCamera.ts` now supports right-half touch drag on mobile
+    - camera sensitivity and invert-Y are now applied at runtime
+    - `TouchJoystick.ts` now supports runtime sensitivity
+    - `Player.ts` movement now respects analog strength instead of normalizing every movement input to full speed
+    - `CombatLoop.ts` now exposes runtime `autoLockTarget` behavior for nearby target reacquire
+    - `main.ts` now applies control settings immediately from `SystemPanel`
+  - P10:
+    - phone-landscape combat HUD was rebalanced in `index.html`
+    - skill cluster moved into a compact `2x4` lower-right thumb zone
+    - AUTO/settings stack moved adjacent to the skill cluster
+    - portraits and bottom nav compressed for `932x430` class layouts
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed after P9 runtime-control wiring
+    - `npm run -s ci:guardrails` passed
+    - manual camera verification:
+      - `output/web-game/manual-camera-controls/state.json`
+      - `output/web-game/manual-camera-controls/camera-test.png`
+    - manual HUD verification:
+      - `output/web-game/manual-combat-hud/state.json`
+      - `output/web-game/manual-combat-hud/combat-hud-phone-landscape.png`
+  - Next:
+    - proceed to `P11` touch target audit and global `44x44+` control sizing

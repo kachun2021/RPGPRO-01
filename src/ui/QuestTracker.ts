@@ -9,6 +9,7 @@ export class QuestTracker {
       private _toggle: HTMLSpanElement;
       private _collapsed = false;
       private _questManager: QuestManager;
+      private _disposeQuestListener: (() => void) | null = null;
 
       constructor(questManager: QuestManager) {
             this._questManager = questManager;
@@ -32,11 +33,7 @@ export class QuestTracker {
 
             document.getElementById('ui-layer')?.appendChild(this._el);
 
-            const origOnChange = questManager.onChange;
-            questManager.onChange = () => {
-                  origOnChange?.();
-                  this.update();
-            };
+            this._disposeQuestListener = questManager.subscribe(() => this.update());
 
             this.update();
       }
@@ -89,7 +86,7 @@ export class QuestTracker {
       }
 
       dispose(): void {
+            this._disposeQuestListener?.();
             this._el.remove();
       }
 }
-

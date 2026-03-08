@@ -1,5 +1,6 @@
 import worldTopologyRaw from '../data/runtime/world.topology.json';
 import { matchRuntimeZoneToSceneZone } from '../data/runtime/RuntimeZoneBridge';
+import { getExplicitSceneZoneIdForRuntimeZoneId, listExplicitRuntimeZoneIdsForSceneZone } from '../data/runtime/RuntimeZoneSceneMap';
 import { getSceneZonePrimaryRuntimeName } from '../data/runtime/RuntimeWorldRoutes';
 import { SCENE_ZONE_PROFILES } from './SceneZoneProfiles';
 
@@ -111,14 +112,15 @@ function inferBiome(agg: SceneZoneAggregate): RuntimeBiomeType {
 }
 
 function createFallbackSceneZone(sceneZoneId: string): RuntimeSceneZoneDef {
+      const inferredTown = sceneZoneId.startsWith('town_') || sceneZoneId.endsWith('_hub');
       return {
             id: sceneZoneId,
             name: titleCaseFromSceneZoneId(sceneZoneId),
             nameCN: `地區 ${sceneZoneId}`,
-            biome: sceneZoneId === 'main_city' ? 'town' : 'grass',
+            biome: inferredTown ? 'town' : 'grass',
             levelMin: 1,
             levelMax: 20,
-            isTown: sceneZoneId === 'main_city',
+            isTown: inferredTown,
             spawnPoint: { ...DEFAULT_SPAWN_POINT },
             runtimeZoneIds: [],
       };
@@ -142,15 +144,18 @@ function ensureCache(): SceneZoneCache {
             const pkZoneFlag = Math.max(0, toInt(zone.rules?.pkZoneFlag, 0));
             const mobAble = zone.mobAble !== false;
 
-            const match = matchRuntimeZoneToSceneZone({
-                  runtimeZoneId,
-                  zoneName: String(zone.name ?? ''),
-                  minLevel,
-                  maxLevel,
-                  mobAble,
-                  restriction,
-                  pkZoneFlag,
-            });
+            const explicitSceneZoneId = getExplicitSceneZoneIdForRuntimeZoneId(runtimeZoneId);
+            const match = explicitSceneZoneId
+                  ? { zoneId: explicitSceneZoneId, mode: 'explicit' as const }
+                  : matchRuntimeZoneToSceneZone({
+                        runtimeZoneId,
+                        zoneName: String(zone.name ?? ''),
+                        minLevel,
+                        maxLevel,
+                        mobAble,
+                        restriction,
+                        pkZoneFlag,
+                  });
             if (!match.zoneId) continue;
 
             let agg = aggregateBySceneZone.get(match.zoneId);
@@ -192,7 +197,7 @@ function ensureCache(): SceneZoneCache {
                   levelMin: profile?.levelMin ?? agg.levelMin,
                   levelMax: profile?.levelMax ?? agg.levelMax,
                   isTown: profile?.isTown ?? isTown,
-                  spawnPoint: { ...DEFAULT_SPAWN_POINT },
+                  spawnPoint: profile?.spawnPoint ? { ...profile.spawnPoint } : { ...DEFAULT_SPAWN_POINT },
                   runtimeZoneIds: Array.from(agg.runtimeZoneIds).sort((a, b) => a - b),
             } satisfies RuntimeSceneZoneDef;
       });
@@ -210,8 +215,8 @@ function ensureCache(): SceneZoneCache {
                   levelMin: profile.levelMin,
                   levelMax: profile.levelMax,
                   isTown: profile.isTown,
-                  spawnPoint: { ...DEFAULT_SPAWN_POINT },
-                  runtimeZoneIds: [],
+                  spawnPoint: profile.spawnPoint ? { ...profile.spawnPoint } : { ...DEFAULT_SPAWN_POINT },
+                  runtimeZoneIds: listExplicitRuntimeZoneIdsForSceneZone(profile.id),
             };
             list.push(row);
             byId.set(row.id, row);

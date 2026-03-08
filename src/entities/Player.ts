@@ -32,6 +32,7 @@ export class Player {
 
       private _scene: Scene;
       private _moveDirection = Vector3.Zero();
+      private _moveStrength = 0;
       private _expToNextResolver: PlayerExpToNextResolver | null = null;
       private _levelUpListeners: PlayerLevelUpListener[] = [];
 
@@ -102,10 +103,13 @@ export class Player {
       }
 
       setMoveDirection(dir: Vector3): void {
-            if (dir.lengthSquared() > 0.01) {
-                  this._moveDirection.copyFrom(dir.normalizeToNew());
+            const strength = Math.min(1, dir.length());
+            if (strength > 0.01) {
+                  this._moveDirection.copyFrom(dir.scale(1 / strength));
+                  this._moveStrength = strength;
             } else {
                   this._moveDirection.set(0, 0, 0);
+                  this._moveStrength = 0;
             }
       }
 
@@ -118,11 +122,12 @@ export class Player {
                   toTarget.y = 0;
                   if (toTarget.length() > 1.0) {
                         moveDir = toTarget.normalizeToNew();
+                        this._moveStrength = 1;
                   }
             }
 
             if (moveDir.lengthSquared() > 0.01) {
-                  const move = moveDir.normalizeToNew().scale(this.speed * dt);
+                  const move = moveDir.normalizeToNew().scale(this.speed * Math.max(0.2, this._moveStrength) * dt);
                   this.root.position.addInPlace(move);
 
                   // Rotate to face movement direction
@@ -192,4 +197,3 @@ export class Player {
             this.root.dispose(false, true);
       }
 }
-

@@ -39,6 +39,7 @@ export class Inventory {
       private _items: InventoryItem[] = [];
       private _gold = 0;
       private _onChange: (() => void) | null = null;
+      private readonly _listeners = new Set<() => void>();
 
       /** Stats tracking for AFK panel */
       totalKills = 0;
@@ -50,6 +51,13 @@ export class Inventory {
       get gold(): number { return this._gold; }
 
       set onChange(cb: (() => void) | null) { this._onChange = cb; }
+
+      subscribe(cb: () => void): () => void {
+            this._listeners.add(cb);
+            return () => {
+                  this._listeners.delete(cb);
+            };
+      }
 
       /** Replace all inventory content from persisted snapshot */
       replaceFromSave(gold: number, items: InventoryItem[]): void {
@@ -68,7 +76,7 @@ export class Inventory {
                         description: String(item.description ?? ''),
                   };
             });
-            this._onChange?.();
+            this._emitChange();
       }
 
       /** Clear all inventory content */
@@ -79,7 +87,7 @@ export class Inventory {
             this.totalGoldGained = 0;
             this.totalExpGained = 0;
             this.totalItemsFound = 0;
-            this._onChange?.();
+            this._emitChange();
       }
 
       addItem(drop: DroppedItem): void {
@@ -88,7 +96,7 @@ export class Inventory {
                   this._gold += drop.qty;
                   this.totalGoldGained += drop.qty;
                   this.totalItemsFound++;
-                  this._onChange?.();
+                  this._emitChange();
                   return;
             }
 
@@ -106,7 +114,7 @@ export class Inventory {
                   });
             }
             this.totalItemsFound++;
-            this._onChange?.();
+            this._emitChange();
       }
 
       removeItem(itemId: string, qty: number = 1): boolean {
@@ -114,7 +122,7 @@ export class Inventory {
             if (idx < 0) return false;
             this._items[idx].qty -= qty;
             if (this._items[idx].qty <= 0) this._items.splice(idx, 1);
-            this._onChange?.();
+            this._emitChange();
             return true;
       }
 
@@ -131,7 +139,7 @@ export class Inventory {
                   if (ra !== rb) return ra - rb;
                   return a.name.localeCompare(b.name);
             });
-            this._onChange?.();
+            this._emitChange();
       }
 
       get count(): number { return this._items.length; }
@@ -148,14 +156,14 @@ export class Inventory {
       spendGold(amount: number): boolean {
             if (this._gold < amount) return false;
             this._gold -= amount;
-            this._onChange?.();
+            this._emitChange();
             return true;
       }
 
       /** Add gold directly */
       addGold(amount: number): void {
             this._gold += amount;
-            this._onChange?.();
+            this._emitChange();
       }
 
       /** Use a consumable item — returns effect description or null */
@@ -236,6 +244,13 @@ export class Inventory {
             });
 
             return { goldGained, materialName: '精華碎片' };
+      }
+
+      private _emitChange(): void {
+            this._onChange?.();
+            for (const listener of this._listeners) {
+                  listener();
+            }
       }
 }
 

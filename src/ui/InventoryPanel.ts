@@ -56,6 +56,7 @@ export class InventoryPanel {
       private _playerStats: PlayerStats;
       private _tooltip!: HTMLDivElement;
       private _page = 0;
+      private _disposeInventoryListener: (() => void) | null = null;
       private _onResize = (): void => {
             if (!this._visible) return;
             this._render();
@@ -76,7 +77,9 @@ export class InventoryPanel {
             this._tooltip.className = 'inv-tooltip';
             this._el.appendChild(this._tooltip);
 
-            inventory.onChange = () => { if (this._visible) this._render(); };
+            this._disposeInventoryListener = inventory.subscribe(() => {
+                  if (this._visible) this._render();
+            });
             equipSystem.onChange = () => { if (this._visible) this._render(); };
             window.addEventListener('resize', this._onResize);
       }
@@ -517,6 +520,7 @@ export class InventoryPanel {
             this._hideTooltip();
       }
       dispose(): void {
+            this._disposeInventoryListener?.();
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }

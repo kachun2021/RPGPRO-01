@@ -1,5 +1,7 @@
-﻿import worldTopologyRaw from './world.topology.json';
+import worldTopologyRaw from './world.topology.json';
 import { matchRuntimeZoneToSceneZone } from './RuntimeZoneBridge';
+import { getExplicitSceneZoneIdForRuntimeZoneId, listExplicitRuntimeSceneZoneGroups, listSyntheticSceneNeighbors } from './RuntimeZoneSceneMap';
+import { SCENE_ZONE_PROFILES } from '../../world/SceneZoneProfiles';
 
 interface RuntimeZoneRow {
       zoneId?: number;
@@ -42,25 +44,34 @@ function ensureCache(): SceneRouteCache {
       const runtimeToScene = new Map<number, string>();
       const runtimeNameById = new Map<number, string>();
       const primaryRuntimeNameBySceneZone = new Map<string, string>();
+      const sceneLabelById = new Map<string, string>(
+            SCENE_ZONE_PROFILES.map((profile) => [profile.id, profile.nameCN] as const),
+      );
 
       for (const zone of zones) {
             const zoneId = toInt(zone.zoneId, 0);
             if (zoneId <= 0) continue;
+
             const zoneName = String(zone.name ?? '').trim();
             const resolvedName = zoneName || `地區 #${zoneId}`;
             runtimeNameById.set(zoneId, resolvedName);
+
             const minLevel = Math.max(1, toInt(zone.level?.min, 1));
             const maxLevel = Math.max(minLevel, toInt(zone.level?.max, minLevel));
-            const match = matchRuntimeZoneToSceneZone({
-                  runtimeZoneId: zoneId,
-                  zoneName,
-                  minLevel,
-                  maxLevel,
-                  mobAble: zone.mobAble !== false,
-                  restriction: toInt(zone.rules?.restriction, 0),
-                  pkZoneFlag: toInt(zone.rules?.pkZoneFlag, 0),
-            });
+            const explicitSceneZoneId = getExplicitSceneZoneIdForRuntimeZoneId(zoneId);
+            const match = explicitSceneZoneId
+                  ? { zoneId: explicitSceneZoneId, mode: 'explicit' as const }
+                  : matchRuntimeZoneToSceneZone({
+                        runtimeZoneId: zoneId,
+                        zoneName,
+                        minLevel,
+                        maxLevel,
+                        mobAble: zone.mobAble !== false,
+                        restriction: toInt(zone.rules?.restriction, 0),
+                        pkZoneFlag: toInt(zone.rules?.pkZoneFlag, 0),
+                  });
             if (!match.zoneId) continue;
+
             runtimeToScene.set(zoneId, match.zoneId);
             if (!primaryRuntimeNameBySceneZone.has(match.zoneId)) {
                   primaryRuntimeNameBySceneZone.set(match.zoneId, resolvedName);
@@ -90,11 +101,36 @@ function ensureCache(): SceneRouteCache {
             const fromRuntime = toInt(gate.fromZoneId, 0);
             const toRuntime = toInt(gate.toZoneId, 0);
             if (fromRuntime <= 0 || toRuntime <= 0) continue;
+
             const fromScene = runtimeToScene.get(fromRuntime);
             const toScene = runtimeToScene.get(toRuntime);
             if (!fromScene || !toScene || fromScene === toScene) continue;
-            const toRuntimeName = runtimeNameById.get(toRuntime) ?? `地區 #${toRuntime}`;
-            ensureEdge(fromScene, toScene, `前往 ${toRuntimeName}`);
+
+            const toSceneLabel = sceneLabelById.get(toScene) ?? runtimeNameById.get(toRuntime) ?? `地區 #${toRuntime}`;
+            ensureEdge(fromScene, toScene, `前往 ${toSceneLabel}`);
+      }
+
+      const knownSceneIds = new Set<string>([
+            ...Array.from(primaryRuntimeNameBySceneZone.keys()),
+            ...listExplicitRuntimeSceneZoneGroups().map((group) => group.sceneZoneId),
+      ]);
+
+      for (const sceneZoneId of knownSceneIds) {
+            const baseLabel = sceneLabelById.get(sceneZoneId) ?? primaryRuntimeNameBySceneZone.get(sceneZoneId) ?? sceneZoneId;
+            if (!primaryRuntimeNameBySceneZone.has(sceneZoneId)) {
+                  primaryRuntimeNameBySceneZone.set(sceneZoneId, baseLabel);
+            }
+
+            for (const targetZoneId of listSyntheticSceneNeighbors(sceneZoneId)) {
+                  const targetLabel = sceneLabelById.get(targetZoneId)
+                        ?? primaryRuntimeNameBySceneZone.get(targetZoneId)
+                        ?? targetZoneId;
+                  ensureEdge(sceneZoneId, targetZoneId, `前往 ${targetLabel}`);
+                  ensureEdge(targetZoneId, sceneZoneId, `前往 ${baseLabel}`);
+                  if (!primaryRuntimeNameBySceneZone.has(targetZoneId)) {
+                        primaryRuntimeNameBySceneZone.set(targetZoneId, targetLabel);
+                  }
+            }
       }
 
       CACHE = { adjacency, labelsBySceneZone, primaryRuntimeNameBySceneZone };
