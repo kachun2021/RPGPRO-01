@@ -1,3 +1,4 @@
+import './styles/index.css';
 import { EngineManager } from './core/EngineManager';
 import { Registry } from './core/Registry';
 import { OrientationManager } from './core/OrientationManager';
@@ -6,7 +7,6 @@ import { Player } from './entities/Player';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { getRuntimeHeroTemplate, listRuntimeHeroTemplates, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
 import { getHeroArchetypeProfile } from './data/runtime/HeroArchetypes';
-import { getRuntimeFusionGuideEntries } from './data/runtime/RuntimeFusionGuide';
 import { resolveSceneZoneForRuntimeZoneId } from './data/runtime/RuntimeSceneRouteApi';
 import type { PlayerIdentitySnapshot } from './core/PlayerIdentity';
 import { LandscapeCamera } from './input/LandscapeCamera';
@@ -67,138 +67,16 @@ import { QuestManager, type QuestDef } from './systems/QuestManager';
 import { NPCManager, type NPC } from './entities/NPC';
 import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel, type DialogueActionSpec, type DialoguePanelOpenOptions } from './ui/DialoguePanel';
-import { CommunityPanel } from './ui/CommunityPanel';
 import { OnboardingManager } from './systems/OnboardingManager';
 import { GuidanceWidget } from './ui/GuidanceWidget';
 import { resolveGuidanceState, type GuidanceState } from './ui/GuidanceState';
 import { UiChromeController } from './ui/UiChromeController';
+import { installAdaptivePanelViewportFit } from './ui/layout/AdaptivePanelLayout';
+import { initUiFeedbackSfx } from './ui/layout/UiFeedbackSfx';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
 // P9 System Settings
 import { SystemPanel, type SystemSettings } from './ui/SystemPanel';
-
-function installGlobalPanelViewportFit(): () => void {
-      let fitRaf = 0;
-
-      const parseScale = (el: HTMLElement): number => {
-            const raw = el.style.transform || '';
-            const m = raw.match(/scale\(([\d.]+)\)/);
-            if (!m) return 1;
-            const n = Number(m[1]);
-            return Number.isFinite(n) && n > 0 ? n : 1;
-      };
-
-      const fitPanels = (): void => {
-            const uiLayer = document.getElementById('ui-layer');
-            if (!uiLayer) return;
-
-            const vw = window.innerWidth || 0;
-            const vh = window.innerHeight || 0;
-            if (vw <= 0 || vh <= 0) return;
-
-            const safeTop = 10;
-            const safeBottom = Math.max(86, Math.floor(vh * 0.12));
-            const safeSide = 10;
-            const maxW = Math.max(260, vw - safeSide * 2);
-            const maxH = Math.max(220, vh - safeTop - safeBottom);
-
-            const panels = uiLayer.querySelectorAll<HTMLElement>('.sa-panel:not(.ui-panel-fullscreen)');
-            panels.forEach((el) => {
-                  const cs = window.getComputedStyle(el);
-                  if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return;
-
-                  const isPetPanel = el.id === 'petPanel';
-                  const baseTransform = isPetPanel ? 'translateY(-50%)' : 'translate(-50%, -50%)';
-                  const origin = isPetPanel ? 'right center' : 'center center';
-
-                  const rect = el.getBoundingClientRect();
-                  if (rect.width <= 0 || rect.height <= 0) return;
-
-                  const currentScale = parseScale(el);
-                  const naturalW = Math.max(el.scrollWidth, rect.width / currentScale);
-                  const naturalH = Math.max(el.scrollHeight, rect.height / currentScale);
-                  const nextScale = Math.max(0.5, Math.min(1, maxW / naturalW, maxH / naturalH));
-
-                  const prevApplied = Number(el.dataset.fitScale || '1');
-                  if (Math.abs(prevApplied - nextScale) < 0.01 && el.dataset.fitBase === baseTransform) return;
-
-                  el.style.transformOrigin = origin;
-                  el.style.setProperty('transform', `${baseTransform} scale(${nextScale.toFixed(3)})`, 'important');
-                  el.dataset.fitBase = baseTransform;
-                  el.dataset.fitScale = String(nextScale);
-            });
-      };
-
-      const scheduleFit = (): void => {
-            if (fitRaf) cancelAnimationFrame(fitRaf);
-            fitRaf = requestAnimationFrame(() => {
-                  fitRaf = 0;
-                  fitPanels();
-            });
-      };
-
-      window.addEventListener('resize', scheduleFit);
-      window.addEventListener('orientationchange', scheduleFit);
-      document.addEventListener('click', (evt) => {
-            const target = evt.target as HTMLElement | null;
-            if (!target) return;
-            if (!target.closest('.sa-panel, .sa-nav-btn, .panel-close, .game-btn, .skill-tab-btn, .afk-menu-btn, .sa-tag')) return;
-            scheduleFit();
-      }, true);
-
-      scheduleFit();
-      return scheduleFit;
-}
-
-function initUiFeedbackSfx(): void {
-      let audioCtx: AudioContext | null = null;
-      let lastPlayed = 0;
-
-      const resolveContext = (): AudioContext | null => {
-            if (audioCtx) return audioCtx;
-            const Ctor = (window.AudioContext || (window as any).webkitAudioContext) as (new () => AudioContext) | undefined;
-            if (!Ctor) return null;
-            audioCtx = new Ctor();
-            return audioCtx;
-      };
-
-      const playClick = (): void => {
-            const ctx = resolveContext();
-            if (!ctx) return;
-            const now = performance.now();
-            if (now - lastPlayed < 40) return;
-            lastPlayed = now;
-
-            if (ctx.state === 'suspended') {
-                  void ctx.resume();
-            }
-
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(820, t);
-            osc.frequency.exponentialRampToValueAtTime(560, t + 0.04);
-            gain.gain.setValueAtTime(0.0001, t);
-            gain.gain.exponentialRampToValueAtTime(0.018, t + 0.005);
-            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.065);
-      };
-
-      document.addEventListener('pointerdown', (evt) => {
-            const target = evt.target as HTMLElement | null;
-            if (!target) return;
-            if (!target.closest('.game-btn, .skill-tab-btn, .afk-menu-btn, .panel-close, .sa-nav-btn')) return;
-            try {
-                  playClick();
-            } catch {
-                  // Ignore audio failures to keep UI responsive.
-            }
-      }, true);
-}
 
 type StoredHeroProfile = HeroProfileRecord;
 
@@ -211,6 +89,7 @@ type FusionPanelType = import('./ui/FusionPanel').FusionPanel;
 type EncyclopediaPanelType = import('./ui/EncyclopediaPanel').EncyclopediaPanel;
 type WorldMapPanelType = import('./ui/WorldMapPanel').WorldMapPanel;
 type ShopPanelType = import('./ui/ShopPanel').ShopPanel;
+type CommunityPanelType = import('./ui/CommunityPanel').CommunityPanel;
 
 function resolveSelectedHeroType(): number {
       const heroes = listRuntimeHeroTemplates();
@@ -352,7 +231,7 @@ function normalizeGuideName(value: string): string {
             .toLowerCase();
 }
 
-function resolveStarterFusionGoal(starterPetNames: string[]): string | null {
+async function resolveStarterFusionGoal(starterPetNames: string[]): Promise<string | null> {
       const starterSet = new Set(
             starterPetNames
                   .map((name) => normalizeGuideName(name))
@@ -360,6 +239,7 @@ function resolveStarterFusionGoal(starterPetNames: string[]): string | null {
       );
       if (starterSet.size <= 0) return null;
 
+      const { getRuntimeFusionGuideEntries } = await import('./data/runtime/RuntimeFusionGuide');
       const entries = getRuntimeFusionGuideEntries()
             .filter((entry) => {
                   const main = normalizeGuideName(entry.mainName);
@@ -382,7 +262,7 @@ function resolveStarterFusionGoal(starterPetNames: string[]): string | null {
 async function bootstrap(): Promise<void> {
       console.log('[Fantasy Pet Online] Starting...');
       initUiFeedbackSfx();
-      const schedulePanelViewportFit = installGlobalPanelViewportFit();
+      const schedulePanelViewportFit = installAdaptivePanelViewportFit();
 
       // 1. Engine
       const engineManager = new EngineManager();
@@ -442,7 +322,7 @@ async function bootstrap(): Promise<void> {
             roleLabel: heroArchetype.roleLabel,
             starterPetNames,
             growthGoal: '完成第一章主線，確認主寵編隊後再開始第一條融合線。',
-            starterFusionGoal: resolveStarterFusionGoal(starterPetNames),
+            starterFusionGoal: await resolveStarterFusionGoal(starterPetNames),
       };
       Registry.playerIdentity = playerIdentity;
       const onboardingManager = new OnboardingManager(playerIdentity);
@@ -814,7 +694,6 @@ async function bootstrap(): Promise<void> {
       // Combined Inventory + Equipment panel (needs equipSystem + enhanceSystem)
       const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem, player.stats);
 
-      const communityPanel = new CommunityPanel();
       let currentGuidanceState: GuidanceState = resolveGuidanceState({
             onboarding: onboardingManager,
             questManager,
@@ -856,7 +735,6 @@ async function bootstrap(): Promise<void> {
       panelRegistry.register(renamePanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
       panelRegistry.register(revivalPanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
       panelRegistry.register(questPanel, { kind: 'primary', layoutKind: 'detail_list', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(communityPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
       panelRegistry.register(characterPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
       panelRegistry.register(inventoryPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
       panelRegistry.register(skillPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
@@ -1086,9 +964,7 @@ async function bootstrap(): Promise<void> {
                   };
             },
             onOpenSocialPreview: () => {
-                  closeSubPanels('community');
-                  communityPanel.show();
-                  schedulePanelViewportFit();
+                  void openCommunityPanel();
             },
       });
       panelRegistry.register(systemPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
@@ -1103,6 +979,8 @@ async function bootstrap(): Promise<void> {
       let worldMapPanelLoading: Promise<WorldMapPanelType> | null = null;
       let shopPanel: ShopPanelType | null = null;
       let shopPanelLoading: Promise<ShopPanelType> | null = null;
+      let communityPanel: CommunityPanelType | null = null;
+      let communityPanelLoading: Promise<CommunityPanelType> | null = null;
 
       async function ensureShopPanel(): Promise<ShopPanelType> {
             if (shopPanel) return shopPanel;
@@ -1118,6 +996,22 @@ async function bootstrap(): Promise<void> {
                         shopPanelLoading = null;
                   });
             return shopPanelLoading;
+      }
+
+      async function ensureCommunityPanel(): Promise<CommunityPanelType> {
+            if (communityPanel) return communityPanel;
+            if (communityPanelLoading) return communityPanelLoading;
+            communityPanelLoading = import('./ui/CommunityPanel')
+                  .then(({ CommunityPanel }) => {
+                        const panel = new CommunityPanel();
+                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        communityPanel = panel;
+                        return panel;
+                  })
+                  .finally(() => {
+                        communityPanelLoading = null;
+                  });
+            return communityPanelLoading;
       }
 
       async function ensureFusionPanel(): Promise<FusionPanelType> {
@@ -1209,6 +1103,13 @@ async function bootstrap(): Promise<void> {
             petPanel.open();
             petPanel.refresh();
             onboardingManager.mark('open_pet_panel');
+            schedulePanelViewportFit();
+      }
+
+      async function openCommunityPanel(): Promise<void> {
+            closeSubPanels('community');
+            const panel = await ensureCommunityPanel();
+            panel.show();
             schedulePanelViewportFit();
       }
 
@@ -1556,8 +1457,7 @@ async function bootstrap(): Promise<void> {
                   return true;
             },
             openCommunityPanel: () => {
-                  closeSubPanels('community');
-                  communityPanel.show();
+                  void openCommunityPanel();
                   return true;
             },
             travelToZone: async (zoneId: string, ignoreLock = true) => {

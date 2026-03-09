@@ -55,7 +55,7 @@ export class EncyclopediaPanel {
             this._buildMetaIndex();
             this._el = document.createElement('div');
             this._el.id = 'encyclopediaPanel';
-            this._el.className = 'sa-panel book-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel book-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
@@ -568,3 +568,4 @@ export class EncyclopediaPanel {
                   .replace(/'/g, '&#39;');
       }
 }
+

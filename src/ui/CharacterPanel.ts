@@ -60,7 +60,7 @@ export class CharacterPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'char-panel';
-            this._el.className = 'sa-panel cp-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel cp-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
@@ -112,7 +112,7 @@ export class CharacterPanel {
       }
 
       private _scheduleFit(): void {
-            if (this._el.classList.contains('ui-panel-fullscreen')) return;
+            if (this._el.classList.contains('ui-panel-atlas')) return;
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             this._fitPanelScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitPanelScale());
@@ -121,7 +121,7 @@ export class CharacterPanel {
       get isVisible(): boolean { return this._visible; }
 
       private _fitPanelScale(): void {
-            if (this._el.classList.contains('ui-panel-fullscreen')) {
+            if (this._el.classList.contains('ui-panel-atlas')) {
                   this._el.style.removeProperty('transform');
                   this._el.style.removeProperty('transform-origin');
                   return;
@@ -530,7 +530,7 @@ export class CharacterPanel {
       hide(): void {
             this._visible = false;
             this._el.hidden = true;
-            if (!this._el.classList.contains('ui-panel-fullscreen')) {
+            if (!this._el.classList.contains('ui-panel-atlas')) {
                   this._el.style.setProperty('transform', 'translate(-50%, -50%) scale(1)', 'important');
             } else {
                   this._el.style.removeProperty('transform');
@@ -563,3 +563,4 @@ export class CharacterPanel {
             this._el.remove();
       }
 }
+

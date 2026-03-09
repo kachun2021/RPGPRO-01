@@ -1,48 +1,18 @@
 import type { ZoneManager } from '../world/ZoneManager';
-import worldTopologyRaw from '../data/runtime/world.topology.json';
-import worldSpawnRaw from '../data/runtime/world.spawn.json';
-import fusionRuntimeRaw from '../data/runtime/fusion.runtime.json';
-import listPetsRaw from '../data/fusion/list_pets.json';
-import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
+import type { ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { canonicalRuntimeMapName, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
-import { getRuntimeMapByZoneId, listRuntimeMapNeighbors, resolveRuntimeMapEntry } from '../data/runtime/RuntimeMapCatalog';
+import { resolveRuntimeMapEntry } from '../data/runtime/RuntimeMapCatalog';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
-import { resolveSceneZoneForRuntimeZone } from '../data/runtime/RuntimeSceneRouteApi';
-
-interface MapMonsterInfo {
-      name: string;
-      level: number;
-      dropEgg: boolean | null;
-      series: string | null;
-      fusible: boolean | null;
-      asIngredientCount: number;
-}
-
-interface MapFusionTargetInfo {
-      resultName: string;
-      resultLevel: number;
-      resultDropEgg: boolean | null;
-      mainName: string;
-      subName: string;
-}
-
-interface MapSummary {
-      mapKey: string;
-      name: string;
-      baseName: string;
-      region: string;
-      monsterCount: number;
-      targetCount: number;
-      minLevel: number;
-      maxLevel: number;
-      runtimeZoneId: number | null;
-      teleportSceneZoneId: string | null;
-      teleportMode: RuntimeZoneMatchMode;
-      neighborMapKeys: string[];
-}
-
-type MapLevelBand = 'all' | '1-30' | '31-60' | '61-90' | '91+';
+import {
+      buildWorldMapRuntimeData,
+      filterWorldMapSummaries,
+      findWorldMapRoute,
+      type MapFusionTargetInfo,
+      type MapLevelBand,
+      type MapMonsterInfo,
+      type MapSummary,
+} from './world-map/WorldMapModel';
 
 export class WorldMapPanel {
       readonly panelId = 'map';
@@ -82,14 +52,19 @@ export class WorldMapPanel {
 
       constructor(zoneManager: ZoneManager) {
             this._zoneManager = zoneManager;
-            this._indexListPetData();
-            this._buildMapDataFromFusion();
+            const runtimeData = buildWorldMapRuntimeData();
+            this._mapSummaries = runtimeData.mapSummaries;
+            this._monstersByMap = runtimeData.monstersByMap;
+            this._targetsByMap = runtimeData.targetsByMap;
+            this._listPetsByName = runtimeData.listPetsByName;
+            this._listPetsByKey = runtimeData.listPetsByKey;
+            this._ingredientCountByName = runtimeData.ingredientCountByName;
             this._trackedTargetMapKey = this._loadTrackedTarget();
             this._refreshTrackedRouteFromCurrent();
 
             this._el = document.createElement('div');
             this._el.id = 'world-map-panel';
-            this._el.className = 'sa-panel wmp-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel wmp-root ui-panel-atlas';
             this._el.hidden = true;
 
             this._buildShell();
@@ -120,7 +95,7 @@ export class WorldMapPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span class="wmp-title-icon">🗺️</span> 世界地圖';
+            title.innerHTML = '<span>世界地圖</span>';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -130,7 +105,7 @@ export class WorldMapPanel {
 
             const note = document.createElement('div');
             note.className = 'wmp-note';
-            note.textContent = '依地區快速查怪物、合成來源與傳送。';
+            note.textContent = '依地區、等級與用途快速查怪物、配方來源與路線。';
             this._el.appendChild(note);
 
             const body = document.createElement('div');
@@ -147,7 +122,7 @@ export class WorldMapPanel {
 
             this._detailCol = document.createElement('div');
             this._detailCol.className = 'wmp-detail';
-            this._detailCol.innerHTML = '<div class="wmp-detail-empty">← 先選擇左側地圖</div>';
+            this._detailCol.innerHTML = '<div class="wmp-detail-empty atlas-empty-state"><strong>先從左側選一張地圖</strong><p>右側會顯示路線導引、怪物分佈與可合成目標。</p></div>';
 
             body.appendChild(this._listCol);
             body.appendChild(this._detailCol);
@@ -231,7 +206,6 @@ export class WorldMapPanel {
                   info.className = 'wmp-zone-info';
                   info.innerHTML = `
                         <div class="wmp-zone-top">
-                              <span class="wmp-zone-emoji">\u5340</span>
                               <span class="wmp-zone-name">${this._escapeHtml(map.name)}</span>
                         </div>
                         <div class="wmp-zone-lv">Lv.${map.minLevel}-${map.maxLevel} · 怪${map.monsterCount} · 合${map.targetCount}</div>
@@ -271,7 +245,7 @@ export class WorldMapPanel {
             }
 
             if (mapList.length === 0) {
-                  this._detailCol.innerHTML = '<div class="wmp-detail-empty">找不到符合條件的地圖</div>';
+                  this._detailCol.innerHTML = '<div class="wmp-detail-empty atlas-empty-state"><strong>找不到符合條件的地圖</strong><p>請放寬地區、等級或關鍵字條件。</p></div>';
                   return;
             }
 
@@ -291,7 +265,7 @@ export class WorldMapPanel {
       private _renderDetail(mapKey: string): void {
             const summary = this._mapSummaries.find(item => item.mapKey === mapKey);
             if (!summary) {
-                  this._detailCol.innerHTML = '<div class="wmp-detail-empty">找不到地圖資料</div>';
+                  this._detailCol.innerHTML = '<div class="wmp-detail-empty atlas-empty-state"><strong>找不到地圖資料</strong><p>這張地圖的 runtime 資料尚未成功映射。</p></div>';
                   return;
             }
 
@@ -331,6 +305,24 @@ export class WorldMapPanel {
                   <div class="wmp-detail-sub">${this._escapeHtml(summary.region)} · Lv.${summary.minLevel}-${summary.maxLevel} · 怪${monsters.length}/${summary.monsterCount} · 合${targets.length}/${summary.targetCount}</div>
             `;
             sticky.appendChild(header);
+
+            const overview = document.createElement('div');
+            overview.className = 'wmp-overview-grid';
+            overview.innerHTML = `
+                  <div class="wmp-overview-card atlas-card">
+                        <span class="wmp-overview-label">地區</span>
+                        <span class="wmp-overview-value">${this._escapeHtml(summary.region)}</span>
+                  </div>
+                  <div class="wmp-overview-card atlas-card">
+                        <span class="wmp-overview-label">怪物</span>
+                        <span class="wmp-overview-value">${monsters.length}/${summary.monsterCount}</span>
+                  </div>
+                  <div class="wmp-overview-card atlas-card">
+                        <span class="wmp-overview-label">合成</span>
+                        <span class="wmp-overview-value">${targets.length}/${summary.targetCount}</span>
+                  </div>
+            `;
+            sticky.appendChild(overview);
 
             const navRow = document.createElement('div');
             navRow.className = 'wmp-nav-row';
@@ -464,7 +456,7 @@ export class WorldMapPanel {
 
             const monsterTitle = document.createElement('div');
             monsterTitle.className = 'wmp-section-title';
-            monsterTitle.textContent = `🐾 地圖怪物（${monsters.length}/${monstersAll.length}）`;
+            monsterTitle.textContent = `地圖怪物（${monsters.length}/${monstersAll.length}）`;
             content.appendChild(monsterTitle);
 
             if (monsters.length === 0) {
@@ -538,7 +530,7 @@ export class WorldMapPanel {
 
             const targetTitle = document.createElement('div');
             targetTitle.className = 'wmp-section-title';
-            targetTitle.textContent = `⚗️ 可合成目標（${targets.length}/${targetsAll.length}）`;
+            targetTitle.textContent = `可合成目標（${targets.length}/${targetsAll.length}）`;
             content.appendChild(targetTitle);
 
             if (targets.length === 0) {
@@ -622,13 +614,13 @@ export class WorldMapPanel {
                   teleBtn.disabled = true;
                   teleBtn.classList.add('wmp-btn-disabled');
             } else {
-                  teleBtn.textContent = summary.teleportMode === 'level' ? '近似傳送' : '⚡ 傳送';
+                  teleBtn.textContent = summary.teleportMode === 'level' ? '近似傳送' : '前往地點';
                   teleBtn.addEventListener('click', () => {
                         this.hide();
                         this._zoneManager.travelTo(sceneZoneId);
                   });
             }
-            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '傳送';
+            if (compactMode && !teleBtn.disabled) teleBtn.textContent = '前往';
             footer.appendChild(teleBtn);
             this._detailCol.appendChild(sticky);
             this._detailCol.appendChild(content);
@@ -636,38 +628,7 @@ export class WorldMapPanel {
       }
 
       private _filteredMapSummaries(): MapSummary[] {
-            const key = this._mapSearchKeyword.trim().toLowerCase();
-            return this._mapSummaries.filter(item => {
-                  if (key) {
-                        const haystacks = [
-                              item.name.toLowerCase(),
-                              item.baseName.toLowerCase(),
-                              this._canonicalMapName(item.name).toLowerCase(),
-                              this._canonicalMapName(item.baseName).toLowerCase(),
-                        ];
-                        if (!haystacks.some((value) => value.includes(key))) return false;
-                  }
-                  if (this._regionFilter !== 'all' && item.region !== this._regionFilter) return false;
-                  if (!this._passesLevelBand(item)) return false;
-                  return true;
-            });
-      }
-
-      private _passesLevelBand(item: MapSummary): boolean {
-            const avg = (item.minLevel + item.maxLevel) / 2;
-            switch (this._levelBand) {
-                  case '1-30':
-                        return avg <= 30;
-                  case '31-60':
-                        return avg > 30 && avg <= 60;
-                  case '61-90':
-                        return avg > 60 && avg <= 90;
-                  case '91+':
-                        return avg > 90;
-                  case 'all':
-                  default:
-                        return true;
-            }
+            return filterWorldMapSummaries(this._mapSummaries, this._mapSearchKeyword, this._regionFilter, this._levelBand);
       }
 
       private _buildQuickChip(label: string, active: boolean, onClick: () => void): HTMLButtonElement {
@@ -687,304 +648,6 @@ export class WorldMapPanel {
             return '';
       }
 
-      private _deriveRegionFromTopology(zone: {
-            mobAble?: boolean;
-            rules?: { restriction?: number; pkZoneFlag?: number };
-      } | undefined): string {
-            if (!zone || zone.mobAble === false) return '城鎮/安全區';
-            const restriction = Number(zone.rules?.restriction ?? 0);
-            const pkZoneFlag = Number(zone.rules?.pkZoneFlag ?? 0);
-            if (restriction > 0) return `限制區（R${restriction}）`;
-            if (pkZoneFlag > 0) return 'PK 區域';
-            return '一般狩獵區';
-      }
-
-      private _indexListPetData(): void {
-            const payload = listPetsRaw as ListPetPayload;
-            const rows = Array.isArray(payload.pets) ? payload.pets : [];
-            for (const row of rows) {
-                  const name = this._canonicalName(String(row?.name ?? '').trim());
-                  if (!name) continue;
-                  this._listPetsByName.set(name, row);
-                  this._listPetsByKey.set(this._normalizeNameKey(name), row);
-            }
-      }
-
-      private _buildMapDataFromFusion(): void {
-            const topology = worldTopologyRaw as {
-                  zones?: Array<{
-                        zoneId: number;
-                        name: string;
-                        mobAble?: boolean;
-                        level?: { min?: number; max?: number };
-                        rules?: { restriction?: number; pkZoneFlag?: number };
-                  }>;
-                  gates?: Array<{
-                        fromZoneId: number;
-                        toZoneId: number;
-                  }>;
-            };
-            const spawnData = worldSpawnRaw as {
-                  monsterCatalog?: Array<{ monsterType: number; name: string; race?: number; startBaseLevel?: number; coreRate?: number }>;
-                  mobSpawns?: Array<{
-                        monsterType: number;
-                        slots?: Array<{ zoneId: number }>;
-                  }>;
-            };
-            const fusionData = fusionRuntimeRaw as {
-                  recipes?: Array<{
-                        mainType: number;
-                        subType: number;
-                        resultType: number;
-                  }>;
-            };
-
-            const zones = Array.isArray(topology.zones) ? topology.zones : [];
-            const gates = Array.isArray(topology.gates) ? topology.gates : [];
-            const monsterCatalog = Array.isArray(spawnData.monsterCatalog) ? spawnData.monsterCatalog : [];
-            const mobSpawns = Array.isArray(spawnData.mobSpawns) ? spawnData.mobSpawns : [];
-            const fusionRecipes = Array.isArray(fusionData.recipes) ? fusionData.recipes : [];
-
-            const monsterByType = new Map<number, { name: string; race: number; level: number; coreRate: number }>();
-            for (const row of monsterCatalog) {
-                  const type = Number(row.monsterType ?? 0);
-                  if (!Number.isFinite(type) || type <= 0) continue;
-                  monsterByType.set(type, {
-                        name: this._canonicalName(String(row.name ?? '').trim()),
-                        race: Number(row.race ?? 7),
-                        level: this._toLevel(row.startBaseLevel, 1),
-                        coreRate: Number(row.coreRate ?? 0),
-                  });
-            }
-
-            const raceToSeries = (race: number): string => {
-                  switch (race) {
-                        case 0: return '龍系';
-                        case 1: return '惡系';
-                        case 2: return '獸系';
-                        case 3: return '鳥系';
-                        case 4: return '昆蟲';
-                        case 5: return '植物';
-                        case 6: return '金屬';
-                        case 7: return '神秘';
-                        default: return '神秘';
-                  }
-            };
-
-            this._ingredientCountByName = new Map<string, number>();
-            for (const recipe of fusionRecipes) {
-                  const main = monsterByType.get(Number(recipe.mainType ?? 0))?.name ?? '';
-                  const sub = monsterByType.get(Number(recipe.subType ?? 0))?.name ?? '';
-                  if (main) this._ingredientCountByName.set(main, (this._ingredientCountByName.get(main) ?? 0) + 1);
-                  if (sub) this._ingredientCountByName.set(sub, (this._ingredientCountByName.get(sub) ?? 0) + 1);
-            }
-
-            const monsterTypeSetByZone = new Map<number, Set<number>>();
-            for (const spawn of mobSpawns) {
-                  const monType = Number(spawn.monsterType ?? 0);
-                  if (!Number.isFinite(monType) || monType <= 0) continue;
-                  const slots = Array.isArray(spawn.slots) ? spawn.slots : [];
-                  for (const slot of slots) {
-                        const zoneId = Number(slot.zoneId ?? 0);
-                        if (!Number.isFinite(zoneId) || zoneId <= 0) continue;
-                        let set = monsterTypeSetByZone.get(zoneId);
-                        if (!set) {
-                              set = new Set<number>();
-                              monsterTypeSetByZone.set(zoneId, set);
-                        }
-                        set.add(monType);
-                  }
-            }
-
-            const monsterByMap = new Map<string, Map<string, MapMonsterInfo>>();
-            for (const zone of zones) {
-                  const zoneId = Number(zone.zoneId ?? 0);
-                  if (!Number.isFinite(zoneId) || zoneId <= 0) continue;
-                  const mapEntry = getRuntimeMapByZoneId(zoneId);
-                  if (!mapEntry) continue;
-                  const mapKey = mapEntry.mapKey;
-
-                  const monsterTypes = Array.from(monsterTypeSetByZone.get(zoneId) ?? []);
-                  if (monsterTypes.length === 0) continue;
-
-                  let entries = monsterByMap.get(mapKey);
-                  if (!entries) {
-                        entries = new Map<string, MapMonsterInfo>();
-                        monsterByMap.set(mapKey, entries);
-                  }
-
-                  for (const type of monsterTypes) {
-                        const mon = monsterByType.get(type);
-                        if (!mon || !mon.name) continue;
-
-                        const level = this._toLevel(mon.level, this._findListPetLevel(mon.name) ?? 1);
-                        const dropEgg = mon.coreRate > 0;
-                        const asIngredientCount = this._ingredientCountByName.get(mon.name) ?? 0;
-                        const fusible = asIngredientCount > 0;
-
-                        const prev = entries.get(mon.name);
-                        if (!prev) {
-                              entries.set(mon.name, {
-                                    name: mon.name,
-                                    level,
-                                    dropEgg,
-                                    series: raceToSeries(mon.race),
-                                    fusible,
-                                    asIngredientCount,
-                              });
-                        } else {
-                              prev.level = Math.max(prev.level, level);
-                              prev.dropEgg = this._mergeDropEgg(prev.dropEgg, dropEgg);
-                              prev.asIngredientCount = Math.max(prev.asIngredientCount, asIngredientCount);
-                              if (prev.fusible === null) prev.fusible = fusible;
-                        }
-                  }
-            }
-
-            const targetsByMapRaw = new Map<string, Map<string, MapFusionTargetInfo>>();
-            for (const zone of zones) {
-                  const zoneId = Number(zone.zoneId ?? 0);
-                  if (!Number.isFinite(zoneId) || zoneId <= 0) continue;
-                  const mapEntry = getRuntimeMapByZoneId(zoneId);
-                  if (!mapEntry) continue;
-                  const mapKey = mapEntry.mapKey;
-                  const ingredients = monsterTypeSetByZone.get(zoneId);
-                  if (!ingredients || ingredients.size === 0) continue;
-
-                  let mapTargets = targetsByMapRaw.get(mapKey);
-                  if (!mapTargets) {
-                        mapTargets = new Map<string, MapFusionTargetInfo>();
-                        targetsByMapRaw.set(mapKey, mapTargets);
-                  }
-
-                  for (const recipe of fusionRecipes) {
-                        const mainType = Number(recipe.mainType ?? 0);
-                        const subType = Number(recipe.subType ?? 0);
-                        const resultType = Number(recipe.resultType ?? 0);
-                        if (!ingredients.has(mainType) || !ingredients.has(subType)) continue;
-
-                        const main = monsterByType.get(mainType);
-                        const sub = monsterByType.get(subType);
-                        const result = monsterByType.get(resultType);
-                        if (!main || !sub || !result) continue;
-
-                        const key = `${result.name}|${main.name}|${sub.name}`;
-                        if (mapTargets.has(key)) continue;
-                        mapTargets.set(key, {
-                              resultName: result.name,
-                              resultLevel: this._toLevel(result.level, this._findListPetLevel(result.name) ?? 1),
-                              resultDropEgg: result.coreRate > 0,
-                              mainName: main.name,
-                              subName: sub.name,
-                        });
-                  }
-            }
-
-            this._monstersByMap = new Map<string, MapMonsterInfo[]>();
-            for (const [mapName, entries] of monsterByMap) {
-                  const list = Array.from(entries.values()).sort((a, b) => {
-                        if (a.level !== b.level) return a.level - b.level;
-                        return a.name.localeCompare(b.name, 'zh-Hant');
-                  });
-                  this._monstersByMap.set(mapName, list);
-            }
-
-            this._targetsByMap = new Map<string, MapFusionTargetInfo[]>();
-            for (const [mapName, entries] of targetsByMapRaw) {
-                  const list = Array.from(entries.values()).sort((a, b) => {
-                        if (a.resultLevel !== b.resultLevel) return a.resultLevel - b.resultLevel;
-                        return a.resultName.localeCompare(b.resultName, 'zh-Hant');
-                  });
-                  this._targetsByMap.set(mapName, list);
-            }
-
-            const zonesByMapKey = new Map<string, {
-                  zoneId: number;
-                  name: string;
-                  displayName: string;
-                  mobAble: boolean;
-                  levelMin: number;
-                  levelMax: number;
-                  restriction: number;
-                  pkZoneFlag: number;
-                  sceneZoneId: string | null;
-            }>();
-            const mapKeys = new Set<string>();
-            for (const zone of zones) {
-                  const runtimeZoneId = Number(zone.zoneId ?? 0);
-                  const mapEntry = getRuntimeMapByZoneId(runtimeZoneId);
-                  if (!mapEntry) continue;
-                  zonesByMapKey.set(mapEntry.mapKey, {
-                        zoneId: mapEntry.runtimeZoneId,
-                        name: mapEntry.name,
-                        displayName: mapEntry.displayName,
-                        mobAble: mapEntry.mobAble,
-                        levelMin: mapEntry.minLevel,
-                        levelMax: mapEntry.maxLevel,
-                        restriction: mapEntry.restriction,
-                        pkZoneFlag: mapEntry.pkZoneFlag,
-                        sceneZoneId: mapEntry.sceneZoneId,
-                  });
-                  mapKeys.add(mapEntry.mapKey);
-            }
-            for (const mapKey of this._monstersByMap.keys()) mapKeys.add(mapKey);
-            for (const mapKey of this._targetsByMap.keys()) mapKeys.add(mapKey);
-
-            this._mapSummaries = Array.from(mapKeys).map((mapKey) => {
-                  const mons = this._monstersByMap.get(mapKey) ?? [];
-                  const targets = this._targetsByMap.get(mapKey) ?? [];
-                  const zone = zonesByMapKey.get(mapKey);
-
-                  const minLevel = zone
-                        ? Math.max(1, zone.levelMin)
-                        : (mons.length > 0 ? Math.min(...mons.map(item => item.level)) : 1);
-                  const maxLevel = zone
-                        ? Math.max(minLevel, zone.levelMax)
-                        : (mons.length > 0 ? Math.max(...mons.map(item => item.level)) : minLevel);
-
-                  const zoneMatch = zone
-                        ? resolveSceneZoneForRuntimeZone({
-                              runtimeZoneId: zone.zoneId,
-                              zoneName: zone.name,
-                              minLevel,
-                              maxLevel,
-                              mobAble: zone.mobAble,
-                              restriction: zone.restriction,
-                              pkZoneFlag: zone.pkZoneFlag,
-                        })
-                        : { sceneZoneId: null, mode: 'none' as RuntimeZoneMatchMode };
-                  const region = this._deriveRegionFromTopology(zone ? {
-                        mobAble: zone.mobAble,
-                        rules: { restriction: zone.restriction, pkZoneFlag: zone.pkZoneFlag },
-                  } : undefined);
-                  const neighbors = listRuntimeMapNeighbors(mapKey)
-                        .filter((neighborKey) => zonesByMapKey.has(neighborKey))
-                        .sort((a, b) => {
-                              const aName = zonesByMapKey.get(a)?.displayName ?? a;
-                              const bName = zonesByMapKey.get(b)?.displayName ?? b;
-                              return aName.localeCompare(bName, 'zh-Hant');
-                        });
-
-                  return {
-                        mapKey,
-                        name: zone?.displayName ?? mapKey,
-                        baseName: zone?.name ?? mapKey,
-                        region,
-                        monsterCount: mons.length,
-                        targetCount: targets.length,
-                        minLevel,
-                        maxLevel,
-                        runtimeZoneId: zone?.zoneId ?? null,
-                        teleportSceneZoneId: zoneMatch.sceneZoneId,
-                        teleportMode: zoneMatch.mode,
-                        neighborMapKeys: neighbors,
-                  };
-            }).sort((a, b) => {
-                  if (a.minLevel !== b.minLevel) return a.minLevel - b.minLevel;
-                  return a.name.localeCompare(b.name, 'zh-Hant');
-            });
-      }
-
       private _getCurrentMapKey(): string | null {
             const currentSceneZoneId = this._zoneManager.currentZone.id;
             const candidates = this._mapSummaries.filter((item) => item.teleportSceneZoneId === currentSceneZoneId);
@@ -998,48 +661,7 @@ export class WorldMapPanel {
       }
 
       private _findRoute(fromMapKey: string, toMapKey: string): string[] {
-            if (fromMapKey === toMapKey) return [fromMapKey];
-            const graph = new Map<string, Set<string>>();
-            const ensureNode = (mapKey: string): Set<string> => {
-                  let row = graph.get(mapKey);
-                  if (!row) {
-                        row = new Set<string>();
-                        graph.set(mapKey, row);
-                  }
-                  return row;
-            };
-
-            for (const map of this._mapSummaries) {
-                  const row = ensureNode(map.mapKey);
-                  for (const next of map.neighborMapKeys) {
-                        row.add(next);
-                        ensureNode(next).add(map.mapKey);
-                  }
-            }
-
-            if (!graph.has(fromMapKey) || !graph.has(toMapKey)) return [];
-            const queue: string[] = [fromMapKey];
-            const prev = new Map<string, string | null>([[fromMapKey, null]]);
-
-            while (queue.length > 0) {
-                  const now = queue.shift()!;
-                  if (now === toMapKey) break;
-                  for (const next of graph.get(now) ?? []) {
-                        if (prev.has(next)) continue;
-                        prev.set(next, now);
-                        queue.push(next);
-                  }
-            }
-
-            if (!prev.has(toMapKey)) return [];
-            const path: string[] = [];
-            let cursor: string | null = toMapKey;
-            while (cursor) {
-                  path.push(cursor);
-                  cursor = prev.get(cursor) ?? null;
-            }
-            path.reverse();
-            return path;
+            return findWorldMapRoute(this._mapSummaries, fromMapKey, toMapKey);
       }
 
       private _refreshTrackedRouteFromCurrent(): void {
@@ -1188,4 +810,5 @@ export class WorldMapPanel {
             this._el.remove();
       }
 }
+
 

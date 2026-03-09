@@ -1,0 +1,10 @@
+﻿@import "./tokens.css";
+@import "./gameplay.css";
+@import "./shared/panel-primitives.css";
+@import "./panels/world-map.css";
+@import "./panels/fusion.css";
+@import "./panels/afk.css";
+@import "./panels/legacy-panels.css";
+@import "./panels/adventure-atlas.css";
+@import "./panels/adventure-atlas-batch2.css";
+

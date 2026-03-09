@@ -75,7 +75,7 @@ export class InventoryPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'inventory-panel';
-            this._el.className = 'sa-panel inv2-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel inv2-root ui-panel-atlas';
             document.getElementById('ui-layer')?.appendChild(this._el);
 
             this._tooltip = document.createElement('div');
@@ -611,3 +611,4 @@ export class InventoryPanel {
             this._el.remove();
       }
 }
+

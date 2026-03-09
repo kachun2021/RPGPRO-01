@@ -1,4 +1,4 @@
-﻿import type { Pet } from '../pets/Pet';
+import type { Pet } from '../pets/Pet';
 
 export class RenamePanel {
       readonly panelId = 'rename';
@@ -10,7 +10,7 @@ export class RenamePanel {
       constructor() {
             this._el = document.createElement('div');
             this._el.id = 'renamePanel';
-            this._el.className = 'sa-panel rename-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel rename-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
@@ -128,3 +128,4 @@ export class RenamePanel {
             this._el.remove();
       }
 }
+

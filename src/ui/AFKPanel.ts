@@ -1,204 +1,38 @@
 import type { Inventory } from '../systems/Inventory';
-import { getRuntimeMonstersForSceneZone } from '../data/runtime/RuntimeMonsterSource';
-import { getSceneZonePrimaryRuntimeName } from '../data/runtime/RuntimeWorldRoutes';
-import { listRuntimeSceneZones } from '../world/RuntimeZoneCatalog';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
+import {
+      AFK_SAVE_VERSION,
+      DEFAULT_SETTINGS,
+      FILTER_CHAR_LIMIT,
+      LOOT_ZONES,
+      LOOT_ZONE_STORAGE_KEY,
+      MODE_IDS,
+      MODE_PRESETS,
+      STORAGE_KEY,
+      TAB_IDS,
+      clampSetting,
+      modeLabel,
+      normalizeEnumValue,
+      parseFilterList,
+      stringifyFilterList,
+      type AFKMode,
+      type AFKSaveState,
+      type AFKSettings,
+      type AFKTabId,
+      type BagFullAction,
+      type DeathAction,
+      type FilterListKey,
+      type ItemRarity,
+      type TargetPriority,
+} from './afk/AFKPanelConfig';
 
-type AFKTabId = 'quick' | 'combat' | 'loot' | 'safety';
-type AFKMode = 'safe' | 'balanced' | 'efficient';
-type TargetPriority = 'nearest' | 'elite' | 'bossLast';
-type ItemRarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
-type BagFullAction = 'town' | 'mail' | 'stop';
-type DeathAction = 'revive' | 'town' | 'stop';
-type FilterListKey = 'whitelist' | 'blacklist';
-
-interface LootZoneMonsterOption {
-      name: string;
-      level: number;
-      isBoss: boolean;
-}
-
-interface LootZoneOption {
-      id: string;
-      label: string;
-      monsters: LootZoneMonsterOption[];
-}
-
-const STORAGE_KEY = 'fpo.afk.settings.v3';
-const LOOT_ZONE_STORAGE_KEY = 'fpo.afk.settings.v3.loot.zone';
-const TAB_IDS: AFKTabId[] = ['quick', 'combat', 'loot', 'safety'];
-const MODE_IDS: AFKMode[] = ['safe', 'balanced', 'efficient'];
-const FILTER_CHAR_LIMIT = 300;
-const AFK_SAVE_VERSION = 1;
-
-const LOOT_ZONES: LootZoneOption[] = listRuntimeSceneZones()
-      .filter((zone) => !zone.isTown)
-      .map((zone) => {
-            const monsterMap = new Map<string, LootZoneMonsterOption>();
-            const runtimeMonsters = getRuntimeMonstersForSceneZone(zone.id);
-            runtimeMonsters.forEach((monster) => {
-                  const name = String(monster.name ?? '').trim();
-                  if (!name) return;
-                  const key = name.toLowerCase();
-                  const existing = monsterMap.get(key);
-                  if (!existing || monster.level < existing.level) {
-                        monsterMap.set(key, {
-                              name,
-                              level: monster.level,
-                              isBoss: Boolean(monster.isBoss),
-                        });
-                        return;
-                  }
-                  if (monster.isBoss) existing.isBoss = true;
-            });
-            const monsters = Array.from(monsterMap.values()).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name, 'zh-Hant'));
-            const levelMin = monsters.length > 0 ? Math.min(...monsters.map((row) => row.level)) : zone.levelMin;
-            const levelMax = monsters.length > 0 ? Math.max(...monsters.map((row) => row.level)) : zone.levelMax;
-            const runtimeName = zone.nameCN || getSceneZonePrimaryRuntimeName(zone.id) || zone.name;
-            return {
-                  id: zone.id,
-                  label: `${runtimeName} (Lv.${levelMin}-${levelMax})`,
-                  monsters,
-            };
-      })
-      .filter((zone) => zone.monsters.length > 0);
-
-function clamp(n: number, min: number, max: number): number {
-      if (!Number.isFinite(n)) return min;
-      return Math.max(min, Math.min(max, n));
-}
-
-function normalizeEnum<T extends string>(value: unknown, list: readonly T[], fallback: T): T {
-      return typeof value === 'string' && list.includes(value as T) ? (value as T) : fallback;
-}
-
-function modeLabel(mode: AFKMode): string {
-      switch (mode) {
-            case 'safe': return '安全';
-            case 'balanced': return '平衡';
-            case 'efficient': return '效率';
-      }
-}
-
-function parseFilterList(raw: string): string[] {
-      const result: string[] = [];
-      const seen = new Set<string>();
-      raw.split(/[\n,;]+/).forEach((part) => {
-            const value = part.trim();
-            if (!value) return;
-            const key = value.toLowerCase();
-            if (seen.has(key)) return;
-            seen.add(key);
-            result.push(value);
-      });
-      return result;
-}
-
-function stringifyFilterList(values: string[], maxLength: number): string {
-      const result: string[] = [];
-      let currentLength = 0;
-      values.forEach((raw) => {
-            const value = raw.trim();
-            if (!value) return;
-            const key = value.toLowerCase();
-            if (result.some((item) => item.toLowerCase() === key)) return;
-            const nextLength = currentLength === 0 ? value.length : currentLength + 1 + value.length;
-            if (nextLength > maxLength) return;
-            result.push(value);
-            currentLength = nextLength;
-      });
-      return result.join(',');
-}
-
-export interface AFKSettings {
-      mode: AFKMode;
-      autoFindEnabled: boolean;
-      autoPotionEnabled: boolean;
-      autoLootEnabled: boolean;
-      detectRadius: number;
-      targetPriority: TargetPriority;
-      mpReservePct: number;
-      forceHealThreshold: number;
-      rarityThreshold: ItemRarity;
-      bagFullAction: BagFullAction;
-      whitelist: string;
-      blacklist: string;
-      hpPotionPct: number;
-      mpPotionPct: number;
-      deathAction: DeathAction;
-      reconnectEnabled: boolean;
-      stopOnBoss: boolean;
-      simpleRiskCheck: boolean;
-}
+export type { AFKSaveState } from './afk/AFKPanelConfig';
 
 export interface AFKPanelCallbacks {
       onToggleAuto?: () => boolean;
       onApplyConfig?: (settings: AFKSettings) => void;
       onVisibilityChange?: (visible: boolean) => void;
 }
-
-export interface AFKSaveState {
-      version: number;
-      settings: AFKSettings;
-      lootZoneId: string;
-}
-
-const DEFAULT_SETTINGS: AFKSettings = {
-      mode: 'balanced',
-      autoFindEnabled: true,
-      autoPotionEnabled: true,
-      autoLootEnabled: true,
-      detectRadius: 20,
-      targetPriority: 'nearest',
-      mpReservePct: 20,
-      forceHealThreshold: 30,
-      rarityThreshold: 'rare',
-      bagFullAction: 'town',
-      whitelist: '',
-      blacklist: '',
-      hpPotionPct: 35,
-      mpPotionPct: 30,
-      deathAction: 'town',
-      reconnectEnabled: true,
-      stopOnBoss: true,
-      simpleRiskCheck: true,
-};
-
-const MODE_PRESETS: Record<AFKMode, Partial<AFKSettings>> = {
-      safe: {
-            detectRadius: 16,
-            targetPriority: 'nearest',
-            hpPotionPct: 40,
-            mpPotionPct: 35,
-            mpReservePct: 30,
-            forceHealThreshold: 40,
-            rarityThreshold: 'rare',
-            bagFullAction: 'town',
-            stopOnBoss: true,
-      },
-      balanced: {
-            detectRadius: 22,
-            targetPriority: 'bossLast',
-            hpPotionPct: 35,
-            mpPotionPct: 30,
-            mpReservePct: 20,
-            forceHealThreshold: 30,
-            rarityThreshold: 'uncommon',
-            bagFullAction: 'town',
-            stopOnBoss: true,
-      },
-      efficient: {
-            detectRadius: 30,
-            targetPriority: 'elite',
-            hpPotionPct: 28,
-            mpPotionPct: 24,
-            mpReservePct: 10,
-            forceHealThreshold: 25,
-            rarityThreshold: 'common',
-            bagFullAction: 'mail',
-            stopOnBoss: false,
-      },
-};
 
 type AFKSettingKey = keyof AFKSettings;
 
@@ -225,7 +59,7 @@ export class AFKPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'afk-panel';
-            this._el.className = 'sa-panel afk-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel afk-root ui-panel-atlas';
             this._el.hidden = true;
 
             this._buildShell();
@@ -541,7 +375,7 @@ export class AFKPanel {
             const key = (el.dataset.key ?? '') as AFKSettingKey;
             if (!key) return;
             if (key === 'mode') {
-                  this._applyModePreset(normalizeEnum<AFKMode>(el.value, MODE_IDS, this._settings.mode));
+                  this._applyModePreset(normalizeEnumValue<AFKMode>(el.value, MODE_IDS, this._settings.mode));
                   return;
             }
             const value = el instanceof HTMLInputElement && el.type === 'checkbox' ? el.checked : (el instanceof HTMLInputElement && el.type === 'number' ? Number(el.value) : el.value);
@@ -765,21 +599,21 @@ export class AFKPanel {
 
       private _normalizeSettings(raw: Partial<AFKSettings>): AFKSettings {
             return {
-                  mode: normalizeEnum<AFKMode>(raw.mode, MODE_IDS, DEFAULT_SETTINGS.mode),
+                  mode: normalizeEnumValue<AFKMode>(raw.mode, MODE_IDS, DEFAULT_SETTINGS.mode),
                   autoFindEnabled: Boolean(raw.autoFindEnabled ?? DEFAULT_SETTINGS.autoFindEnabled),
                   autoPotionEnabled: Boolean(raw.autoPotionEnabled ?? DEFAULT_SETTINGS.autoPotionEnabled),
                   autoLootEnabled: Boolean(raw.autoLootEnabled ?? DEFAULT_SETTINGS.autoLootEnabled),
-                  detectRadius: clamp(Number(raw.detectRadius ?? DEFAULT_SETTINGS.detectRadius), 6, 60),
-                  targetPriority: normalizeEnum<TargetPriority>(raw.targetPriority, ['nearest', 'elite', 'bossLast'], DEFAULT_SETTINGS.targetPriority),
-                  mpReservePct: clamp(Number(raw.mpReservePct ?? DEFAULT_SETTINGS.mpReservePct), 0, 80),
-                  forceHealThreshold: clamp(Number(raw.forceHealThreshold ?? DEFAULT_SETTINGS.forceHealThreshold), 5, 80),
-                  rarityThreshold: normalizeEnum<ItemRarity>(raw.rarityThreshold, ['common', 'uncommon', 'rare', 'epic', 'legendary'], DEFAULT_SETTINGS.rarityThreshold),
-                  bagFullAction: normalizeEnum<BagFullAction>(raw.bagFullAction, ['town', 'mail', 'stop'], DEFAULT_SETTINGS.bagFullAction),
+                  detectRadius: clampSetting(Number(raw.detectRadius ?? DEFAULT_SETTINGS.detectRadius), 6, 60),
+                  targetPriority: normalizeEnumValue<TargetPriority>(raw.targetPriority, ['nearest', 'elite', 'bossLast'], DEFAULT_SETTINGS.targetPriority),
+                  mpReservePct: clampSetting(Number(raw.mpReservePct ?? DEFAULT_SETTINGS.mpReservePct), 0, 80),
+                  forceHealThreshold: clampSetting(Number(raw.forceHealThreshold ?? DEFAULT_SETTINGS.forceHealThreshold), 5, 80),
+                  rarityThreshold: normalizeEnumValue<ItemRarity>(raw.rarityThreshold, ['common', 'uncommon', 'rare', 'epic', 'legendary'], DEFAULT_SETTINGS.rarityThreshold),
+                  bagFullAction: normalizeEnumValue<BagFullAction>(raw.bagFullAction, ['town', 'mail', 'stop'], DEFAULT_SETTINGS.bagFullAction),
                   whitelist: stringifyFilterList(parseFilterList(String(raw.whitelist ?? DEFAULT_SETTINGS.whitelist)), FILTER_CHAR_LIMIT),
                   blacklist: stringifyFilterList(parseFilterList(String(raw.blacklist ?? DEFAULT_SETTINGS.blacklist)), FILTER_CHAR_LIMIT),
-                  hpPotionPct: clamp(Number(raw.hpPotionPct ?? DEFAULT_SETTINGS.hpPotionPct), 5, 90),
-                  mpPotionPct: clamp(Number(raw.mpPotionPct ?? DEFAULT_SETTINGS.mpPotionPct), 5, 90),
-                  deathAction: normalizeEnum<DeathAction>(raw.deathAction, ['revive', 'town', 'stop'], DEFAULT_SETTINGS.deathAction),
+                  hpPotionPct: clampSetting(Number(raw.hpPotionPct ?? DEFAULT_SETTINGS.hpPotionPct), 5, 90),
+                  mpPotionPct: clampSetting(Number(raw.mpPotionPct ?? DEFAULT_SETTINGS.mpPotionPct), 5, 90),
+                  deathAction: normalizeEnumValue<DeathAction>(raw.deathAction, ['revive', 'town', 'stop'], DEFAULT_SETTINGS.deathAction),
                   reconnectEnabled: Boolean(raw.reconnectEnabled ?? DEFAULT_SETTINGS.reconnectEnabled),
                   stopOnBoss: Boolean(raw.stopOnBoss ?? DEFAULT_SETTINGS.stopOnBoss),
                   simpleRiskCheck: Boolean(raw.simpleRiskCheck ?? DEFAULT_SETTINGS.simpleRiskCheck),
@@ -880,3 +714,4 @@ export class AFKPanel {
             this._syncFormFromSettings();
       }
 }
+

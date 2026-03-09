@@ -2,13 +2,18 @@ import type { QuestManager, QuestDef, QuestType, QuestStatus, QuestReward } from
 import { Registry } from '../core/Registry';
 
 type QTab = 'world' | 'general';
-const TAB_LABELS: { id: QTab; label: string; icon: string; types: QuestType[] }[] = [
-      { id: 'world', label: '世界任務', icon: '🔴', types: ['main'] },
-      { id: 'general', label: '一般任務', icon: '🟡', types: ['side', 'daily'] },
+const TAB_LABELS: { id: QTab; label: string; types: QuestType[] }[] = [
+      { id: 'world', label: '世界任務', types: ['main'] },
+      { id: 'general', label: '一般任務', types: ['side', 'daily'] },
 ];
 
-const STATUS_ICONS: Record<QuestStatus, string> = {
-      locked: '🔒', available: '📌', active: '⚡', turn_in: '📣', complete: '✅', claimed: '🏆',
+const STATUS_LABELS: Record<QuestStatus, string> = {
+      locked: '未解鎖',
+      available: '待接取',
+      active: '進行中',
+      turn_in: '待回報',
+      complete: '可領取',
+      claimed: '已完成',
 };
 
 /**
@@ -33,7 +38,7 @@ export class QuestPanel {
             this._questManager = questManager;
             this._el = document.createElement('div');
             this._el.id = 'quest-panel';
-            this._el.className = 'sa-panel qp-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel qp-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
             this._disposeQuestListener = questManager.subscribe(() => {
@@ -52,7 +57,7 @@ export class QuestPanel {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
             const prog = this._questManager.mainProgress;
-            title.innerHTML = `<span class="qp-title-icon">📜</span> 任務信息 <span class="qp-progress">${prog.current}/${prog.total}</span>`;
+            title.innerHTML = `<span>任務誌</span><span class="qp-progress">主線 ${prog.current}/${prog.total}</span>`;
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -64,10 +69,11 @@ export class QuestPanel {
             const tabBar = document.createElement('div');
             tabBar.className = 'qp-tab-bar';
             for (const t of TAB_LABELS) {
+                  const tabQuestCount = t.types.reduce((total, type) => total + this._questManager.getByType(type).length, 0);
                   const btn = document.createElement('button');
                   btn.className = 'qp-tab rpg-chip rpg-chip-tab';
                   if (t.id === this._currentTab) btn.classList.add('qp-tab-active', 'is-active');
-                  btn.innerHTML = `<span class="qp-tab-icon">${t.icon}</span><span class="qp-tab-label">${t.label}</span>`;
+                  btn.innerHTML = `<span class="qp-tab-label">${t.label}</span><span class="qp-tab-count">${tabQuestCount}</span>`;
                   btn.addEventListener('click', () => {
                         this._currentTab = t.id;
                         this._selectedQuestId = null;
@@ -101,11 +107,22 @@ export class QuestPanel {
             } else {
                   for (const q of quests) {
                         const status = this._questManager.getStatus(q);
+                        const objective = q.objectives[0];
+                        const objectiveText = objective
+                              ? `${objective.label} · ${objective.current}/${objective.required}`
+                              : '目前沒有進度目標';
                         const item = document.createElement('div');
                         item.className = 'qp-dir-item';
                         if (q.id === this._selectedQuestId) item.classList.add('qp-dir-selected');
                         if (status === 'locked') item.classList.add('qp-dir-locked');
-                        item.innerHTML = `<span class="qp-dir-icon">${STATUS_ICONS[status]}</span> ${q.chapter ? `Ch.${q.chapter} ` : ''}${q.name}`;
+                        item.innerHTML = `
+                              <div class="qp-dir-top">
+                                    <span class="qp-dir-status is-${status}">${STATUS_LABELS[status]}</span>
+                                    <span class="qp-dir-meta">${q.chapter ? `主線 ${q.chapter}` : this._typeLabel(q.type)}</span>
+                              </div>
+                              <div class="qp-dir-name">${this._escapeHtml(q.name)}</div>
+                              <div class="qp-dir-objective">${this._escapeHtml(objectiveText)}</div>
+                        `;
                         item.addEventListener('click', () => {
                               this._selectedQuestId = q.id;
                               this._render();
@@ -135,44 +152,62 @@ export class QuestPanel {
                   const obj = selectedQuest.objectives[0];
                   const pct = Math.min(100, Math.round((obj.current / obj.required) * 100));
                   const guidance = this._buildGuidanceText(selectedQuest, status);
-                  const rewardHtml = selectedQuest.rewards.gold || selectedQuest.rewards.exp
-                        ? `
-                              <div class="qp-detail-section">
-                                    <span class="qp-detail-label">獎勵:</span>
-                                    ${selectedQuest.rewards.gold ? `<span class="qp-detail-reward">💰 ${selectedQuest.rewards.gold}GP</span>` : ''}
-                                    ${selectedQuest.rewards.exp ? `<span class="qp-detail-reward">✨ ${selectedQuest.rewards.exp}xp</span>` : ''}
-                                    ${selectedQuest.rewards.petId ? `<span class="qp-detail-reward">🐾 寵物蛋</span>` : ''}
-                                    ${selectedQuest.rewards.unlockZone ? `<span class="qp-detail-reward">🗺️ 解鎖地圖</span>` : ''}
-                              </div>
-                        `
-                        : '';
+                  const rewardHtml = this._buildRewardHtml(selectedQuest.rewards);
                   const acceptBtnHtml = status === 'available'
-                        ? '<button class="qp-accept-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary">✅ 接受任務</button>'
+                        ? '<button class="qp-accept-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary">接受任務</button>'
                         : '';
                   const claimBtnHtml = status === 'complete'
-                        ? '<button class="qp-claim-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary">🎁 領取獎勵</button>'
+                        ? '<button class="qp-claim-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary">領取獎勵</button>'
                         : '';
                   const turnInNoticeHtml = status === 'turn_in'
-                        ? '<div class="qp-detail-guidance">請回對應 NPC 回報，獎勵與世界解鎖會在對話完成後發放。</div>'
+                        ? '<div class="qp-detail-callout">請回對應 NPC 回報，獎勵與世界解鎖會在對話完成後發放。</div>'
                         : '';
+                  const rewardSummary = this._buildRewardSummary(selectedQuest.rewards);
+                  const actionCopy = this._buildActionCopy(status, rewardSummary);
+                  const objectiveText = `${obj.label} · ${obj.current}/${obj.required}`;
 
                   detail.innerHTML = `
                         <div class="qp-detail-head">
-                              <div class="qp-detail-name">${selectedQuest.name}</div>
-                              <div class="qp-detail-guidance">${guidance}</div>
+                              <div class="qp-detail-head-main">
+                                    <div class="qp-detail-status is-${status}">${STATUS_LABELS[status]}</div>
+                                    <div class="qp-detail-name">${this._escapeHtml(selectedQuest.name)}</div>
+                                    <div class="qp-detail-guidance">${this._escapeHtml(guidance)}</div>
+                              </div>
+                              <div class="qp-detail-focus-card atlas-card">
+                                    <span class="qp-detail-focus-label">目前目標</span>
+                                    <span class="qp-detail-focus-value">${this._escapeHtml(obj.label)}</span>
+                                    <span class="qp-detail-focus-meta">${obj.current}/${obj.required}</span>
+                              </div>
                               <div class="qp-detail-progress">
                                     <div class="qp-detail-pbar">
                                           <div class="qp-detail-pfill"></div>
                                     </div>
-                                    <span class="qp-detail-ptext">${obj.label}: ${obj.current}/${obj.required}</span>
+                                    <span class="qp-detail-ptext">${this._escapeHtml(objectiveText)}</span>
                               </div>
                         </div>
                         <div class="qp-detail-content">
-                              <div class="qp-detail-desc">${selectedQuest.description}</div>
-                              ${rewardHtml}
+                              <div class="qp-detail-copy atlas-card">
+                                    <div class="qp-detail-section-title">任務摘要</div>
+                                    <div class="qp-detail-desc">${this._escapeHtml(selectedQuest.description)}</div>
+                              </div>
+                              <div class="qp-detail-grid">
+                                    <div class="qp-detail-section atlas-card">
+                                          <div class="qp-detail-section-title">行動提示</div>
+                                          <div class="qp-detail-body-copy">${this._escapeHtml(guidance)}</div>
+                                    </div>
+                                    <div class="qp-detail-section atlas-card">
+                                          <div class="qp-detail-section-title">完成獎勵</div>
+                                          <div class="qp-detail-reward-list">${rewardHtml || '<span class="qp-detail-reward qp-detail-reward-muted">以主線推進與後續節點為主</span>'}</div>
+                                    </div>
+                              </div>
                               ${turnInNoticeHtml}
-                              ${acceptBtnHtml}
-                              ${claimBtnHtml}
+                              <div class="qp-detail-action-rail atlas-card">
+                                    <div class="qp-detail-action-copy">${this._escapeHtml(actionCopy)}</div>
+                                    <div class="qp-detail-actions">
+                                          ${acceptBtnHtml}
+                                          ${claimBtnHtml}
+                                    </div>
+                              </div>
                         </div>
                   `;
                   const fill = detail.querySelector('.qp-detail-pfill') as HTMLDivElement | null;
@@ -191,7 +226,14 @@ export class QuestPanel {
                         });
                   }
             } else {
-                  detail.innerHTML = '<div class="qp-detail-content"><div class="qp-detail-empty">選擇一個任務查看詳情</div></div>';
+                  detail.innerHTML = `
+                        <div class="qp-detail-content">
+                              <div class="qp-detail-empty atlas-empty-state">
+                                    <strong>先從左側挑一個任務</strong>
+                                    <p>這裡會顯示目前步驟、獎勵與下一個世界推進節點。</p>
+                              </div>
+                        </div>
+                  `;
             }
             body.appendChild(detail);
             this._el.appendChild(body);
@@ -252,6 +294,38 @@ export class QuestPanel {
                   return `完成後會推進世界進度，解鎖 ${quest.rewards.unlockZone}。`;
             }
             return '先照著目前目標推進，再回來查看獎勵與後續解鎖。';
+      }
+
+      private _buildRewardHtml(reward: QuestReward): string {
+            const tokens: string[] = [];
+            if (reward.gold) tokens.push(`<span class="qp-detail-reward">+${reward.gold} GP</span>`);
+            if (reward.exp) tokens.push(`<span class="qp-detail-reward">+${reward.exp} EXP</span>`);
+            if (reward.petId) tokens.push('<span class="qp-detail-reward">寵物蛋</span>');
+            if (reward.unlockZone) tokens.push(`<span class="qp-detail-reward">解鎖 ${this._escapeHtml(reward.unlockZone)}</span>`);
+            return tokens.join('');
+      }
+
+      private _buildRewardSummary(reward: QuestReward): string {
+            const parts: string[] = [];
+            if (reward.gold) parts.push(`${reward.gold} GP`);
+            if (reward.exp) parts.push(`${reward.exp} EXP`);
+            if (reward.petId) parts.push('寵物蛋');
+            if (reward.unlockZone) parts.push(`解鎖 ${reward.unlockZone}`);
+            return parts.join(' / ');
+      }
+
+      private _buildActionCopy(status: QuestStatus, rewardSummary: string): string {
+            if (status === 'available') return '確認接取後才會開始累積進度。';
+            if (status === 'turn_in') return '條件已達成，回到 NPC 後會結算任務與世界推進。';
+            if (status === 'complete') return rewardSummary ? `可立即領取：${rewardSummary}` : '可立即領取任務完成獎勵。';
+            if (status === 'claimed') return '這個節點已完成，建議切到下一個可推進任務。';
+            return rewardSummary ? `完成本步可取得：${rewardSummary}` : '依照上方提示推進即可。';
+      }
+
+      private _typeLabel(type: QuestType): string {
+            if (type === 'main') return '主線';
+            if (type === 'daily') return '日常';
+            return '支線';
       }
 
       claimQuest(questId: string): { quest: QuestDef; reward: QuestReward } | null {
@@ -322,10 +396,19 @@ export class QuestPanel {
       private _showRewardText(name: string, reward: QuestReward): void {
             const el = document.createElement('div');
             el.className = 'pickup-text quest-reward-text';
-            el.textContent = `🎉 ${name} 完成！+${reward.exp ?? 0}xp +${reward.gold ?? 0}金`;
+            el.textContent = `${name} 完成  +${reward.exp ?? 0} EXP  +${reward.gold ?? 0} GP`;
             document.getElementById('ui-layer')?.appendChild(el);
             requestAnimationFrame(() => el.classList.add('show'));
             setTimeout(() => el.remove(), 2500);
+      }
+
+      private _escapeHtml(value: string): string {
+            return String(value ?? '')
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }
@@ -343,3 +426,4 @@ export class QuestPanel {
             this._el.remove();
       }
 }
+

@@ -3,29 +3,23 @@
  */
 
 import type { ShopManager, ShopCategory, ShopCatalogScope, ShopItem } from '../systems/ShopManager';
-import { SHOP_CATEGORIES } from '../systems/ShopManager';
 import type { Inventory, InventoryItem } from '../systems/Inventory';
 import {
       getRuntimeCommerceItemMetaByIdx,
       getRuntimeProductionRecipes,
       type RuntimeProductionRecipe,
 } from '../data/runtime/RuntimeEconomyCommerceSource';
-
-const RARITY_COLORS: Record<string, string> = {
-      common: 'rgba(200,195,185,0.5)',
-      uncommon: 'rgba(39,174,96,0.7)',
-      rare: 'rgba(52,152,219,0.8)',
-      epic: 'rgba(155,89,182,0.8)',
-      legendary: 'rgba(232,201,106,0.9)',
-};
-
-const RARITY_LABELS: Record<string, string> = {
-      common: '普通',
-      uncommon: '優秀',
-      rare: '稀有',
-      epic: '史詩',
-      legendary: '傳說',
-};
+import {
+      buildItemTypeText,
+      buildShopBottomBar,
+      buildShopBuyDetail,
+      buildShopCategoryTabs,
+      buildShopCraftDetail,
+      buildShopSellDetail,
+      getShopRarityColor,
+      getShopRarityLabel,
+      iconForItemType,
+} from './shop/ShopPanelTemplates';
 
 export class ShopPanel {
       readonly panelId = 'shop';
@@ -52,7 +46,7 @@ export class ShopPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'shop-panel';
-            this._el.className = 'sa-panel shop-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel shop-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
 
@@ -72,32 +66,28 @@ export class ShopPanel {
             const gold = this._inventory.gold;
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        <span class="shop-title-icon">${this._mode === 'buy' ? '🛒' : this._mode === 'sell' ? '💰' : '🛠️'}</span>
-                        ${this._mode === 'buy' ? '商店' : this._mode === 'sell' ? '出售' : '製作所'}
-                        <span class="shop-gold-badge">🪙 <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
+                        <span>${this._panelTitle()}</span>
+                        <span class="shop-gold-badge">GP <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
                         <span class="panel-close" id="shop-close">✕</span>
                   </div>
                   <div class="shop-layout">
                         <aside class="shop-side">
                               <div class="shop-mode-bar">
-                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'buy' ? ' active is-active' : ''}" data-mode="buy"><span class="shop-mode-icon">🛍</span><span class="shop-mode-label">購買</span></button>
-                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'sell' ? ' active is-active' : ''}" data-mode="sell"><span class="shop-mode-icon">🪙</span><span class="shop-mode-label">出售</span></button>
-                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'craft' ? ' active is-active' : ''}" data-mode="craft"><span class="shop-mode-icon">🛠</span><span class="shop-mode-label">製作</span></button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'buy' ? ' active is-active' : ''}" data-mode="buy"><span class="shop-mode-icon">買</span><span class="shop-mode-label">購買</span></button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'sell' ? ' active is-active' : ''}" data-mode="sell"><span class="shop-mode-icon">售</span><span class="shop-mode-label">出售</span></button>
+                                    <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'craft' ? ' active is-active' : ''}" data-mode="craft"><span class="shop-mode-icon">作</span><span class="shop-mode-label">製作</span></button>
                               </div>
-                              ${this._mode === 'buy'
-                                    ? this._renderCategoryTabs()
-                                    : this._mode === 'sell'
-                                          ? '<div class="shop-side-note">出售模式：先選物品，再在右側確認。</div>'
-                                          : '<div class="shop-side-note">製作模式：先選配方，再確認素材與成功率。</div>'}
+                              <div class="shop-side-note atlas-card">${this._buildModeNote()}</div>
+                              ${this._mode === 'buy' ? buildShopCategoryTabs(this._category, this._buyCatalogScope) : ''}
                         </aside>
                         <section class="shop-main">
                               <div class="shop-main-head shop-main-head-grid">
-                                    <span class="shop-main-title">${this._mode === 'buy' ? '商品清單' : this._mode === 'sell' ? '背包物品' : '製作配方'}</span>
+                                    <span class="shop-main-title">${this._mode === 'buy' ? '採買清單' : this._mode === 'sell' ? '背包變現' : '工坊配方'}</span>
                                     <span class="shop-main-sub">${this._mode === 'buy'
-                                          ? '先選商品，再確認購買數量'
+                                          ? '先選商品，再決定補給數量'
                                           : this._mode === 'sell'
-                                                ? '先選物品，再確認出售數量'
-                                                : '先選配方，再確認材料與金幣'}</span>
+                                                ? '先選物品，再確認這次出清'
+                                                : '先選配方，再確認材料與成功率'}</span>
                               </div>
                               <div class="shop-content">
                                     <div class="shop-list-pane">
@@ -152,21 +142,6 @@ export class ShopPanel {
             }
       }
 
-      private _renderCategoryTabs(): string {
-            return `
-                  <div class="shop-cat-bar shop-scope-bar">
-                        <button class="shop-scope-btn rpg-chip rpg-chip-filter${this._buyCatalogScope === 'starter' ? ' active is-active' : ''}" data-scope="starter">新手精選</button>
-                        <button class="shop-scope-btn rpg-chip rpg-chip-filter${this._buyCatalogScope === 'all' ? ' active is-active' : ''}" data-scope="all">完整目錄</button>
-                  </div>
-                  <div class="shop-cat-bar">${SHOP_CATEGORIES.map((cat) => `
-                  <button class="shop-cat-btn rpg-chip rpg-chip-filter${cat.id === this._category ? ' active is-active' : ''}" data-cat="${cat.id}">
-                        <span class="shop-cat-icon">${cat.icon}</span>
-                        <span class="shop-cat-label">${cat.label}</span>
-                  </button>
-                  `).join('')}</div>
-            `;
-      }
-
       private _renderBuyMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
             const items = this._shop.getByCategory(this._category, this._buyCatalogScope);
             listHead.textContent = this._buyCatalogScope === 'starter'
@@ -175,7 +150,7 @@ export class ShopPanel {
             if (items.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">此分類暫時沒有商品</div>';
                   detail.innerHTML = '<div class="shop-empty">請切換其他分類</div>';
-                  bottom.innerHTML = this._buildBottomBar('buy', null, 1);
+                  bottom.innerHTML = buildShopBottomBar('buy', null, 1, this._inventory.gold);
                   return;
             }
 
@@ -190,7 +165,7 @@ export class ShopPanel {
                   grid.appendChild(this._createBuyRow(item, item.id === selected.id));
             }
 
-            detail.innerHTML = this._buildBuyDetail(selected, qty);
+            detail.innerHTML = buildShopBuyDetail(selected, qty, this._inventory.gold);
             this._bindDetailQty(detail, selected.id, 99);
             detail.querySelector('.shop-detail-action')?.addEventListener('click', () => {
                   const currentQty = this._getQty(selected.id, 99);
@@ -213,7 +188,7 @@ export class ShopPanel {
                   this._render();
             });
 
-            bottom.innerHTML = this._buildBottomBar('buy', selected, qty);
+            bottom.innerHTML = buildShopBottomBar('buy', selected, qty, this._inventory.gold);
       }
 
       private _renderSellMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
@@ -222,7 +197,7 @@ export class ShopPanel {
             if (invItems.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">背包沒有可出售物品</div>';
                   detail.innerHTML = '<div class="shop-empty">沒有可出售物品</div>';
-                  bottom.innerHTML = this._buildBottomBar('sell', null, 1);
+                  bottom.innerHTML = buildShopBottomBar('sell', null, 1, this._inventory.gold);
                   return;
             }
 
@@ -238,7 +213,7 @@ export class ShopPanel {
                   grid.appendChild(this._createSellRow(item, item.itemId === selected.itemId));
             }
 
-            detail.innerHTML = this._buildSellDetail(selected, unitSellPrice, qty);
+            detail.innerHTML = buildShopSellDetail(selected, unitSellPrice, qty);
             this._bindDetailQty(detail, selected.itemId, selected.qty);
             detail.querySelector('.shop-detail-action')?.addEventListener('click', () => {
                   const currentQty = this._getQty(selected.itemId, selected.qty);
@@ -250,16 +225,10 @@ export class ShopPanel {
                   this._render();
             });
 
-            bottom.innerHTML = this._buildBottomBar('sell', {
-                  id: selected.itemId,
+            bottom.innerHTML = buildShopBottomBar('sell', {
                   name: selected.name,
-                  category: 'scroll',
                   price: unitSellPrice,
-                  icon: selected.icon,
-                  description: selected.description,
-                  itemType: selected.type as ShopItem['itemType'],
-                  rarity: selected.rarity as ShopItem['rarity'],
-            }, qty);
+            }, qty, this._inventory.gold);
       }
 
       private _renderCraftMode(grid: HTMLDivElement, detail: HTMLDivElement, bottom: HTMLDivElement, listHead: HTMLDivElement): void {
@@ -268,7 +237,7 @@ export class ShopPanel {
             if (recipes.length <= 0) {
                   grid.innerHTML = '<div class="shop-empty">目前沒有可用製作配方</div>';
                   detail.innerHTML = '<div class="shop-empty">尚未載入製作資料</div>';
-                  bottom.innerHTML = this._buildBottomBar('craft', null, 1);
+                  bottom.innerHTML = buildShopBottomBar('craft', null, 1, this._inventory.gold);
                   return;
             }
 
@@ -282,7 +251,7 @@ export class ShopPanel {
             }
 
             const craftable = this._isRecipeCraftable(selected);
-            detail.innerHTML = this._buildCraftDetail(selected, craftable);
+            detail.innerHTML = buildShopCraftDetail(selected, craftable, (itemId) => this._getInventoryCount(itemId));
             detail.querySelector('.shop-detail-action')?.addEventListener('click', () => {
                   if (!this._isRecipeCraftable(selected)) {
                         this._showToast('材料或金幣不足', '#E74C3C');
@@ -310,7 +279,7 @@ export class ShopPanel {
                                     type: resultMeta?.itemType ?? 'material',
                                     rarity: resultMeta?.rarity ?? 'common',
                                     qty: 1,
-                                    icon: this._iconForItemType(resultMeta?.itemType ?? 'material'),
+                                    icon: iconForItemType(resultMeta?.itemType ?? 'material'),
                                     description: resultMeta?.description ?? `製作產物 #${selected.resultIdx}`,
                               });
                         }
@@ -321,40 +290,34 @@ export class ShopPanel {
                   this._render();
             });
 
-            bottom.innerHTML = this._buildBottomBar('craft', {
-                  id: `db_item_${selected.resultIdx}`,
+            bottom.innerHTML = buildShopBottomBar('craft', {
                   name: selected.resultName,
-                  category: 'scroll',
                   price: selected.costGold,
-                  icon: this._iconForItemType('material'),
-                  description: selected.docName,
-                  itemType: 'material',
-                  rarity: 'common',
-            }, selected.resultCount);
+            }, selected.resultCount, this._inventory.gold);
       }
 
       private _createBuyRow(item: ShopItem, selected: boolean): HTMLButtonElement {
             const row = document.createElement('button');
             row.type = 'button';
             row.className = `shop-card shop-list-row${selected ? ' is-selected' : ''}`;
-            const rarityColor = RARITY_COLORS[item.rarity || 'common'];
+            const rarityColor = getShopRarityColor(item.rarity);
             row.style.borderColor = rarityColor;
             row.style.setProperty('--shop-rarity-color', rarityColor);
 
             row.innerHTML = `
                   <div class="shop-card-left">
-                        <div class="shop-card-icon">${item.icon}</div>
+                        <div class="shop-card-icon">${iconForItemType(item.itemType)}</div>
                   </div>
                   <div class="shop-card-center">
                         <div class="shop-card-name">${item.name}</div>
-                        <div class="shop-card-desc">${this._buildItemTypeText(item.itemType)} · ${item.description}</div>
+                        <div class="shop-card-desc">${buildItemTypeText(item.itemType)} · ${item.description}</div>
                         <div class="shop-card-meta">
-                              <span class="shop-card-rarity">${RARITY_LABELS[item.rarity || 'common']}</span>
-                              <span class="shop-card-unit">單價: ${item.price}🪙</span>
+                              <span class="shop-card-rarity">${getShopRarityLabel(item.rarity)}</span>
+                              <span class="shop-card-unit">單價: ${item.price} GP</span>
                         </div>
                   </div>
                   <div class="shop-card-right">
-                        <div class="shop-card-price">🪙 ${item.price}</div>
+                        <div class="shop-card-price">${item.price} GP</div>
                   </div>
             `;
 
@@ -369,25 +332,25 @@ export class ShopPanel {
             const row = document.createElement('button');
             row.type = 'button';
             row.className = `shop-card shop-list-row${selected ? ' is-selected' : ''}`;
-            const rarityColor = RARITY_COLORS[item.rarity || 'common'];
+            const rarityColor = getShopRarityColor(item.rarity);
             row.style.borderColor = rarityColor;
             row.style.setProperty('--shop-rarity-color', rarityColor);
             const sellPrice = this._shop.getSellPrice(item.itemId);
 
             row.innerHTML = `
                   <div class="shop-card-left">
-                        <div class="shop-card-icon">${item.icon}</div>
+                        <div class="shop-card-icon">${iconForItemType(item.type)}</div>
                   </div>
                   <div class="shop-card-center">
                         <div class="shop-card-name">${item.name}</div>
                         <div class="shop-card-desc">${item.description}</div>
                         <div class="shop-card-meta">
-                              <span class="shop-card-rarity">${RARITY_LABELS[item.rarity || 'common']}</span>
+                              <span class="shop-card-rarity">${getShopRarityLabel(item.rarity)}</span>
                               <span class="shop-card-stock">庫存: ${item.qty}</span>
                         </div>
                   </div>
                   <div class="shop-card-right">
-                        <div class="shop-card-price sell">+🪙 ${sellPrice}</div>
+                        <div class="shop-card-price sell">+${sellPrice} GP</div>
                   </div>
             `;
 
@@ -412,7 +375,7 @@ export class ShopPanel {
                         <div class="shop-card-desc">${recipe.docName}</div>
                         <div class="shop-card-meta">
                               <span class="shop-card-stock">素材 ${recipe.materials.length} 種</span>
-                              <span class="shop-card-unit">費用: ${recipe.costGold}🪙</span>
+                              <span class="shop-card-unit">費用: ${recipe.costGold} GP</span>
                         </div>
                   </div>
                   <div class="shop-card-right">
@@ -424,137 +387,6 @@ export class ShopPanel {
                   this._render();
             });
             return row;
-      }
-
-      private _buildCraftDetail(recipe: RuntimeProductionRecipe, craftable: boolean): string {
-            const resultMeta = getRuntimeCommerceItemMetaByIdx(recipe.resultIdx);
-            const successRatePct = recipe.defaultPro > 0 ? Math.min(100, recipe.defaultPro / 1000) : 100;
-            const materialRows = recipe.materials.map((mat) => {
-                  const have = this._getInventoryCount(`db_item_${mat.itemIdx}`);
-                  const ok = have >= mat.count;
-                  const materialMeta = getRuntimeCommerceItemMetaByIdx(mat.itemIdx);
-                  const sourceHint = this._buildCraftMaterialSourceHint(mat.itemName, materialMeta?.category, materialMeta?.itemType);
-                  return `
-                        <div class="shop-detail-source-item">
-                              <div class="shop-detail-row">
-                                    <span>${mat.itemName}</span>
-                                    <span class="${ok ? '' : 'insufficient'}">${have}/${mat.count}</span>
-                              </div>
-                              <div class="shop-detail-source-text">來源：${sourceHint}</div>
-                        </div>
-                  `;
-            }).join('');
-            const useHint = this._buildCraftUseHint(recipe.resultName, resultMeta?.itemType, resultMeta?.category);
-            return `
-                  <div class="shop-detail-header">
-                        <div class="shop-detail-icon">⚗️</div>
-                        <div class="shop-detail-title-wrap">
-                              <div class="shop-detail-title">${recipe.resultName}</div>
-                              <div class="shop-detail-sub">${recipe.docName}</div>
-                        </div>
-                  </div>
-                  <div class="shop-detail-body">
-                        <div class="shop-detail-desc">製作後可獲得 ${recipe.resultName} x${recipe.resultCount}</div>
-                        <div class="shop-detail-tip">
-                              <span class="shop-detail-tip-label">用途</span>
-                              <span class="shop-detail-tip-text">${useHint}</span>
-                        </div>
-                        <div class="shop-detail-row"><span>金幣費用</span><span>${recipe.costGold}🪙</span></div>
-                        <div class="shop-detail-row"><span>成功率</span><span>${successRatePct.toFixed(1)}%</span></div>
-                        <div class="shop-detail-source-list">${materialRows}</div>
-                  </div>
-                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-primary${craftable ? '' : ' disabled is-disabled'}" type="button">${craftable ? '確認製作' : '材料不足'}</button>
-            `;
-      }
-
-      private _buildBuyDetail(item: ShopItem, qty: number): string {
-            const totalCost = item.price * qty;
-            const canAfford = this._inventory.gold >= totalCost;
-            return `
-                  <div class="shop-detail-header">
-                        <div class="shop-detail-icon">${item.icon}</div>
-                        <div class="shop-detail-title-wrap">
-                              <div class="shop-detail-title">${item.name}</div>
-                              <div class="shop-detail-sub">${this._buildItemTypeText(item.itemType)} · ${RARITY_LABELS[item.rarity] ?? '普通'}</div>
-                        </div>
-                  </div>
-                  <div class="shop-detail-body">
-                        <div class="shop-detail-desc">${item.description}</div>
-                        <div class="shop-detail-row"><span>單價</span><span>🪙 ${item.price}</span></div>
-                        <div class="shop-detail-row">
-                              <span>數量</span>
-                              <div class="shop-qty-control">
-                                    <button class="shop-qty-btn minus" type="button">-</button>
-                                    <span class="shop-qty-num">${qty}</span>
-                                    <button class="shop-qty-btn plus" type="button">+</button>
-                              </div>
-                        </div>
-                        <div class="shop-detail-row shop-detail-row-total">
-                              <span>總價</span>
-                              <span class="${canAfford ? '' : 'insufficient'}">🪙 ${totalCost}</span>
-                        </div>
-                  </div>
-                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-primary${canAfford ? '' : ' disabled is-disabled'}" type="button">${canAfford ? '確認購買' : '金幣不足'}</button>
-            `;
-      }
-
-      private _buildSellDetail(item: InventoryItem, unitSellPrice: number, qty: number): string {
-            return `
-                  <div class="shop-detail-header">
-                        <div class="shop-detail-icon">${item.icon}</div>
-                        <div class="shop-detail-title-wrap">
-                              <div class="shop-detail-title">${item.name}</div>
-                              <div class="shop-detail-sub">出售 · ${RARITY_LABELS[item.rarity] ?? '普通'}</div>
-                        </div>
-                  </div>
-                  <div class="shop-detail-body">
-                        <div class="shop-detail-desc">${item.description}</div>
-                        <div class="shop-detail-row"><span>庫存</span><span>${item.qty}</span></div>
-                        <div class="shop-detail-row"><span>單件可得</span><span class="sell">+🪙 ${unitSellPrice}</span></div>
-                        <div class="shop-detail-row">
-                              <span>數量</span>
-                              <div class="shop-qty-control">
-                                    <button class="shop-qty-btn minus" type="button">-</button>
-                                    <span class="shop-qty-num">${qty}</span>
-                                    <button class="shop-qty-btn plus" type="button">+</button>
-                              </div>
-                        </div>
-                        <div class="shop-detail-row shop-detail-row-total"><span>總計可得</span><span class="sell">+🪙 ${unitSellPrice * qty}</span></div>
-                  </div>
-                  <button class="shop-action-btn shop-detail-action rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary" type="button">確認出售</button>
-            `;
-      }
-
-      private _buildBottomBar(mode: 'buy' | 'sell' | 'craft', item: ShopItem | null, qty: number): string {
-            const gold = this._inventory.gold;
-            if (!item) {
-                  return `
-                        <div class="shop-bottom-main">
-                              <span class="shop-bottom-label">目前金幣</span>
-                              <span class="shop-bottom-value">🪙 ${gold.toLocaleString()}</span>
-                        </div>
-                        <span class="shop-bottom-hint">請先選擇物品</span>
-                  `;
-            }
-
-            const total = Math.max(1, item.price) * Math.max(1, qty);
-            const hint = mode === 'buy'
-                  ? `購買 ${item.name} x${qty}`
-                  : mode === 'sell'
-                        ? `出售 ${item.name} x${qty}`
-                        : `製作 ${item.name} x${qty}`;
-            const value = mode === 'buy'
-                  ? `需支付 🪙 ${total.toLocaleString()}`
-                  : mode === 'sell'
-                        ? `可獲得 🪙 ${total.toLocaleString()}`
-                        : `需消耗 🪙 ${total.toLocaleString()}`;
-            return `
-                  <div class="shop-bottom-main">
-                        <span class="shop-bottom-label">${hint}</span>
-                        <span class="shop-bottom-value${mode === 'sell' ? ' sell' : ''}">${value}</span>
-                  </div>
-                  <span class="shop-bottom-hint">目前金幣：🪙 ${gold.toLocaleString()}</span>
-            `;
       }
 
       private _bindDetailQty(container: HTMLElement, id: string, max: number): void {
@@ -581,18 +413,6 @@ export class ShopPanel {
             return Math.min(this._quantities.get(id) ?? 1, max);
       }
 
-      private _buildItemTypeText(itemType: ShopItem['itemType']): string {
-            switch (itemType) {
-                  case 'equipment': return '裝備';
-                  case 'consumable': return '消耗品';
-                  case 'material': return '材料';
-                  case 'egg': return '蛋';
-                  case 'recipe': return '配方';
-                  case 'quest': return '任務道具';
-                  default: return '道具';
-            }
-      }
-
       private _isRecipeCraftable(recipe: RuntimeProductionRecipe): boolean {
             if (this._inventory.gold < recipe.costGold) return false;
             for (const mat of recipe.materials) {
@@ -607,72 +427,6 @@ export class ShopPanel {
             return row ? Math.max(0, row.qty) : 0;
       }
 
-      private _iconForItemType(itemType: ShopItem['itemType']): string {
-            switch (itemType) {
-                  case 'equipment': return '⚔️';
-                  case 'consumable': return '🧪';
-                  case 'material': return '📦';
-                  case 'egg': return '🥚';
-                  case 'recipe': return '📜';
-                  case 'quest': return '🧾';
-                  default: return '📦';
-            }
-      }
-
-      private _buildCraftUseHint(
-            resultName: string,
-            itemType?: ShopItem['itemType'],
-            category?: ShopCategory,
-      ): string {
-            const name = resultName.toLowerCase();
-            if (itemType === 'equipment') {
-                  return '優先補空位或替換低階裝備，做完後先回背包確認是否能直接穿上。';
-            }
-            if (itemType === 'consumable' || category === 'potion' || /藥|potion/.test(name)) {
-                  return '屬於續戰補給，建議在離村前或長時間掛機前先做 3 到 5 份。';
-            }
-            if (itemType === 'egg') {
-                  return '可補收藏或交換線，通常比直接賣掉更有中期價值。';
-            }
-            if (itemType === 'recipe') {
-                  return '這是後續製作線的中繼品，先保留，別急著賣。';
-            }
-            if (/保護|protect/.test(name)) {
-                  return '適合留給高階強化使用，尤其是 +5 以上再用更划算。';
-            }
-            if (/卷|scroll|符/.test(name)) {
-                  return '多半會接到強化或功能線，先放背包，不建議早期脫手。';
-            }
-            return '通常是後續配方或主線周邊材料，先留著，等上位製作再消耗。';
-      }
-
-      private _buildCraftMaterialSourceHint(
-            materialName: string,
-            category?: ShopCategory,
-            itemType?: ShopItem['itemType'],
-      ): string {
-            const key = materialName.toLowerCase();
-            if (/草|herb/.test(key)) {
-                  return '新手草原採集點與一般怪掉落最穩。';
-            }
-            if (/鐵|礦|ore|metal/.test(key)) {
-                  return '礦區、洞窟與岩系怪常見，先推主線到洞窟線會更快。';
-            }
-            if (/晶|crystal|魔力/.test(key)) {
-                  return '洞窟精英、魔力節點與中階採集線比較常出。';
-            }
-            if (/骨|牙|爪|皮|毛/.test(key)) {
-                  return '多刷對應野怪即可，這類材料通常靠清怪累積。';
-            }
-            if (/藥|potion/.test(key) || category === 'potion') {
-                  return '缺口太大時可先回商店補貨，再回來做高階配方。';
-            }
-            if (itemType === 'equipment') {
-                  return '先刷地圖掉裝或拆裝備回收，再回製作所補部位。';
-            }
-            return '先推主線、清怪與撿掉落；缺料時再回背包比對來源。';
-      }
-
       private _showToast(msg: string, color: string): void {
             const el = document.createElement('div');
             el.className = 'shop-toast';
@@ -684,6 +438,22 @@ export class ShopPanel {
                   el.classList.remove('show');
                   setTimeout(() => el.remove(), 300);
             }, 2000);
+      }
+
+      private _panelTitle(): string {
+            if (this._mode === 'sell') return '商旅回收';
+            if (this._mode === 'craft') return '製作工坊';
+            return '補給商店';
+      }
+
+      private _buildModeNote(): string {
+            if (this._mode === 'sell') {
+                  return '把背包裡暫時不用的道具集中出售。右側只保留結算與數量確認，不再放大成 dashboard。';
+            }
+            if (this._mode === 'craft') {
+                  return '先選配方，再檢查材料來源與成功率。缺料時會優先提示缺口，不先塞滿一堆空框。';
+            }
+            return '先選商品，再補數量。左側保留類別與目錄切換，主畫面專注在清單與交易確認。';
       }
 
       async show(mode: 'buy' | 'sell' | 'craft' = 'buy'): Promise<void> {
@@ -711,3 +481,4 @@ export class ShopPanel {
             this._el.remove();
       }
 }
+

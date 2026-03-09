@@ -1,0 +1,167 @@
+﻿    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Cormorant SC', serif;
+      --atlas-paper-0: rgba(252, 249, 241, 0.985);
+      --atlas-paper-1: rgba(244, 238, 227, 0.975);
+      --atlas-paper-2: rgba(234, 228, 215, 0.965);
+      --atlas-surface: rgba(255, 252, 245, 0.92);
+      --atlas-surface-soft: rgba(242, 236, 224, 0.82);
+      --atlas-surface-muted: rgba(233, 227, 214, 0.68);
+      --atlas-ink: #20344A;
+      --atlas-ink-strong: #16283B;
+      --atlas-ink-soft: rgba(32, 52, 74, 0.72);
+      --atlas-ink-dim: rgba(54, 71, 88, 0.54);
+      --atlas-accent: #D28F2C;
+      --atlas-accent-strong: #B67218;
+      --atlas-accent-soft: rgba(210, 143, 44, 0.14);
+      --atlas-success: #2F7B59;
+      --atlas-success-soft: rgba(47, 123, 89, 0.12);
+      --atlas-danger: #C76757;
+      --atlas-danger-soft: rgba(199, 103, 87, 0.14);
+      --atlas-edge: rgba(116, 128, 140, 0.24);
+      --atlas-edge-strong: rgba(210, 143, 44, 0.42);
+      --ui-bg-0: var(--atlas-paper-0);
+      --ui-bg-1: var(--atlas-paper-1);
+      --ui-bg-2: var(--atlas-paper-2);
+      --ui-edge: var(--atlas-edge);
+      --ui-edge-strong: var(--atlas-edge-strong);
+      --ui-text-main: var(--atlas-ink);
+      --ui-text-sub: var(--atlas-ink-soft);
+      --ui-text-dim: var(--atlas-ink-dim);
+      --ui-accent: var(--atlas-accent);
+      --ui-primary-top: #F4C96A;
+      --ui-primary-bot: #D28F2C;
+      --ui-secondary-bg: rgba(237, 231, 219, 0.92);
+      --ui-ghost-bg: rgba(55, 84, 108, 0.08);
+      --ui-shadow-panel: 0 24px 52px rgba(35, 48, 64, 0.18);
+      --ui-shadow-glow: 0 12px 26px rgba(210, 143, 44, 0.12);
+      --ui-radius-panel: 22px;
+      --ui-radius-card: 18px;
+      --ui-radius-btn: 14px;
+      --ui-time-fast: 0.14s;
+      --ui-time-mid: 0.22s;
+      --touch-target-min: 34px;
+      --touch-target-compact: 32px;
+      --op-btn-h: 36px;
+      --op-btn-h-sm: 34px;
+      --op-btn-px: 14px;
+      --op-btn-px-sm: 12px;
+      --op-btn-font: 13px;
+      --op-btn-font-sm: 12px;
+      --op-btn-border: rgba(116, 128, 140, 0.26);
+      --op-btn-primary-top: #F4C96A;
+      --op-btn-primary-bot: #D28F2C;
+      --op-btn-secondary-top: rgba(255, 252, 245, 0.95);
+      --op-btn-secondary-bot: rgba(236, 230, 217, 0.93);
+      --op-btn-danger-top: rgba(243, 211, 205, 0.92);
+      --op-btn-danger-bot: rgba(225, 188, 181, 0.9);
+      --op-btn-danger-border: rgba(199, 103, 87, 0.4);
+      --chip-h: 34px;
+      --chip-h-tab: 34px;
+      --chip-px: 12px;
+      --chip-px-tab: 14px;
+      --chip-font: 12px;
+      --chip-font-tab: 13px;
+      --chip-bg: rgba(255, 252, 245, 0.82);
+      --chip-bg-hover: rgba(210, 143, 44, 0.12);
+      --chip-bg-active: rgba(210, 143, 44, 0.18);
+      --chip-text: rgba(32, 52, 74, 0.76);
+      --chip-text-active: var(--atlas-ink-strong);
+      --chip-border: rgba(116, 128, 140, 0.22);
+      --chip-border-active: rgba(210, 143, 44, 0.46);
+      --panel-fs-gutter: 10px;
+      --panel-fs-top: calc(env(safe-area-inset-top) + var(--panel-fs-gutter));
+      --panel-fs-right: calc(env(safe-area-inset-right) + var(--panel-fs-gutter));
+      --panel-fs-bottom: calc(env(safe-area-inset-bottom) + var(--panel-fs-gutter));
+      --panel-fs-left: calc(env(safe-area-inset-left) + var(--panel-fs-gutter));
+      --panel-atlas-gutter-inline: clamp(10px, 1.6vw, 22px);
+      --panel-atlas-gutter-block: clamp(10px, 1.8vh, 22px);
+      --panel-atlas-width: 1120px;
+      --panel-atlas-height: 760px;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0A0E1A;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      font-family: var(--font-body);
+    }
+
+    #renderCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+      touch-action: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    #ui-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      color: #ECE8E0;
+      overflow: hidden;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    #ui-layer [hidden] {
+      display: none !important;
+    }
+
+    .interactive {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .quest-tracker,
+    .guide-root,
+    .guidance-root,
+    .minimap-root,
+    .hud-identity,
+    .hud-top-right,
+    .hud-nav,
+    .skillbar-root,
+    .auto-grind-controls,
+    .chatbox-root {
+      transition: opacity 0.16s ease, filter 0.16s ease;
+    }
+
+    body[data-chrome-guidance="hidden"] .quest-tracker,
+    body[data-chrome-guidance="hidden"] .guide-root,
+    body[data-chrome-guidance="hidden"] .guidance-root,
+    body[data-chrome-utility="hidden"] .minimap-root,
+    body[data-chrome-identity="hidden"] .hud-identity,
+    body[data-chrome-combat="hidden"] .hud-top-right,
+    body[data-chrome-navigation="hidden"] .hud-nav,
+    body[data-chrome-combat="hidden"] .skillbar-root,
+    body[data-chrome-combat="hidden"] .auto-grind-controls,
+    body[data-chrome-utility="hidden"] .chatbox-root {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+

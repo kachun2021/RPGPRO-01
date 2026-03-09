@@ -214,10 +214,83 @@
   - Enhanced runtime adapter (`RuntimeEconomySource.ts`):
     - merges `virtualItems` into item cache.
     - missing `db_item_<idx>` now returns safe fallback meta (`未知道具 #idx`), avoiding null dead paths.
-  - Validation:
-    - `npm run -s gamedb:validate` passed (`52/52`).
-    - validation report now shows both raw/effective quality:
+- Validation:
+  - `npm run -s gamedb:validate` passed (`52/52`).
+  - validation report now shows both raw/effective quality:
       - `rawInvalidRefsTotal = 81`
+## 2026-03-10 (Adventure Atlas batch 2)
+
+- Applied second-batch Adventure Atlas redesign to the remaining high-noise panels:
+  - `QuestPanel.ts`
+  - `WorldMapPanel.ts`
+  - `PetPanel.ts`
+  - `CommunityPanel.ts`
+  - `ShopPanel.ts`
+- Added new override layer: `src/styles/panels/adventure-atlas-batch2.css`
+  - keeps batch-2 panel styling out of `index.html` and avoids re-growing `adventure-atlas.css` into another monolith.
+- Quest:
+  - removed emoji-heavy tab/status chrome.
+  - rebuilt directory items into status + objective cards.
+  - detail view now uses summary / action / reward rails instead of dark filler blocks.
+- Community:
+  - moved tabs to the top, turned preview into boundary + runtime summary cards.
+  - bulletin rows now read like notices instead of table placeholders.
+- Shop:
+  - removed emoji-led mode/category language in favor of text glyph badges.
+  - lightened side rail, list, detail, and bottom transaction rail.
+- World map:
+  - added overview cards, lighter detail header, and stronger empty-state guidance.
+  - reduced the visual weight of the bottom travel CTA.
+- Pet:
+  - converted equipment into a loadout board with slot state + notes.
+  - removed placeholder-sea behavior from storage; now shows actual pets plus summary/hint cards only.
+  - fixed nested title bar to inherit atlas shell styling.
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed (`21/21`).
+- Remaining follow-up:
+  - map detail in sparse states can still use one more pass to reduce the remaining dark route/content strip.
+  - build still emits large chunk warnings; next technical pass should focus on dynamic imports for heavyweight panels/runtime data.
+
+## 2026-03-10 (Adventure Atlas batch 2.1)
+
+- Fixed remaining panel bugs after screenshot review:
+  - `PetPanel` atlas mode had a real layout bug, not just loose styling:
+    - `pet-panel-body` and `pet-dashboard-shell` were double-subtracting height.
+    - result was a large dead empty area at the bottom of the panel.
+    - atlas override now uses normal flex flow (`pet-panel-body` = full height, shell = flex child) and a tighter panel height.
+  - `WorldMapPanel` phone-landscape still had a dark strip in sparse states:
+    - root cause was legacy `.wmp-detail-filters` dark background surviving inside the new atlas shell.
+    - atlas batch2 override now lightens the filter rail and related detail containers.
+- Added a small startup-path split in `src/main.ts`:
+  - `starterFusionGoal` now resolves through `await import('./data/runtime/RuntimeFusionGuide')`.
+  - build now emits a separate `RuntimeFusionGuide-*` chunk instead of keeping that path inside the main startup bundle.
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed (`21/21`).
+- Observed result:
+  - `dist/assets/index-*.js` dropped from ~388.9 kB to ~383.1 kB after the lazy fusion-guide split.
+
+## 2026-03-10 (Adventure Atlas batch 2.2)
+
+- Further startup-path reduction:
+  - `CommunityPanel` no longer imports eagerly from `main.ts`.
+  - added `ensureCommunityPanel()` lazy init path and routed:
+    - System panel social preview entry
+    - debug `openCommunityPanel`
+  - registration now happens only on first open.
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - `npm run -s test:smoke` passed (`21/21`).
+- Observed result:
+  - build emits a separate `CommunityPanel-*` chunk.
+  - `dist/assets/index-*.js` dropped again from ~383.1 kB to ~374.1 kB.
+- Remaining technical follow-up:
+  - the largest warnings are now runtime data chunks rather than panel code.
+  - next meaningful win is splitting `runtime-world-panel-data` and `runtime-economy-commerce-data`, not more tiny panel shuffling.
       - `invalidRefsTotal = 0`
       - `suppressedByOverridesTotal = 81`
     - `npm run -s gamedb:build-runtime` passed.

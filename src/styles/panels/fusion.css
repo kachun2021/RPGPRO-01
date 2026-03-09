@@ -1,0 +1,1327 @@
+﻿    /* Shared card template */
+    .game-card {
+      border: 1px solid rgba(160, 130, 80, 0.26);
+      border-radius: var(--ui-radius-card);
+      background:
+        radial-gradient(120% 180% at 100% -40%, rgba(232, 201, 106, 0.11), transparent 46%),
+        linear-gradient(180deg, rgba(24, 19, 37, 0.9), rgba(13, 11, 23, 0.9));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 0 1px rgba(14, 12, 20, 0.4);
+      transition: border-color var(--ui-time-fast), box-shadow var(--ui-time-fast), transform var(--ui-time-fast);
+    }
+
+    .game-card:hover {
+      border-color: rgba(232, 201, 106, 0.52);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 14px rgba(232, 201, 106, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .fpo-formula-card.game-card,
+    .wmp-result-card.game-card,
+    .book-root .book-row.game-card,
+    .book-root .book-card.game-card,
+    .skill-card.game-card {
+      border: 1px solid rgba(184, 151, 95, 0.34) !important;
+      background:
+        radial-gradient(140% 190% at 100% -45%, rgba(232, 201, 106, 0.14), transparent 48%),
+        linear-gradient(180deg, rgba(26, 20, 40, 0.92), rgba(14, 12, 25, 0.92)) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 0 1px rgba(160, 130, 80, 0.1),
+        0 6px 14px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    .wmp-result-card.game-card.is-focused {
+      border-color: rgba(93, 173, 226, 0.66) !important;
+      background:
+        radial-gradient(140% 190% at 100% -45%, rgba(93, 173, 226, 0.18), transparent 48%),
+        linear-gradient(180deg, rgba(26, 34, 52, 0.94), rgba(15, 20, 33, 0.94)) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 0 0 1px rgba(93, 173, 226, 0.18),
+        0 6px 16px rgba(0, 0, 0, 0.24) !important;
+    }
+
+    .fpo-formula-card {
+      border-radius: 7px !important;
+      padding: 8px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fpo-formula-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .fpo-series-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      vertical-align: middle;
+      border-radius: 4px;
+      border: 1px solid rgba(160, 130, 80, 0.24);
+      background: rgba(12, 10, 20, 0.6);
+      padding: 2px;
+    }
+
+    .fpo-series-icon.is-lg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .fpo-pill {
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 7px;
+      border: 1px solid rgba(160, 130, 80, 0.3);
+      color: rgba(200, 195, 185, 0.78);
+      background: rgba(20, 16, 30, 0.62);
+      white-space: nowrap;
+    }
+
+    .fpo-pill.is-ok {
+      color: #8DE2A7;
+      border-color: rgba(39, 174, 96, 0.45);
+      background: rgba(39, 174, 96, 0.12);
+    }
+
+    .fpo-pill.is-warn {
+      color: #F7A3A3;
+      border-color: rgba(231, 76, 60, 0.45);
+      background: rgba(231, 76, 60, 0.12);
+    }
+
+    .fpo-pill.is-mid {
+      color: #F7D08A;
+      border-color: rgba(243, 156, 18, 0.5);
+      background: rgba(243, 156, 18, 0.14);
+    }
+
+    .fpo-pill.is-info {
+      color: #9CD4FF;
+      border-color: rgba(93, 173, 226, 0.5);
+      background: rgba(93, 173, 226, 0.14);
+    }
+
+    .fpo-pill.is-neutral {
+      color: rgba(200, 195, 185, 0.72);
+      border-color: rgba(149, 165, 166, 0.44);
+      background: rgba(149, 165, 166, 0.1);
+    }
+
+    .fpo-pill.fpo-pill-rec {
+      color: #2ECC71;
+      border-color: rgba(46, 204, 113, 0.56);
+      background: rgba(46, 204, 113, 0.1);
+    }
+
+    .fpo-formula-grid.is-compact {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+    }
+
+    .fpo-formula-grid.is-full {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 2.2fr) 70px 90px minmax(0, 1.25fr) minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .fpo-formula-compact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .fpo-formula-compact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .fpo-formula-target {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .fpo-formula-target-text {
+      min-width: 0;
+    }
+
+    .fpo-formula-target-name {
+      font-size: 12px;
+      color: #E8C96A;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fpo-formula-target-sub {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.54);
+    }
+
+    .fpo-formula-ingredients {
+      font-size: 11px;
+      color: rgba(220, 215, 200, 0.86);
+      line-height: 1.45;
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    .fpo-formula-value {
+      font-size: 11px;
+      color: rgba(220, 215, 200, 0.82);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .fpo-formula-value.is-ok {
+      color: #8DE2A7;
+    }
+
+    .fpo-formula-value.is-warn {
+      color: #F7A3A3;
+    }
+
+    .fpo-formula-value.is-neutral {
+      color: rgba(200, 195, 185, 0.72);
+    }
+
+    .fpo-formula-pill-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .fpo-map-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .fpo-map-chip {
+      font-size: 10px;
+      color: rgba(220, 215, 200, 0.86);
+      border: 1px solid rgba(160, 130, 80, 0.26);
+      border-radius: 999px;
+      padding: 2px 7px;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .fpo-map-chip.is-empty {
+      color: rgba(200, 195, 185, 0.56);
+      border-color: rgba(160, 130, 80, 0.25);
+      max-width: none;
+    }
+
+    .fpo-map-chip.is-more {
+      color: rgba(200, 195, 185, 0.62);
+      border-color: rgba(160, 130, 80, 0.2);
+      max-width: none;
+    }
+
+    .fpo-ingredient-name {
+      color: rgba(220, 215, 200, 0.92);
+    }
+
+    .fpo-ingredient-missing {
+      color: #F7A3A3;
+    }
+
+    .fpo-ingredient-level {
+      color: rgba(200, 195, 185, 0.58);
+      font-size: 10px;
+    }
+
+    .fpo-brief-line {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.62);
+    }
+
+    .fpo-stock-num.is-ok {
+      color: #8DE2A7;
+    }
+
+    .fpo-stock-num.is-warn {
+      color: #F7A3A3;
+    }
+
+    .fpo-action-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .fpo-action-row.is-compact {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fpo-action-row.is-full {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .fpo-card-btn {
+      padding: 6px 9px !important;
+      border-radius: 5px !important;
+      font-size: 10px !important;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .fpo-card-btn-map {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fpo-tree-entry {
+      border: 1px dashed rgba(160, 130, 80, 0.26);
+      border-radius: 6px;
+      background: rgba(20, 16, 30, 0.58);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .fpo-tree-entry.is-recommended {
+      border: 1px solid rgba(39, 174, 96, 0.55);
+      background: linear-gradient(180deg, rgba(39, 174, 96, 0.12), rgba(20, 16, 30, 0.7));
+    }
+
+    .fpo-tree-node {
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      border-radius: 8px;
+      background: rgba(17, 13, 27, 0.66);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .fpo-tree-node-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .fpo-tree-node-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .fpo-tree-node-emoji {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .fpo-tree-node-main {
+      min-width: 0;
+    }
+
+    .fpo-tree-node-name {
+      font-size: 12px;
+      color: #E8C96A;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fpo-tree-node-level {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .fpo-tree-node-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fpo-tree-node-status {
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 7px;
+      white-space: nowrap;
+      border: 1px solid rgba(160, 130, 80, 0.3);
+      color: rgba(200, 195, 185, 0.8);
+    }
+
+    .fpo-tree-node-status.is-ok {
+      color: #8DE2A7;
+      border-color: rgba(39, 174, 96, 0.45);
+      background: rgba(39, 174, 96, 0.12);
+    }
+
+    .fpo-tree-node-status.is-warn {
+      color: #F7A3A3;
+      border-color: rgba(231, 76, 60, 0.45);
+      background: rgba(231, 76, 60, 0.12);
+    }
+
+    .fpo-tree-note {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .fpo-tree-note.is-warn {
+      color: rgba(231, 76, 60, 0.78);
+      font-size: 11px;
+    }
+
+    .fpo-tree-note.is-dim {
+      color: rgba(200, 195, 185, 0.42);
+    }
+
+    .fpo-tree-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+    }
+
+    .fpo-tree-recipe {
+      font-size: 11px;
+      color: rgba(220, 215, 200, 0.85);
+      min-width: 0;
+    }
+
+    .fpo-tree-badges {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .fpo-tree-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fpo-tree-meta {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.52);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fpo-tree-apply {
+      padding: 4px 8px !important;
+      border-radius: 5px !important;
+      font-size: 10px !important;
+      font-weight: 700;
+    }
+
+    .fpo-body {
+      padding: 10px;
+      max-height: calc(88vh - 158px);
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fpo-content {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .fpo-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: linear-gradient(180deg, #352850 0%, #2A2040 100%);
+      border-bottom: 1px solid rgba(160, 130, 80, 0.28);
+    }
+
+    .fpo-header-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #E8C96A;
+    }
+
+    .fpo-header-subtitle {
+      font-size: 10px;
+      color: rgba(232, 201, 106, 0.7);
+      border: 1px solid rgba(232, 201, 106, 0.35);
+      border-radius: 999px;
+      padding: 2px 7px;
+    }
+
+    .fpo-header-stats {
+      margin-left: auto;
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.62);
+    }
+
+    .fpo-header-close {
+      cursor: pointer;
+      font-size: 14px;
+      color: rgba(200, 195, 185, 0.65);
+      padding: 2px 6px;
+      border-radius: 3px;
+      transition: color 0.14s ease, background 0.14s ease;
+    }
+
+    .fpo-header-close:hover {
+      color: #E74C3C;
+      background: rgba(231, 76, 60, 0.15);
+    }
+
+    .fpo-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.22);
+      background: rgba(14, 11, 22, 0.52);
+    }
+
+    .fpo-tab-btn {
+      white-space: nowrap;
+    }
+
+    .fpo-tab-btn.is-active {
+      box-shadow: 0 0 0 1px rgba(232, 201, 106, 0.14);
+    }
+
+    .fpo-last-pill {
+      margin-left: auto;
+      font-size: 10px;
+      color: rgba(232, 201, 106, 0.9);
+      border: 1px solid rgba(232, 201, 106, 0.35);
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    .fpo-stock-pill {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.75);
+      border: 1px solid rgba(160, 130, 80, 0.28);
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: rgba(20, 16, 30, 0.64);
+    }
+
+    .fpo-recipe-root {
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      border-radius: 8px;
+      background: rgba(12, 10, 20, 0.62);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .fpo-recipe-split {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .fpo-recipe-side {
+      min-height: 0;
+      overflow-y: auto;
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      border-radius: 8px;
+      background: rgba(12, 10, 20, 0.48);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fpo-recipe-main {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      border-radius: 8px;
+      background: rgba(12, 10, 20, 0.5);
+      overflow: hidden;
+    }
+
+    .fpo-main-head {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.15);
+      background: linear-gradient(180deg, rgba(16, 13, 24, 0.9), rgba(16, 13, 24, 0.68));
+    }
+
+    .fpo-main-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.86);
+      letter-spacing: 0.4px;
+    }
+
+    @media (max-width: 1280px) and (orientation: landscape) {
+      .fpo-recipe-split {
+        grid-template-columns: 218px minmax(0, 1fr);
+      }
+
+      .wmp-body {
+        grid-template-columns: 284px minmax(0, 1fr);
+      }
+    }
+
+    .fpo-recipe-list {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fpo-empty {
+      padding: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(200, 195, 185, 0.45);
+    }
+
+    .fpo-more-wrap {
+      display: flex;
+      justify-content: center;
+      padding-top: 2px;
+    }
+
+    .fpo-more-btn {
+      border: 1px solid rgba(160, 130, 80, 0.22);
+      border-radius: 5px;
+      background: rgba(20, 16, 30, 0.7);
+      color: rgba(200, 195, 185, 0.62);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .fpo-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.14);
+      background: rgba(12, 10, 20, 0.28);
+      align-items: center;
+    }
+
+    .fpo-filter-pill {
+      font-size: 10px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(160, 130, 80, 0.28);
+      background: rgba(20, 16, 30, 0.62);
+      color: rgba(200, 195, 185, 0.78);
+    }
+
+    .fpo-filter-pill.is-warn {
+      border-color: rgba(231, 76, 60, 0.38);
+      background: rgba(231, 76, 60, 0.12);
+      color: #F7A3A3;
+    }
+
+    .fpo-filter-mode {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .fpo-filter-mode-btn {
+      white-space: nowrap;
+    }
+
+    .fpo-filter-mode-btn.is-active {
+      box-shadow: 0 0 0 1px rgba(232, 201, 106, 0.14);
+    }
+
+    .fpo-filter-search {
+      min-width: 160px;
+      max-width: 220px;
+      flex: 1 1 180px;
+      border: 1px solid rgba(160, 130, 80, 0.24);
+      border-radius: 6px;
+      background: rgba(12, 10, 20, 0.78);
+      color: rgba(220, 215, 200, 0.9);
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    .fpo-filter-clear {
+      border: 1px solid rgba(160, 130, 80, 0.22);
+      border-radius: 5px;
+      background: rgba(20, 16, 30, 0.7);
+      color: rgba(200, 195, 185, 0.62);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      cursor: pointer;
+    }
+
+    .fpo-list-head {
+      position: static;
+      z-index: 1;
+      border: 1px solid rgba(160, 130, 80, 0.22);
+      border-radius: 7px;
+      background: rgba(26, 20, 38, 0.95);
+      padding: 7px 8px;
+    }
+
+    .fpo-list-head-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 2.2fr) 70px 90px minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+    }
+
+    .fpo-list-head-item {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.56);
+      font-weight: 700;
+    }
+
+    .fpo-series-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.14);
+      background: rgba(12, 10, 20, 0.34);
+    }
+
+    .fpo-series-chip {
+      white-space: nowrap;
+    }
+
+    .fpo-series-chip.is-active {
+      box-shadow: 0 0 0 1px rgba(232, 201, 106, 0.14);
+    }
+
+    .fpo-tree-selector-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.14);
+      background: rgba(12, 10, 20, 0.28);
+    }
+
+    .fpo-tree-selector-label {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.7);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .fpo-tree-selector-select {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      border-radius: 5px;
+      background: rgba(12, 10, 20, 0.78);
+      color: rgba(232, 201, 106, 0.88);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 7px;
+    }
+
+    .fpo-tree-toggle {
+      border: 1px solid rgba(160, 130, 80, 0.22);
+      border-radius: 5px;
+      background: rgba(20, 16, 30, 0.7);
+      color: rgba(200, 195, 185, 0.62);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .fpo-tree-toggle.is-active {
+      border-color: rgba(232, 201, 106, 0.55);
+      background: rgba(160, 130, 80, 0.22);
+      color: rgba(232, 201, 106, 0.92);
+    }
+
+    .fpo-tree-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fpo-machine-root {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+    }
+
+    .fpo-machine-step {
+      border: 1px solid rgba(160, 130, 80, 0.2);
+      border-radius: 7px;
+      background: rgba(17, 13, 27, 0.62);
+      padding: 7px 8px;
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.74);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .fpo-machine-step-accent {
+      color: #E8C96A;
+      font-weight: 700;
+    }
+
+    .fpo-machine-step-arrow {
+      opacity: 0.45;
+    }
+
+    .fpo-machine-card {
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      background: rgba(12, 10, 20, 0.62);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fpo-machine-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fpo-machine-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: rgba(232, 201, 106, 0.8);
+    }
+
+    .fpo-machine-mini-btn {
+      padding: 4px 8px;
+      font-size: 10px;
+      border: 1px solid rgba(160, 130, 80, 0.24);
+      border-radius: 5px;
+      background: rgba(20, 16, 30, 0.66);
+      color: rgba(200, 195, 185, 0.7);
+      cursor: pointer;
+    }
+
+    .fpo-machine-mini-btn.ml-auto {
+      margin-left: auto;
+    }
+
+    .fpo-machine-notice {
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 5px;
+    }
+
+    .fpo-machine-notice.is-ok {
+      border: 1px solid rgba(39, 174, 96, 0.45);
+      background: rgba(39, 174, 96, 0.1);
+      color: #8DE2A7;
+    }
+
+    .fpo-machine-notice.is-warn {
+      border: 1px solid rgba(231, 76, 60, 0.45);
+      background: rgba(231, 76, 60, 0.1);
+      color: #F7A3A3;
+    }
+
+    .fpo-machine-slots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .fpo-machine-plus {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(232, 201, 106, 0.5);
+    }
+
+    .fpo-result-box {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      text-align: center;
+      background: rgba(15, 12, 22, 0.8);
+      border: 1px solid rgba(160, 130, 80, 0.25);
+      min-height: 55px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fpo-result-label {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .fpo-result-rate {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
+    .fpo-result-rate.is-ok {
+      color: #27AE60;
+    }
+
+    .fpo-result-rate.is-mid {
+      color: #F39C12;
+    }
+
+    .fpo-result-rate.is-warn {
+      color: #E74C3C;
+    }
+
+    .fpo-result-rate.is-info {
+      color: #5DADE2;
+    }
+
+    .fpo-result-risk {
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .fpo-result-risk.is-ok {
+      color: #27AE60;
+    }
+
+    .fpo-result-risk.is-mid {
+      color: #F39C12;
+    }
+
+    .fpo-result-risk.is-warn {
+      color: #E74C3C;
+    }
+
+    .fpo-result-risk.is-info {
+      color: #5DADE2;
+    }
+
+    .fpo-result-name {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #E8C96A;
+      font-weight: 700;
+    }
+
+    .fpo-result-more {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.45);
+      margin-top: 2px;
+    }
+
+    .fpo-result-fail-title {
+      font-size: 13px;
+      color: #E74C3C;
+      font-weight: 700;
+    }
+
+    .fpo-result-fail-sub {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.4);
+      margin-top: 3px;
+    }
+
+    .fpo-result-placeholder-title {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.35);
+    }
+
+    .fpo-result-placeholder-sub {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.25);
+      margin-top: 3px;
+    }
+
+    .fpo-protect-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(160, 130, 80, 0.06);
+      border: 1px solid rgba(160, 130, 80, 0.12);
+    }
+
+    .fpo-protect-check {
+      accent-color: #E8C96A;
+      cursor: pointer;
+    }
+
+    .fpo-protect-label {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.6);
+    }
+
+    .fpo-picker-list {
+      padding: 8px 10px;
+      max-height: 180px;
+      overflow-y: auto;
+      border-top: 1px solid rgba(160, 130, 80, 0.2);
+      background: rgba(12, 10, 18, 0.5);
+    }
+
+    .fpo-picker-title {
+      font-size: 11px;
+      color: #E8C96A;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .fpo-picker-empty {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.4);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .fpo-picker-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(160, 130, 80, 0.06);
+    }
+
+    .fpo-picker-emoji {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .fpo-picker-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fpo-picker-name {
+      font-size: 12px;
+      color: rgba(220, 215, 200, 0.85);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fpo-picker-sub {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .fpo-slot-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .fpo-slot {
+      width: 90px;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .fpo-slot.is-filled {
+      background: linear-gradient(180deg, rgba(40, 30, 60, 0.9), rgba(25, 20, 38, 0.95));
+      border: 2px solid rgba(232, 201, 106, 0.45);
+    }
+
+    .fpo-slot.is-empty {
+      background: linear-gradient(180deg, rgba(25, 20, 35, 0.8), rgba(15, 12, 22, 0.9));
+      border: 2px dashed rgba(160, 130, 80, 0.25);
+    }
+
+    .fpo-slot-name {
+      font-size: 10px;
+      color: rgba(220, 215, 200, 0.85);
+      margin-top: 2px;
+      font-weight: 600;
+      max-width: 86px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fpo-slot-level {
+      font-size: 9px;
+      color: rgba(200, 195, 185, 0.5);
+    }
+
+    .fpo-slot-clear {
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.4);
+      cursor: pointer;
+    }
+
+    .fpo-slot-question {
+      font-size: 28px;
+      color: rgba(200, 195, 185, 0.15);
+    }
+
+    .fpo-slot-emoji {
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .fpo-slot-label {
+      font-size: 10px;
+      color: rgba(200, 195, 185, 0.5);
+      font-weight: 600;
+    }
+
+    .fpo-bottom-bar {
+      display: flex;
+      gap: 10px;
+      padding: 10px 14px;
+      align-items: center;
+      border-top: 2px solid rgba(160, 130, 80, 0.3);
+      background: linear-gradient(180deg, rgba(30, 25, 40, 0.6) 0%, rgba(18, 16, 30, 0.8) 100%);
+    }
+
+    .fpo-bottom-gp {
+      font-size: 11px;
+      color: rgba(200, 195, 185, 0.56);
+      background: rgba(39, 174, 96, 0.1);
+      padding: 3px 8px;
+      border-radius: 3px;
+      border: 1px solid rgba(39, 174, 96, 0.2);
+    }
+
+    .fpo-bottom-gp-label {
+      color: #27AE60;
+      font-weight: 700;
+    }
+
+    .fpo-flash-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(149, 165, 166, 0.15), rgba(15, 12, 25, 0.95));
+    }
+
+    .fpo-flash-overlay.is-success {
+      background: linear-gradient(180deg, rgba(39, 174, 96, 0.15), rgba(15, 12, 25, 0.95));
+    }
+
+    .fpo-flash-overlay.is-fail {
+      background: linear-gradient(180deg, rgba(231, 76, 60, 0.15), rgba(15, 12, 25, 0.95));
+    }
+
+    .fpo-flash-icon {
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .fpo-flash-title {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(220, 215, 200, 0.92);
+    }
+
+    .fpo-flash-overlay.is-success .fpo-flash-title {
+      color: #27AE60;
+    }
+
+    .fpo-flash-overlay.is-fail .fpo-flash-title {
+      color: #E74C3C;
+    }
+
+    .fpo-flash-detail {
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(200, 195, 185, 0.6);
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .fpo-bottom-action {
+      flex: 1;
+      padding: 8px 24px !important;
+      border: none !important;
+      border-radius: 6px !important;
+      font-size: 13px !important;
+      font-weight: 700;
+      font-family: var(--font-display) !important;
+    }
+
+    .fpo-bottom-close {
+      padding: 8px 18px !important;
+      font-size: 12px !important;
+      font-weight: 600;
+    }
+
+
+    /* Fusion focus mode */
+    .fusion-root.is-focus-mode {
+      width: min(98vw, 940px) !important;
+      max-height: 92vh !important;
+    }
+
+    .fusion-root.is-focus-mode .fpo-formula-card {
+      padding: 9px !important;
+      gap: 7px !important;
+      border-radius: 8px !important;
+    }
+
+    .fusion-root.is-focus-mode .fpo-brief-line {
+      font-size: 11px !important;
+      line-height: 1.3;
+    }
+
+    .fusion-root.is-focus-mode .fpo-action-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 8px !important;
+    }
+
+    .fusion-root.is-focus-mode .fpo-action-row .game-btn,
+    .fusion-root.is-focus-mode .fpo-bottom-bar .game-btn {
+      min-height: 44px;
+      font-size: 12px !important;
+      padding: 0 10px !important;
+    }
+
+    .fusion-root.is-focus-mode .rpg-chip-tab {
+      min-height: 44px;
+      font-size: 11px;
+      padding: 0 10px;
+    }
+
+    .fusion-root.is-focus-mode .rpg-chip-filter {
+      min-height: 44px;
+      font-size: 11px;
+      padding: 0 10px;
+    }
+
+    .fusion-root.is-phone-landscape {
+      width: min(98vw, 1040px) !important;
+      max-height: 92vh !important;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-header {
+      padding: 6px 10px;
+      gap: 6px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-header-subtitle {
+      display: none;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-header-title {
+      font-size: 14px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-body {
+      padding: 8px;
+      max-height: calc(92vh - 146px);
+    }
+
+    .fusion-root.is-phone-landscape .fpo-recipe-split {
+      grid-template-columns: 220px minmax(0, 1fr);
+      padding: 6px;
+      gap: 6px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-main-head {
+      padding: 6px;
+      gap: 5px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-series-row,
+    .fusion-root.is-phone-landscape .fpo-filter-row {
+      padding: 6px;
+      gap: 5px;
+    }
+
+    .fusion-root.is-phone-landscape .rpg-chip-tab {
+      min-height: 44px;
+      font-size: 11px;
+      padding: 0 10px;
+    }
+
+    .fusion-root.is-phone-landscape .rpg-chip-filter {
+      min-height: 44px;
+      font-size: 11px;
+      padding: 0 10px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-recipe-list {
+      padding: 6px;
+      gap: 6px;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-formula-card {
+      padding: 8px !important;
+      gap: 6px !important;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-action-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 8px !important;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-action-row .game-btn,
+    .fusion-root.is-phone-landscape .fpo-bottom-bar .game-btn {
+      min-height: 44px;
+      font-size: 12px !important;
+      padding: 0 10px !important;
+    }
+
+    .fusion-root.is-phone-landscape .fpo-tree-selector-row {
+      padding: 6px;
+      gap: 6px;
+    }
+

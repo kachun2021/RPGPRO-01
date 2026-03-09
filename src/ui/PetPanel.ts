@@ -6,7 +6,7 @@ import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
 import { SERIES_ICONS } from '../pets/PetData';
 
-const STORAGE_COLS = 5;
+const STORAGE_COLS = 2;
 const STORAGE_ROWS = 4;
 
 export class PetPanel {
@@ -39,7 +39,7 @@ export class PetPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'petPanel';
-            this._el.className = 'sa-panel pet-panel-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel pet-panel-root ui-panel-atlas';
 
             this._bodyRoot = document.createElement('div');
             this._bodyRoot.className = 'pet-panel-body';
@@ -101,7 +101,7 @@ export class PetPanel {
 
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>🐾 寵物編隊</span>';
+            title.innerHTML = '<span>寵物編成</span>';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '✕';
@@ -196,13 +196,15 @@ export class PetPanel {
             const canDeploy = !pet.isActive && this._pm.active.length < this._pm.MAX_ACTIVE;
             const expNeed = Math.max(1, pet.stats.level * 80);
             const expPct = Math.min(100, Math.round((pet.stats.exp / expNeed) * 100));
+            const equippedCount = Object.values(PetEquipSlot).filter((slot) => this._eq.getEquipped(pet.def.id, slot) !== null).length;
+            const equipBonus = this._eq.getTotalBonus(pet.def.id);
 
             section.innerHTML = `
                   <div class="pet-sec-head">
                         <span class="pet-sec-title">已選寵物</span>
                         <span class="pet-sec-meta">${pet.isActive ? '戰鬥中' : '倉庫待命'}</span>
                   </div>
-                  <div class="pet-hero-card">
+                  <div class="pet-hero-card atlas-card">
                         <div class="pet-hero-main">
                               <div class="pet-hero-icon ${this._seriesClass(pet)}">
                                     <img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="pet-hero-image" alt="">
@@ -214,6 +216,11 @@ export class PetPanel {
                                           <span class="pet-chip">${this._enc.isDiscovered(pet.def.id) ? '已登錄圖鑑' : '未登錄圖鑑'}</span>
                                           <span class="pet-chip">${pet.isDead ? '需復活' : '可戰鬥'}</span>
                                     </div>
+                              </div>
+                              <div class="pet-hero-rail">
+                                    <span class="pet-hero-rail-label">裝備板</span>
+                                    <span class="pet-hero-rail-value">${equippedCount}/6</span>
+                                    <span class="pet-hero-rail-copy">${pet.isActive ? '目前主力編隊' : '可作替補與培養'} </span>
                               </div>
                         </div>
                         <div class="pet-hero-actions">
@@ -232,11 +239,17 @@ export class PetPanel {
                         ${this._statCard('屬性', `${pet.stats.element}`)}
                   </div>
                   <div class="pet-equipment-panel">
-                        <div class="pet-sec-subtitle">裝備槽</div>
+                        <div class="pet-sec-head pet-sec-head-sub">
+                              <span class="pet-sec-subtitle">裝備板</span>
+                              <span class="pet-sec-meta">${this._formatEquipBonusSummary(equipBonus)}</span>
+                        </div>
                         <div class="pet-equip-grid"></div>
                   </div>
                   <div class="pet-buff-panel">
-                        <div class="pet-sec-subtitle">Buff / 狀態</div>
+                        <div class="pet-sec-head pet-sec-head-sub">
+                              <span class="pet-sec-subtitle">Buff / 狀態</span>
+                              <span class="pet-sec-meta">${buffs.length} 項</span>
+                        </div>
                         <div class="pet-buff-list">${buffs.length > 0 ? '' : '<div class="pet-buff-empty">目前沒有 Buff</div>'}</div>
                   </div>
                   <div class="pet-deploy-bar">
@@ -251,9 +264,14 @@ export class PetPanel {
             if (equipGrid) {
                   for (const slot of Object.values(PetEquipSlot)) {
                         const unlocked = this._eq.isSlotUnlocked(pet.def.id, slot);
+                        const equipped = this._eq.getEquipped(pet.def.id, slot);
                         const el = document.createElement('div');
-                        el.className = `pet-equip-slot${unlocked ? '' : ' is-locked'}`;
-                        el.textContent = unlocked ? slot : `${slot} · 鎖定`;
+                        el.className = `pet-equip-slot atlas-card${unlocked ? '' : ' is-locked'}${equipped ? ' is-equipped' : ''}`;
+                        el.innerHTML = `
+                              <span class="pet-equip-slot-label">${this._slotLabel(slot)}</span>
+                              <span class="pet-equip-slot-item">${this._escapeHtml(equipped?.name ?? (unlocked ? '目前空位' : '尚未解鎖'))}</span>
+                              <span class="pet-equip-slot-note">${this._escapeHtml(this._formatEquipSlotNote(slot, unlocked, equipped?.stats ?? null))}</span>
+                        `;
                         equipGrid.appendChild(el);
                   }
             }
@@ -296,11 +314,21 @@ export class PetPanel {
             const pageSize = STORAGE_COLS * STORAGE_ROWS;
             const totalPages = Math.max(1, Math.ceil(inactive.length / pageSize));
             if (this._page >= totalPages) this._page = totalPages - 1;
+            const averageLevel = inactive.length > 0
+                  ? Math.round(inactive.reduce((total, pet) => total + pet.stats.level, 0) / inactive.length)
+                  : 0;
 
             section.innerHTML = `
                   <div class="pet-sec-head">
                         <span class="pet-sec-title">收藏倉庫</span>
                         <span class="pet-sec-meta">${inactive.length} / ${this._pm.owned.length}</span>
+                  </div>
+                  <div class="pet-storage-summary atlas-card">
+                        <div class="pet-storage-summary-main">
+                              <span class="pet-storage-summary-label">待命補位</span>
+                              <span class="pet-storage-summary-value">${inactive.length} 隻</span>
+                        </div>
+                        <div class="pet-storage-summary-meta">平均 Lv.${averageLevel || 0} · 每頁 ${pageSize} 格 · 不預先渲染空槽</div>
                   </div>
             `;
 
@@ -325,7 +353,6 @@ export class PetPanel {
             grid.className = 'pet-storage-grid';
             const start = this._page * pageSize;
             const pageItems = inactive.slice(start, start + pageSize);
-            const renderSlots = this._getStorageRenderCount(pageItems.length, pageSize);
             if (pageItems.length <= 0) {
                   const empty = document.createElement('div');
                   empty.className = 'pet-storage-empty';
@@ -333,21 +360,15 @@ export class PetPanel {
                   section.appendChild(empty);
                   return section;
             }
-            for (let i = 0; i < renderSlots; i += 1) {
-                  const pet = pageItems[i] ?? null;
+            for (const pet of pageItems) {
                   const slot = document.createElement('button');
                   slot.type = 'button';
-                  slot.className = `pet-storage-slot${pet && this._sel === pet ? ' is-selected' : ''}${pet ? '' : ' is-empty'}`;
-                  if (!pet) {
-                        slot.textContent = '+';
-                        slot.disabled = true;
-                        grid.appendChild(slot);
-                        continue;
-                  }
+                  slot.className = `pet-storage-slot atlas-card${this._sel === pet ? ' is-selected' : ''}`;
                   slot.innerHTML = `
                         <img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="pet-storage-icon" alt="">
                         <span class="pet-storage-name">${this._escapeHtml(pet.displayName || pet.def.name)}</span>
-                        <span class="pet-storage-level">Lv.${pet.stats.level}</span>
+                        <span class="pet-storage-level">Lv.${pet.stats.level} · ${this._escapeHtml(pet.def.series)}</span>
+                        <span class="pet-storage-role">${pet.isDead ? '需復活' : '可補位 / 可培養'}</span>
                   `;
                   slot.addEventListener('click', () => {
                         this._sel = pet;
@@ -356,34 +377,79 @@ export class PetPanel {
                   grid.appendChild(slot);
             }
             section.appendChild(grid);
+            if (pageItems.length < pageSize) {
+                  const hint = document.createElement('div');
+                  hint.className = 'pet-storage-hint atlas-card';
+                  hint.textContent = '新取得的待命寵物會直接填入這裡；空白區改成摘要提示，不再預留一大片占位槽。';
+                  section.appendChild(hint);
+            }
             return section;
-      }
-
-      private _getStorageRenderCount(itemCount: number, maxSlots: number): number {
-            if (itemCount <= 0) return 0;
-            const minSlots = Math.min(6, maxSlots);
-            const evenCount = itemCount % 2 === 0 ? itemCount : itemCount + 1;
-            return Math.min(maxSlots, Math.max(minSlots, evenCount));
       }
 
       private _statCard(label: string, value: string): string {
             return `
-                  <div class="pet-stat-card">
+                  <div class="pet-stat-card atlas-card">
                         <span class="pet-stat-label">${label}</span>
                         <span class="pet-stat-value">${value}</span>
                   </div>
             `;
       }
 
+      private _slotLabel(slot: PetEquipSlot): string {
+            switch (slot) {
+                  case PetEquipSlot.Head: return '頭部';
+                  case PetEquipSlot.Body: return '身軀';
+                  case PetEquipSlot.Claw: return '武裝';
+                  case PetEquipSlot.Ring: return '戒指';
+                  case PetEquipSlot.Necklace: return '項鍊';
+                  case PetEquipSlot.Boots: return '足具';
+                  default: return slot;
+            }
+      }
+
+      private _formatEquipSlotNote(slot: PetEquipSlot, unlocked: boolean, stats: { atk?: number; def?: number; hp?: number; spd?: number; str?: number; agi?: number } | null): string {
+            if (!unlocked) return '完成對應解鎖條件後可裝備';
+            if (stats) {
+                  const bonusParts = [
+                        stats.atk ? `ATK +${stats.atk}` : '',
+                        stats.def ? `DEF +${stats.def}` : '',
+                        stats.hp ? `HP +${stats.hp}` : '',
+                        stats.spd ? `SPD +${stats.spd}` : '',
+                        stats.str ? `STR +${stats.str}` : '',
+                        stats.agi ? `AGI +${stats.agi}` : '',
+                  ].filter(Boolean);
+                  return bonusParts.join(' · ');
+            }
+            switch (slot) {
+                  case PetEquipSlot.Head: return '適合放頭冠與防禦型裝備';
+                  case PetEquipSlot.Body: return '優先補耐久與防禦';
+                  case PetEquipSlot.Claw: return '提升攻擊或追加屬性';
+                  case PetEquipSlot.Ring: return '補充攻擊或屬性加成';
+                  case PetEquipSlot.Necklace: return '偏向續戰與耐久';
+                  case PetEquipSlot.Boots: return '優先補速度與機動';
+                  default: return '可裝備對應部位';
+            }
+      }
+
+      private _formatEquipBonusSummary(bonus: { atk: number; def: number; hp: number; spd: number }): string {
+            const tokens = [
+                  bonus.atk ? `ATK +${bonus.atk}` : '',
+                  bonus.def ? `DEF +${bonus.def}` : '',
+                  bonus.hp ? `HP +${bonus.hp}` : '',
+                  bonus.spd ? `SPD +${bonus.spd}` : '',
+            ].filter(Boolean);
+            return tokens.join(' · ') || '目前沒有裝備加成';
+      }
+
       private _scheduleFit(): void {
-            if (this._el.classList.contains('ui-panel-fullscreen')) return;
+            if (this._el.classList.contains('ui-panel-atlas')) return;
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             this._fitBodyScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitBodyScale());
       }
 
       private _fitBodyScale(): void {
-            if (this._el.classList.contains('ui-panel-fullscreen')) {
+            if (this._el.classList.contains('ui-panel-atlas')) {
                   this._el.style.removeProperty('transform');
                   this._el.style.removeProperty('transform-origin');
                   return;
@@ -415,3 +481,4 @@ export class PetPanel {
                   .replace(/'/g, '&#39;');
       }
 }
+

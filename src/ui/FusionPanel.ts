@@ -6,65 +6,19 @@ import type { Pet } from '../pets/Pet';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
-import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
+import { getRuntimeFusionGuideEntries } from '../data/runtime/RuntimeFusionGuide';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
-
-type SeriesFilter = 'all' | PetSeries;
-type NoticeTone = 'ok' | 'warn';
-type MainFusionTab = 'machine' | 'recipes' | 'tree';
-
-interface FormulaEntry {
-      key: string;
-      source: 'runtime' | 'pet_defs';
-      resultName: string;
-      resultDef: PetDef;
-      isResolvedResult: boolean;
-      resultBaseLevel: number;
-      resultDropEgg: boolean | null;
-      resultDropEggRaw: string | null;
-      resultMapNames: string[];
-      resultMapKeys: string[];
-      resultMapRefs: RuntimeMapRef[];
-      recipe: FusionIngredient;
-      mainName: string;
-      mainDef: PetDef | null;
-      isResolvedMain: boolean;
-      mainBaseLevel: number;
-      subName: string;
-      subDef: PetDef | null;
-      isResolvedSub: boolean;
-      subBaseLevel: number;
-      mainAdjust: number;
-      subAdjust: number;
-}
-
-interface OwnedSnapshot {
-      usable: Pet[];
-      alive: Pet[];
-      usableById: Map<string, Pet[]>;
-      aliveById: Map<string, Pet[]>;
-}
-
-interface FormulaEstimate {
-      rate: number | null;
-      riskLabel: string;
-      riskColor: string;
-      summary: string;
-}
-
-const TRACKING_STORAGE_KEY = 'fpo.fusion.panel.tracked.v2';
-const GUIDE_RENDER_STEP = 120;
-
-const SERIES_LABELS: Record<PetSeries, string> = {
-      [PetSeries.Plant]: '植物',
-      [PetSeries.Dragon]: '龍系',
-      [PetSeries.Beast]: '獸系',
-      [PetSeries.Insect]: '昆蟲',
-      [PetSeries.Metal]: '機械',
-      [PetSeries.Mystery]: '神秘',
-      [PetSeries.Demon]: '惡魔',
-      [PetSeries.Bird]: '飛禽',
-};
+import {
+      GUIDE_RENDER_STEP,
+      SERIES_LABELS,
+      TRACKING_STORAGE_KEY,
+      type FormulaEntry,
+      type FormulaEstimate,
+      type MainFusionTab,
+      type NoticeTone,
+      type OwnedSnapshot,
+      type SeriesFilter,
+} from './fusion/FusionPanelTypes';
 
 // 匯出資料存在少量命名差異，統一映射後可正確回填等級與系列資料。
 
@@ -133,7 +87,7 @@ export class FusionPanel {
 
             this._el = document.createElement('div');
             this._el.id = 'fusionPanel';
-            this._el.className = 'fusion-root ui-panel-fullscreen';
+            this._el.className = 'fusion-root ui-panel-atlas';
             this._el.addEventListener('click', (e) => e.stopPropagation());
             this._el.addEventListener('mousedown', (e) => e.stopPropagation());
             document.getElementById('ui-layer')?.appendChild(this._el);
@@ -2075,6 +2029,7 @@ export class FusionPanel {
             this._backdrop.remove();
       }
 }
+
 
 
 

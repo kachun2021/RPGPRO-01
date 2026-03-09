@@ -16,7 +16,7 @@ export class RevivalPanel {
             this._inventory = inventory;
             this._el = document.createElement('div');
             this._el.id = 'revivalPanel';
-            this._el.className = 'sa-panel revival-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel revival-root ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
@@ -174,3 +174,4 @@ export class RevivalPanel {
             this._el.remove();
       }
 }
+

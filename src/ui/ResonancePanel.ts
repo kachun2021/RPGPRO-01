@@ -31,7 +31,7 @@ export class ResonancePanel {
 
             this._el = document.createElement('div');
             this._el.id = 'resonance-panel';
-            this._el.className = 'sa-panel reso-root ui-panel-fullscreen';
+            this._el.className = 'sa-panel reso-root ui-panel-atlas';
             this._el.hidden = true;
 
             this._buildShell();
@@ -151,4 +151,5 @@ export class ResonancePanel {
             this._el.remove();
       }
 }
+
 
