@@ -1560,6 +1560,11 @@ async function bootstrap(): Promise<void> {
                   communityPanel.show();
                   return true;
             },
+            travelToZone: async (zoneId: string, ignoreLock = true) => {
+                  if (!zoneId) return false;
+                  await zoneManager.travelTo(zoneId, { ignoreLock });
+                  return zoneManager.currentZone.id === zoneId;
+            },
             openCharacterPanel: () => {
                   closeSubPanels('char');
                   characterPanel.show();

@@ -152,63 +152,119 @@ export class CharacterPanel {
             const rebirthInfo = this._rebirth.getInfo();
             const primaryPetName = this._getPrimaryPetName?.() ?? this._identity.starterPetNames[0] ?? '未設定';
             const objectiveHint = this._getObjectiveHint?.() ?? this._identity.growthGoal;
+            const rebirthLabel = rebirthInfo.count > 0 ? `轉生 ${rebirthInfo.count}` : '初階旅者';
+            const metaCards = [
+                  { label: '等級', value: `${s.level}` },
+                  { label: 'EXP', value: `${expPct}%` },
+                  { label: '主寵', value: primaryPetName },
+            ];
+            const summaryCards = [
+                  { label: '攻擊', value: `${d.atk}` },
+                  { label: '防禦', value: `${d.def}` },
+                  { label: '最大 HP', value: `${d.maxHp}` },
+                  { label: '最大 MP', value: `${d.maxMp}` },
+            ];
+            const supportCards = [
+                  { label: '命中', value: `${d.hitRate}` },
+                  { label: '閃避', value: `${d.dodgePct}%` },
+                  { label: '永久加成', value: rebirthInfo.permanentBonus > 0 ? `+${rebirthInfo.permanentBonus}` : '未啟用' },
+            ];
 
             body.innerHTML = `
-                  <div class="cp-header">
-                        <div class="cp-portrait"><div class="cp-portrait-inner">👤</div></div>
-                        <div class="cp-info">
-                              <div class="cp-name">${this._escapeHtml(this._identity.playerName)}${rebirthInfo.count > 0 ? ` ⭐×${rebirthInfo.count}` : ''}</div>
-                              <div class="cp-role">${this._escapeHtml(this._identity.heroName)} · ${this._escapeHtml(this._identity.roleLabel)}</div>
-                              <div class="cp-row-pair"><span class="cp-label-sm">LV</span><span class="cp-val-sm">${s.level}</span></div>
-                              <div class="cp-row-pair"><span class="cp-label-sm">EXP</span><span class="cp-val-sm">${expPct}%</span></div>
-                              <div class="cp-row-pair"><span class="cp-label-sm">主寵</span><span class="cp-val-sm">${this._escapeHtml(primaryPetName)}</span></div>
-                        </div>
-                        ${this._renderRadarSVG(bs)}
-                  </div>
+                  <div class="atlas-shell cp-shell">
+                        <section class="atlas-card cp-hero">
+                              <div class="cp-hero-main">
+                                    <div class="cp-crest">${this._escapeHtml(this._avatarMark())}</div>
+                                    <div class="cp-hero-copy">
+                                          <div class="atlas-kicker">Adventure Atlas</div>
+                                          <div class="cp-name-row">
+                                                <div class="cp-name">${this._escapeHtml(this._identity.playerName)}</div>
+                                                <span class="cp-hero-chip">${this._escapeHtml(rebirthLabel)}</span>
+                                          </div>
+                                          <div class="cp-role">${this._escapeHtml(this._identity.heroName)} · ${this._escapeHtml(this._identity.roleLabel)}</div>
+                                          <div class="cp-hero-meta">
+                                                ${metaCards.map(({ label, value }) => `
+                                                      <div class="cp-metric">
+                                                            <span>${this._escapeHtml(label)}</span>
+                                                            <strong>${this._escapeHtml(value)}</strong>
+                                                      </div>
+                                                `).join('')}
+                                          </div>
+                                    </div>
+                                    <div class="cp-radar-card">
+                                          ${this._renderRadarSVG(bs)}
+                                          <div class="cp-radar-note">五維分布</div>
+                                    </div>
+                              </div>
+                              <div class="cp-focus-strip">
+                                    <div class="cp-focus-card">
+                                          <span class="cp-focus-label">成長目標</span>
+                                          <span class="cp-focus-value">${this._escapeHtml(this._identity.growthGoal)}</span>
+                                    </div>
+                                    <div class="cp-focus-card">
+                                          <span class="cp-focus-label">目前引導</span>
+                                          <span class="cp-focus-value">${this._escapeHtml(objectiveHint)}</span>
+                                    </div>
+                              </div>
+                        </section>
 
-                  <div class="cp-focus-strip">
-                        <div class="cp-focus-card">
-                              <span class="cp-focus-label">成長目標</span>
-                              <span class="cp-focus-value">${this._escapeHtml(this._identity.growthGoal)}</span>
-                        </div>
-                        <div class="cp-focus-card">
-                              <span class="cp-focus-label">目前引導</span>
-                              <span class="cp-focus-value">${this._escapeHtml(objectiveHint)}</span>
-                        </div>
-                  </div>
+                        <div class="cp-stats-layout">
+                              <section class="atlas-card cp-board">
+                                    <div class="cp-card-head">
+                                          <div>
+                                                <div class="atlas-kicker">Attribute Board</div>
+                                                <h3 class="cp-card-title">屬性配置</h3>
+                                          </div>
+                                          <div class="cp-points-pill">剩餘 ${pts}</div>
+                                    </div>
+                                    <div class="cp-stats-section">
+                                          ${this._statRow('str', '力量', bs.str, `攻擊 ${d.atk}`, pts)}
+                                          ${this._statRow('agi', '敏捷', bs.agi, `閃避 ${d.dodgePct}%`, pts)}
+                                          ${this._statRow('acc', '準確', bs.acc, `命中 ${d.hitRate}`, pts)}
+                                          ${this._statRow('int', '智力', bs.int, `魔力 ${d.maxMp}`, pts)}
+                                          ${this._statRow('attr', '屬性', bs.attr, `防禦 ${d.def}`, pts)}
+                                    </div>
+                                    <div class="cp-points-row">
+                                          <span class="cp-points-label">可分配點數</span>
+                                          <span class="cp-points-val">${pts}</span>
+                                          ${rebirthInfo.permanentBonus > 0 ? `<span class="cp-rebirth-bonus">永久 +${rebirthInfo.permanentBonus}</span>` : ''}
+                                    </div>
+                              </section>
 
-                  <div class="cp-bars">
-                        <div class="cp-bar-row">
-                              <span class="cp-bar-label">HP</span>
-                              <div class="cp-bar-track"><div class="cp-bar-fill cp-hp-fill"></div></div>
-                              <span class="cp-bar-val">${s.hp}/${s.maxHp}</span>
+                              <section class="atlas-card cp-board cp-board-side">
+                                    <div class="cp-card-head">
+                                          <div>
+                                                <div class="atlas-kicker">Battle Snapshot</div>
+                                                <h3 class="cp-card-title">戰鬥摘要</h3>
+                                          </div>
+                                    </div>
+                                    <div class="cp-bars">
+                                          <div class="cp-bar-row">
+                                                <span class="cp-bar-label">HP</span>
+                                                <div class="cp-bar-track"><div class="cp-bar-fill cp-hp-fill"></div></div>
+                                                <span class="cp-bar-val">${s.hp}/${s.maxHp}</span>
+                                          </div>
+                                          <div class="cp-bar-row">
+                                                <span class="cp-bar-label">MP</span>
+                                                <div class="cp-bar-track"><div class="cp-bar-fill cp-mp-fill"></div></div>
+                                                <span class="cp-bar-val">${s.mp}/${s.maxMp}</span>
+                                          </div>
+                                    </div>
+                                    <div class="cp-summary">
+                                          ${summaryCards.map(({ label, value }) => `
+                                                <div class="cp-sum-row"><span>${this._escapeHtml(label)}</span><span>${this._escapeHtml(value)}</span></div>
+                                          `).join('')}
+                                    </div>
+                                    <div class="cp-meta-grid">
+                                          ${supportCards.map(({ label, value }) => `
+                                                <div class="cp-meta-card">
+                                                      <span>${this._escapeHtml(label)}</span>
+                                                      <strong>${this._escapeHtml(value)}</strong>
+                                                </div>
+                                          `).join('')}
+                                    </div>
+                              </section>
                         </div>
-                        <div class="cp-bar-row">
-                              <span class="cp-bar-label">MP</span>
-                              <div class="cp-bar-track"><div class="cp-bar-fill cp-mp-fill"></div></div>
-                              <span class="cp-bar-val">${s.mp}/${s.maxMp}</span>
-                        </div>
-                  </div>
-
-                  <div class="cp-stats-section">
-                        ${this._statRow('str', '力 量', bs.str, `⚔️ ATK ${d.atk}`, pts)}
-                        ${this._statRow('agi', '敏 捷', bs.agi, `🏃 閃避 ${d.dodgePct}%`, pts)}
-                        ${this._statRow('acc', '準 確', bs.acc, `🎯 命中 ${d.hitRate}`, pts)}
-                        ${this._statRow('int', '智 力', bs.int, `💧 MP ${d.maxMp}`, pts)}
-                        ${this._statRow('attr', '屬 性', bs.attr, `🛡️ DEF ${d.def}`, pts)}
-                  </div>
-
-                  <div class="cp-points-row">
-                        <span class="cp-points-label">剩餘點數</span>
-                        <span class="cp-points-val">${pts}</span>
-                        ${rebirthInfo.permanentBonus > 0 ? `<span class="cp-rebirth-bonus">（永久+${rebirthInfo.permanentBonus}）</span>` : ''}
-                  </div>
-
-                  <div class="cp-summary">
-                        <div class="cp-sum-row"><span>⚔️ ATK</span><span>${d.atk}</span></div>
-                        <div class="cp-sum-row"><span>🛡️ DEF</span><span>${d.def}</span></div>
-                        <div class="cp-sum-row"><span>❤️ HP</span><span>${d.maxHp}</span></div>
-                        <div class="cp-sum-row"><span>💧 MP</span><span>${d.maxMp}</span></div>
                   </div>
             `;
             const hpFill = body.querySelector('.cp-hp-fill') as HTMLDivElement | null;
@@ -290,10 +346,10 @@ export class CharacterPanel {
       private _renderSkillTreeTab(body: HTMLDivElement): void {
             const sp = this._skillTree.skillPoints;
             const bonuses = this._skillTree.getBonuses();
-            const columns: Array<{ key: string; label: string; icon: string }> = [
-                  { key: 'atk', label: '攻擊', icon: '⚔️' },
-                  { key: 'def', label: '防禦', icon: '🛡️' },
-                  { key: 'magic', label: '魔法', icon: '🔮' },
+            const columns: Array<{ key: string; label: string; tag: string }> = [
+                  { key: 'atk', label: '攻擊支線', tag: 'ATK' },
+                  { key: 'def', label: '防禦支線', tag: 'DEF' },
+                  { key: 'magic', label: '魔法支線', tag: 'ARC' },
             ];
 
             let colHtml = '';
@@ -301,30 +357,41 @@ export class CharacterPanel {
                   const nodes = this._skillTree.nodes.filter(n => n.column === col.key);
                   const nodeHtml = nodes.map(n => this._renderTreeNode(n)).join('');
                   colHtml += `
-                        <div class="st-column">
-                              <div class="st-col-header">${col.icon} ${col.label}</div>
+                        <div class="st-column atlas-card">
+                              <div class="st-col-header">
+                                    <span class="st-col-label">${col.label}</span>
+                                    <span class="st-col-tag">${col.tag}</span>
+                              </div>
                               ${nodeHtml}
                         </div>
                   `;
             }
 
             body.innerHTML = `
-                  <div class="st-sp-row">
-                        <span>技能點 (SP): <b>${sp}</b></span>
-                        <button class="cp-btn-reset" id="st-reset">🔄 重置</button>
-                  </div>
-                  <div class="st-grid">${colHtml}</div>
-                  <div class="st-bonuses">
-                        <div class="st-bonus-title">當前加成</div>
-                        ${bonuses.atkPct > 0 ? `<div class="st-bonus-row">⚔️ ATK +${bonuses.atkPct}%</div>` : ''}
-                        ${bonuses.critPct > 0 ? `<div class="st-bonus-row">💥 CRIT +${bonuses.critPct}%</div>` : ''}
-                        ${bonuses.defPct > 0 ? `<div class="st-bonus-row">🛡️ DEF +${bonuses.defPct}%</div>` : ''}
-                        ${bonuses.hpPct > 0 ? `<div class="st-bonus-row">❤️ HP +${bonuses.hpPct}%</div>` : ''}
-                        ${bonuses.mpPct > 0 ? `<div class="st-bonus-row">🔮 MP +${bonuses.mpPct}%</div>` : ''}
-                        ${bonuses.cdReductionPct > 0 ? `<div class="st-bonus-row">⏱️ CD -${bonuses.cdReductionPct}%</div>` : ''}
-                        ${bonuses.berserkerActive ? '<div class="st-bonus-row">🔥 狂戰士就緒</div>' : ''}
-                        ${bonuses.unyieldingChance > 0 ? '<div class="st-bonus-row">✨ 不屈就緒</div>' : ''}
-                        ${bonuses.petMpPct > 0 ? '<div class="st-bonus-row">💫 寵物MP+10%</div>' : ''}
+                  <div class="atlas-shell cp-shell cp-shell-tree">
+                        <section class="atlas-card st-head-card">
+                              <div class="st-sp-row">
+                                    <span>技能點 SP <b>${sp}</b></span>
+                                    <button class="cp-btn-reset rpg-op-btn rpg-op-btn-sm rpg-op-btn-secondary" id="st-reset">重設技能樹</button>
+                              </div>
+                              <div class="st-head-copy">優先拉起主力分支，再回頭補滿防禦與循環能力。</div>
+                        </section>
+                        <div class="st-grid">${colHtml}</div>
+                        <section class="atlas-card st-bonuses">
+                              <div class="st-bonus-title">當前加成</div>
+                              ${bonuses.atkPct > 0 ? `<div class="st-bonus-row">攻擊 +${bonuses.atkPct}%</div>` : ''}
+                              ${bonuses.critPct > 0 ? `<div class="st-bonus-row">爆擊 +${bonuses.critPct}%</div>` : ''}
+                              ${bonuses.defPct > 0 ? `<div class="st-bonus-row">防禦 +${bonuses.defPct}%</div>` : ''}
+                              ${bonuses.hpPct > 0 ? `<div class="st-bonus-row">生命 +${bonuses.hpPct}%</div>` : ''}
+                              ${bonuses.mpPct > 0 ? `<div class="st-bonus-row">魔力 +${bonuses.mpPct}%</div>` : ''}
+                              ${bonuses.cdReductionPct > 0 ? `<div class="st-bonus-row">冷卻 -${bonuses.cdReductionPct}%</div>` : ''}
+                              ${bonuses.berserkerActive ? '<div class="st-bonus-row">狂戰姿態就緒</div>' : ''}
+                              ${bonuses.unyieldingChance > 0 ? '<div class="st-bonus-row">不屈保命已啟動</div>' : ''}
+                              ${bonuses.petMpPct > 0 ? `<div class="st-bonus-row">寵物魔力 +${bonuses.petMpPct}%</div>` : ''}
+                              ${bonuses.atkPct <= 0 && bonuses.critPct <= 0 && bonuses.defPct <= 0 && bonuses.hpPct <= 0 && bonuses.mpPct <= 0 && bonuses.cdReductionPct <= 0 && !bonuses.berserkerActive && bonuses.unyieldingChance <= 0 && bonuses.petMpPct <= 0
+                              ? '<div class="st-bonus-row">尚未啟用任何額外加成</div>'
+                              : ''}
+                        </section>
                   </div>
             `;
 
@@ -361,9 +428,9 @@ export class CharacterPanel {
                               <span class="st-node-level">${node.currentLevel}/${node.maxLevel}</span>
                         </div>
                         <div class="st-node-effect">${node.effect}</div>
-                        ${!isMaxed ? `<button class="st-learn-btn btn-gold" data-node-id="${node.id}"${!canLearn ? ' disabled' : ''}>
-                              ${canLearn ? '學習' : (prereqMet ? '需SP' : '🔒')}
-                        </button>` : '<span class="st-maxed-label">✅ 已滿</span>'}
+                        ${!isMaxed ? `<button class="st-learn-btn rpg-op-btn rpg-op-btn-sm ${canLearn ? 'rpg-op-btn-primary' : 'rpg-op-btn-secondary'}" data-node-id="${node.id}"${!canLearn ? ' disabled' : ''}>
+                              ${canLearn ? '學習' : (prereqMet ? '需要 SP' : '尚未解鎖')}
+                        </button>` : '<span class="st-maxed-label">已滿級</span>'}
                   </div>
             `;
       }
@@ -379,43 +446,47 @@ export class CharacterPanel {
             const rbInfo = this._rebirth.getInfo();
 
             body.innerHTML = `
-                  <div class="gw-section">
-                        <div class="gw-title">⚡ 覺醒</div>
-                        <div class="gw-desc">
-                              達到 Lv.${AwakeningSystem.REQUIRED_LEVEL} 且完成主線第 ${AwakeningSystem.REQUIRED_CHAPTER} 章後可覺醒。
-                              <br>獎勵：<b>+${AwakeningSystem.STAT_REWARD} 屬性點</b> + <b>+${AwakeningSystem.SP_REWARD} 技能點</b>
-                        </div>
-                        <div class="gw-status">${awStatus}</div>
-                        <button class="btn-gold gw-btn" id="gw-awaken"${!canAw ? ' disabled' : ''}>
-                              ${canAw ? '⚡ 覺醒！' : (this._awakening.isAwakened ? '已覺醒 ✅' : '條件未達成')}
-                        </button>
-                  </div>
+                  <div class="atlas-shell cp-shell">
+                        <div class="cp-growth-grid">
+                              <section class="atlas-card gw-section">
+                                    <div class="atlas-kicker">Milestone I</div>
+                                    <div class="gw-title">覺醒</div>
+                                    <div class="gw-desc">
+                                          達到 Lv.${AwakeningSystem.REQUIRED_LEVEL} 且完成主線第 ${AwakeningSystem.REQUIRED_CHAPTER} 章後可覺醒。
+                                          <br>獎勵：<b>+${AwakeningSystem.STAT_REWARD} 屬性點</b> + <b>+${AwakeningSystem.SP_REWARD} 技能點</b>
+                                    </div>
+                                    <div class="gw-status">${awStatus}</div>
+                                    <button class="gw-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary" id="gw-awaken"${!canAw ? ' disabled' : ''}>
+                                          ${canAw ? '執行覺醒' : (this._awakening.isAwakened ? '已完成覺醒' : '條件未達成')}
+                                    </button>
+                              </section>
 
-                  <div class="gw-divider"></div>
-
-                  <div class="gw-section">
-                        <div class="gw-title">🔄 轉生 ${rbInfo.count > 0 ? `(第 ${rbInfo.count} 次)` : ''}</div>
-                        <div class="gw-desc">
-                              覺醒後達到 Lv.${RebirthSystem.REQUIRED_LEVEL} 可轉生。
-                              <br>效果：重置為 Lv.1，永久全屬性 <b>+${RebirthSystem.BONUS_PER_REBIRTH}</b>
-                              <br>保留：寵物、裝備、金幣、鑽石
+                              <section class="atlas-card gw-section">
+                                    <div class="atlas-kicker">Milestone II</div>
+                                    <div class="gw-title">轉生 ${rbInfo.count > 0 ? `(第 ${rbInfo.count} 次)` : ''}</div>
+                                    <div class="gw-desc">
+                                          覺醒後達到 Lv.${RebirthSystem.REQUIRED_LEVEL} 可轉生。
+                                          <br>效果：重置為 Lv.1，永久全屬性 <b>+${RebirthSystem.BONUS_PER_REBIRTH}</b>
+                                          <br>保留：寵物、裝備、金幣、鑽石
+                                    </div>
+                                    ${rbInfo.permanentBonus > 0 ? `<div class="gw-bonus">當前永久加成：全屬性 +${rbInfo.permanentBonus}</div>` : ''}
+                                    <div class="gw-status">${rbStatus}</div>
+                                    <button class="gw-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary" id="gw-rebirth"${!canRb ? ' disabled' : ''}>
+                                          ${canRb ? '進入轉生' : '條件未達成'}
+                                    </button>
+                              </section>
+                              ${this._onOpenResonance ? `
+                              <section class="atlas-card gw-section gw-section-support">
+                                    <div class="atlas-kicker">Support Line</div>
+                                    <div class="gw-title">共鳴</div>
+                                    <div class="gw-desc">
+                                          消耗金幣與共鳴藥提升系列加成。先把主力系列拉起來，再回頭補其他收藏。
+                                    </div>
+                                    <button class="gw-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary" id="gw-resonance">開啟共鳴面板</button>
+                              </section>
+                              ` : ''}
                         </div>
-                        ${rbInfo.permanentBonus > 0 ? `<div class="gw-bonus">當前永久加成：全屬性 +${rbInfo.permanentBonus}</div>` : ''}
-                        <div class="gw-status">${rbStatus}</div>
-                        <button class="btn-gold gw-btn" id="gw-rebirth"${!canRb ? ' disabled' : ''}>
-                              ${canRb ? '🔄 轉生！' : '條件未達成'}
-                        </button>
                   </div>
-                  ${this._onOpenResonance ? `
-                  <div class="gw-divider"></div>
-                  <div class="gw-section">
-                        <div class="gw-title">🔭 共鳴</div>
-                        <div class="gw-desc">
-                              消耗金幣與共鳴藥提升系列加成。先把主力系列拉起來，再回頭補其他收藏。
-                        </div>
-                        <button class="btn-gold gw-btn" id="gw-resonance">開啟共鳴</button>
-                  </div>
-                  ` : ''}
             `;
 
             // Awakening button
@@ -470,6 +541,12 @@ export class CharacterPanel {
       updateIdentity(identity: PlayerIdentitySnapshot): void {
             this._identity = identity;
             if (this._visible) this._render();
+      }
+
+      private _avatarMark(): string {
+            const raw = `${this._identity.heroName || ''}${this._identity.playerName || ''}`.replace(/\s+/g, '');
+            if (!raw) return '冒';
+            return Array.from(raw).slice(0, 2).join('').toUpperCase();
       }
 
       private _escapeHtml(value: string): string {

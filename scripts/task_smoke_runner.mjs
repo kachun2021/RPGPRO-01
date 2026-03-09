@@ -8,6 +8,9 @@ function parseArgs(argv) {
     url: 'http://127.0.0.1:3000',
     outputDir: '',
     headless: true,
+    scenarios: [],
+    groups: [],
+    list: false,
   };
 
   for (let i = 2; i < argv.length; i += 1) {
@@ -22,14 +25,40 @@ function parseArgs(argv) {
     } else if (arg === '--headless' && next) {
       args.headless = next !== '0' && next !== 'false';
       i += 1;
+    } else if (arg === '--scenario' && next) {
+      args.scenarios.push(...parseListArg(next));
+      i += 1;
+    } else if (arg === '--group' && next) {
+      args.groups.push(...parseListArg(next));
+      i += 1;
+    } else if (arg === '--list') {
+      args.list = true;
     }
   }
 
-  if (!args.outputDir) {
+  if (!args.list && !args.outputDir) {
     throw new Error('--output-dir is required');
   }
 
   return args;
+}
+
+function parseListArg(value) {
+  return String(value || '')
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+function uniqueInOrder(values) {
+  const seen = new Set();
+  const result = [];
+  for (const value of values) {
+    if (seen.has(value)) continue;
+    seen.add(value);
+    result.push(value);
+  }
+  return result;
 }
 
 function ensureDir(dirPath) {
@@ -39,6 +68,60 @@ function ensureDir(dirPath) {
 function resetDir(dirPath) {
   fs.rmSync(dirPath, { recursive: true, force: true });
   ensureDir(dirPath);
+}
+
+function collectKnownGroups(scenarios) {
+  return [...new Set(scenarios.flatMap((scenario) => scenario.groups || []))].sort();
+}
+
+function printScenarioCatalog(scenarios) {
+  const groups = collectKnownGroups(scenarios);
+  process.stdout.write('Available smoke groups:\n');
+  for (const group of groups) {
+    process.stdout.write(`- ${group}\n`);
+  }
+
+  process.stdout.write('\nAvailable smoke scenarios:\n');
+  for (const scenario of scenarios) {
+    const suffix = scenario.groups?.length ? ` [${scenario.groups.join(', ')}]` : '';
+    process.stdout.write(`- ${scenario.name}${suffix}\n`);
+  }
+}
+
+function selectScenarios(allScenarios, args) {
+  const requestedScenarios = uniqueInOrder(args.scenarios);
+  const requestedGroups = uniqueInOrder(args.groups);
+
+  if (requestedScenarios.length === 0 && requestedGroups.length === 0) {
+    return allScenarios;
+  }
+
+  const knownScenarioNames = new Set(allScenarios.map((scenario) => scenario.name));
+  const knownGroups = collectKnownGroups(allScenarios);
+  const knownGroupNames = new Set(knownGroups);
+
+  const unknownScenarios = requestedScenarios.filter((name) => !knownScenarioNames.has(name));
+  if (unknownScenarios.length > 0) {
+    throw new Error(`Unknown smoke scenario(s): ${unknownScenarios.join(', ')}`);
+  }
+
+  const unknownGroups = requestedGroups.filter((name) => !knownGroupNames.has(name));
+  if (unknownGroups.length > 0) {
+    throw new Error(`Unknown smoke group(s): ${unknownGroups.join(', ')}`);
+  }
+
+  const scenarioSet = new Set(requestedScenarios);
+  const groupSet = new Set(requestedGroups);
+  const selected = allScenarios.filter((scenario) => {
+    if (scenarioSet.has(scenario.name)) return true;
+    return (scenario.groups || []).some((group) => groupSet.has(group));
+  });
+
+  if (selected.length === 0) {
+    throw new Error('No smoke scenarios matched the requested filters.');
+  }
+
+  return selected;
 }
 
 function resolvePlaywrightImport() {
@@ -343,6 +426,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
 
     return {
       scenario: scenario.name,
+      groups: (scenario.groups || []).join(','),
       screenshot: path.join(scenarioDir, 'shot-0.png'),
       current_panel: finalState.currentPanel ?? '',
       scene_zone_id: finalState.zone.sceneZoneId,
@@ -365,6 +449,7 @@ function createScenarios() {
   return [
     {
       name: 'hero-create-bootstrap',
+      groups: ['bootstrap', 'core', 'mobile'],
       autotest: false,
       params: { manualtest: '1', heroCreate: '1' },
       beforeReady: async (page) => {
@@ -382,6 +467,7 @@ function createScenarios() {
     },
     {
       name: 'move-baseline',
+      groups: ['baseline', 'core', 'world', 'mobile'],
       expect: {
         currentPanel: null,
         sceneZoneId: 'starter_meadow',
@@ -395,7 +481,27 @@ function createScenarios() {
       },
     },
     {
+      name: 'misty-forest-baseline',
+      groups: ['baseline', 'core', 'world', 'combat'],
+      prepare: async (page) => {
+        await page.evaluate(async () => {
+          await window.__fpoDebug?.travelToZone?.('misty_forest');
+        });
+      },
+      afterClickWaitFor: (state) => state.zone.sceneZoneId === 'misty_forest',
+      afterClickTimeoutMs: 15000,
+      expect: {
+        currentPanel: null,
+        sceneZoneId: 'misty_forest',
+        playerDead: false,
+        uiChromeState: 'explore',
+        primaryNavMode: 'primary',
+        visibleSelector: '.guidance-root',
+      },
+    },
+    {
       name: 'quest-panel',
+      groups: ['ui', 'panel', 'quest'],
       clickSelector: '#nav-quest',
       expect: {
         currentPanel: 'quest',
@@ -409,6 +515,7 @@ function createScenarios() {
     },
     {
       name: 'inventory-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-bag',
       expect: {
         currentPanel: 'bag',
@@ -422,6 +529,7 @@ function createScenarios() {
     },
     {
       name: 'skill-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-skill',
       expect: {
         currentPanel: 'skill',
@@ -435,6 +543,7 @@ function createScenarios() {
     },
     {
       name: 'system-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-settings',
       expect: {
         currentPanel: 'settings',
@@ -448,6 +557,7 @@ function createScenarios() {
     },
     {
       name: 'character-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-char',
       expect: {
         currentPanel: 'char',
@@ -461,6 +571,7 @@ function createScenarios() {
     },
     {
       name: 'community-preview-panel',
+      groups: ['ui', 'panel'],
       prepare: async (page) => {
         await page.evaluate(() => window.__fpoDebug?.openCommunityPanel?.());
       },
@@ -478,6 +589,7 @@ function createScenarios() {
     },
     {
       name: 'book-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-book',
       afterClickWaitFor: (state) => state.currentPanel === 'book' && state.openPanels.book === true,
       afterClickTimeoutMs: 15000,
@@ -493,6 +605,7 @@ function createScenarios() {
     },
     {
       name: 'shop-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-shop',
       afterClickWaitFor: (state) => state.currentPanel === 'shop' && state.openPanels.shop === true,
       afterClickTimeoutMs: 15000,
@@ -508,6 +621,7 @@ function createScenarios() {
     },
     {
       name: 'dialogue-panel',
+      groups: ['ui', 'modal', 'quest'],
       prepare: async (page) => {
         await page.evaluate(() => window.__fpoDebug?.openNpcDialogue?.('npc_quest_01'));
       },
@@ -525,6 +639,7 @@ function createScenarios() {
     },
     {
       name: 'fusion-panel',
+      groups: ['ui', 'panel'],
       prepare: async (page) => {
         await page.evaluate(() => window.__fpoDebug?.openFusionPanel?.());
       },
@@ -542,6 +657,7 @@ function createScenarios() {
     },
     {
       name: 'map-panel-landscape',
+      groups: ['ui', 'panel', 'world', 'mobile'],
       viewport: { width: 844, height: 390 },
       clickSelector: '#nav-map',
       afterClickWaitFor: (state) => state.currentPanel === 'map' && state.openPanels.map === true,
@@ -559,6 +675,7 @@ function createScenarios() {
     },
     {
       name: 'pet-panel',
+      groups: ['ui', 'panel'],
       clickSelector: '#nav-pet',
       expect: {
         currentPanel: 'pet',
@@ -572,6 +689,7 @@ function createScenarios() {
     },
     {
       name: 'afk-panel',
+      groups: ['ui', 'panel', 'mobile', 'combat'],
       clickSelector: '#auto-settings-btn',
       expect: {
         currentPanel: 'afk',
@@ -585,6 +703,7 @@ function createScenarios() {
     },
     {
       name: 'combat-auto',
+      groups: ['combat', 'mobile'],
       clickSelector: '#auto-grind-btn',
       afterClickWaitFor: (state) => state.world.autoGrind === true,
       expect: {
@@ -599,6 +718,7 @@ function createScenarios() {
     },
     {
       name: 'resonance-panel',
+      groups: ['ui', 'panel', 'combat'],
       prepare: async (page) => {
         await page.evaluate(() => window.__fpoDebug?.openResonancePanel?.());
       },
@@ -615,6 +735,7 @@ function createScenarios() {
     },
     {
       name: 'player-death-revive',
+      groups: ['combat', 'modal'],
       prepare: async (page) => {
         await page.evaluate(() => window.__fpoDebug?.damagePlayer?.(999, 'smoke'));
         await page.waitForSelector('#player-death-overlay [data-action="field"]', { state: 'visible', timeout: 10000 });
@@ -631,6 +752,7 @@ function createScenarios() {
     },
     {
       name: 'pet-revival',
+      groups: ['combat', 'modal'],
       prepare: async (page) => {
         await page.evaluate(() => {
           window.__fpoDebug?.killPet?.(0);
@@ -652,6 +774,7 @@ function createScenarios() {
     },
     {
       name: 'npc-report-loop',
+      groups: ['quest', 'modal'],
       prepare: async (page) => {
         const questId = await page.evaluate(() => window.__fpoDebug?.prepareQuestTurnIn?.('npc_quest_01'));
         if (!questId) {
@@ -677,7 +800,15 @@ function createScenarios() {
 
 async function main() {
   const args = parseArgs(process.argv);
-  ensureDir(args.outputDir);
+  const allScenarios = createScenarios();
+
+  if (args.list) {
+    printScenarioCatalog(allScenarios);
+    return;
+  }
+
+  const scenarios = selectScenarios(allScenarios, args);
+  resetDir(args.outputDir);
 
   const playwrightImport = resolvePlaywrightImport();
   const { chromium } = await import(playwrightImport);
@@ -688,7 +819,8 @@ async function main() {
 
   const results = [];
   try {
-    for (const scenario of createScenarios()) {
+    process.stdout.write(`Running ${scenarios.length}/${allScenarios.length} smoke scenarios\n`);
+    for (const scenario of scenarios) {
       process.stdout.write(`Running scenario: ${scenario.name}\n`);
       const result = await runScenario(browser, args.url, args.outputDir, scenario);
       results.push(result);

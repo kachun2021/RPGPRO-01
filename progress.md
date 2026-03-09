@@ -982,3 +982,113 @@
       - `community-preview-panel`
       - `map-panel-landscape`
       - `shop-panel`
+
+- 2026-03-09 (early-zone readability pass: starter/forest pathing + landmarks + NPC clarity):
+  - Scope:
+    - focused on the weakest remaining world-side gap after the S1-S10 UI renewal:
+      - starter/early zone path recognition
+      - landmark readability
+      - NPC role/interact readability
+  - Scene rendering / path guidance:
+    - `src/world/ZoneRenderer.ts` now adds low-cost readability accents from the single scene-layout source:
+      - safer/lighter safe-zone floor treatment instead of a heavy gray wash
+      - safe-zone sigil + perimeter beacon posts
+      - road edge strips + center guide dashes
+      - early-zone roadside guide posts for `starter_meadow` / `misty_forest`
+      - frontier arch kept only for `starter_meadow` after screenshot audit showed it blocked the `misty_forest` camera
+    - result:
+      - main road is now visibly "the route forward" instead of one large flat slab
+      - safe hub reads as a protected area with a boundary, not a random pale circle
+  - Early layout data refresh:
+    - `src/data/runtime/world.scene.layouts.json`
+      - `starter_meadow`
+        - expanded hub road network with side spurs
+        - added paired pillars / crystal to shape the first route
+        - widened/shifted side blockers for a clearer corridor read
+      - `misty_forest`
+        - added cross path, side blockers, and stronger landmark anchors
+        - kept the scene readable without adding a second visibility system
+  - NPC readability / product clarity:
+    - `src/entities/NPC.ts`
+      - restaged starter NPC positions so quest / shop / skill / pet roles are more spatially distinct
+      - upgraded NPC presentation from plain capsule-only markers to:
+        - role chip
+        - icon node
+        - stronger nameplate
+        - colored ground disc
+        - role-specific interaction prompt text (`接取任務 / 購買補給 / 學習技能 / 查看換寵`)
+      - widened prompt range slightly for phone-landscape readability
+      - added material disposal cleanup to avoid leaving behind extra NPC materials
+    - `index.html`
+      - rebuilt `.npc-marker` / `.npc-prompt` styling for higher contrast and clearer type color-coding
+  - Smoke / debug coverage:
+    - added `__fpoDebug.travelToZone(...)` in `main.ts` for deterministic scene audit
+    - `scripts/task_smoke_runner.mjs` now includes `misty-forest-baseline`
+    - smoke total increased from `20` -> `21`
+  - Screenshot audit outcome:
+    - `move-baseline` now shows a readable starter gate, road edges, and clearer NPC affordances
+    - `misty-forest-baseline` no longer has the early guide arch blocking the camera
+    - dialogue screenshot confirms off-center NPC role labels remain legible behind modal focus
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (`21/21`)
+    - `npm run -s ci:guardrails` passed
+  - Next:
+    - if continuing on world quality, the next high-value pass is replacing primitive landmark meshes in early zones with slightly richer silhouettes while keeping the current single-source layout pipeline
+
+- 2026-03-10 (Adventure Atlas V1: shared density reset + Character/Inventory/System first batch):
+  - Scope:
+    - replaced the old dark-gold fullscreen dashboard feel with a lighter `Adventure Atlas` panel direction for the first high-impact batch:
+      - shared shell / buttons / tabs / chips
+      - `CharacterPanel`
+      - `InventoryPanel`
+      - `SystemPanel`
+  - Shared design system:
+    - `index.html`
+      - switched panel typography to `Plus Jakarta Sans` + `Cormorant SC`
+      - introduced parchment / mist-white surfaces with navy text, amber CTA, and pine-green success accents
+      - reduced shared control density:
+        - tabs / chips now target ~`34px`
+        - secondary buttons now target ~`34-36px`
+        - fullscreen shell corners / shadow / border hierarchy now read as light atlas cards instead of dark dashboard slabs
+  - Character panel:
+    - `src/ui/CharacterPanel.ts`
+      - tabs are no longer forced to equal-width thirds
+      - stats tab rebuilt into a centered dossier:
+        - hero summary card
+        - objective / guidance strip
+        - separate attribute board + battle snapshot
+      - removed most static emoji-driven labels in the touched sections
+      - skill tree / growth tabs now render as card groups instead of sparse full-bleed sections
+  - Inventory panel:
+    - `src/ui/InventoryPanel.ts`
+      - rebuilt top area into an actual `equipment board` with left/right slot lanes and a compact central loadout summary
+      - removed the oversized character preview block
+      - tabs now use compact label+count chips instead of large equal-width buttons
+      - empty bag states now show guidance copy instead of a sea of placeholder slots
+      - static action copy was cleaned up to reduce emoji/tool-panel tone in the touched interactions
+  - System panel:
+    - `src/ui/SystemPanel.ts`
+      - rebuilt into a control center with:
+        - real status overview row
+        - compact tabs
+        - card-based controls / account / data / about sections
+      - controls tab now includes an explicit `currently wired` scope card so the panel does not waste half the screen
+      - preserved existing ids/callbacks for runtime settings, save/load, hero template, and social preview actions
+  - Screenshot audit:
+    - reviewed latest smoke artifacts for:
+      - `character-panel`
+      - `inventory-panel`
+      - `system-panel`
+      - `map-panel-landscape`
+    - result:
+      - `CharacterPanel` now reads as a dossier instead of a stretched sparse sheet
+      - `InventoryPanel` now clearly prioritizes equipment over the old preview block
+      - `SystemPanel` no longer reads like an empty fake dashboard, though the remaining panels still need second-batch restyling for full visual consistency
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s test:smoke` passed (`21/21`)
+    - smoke rerun after final inventory/system polish also passed (`21/21`)
+  - Next:
+    - move to second batch panels (`Quest / Map / Pet / Shop`) so the remaining dark interior sections adopt the same density and hierarchy rules

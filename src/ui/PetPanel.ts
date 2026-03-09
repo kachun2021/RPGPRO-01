@@ -306,24 +306,35 @@ export class PetPanel {
 
             const tabs = document.createElement('div');
             tabs.className = 'pet-storage-pages';
-            for (let page = 0; page < Math.min(totalPages, 8); page += 1) {
-                  const btn = document.createElement('button');
-                  btn.type = 'button';
-                  btn.className = `pet-page-btn${page === this._page ? ' is-active' : ''}`;
-                  btn.textContent = `${page + 1}`;
-                  btn.addEventListener('click', () => {
-                        this._page = page;
-                        this._render();
-                  });
-                  tabs.appendChild(btn);
+            if (totalPages > 1) {
+                  for (let page = 0; page < Math.min(totalPages, 8); page += 1) {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = `pet-page-btn${page === this._page ? ' is-active' : ''}`;
+                        btn.textContent = `${page + 1}`;
+                        btn.addEventListener('click', () => {
+                              this._page = page;
+                              this._render();
+                        });
+                        tabs.appendChild(btn);
+                  }
             }
-            section.appendChild(tabs);
+            if (tabs.childElementCount > 0) section.appendChild(tabs);
 
             const grid = document.createElement('div');
             grid.className = 'pet-storage-grid';
             const start = this._page * pageSize;
-            for (let i = 0; i < pageSize; i += 1) {
-                  const pet = inactive[start + i] ?? null;
+            const pageItems = inactive.slice(start, start + pageSize);
+            const renderSlots = this._getStorageRenderCount(pageItems.length, pageSize);
+            if (pageItems.length <= 0) {
+                  const empty = document.createElement('div');
+                  empty.className = 'pet-storage-empty';
+                  empty.textContent = '目前沒有待命寵物';
+                  section.appendChild(empty);
+                  return section;
+            }
+            for (let i = 0; i < renderSlots; i += 1) {
+                  const pet = pageItems[i] ?? null;
                   const slot = document.createElement('button');
                   slot.type = 'button';
                   slot.className = `pet-storage-slot${pet && this._sel === pet ? ' is-selected' : ''}${pet ? '' : ' is-empty'}`;
@@ -346,6 +357,13 @@ export class PetPanel {
             }
             section.appendChild(grid);
             return section;
+      }
+
+      private _getStorageRenderCount(itemCount: number, maxSlots: number): number {
+            if (itemCount <= 0) return 0;
+            const minSlots = Math.min(6, maxSlots);
+            const evenCount = itemCount % 2 === 0 ? itemCount : itemCount + 1;
+            return Math.min(maxSlots, Math.max(minSlots, evenCount));
       }
 
       private _statCard(label: string, value: string): string {

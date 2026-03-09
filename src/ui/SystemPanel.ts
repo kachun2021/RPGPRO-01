@@ -96,16 +96,41 @@ export class SystemPanel {
       }
 
       private _render(): void {
+            const account = this._getAccountView();
+            const validation = DATA_HEALTH.validation ?? {};
+            const passedChecks = Number(validation.passedChecks ?? 0);
+            const totalChecks = Number(validation.totalChecks ?? 0);
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        ⚙️ 系統設定
+                        控制中心
                         <span class="panel-close" id="sys-close">✕</span>
                   </div>
-                  <div class="sys-tabs">
-                        <button class="sa-tag${this._tab === 'controls' ? ' sa-tag-active' : ''}" data-tab="controls">🕹 操作</button>
-                        <button class="sa-tag${this._tab === 'account' ? ' sa-tag-active' : ''}" data-tab="account">💾 帳號</button>
-                        <button class="sa-tag${this._tab === 'data' ? ' sa-tag-active' : ''}" data-tab="data">📊 DATA</button>
-                        <button class="sa-tag${this._tab === 'about' ? ' sa-tag-active' : ''}" data-tab="about">ℹ 關於</button>
+                  <div class="sys-header">
+                        <div class="sys-overview">
+                              <div class="sys-overview-main">
+                                    <div class="atlas-kicker">Adventure Atlas</div>
+                                    <div class="sys-overview-title">本機控制中心</div>
+                                    <div class="sys-overview-copy">只保留已接線、會立即生效、而且真的存在於目前 build 的設定與服務邊界。</div>
+                              </div>
+                              <div class="sys-overview-card">
+                                    <span>資料模式</span>
+                                    <strong>${this._escapeHtml(account.storageLabel)}</strong>
+                              </div>
+                              <div class="sys-overview-card">
+                                    <span>設定套用</span>
+                                    <strong>即時生效</strong>
+                              </div>
+                              <div class="sys-overview-card">
+                                    <span>Validation</span>
+                                    <strong>${passedChecks}/${totalChecks}</strong>
+                              </div>
+                        </div>
+                        <div class="sys-tabs">
+                              <button class="sa-tag${this._tab === 'controls' ? ' sa-tag-active' : ''}" data-tab="controls">操作</button>
+                              <button class="sa-tag${this._tab === 'account' ? ' sa-tag-active' : ''}" data-tab="account">帳號</button>
+                              <button class="sa-tag${this._tab === 'data' ? ' sa-tag-active' : ''}" data-tab="data">DATA</button>
+                              <button class="sa-tag${this._tab === 'about' ? ' sa-tag-active' : ''}" data-tab="about">關於</button>
+                        </div>
                   </div>
                   <div class="sys-body" id="sys-body"></div>
             `;
@@ -159,41 +184,68 @@ export class SystemPanel {
       private _renderControlsTab(body: HTMLDivElement): void {
             const s = this._settings;
             body.innerHTML = `
-                  <div class="sys-section-header">🕹 移動</div>
-                  <div class="sys-row">
-                        <span class="sys-label">搖桿靈敏度</span>
-                        <div class="sys-slider-group">
-                              <input type="range" class="sys-slider" id="sys-joy" min="50" max="200" step="10" value="${s.joystickSensitivity * 100}">
-                              <span class="sys-value" id="sys-joy-val">${s.joystickSensitivity.toFixed(1)}x</span>
+                  <div class="atlas-shell sys-shell">
+                        <div class="sys-grid">
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Movement</div>
+                                    <div class="sys-card-title">移動手感</div>
+                                    <div class="sys-card-copy">針對手機橫向調整搖桿速度，變更後立即套用。</div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">搖桿靈敏度</span>
+                                          <div class="sys-slider-group">
+                                                <input type="range" class="sys-slider" id="sys-joy" min="50" max="200" step="10" value="${s.joystickSensitivity * 100}">
+                                                <span class="sys-value" id="sys-joy-val">${s.joystickSensitivity.toFixed(1)}x</span>
+                                          </div>
+                                    </div>
+                              </section>
+
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Camera</div>
+                                    <div class="sys-card-title">視角控制</div>
+                                    <div class="sys-card-copy">保留必要的視角微調，避免堆一整頁還沒接線的假設定。</div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">視角靈敏度</span>
+                                          <div class="sys-slider-group">
+                                                <input type="range" class="sys-slider" id="sys-cam" min="50" max="200" step="10" value="${s.cameraSensitivity * 100}">
+                                                <span class="sys-value" id="sys-cam-val">${s.cameraSensitivity.toFixed(1)}x</span>
+                                          </div>
+                                    </div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">反轉 Y 軸</span>
+                                          <label class="sys-toggle-wrap">
+                                                <input type="checkbox" class="sys-toggle-input" id="sys-invert" ${s.invertCameraY ? 'checked' : ''}>
+                                                <span class="sys-toggle-track"><span class="sys-toggle-thumb"></span></span>
+                                          </label>
+                                    </div>
+                              </section>
+
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Combat Assist</div>
+                                    <div class="sys-card-title">戰鬥輔助</div>
+                                    <div class="sys-card-copy">目前只保留自動鎖定這個真實存在的 combat helper。</div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">自動鎖定目標</span>
+                                          <label class="sys-toggle-wrap">
+                                                <input type="checkbox" class="sys-toggle-input" id="sys-autolock" ${s.autoLockTarget ? 'checked' : ''}>
+                                                <span class="sys-toggle-track"><span class="sys-toggle-thumb"></span></span>
+                                          </label>
+                                    </div>
+                                    <div class="sys-card-note">畫質、音量、語言等項目仍未接線，因此不再佔用這個面板的空間。</div>
+                              </section>
+
+                              <section class="sys-card sys-card-wide">
+                                    <div class="atlas-kicker">Scope</div>
+                                    <div class="sys-card-title">目前接線範圍</div>
+                                    <div class="sys-pill-row">
+                                          <span class="sys-pill">joystickSensitivity</span>
+                                          <span class="sys-pill">cameraSensitivity</span>
+                                          <span class="sys-pill">invertCameraY</span>
+                                          <span class="sys-pill">autoLockTarget</span>
+                                    </div>
+                                    <div class="sys-card-note">這四項會直接寫入 runtime settings，其他選項等真的落地後再回到這裡。</div>
+                              </section>
                         </div>
                   </div>
-
-                  <div class="sys-section-header">🎥 視角</div>
-                  <div class="sys-row">
-                        <span class="sys-label">視角靈敏度</span>
-                        <div class="sys-slider-group">
-                              <input type="range" class="sys-slider" id="sys-cam" min="50" max="200" step="10" value="${s.cameraSensitivity * 100}">
-                              <span class="sys-value" id="sys-cam-val">${s.cameraSensitivity.toFixed(1)}x</span>
-                        </div>
-                  </div>
-                  <div class="sys-row">
-                        <span class="sys-label">反轉 Y 軸</span>
-                        <label class="sys-toggle-wrap">
-                              <input type="checkbox" class="sys-toggle-input" id="sys-invert" ${s.invertCameraY ? 'checked' : ''}>
-                              <span class="sys-toggle-track"><span class="sys-toggle-thumb"></span></span>
-                        </label>
-                  </div>
-
-                  <div class="sys-section-header">⚔ 戰鬥</div>
-                  <div class="sys-row">
-                        <span class="sys-label">自動鎖定目標</span>
-                        <label class="sys-toggle-wrap">
-                              <input type="checkbox" class="sys-toggle-input" id="sys-autolock" ${s.autoLockTarget ? 'checked' : ''}>
-                              <span class="sys-toggle-track"><span class="sys-toggle-thumb"></span></span>
-                        </label>
-                  </div>
-
-                  <div class="sys-danger-note">本頁只保留已接線且會立即生效的設定。未接線的畫質、音量、語言項目已暫時隱藏。</div>
             `;
 
             this._bindSlider(body, 'sys-joy', 'sys-joy-val', (v) => { this._settings.joystickSensitivity = v / 100; }, (v) => `${(v / 100).toFixed(1)}x`);
@@ -209,64 +261,81 @@ export class SystemPanel {
       }
 
       private _renderAccountTab(body: HTMLDivElement): void {
-            const account = this._callbacks.getAccountView?.() ?? {
-                  uid: 'FPO-LOCAL',
-                  storageLabel: '本機單機資料',
-            };
+            const account = this._getAccountView();
             const canSwitchHero = HEROES.length > 0 && !!this._callbacks.onHeroTypeChange;
 
             body.innerHTML = `
-                  <div class="sys-section-header">💾 本機資料模式</div>
-                  <div class="sys-row">
-                        <span class="sys-label">玩家 UID</span>
-                        <span class="sys-info">${this._escapeHtml(account.uid)}</span>
-                  </div>
-                  <div class="sys-row">
-                        <span class="sys-label">資料儲存</span>
-                        <span class="sys-info">${this._escapeHtml(account.storageLabel)}</span>
-                  </div>
-                  <div class="sys-danger-note">目前仍是 local-first 單機模式，尚未接入雲端帳號、多人房間或即時社交服務。</div>
+                  <div class="atlas-shell sys-shell">
+                        <div class="sys-grid">
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Local Profile</div>
+                                    <div class="sys-card-title">本機資料模式</div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">玩家 UID</span>
+                                          <span class="sys-info">${this._escapeHtml(account.uid)}</span>
+                                    </div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">資料儲存</span>
+                                          <span class="sys-info">${this._escapeHtml(account.storageLabel)}</span>
+                                    </div>
+                                    <div class="sys-card-note">目前仍是 local-first 單機模式，尚未接入雲端帳號、多人房間或即時社交服務。</div>
+                              </section>
 
-                  <div class="sys-section-header">👤 角色模板</div>
-                  ${canSwitchHero ? `
-                        <div class="sys-row">
-                              <span class="sys-label">職業模板</span>
-                              <select class="sys-select" id="sys-hero-type">
-                                    ${HEROES.map((hero) => {
-                                          const selected = account.currentHeroType === hero.type ? 'selected' : '';
-                                          return `<option value="${hero.type}" ${selected}>${this._escapeHtml(this._heroLabel(hero))}</option>`;
-                                    }).join('')}
-                              </select>
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Hero Template</div>
+                                    <div class="sys-card-title">角色模板</div>
+                                    ${canSwitchHero ? `
+                                          <div class="sys-row sys-row-stack">
+                                                <span class="sys-label">職業模板</span>
+                                                <select class="sys-select" id="sys-hero-type">
+                                                      ${HEROES.map((hero) => {
+                                                            const selected = account.currentHeroType === hero.type ? 'selected' : '';
+                                                            return `<option value="${hero.type}" ${selected}>${this._escapeHtml(this._heroLabel(hero))}</option>`;
+                                                      }).join('')}
+                                                </select>
+                                          </div>
+                                          <div class="sys-btn-group">
+                                                <button class="sys-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary" id="sys-hero-apply">套用職業（重開生效）</button>
+                                          </div>
+                                    ` : '<div class="sys-card-note">目前未啟用職業切換。</div>'}
+                              </section>
+
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Service Boundary</div>
+                                    <div class="sys-card-title">後續服務邊界</div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">社交服務</span>
+                                          <span class="sys-info">${this._escapeHtml(account.socialNote ?? '本機模式，尚未上線')}</span>
+                                    </div>
+                                    <div class="sys-row">
+                                          <span class="sys-label">房間服務</span>
+                                          <span class="sys-info">${this._escapeHtml(account.roomNote ?? '本機模式，尚未上線')}</span>
+                                    </div>
+                                    <div class="sys-btn-group">
+                                          <button class="sys-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary" id="sys-social-preview">社交預覽</button>
+                                    </div>
+                              </section>
+
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Save Flow</div>
+                                    <div class="sys-card-title">存檔管理</div>
+                                    <div class="sys-card-copy">本機快照會覆蓋目前進度，讀取前請先確認狀態。</div>
+                                    <div class="sys-btn-group">
+                                          <button class="sys-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-primary" id="sys-save">儲存進度</button>
+                                          <button class="sys-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-secondary" id="sys-load">讀取進度</button>
+                                    </div>
+                              </section>
+
+                              <section class="sys-card sys-card-danger">
+                                    <div class="atlas-kicker">Danger Zone</div>
+                                    <div class="sys-card-title">重置所有資料</div>
+                                    <div class="sys-card-copy">這會清除本機角色、寵物、背包與進度，而且不可復原。</div>
+                                    <div class="sys-btn-group">
+                                          <button class="sys-btn rpg-op-btn rpg-op-btn-md rpg-op-btn-danger" id="sys-reset">重置所有資料</button>
+                                    </div>
+                              </section>
                         </div>
-                        <div class="sys-btn-group">
-                              <button class="sys-btn btn-gold" id="sys-hero-apply">套用職業（重開生效）</button>
-                        </div>
-                  ` : '<div class="sys-danger-note">目前未啟用職業切換。</div>'}
-
-                  <div class="sys-section-header">🧭 後續服務邊界</div>
-                  <div class="sys-row">
-                        <span class="sys-label">社交服務</span>
-                        <span class="sys-info">${this._escapeHtml(account.socialNote ?? '本機模式，尚未上線')}</span>
                   </div>
-                  <div class="sys-row">
-                        <span class="sys-label">房間服務</span>
-                        <span class="sys-info">${this._escapeHtml(account.roomNote ?? '本機模式，尚未上線')}</span>
-                  </div>
-                  <div class="sys-btn-group">
-                        <button class="sys-btn" id="sys-social-preview">社交預覽</button>
-                  </div>
-
-                  <div class="sys-section-header">💾 存檔管理</div>
-                  <div class="sys-btn-group">
-                        <button class="sys-btn btn-gold" id="sys-save">儲存進度</button>
-                        <button class="sys-btn" id="sys-load">讀取進度</button>
-                  </div>
-
-                  <div class="sys-section-header">⚠ 危險操作</div>
-                  <div class="sys-btn-group">
-                        <button class="sys-btn sys-btn-danger" id="sys-reset">重置所有資料</button>
-                  </div>
-                  <div class="sys-danger-note">重置會清除本機資料，且不可復原。</div>
             `;
 
             if (canSwitchHero) {
@@ -304,77 +373,99 @@ export class SystemPanel {
             const unassigned = Array.isArray(runtime.unassignedSourceTables) ? runtime.unassignedSourceTables : [];
             const missing = Array.isArray(runtime.assignedButMissingSourceTables) ? runtime.assignedButMissingSourceTables : [];
             const outputRows = Object.entries(outputs).sort((a, b) => a[0].localeCompare(b[0], 'zh-Hant'));
+            const builtAt = String(DATA_HEALTH.builtAt ?? '').trim();
 
             body.innerHTML = `
-                  <div class="sys-section-header">📊 資料健康（唯讀）</div>
-                  <div class="sys-health-grid">
-                        <div class="sys-health-card">
-                              <div class="sys-health-label">Validation</div>
-                              <div class="sys-health-value">${Number(validation.passedChecks ?? 0)}/${Number(validation.totalChecks ?? 0)}</div>
-                              <div class="sys-health-sub">通過檢查</div>
+                  <div class="atlas-shell sys-shell">
+                        <div class="sys-health-grid">
+                              <div class="sys-health-card">
+                                    <div class="sys-health-label">Validation</div>
+                                    <div class="sys-health-value">${Number(validation.passedChecks ?? 0)}/${Number(validation.totalChecks ?? 0)}</div>
+                                    <div class="sys-health-sub">通過檢查</div>
+                              </div>
+                              <div class="sys-health-card">
+                                    <div class="sys-health-label">Raw Ref</div>
+                                    <div class="sys-health-value">${Number(validation.rawInvalidRefsTotal ?? 0)}</div>
+                                    <div class="sys-health-sub">原始缺參照</div>
+                              </div>
+                              <div class="sys-health-card">
+                                    <div class="sys-health-label">Effective Ref</div>
+                                    <div class="sys-health-value">${Number(validation.invalidRefsTotal ?? 0)}</div>
+                                    <div class="sys-health-sub">生效錯誤</div>
+                              </div>
+                              <div class="sys-health-card">
+                                    <div class="sys-health-label">Suppressed</div>
+                                    <div class="sys-health-value">${Number(validation.suppressedByRuntimeRepairsTotal ?? validation.suppressedByOverridesTotal ?? 0)}</div>
+                                    <div class="sys-health-sub">資料修復補齊</div>
+                              </div>
                         </div>
-                        <div class="sys-health-card">
-                              <div class="sys-health-label">Raw Ref</div>
-                              <div class="sys-health-value">${Number(validation.rawInvalidRefsTotal ?? 0)}</div>
-                              <div class="sys-health-sub">原始缺參照</div>
-                        </div>
-                        <div class="sys-health-card">
-                              <div class="sys-health-label">Effective Ref</div>
-                              <div class="sys-health-value">${Number(validation.invalidRefsTotal ?? 0)}</div>
-                              <div class="sys-health-sub">生效錯誤</div>
-                        </div>
-                        <div class="sys-health-card">
-                              <div class="sys-health-label">Suppressed</div>
-                              <div class="sys-health-value">${Number(validation.suppressedByRuntimeRepairsTotal ?? validation.suppressedByOverridesTotal ?? 0)}</div>
-                              <div class="sys-health-sub">資料修復補齊</div>
-                        </div>
-                  </div>
 
-                  <div class="sys-section-header">🧭 Runtime 摘要</div>
-                  <div class="sys-row"><span class="sys-label">來源表數量</span><span class="sys-info">${Number(runtime.sourceTableCount ?? 0)}</span></div>
-                  <div class="sys-row"><span class="sys-label">資料指紋</span><span class="sys-info">${this._escapeHtml(digestShort)}</span></div>
-                  <div class="sys-row"><span class="sys-label">未分派來源表</span><span class="sys-info">${unassigned.length}</span></div>
-                  <div class="sys-row"><span class="sys-label">分派缺失來源表</span><span class="sys-info">${missing.length}</span></div>
+                        <div class="sys-grid sys-grid-data">
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Runtime Snapshot</div>
+                                    <div class="sys-card-title">Runtime 摘要</div>
+                                    <div class="sys-row"><span class="sys-label">來源表數量</span><span class="sys-info">${Number(runtime.sourceTableCount ?? 0)}</span></div>
+                                    <div class="sys-row"><span class="sys-label">資料指紋</span><span class="sys-info">${this._escapeHtml(digestShort)}</span></div>
+                                    <div class="sys-row"><span class="sys-label">未分派來源表</span><span class="sys-info">${unassigned.length}</span></div>
+                                    <div class="sys-row"><span class="sys-label">分派缺失來源表</span><span class="sys-info">${missing.length}</span></div>
+                                    <div class="sys-row"><span class="sys-label">建置時間</span><span class="sys-info">${this._escapeHtml(builtAt || '未知')}</span></div>
+                              </section>
 
-                  <div class="sys-section-header">🧩 輸出統計</div>
-                  <div class="sys-health-table">
-                        <div class="sys-health-head"><span>輸出</span><span>重點統計</span></div>
-                        ${outputRows.length > 0
-                              ? outputRows.map(([name, stats]) => {
-                                    const statText = Object.entries(stats ?? {})
-                                          .slice(0, 4)
-                                          .map(([k, v]) => `${k}=${v}`)
-                                          .join(' · ');
-                                    return `
-                                          <div class="sys-health-row">
-                                                <span class="sys-health-out">${this._escapeHtml(name)}</span>
-                                                <span class="sys-health-stat">${this._escapeHtml(statText || '-')}</span>
-                                          </div>
-                                    `;
-                              }).join('')
-                              : '<div class="sys-health-row"><span class="sys-health-out">-</span><span class="sys-health-stat">尚無資料</span></div>'}
+                              <section class="sys-card sys-card-table">
+                                    <div class="atlas-kicker">Outputs</div>
+                                    <div class="sys-card-title">輸出統計</div>
+                                    <div class="sys-health-table">
+                                          <div class="sys-health-head"><span>輸出</span><span>重點統計</span></div>
+                                          ${outputRows.length > 0
+                                                ? outputRows.map(([name, stats]) => {
+                                                      const statText = Object.entries(stats ?? {})
+                                                            .slice(0, 4)
+                                                            .map(([k, v]) => `${k}=${v}`)
+                                                            .join(' · ');
+                                                      return `
+                                                            <div class="sys-health-row">
+                                                                  <span class="sys-health-out">${this._escapeHtml(name)}</span>
+                                                                  <span class="sys-health-stat">${this._escapeHtml(statText || '-')}</span>
+                                                            </div>
+                                                      `;
+                                                }).join('')
+                                                : '<div class="sys-health-row"><span class="sys-health-out">-</span><span class="sys-health-stat">尚無資料</span></div>'}
+                                    </div>
+                              </section>
+                        </div>
                   </div>
             `;
       }
 
       private _renderAboutTab(body: HTMLDivElement): void {
             body.innerHTML = `
-                  <div class="sys-about-hero">
-                        <div class="sys-about-title">Fantasy Pet Online</div>
-                        <div class="sys-about-subtitle">Local-first Babylon.js pet RPG</div>
-                        <div class="sys-about-version">v0.9.0 · runtime-aligned</div>
+                  <div class="atlas-shell sys-shell">
+                        <section class="sys-card sys-card-hero">
+                              <div class="atlas-kicker">About</div>
+                              <div class="sys-about-title">Fantasy Pet Online</div>
+                              <div class="sys-about-subtitle">Local-first Babylon.js pet RPG</div>
+                              <div class="sys-about-version">v0.9.0 · runtime-aligned</div>
+                              <div class="sys-card-note">本頁只呈現目前已落地能力，不再偽裝成已上線的 live service。</div>
+                        </section>
+                        <div class="sys-grid">
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Boundary</div>
+                                    <div class="sys-card-title">目前邊界</div>
+                                    <div class="sys-credits">
+                                          <div class="sys-credit-row"><span class="sys-credit-role">存檔</span><span class="sys-credit-name">Versioned local DTO</span></div>
+                                          <div class="sys-credit-row"><span class="sys-credit-role">帳號</span><span class="sys-credit-name">Local adapter only</span></div>
+                                          <div class="sys-credit-row"><span class="sys-credit-role">社交 / 房間</span><span class="sys-credit-name">Reserved service interfaces</span></div>
+                                    </div>
+                              </section>
+                              <section class="sys-card">
+                                    <div class="atlas-kicker">Project</div>
+                                    <div class="sys-card-title">專案入口</div>
+                                    <div class="sys-links">
+                                          <a href="https://github.com/kachun2021/RPGPRO-01" target="_blank" class="sys-link">GitHub Repository</a>
+                                    </div>
+                              </section>
+                        </div>
                   </div>
-                  <div class="sys-section-header">🧱 目前邊界</div>
-                  <div class="sys-credits">
-                        <div class="sys-credit-row"><span class="sys-credit-role">存檔</span><span class="sys-credit-name">Versioned local DTO</span></div>
-                        <div class="sys-credit-row"><span class="sys-credit-role">帳號</span><span class="sys-credit-name">Local adapter only</span></div>
-                        <div class="sys-credit-row"><span class="sys-credit-role">社交 / 房間</span><span class="sys-credit-name">Reserved service interfaces</span></div>
-                  </div>
-                  <div class="sys-section-header">🔗 專案</div>
-                  <div class="sys-links">
-                        <a href="https://github.com/kachun2021/RPGPRO-01" target="_blank" class="sys-link">GitHub Repository</a>
-                  </div>
-                  <div class="sys-about-footer">本頁僅呈現目前已落地能力，不再偽裝成已上線的 live service。</div>
             `;
       }
 
@@ -414,7 +505,14 @@ export class SystemPanel {
       }
 
       private _heroLabel(hero: RuntimeHeroTemplate): string {
-            return `${hero.name}（Type ${hero.type}）`;
+            return `${hero.name} · Type ${hero.type}`;
+      }
+
+      private _getAccountView(): SystemPanelAccountView {
+            return this._callbacks.getAccountView?.() ?? {
+                  uid: 'FPO-LOCAL',
+                  storageLabel: '本機單機資料',
+            };
       }
 
       private _showToast(message: string, isError = false): void {

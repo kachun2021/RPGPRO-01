@@ -23,17 +23,22 @@
         { "x": 0, "z": 94 }
       ],
       "roads": [
-        { "x": 0, "z": 12, "width": 18, "depth": 82, "rotationDeg": 0 },
-        { "x": 0, "z": -34, "width": 72, "depth": 16, "rotationDeg": 0 }
+        { "x": 0, "z": 18, "width": 14, "depth": 96, "rotationDeg": 0 },
+        { "x": 0, "z": -32, "width": 78, "depth": 18, "rotationDeg": 0 },
+        { "x": -22, "z": -6, "width": 26, "depth": 10, "rotationDeg": 0 },
+        { "x": 22, "z": -4, "width": 26, "depth": 10, "rotationDeg": 0 }
       ],
       "obstacles": [
-        { "x": -58, "z": 6, "width": 10, "depth": 34, "height": 5 },
-        { "x": 58, "z": 6, "width": 10, "depth": 34, "height": 5 }
+        { "x": -60, "z": 12, "width": 12, "depth": 42, "height": 6 },
+        { "x": 60, "z": 12, "width": 12, "depth": 42, "height": 6 }
       ],
       "landmarks": [
-        { "kind": "monolith", "x": -42, "z": -34, "scale": 1.0 },
-        { "kind": "tree", "x": -24, "z": -4, "scale": 1.1 },
-        { "kind": "tree", "x": 26, "z": -2, "scale": 1.1 }
+        { "kind": "monolith", "x": -46, "z": -36, "scale": 1.0 },
+        { "kind": "pillar", "x": -11, "z": 12, "scale": 1.05 },
+        { "kind": "pillar", "x": 11, "z": 12, "scale": 1.05 },
+        { "kind": "tree", "x": -28, "z": -6, "scale": 1.2 },
+        { "kind": "tree", "x": 30, "z": -4, "scale": 1.2 },
+        { "kind": "crystal", "x": 0, "z": 44, "scale": 0.95 }
       ]
     },
     "misty_forest": {
@@ -50,16 +55,23 @@
       ],
       "bossPocket": { "x": 0, "z": 86, "radius": 18 },
       "roads": [
-        { "x": 0, "z": 8, "width": 16, "depth": 110, "rotationDeg": 0 }
+        { "x": 0, "z": 10, "width": 15, "depth": 118, "rotationDeg": 0 },
+        { "x": 0, "z": 44, "width": 44, "depth": 12, "rotationDeg": 0 }
       ],
       "obstacles": [
-        { "x": -20, "z": 34, "width": 14, "depth": 14, "height": 7 },
-        { "x": 22, "z": 56, "width": 16, "depth": 12, "height": 7 }
+        { "x": -30, "z": 36, "width": 18, "depth": 14, "height": 8 },
+        { "x": 28, "z": 56, "width": 18, "depth": 14, "height": 8 },
+        { "x": -58, "z": 18, "width": 10, "depth": 18, "height": 6 },
+        { "x": 58, "z": 26, "width": 10, "depth": 18, "height": 6 }
       ],
       "landmarks": [
+        { "kind": "tree", "x": -16, "z": -2, "scale": 1.2 },
+        { "kind": "tree", "x": 18, "z": 2, "scale": 1.2 },
         { "kind": "tree", "x": -64, "z": 14, "scale": 1.6 },
-        { "kind": "tree", "x": 62, "z": 26, "scale": 1.5 },
-        { "kind": "crystal", "x": 0, "z": 68, "scale": 1.1 }
+        { "kind": "tree", "x": 66, "z": 28, "scale": 1.5 },
+        { "kind": "pillar", "x": -12, "z": 44, "scale": 1.0 },
+        { "kind": "pillar", "x": 12, "z": 44, "scale": 1.0 },
+        { "kind": "crystal", "x": 0, "z": 70, "scale": 1.2 }
       ]
     },
     "ancient_ruins": {

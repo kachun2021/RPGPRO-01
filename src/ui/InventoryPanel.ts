@@ -19,10 +19,11 @@ const SLOT_LABELS: Record<EquipSlot, string> = {
       bracelet: '鐲', bracelet2: '鐲',
 };
 
-const SLOT_ICONS: Record<EquipSlot, string> = {
-      head: '🪖', armor: '🛡️', weapon: '⚔️', boots: '👢',
-      gloves: '🧤', ring: '💎', ring2: '💎', necklace: '📿',
-      bracelet: '⭕', bracelet2: '⭕',
+const SLOT_MARKS: Record<EquipSlot, string> = {
+      head: '頭', armor: '鎧', weapon: '武',
+      boots: '靴', gloves: '手', ring: '戒',
+      ring2: '戒II', necklace: '項', bracelet: '鐲',
+      bracelet2: '鐲II',
 };
 
 const EQUIP_SLOT_ORDER: EquipSlot[] = [
@@ -34,12 +35,15 @@ const EQUIP_SLOT_ORDER: EquipSlot[] = [
 ];
 
 type Tab = 'equipment' | 'consumable' | 'material' | 'quest';
-const TAB_LABELS: { id: Tab; label: string; icon: string }[] = [
-      { id: 'equipment', label: '裝備', icon: '🛡️' },
-      { id: 'consumable', label: '消耗', icon: '🧪' },
-      { id: 'material', label: '材料', icon: '⛏️' },
-      { id: 'quest', label: '任務', icon: '📜' },
+const TAB_LABELS: Array<{ id: Tab; label: string; emptyTitle: string; emptyText: string }> = [
+      { id: 'equipment', label: '裝備', emptyTitle: '目前沒有備用裝備', emptyText: '先去狩獵或商店補齊武器與防具，再回來調整配裝。' },
+      { id: 'consumable', label: '消耗', emptyTitle: '消耗品還沒入庫', emptyText: '藥水、捲軸與補給品會集中在這裡，方便戰鬥前快速整理。' },
+      { id: 'material', label: '材料', emptyTitle: '材料欄目前是空的', emptyText: '分解、採集與掉落素材會在這裡累積，之後可用於製作與強化。' },
+      { id: 'quest', label: '任務', emptyTitle: '尚未持有任務道具', emptyText: '與 NPC 對話或推進主線後，任務相關道具會顯示在這一頁。' },
 ];
+
+const EQUIP_LEFT_COLUMN: EquipSlot[] = ['weapon', 'head', 'armor', 'gloves', 'boots'];
+const EQUIP_RIGHT_COLUMN: EquipSlot[] = ['necklace', 'ring', 'ring2', 'bracelet', 'bracelet2'];
 
 /**
  * InventoryPanel — Combined Equipment + Items (庫存).
@@ -107,7 +111,7 @@ export class InventoryPanel {
             // Title
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = `🎒 庫存`;
+            title.innerHTML = '裝備與背包';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
@@ -120,6 +124,12 @@ export class InventoryPanel {
 
             const top = document.createElement('section');
             top.className = 'inv2-top';
+            const tabCounts = {
+                  equipment: this._inventory.getByTab('equipment').length,
+                  consumable: this._inventory.getByTab('consumable').length,
+                  material: this._inventory.getByTab('material').length,
+                  quest: this._inventory.getByTab('quest').length,
+            } satisfies Record<Tab, number>;
 
             const mkSlot = (key: EquipSlot): HTMLButtonElement => {
                   const c = document.createElement('button');
@@ -128,50 +138,84 @@ export class InventoryPanel {
                   c.title = SLOT_LABELS[key];
                   const eq = this._equipSystem.getSlot(key);
                   if (eq) {
-                        c.classList.add('inv2-eq-filled');
-                        c.innerHTML = `<span class="inv2-eq-icon">${eq.icon}</span>${eq.enhanceLevel > 0 ? `<span class="inv2-eq-enhance">+${eq.enhanceLevel}</span>` : ''}<span class="inv2-eq-label">${SLOT_LABELS[key]}</span>`;
+                        c.classList.add('inv2-eq-filled', RARITY_CLASS[eq.rarity]);
+                        c.innerHTML = `
+                              <span class="inv2-slot-badge">${SLOT_MARKS[key]}</span>
+                              <span class="inv2-eq-copy">
+                                    <span class="inv2-eq-title">${SLOT_LABELS[key]}</span>
+                                    <span class="inv2-eq-item">${this._escapeHtml(eq.name)}</span>
+                              </span>
+                              <span class="inv2-eq-state">${eq.enhanceLevel > 0 ? `+${eq.enhanceLevel}` : '已裝備'}</span>
+                        `;
                         c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipActions(eq, key); });
                   } else {
-                        c.innerHTML = `<span class="inv2-eq-ghost">${SLOT_ICONS[key]}</span><span class="inv2-eq-label">${SLOT_LABELS[key]}</span>`;
+                        c.innerHTML = `
+                              <span class="inv2-slot-badge is-empty">${SLOT_MARKS[key]}</span>
+                              <span class="inv2-eq-copy">
+                                    <span class="inv2-eq-title">${SLOT_LABELS[key]}</span>
+                                    <span class="inv2-eq-item is-empty">點擊裝備</span>
+                              </span>
+                              <span class="inv2-eq-state is-empty">待裝備</span>
+                        `;
                         c.addEventListener('click', (e) => { e.stopPropagation(); this._showEquipList(key); });
                   }
                   return c;
             };
 
-            const equipCol = document.createElement('section');
-            equipCol.className = 'inv2-top-panel inv2-top-panel-equip';
-            const equipTitle = document.createElement('div');
-            equipTitle.className = 'inv2-sec-title';
-            equipTitle.textContent = '裝備欄';
-            const equipGrid = document.createElement('div');
-            equipGrid.className = 'inv2-equip-grid';
-            for (const slot of EQUIP_SLOT_ORDER) equipGrid.appendChild(mkSlot(slot));
-            equipCol.appendChild(equipTitle);
-            equipCol.appendChild(equipGrid);
-            top.appendChild(equipCol);
-
-            const charCol = document.createElement('section');
-            charCol.className = 'inv2-top-panel inv2-top-panel-char';
-            charCol.innerHTML = `
-                  <div class="inv2-sec-title">角色</div>
-                  <div class="inv2-char-preview">👤</div>
-                  <div class="inv2-char-meta">Lv.${Math.max(1, Math.floor(this._playerStats.level || 1))}</div>
-            `;
-            top.appendChild(charCol);
-
             const statsTotal = this._equipSystem.getTotalStats();
             const setBonuses = this._equipSystem.getSetBonuses();
+            const equippedCount = EQUIP_SLOT_ORDER.reduce((count, slot) => count + (this._equipSystem.getSlot(slot) ? 1 : 0), 0);
+            const activeSetText = setBonuses.length > 0
+                  ? setBonuses.map((bonus) => `${bonus.set.name} ${bonus.count} 件`).join(' · ')
+                  : '尚未湊齊套裝效果';
+
+            const equipCol = document.createElement('section');
+            equipCol.className = 'inv2-top-panel inv2-top-panel-board atlas-card';
+            equipCol.innerHTML = `
+                  <div class="inv2-sec-title">Equipment Board</div>
+                  <div class="inv2-board">
+                        <div class="inv2-board-column inv2-board-column-left"></div>
+                        <div class="inv2-board-core">
+                              <div class="inv2-board-avatar">${this._playerMark()}</div>
+                              <div class="inv2-board-level">Lv.${Math.max(1, Math.floor(this._playerStats.level || 1))}</div>
+                              <div class="inv2-board-title">主裝備板</div>
+                              <div class="inv2-board-note">已裝備 ${equippedCount}/${EQUIP_SLOT_ORDER.length} 格 · ${this._escapeHtml(activeSetText)}</div>
+                              <div class="inv2-board-stats">
+                                    <div class="inv2-board-stat"><span>攻擊</span><strong>${statsTotal.atk}</strong></div>
+                                    <div class="inv2-board-stat"><span>防禦</span><strong>${statsTotal.def}</strong></div>
+                                    <div class="inv2-board-stat"><span>HP</span><strong>${this._playerStats.hp}/${this._playerStats.maxHp}</strong></div>
+                                    <div class="inv2-board-stat"><span>MP</span><strong>${this._playerStats.mp}/${this._playerStats.maxMp}</strong></div>
+                              </div>
+                        </div>
+                        <div class="inv2-board-column inv2-board-column-right"></div>
+                  </div>
+            `;
+            const leftColumn = equipCol.querySelector('.inv2-board-column-left') as HTMLDivElement | null;
+            const rightColumn = equipCol.querySelector('.inv2-board-column-right') as HTMLDivElement | null;
+            EQUIP_LEFT_COLUMN.forEach((slot) => leftColumn?.appendChild(mkSlot(slot)));
+            EQUIP_RIGHT_COLUMN.forEach((slot) => rightColumn?.appendChild(mkSlot(slot)));
+            top.appendChild(equipCol);
+
             const quickCol = document.createElement('section');
-            quickCol.className = 'inv2-top-panel inv2-top-panel-quick';
+            quickCol.className = 'inv2-top-panel inv2-top-panel-quick atlas-card';
             quickCol.innerHTML = `
-                  <div class="inv2-sec-title">快速屬性</div>
+                  <div class="inv2-sec-title">Loadout Summary</div>
                   <div class="inv2-quick-grid">
-                        <div class="inv2-quick-row"><span>攻擊</span><b>${statsTotal.atk}</b></div>
-                        <div class="inv2-quick-row"><span>防禦</span><b>${statsTotal.def}</b></div>
-                        <div class="inv2-quick-row"><span>HP</span><b>${this._playerStats.hp}/${this._playerStats.maxHp}</b></div>
-                        <div class="inv2-quick-row"><span>MP</span><b>${this._playerStats.mp}/${this._playerStats.maxMp}</b></div>
-                        <div class="inv2-quick-row"><span>背包項目</span><b>${this._inventory.count}</b></div>
-                        <div class="inv2-quick-row"><span>套裝效果</span><b>${setBonuses.length > 0 ? `${setBonuses.length} 組` : '無'}</b></div>
+                        <div class="inv2-quick-row"><span>備用裝備</span><b>${tabCounts.equipment}</b></div>
+                        <div class="inv2-quick-row"><span>消耗品</span><b>${tabCounts.consumable}</b></div>
+                        <div class="inv2-quick-row"><span>材料</span><b>${tabCounts.material}</b></div>
+                        <div class="inv2-quick-row"><span>任務道具</span><b>${tabCounts.quest}</b></div>
+                  </div>
+                  <div class="inv2-side-block">
+                        <div class="inv2-side-title">套裝與備註</div>
+                        <div class="inv2-side-copy">${setBonuses.length > 0
+                              ? this._escapeHtml(setBonuses.map((bonus) => `${bonus.set.name}: ${bonus.activeEffects.join(' / ')}`).join(' · '))
+                              : '先把主武器、防具與飾品補齊，再追求套裝加成。'}
+                        </div>
+                  </div>
+                  <div class="inv2-side-block">
+                        <div class="inv2-side-title">背包總量</div>
+                        <div class="inv2-side-copy">目前共 ${this._inventory.count} 項物品，金幣 ${this._inventory.gold.toLocaleString()} GP。</div>
                   </div>
             `;
             top.appendChild(quickCol);
@@ -188,7 +232,10 @@ export class InventoryPanel {
                   const btn = document.createElement('button');
                   btn.className = 'inv-tab';
                   if (t.id === this._currentTab) btn.classList.add('inv-tab-active');
-                  btn.textContent = `${t.icon} ${t.label}`;
+                  btn.innerHTML = `
+                        <span class="inv-tab-label">${t.label}</span>
+                        <span class="inv-tab-count">${tabCounts[t.id]}</span>
+                  `;
                   btn.addEventListener('click', () => {
                         this._currentTab = t.id;
                         this._page = 0;
@@ -206,28 +253,41 @@ export class InventoryPanel {
             const pageStart = this._page * slotsPerPage;
             const items = allItems.slice(pageStart, pageStart + slotsPerPage);
             const itemColumns = this._isPhoneLandscapeMode() ? 10 : 8;
+            const renderSlots = this._getRenderSlotCount(items.length, itemColumns, slotsPerPage);
 
             const itemGrid = document.createElement('div');
             itemGrid.className = 'inv2-item-grid';
             itemGrid.style.setProperty('--inv2-item-cols', String(itemColumns));
-            for (let i = 0; i < slotsPerPage; i++) {
-                  const slot = document.createElement('div');
-                  slot.className = 'inv2-item-slot';
-                  if (i < items.length) {
-                        const item = items[i];
-                        slot.classList.add('inv2-item-filled');
-                        slot.classList.add(RARITY_CLASS[item.rarity]);
-                        slot.innerHTML = `
-                              <span class="inv2-item-icon">${item.icon}</span>
-                              <span class="inv2-item-name">${item.name}</span>
-                              ${item.qty > 1 ? `<span class="inv2-item-qty">×${item.qty}</span>` : ''}
-                        `;
-                        slot.addEventListener('click', (e) => {
-                              e.stopPropagation();
-                              this._showTooltip(item, e);
-                        });
+            if (allItems.length === 0) {
+                  itemGrid.classList.add('is-empty');
+                  const currentTab = TAB_LABELS.find((tab) => tab.id === this._currentTab);
+                  itemGrid.innerHTML = `
+                        <div class="inv2-empty-state">
+                              <span class="inv2-empty-kicker">Empty Pocket</span>
+                              <strong>${this._escapeHtml(currentTab?.emptyTitle ?? '目前沒有物品')}</strong>
+                              <p>${this._escapeHtml(currentTab?.emptyText ?? '回到世界探索後再回來整理。')}</p>
+                        </div>
+                  `;
+            } else {
+                  for (let i = 0; i < renderSlots; i++) {
+                        const slot = document.createElement('div');
+                        slot.className = 'inv2-item-slot';
+                        if (i < items.length) {
+                              const item = items[i];
+                              slot.classList.add('inv2-item-filled');
+                              slot.classList.add(RARITY_CLASS[item.rarity]);
+                              slot.innerHTML = `
+                                    <span class="inv2-item-icon">${item.icon}</span>
+                                    <span class="inv2-item-name">${item.name}</span>
+                                    ${item.qty > 1 ? `<span class="inv2-item-qty">×${item.qty}</span>` : ''}
+                              `;
+                              slot.addEventListener('click', (e) => {
+                                    e.stopPropagation();
+                                    this._showTooltip(item, e);
+                              });
+                        }
+                        itemGrid.appendChild(slot);
                   }
-                  itemGrid.appendChild(slot);
             }
             bottom.appendChild(itemGrid);
 
@@ -258,7 +318,7 @@ export class InventoryPanel {
             pageNav.appendChild(nextBtn);
             const gold = document.createElement('div');
             gold.className = 'inv2-gold-bar';
-            gold.innerHTML = `💰 <span class="inv2-gold-val">${this._inventory.gold.toLocaleString()}</span> <span class="inv2-gold-label">GP</span>`;
+            gold.innerHTML = `<span class="inv2-gold-label">GP</span><span class="inv2-gold-val">${this._inventory.gold.toLocaleString()}</span>`;
 
             bottomBar.appendChild(summary);
             bottomBar.appendChild(pageNav);
@@ -283,6 +343,15 @@ export class InventoryPanel {
             return this._isPhoneLandscapeMode() ? 20 : 24;
       }
 
+      private _getRenderSlotCount(itemCount: number, columns: number, maxSlots: number): number {
+            const safeColumns = Math.max(1, columns);
+            const minSlots = Math.min(maxSlots, safeColumns * 2);
+            if (itemCount <= 0) return minSlots;
+            const neededRows = Math.ceil(itemCount / safeColumns);
+            const visibleRows = Math.max(2, Math.min(neededRows, Math.ceil(maxSlots / safeColumns)));
+            return Math.min(maxSlots, visibleRows * safeColumns);
+      }
+
       private _hideTooltip(): void {
             this._tooltip.classList.remove('is-visible', 'is-centered', 'is-follow-pointer');
       }
@@ -300,11 +369,11 @@ export class InventoryPanel {
                   <div class="inv-tt-rarity">強化 +${equip.enhanceLevel + 1} 成功率: ${Math.round(rate * 100)}% | 費用: ${cost}💰</div>
                   <div class="inv-tt-protect">
                         <label><input type="checkbox" id="enh-protect" ${hasProtect ? '' : 'disabled'}>
-                        🛡️ 使用保護卷${hasProtect ? '' : ' (無)'}</label>
+                        使用保護卷${hasProtect ? '' : ' (無)'}</label>
                   </div>
                   <div class="inv-tt-actions">
-                        <button class="inv-tt-btn inv2-enhance-btn btn-gold"${equip.enhanceLevel >= 10 ? ' disabled' : ''}>⬆️ 強化</button>
-                        <button class="inv-tt-btn inv2-unequip-btn">↩️ 卸下</button>
+                        <button class="inv-tt-btn inv2-enhance-btn btn-gold"${equip.enhanceLevel >= 10 ? ' disabled' : ''}>強化</button>
+                        <button class="inv-tt-btn inv2-unequip-btn">卸下</button>
                   </div>
             `;
             this._tooltip.classList.remove('is-follow-pointer');
@@ -312,19 +381,19 @@ export class InventoryPanel {
 
             this._tooltip.querySelector('.inv2-enhance-btn')?.addEventListener('click', () => {
                   if (!this._inventory.spendGold(cost)) {
-                        this._showFeedback('❌ 金幣不足', 'error');
+                        this._showFeedback('金幣不足', 'error');
                         return;
                   }
                   const useProtect = (this._tooltip.querySelector('#enh-protect') as HTMLInputElement)?.checked ?? false;
                   if (useProtect) this._inventory.removeItem('protect_scroll', 1);
                   const result = this._enhanceSystem.enhance(equip, useProtect);
                   if (result.success) {
-                        this._showFeedback(`✅ 強化成功！+${result.newLevel}`, 'success');
+                        this._showFeedback(`強化成功 +${result.newLevel}`, 'success');
                         this._el.classList.add('enhance-flash');
                         setTimeout(() => this._el.classList.remove('enhance-flash'), 400);
                   } else {
                         this._showFeedback(
-                              result.protected ? `🛡️ 保護生效！維持 +${result.newLevel}` : `❌ 強化失敗 → +${result.newLevel}`,
+                              result.protected ? `保護生效，維持 +${result.newLevel}` : `強化失敗，降至 +${result.newLevel}`,
                               result.protected ? 'info' : 'error',
                         );
                         this._el.classList.add('enhance-shake');
@@ -415,13 +484,13 @@ export class InventoryPanel {
             let actionsHtml = '';
             if (isEquipment) {
                   actionsHtml = `
-                        <button class="inv-tt-btn btn-gold inv-equip-btn">⚔️ 裝備</button>
-                        <button class="inv-tt-btn inv-decompose-btn">🔨 分解</button>
+                        <button class="inv-tt-btn btn-gold inv-equip-btn">裝備</button>
+                        <button class="inv-tt-btn inv-decompose-btn">分解</button>
                         <button class="inv-tt-btn inv-discard-btn">丟棄</button>
                   `;
             } else if (isConsumable) {
                   actionsHtml = `
-                        <button class="inv-tt-btn btn-gold inv-use-btn">🧪 使用</button>
+                        <button class="inv-tt-btn btn-gold inv-use-btn">使用</button>
                         <button class="inv-tt-btn inv-discard-btn">丟棄</button>
                   `;
             } else {
@@ -471,7 +540,7 @@ export class InventoryPanel {
             this._tooltip.querySelector('.inv-use-btn')?.addEventListener('click', () => {
                   const effect = this._inventory.useItem(item.itemId, this._playerStats);
                   if (effect) {
-                        this._showFeedback(`✅ ${effect}`, 'success');
+                        this._showFeedback(effect, 'success');
                   }
                   this._hideTooltip();
                   this._render();
@@ -481,7 +550,7 @@ export class InventoryPanel {
             this._tooltip.querySelector('.inv-decompose-btn')?.addEventListener('click', () => {
                   const result = this._inventory.decomposeEquipment(item.itemId);
                   if (result) {
-                        this._showFeedback(`🔨 分解獲得 ${result.goldGained}💰 + ${result.materialName}`, 'gold');
+                        this._showFeedback(`分解獲得 ${result.goldGained} GP + ${result.materialName}`, 'gold');
                   }
                   this._hideTooltip();
                   this._render();
@@ -508,6 +577,20 @@ export class InventoryPanel {
                   };
                   document.addEventListener('mousedown', close);
             }, 200);
+      }
+
+      private _playerMark(): string {
+            const level = Math.max(1, Math.floor(this._playerStats.level || 1));
+            return `L${Math.min(level, 99).toString().padStart(2, '0')}`;
+      }
+
+      private _escapeHtml(value: string): string {
+            return value
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
       }
 
       toggle(): void { this._visible ? this.hide() : this.show(); }

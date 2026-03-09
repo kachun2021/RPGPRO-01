@@ -31,22 +31,36 @@ const NPC_TYPE_ICONS: Record<NPCType, string> = {
       merchant: '🛒', skill_master: '📖', quest: '❗', pet_trader: '🔄',
 };
 
+const NPC_TYPE_LABELS: Record<NPCType, string> = {
+      merchant: '補給商店',
+      skill_master: '技能導師',
+      quest: '主線任務',
+      pet_trader: '寵物交換',
+};
+
+const NPC_INTERACT_LABELS: Record<NPCType, string> = {
+      merchant: '購買補給',
+      skill_master: '學習技能',
+      quest: '接取任務',
+      pet_trader: '查看換寵',
+};
+
 /** All NPC definitions (no 合成師 — fusion is in UI) */
 export const NPC_DEFS: NPCDef[] = [
       {
-            id: 'npc_merchant', name: '商人 老王', type: 'merchant', position: new Vector3(5, 0, 3), color: NPC_TYPE_COLORS.merchant, zoneId: 'starter_meadow',
+            id: 'npc_merchant', name: '商人 老王', type: 'merchant', position: new Vector3(16, 0, -2), color: NPC_TYPE_COLORS.merchant, zoneId: 'starter_meadow',
             dialogue: ['歡迎光臨！', '新手先帶幾瓶 HP 藥水再出村，比較安全。', '買完補給再往草原前方練功吧。']
       },
       {
-            id: 'npc_skill_master', name: '技能導師 李風', type: 'skill_master', position: new Vector3(-5, 0, 8), color: NPC_TYPE_COLORS.skill_master, zoneId: 'starter_meadow',
+            id: 'npc_skill_master', name: '技能導師 李風', type: 'skill_master', position: new Vector3(-16, 0, 6), color: NPC_TYPE_COLORS.skill_master, zoneId: 'starter_meadow',
             dialogue: ['想學新技能嗎？', '你的開局技能已經配置好了，先熟悉戰鬥節奏。', '等你清完村長的委託，再來找我精進。']
       },
       {
-            id: 'npc_quest_01', name: '村長 趙伯', type: 'quest', position: new Vector3(3, 0, -5), color: NPC_TYPE_COLORS.quest, zoneId: 'starter_meadow',
+            id: 'npc_quest_01', name: '村長 趙伯', type: 'quest', position: new Vector3(0, 0, -14), color: NPC_TYPE_COLORS.quest, zoneId: 'starter_meadow',
             dialogue: ['冒險者你好！', '先接下委託，到前方草原清理 5 隻擾民怪物。', '藥水不夠就先去找商人老王補給，再回來報告。']
       },
       {
-            id: 'npc_pet_trader', name: '換寵商人 阿暗', type: 'pet_trader', position: new Vector3(-8, 0, -3), color: NPC_TYPE_COLORS.pet_trader, zoneId: 'starter_meadow',
+            id: 'npc_pet_trader', name: '換寵商人 阿暗', type: 'pet_trader', position: new Vector3(-14, 0, -14), color: NPC_TYPE_COLORS.pet_trader, zoneId: 'starter_meadow',
             dialogue: ['我收集稀有寵物！', '用你的寵物跟我交換吧！', '公平交易，絕不吃虧！']
       },
 ];
@@ -68,6 +82,8 @@ export class NPC {
       private _promptBubble!: HTMLDivElement;
       private _scene: Scene;
       private _inRange = false;
+      private _extraMeshes: Mesh[] = [];
+      private _materials: StandardMaterial[] = [];
 
       constructor(scene: Scene, def: NPCDef) {
             this._scene = scene;
@@ -81,7 +97,7 @@ export class NPC {
                   height: 2.2, radius: 0.4, tessellation: 12, subdivisions: 1,
             }, scene);
             this.mesh.parent = this.root;
-            this.mesh.position.y = 1.1;
+            this.mesh.position.y = 1.0;
             this.mesh.isPickable = true; // Enable click picking
             this.mesh.metadata = { npcId: def.id }; // Tag for click detection
 
@@ -90,6 +106,41 @@ export class NPC {
             mat.emissiveColor = def.color.scale(0.3);
             mat.specularColor = Color3.Black();
             this.mesh.material = mat;
+            this._materials.push(mat);
+
+            const head = MeshBuilder.CreateSphere(`npc_head_${def.id}`, {
+                  diameter: 0.72,
+                  segments: 10,
+            }, scene);
+            head.parent = this.root;
+            head.position.y = 2.08;
+            const headMat = new StandardMaterial(`npc_head_mat_${def.id}`, scene);
+            headMat.diffuseColor = new Color3(
+                  Math.min(1, def.color.r * 0.3 + 0.72),
+                  Math.min(1, def.color.g * 0.3 + 0.66),
+                  Math.min(1, def.color.b * 0.3 + 0.62),
+            );
+            headMat.specularColor = Color3.Black();
+            head.material = headMat;
+            this._materials.push(headMat);
+            this._extraMeshes.push(head);
+
+            const baseDisc = MeshBuilder.CreateCylinder(`npc_disc_${def.id}`, {
+                  diameter: 2.1,
+                  height: 0.05,
+                  tessellation: 20,
+            }, scene);
+            baseDisc.parent = this.root;
+            baseDisc.position.y = 0.03;
+            baseDisc.isPickable = false;
+            const baseMat = new StandardMaterial(`npc_disc_mat_${def.id}`, scene);
+            baseMat.diffuseColor = def.color.scale(0.85);
+            baseMat.emissiveColor = def.color.scale(0.35);
+            baseMat.alpha = 0.55;
+            baseMat.disableLighting = true;
+            baseDisc.material = baseMat;
+            this._materials.push(baseMat);
+            this._extraMeshes.push(baseDisc);
 
             this._createMarker();
             this._createPromptBubble();
@@ -99,7 +150,9 @@ export class NPC {
       private _createMarker(): void {
             this._marker = document.createElement('div');
             this._marker.className = 'npc-marker';
+            this._marker.dataset.npcType = this.def.type;
             this._marker.innerHTML = `
+                  <div class="npc-marker-role">${NPC_TYPE_LABELS[this.def.type]}</div>
                   <div class="npc-marker-icon">${NPC_TYPE_ICONS[this.def.type]}</div>
                   <div class="npc-marker-name">${this.def.name}</div>
             `;
@@ -110,7 +163,8 @@ export class NPC {
       private _createPromptBubble(): void {
             this._promptBubble = document.createElement('div');
             this._promptBubble.className = 'npc-prompt';
-            this._promptBubble.innerHTML = `💬 對話`;
+            this._promptBubble.dataset.npcType = this.def.type;
+            this._promptBubble.innerHTML = `${NPC_TYPE_ICONS[this.def.type]} ${NPC_INTERACT_LABELS[this.def.type]}`;
             this._promptBubble.classList.add('is-hidden', 'is-clickable');
             document.getElementById('ui-layer')?.appendChild(this._promptBubble);
       }
@@ -149,11 +203,11 @@ export class NPC {
             // Check range for prompt bubble
             const dx = this.root.position.x - playerPos.x;
             const dz = this.root.position.z - playerPos.z;
-            this._inRange = Math.sqrt(dx * dx + dz * dz) < 3.5;
+            this._inRange = Math.sqrt(dx * dx + dz * dz) < 4.25;
 
             if (this._inRange) {
                   // Show prompt bubble at NPC body level
-                  const bodyPos = this.root.position.add(new Vector3(0, 2.0, 0));
+                  const bodyPos = this.root.position.add(new Vector3(0, 2.25, 0));
                   const screenBody = Vector3.Project(bodyPos, Matrix.IdentityReadOnly, scene.getTransformMatrix(), viewport);
                   this._promptBubble.classList.remove('is-hidden');
                   this._promptBubble.style.left = `${screenBody.x}px`;
@@ -164,8 +218,10 @@ export class NPC {
       }
 
       dispose(): void {
+            for (const mesh of this._extraMeshes) mesh.dispose();
             this.mesh.dispose();
             this.root.dispose();
+            for (const material of this._materials) material.dispose();
             this._marker.remove();
             this._promptBubble.remove();
       }

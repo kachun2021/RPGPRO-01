@@ -1,7 +1,10 @@
 param(
     [string]$Url = "http://127.0.0.1:3000",
     [switch]$Headed,
-    [int]$StartupTimeoutSec = 90
+    [int]$StartupTimeoutSec = 90,
+    [string[]]$Scenario = @(),
+    [string[]]$Group = @(),
+    [switch]$List
 )
 
 Set-StrictMode -Version Latest
@@ -46,6 +49,31 @@ if (-not (Test-Path $outputRoot)) {
     New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
 }
 
+$runnerArgs = @($runnerScript)
+if ($List) {
+    $runnerArgs += "--list"
+} else {
+    $runnerArgs += @("--url", $Url, "--output-dir", $outputRoot, "--headless", $headlessArg)
+    foreach ($name in $Scenario) {
+        if (-not [string]::IsNullOrWhiteSpace($name)) {
+            $runnerArgs += @("--scenario", $name)
+        }
+    }
+    foreach ($groupName in $Group) {
+        if (-not [string]::IsNullOrWhiteSpace($groupName)) {
+            $runnerArgs += @("--group", $groupName)
+        }
+    }
+}
+
+if ($List) {
+    & node @runnerArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "Smoke runner exited with code $LASTEXITCODE"
+    }
+    return
+}
+
 $ownedDevServer = $false
 $devProc = $null
 $devOutLog = Join-Path $repoRoot "dev.out.log"
@@ -67,7 +95,7 @@ try {
         }
     }
 
-    & node $runnerScript --url $Url --output-dir $outputRoot --headless $headlessArg
+    & node @runnerArgs
     if ($LASTEXITCODE -ne 0) {
         throw "Smoke runner exited with code $LASTEXITCODE"
     }
