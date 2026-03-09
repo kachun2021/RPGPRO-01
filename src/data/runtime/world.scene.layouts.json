@@ -31,7 +31,7 @@
         { "x": 58, "z": 6, "width": 10, "depth": 34, "height": 5 }
       ],
       "landmarks": [
-        { "kind": "monolith", "x": 0, "z": -20, "scale": 1.2 },
+        { "kind": "monolith", "x": -42, "z": -34, "scale": 1.0 },
         { "kind": "tree", "x": -24, "z": -4, "scale": 1.1 },
         { "kind": "tree", "x": 26, "z": -2, "scale": 1.1 }
       ]

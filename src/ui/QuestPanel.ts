@@ -113,7 +113,11 @@ export class QuestPanel {
                         directory.appendChild(item);
                   }
                   if (!this._selectedQuestId && quests.length > 0) {
-                        const preferred = quests.find((q) => ['active', 'complete'].includes(this._questManager.getStatus(q))) ?? quests[0];
+                        const preferred = quests.find((q) => this._questManager.getStatus(q) === 'turn_in')
+                              ?? quests.find((q) => this._questManager.getStatus(q) === 'active')
+                              ?? quests.find((q) => this._questManager.getStatus(q) === 'available')
+                              ?? quests.find((q) => this._questManager.getStatus(q) === 'complete')
+                              ?? quests[0];
                         this._selectedQuestId = preferred.id;
                   }
             }
@@ -200,8 +204,20 @@ export class QuestPanel {
             const active = quests.filter((quest) => this._questManager.getStatus(quest) === 'active').length;
             const complete = quests.filter((quest) => ['turn_in', 'complete'].includes(this._questManager.getStatus(quest))).length;
             const available = quests.filter((quest) => this._questManager.getStatus(quest) === 'available').length;
+            const mainQuest = this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'turn_in')
+                  ?? this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'active')
+                  ?? this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'available')
+                  ?? null;
+            const mainQuestStatus = mainQuest ? this._questManager.getStatus(mainQuest) : null;
+            const nextLoopLabel = mainQuest
+                  ? `${mainQuest.name} · ${mainQuestStatus === 'turn_in' ? '回報' : mainQuestStatus === 'active' ? '推進中' : '待接取'}`
+                  : '目前沒有主線節點';
 
             summary.innerHTML = `
+                  <div class="qp-overview-card qp-overview-card-wide">
+                        <span class="qp-overview-label">下一步</span>
+                        <span class="qp-overview-value">${nextLoopLabel}</span>
+                  </div>
                   <div class="qp-overview-card">
                         <span class="qp-overview-label">進行中</span>
                         <span class="qp-overview-value">${active}</span>

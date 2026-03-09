@@ -31,6 +31,7 @@ export interface SystemPanelCallbacks {
       onResetAll?: () => Promise<SystemPanelActionResult> | SystemPanelActionResult;
       getAccountView?: () => SystemPanelAccountView;
       onHeroTypeChange?: (heroType: number) => Promise<SystemPanelActionResult> | SystemPanelActionResult;
+      onOpenSocialPreview?: () => void;
 }
 
 interface RuntimeDataHealthPayload {
@@ -251,6 +252,9 @@ export class SystemPanel {
                         <span class="sys-label">房間服務</span>
                         <span class="sys-info">${this._escapeHtml(account.roomNote ?? '本機模式，尚未上線')}</span>
                   </div>
+                  <div class="sys-btn-group">
+                        <button class="sys-btn" id="sys-social-preview">社交預覽</button>
+                  </div>
 
                   <div class="sys-section-header">💾 存檔管理</div>
                   <div class="sys-btn-group">
@@ -276,6 +280,9 @@ export class SystemPanel {
 
             body.querySelector('#sys-save')?.addEventListener('click', async () => {
                   await this._runAction(this._callbacks.onSaveProgress?.(), '進度已儲存');
+            });
+            body.querySelector('#sys-social-preview')?.addEventListener('click', () => {
+                  this._callbacks.onOpenSocialPreview?.();
             });
             body.querySelector('#sys-load')?.addEventListener('click', async () => {
                   if (!confirm('讀取進度將覆蓋目前資料，是否繼續？')) return;

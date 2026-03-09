@@ -866,3 +866,119 @@
     - `npc-report-loop` now verifies `starterMainStatus = claimed` after reporting to the quest NPC
   - Next:
     - local-first `P11-P30` can now be treated as closed on the current repo state; future work can move to `scripts/reports/implementation/P31_P35_BACKEND_STAGE_SPEC.md`
+- 2026-03-09 (sub-interface screenshot audit + mobile landscape UI optimization):
+  - Scope:
+    - executed screenshot-first audit across sub interfaces, then fixed visual/logic conflicts found from artifacts.
+  - UI focus mode (panel clarity):
+    - `main.ts` now toggles `body.ui-panel-focus` from real panel registry state (`currentPanel + modalStack`) every frame.
+    - `index.html` now auto-fades background HUD widgets when any sub-panel/modal is open:
+      - minimap / quest tracker / guide card / identity bar / portrait cluster / bottom nav / right skill bar / AUTO controls / chat box.
+    - result: shop/map/dialogue and other sub interfaces are no longer visually polluted by gameplay HUD layers.
+  - Fullscreen panel readability:
+    - strengthened `#ui-layer .sa-panel.ui-panel-fullscreen` surface/background/backdrop blur for better text contrast.
+    - resonance panel typography/layout was rebalanced for fullscreen mode (`reso-*` rows, labels, buttons, spacing).
+  - Gameplay scene visibility fix:
+    - `world.scene.layouts.json` starter meadow monolith moved away from spawn road (`(0,-20) -> (-42,-34)`), removing center-camera obstruction seen in post-revive screenshot.
+  - Discovered and fixed state-vs-visual bug:
+    - `BOOK` panel had `openPanels.book = true` but remained invisible due legacy CSS `display:none` on `.book-root`.
+    - switched `.book-root` to `display:block` and rely on `[hidden]` as the single visibility source.
+  - Smoke coverage expansion (all core sub interfaces):
+    - `scripts/task_smoke_runner.mjs` now includes:
+      - `character-panel`
+      - `community-panel`
+      - `book-panel`
+      - `dialogue-panel`
+      - `fusion-panel`
+    - total scenarios increased from `15` -> `20`.
+    - `main.ts` debug hooks added for smoke/manual panel opening:
+      - `openFusionPanel`
+      - `openBookPanel`
+      - `openCommunityPanel`
+      - `openCharacterPanel`
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (`20/20`)
+  - Artifacts:
+    - `output/web-game/task-smoke/summary.json`
+    - per-scenario screenshots/state under `output/web-game/task-smoke/*`
+
+- 2026-03-09 (S1-S10 webapp renewal pass: single-source UI chrome + guidance + nav honesty):
+  - Architecture / single source of truth:
+    - added `src/data/runtime/RuntimeSceneRouteApi.ts` as the public route resolver:
+      - `resolveSceneZoneForRuntimeZoneId(...)`
+      - `resolveSceneZoneForRuntimeZone(...)`
+      - `resolveSceneZoneMeta(...)`
+    - removed direct UI/main/runtime-consumer calls to `matchRuntimeZoneToSceneZone(...)`; heuristic matching is now internal to the route API / bridge layer.
+    - expanded `src/ui/PanelRegistry.ts` metadata:
+      - `kind`
+      - `layoutKind`
+      - `chromeMode`
+      - `blocksGameplayInput`
+    - added `src/ui/UiChromeController.ts`:
+      - states: `explore`, `combat`, `panel_focus`, `dialogue_focus`, `death`
+      - body dataset is now the single owner of HUD/chrome visibility.
+    - added `src/ui/GuidanceState.ts` + `src/ui/GuidanceWidget.ts`:
+      - unified current-objective precedence:
+        - onboarding
+        - main quest
+        - growth
+      - `render_game_to_text()` now reports:
+        - `uiChromeState`
+        - `guidanceSource`
+        - `guidanceText`
+        - `primaryNavMode`
+  - Gameplay HUD / phone-landscape cleanup:
+    - removed `Community` from bottom primary nav in `HUD.ts`.
+    - replaced the old onboarding card + quest tracker layering with one adaptive left-side guidance widget.
+    - chrome visibility now uses body `data-chrome-*` states instead of ad hoc body class toggles.
+    - minimap now defaults collapsed on narrow landscape (`<= 932px` width in landscape).
+    - HUD portrait collapse moved from direct `style.display` toggling to class-based state.
+    - chat body collapse moved from direct `style.display` to class state.
+  - Panel/product redesign:
+    - `PetPanel` rebuilt into:
+      - active squad column
+      - selected pet detail surface
+      - storage column
+    - `CommunityPanel` rewritten into honest secondary utility:
+      - tabs now `公告 / 服務邊界`
+      - removed `MOCK_*` and `SOCIAL_FEATURES_LIVE`
+      - default open tab is now service-boundary preview instead of noisy runtime bulletin data
+    - `SystemPanel` now exposes `社交預覽` from the account/services section so Community remains reachable without pretending to be a primary gameplay destination.
+    - `QuestPanel` now prioritizes `turn_in -> active -> available` when auto-selecting, and overview strip surfaces one explicit `下一步`.
+  - Guardrails / regression protection:
+    - `scripts/ci/guardrails.mjs` now fails on:
+      - direct browser storage API usage outside `LocalStorageKV.ts`
+      - direct `matchRuntimeZoneToSceneZone(...)` usage outside approved route modules
+      - `style.display` visibility control inside panel classes
+      - legacy map-name tracking fields
+      - `nav-community` inside primary nav
+      - `MOCK_*` / `SOCIAL_FEATURES_LIVE` in `CommunityPanel`
+  - Smoke suite hardening:
+    - smoke expectations now assert:
+      - `uiChromeState`
+      - `guidanceSource`
+      - `primaryNavMode`
+      - `#nav-community` absent from primary nav
+    - renamed scenario to `community-preview-panel` and opened via debug hook instead of bottom nav.
+    - added explicit wait conditions for lazy `shop` and `map` panel opens.
+  - Visual audit notes from latest screenshots:
+    - baseline HUD is materially cleaner than the previous stacked tracker+guide layout.
+    - new `PetPanel` reads like a real management surface instead of an empty matrix.
+    - `CommunityPanel` no longer exposes mock social as shipped functionality.
+    - starter world readability is still the weakest remaining area:
+      - environment composition still reads placeholder/simple despite UI improvements.
+      - if continuing, next visual pass should focus on early-zone pathing, landmark readability, and NPC/interactable differentiation.
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (`20/20`)
+    - `npm run -s ci:guardrails` passed
+  - Artifacts:
+    - `output/web-game/task-smoke/summary.json`
+    - key reviewed screenshots:
+      - `move-baseline`
+      - `pet-panel`
+      - `community-preview-panel`
+      - `map-panel-landscape`
+      - `shop-panel`

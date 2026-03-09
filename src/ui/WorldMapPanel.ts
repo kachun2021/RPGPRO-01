@@ -5,9 +5,10 @@ import fusionRuntimeRaw from '../data/runtime/fusion.runtime.json';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
-import { canonicalRuntimeMapName, matchRuntimeZoneToSceneZone, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
+import { canonicalRuntimeMapName, type RuntimeZoneMatchMode } from '../data/runtime/RuntimeZoneBridge';
 import { getRuntimeMapByZoneId, listRuntimeMapNeighbors, resolveRuntimeMapEntry } from '../data/runtime/RuntimeMapCatalog';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
+import { resolveSceneZoneForRuntimeZone } from '../data/runtime/RuntimeSceneRouteApi';
 
 interface MapMonsterInfo {
       name: string;
@@ -942,7 +943,7 @@ export class WorldMapPanel {
                         : (mons.length > 0 ? Math.max(...mons.map(item => item.level)) : minLevel);
 
                   const zoneMatch = zone
-                        ? matchRuntimeZoneToSceneZone({
+                        ? resolveSceneZoneForRuntimeZone({
                               runtimeZoneId: zone.zoneId,
                               zoneName: zone.name,
                               minLevel,
@@ -951,7 +952,7 @@ export class WorldMapPanel {
                               restriction: zone.restriction,
                               pkZoneFlag: zone.pkZoneFlag,
                         })
-                        : { zoneId: null, mode: 'none' as RuntimeZoneMatchMode };
+                        : { sceneZoneId: null, mode: 'none' as RuntimeZoneMatchMode };
                   const region = this._deriveRegionFromTopology(zone ? {
                         mobAble: zone.mobAble,
                         rules: { restriction: zone.restriction, pkZoneFlag: zone.pkZoneFlag },
@@ -974,7 +975,7 @@ export class WorldMapPanel {
                         minLevel,
                         maxLevel,
                         runtimeZoneId: zone?.zoneId ?? null,
-                        teleportSceneZoneId: zoneMatch.zoneId,
+                        teleportSceneZoneId: zoneMatch.sceneZoneId,
                         teleportMode: zoneMatch.mode,
                         neighborMapKeys: neighbors,
                   };

@@ -1,8 +1,8 @@
 import worldTopologyRaw from '../data/runtime/world.topology.json';
-import { matchRuntimeZoneToSceneZone } from '../data/runtime/RuntimeZoneBridge';
 import { getExplicitSceneZoneIdForRuntimeZoneId, listExplicitRuntimeZoneIdsForSceneZone } from '../data/runtime/RuntimeZoneSceneMap';
 import { getSceneZonePrimaryRuntimeName } from '../data/runtime/RuntimeWorldRoutes';
 import { SCENE_ZONE_PROFILES } from './SceneZoneProfiles';
+import { resolveSceneZoneForRuntimeZone } from '../data/runtime/RuntimeSceneRouteApi';
 
 export type RuntimeBiomeType =
       | 'grass'
@@ -144,24 +144,21 @@ function ensureCache(): SceneZoneCache {
             const pkZoneFlag = Math.max(0, toInt(zone.rules?.pkZoneFlag, 0));
             const mobAble = zone.mobAble !== false;
 
-            const explicitSceneZoneId = getExplicitSceneZoneIdForRuntimeZoneId(runtimeZoneId);
-            const match = explicitSceneZoneId
-                  ? { zoneId: explicitSceneZoneId, mode: 'explicit' as const }
-                  : matchRuntimeZoneToSceneZone({
-                        runtimeZoneId,
-                        zoneName: String(zone.name ?? ''),
-                        minLevel,
-                        maxLevel,
-                        mobAble,
-                        restriction,
-                        pkZoneFlag,
-                  });
-            if (!match.zoneId) continue;
+            const match = resolveSceneZoneForRuntimeZone({
+                  runtimeZoneId,
+                  zoneName: String(zone.name ?? ''),
+                  minLevel,
+                  maxLevel,
+                  mobAble,
+                  restriction,
+                  pkZoneFlag,
+            });
+            if (!match.sceneZoneId) continue;
 
-            let agg = aggregateBySceneZone.get(match.zoneId);
+            let agg = aggregateBySceneZone.get(match.sceneZoneId);
             if (!agg) {
                   agg = {
-                        sceneZoneId: match.zoneId,
+                        sceneZoneId: match.sceneZoneId,
                         runtimeZoneIds: new Set<number>(),
                         runtimeNames: new Map<string, number>(),
                         levelMin: minLevel,
@@ -171,7 +168,7 @@ function ensureCache(): SceneZoneCache {
                         pkVotes: 0,
                         restrictionMax: 0,
                   };
-                  aggregateBySceneZone.set(match.zoneId, agg);
+                  aggregateBySceneZone.set(match.sceneZoneId, agg);
             }
 
             agg.runtimeZoneIds.add(runtimeZoneId);

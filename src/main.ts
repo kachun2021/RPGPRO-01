@@ -4,12 +4,10 @@ import { OrientationManager } from './core/OrientationManager';
 import { MainScene } from './scenes/MainScene';
 import { Player } from './entities/Player';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import worldTopologyRaw from './data/runtime/world.topology.json';
 import { getRuntimeHeroTemplate, listRuntimeHeroTemplates, resolveRuntimeExpToNext } from './data/runtime/RuntimeProgression';
 import { getHeroArchetypeProfile } from './data/runtime/HeroArchetypes';
 import { getRuntimeFusionGuideEntries } from './data/runtime/RuntimeFusionGuide';
-import { matchRuntimeZoneToSceneZone } from './data/runtime/RuntimeZoneBridge';
-import { getExplicitSceneZoneIdForRuntimeZoneId } from './data/runtime/RuntimeZoneSceneMap';
+import { resolveSceneZoneForRuntimeZoneId } from './data/runtime/RuntimeSceneRouteApi';
 import type { PlayerIdentitySnapshot } from './core/PlayerIdentity';
 import { LandscapeCamera } from './input/LandscapeCamera';
 import { TouchJoystick } from './input/TouchJoystick';
@@ -70,9 +68,10 @@ import { NPCManager, type NPC } from './entities/NPC';
 import { QuestPanel } from './ui/QuestPanel';
 import { DialoguePanel, type DialogueActionSpec, type DialoguePanelOpenOptions } from './ui/DialoguePanel';
 import { CommunityPanel } from './ui/CommunityPanel';
-import { QuestTracker } from './ui/QuestTracker';
 import { OnboardingManager } from './systems/OnboardingManager';
-import { OnboardingPanel } from './ui/OnboardingPanel';
+import { GuidanceWidget } from './ui/GuidanceWidget';
+import { resolveGuidanceState, type GuidanceState } from './ui/GuidanceState';
+import { UiChromeController } from './ui/UiChromeController';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
 // P9 System Settings
@@ -207,14 +206,6 @@ const authService = new LocalAuthService();
 const saveService = new LocalSaveService();
 const socialService = new LocalSocialService();
 const roomService = new LocalRoomService();
-
-interface RuntimeZoneForSpawn {
-      zoneId?: number;
-      name?: string;
-      mobAble?: boolean;
-      level?: { min?: number; max?: number };
-      rules?: { restriction?: number; pkZoneFlag?: number };
-}
 
 type FusionPanelType = import('./ui/FusionPanel').FusionPanel;
 type EncyclopediaPanelType = import('./ui/EncyclopediaPanel').EncyclopediaPanel;
@@ -351,24 +342,7 @@ async function ensureHeroProfile(
 }
 
 function resolveHeroStartZoneId(runtimeBirthZoneId: number): string {
-      const explicit = getExplicitSceneZoneIdForRuntimeZoneId(runtimeBirthZoneId);
-      if (explicit) return explicit;
-
-      const payload = worldTopologyRaw as { zones?: RuntimeZoneForSpawn[] };
-      const zones = Array.isArray(payload.zones) ? payload.zones : [];
-      const zone = zones.find((entry) => Number(entry?.zoneId ?? 0) === runtimeBirthZoneId);
-      const minLevel = Number(zone?.level?.min ?? 1);
-      const maxLevel = Number(zone?.level?.max ?? minLevel);
-      const route = matchRuntimeZoneToSceneZone({
-            runtimeZoneId: Number(zone?.zoneId ?? runtimeBirthZoneId),
-            zoneName: String(zone?.name ?? ''),
-            minLevel,
-            maxLevel,
-            mobAble: zone?.mobAble !== false,
-            restriction: Number(zone?.rules?.restriction ?? 0),
-            pkZoneFlag: Number(zone?.rules?.pkZoneFlag ?? 0),
-      });
-      return route.zoneId ?? 'starter_meadow';
+      return resolveSceneZoneForRuntimeZoneId(runtimeBirthZoneId).sceneZoneId ?? 'starter_meadow';
 }
 
 function normalizeGuideName(value: string): string {
@@ -507,7 +481,7 @@ async function bootstrap(): Promise<void> {
 
       // 12. Chat Box
       const chatBox = new ChatBox();
-      new OnboardingPanel(onboardingManager);
+      const uiChrome = new UiChromeController();
 
       // ── P5 Combat Systems ──
 
@@ -564,8 +538,8 @@ async function bootstrap(): Promise<void> {
       const npcManager = new NPCManager(Registry.scene);
       // NPCs are spawned by ZoneManager.buildInitialZone()
       const questPanel = new QuestPanel(questManager);
-      const questTracker = new QuestTracker(questManager);
       const dialoguePanel = new DialoguePanel();
+      const guidanceWidget = new GuidanceWidget();
 
       // P5: Shop system
       const shopManager = new ShopManager();
@@ -819,7 +793,7 @@ async function bootstrap(): Promise<void> {
       const rebirthSystem = new RebirthSystem();
       const characterPanel = new CharacterPanel(player, playerIdentity, statAlloc, skillTree, awakeningSystem, rebirthSystem, {
             getPrimaryPetName: () => petManager.active[0]?.displayName ?? petManager.owned[0]?.displayName ?? null,
-            getObjectiveHint: () => onboardingManager.currentStep?.title ?? null,
+            getObjectiveHint: () => currentGuidanceState?.text ?? onboardingManager.currentStep?.title ?? null,
             onOpenResonance: () => {
                   closeSubPanels('resonance');
                   resonancePanel.show();
@@ -841,22 +815,33 @@ async function bootstrap(): Promise<void> {
       const inventoryPanel = new InventoryPanel(inventory, equipmentSystem, enhanceSystem, player.stats);
 
       const communityPanel = new CommunityPanel();
-      const syncGuidanceHint = (): void => {
-            hud.setObjectiveHint(onboardingManager.currentStep?.title ?? '查看任務面板');
+      let currentGuidanceState: GuidanceState = resolveGuidanceState({
+            onboarding: onboardingManager,
+            questManager,
+            identity: playerIdentity,
+      });
+      const syncGuidanceState = (): void => {
+            currentGuidanceState = resolveGuidanceState({
+                  onboarding: onboardingManager,
+                  questManager,
+                  identity: Registry.playerIdentity,
+            });
+            hud.setObjectiveHint(currentGuidanceState.title);
+            guidanceWidget.setState(currentGuidanceState);
             characterPanel.updateIdentity(Registry.playerIdentity);
       };
       questManager.subscribe(() => {
             const starterQuest = questManager.getQuest('main_1');
             if (starterQuest?.accepted) onboardingManager.mark('meet_elder');
-            syncGuidanceHint();
+            syncGuidanceState();
       });
       onboardingManager.subscribe(() => {
-            syncGuidanceHint();
+            syncGuidanceState();
       });
       if (questManager.getQuest('main_1')?.accepted) {
             onboardingManager.mark('meet_elder');
       }
-      syncGuidanceHint();
+      syncGuidanceState();
 
       const settingsRuntime = new GameSettingsRuntime({
             joystick,
@@ -866,17 +851,31 @@ async function bootstrap(): Promise<void> {
 
       const panelRegistry = new PanelRegistry();
       Registry.panelManager = panelRegistry;
-      panelRegistry.register(petPanel, 'primary');
-      panelRegistry.register(dialoguePanel, 'modal');
-      panelRegistry.register(renamePanel, 'modal');
-      panelRegistry.register(revivalPanel, 'modal');
-      panelRegistry.register(questPanel, 'primary');
-      panelRegistry.register(communityPanel, 'primary');
-      panelRegistry.register(characterPanel, 'primary');
-      panelRegistry.register(inventoryPanel, 'primary');
-      panelRegistry.register(skillPanel, 'primary');
-      panelRegistry.register(resonancePanel, 'primary');
-      panelRegistry.register(afkPanel, 'primary');
+      panelRegistry.register(petPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(dialoguePanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
+      panelRegistry.register(renamePanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
+      panelRegistry.register(revivalPanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
+      panelRegistry.register(questPanel, { kind: 'primary', layoutKind: 'detail_list', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(communityPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(characterPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(inventoryPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(skillPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(resonancePanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(afkPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+
+      const syncUiChromeState = (): void => {
+            if (playerLife.isDeadLike) {
+                  uiChrome.setState('death');
+                  return;
+            }
+            const panelChrome = panelRegistry.getActiveChromeMode();
+            if (panelChrome === 'panel_focus' || panelChrome === 'dialogue_focus') {
+                  uiChrome.setState(panelChrome);
+                  return;
+            }
+            uiChrome.setState(combatLoop.isAutoGrind || !!player.combatTarget ? 'combat' : 'explore');
+      };
+      syncUiChromeState();
 
       let reviveSequence = 0;
       let shouldResumeAutoAfterFieldRevive = false;
@@ -1086,8 +1085,13 @@ async function bootstrap(): Promise<void> {
                         message: '已清除本機資料，正在重新載入',
                   };
             },
+            onOpenSocialPreview: () => {
+                  closeSubPanels('community');
+                  communityPanel.show();
+                  schedulePanelViewportFit();
+            },
       });
-      panelRegistry.register(systemPanel, 'primary');
+      panelRegistry.register(systemPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
       settingsRuntime.apply(systemPanel.settings);
 
       // Heavy data panels are lazy-loaded on first use to reduce initial startup cost.
@@ -1106,7 +1110,7 @@ async function bootstrap(): Promise<void> {
             shopPanelLoading = import('./ui/ShopPanel')
                   .then(({ ShopPanel }) => {
                         const panel = new ShopPanel(shopManager, inventory);
-                        panelRegistry.register(panel, 'primary');
+                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
                         shopPanel = panel;
                         return panel;
                   })
@@ -1125,7 +1129,7 @@ async function bootstrap(): Promise<void> {
                         panel.setMapNavigator((mapName, petName) => {
                               void openWorldMapAt(mapName, petName);
                         });
-                        panelRegistry.register(panel, 'primary');
+                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
                         fusionPanel = panel;
                         return panel;
                   })
@@ -1149,7 +1153,7 @@ async function bootstrap(): Promise<void> {
                                     void openWorldMapAt(mapName, petName);
                               },
                         });
-                        panelRegistry.register(panel, 'primary');
+                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
                         encyclopediaPanel = panel;
                         return panel;
                   })
@@ -1176,7 +1180,7 @@ async function bootstrap(): Promise<void> {
                                     void openFusionByTarget(targetName, mapName);
                               },
                         });
-                        panelRegistry.register(panel, 'primary');
+                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
                         worldMapPanel = panel;
                         return panel;
                   })
@@ -1189,6 +1193,7 @@ async function bootstrap(): Promise<void> {
       // Global panel rule: opening one sub-panel closes others to avoid overlap.
       function closeSubPanels(except?: string): void {
             panelRegistry.hideAllExcept(except);
+            syncUiChromeState();
             syncAutoUi();
             schedulePanelViewportFit();
       }
@@ -1321,6 +1326,7 @@ async function bootstrap(): Promise<void> {
                   closeSubPanels('afk');
                   afkPanel.show();
             }
+            syncUiChromeState();
             syncAutoUi();
             schedulePanelViewportFit();
       };
@@ -1362,11 +1368,6 @@ async function bootstrap(): Promise<void> {
       hud.getNavButton('nav-shop')?.addEventListener('click', () => {
             void openShopPanel('buy');
       });
-      hud.getNavButton('nav-community')?.addEventListener('click', () => {
-            closeSubPanels('community');
-            communityPanel.show();
-            schedulePanelViewportFit();
-      });
       hud.getNavButton('nav-quest')?.addEventListener('click', () => {
             closeSubPanels('quest');
             questPanel.show();
@@ -1389,6 +1390,30 @@ async function bootstrap(): Promise<void> {
             closeSubPanels('skill');
             skillPanel.show();
             schedulePanelViewportFit();
+      });
+      guidanceWidget.setActionHandler((state) => {
+            switch (state.action) {
+                  case 'shop':
+                        void openShopPanel('buy');
+                        break;
+                  case 'pet':
+                        openPetPanel();
+                        break;
+                  case 'fusion':
+                        void openFusionPanel();
+                        break;
+                  case 'character':
+                        closeSubPanels('char');
+                        characterPanel.show();
+                        schedulePanelViewportFit();
+                        break;
+                  case 'quest':
+                  default:
+                        closeSubPanels('quest');
+                        questPanel.show(state.relatedQuestId ?? undefined);
+                        schedulePanelViewportFit();
+                        break;
+            }
       });
 
       // Expose concise state for automated game checks.
@@ -1434,6 +1459,10 @@ async function bootstrap(): Promise<void> {
                   },
                   currentPanel: panelRegistry.getCurrentPanel(),
                   modalStack: panelRegistry.getModalStack(),
+                  uiChromeState: uiChrome.state,
+                  primaryNavMode: uiChrome.snapshot.primaryNavMode,
+                  guidanceSource: currentGuidanceState.source,
+                  guidanceText: currentGuidanceState.text,
                   identity: {
                         playerName: playerIdentity.playerName,
                         roleLabel: playerIdentity.roleLabel,
@@ -1518,6 +1547,24 @@ async function bootstrap(): Promise<void> {
                   resonancePanel.show();
                   return true;
             },
+            openFusionPanel: () => {
+                  void openFusionPanel();
+                  return true;
+            },
+            openBookPanel: () => {
+                  void openEncyclopediaPanel();
+                  return true;
+            },
+            openCommunityPanel: () => {
+                  closeSubPanels('community');
+                  communityPanel.show();
+                  return true;
+            },
+            openCharacterPanel: () => {
+                  closeSubPanels('char');
+                  characterPanel.show();
+                  return true;
+            },
             getPlayerLife: () => ({
                   state: playerLife.state,
                   sourceName: playerLife.sourceName,
@@ -1562,6 +1609,7 @@ async function bootstrap(): Promise<void> {
             const now = performance.now();
             const dt = (now - lastTime) / 1000;
             lastTime = now;
+            syncUiChromeState();
 
             // Joystick → Player movement
             playerLife.update(dt);

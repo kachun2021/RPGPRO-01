@@ -4,7 +4,7 @@ import type { PetEquipment } from '../pets/PetEquipment';
 import { PetEquipSlot } from '../pets/PetEquipment';
 import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
-import { SERIES_COLORS, SERIES_ICONS } from '../pets/PetData';
+import { SERIES_ICONS } from '../pets/PetData';
 
 const STORAGE_COLS = 5;
 const STORAGE_ROWS = 4;
@@ -19,12 +19,10 @@ export class PetPanel {
       private _buff: PetBuff;
       private _sel: Pet | null = null;
       private _page = 0;
-      private _dragPet: Pet | null = null;
       private _visible = false;
       private _fitFrameId = 0;
       private _onResize = (): void => {
             if (!this._visible) return;
-            this._syncAnchor();
             this._scheduleFit();
       };
 
@@ -52,13 +50,17 @@ export class PetPanel {
             if (this._pm.active.length > 0) this._sel = this._pm.active[0];
       }
 
-      get element(): HTMLElement { return this._el; }
-      get isVisible(): boolean { return this._visible; }
+      get element(): HTMLElement {
+            return this._el;
+      }
+
+      get isVisible(): boolean {
+            return this._visible;
+      }
 
       open(): void {
             this._visible = true;
             this._el.classList.add('is-open');
-            this._syncAnchor();
             this._render();
       }
 
@@ -79,32 +81,27 @@ export class PetPanel {
             this.close();
       }
 
+      refresh(): void {
+            if (!this._sel) {
+                  this._sel = this._pm.active[0] ?? this._pm.owned[0] ?? null;
+            }
+            if (this._visible) this._render();
+      }
+
+      dispose(): void {
+            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
+            window.removeEventListener('resize', this._onResize);
+            this._el.remove();
+      }
+
       private _render(): void {
-            const pet = this._sel;
+            const selected = this._sel ?? this._pm.active[0] ?? this._pm.owned[0] ?? null;
+            this._sel = selected;
             this._bodyRoot.innerHTML = '';
 
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>🐾 寵物資訊</span>';
-
-            const minis = document.createElement('div');
-            minis.className = 'sa-title-minis';
-            for (let i = 0; i < 3; i++) {
-                  const p = this._pm.active[i];
-                  const mini = document.createElement('div');
-                  mini.className = 'sa-mini-portrait';
-                  if (p) {
-                        mini.style.borderColor = this._cssColor(p);
-                        mini.title = p.def.name;
-                        mini.addEventListener('click', () => {
-                              this._sel = p;
-                              this._render();
-                        });
-                  }
-                  minis.appendChild(mini);
-            }
-            title.appendChild(minis);
-
+            title.innerHTML = '<span>🐾 寵物編隊</span>';
             const closeBtn = document.createElement('span');
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '✕';
@@ -112,205 +109,252 @@ export class PetPanel {
             title.appendChild(closeBtn);
             this._bodyRoot.appendChild(title);
 
-            if (!pet) {
+            if (!selected) {
                   const empty = document.createElement('div');
                   empty.className = 'sa-empty-tip';
-                  empty.textContent = '尚未選擇寵物';
+                  empty.textContent = '尚未持有寵物';
                   this._bodyRoot.appendChild(empty);
-                  this._renderBottom();
-                  this._scheduleFit();
                   return;
             }
 
-            const info = document.createElement('div');
-            info.className = 'sa-sec sa-info-head';
-            info.innerHTML = `
-                  <div>
-                        <div class="sa-info-name">[${pet.def.series}] ${pet.def.name}</div>
-                        <div class="sa-info-tags">
-                              <span class="sa-tag">種類</span>
-                              <span class="sa-tag sa-tag-active">${pet.def.series}</span>
-                        </div>
-                  </div>
-            `;
-
-            const portrait = document.createElement('div');
-            portrait.className = 'sa-pet-portrait-lg';
-            portrait.style.borderColor = this._cssColor(pet);
-            info.appendChild(portrait);
-            this._bodyRoot.appendChild(info);
-
-            const s = pet.stats;
-            const stats = document.createElement('div');
-            stats.className = 'sa-sec';
-            stats.innerHTML = `
-                  <div class="sa-sr"><b class="sa-sl">LV</b><span class="sa-sv">${s.level}</span><b class="sa-sl">EXP</b><span class="sa-sv">${s.exp > 0 ? ((s.exp / (s.level * 100)) * 100).toFixed(1) : '0.0'}%</span></div>
-                  <div class="sa-sr"><b class="sa-sl">HP</b><span class="sa-sv">${s.hp}/${s.maxHp}</span><b class="sa-sl">MP</b><span class="sa-sv">${s.mp}/${s.maxMp}</span></div>
-                  <div class="sa-sr"><b class="sa-sl">力量</b><span class="sa-sv">${s.str}</span><b class="sa-sl">攻擊</b><span class="sa-sv">${s.atkMin}~${s.atkMax}</span></div>
-                  <div class="sa-sr"><b class="sa-sl">敏捷</b><span class="sa-sv">${s.agi}</span><b class="sa-sl">命中</b><span class="sa-sv">${s.hitRate}</span></div>
-                  <div class="sa-sr"><b class="sa-sl">魅力</b><span class="sa-sv">${s.acc}</span><b class="sa-sl">迴避</b><span class="sa-sv">${s.dodgeRate}</span></div>
-                  <div class="sa-sr"><b class="sa-sl">幸運</b><span class="sa-sv">${s.luk}</span><b class="sa-sl">屬性</b><span class="sa-sv">${s.element}</span></div>
-            `;
-            this._bodyRoot.appendChild(stats);
-
-            const eqSec = document.createElement('div');
-            eqSec.className = 'sa-sec sa-eq-sec';
-            for (const slot of Object.values(PetEquipSlot)) {
-                  const el = document.createElement('div');
-                  el.className = 'sa-equip-slot sa-eq-slot-fixed';
-                  const unlocked = this._eq.isSlotUnlocked(pet.def.id, slot);
-                  if (!unlocked) {
-                        el.innerHTML = '<span class="sa-eq-slot-x">X</span>';
-                  } else {
-                        el.innerHTML = '<span class="sa-eq-slot-empty">空</span>';
-                  }
-                  el.title = `${slot}${unlocked ? '' : '（未解鎖）'}`;
-                  eqSec.appendChild(el);
-            }
-            this._bodyRoot.appendChild(eqSec);
-
-            this._renderBottom();
+            const shell = document.createElement('div');
+            shell.className = 'pet-dashboard-shell';
+            shell.appendChild(this._buildSquadPanel());
+            shell.appendChild(this._buildDetailPanel(selected));
+            shell.appendChild(this._buildStoragePanel());
+            this._bodyRoot.appendChild(shell);
             this._scheduleFit();
       }
 
-      private _renderBottom(): void {
-            const sec = document.createElement('div');
-            sec.className = 'sa-sec sa-bottom-sec';
+      private _buildSquadPanel(): HTMLDivElement {
+            const section = document.createElement('div');
+            section.className = 'pet-squad-panel';
+            section.innerHTML = `
+                  <div class="pet-sec-head">
+                        <span class="pet-sec-title">主力編隊</span>
+                        <span class="pet-sec-meta">${this._pm.active.length}/${this._pm.MAX_ACTIVE}</span>
+                  </div>
+            `;
 
-            const inactive = this._pm.owned.filter((p) => !p.isActive);
-            const totalPages = Math.ceil(inactive.length / (STORAGE_COLS * STORAGE_ROWS)) || 1;
-
-            const tabs = document.createElement('div');
-            tabs.className = 'sa-page-tabs';
-            for (let p = 0; p < Math.min(totalPages, 8); p++) {
-                  const tag = document.createElement('span');
-                  tag.className = `sa-tag ${p === this._page ? 'sa-tag-active' : ''}`;
-                  tag.textContent = `${p + 1}`;
-                  tag.addEventListener('click', () => {
-                        this._page = p;
-                        this._render();
-                  });
-                  tabs.appendChild(tag);
-            }
-            sec.appendChild(tabs);
-
-            const layout = document.createElement('div');
-            layout.className = 'sa-bottom-layout';
-
-            const deployCol = document.createElement('div');
-            deployCol.className = 'sa-deploy-col';
-            for (let i = 0; i < 3; i++) {
-                  const slot = this._makeSlot(36, 36, true);
-                  const pet = this._pm.active[i];
-                  if (pet) {
-                        slot.style.borderColor = this._cssColor(pet);
-                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="sa-slot-icon-lg" alt="">`;
-                        slot.draggable = true;
-                        slot.addEventListener('dragstart', (e) => {
-                              this._dragPet = pet;
-                              e.dataTransfer!.effectAllowed = 'move';
-                        });
-                        slot.addEventListener('click', () => {
-                              this._sel = pet;
-                              this._render();
-                        });
+            const list = document.createElement('div');
+            list.className = 'pet-squad-list';
+            for (let i = 0; i < this._pm.MAX_ACTIVE; i += 1) {
+                  const pet = this._pm.active[i] ?? null;
+                  const card = document.createElement('div');
+                  card.className = `pet-squad-card${pet && this._sel === pet ? ' is-selected' : ''}${pet ? '' : ' is-empty'}`;
+                  if (!pet) {
+                        card.innerHTML = `
+                              <div class="pet-squad-slot-label">編隊位 ${i + 1}</div>
+                              <div class="pet-squad-empty">從下方倉庫加入</div>
+                        `;
+                        list.appendChild(card);
+                        continue;
                   }
 
-                  slot.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        slot.classList.add('is-drag-over');
+                  const hpPct = Math.max(0, Math.min(100, Math.round((pet.stats.hp / Math.max(1, pet.stats.maxHp)) * 100)));
+                  card.innerHTML = `
+                        <div class="pet-squad-top">
+                              <span class="pet-squad-index">#${i + 1}</span>
+                              <span class="pet-squad-name">${this._escapeHtml(pet.displayName || pet.def.name)}</span>
+                        </div>
+                        <div class="pet-squad-meta">Lv.${pet.stats.level} · ${this._escapeHtml(pet.def.series)}</div>
+                        <div class="pet-squad-bar"><div class="pet-squad-bar-fill"></div></div>
+                        <div class="pet-squad-footer">
+                              <span class="pet-squad-hp">${pet.stats.hp}/${pet.stats.maxHp}</span>
+                              <button type="button" class="pet-squad-action">撤下</button>
+                        </div>
+                  `;
+                  const fill = card.querySelector('.pet-squad-bar-fill') as HTMLDivElement | null;
+                  if (fill) fill.style.width = `${hpPct}%`;
+                  card.addEventListener('click', (evt) => {
+                        if ((evt.target as HTMLElement | null)?.closest('.pet-squad-action')) return;
+                        this._sel = pet;
+                        this._render();
                   });
-                  slot.addEventListener('dragleave', () => {
-                        slot.classList.remove('is-drag-over');
-                  });
-                  slot.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        slot.classList.remove('is-drag-over');
-                        if (this._dragPet && !this._dragPet.isActive) {
-                              const idx = this._pm.owned.indexOf(this._dragPet);
-                              if (idx >= 0) this._pm.deploy(idx);
-                              this._dragPet = null;
+                  card.querySelector('.pet-squad-action')?.addEventListener('click', (evt) => {
+                        evt.stopPropagation();
+                        const activeIndex = this._pm.active.indexOf(pet);
+                        if (activeIndex >= 0) {
+                              this._pm.recall(activeIndex);
+                              if (this._sel === pet) {
+                                    this._sel = this._pm.active[0] ?? this._pm.owned[0] ?? null;
+                              }
                               this._render();
                         }
                   });
-                  deployCol.appendChild(slot);
+                  list.appendChild(card);
             }
-            layout.appendChild(deployCol);
+            section.appendChild(list);
+            return section;
+      }
 
-            const gridWrap = document.createElement('div');
-            gridWrap.className = 'sa-grid-wrap';
-            gridWrap.addEventListener('dragover', (e) => e.preventDefault());
-            gridWrap.addEventListener('drop', (e) => {
-                  e.preventDefault();
-                  if (this._dragPet && this._dragPet.isActive) {
-                        const ai = this._pm.active.indexOf(this._dragPet);
-                        if (ai >= 0) this._pm.recall(ai);
-                        this._dragPet = null;
-                        this._render();
+      private _buildDetailPanel(pet: Pet): HTMLDivElement {
+            const section = document.createElement('div');
+            section.className = 'pet-detail-panel';
+            const buffs = this._buff.getSlots(pet.def.id).filter((entry): entry is NonNullable<typeof entry> => !!entry);
+            const activeIndex = this._pm.active.indexOf(pet);
+            const canDeploy = !pet.isActive && this._pm.active.length < this._pm.MAX_ACTIVE;
+            const expNeed = Math.max(1, pet.stats.level * 80);
+            const expPct = Math.min(100, Math.round((pet.stats.exp / expNeed) * 100));
+
+            section.innerHTML = `
+                  <div class="pet-sec-head">
+                        <span class="pet-sec-title">已選寵物</span>
+                        <span class="pet-sec-meta">${pet.isActive ? '戰鬥中' : '倉庫待命'}</span>
+                  </div>
+                  <div class="pet-hero-card">
+                        <div class="pet-hero-main">
+                              <div class="pet-hero-icon ${this._seriesClass(pet)}">
+                                    <img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="pet-hero-image" alt="">
+                              </div>
+                              <div class="pet-hero-copy">
+                                    <div class="pet-hero-name">${this._escapeHtml(pet.displayName || pet.def.name)}</div>
+                                    <div class="pet-hero-sub">Lv.${pet.stats.level} · ${this._escapeHtml(pet.def.series)} · EXP ${expPct}%</div>
+                                    <div class="pet-hero-tags">
+                                          <span class="pet-chip">${this._enc.isDiscovered(pet.def.id) ? '已登錄圖鑑' : '未登錄圖鑑'}</span>
+                                          <span class="pet-chip">${pet.isDead ? '需復活' : '可戰鬥'}</span>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="pet-hero-actions">
+                              <button type="button" class="btn-gold sa-action-btn" id="pet-open-fusion">合成</button>
+                              <button type="button" class="sa-action-btn" id="pet-open-book">圖鑑</button>
+                              <button type="button" class="sa-action-btn" id="pet-open-rename">更名</button>
+                              <button type="button" class="sa-action-btn" id="pet-open-revival">復活</button>
+                        </div>
+                  </div>
+                  <div class="pet-stat-grid">
+                        ${this._statCard('HP', `${pet.stats.hp}/${pet.stats.maxHp}`)}
+                        ${this._statCard('MP', `${pet.stats.mp}/${pet.stats.maxMp}`)}
+                        ${this._statCard('攻擊', `${pet.stats.atkMin}~${pet.stats.atkMax}`)}
+                        ${this._statCard('命中', `${pet.stats.hitRate}`)}
+                        ${this._statCard('迴避', `${pet.stats.dodgeRate}`)}
+                        ${this._statCard('屬性', `${pet.stats.element}`)}
+                  </div>
+                  <div class="pet-equipment-panel">
+                        <div class="pet-sec-subtitle">裝備槽</div>
+                        <div class="pet-equip-grid"></div>
+                  </div>
+                  <div class="pet-buff-panel">
+                        <div class="pet-sec-subtitle">Buff / 狀態</div>
+                        <div class="pet-buff-list">${buffs.length > 0 ? '' : '<div class="pet-buff-empty">目前沒有 Buff</div>'}</div>
+                  </div>
+                  <div class="pet-deploy-bar">
+                        <span class="pet-deploy-note">${activeIndex >= 0 ? `目前在編隊位 ${activeIndex + 1}` : canDeploy ? '可加入主力編隊' : '編隊已滿，先撤下其中一隻'}</span>
+                        <button type="button" class="btn-gold sa-action-btn" id="pet-toggle-active"${!pet.isActive && !canDeploy ? ' disabled' : ''}>
+                              ${pet.isActive ? '撤下編隊' : '加入編隊'}
+                        </button>
+                  </div>
+            `;
+
+            const equipGrid = section.querySelector('.pet-equip-grid') as HTMLDivElement | null;
+            if (equipGrid) {
+                  for (const slot of Object.values(PetEquipSlot)) {
+                        const unlocked = this._eq.isSlotUnlocked(pet.def.id, slot);
+                        const el = document.createElement('div');
+                        el.className = `pet-equip-slot${unlocked ? '' : ' is-locked'}`;
+                        el.textContent = unlocked ? slot : `${slot} · 鎖定`;
+                        equipGrid.appendChild(el);
                   }
+            }
+
+            const buffList = section.querySelector('.pet-buff-list') as HTMLDivElement | null;
+            if (buffList) {
+                  for (const buff of buffs) {
+                        const row = document.createElement('div');
+                        row.className = 'pet-buff-row';
+                        row.innerHTML = `
+                              <span class="pet-buff-name">${this._escapeHtml(buff.def.name)}</span>
+                              <span class="pet-buff-time">${Math.ceil(buff.remainingMs / 60000)}m</span>
+                        `;
+                        buffList.appendChild(row);
+                  }
+            }
+
+            section.querySelector('#pet-open-fusion')?.addEventListener('click', () => this.onOpenFusion?.());
+            section.querySelector('#pet-open-book')?.addEventListener('click', () => this.onOpenEncyclopedia?.());
+            section.querySelector('#pet-open-rename')?.addEventListener('click', () => this.onOpenRename?.(pet));
+            section.querySelector('#pet-open-revival')?.addEventListener('click', () => this.onOpenRevival?.());
+            section.querySelector('#pet-toggle-active')?.addEventListener('click', () => {
+                  if (pet.isActive) {
+                        const idx = this._pm.active.indexOf(pet);
+                        if (idx >= 0) this._pm.recall(idx);
+                  } else {
+                        const idx = this._pm.owned.indexOf(pet);
+                        if (idx >= 0) this._pm.deploy(idx);
+                  }
+                  this._render();
             });
 
+            return section;
+      }
+
+      private _buildStoragePanel(): HTMLDivElement {
+            const section = document.createElement('div');
+            section.className = 'pet-storage-panel';
+            const inactive = this._pm.owned.filter((pet) => !pet.isActive);
+            const pageSize = STORAGE_COLS * STORAGE_ROWS;
+            const totalPages = Math.max(1, Math.ceil(inactive.length / pageSize));
+            if (this._page >= totalPages) this._page = totalPages - 1;
+
+            section.innerHTML = `
+                  <div class="pet-sec-head">
+                        <span class="pet-sec-title">收藏倉庫</span>
+                        <span class="pet-sec-meta">${inactive.length} / ${this._pm.owned.length}</span>
+                  </div>
+            `;
+
+            const tabs = document.createElement('div');
+            tabs.className = 'pet-storage-pages';
+            for (let page = 0; page < Math.min(totalPages, 8); page += 1) {
+                  const btn = document.createElement('button');
+                  btn.type = 'button';
+                  btn.className = `pet-page-btn${page === this._page ? ' is-active' : ''}`;
+                  btn.textContent = `${page + 1}`;
+                  btn.addEventListener('click', () => {
+                        this._page = page;
+                        this._render();
+                  });
+                  tabs.appendChild(btn);
+            }
+            section.appendChild(tabs);
+
             const grid = document.createElement('div');
-            grid.className = 'sa-grid';
-            const start = this._page * STORAGE_COLS * STORAGE_ROWS;
-            for (let i = 0; i < STORAGE_COLS * STORAGE_ROWS; i++) {
-                  const slot = this._makeSlot(0, 32, false);
-                  const pet = inactive[start + i];
-                  if (pet) {
-                        slot.innerHTML = `<img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="sa-slot-icon-md" alt="">`;
-                        slot.draggable = true;
-                        slot.title = `${pet.def.name} Lv.${pet.stats.level}`;
-                        slot.addEventListener('dragstart', (e) => {
-                              this._dragPet = pet;
-                              e.dataTransfer!.effectAllowed = 'move';
-                              const ownedIdx = this._pm.owned.indexOf(pet);
-                              e.dataTransfer!.setData('text/pet-index', String(ownedIdx));
-                        });
-                        slot.addEventListener('click', () => {
-                              this._sel = pet;
-                              this._render();
-                        });
+            grid.className = 'pet-storage-grid';
+            const start = this._page * pageSize;
+            for (let i = 0; i < pageSize; i += 1) {
+                  const pet = inactive[start + i] ?? null;
+                  const slot = document.createElement('button');
+                  slot.type = 'button';
+                  slot.className = `pet-storage-slot${pet && this._sel === pet ? ' is-selected' : ''}${pet ? '' : ' is-empty'}`;
+                  if (!pet) {
+                        slot.textContent = '+';
+                        slot.disabled = true;
+                        grid.appendChild(slot);
+                        continue;
                   }
+                  slot.innerHTML = `
+                        <img src="assets/icons/${SERIES_ICONS[pet.def.series]}" draggable="false" class="pet-storage-icon" alt="">
+                        <span class="pet-storage-name">${this._escapeHtml(pet.displayName || pet.def.name)}</span>
+                        <span class="pet-storage-level">Lv.${pet.stats.level}</span>
+                  `;
+                  slot.addEventListener('click', () => {
+                        this._sel = pet;
+                        this._render();
+                  });
                   grid.appendChild(slot);
             }
-            gridWrap.appendChild(grid);
-            layout.appendChild(gridWrap);
-            sec.appendChild(layout);
-            this._bodyRoot.appendChild(sec);
+            section.appendChild(grid);
+            return section;
+      }
 
-            if (this._sel) {
-                  const buffSec = document.createElement('div');
-                  buffSec.className = 'sa-sec sa-buff-sec';
-                  const slots = this._buff.getSlots(this._sel.def.id);
-                  for (let i = 0; i < 5; i++) {
-                        const el = this._makeSlot(32, 32, false);
-                        const b = slots[i];
-                        if (b) {
-                              const minutes = Math.ceil(b.remainingMs / 60000);
-                              el.innerHTML = `<span class="sa-buff-name">${b.def.name.substring(0, 3)}</span><span class="sa-buff-min">${minutes}m</span>`;
-                        }
-                        buffSec.appendChild(el);
-                  }
-                  this._bodyRoot.appendChild(buffSec);
-            }
-
-            const actionBar = document.createElement('div');
-            actionBar.className = 'sa-action-bar';
-            const actions = [
-                  { label: '🐾 合成', cb: () => this.onOpenFusion?.() },
-                  { label: '📖 圖鑑', cb: () => this.onOpenEncyclopedia?.() },
-                  { label: '✏️ 更名', cb: () => { if (this._sel) this.onOpenRename?.(this._sel); } },
-                  { label: '💀 復活', cb: () => this.onOpenRevival?.() },
-            ];
-
-            for (const action of actions) {
-                  const btn = document.createElement('button');
-                  btn.className = 'btn-gold sa-action-btn';
-                  btn.textContent = action.label;
-                  btn.addEventListener('click', action.cb);
-                  actionBar.appendChild(btn);
-            }
-            this._bodyRoot.appendChild(actionBar);
+      private _statCard(label: string, value: string): string {
+            return `
+                  <div class="pet-stat-card">
+                        <span class="pet-stat-label">${label}</span>
+                        <span class="pet-stat-value">${value}</span>
+                  </div>
+            `;
       }
 
       private _scheduleFit(): void {
@@ -318,17 +362,6 @@ export class PetPanel {
             if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
             this._fitBodyScale();
             this._fitFrameId = requestAnimationFrame(() => this._fitBodyScale());
-      }
-
-      private _syncAnchor(): void {
-            if (this._el.classList.contains('ui-panel-fullscreen')) {
-                  this._el.style.removeProperty('right');
-                  return;
-            }
-            const skillBar = document.getElementById('skillBar');
-            const skillBarWidth = skillBar ? Math.ceil(skillBar.getBoundingClientRect().width) : 0;
-            const rightGap = Math.max(70, skillBarWidth + 12);
-            this._el.style.right = `${rightGap}px`;
       }
 
       private _fitBodyScale(): void {
@@ -351,33 +384,16 @@ export class PetPanel {
             this._el.style.transform = `translateY(-50%) scale(${scale})`;
       }
 
-      private _makeSlot(w: number, h: number, isDeploy: boolean): HTMLDivElement {
-            const el = document.createElement('div');
-            el.className = isDeploy
-                  ? 'sa-pet-slot sa-pet-slot-deploy sa-pet-slot-36'
-                  : 'sa-pet-slot';
-            if (!isDeploy) {
-                  if (w === 32 && h === 32) {
-                        el.classList.add('sa-pet-slot-32');
-                  } else if (h === 32) {
-                        el.classList.add('sa-pet-slot-grid');
-                  }
-            }
-            return el;
+      private _seriesClass(pet: Pet): string {
+            return `pet-series-${String(pet.def.series).toLowerCase()}`;
       }
 
-      private _cssColor(pet: Pet): string {
-            const c = SERIES_COLORS[pet.def.series];
-            return `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
-      }
-
-      refresh(): void {
-            if (this._visible) this._render();
-      }
-
-      dispose(): void {
-            if (this._fitFrameId) cancelAnimationFrame(this._fitFrameId);
-            window.removeEventListener('resize', this._onResize);
-            this._el.remove();
+      private _escapeHtml(value: string): string {
+            return String(value ?? '')
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
       }
 }

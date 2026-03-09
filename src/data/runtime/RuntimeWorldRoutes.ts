@@ -1,7 +1,7 @@
 import worldTopologyRaw from './world.topology.json';
-import { matchRuntimeZoneToSceneZone } from './RuntimeZoneBridge';
 import { getExplicitSceneZoneIdForRuntimeZoneId, listExplicitRuntimeSceneZoneGroups, listSyntheticSceneNeighbors } from './RuntimeZoneSceneMap';
 import { SCENE_ZONE_PROFILES } from '../../world/SceneZoneProfiles';
+import { resolveSceneZoneForRuntimeZone } from './RuntimeSceneRouteApi';
 
 interface RuntimeZoneRow {
       zoneId?: number;
@@ -58,23 +58,20 @@ function ensureCache(): SceneRouteCache {
 
             const minLevel = Math.max(1, toInt(zone.level?.min, 1));
             const maxLevel = Math.max(minLevel, toInt(zone.level?.max, minLevel));
-            const explicitSceneZoneId = getExplicitSceneZoneIdForRuntimeZoneId(zoneId);
-            const match = explicitSceneZoneId
-                  ? { zoneId: explicitSceneZoneId, mode: 'explicit' as const }
-                  : matchRuntimeZoneToSceneZone({
-                        runtimeZoneId: zoneId,
-                        zoneName,
-                        minLevel,
-                        maxLevel,
-                        mobAble: zone.mobAble !== false,
-                        restriction: toInt(zone.rules?.restriction, 0),
-                        pkZoneFlag: toInt(zone.rules?.pkZoneFlag, 0),
-                  });
-            if (!match.zoneId) continue;
+            const match = resolveSceneZoneForRuntimeZone({
+                  runtimeZoneId: zoneId,
+                  zoneName,
+                  minLevel,
+                  maxLevel,
+                  mobAble: zone.mobAble !== false,
+                  restriction: toInt(zone.rules?.restriction, 0),
+                  pkZoneFlag: toInt(zone.rules?.pkZoneFlag, 0),
+            });
+            if (!match.sceneZoneId) continue;
 
-            runtimeToScene.set(zoneId, match.zoneId);
-            if (!primaryRuntimeNameBySceneZone.has(match.zoneId)) {
-                  primaryRuntimeNameBySceneZone.set(match.zoneId, resolvedName);
+            runtimeToScene.set(zoneId, match.sceneZoneId);
+            if (!primaryRuntimeNameBySceneZone.has(match.sceneZoneId)) {
+                  primaryRuntimeNameBySceneZone.set(match.sceneZoneId, resolvedName);
             }
       }
 

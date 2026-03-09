@@ -37,6 +37,8 @@ async function main() {
       const zoneManager = await readFileUtf8('src/world/ZoneManager.ts');
       const mainTs = await readFileUtf8('src/main.ts');
       const indexHtml = await readFileUtf8('index.html');
+      const hudTs = await readFileUtf8('src/ui/HUD.ts');
+      const communityPanelTs = await readFileUtf8('src/ui/CommunityPanel.ts');
 
       const sceneZoneIds = new Set(
             regexAll(sceneZoneProfiles, /id:\s*'([a-z0-9_]+)'/g).map((m) => m[1]),
@@ -89,6 +91,7 @@ async function main() {
             }
       }
 
+      const tsFiles = await walkFiles(SRC_DIR, ['.ts']);
       const styleFiles = await walkFiles(path.join(SRC_DIR, 'ui'), ['.ts']);
       styleFiles.push(...(await walkFiles(path.join(SRC_DIR, 'world'), ['.ts'])));
       styleFiles.push(...(await walkFiles(path.join(SRC_DIR, 'systems'), ['.ts'])));
@@ -100,6 +103,51 @@ async function main() {
       notes.push(`Inline style usage count: ${styleCount} (limit=${INLINE_STYLE_LIMIT})`);
       if (styleCount > INLINE_STYLE_LIMIT) {
             issues.push(`Inline style usage exceeded guardrail: ${styleCount} > ${INLINE_STYLE_LIMIT}`);
+      }
+
+      const storageAdapterPath = 'src/services/adapters/local/LocalStorageKV.ts';
+      const approvedRouteFiles = new Set([
+            'src/data/runtime/RuntimeZoneBridge.ts',
+            'src/data/runtime/RuntimeSceneRouteApi.ts',
+      ]);
+      const legacyMapFields = ['trackedTargetMapName', 'selectedMapName', 'focusedMapName', 'lastMapName'];
+
+      for (const file of tsFiles) {
+            const relPath = path.relative(ROOT, file).replace(/\\/g, '/');
+            const text = await fs.readFile(file, 'utf8');
+
+            if (
+                  relPath !== storageAdapterPath
+                  && /(?:window\.)?(?:localStorage|sessionStorage)\s*\.(?:getItem|setItem|removeItem|clear|key|length)\b/.test(text)
+            ) {
+                  issues.push(`Direct browser storage access outside adapter: ${relPath}`);
+            }
+
+            if (!approvedRouteFiles.has(relPath) && /matchRuntimeZoneToSceneZone\s*\(/.test(text)) {
+                  issues.push(`Direct runtime-zone heuristic access outside route API: ${relPath}`);
+            }
+
+            if (relPath.startsWith('src/ui/') && /panelId\s*=|readonly\s+panelId/.test(text) && /style\.display\s*=/.test(text)) {
+                  issues.push(`Panel visibility must not use style.display in ${relPath}`);
+            }
+
+            for (const field of legacyMapFields) {
+                  if (text.includes(field)) {
+                        issues.push(`Legacy map-name tracking field detected (${field}) in ${relPath}`);
+                  }
+            }
+      }
+
+      if (hudTs.includes('nav-community')) {
+            issues.push('Primary navigation must not include nav-community');
+      } else {
+            notes.push('Primary navigation excludes community preview');
+      }
+
+      if (/\bMOCK_[A-Z0-9_]+\b/.test(communityPanelTs) || /\bSOCIAL_FEATURES_LIVE\b/.test(communityPanelTs)) {
+            issues.push('CommunityPanel still contains mock/live feature flags');
+      } else {
+            notes.push('CommunityPanel mock/live flags not detected');
       }
 
       if (issues.length > 0) {

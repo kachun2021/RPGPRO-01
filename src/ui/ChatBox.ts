@@ -15,6 +15,7 @@ export class ChatBox {
             this._el = document.createElement('div');
             this._el.id = 'chatBox';
             this._el.className = 'interactive chatbox-root';
+            this._el.dataset.chromeGroup = 'utility';
 
             const header = document.createElement('div');
             header.className = 'chatbox-header';
@@ -23,7 +24,6 @@ export class ChatBox {
 
             const body = document.createElement('div');
             body.className = 'chatbox-body';
-            body.style.display = 'none';
 
             const tabs = document.createElement('div');
             tabs.className = 'chatbox-tabs';
@@ -68,11 +68,12 @@ export class ChatBox {
 
             header.addEventListener('click', () => {
                   this._collapsed = !this._collapsed;
-                  body.style.display = this._collapsed ? 'none' : '';
+                  this._el.classList.toggle('is-collapsed', this._collapsed);
                   header.textContent = this._collapsed ? '▼ Chat' : '▲ Chat';
             });
 
             uiLayer.appendChild(this._el);
+            this._el.classList.add('is-collapsed');
 
             this.addMessage('system', 'Welcome to Fantasy Pet Online!');
             this.addMessage('system', 'Use WASD to move your character');
@@ -103,4 +104,3 @@ export class ChatBox {
             this._el.remove();
       }
 }
-

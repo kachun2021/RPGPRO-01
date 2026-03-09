@@ -27,6 +27,11 @@ export class Minimap {
       private readonly CANVAS_H = 110;
 
       private _pulsePhase = 0;
+      private _manualToggle = false;
+      private readonly _onResize = (): void => {
+            if (this._manualToggle) return;
+            this._applyResponsiveCollapsedState();
+      };
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
@@ -34,6 +39,7 @@ export class Minimap {
             this._el = document.createElement('div');
             this._el.id = 'minimap';
             this._el.className = 'interactive minimap-root';
+            this._el.dataset.chromeGroup = 'utility';
 
             this._header = document.createElement('div');
             this._header.className = 'minimap-header';
@@ -69,11 +75,26 @@ export class Minimap {
             this._el.appendChild(this._body);
             uiLayer.appendChild(this._el);
 
+            window.addEventListener('resize', this._onResize);
+            this._applyResponsiveCollapsedState();
             this._drawGrid();
       }
 
       private _toggle(): void {
+            this._manualToggle = true;
             this._collapsed = !this._collapsed;
+            this._syncCollapsedUi();
+      }
+
+      private _applyResponsiveCollapsedState(): void {
+            const width = window.innerWidth || 0;
+            const height = window.innerHeight || 0;
+            const shouldCollapse = width > height && width <= 932;
+            this._collapsed = shouldCollapse;
+            this._syncCollapsedUi();
+      }
+
+      private _syncCollapsedUi(): void {
             this._el.classList.toggle('is-collapsed', this._collapsed);
             this._arrow.textContent = this._collapsed ? '▶' : '▼';
       }
@@ -288,6 +309,7 @@ export class Minimap {
       }
 
       dispose(): void {
+            window.removeEventListener('resize', this._onResize);
             this._el.remove();
       }
 }

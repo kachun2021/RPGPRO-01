@@ -1,4 +1,6 @@
 export type ManagedPanelKind = 'primary' | 'modal';
+export type ManagedPanelLayoutKind = 'dashboard' | 'split' | 'detail_list' | 'modal';
+export type ManagedPanelChromeMode = 'explore' | 'panel_focus' | 'dialogue_focus';
 
 export interface ManagedPanel {
       panelId: string;
@@ -6,21 +8,30 @@ export interface ManagedPanel {
       hide(): void;
 }
 
-interface RegisteredPanel {
+export interface ManagedPanelRegistration {
+      kind?: ManagedPanelKind;
+      layoutKind?: ManagedPanelLayoutKind;
+      chromeMode?: ManagedPanelChromeMode;
+      blocksGameplayInput?: boolean;
+}
+
+interface RegisteredPanel extends Required<ManagedPanelRegistration> {
       panel: ManagedPanel;
-      kind: ManagedPanelKind;
 }
 
 export class PanelRegistry {
       private _panels = new Map<string, RegisteredPanel>();
       private _order: string[] = [];
 
-      register(panel: ManagedPanel, kind: ManagedPanelKind = 'primary'): void {
+      register(panel: ManagedPanel, registration: ManagedPanelKind | ManagedPanelRegistration = 'primary'): void {
+            const normalized = typeof registration === 'string'
+                  ? this._normalizeRegistration({ kind: registration })
+                  : this._normalizeRegistration(registration);
             if (this._panels.has(panel.panelId)) {
-                  this._panels.set(panel.panelId, { panel, kind });
+                  this._panels.set(panel.panelId, { panel, ...normalized });
                   return;
             }
-            this._panels.set(panel.panelId, { panel, kind });
+            this._panels.set(panel.panelId, { panel, ...normalized });
             this._order.push(panel.panelId);
       }
 
@@ -53,8 +64,36 @@ export class PanelRegistry {
             return visiblePrimaries.length > 0 ? visiblePrimaries[visiblePrimaries.length - 1] : null;
       }
 
+      getCurrentPanelMeta(): Omit<RegisteredPanel, 'panel'> | null {
+            const currentPanelId = this.getCurrentPanel();
+            if (!currentPanelId) return null;
+            const registered = this._panels.get(currentPanelId);
+            if (!registered) return null;
+            const { panel: _panel, ...meta } = registered;
+            return { ...meta };
+      }
+
       getModalStack(): string[] {
             return this.getVisiblePanels('modal');
+      }
+
+      getModalStackMeta(): Array<{ panelId: string } & Omit<RegisteredPanel, 'panel'>> {
+            return this.getVisiblePanels('modal')
+                  .map((panelId) => {
+                        const registered = this._panels.get(panelId);
+                        if (!registered) return null;
+                        const { panel: _panel, ...meta } = registered;
+                        return { panelId, ...meta };
+                  })
+                  .filter((entry): entry is { panelId: string } & Omit<RegisteredPanel, 'panel'> => !!entry);
+      }
+
+      getActiveChromeMode(): ManagedPanelChromeMode {
+            const visibleModal = this.getModalStackMeta();
+            if (visibleModal.length > 0) {
+                  return visibleModal[visibleModal.length - 1]?.chromeMode ?? 'dialogue_focus';
+            }
+            return this.getCurrentPanelMeta()?.chromeMode ?? 'explore';
       }
 
       getVisibilitySnapshot(): Record<string, boolean> {
@@ -64,5 +103,15 @@ export class PanelRegistry {
                   snapshot[id] = Boolean(registered?.panel.isVisible);
             }
             return snapshot;
+      }
+
+      private _normalizeRegistration(registration: ManagedPanelRegistration): Required<ManagedPanelRegistration> {
+            const kind = registration.kind ?? 'primary';
+            return {
+                  kind,
+                  layoutKind: registration.layoutKind ?? (kind === 'modal' ? 'modal' : 'dashboard'),
+                  chromeMode: registration.chromeMode ?? (kind === 'modal' ? 'dialogue_focus' : 'panel_focus'),
+                  blocksGameplayInput: registration.blocksGameplayInput ?? kind === 'modal',
+            };
       }
 }

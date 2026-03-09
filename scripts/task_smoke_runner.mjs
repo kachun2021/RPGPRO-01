@@ -148,6 +148,10 @@ function assertScenarioState(name, state, expect = {}) {
   if (!state.viewport?.orientation) fail('state.viewport.orientation missing');
   if (state.pets?.deadCount === undefined) fail('state.pets.deadCount missing');
   if (!state.quests) fail('state.quests missing');
+  if (!state.uiChromeState) fail('state.uiChromeState missing');
+  if (!state.guidanceSource) fail('state.guidanceSource missing');
+  if (typeof state.guidanceText !== 'string') fail('state.guidanceText missing');
+  if (!state.primaryNavMode) fail('state.primaryNavMode missing');
 
   for (const key of ['joystickSensitivity', 'cameraSensitivity', 'invertCameraY', 'autoLockTarget']) {
     if (state.settingsApplied[key] === undefined) {
@@ -219,6 +223,45 @@ function assertScenarioState(name, state, expect = {}) {
 
   if (expect.reportableCount !== undefined && state.quests.reportableCount !== expect.reportableCount) {
     fail(`expected quests.reportableCount=${expect.reportableCount}, actual=${state.quests.reportableCount}`);
+  }
+
+  if (expect.uiChromeState !== undefined && state.uiChromeState !== expect.uiChromeState) {
+    fail(`expected uiChromeState=${expect.uiChromeState}, actual=${state.uiChromeState}`);
+  }
+
+  if (expect.guidanceSource !== undefined && state.guidanceSource !== expect.guidanceSource) {
+    fail(`expected guidanceSource=${expect.guidanceSource}, actual=${state.guidanceSource}`);
+  }
+
+  if (expect.guidanceTextIncludes && !String(state.guidanceText || '').includes(expect.guidanceTextIncludes)) {
+    fail(`expected guidanceText to include '${expect.guidanceTextIncludes}', actual='${state.guidanceText}'`);
+  }
+
+  if (expect.primaryNavMode !== undefined && state.primaryNavMode !== expect.primaryNavMode) {
+    fail(`expected primaryNavMode=${expect.primaryNavMode}, actual=${state.primaryNavMode}`);
+  }
+}
+
+async function assertDomExpectations(page, name, expect = {}) {
+  const fail = (message) => {
+    throw new Error(`Scenario '${name}' failed: ${message}`);
+  };
+
+  const missingSelectors = Array.isArray(expect.missingSelector) ? expect.missingSelector : expect.missingSelector ? [expect.missingSelector] : [];
+  for (const selector of missingSelectors) {
+    const present = await page.evaluate((targetSelector) => !!document.querySelector(targetSelector), selector);
+    if (present) fail(`expected selector '${selector}' to be absent`);
+  }
+
+  const visibleSelectors = Array.isArray(expect.visibleSelector) ? expect.visibleSelector : expect.visibleSelector ? [expect.visibleSelector] : [];
+  for (const selector of visibleSelectors) {
+    const visible = await page.evaluate((targetSelector) => {
+      const el = document.querySelector(targetSelector);
+      if (!(el instanceof HTMLElement)) return false;
+      const style = window.getComputedStyle(el);
+      return !el.hidden && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    }, selector);
+    if (!visible) fail(`expected selector '${selector}' to be visible`);
   }
 }
 
@@ -295,6 +338,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
       throw new Error(`actionable console/page error detected: ${errors[0].text}`);
     }
 
+    await assertDomExpectations(page, scenario.name, scenario.expect);
     assertScenarioState(scenario.name, finalState, scenario.expect);
 
     return {
@@ -343,6 +387,11 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'explore',
+        guidanceSource: 'onboarding',
+        primaryNavMode: 'primary',
+        missingSelector: '#nav-community',
+        visibleSelector: '.guidance-root',
       },
     },
     {
@@ -354,6 +403,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -365,6 +416,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -376,6 +429,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -387,23 +442,110 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
+      },
+    },
+    {
+      name: 'character-panel',
+      clickSelector: '#nav-char',
+      expect: {
+        currentPanel: 'char',
+        openPanel: 'char',
+        sceneZoneId: 'starter_meadow',
+        runtimeZoneIds: [130],
+        playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
+      },
+    },
+    {
+      name: 'community-preview-panel',
+      prepare: async (page) => {
+        await page.evaluate(() => window.__fpoDebug?.openCommunityPanel?.());
+      },
+      afterClickWaitFor: (state) => state.currentPanel === 'community' && state.openPanels.community === true,
+      expect: {
+        currentPanel: 'community',
+        openPanel: 'community',
+        sceneZoneId: 'starter_meadow',
+        runtimeZoneIds: [130],
+        playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
+        missingSelector: '#nav-community',
+      },
+    },
+    {
+      name: 'book-panel',
+      clickSelector: '#nav-book',
+      afterClickWaitFor: (state) => state.currentPanel === 'book' && state.openPanels.book === true,
+      afterClickTimeoutMs: 15000,
+      expect: {
+        currentPanel: 'book',
+        openPanel: 'book',
+        sceneZoneId: 'starter_meadow',
+        runtimeZoneIds: [130],
+        playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
       name: 'shop-panel',
       clickSelector: '#nav-shop',
+      afterClickWaitFor: (state) => state.currentPanel === 'shop' && state.openPanels.shop === true,
+      afterClickTimeoutMs: 15000,
       expect: {
         currentPanel: 'shop',
         openPanel: 'shop',
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
+      },
+    },
+    {
+      name: 'dialogue-panel',
+      prepare: async (page) => {
+        await page.evaluate(() => window.__fpoDebug?.openNpcDialogue?.('npc_quest_01'));
+      },
+      afterClickWaitFor: (state) => state.openPanels.dialogue === true,
+      expect: {
+        currentPanel: null,
+        openPanel: 'dialogue',
+        modalIncludes: 'dialogue',
+        sceneZoneId: 'starter_meadow',
+        runtimeZoneIds: [130],
+        playerDead: false,
+        uiChromeState: 'dialogue_focus',
+        primaryNavMode: 'suppressed',
+      },
+    },
+    {
+      name: 'fusion-panel',
+      prepare: async (page) => {
+        await page.evaluate(() => window.__fpoDebug?.openFusionPanel?.());
+      },
+      afterClickWaitFor: (state) => state.currentPanel === 'fusion' && state.openPanels.fusion === true,
+      afterClickTimeoutMs: 15000,
+      expect: {
+        currentPanel: 'fusion',
+        openPanel: 'fusion',
+        sceneZoneId: 'starter_meadow',
+        runtimeZoneIds: [130],
+        playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
       name: 'map-panel-landscape',
       viewport: { width: 844, height: 390 },
       clickSelector: '#nav-map',
+      afterClickWaitFor: (state) => state.currentPanel === 'map' && state.openPanels.map === true,
+      afterClickTimeoutMs: 15000,
       expect: {
         currentPanel: 'map',
         openPanel: 'map',
@@ -411,6 +553,8 @@ function createScenarios() {
         runtimeZoneIds: [130],
         playerDead: false,
         orientation: 'landscape',
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -422,6 +566,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -433,6 +579,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {
@@ -445,6 +593,8 @@ function createScenarios() {
         runtimeZoneIds: [130],
         playerDead: false,
         autoGrind: true,
+        uiChromeState: 'combat',
+        primaryNavMode: 'primary',
       },
     },
     {
@@ -459,6 +609,8 @@ function createScenarios() {
         sceneZoneId: 'starter_meadow',
         runtimeZoneIds: [130],
         playerDead: false,
+        uiChromeState: 'panel_focus',
+        primaryNavMode: 'suppressed',
       },
     },
     {

@@ -1,6 +1,6 @@
 import worldTopologyRaw from './world.topology.json';
-import { canonicalRuntimeMapName, matchRuntimeZoneToSceneZone } from './RuntimeZoneBridge';
-import { getExplicitSceneZoneIdForRuntimeZoneId } from './RuntimeZoneSceneMap';
+import { canonicalRuntimeMapName } from './RuntimeZoneBridge';
+import { resolveSceneZoneForRuntimeZone } from './RuntimeSceneRouteApi';
 
 interface RuntimeZoneRow {
       zoneId?: number;
@@ -85,18 +85,15 @@ function ensureCache(): RuntimeMapCatalogCache {
             const maxLevel = Math.max(minLevel, toInt(zone.level?.max, minLevel));
             const restriction = Math.max(0, toInt(zone.rules?.restriction, 0));
             const pkZoneFlag = Math.max(0, toInt(zone.rules?.pkZoneFlag, 0));
-            const explicitSceneZoneId = getExplicitSceneZoneIdForRuntimeZoneId(runtimeZoneId);
-            const mappedScene = explicitSceneZoneId
-                  ? explicitSceneZoneId
-                  : matchRuntimeZoneToSceneZone({
-                        runtimeZoneId,
-                        zoneName: name,
-                        minLevel,
-                        maxLevel,
-                        mobAble: zone.mobAble !== false,
-                        restriction,
-                        pkZoneFlag,
-                  }).zoneId;
+            const mappedScene = resolveSceneZoneForRuntimeZone({
+                  runtimeZoneId,
+                  zoneName: name,
+                  minLevel,
+                  maxLevel,
+                  mobAble: zone.mobAble !== false,
+                  restriction,
+                  pkZoneFlag,
+            }).sceneZoneId;
 
             const entry: RuntimeMapEntry = {
                   mapKey: buildRuntimeMapKey(runtimeZoneId),

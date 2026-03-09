@@ -29,6 +29,7 @@ export class HUD {
             this._identityBar = document.createElement('div');
             this._identityBar.id = 'hudIdentity';
             this._identityBar.className = 'hud-identity';
+            this._identityBar.dataset.chromeGroup = 'identity';
             this._identityName = document.createElement('div');
             this._identityName.className = 'hud-identity-name';
             this._identityMeta = document.createElement('div');
@@ -43,6 +44,7 @@ export class HUD {
             this._topRight = document.createElement('div');
             this._topRight.id = 'hudPortraits';
             this._topRight.className = 'interactive hud-top-right';
+            this._topRight.dataset.chromeGroup = 'combat';
 
             const labels = ['P', 'Pet1', 'Pet2', 'Pet3'];
             for (let i = 0; i < 4; i++) {
@@ -63,15 +65,15 @@ export class HUD {
             this._navBar = document.createElement('div');
             this._navBar.id = 'hudNav';
             this._navBar.className = 'interactive hud-nav';
+            this._navBar.dataset.chromeGroup = 'navigation';
 
             const navItems = [
-                  { id: 'nav-book', label: 'BOOK', icon: '📉' },
+                  { id: 'nav-book', label: 'BOOK', icon: '📘' },
                   { id: 'nav-shop', label: '商店', icon: '🛍️' },
                   { id: 'nav-char', label: '角色', icon: '🧑' },
                   { id: 'nav-pet', label: '寵物', icon: '🐾' },
                   { id: 'nav-bag', label: '物品', icon: '🎒' },
                   { id: 'nav-skill', label: '技能', icon: '⚡' },
-                  { id: 'nav-community', label: '社區', icon: '👥' },
                   { id: 'nav-quest', label: '任務', icon: '📜' },
                   { id: 'nav-map', label: '地圖', icon: '🗺️' },
                   { id: 'nav-settings', label: '系統', icon: '⚙️' },
@@ -245,9 +247,7 @@ export class HUD {
 
       private _togglePortraits(): void {
             this._collapsed = !this._collapsed;
-            this._portraits.forEach((p) => {
-                  p.style.display = this._collapsed ? 'none' : '';
-            });
+            this._topRight.classList.toggle('is-collapsed', this._collapsed);
             this._toggleBtn.textContent = this._collapsed ? '▲' : '▼';
       }
 
