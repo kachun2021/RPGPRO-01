@@ -1,0 +1,4600 @@
+[
+  {
+    "captureName": "hud",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": null,
+      "modalStack": [],
+      "uiChromeState": "explore",
+      "primaryNavMode": "primary",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": null,
+    "visibleNodes": [
+      {
+        "name": "identity",
+        "selector": "#hudIdentity",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 200,
+          "bottom": 84.88,
+          "width": 200,
+          "height": 84.88
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "minimap",
+        "selector": ".minimap-root",
+        "rect": {
+          "left": 8,
+          "top": 88,
+          "right": 146,
+          "bottom": 140,
+          "width": 138,
+          "height": 52
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "top_right",
+        "selector": ".hud-top-right",
+        "rect": {
+          "left": 872,
+          "top": 8,
+          "right": 924,
+          "bottom": 284,
+          "width": 52,
+          "height": 276
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "skillbar",
+        "selector": ".skillbar-root",
+        "rect": {
+          "left": 752,
+          "top": 162,
+          "right": 862,
+          "bottom": 372,
+          "width": 110,
+          "height": 210
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "auto_controls",
+        "selector": ".auto-grind-controls",
+        "rect": {
+          "left": 854,
+          "top": 332,
+          "right": 924,
+          "bottom": 422,
+          "width": 70,
+          "height": 90
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "nav",
+        "selector": "#hudNav",
+        "rect": {
+          "left": 328,
+          "top": 356,
+          "right": 604,
+          "bottom": 424,
+          "width": 276,
+          "height": 68
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\hud.png"
+  },
+  {
+    "captureName": "quest",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "quest",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": true,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 924,
+        "bottom": 422,
+        "width": 916,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "quest_panel",
+        "selector": "#quest-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 924,
+          "bottom": 422,
+          "width": 916,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\quest.png"
+  },
+  {
+    "captureName": "inventory",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "bag",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": true,
+        "bag": true,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "inventory_panel",
+        "selector": "#inventory-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\inventory.png"
+  },
+  {
+    "captureName": "map",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "map",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": true,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "map_panel",
+        "selector": "#world-map-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\map.png"
+  },
+  {
+    "captureName": "pet",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "pet",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 1,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": true,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 924,
+        "bottom": 422,
+        "width": 916,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "pet_panel",
+        "selector": "#petPanel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 924,
+          "bottom": 422,
+          "width": 916,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\pet.png"
+  },
+  {
+    "captureName": "book",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "book",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 1,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": true,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 924,
+        "bottom": 422,
+        "width": 916,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "book_panel",
+        "selector": "#encyclopediaPanel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 924,
+          "bottom": 422,
+          "width": 916,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\book.png"
+  },
+  {
+    "captureName": "shop",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "shop",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": true,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "shop_panel",
+        "selector": "#shop-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\shop.png"
+  },
+  {
+    "captureName": "character",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "char",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": true,
+        "char": true,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "character_panel",
+        "selector": "#char-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\character.png"
+  },
+  {
+    "captureName": "skill",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "skill",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": true,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 924,
+        "bottom": 422,
+        "width": 916,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "skill_panel",
+        "selector": "#skill-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 924,
+          "bottom": 422,
+          "width": 916,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\skill.png"
+  },
+  {
+    "captureName": "settings",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "settings",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": true,
+        "settings": true,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 547,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "settings_panel",
+        "selector": "#sys-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\settings.png"
+  },
+  {
+    "captureName": "afk",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "afk",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": true,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "afk_panel",
+        "selector": "#afk-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\afk.png"
+  },
+  {
+    "captureName": "resonance",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "resonance",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": true,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 186,
+        "top": 8,
+        "right": 746,
+        "bottom": 422,
+        "width": 560,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "resonance_panel",
+        "selector": "#resonance-panel",
+        "rect": {
+          "left": 186,
+          "top": 8,
+          "right": 746,
+          "bottom": 422,
+          "width": 560,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\resonance.png"
+  },
+  {
+    "captureName": "fusion",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "fusion",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": true,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 924,
+        "bottom": 419,
+        "width": 916,
+        "height": 408
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 406,
+      "clientHeight": 406
+    },
+    "visibleNodes": [
+      {
+        "name": "fusion_panel",
+        "selector": "#fusionPanel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 924,
+          "bottom": 419,
+          "width": 916,
+          "height": 408
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\fusion.png"
+  },
+  {
+    "captureName": "community",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "community",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": true,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 924,
+        "bottom": 422,
+        "width": 916,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 914,
+      "clientWidth": 914,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "community_panel",
+        "selector": "#community-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 924,
+          "bottom": 422,
+          "width": 916,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\community.png"
+  },
+  {
+    "captureName": "dialogue",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": null,
+      "modalStack": [
+        "dialogue"
+      ],
+      "uiChromeState": "dialogue_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": true,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 216,
+        "top": 67.8,
+        "right": 716,
+        "bottom": 362.2,
+        "width": 500,
+        "height": 294.39
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 498,
+      "clientWidth": 498,
+      "scrollHeight": 292,
+      "clientHeight": 292
+    },
+    "visibleNodes": [
+      {
+        "name": "dialogue_panel",
+        "selector": "#dialogue-panel",
+        "rect": {
+          "left": 216,
+          "top": 67.8,
+          "right": 716,
+          "bottom": 362.2,
+          "width": 500,
+          "height": 294.39
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\dialogue.png"
+  },
+  {
+    "captureName": "revival",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 932,
+        "height": 430,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 1
+      },
+      "currentPanel": null,
+      "modalStack": [
+        "revival"
+      ],
+      "uiChromeState": "dialogue_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": true
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 186,
+        "top": 8,
+        "right": 746,
+        "bottom": 422,
+        "width": 560,
+        "height": 414
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "scrollHeight": 412,
+      "clientHeight": 412
+    },
+    "visibleNodes": [
+      {
+        "name": "revival_panel",
+        "selector": "#revivalPanel",
+        "rect": {
+          "left": 186,
+          "top": 8,
+          "right": 746,
+          "bottom": 422,
+          "width": 560,
+          "height": 414
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-large\\revival.png"
+  },
+  {
+    "captureName": "hud",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": null,
+      "modalStack": [],
+      "uiChromeState": "explore",
+      "primaryNavMode": "primary",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": null,
+    "visibleNodes": [
+      {
+        "name": "identity",
+        "selector": "#hudIdentity",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 200,
+          "bottom": 84.88,
+          "width": 200,
+          "height": 84.88
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "minimap",
+        "selector": ".minimap-root",
+        "rect": {
+          "left": 8,
+          "top": 88,
+          "right": 146,
+          "bottom": 140,
+          "width": 138,
+          "height": 52
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "top_right",
+        "selector": ".hud-top-right",
+        "rect": {
+          "left": 607,
+          "top": 8,
+          "right": 659,
+          "bottom": 284,
+          "width": 52,
+          "height": 276
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "skillbar",
+        "selector": ".skillbar-root",
+        "rect": {
+          "left": 487,
+          "top": 107,
+          "right": 597,
+          "bottom": 317,
+          "width": 110,
+          "height": 210
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "auto_controls",
+        "selector": ".auto-grind-controls",
+        "rect": {
+          "left": 589,
+          "top": 277,
+          "right": 659,
+          "bottom": 367,
+          "width": 70,
+          "height": 90
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "name": "nav",
+        "selector": "#hudNav",
+        "rect": {
+          "left": 195.5,
+          "top": 301,
+          "right": 471.5,
+          "bottom": 369,
+          "width": 276,
+          "height": 68
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\hud.png"
+  },
+  {
+    "captureName": "quest",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "quest",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": true,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 659,
+        "bottom": 367,
+        "width": 651,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "quest_panel",
+        "selector": "#quest-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 659,
+          "bottom": 367,
+          "width": 651,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\quest.png"
+  },
+  {
+    "captureName": "inventory",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "bag",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": true,
+        "bag": true,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 351,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "inventory_panel",
+        "selector": "#inventory-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\inventory.png"
+  },
+  {
+    "captureName": "map",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "map",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 0,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": true,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 351,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "map_panel",
+        "selector": "#world-map-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\map.png"
+  },
+  {
+    "captureName": "pet",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "pet",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 1,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": true,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 659,
+        "bottom": 367,
+        "width": 651,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "pet_panel",
+        "selector": "#petPanel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 659,
+          "bottom": 367,
+          "width": 651,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\pet.png"
+  },
+  {
+    "captureName": "book",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "book",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 1,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": true,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 659,
+        "bottom": 367,
+        "width": 651,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "book_panel",
+        "selector": "#encyclopediaPanel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 659,
+          "bottom": 367,
+          "width": 651,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\book.png"
+  },
+  {
+    "captureName": "shop",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "shop",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": true,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 351,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "shop_panel",
+        "selector": "#shop-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\shop.png"
+  },
+  {
+    "captureName": "character",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "char",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": true,
+        "char": true,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 351,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "character_panel",
+        "selector": "#char-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\character.png"
+  },
+  {
+    "captureName": "skill",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "skill",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": true,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 659,
+        "bottom": 367,
+        "width": 651,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "skill_panel",
+        "selector": "#skill-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 659,
+          "bottom": 367,
+          "width": 651,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\skill.png"
+  },
+  {
+    "captureName": "settings",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "settings",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": true,
+        "settings": true,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 547,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "settings_panel",
+        "selector": "#sys-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\settings.png"
+  },
+  {
+    "captureName": "afk",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "afk",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": true,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 395,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "afk_panel",
+        "selector": "#afk-panel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\afk.png"
+  },
+  {
+    "captureName": "resonance",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "resonance",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 2,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": true,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 53.5,
+        "top": 8,
+        "right": 613.5,
+        "bottom": 367,
+        "width": 560,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "resonance_panel",
+        "selector": "#resonance-panel",
+        "rect": {
+          "left": 53.5,
+          "top": 8,
+          "right": 613.5,
+          "bottom": 367,
+          "width": 560,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\resonance.png"
+  },
+  {
+    "captureName": "fusion",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "fusion",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": true,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 11,
+        "right": 659,
+        "bottom": 364,
+        "width": 651,
+        "height": 353
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 351,
+      "clientHeight": 351
+    },
+    "visibleNodes": [
+      {
+        "name": "fusion_panel",
+        "selector": "#fusionPanel",
+        "rect": {
+          "left": 8,
+          "top": 11,
+          "right": 659,
+          "bottom": 364,
+          "width": 651,
+          "height": 353
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\fusion.png"
+  },
+  {
+    "captureName": "community",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": "community",
+      "modalStack": [],
+      "uiChromeState": "panel_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": true,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 8,
+        "top": 8,
+        "right": 659,
+        "bottom": 367,
+        "width": 651,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 649,
+      "clientWidth": 649,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "community_panel",
+        "selector": "#community-panel",
+        "rect": {
+          "left": 8,
+          "top": 8,
+          "right": 659,
+          "bottom": 367,
+          "width": 651,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\community.png"
+  },
+  {
+    "captureName": "dialogue",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 0
+      },
+      "currentPanel": null,
+      "modalStack": [
+        "dialogue"
+      ],
+      "uiChromeState": "dialogue_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": true,
+        "rename": false,
+        "revival": false
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 83.5,
+        "top": 39.61,
+        "right": 583.5,
+        "bottom": 335.39,
+        "width": 500,
+        "height": 295.78
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 498,
+      "clientWidth": 498,
+      "scrollHeight": 294,
+      "clientHeight": 294
+    },
+    "visibleNodes": [
+      {
+        "name": "dialogue_panel",
+        "selector": "#dialogue-panel",
+        "rect": {
+          "left": 83.5,
+          "top": 39.61,
+          "right": 583.5,
+          "bottom": 335.39,
+          "width": 500,
+          "height": 295.78
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\dialogue.png"
+  },
+  {
+    "captureName": "revival",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "state": {
+      "mode": "play",
+      "viewport": {
+        "width": 667,
+        "height": 375,
+        "orientation": "landscape"
+      },
+      "zone": {
+        "id": "starter_meadow",
+        "name": "Starter Meadow",
+        "sceneZoneId": "starter_meadow",
+        "runtimeZoneIds": [
+          130
+        ]
+      },
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": -10,
+        "hp": 75,
+        "maxHp": 75,
+        "mp": 40,
+        "maxMp": 40,
+        "level": 1,
+        "exp": 0,
+        "gold": 240,
+        "lifeState": "alive",
+        "playerDead": false,
+        "invulnerabilitySec": 0
+      },
+      "world": {
+        "aliveMonsters": 6,
+        "inventoryCount": 2,
+        "autoGrind": false
+      },
+      "pets": {
+        "owned": 3,
+        "deadCount": 1
+      },
+      "currentPanel": null,
+      "modalStack": [
+        "revival"
+      ],
+      "uiChromeState": "dialogue_focus",
+      "primaryNavMode": "suppressed",
+      "guidanceSource": "onboarding",
+      "guidanceText": "在新手村和村長對話，拿到第一章委託，避免一開局就迷路。",
+      "identity": {
+        "playerName": "迪特",
+        "roleLabel": "近戰先鋒"
+      },
+      "onboarding": {
+        "completed": 3,
+        "total": 6,
+        "currentStep": "meet_elder"
+      },
+      "quests": {
+        "starterMainStatus": "available",
+        "reportableCount": 0
+      },
+      "settingsApplied": {
+        "joystickSensitivity": 1,
+        "cameraSensitivity": 1,
+        "invertCameraY": false,
+        "autoLockTarget": true
+      },
+      "autoConfig": {
+        "detectRange": 20,
+        "skipBossTargets": true
+      },
+      "openPanels": {
+        "quest": false,
+        "inventory": false,
+        "bag": false,
+        "skill": false,
+        "system": false,
+        "settings": false,
+        "pet": false,
+        "map": false,
+        "shop": false,
+        "community": false,
+        "character": false,
+        "char": false,
+        "afk": false,
+        "fusion": false,
+        "book": false,
+        "resonance": false,
+        "dialogue": false,
+        "rename": false,
+        "revival": true
+      }
+    },
+    "target": {
+      "rect": {
+        "left": 53.5,
+        "top": 8,
+        "right": 613.5,
+        "bottom": 367,
+        "width": 560,
+        "height": 359
+      },
+      "overflow": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "scrollHeight": 357,
+      "clientHeight": 357
+    },
+    "visibleNodes": [
+      {
+        "name": "revival_panel",
+        "selector": "#revivalPanel",
+        "rect": {
+          "left": 53.5,
+          "top": 8,
+          "right": 613.5,
+          "bottom": 367,
+          "width": 560,
+          "height": 359
+        },
+        "overflow": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        }
+      }
+    ],
+    "overlaps": [],
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit\\landscape-compact\\revival.png"
+  }
+]

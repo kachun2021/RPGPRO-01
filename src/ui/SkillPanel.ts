@@ -3,6 +3,7 @@ import type { SkillBar } from './SkillBar';
 import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
 import { getRuntimeSkillDetail, getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
+import { renderUiIcon } from './UiIconCatalog';
 
 type SkillTab = 'player' | 'pet';
 
@@ -30,6 +31,7 @@ export class SkillPanel {
       private _skillBar: SkillBar;
       private _petManager: PetManager | null = null;
       private _body!: HTMLDivElement;
+      private _headerSummary!: HTMLSpanElement;
       private _activeTab: SkillTab = 'player';
       private _sp = 12;
       private _skillLevels = new Map<string, number>();
@@ -64,9 +66,20 @@ export class SkillPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.textContent = '技能設定';
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">Combat Loadout</span>
+                        <span class="atlas-title-main">${renderUiIcon('skill', 'atlas-title-icon')}<span>技能設定</span></span>
+                        <span class="atlas-title-meta">主角與寵物技能裝配、技能點升級與戰鬥欄位配置</span>
+                  </div>
+            `;
 
-            const closeBtn = document.createElement('span');
+            this._headerSummary = document.createElement('span');
+            this._headerSummary.className = 'atlas-header-pill skill-header-pill';
+            title.appendChild(this._headerSummary);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
             closeBtn.addEventListener('click', () => this.hide());
@@ -97,6 +110,17 @@ export class SkillPanel {
             this._body = document.createElement('div');
             this._body.className = 'panel-body skill-panel-body';
             this._el.appendChild(this._body);
+            this._syncHeaderSummary();
+      }
+
+      private _syncHeaderSummary(): void {
+            if (!this._headerSummary) return;
+            if (this._activeTab === 'player') {
+                  this._headerSummary.textContent = `主角 · SP ${this._sp}`;
+                  return;
+            }
+            const activeCount = this._petManager?.active.length ?? 0;
+            this._headerSummary.textContent = `寵物 · 出戰 ${activeCount}/3`;
       }
 
       private _switchTab(tab: SkillTab): void {
@@ -123,6 +147,7 @@ export class SkillPanel {
             this._body.innerHTML = '';
             if (this._activeTab === 'player') this._renderPlayerTab();
             else this._renderPetTab();
+            this._syncHeaderSummary();
             requestAnimationFrame(() => this._fitBodyScale());
       }
 

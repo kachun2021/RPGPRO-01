@@ -105,7 +105,7 @@ export class RevivalPanel {
                   row.className = 'list-card revival-row';
                   row.innerHTML = `
                         <div class="revival-row-main">
-                              <span class="revival-row-icon">${SERIES_ICONS[pet.def.series]}</span>
+                              <span class="revival-row-icon"><img src="assets/icons/${SERIES_ICONS[pet.def.series]}" alt=""></span>
                               <div>
                                     <div class="revival-row-name">${pet.displayName}</div>
                                     <div class="revival-row-level">Lv.${pet.stats.level}</div>

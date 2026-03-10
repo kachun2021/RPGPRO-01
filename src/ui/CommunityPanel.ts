@@ -6,6 +6,7 @@ import {
       type RuntimeEventDropMap,
       type RuntimeServerMessage,
 } from '../data/runtime/RuntimeOpsSource';
+import { renderUiIcon } from './UiIconCatalog';
 
 type CommTab = 'bulletin' | 'preview';
 
@@ -71,11 +72,23 @@ export class CommunityPanel {
 
       private _render(): void {
             this._el.innerHTML = '';
+            const bulletinCount = this._bulletinData?.messages.length ?? 0;
+            const headerSummary = this._currentTab === 'bulletin'
+                  ? `公告 ${bulletinCount}`
+                  : 'Live Ops 邊界';
 
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '營運與社群';
-            const closeBtn = document.createElement('span');
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">Service Surface</span>
+                        <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>營運與社群</span></span>
+                        <span class="atlas-title-meta">只展示已落地的公告、活動配置與未來多人功能邊界</span>
+                  </div>
+                  <span class="atlas-header-pill comm-header-pill">${headerSummary}</span>
+            `;
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '✕';
             closeBtn.addEventListener('click', () => this.hide());

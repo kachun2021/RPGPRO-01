@@ -267,8 +267,9 @@ export class FusionPanel {
             const craftableCount = this._formulaEntries.filter(entry => this._isEntryCraftable(entry, snapshot)).length;
             const mappedCount = this._formulaEntries.filter(entry => this._isEntryFullyMapped(entry)).length;
             const stats = document.createElement('span');
-            stats.className = 'fpo-header-stats';
-            stats.textContent = `可直接合成 ${craftableCount}/${this._formulaEntries.length} · 本服可用公式 ${mappedCount}`;
+            stats.className = 'fpo-header-stats atlas-header-pill fpo-header-pill';
+            stats.textContent = `可合 ${craftableCount}/${this._formulaEntries.length} · 公式 ${mappedCount}`;
+            stats.title = `可直接合成 ${craftableCount}/${this._formulaEntries.length} · 本服可用公式 ${mappedCount}`;
 
             const closeBtn = document.createElement('button');
             closeBtn.type = 'button';
@@ -501,7 +502,7 @@ export class FusionPanel {
       private _isPhoneLandscapeMode(): boolean {
             const width = window.innerWidth || this._el.clientWidth || 0;
             const height = window.innerHeight || 0;
-            return width > height && width <= 1280 && height <= 560;
+            return width > height && width <= 1280 && height <= 620;
       }
 
       private _syncResponsiveMode(): void {

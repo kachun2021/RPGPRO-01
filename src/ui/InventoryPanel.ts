@@ -4,6 +4,7 @@ import type { EquipmentSystem, EquipSlot, EquipDef } from '../systems/EquipmentS
 import { EQUIP_TEMPLATES } from '../systems/EquipmentSystem';
 import type { EnhanceSystem } from '../systems/EnhanceSystem';
 import type { PlayerStats } from '../entities/Player';
+import { renderUiIcon } from './UiIconCatalog';
 
 const RARITY_CLASS: Record<ItemRarity, string> = {
       common: 'inv2-rarity-common',
@@ -111,10 +112,19 @@ export class InventoryPanel {
             // Title
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '裝備與背包';
-            const closeBtn = document.createElement('span');
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">Field Loadout</span>
+                        <span class="atlas-title-main">${renderUiIcon('bag', 'atlas-title-icon')}<span>裝備與背包</span></span>
+                        <span class="atlas-title-meta">主裝備、消耗補給、素材與任務道具一頁整理</span>
+                  </div>
+                  <span class="atlas-header-pill inv2-header-pill">收納 ${this._inventory.count} 項</span>
+            `;
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
+            closeBtn.setAttribute('aria-label', '關閉背包');
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
@@ -332,7 +342,7 @@ export class InventoryPanel {
       private _isPhoneLandscapeMode(): boolean {
             const width = window.innerWidth || this._el.clientWidth || 0;
             const height = window.innerHeight || 0;
-            return width > height && width <= 1280 && height <= 560;
+            return width > height && width <= 1280 && height <= 620;
       }
 
       private _syncResponsiveMode(): void {

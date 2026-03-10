@@ -20,6 +20,7 @@ import {
       getShopRarityLabel,
       iconForItemType,
 } from './shop/ShopPanelTemplates';
+import { renderUiIcon } from './UiIconCatalog';
 
 export class ShopPanel {
       readonly panelId = 'shop';
@@ -66,9 +67,13 @@ export class ShopPanel {
             const gold = this._inventory.gold;
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        <span>${this._panelTitle()}</span>
-                        <span class="shop-gold-badge">GP <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
-                        <span class="panel-close" id="shop-close">✕</span>
+                        <div class="atlas-title-copy">
+                              <span class="atlas-kicker">Supply Counter</span>
+                              <span class="atlas-title-main">${renderUiIcon('shop', 'atlas-title-icon')}<span>${this._panelTitle()}</span></span>
+                              <span class="atlas-title-meta">${this._panelSubtitle()}</span>
+                        </div>
+                        <span class="shop-gold-badge atlas-header-pill">GP <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
+                        <button type="button" class="panel-close" id="shop-close" aria-label="關閉商店">✕</button>
                   </div>
                   <div class="shop-layout">
                         <aside class="shop-side">
@@ -444,6 +449,12 @@ export class ShopPanel {
             if (this._mode === 'sell') return '商旅回收';
             if (this._mode === 'craft') return '製作工坊';
             return '補給商店';
+      }
+
+      private _panelSubtitle(): string {
+            if (this._mode === 'sell') return '背包整理、回收估值與快速出清';
+            if (this._mode === 'craft') return '配方、缺料來源與成功率確認';
+            return '補給採買、商品比較與即時結算';
       }
 
       private _buildModeNote(): string {

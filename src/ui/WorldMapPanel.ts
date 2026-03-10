@@ -13,6 +13,7 @@ import {
       type MapMonsterInfo,
       type MapSummary,
 } from './world-map/WorldMapModel';
+import { renderUiIcon } from './UiIconCatalog';
 
 export class WorldMapPanel {
       readonly panelId = 'map';
@@ -21,6 +22,7 @@ export class WorldMapPanel {
       private _listFilterCol!: HTMLDivElement;
       private _listZoneCol!: HTMLDivElement;
       private _detailCol!: HTMLDivElement;
+      private _headerSummary!: HTMLSpanElement;
       private _visible = false;
       private _zoneManager: ZoneManager;
       private _selectedMapKey: string | null = null;
@@ -95,10 +97,23 @@ export class WorldMapPanel {
       private _buildShell(): void {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>世界地圖</span>';
-            const closeBtn = document.createElement('span');
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">World Navigation</span>
+                        <span class="atlas-title-main">${renderUiIcon('map', 'atlas-title-icon')}<span>世界地圖</span></span>
+                        <span class="atlas-title-meta">怪物分布、掉蛋來源與跨區路線追蹤</span>
+                  </div>
+            `;
+            this._headerSummary = document.createElement('span');
+            this._headerSummary.className = 'atlas-header-pill wmp-header-pill';
+            this._headerSummary.textContent = `共 ${this._mapSummaries.length} 區域`;
+            title.appendChild(this._headerSummary);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
+            closeBtn.setAttribute('aria-label', '關閉世界地圖');
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);
@@ -183,6 +198,8 @@ export class WorldMapPanel {
             this._listFilterCol.appendChild(searchWrap);
 
             const mapList = this._filteredMapSummaries();
+            const regionCount = new Set(mapList.map((item) => item.region)).size;
+            this._headerSummary.textContent = `${mapList.length} 區域 · ${regionCount} 地帶`;
             if (!this._selectedMapKey || !mapList.some(item => item.mapKey === this._selectedMapKey)) {
                   this._selectedMapKey = mapList[0]?.mapKey ?? null;
             }
@@ -781,7 +798,7 @@ export class WorldMapPanel {
       private _isPhoneLandscapeMode(): boolean {
             const w = window.innerWidth || 0;
             const h = window.innerHeight || 0;
-            return w > h && h <= 560 && w <= 1280;
+            return w > h && h <= 620 && w <= 1280;
       }
 
       private _syncResponsiveMode(): void {

@@ -1,5 +1,6 @@
 import type { QuestManager, QuestDef, QuestType, QuestStatus, QuestReward } from '../systems/QuestManager';
 import { Registry } from '../core/Registry';
+import { renderUiIcon } from './UiIconCatalog';
 
 type QTab = 'world' | 'general';
 const TAB_LABELS: { id: QTab; label: string; types: QuestType[] }[] = [
@@ -57,10 +58,19 @@ export class QuestPanel {
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
             const prog = this._questManager.mainProgress;
-            title.innerHTML = `<span>任務誌</span><span class="qp-progress">主線 ${prog.current}/${prog.total}</span>`;
-            const closeBtn = document.createElement('span');
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">Adventure Log</span>
+                        <span class="atlas-title-main">${renderUiIcon('quest', 'atlas-title-icon')}<span>任務誌</span></span>
+                        <span class="atlas-title-meta">主線、支線、交付節點與獎勵節奏總覽</span>
+                  </div>
+                  <span class="qp-progress atlas-header-pill">主線 ${prog.current}/${prog.total}</span>
+            `;
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '×';
+            closeBtn.setAttribute('aria-label', '關閉任務誌');
             closeBtn.addEventListener('click', () => this.hide());
             title.appendChild(closeBtn);
             this._el.appendChild(title);

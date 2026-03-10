@@ -1674,3 +1674,223 @@
     min-height: 58px;
   }
 }
+
+/* ===== Genshin Atlas Polish ===== */
+:root {
+  --hud-surface-0: rgba(8, 13, 24, 0.9);
+  --hud-surface-1: rgba(14, 21, 35, 0.84);
+  --hud-surface-2: rgba(24, 34, 53, 0.68);
+  --hud-edge: rgba(214, 184, 111, 0.34);
+  --hud-edge-soft: rgba(132, 158, 188, 0.18);
+  --hud-text-main: rgba(247, 241, 226, 0.96);
+  --hud-text-sub: rgba(225, 233, 242, 0.82);
+  --hud-text-dim: rgba(182, 192, 208, 0.64);
+  --hud-accent-gold: #deba73;
+  --hud-accent-blue: #90aec6;
+  --hud-shadow: 0 18px 34px rgba(3, 7, 18, 0.34);
+
+  --atlas-shell-bg:
+    radial-gradient(120% 160% at 100% -10%, rgba(222, 191, 116, 0.18), transparent 40%),
+    radial-gradient(100% 140% at 0% 100%, rgba(115, 149, 187, 0.11), transparent 42%),
+    linear-gradient(180deg, rgba(252, 249, 242, 0.992), rgba(241, 235, 223, 0.985));
+  --atlas-shell-edge: rgba(190, 173, 140, 0.58);
+  --atlas-copy-strong: #1d3046;
+  --atlas-copy-main: rgba(32, 48, 67, 0.94);
+  --atlas-copy-sub: rgba(68, 84, 101, 0.82);
+  --atlas-card-bg: linear-gradient(180deg, rgba(255, 254, 250, 0.92), rgba(243, 237, 226, 0.88));
+  --atlas-card-edge: rgba(197, 180, 147, 0.64);
+  --atlas-card-shadow: 0 12px 24px rgba(68, 72, 66, 0.1);
+}
+
+.hud-nav .sa-nav-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-color: rgba(215, 184, 110, 0.14);
+}
+
+.hud-nav .sa-nav-btn:hover,
+.hud-nav .sa-nav-btn.is-active,
+.hud-nav .sa-nav-btn.is-pressed {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(221, 183, 107, 0.14));
+  box-shadow: 0 10px 20px rgba(3, 7, 18, 0.22);
+}
+
+#ui-layer .ui-panel-atlas .atlas-shell,
+#ui-layer .ui-panel-atlas .atlas-card,
+#ui-layer .ui-panel-atlas .game-card,
+#ui-layer .ui-panel-atlas .wmp-zone-row,
+#ui-layer .ui-panel-atlas .wmp-detail-header,
+#ui-layer .ui-panel-atlas .wmp-route-card,
+#ui-layer .ui-panel-atlas .wmp-result-card,
+#ui-layer .ui-panel-atlas .book-row,
+#ui-layer .ui-panel-atlas .book-card,
+#ui-layer .ui-panel-atlas .book-detail-row,
+#ui-layer .ui-panel-atlas .fpo-formula-card,
+#ui-layer .ui-panel-atlas .fpo-machine-card,
+#ui-layer .ui-panel-atlas .fpo-result-box,
+#ui-layer .ui-panel-atlas .fpo-picker-row,
+#ui-layer .ui-panel-atlas .sys-card,
+#ui-layer .ui-panel-atlas .afk-mini-card,
+#ui-layer .ui-panel-atlas .afk-filter-card,
+#ui-layer .ui-panel-atlas .afk-toggle-card,
+#ui-layer .ui-panel-atlas .pet-hero-card,
+#ui-layer .ui-panel-atlas .pet-stat-card,
+#ui-layer .ui-panel-atlas .pet-equip-slot,
+#ui-layer .ui-panel-atlas .pet-storage-summary,
+#ui-layer .ui-panel-atlas .pet-storage-hint {
+  backdrop-filter: blur(10px);
+}
+
+#ui-layer .ui-panel-atlas .shop-card:hover,
+#ui-layer .ui-panel-atlas .shop-card.is-selected,
+#ui-layer .ui-panel-atlas .qp-dir-item:hover,
+#ui-layer .ui-panel-atlas .qp-dir-selected,
+#ui-layer .ui-panel-atlas .inv2-eq-slot:hover,
+#ui-layer .ui-panel-atlas .pet-squad-card:hover,
+#ui-layer .ui-panel-atlas .pet-storage-slot:hover {
+  box-shadow: 0 0 0 1px rgba(214, 184, 111, 0.16), 0 16px 28px rgba(55, 63, 74, 0.12);
+}
+
+@media (orientation: landscape) and (max-height: 560px) {
+  #ui-layer .hud-identity {
+    max-width: min(34vw, 212px);
+    padding: 9px 11px;
+  }
+
+  .hud-identity-name,
+  .hud-identity-meta,
+  .hud-identity-objective,
+  .hud-focus-banner-title,
+  .hud-focus-banner-text,
+  .minimap-zone-name,
+  .qt-header-text,
+  .qt-quest-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .qt-quest-top {
+    align-items: flex-start;
+  }
+
+  .qt-status-badge {
+    flex: 0 0 auto;
+  }
+
+  .minimap-root {
+    width: 168px;
+  }
+
+  .quest-tracker {
+    width: 176px;
+    bottom: 122px;
+    max-height: calc(100vh - 214px);
+  }
+
+  .qt-body {
+    max-height: calc(100vh - 258px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 6px;
+  }
+
+  .qt-quest {
+    margin: 0 8px 6px;
+    padding: 8px 10px;
+  }
+
+  .guidance-root,
+  .guide-root {
+    display: none !important;
+  }
+
+  .hud-nav {
+    bottom: 8px;
+  }
+
+  .hud-quick-dock {
+    width: min(50vw, 312px);
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .hud-menu-panel {
+    width: min(56vw, 308px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .hud-nav .sa-nav-btn {
+    min-height: 48px;
+    padding: 7px 6px;
+  }
+
+  #joystick.touch-joystick {
+    width: 96px;
+    height: 96px;
+  }
+
+  .touch-joystick-knob {
+    width: 40px;
+    height: 40px;
+  }
+
+  .skillbar-root {
+    right: 8px;
+    bottom: 60px;
+  }
+
+  .auto-grind-controls {
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .auto-grind-controls .auto-grind-btn {
+    width: 68px;
+  }
+
+  #ui-layer .sa-panel.ui-panel-atlas,
+  #ui-layer .fusion-root.ui-panel-atlas {
+    box-shadow: 0 20px 34px rgba(25, 33, 45, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.36) inset !important;
+  }
+
+  #ui-layer .ui-panel-atlas .atlas-card,
+  #ui-layer .ui-panel-atlas .game-card,
+  #ui-layer .ui-panel-atlas .shop-list-pane,
+  #ui-layer .ui-panel-atlas .shop-detail,
+  #ui-layer .ui-panel-atlas .shop-bottom-bar,
+  #ui-layer .ui-panel-atlas .qp-directory,
+  #ui-layer .ui-panel-atlas .qp-detail,
+  #ui-layer .ui-panel-atlas .inv2-top-panel,
+  #ui-layer .ui-panel-atlas .inv2-bottom,
+  #ui-layer .ui-panel-atlas .pet-squad-panel,
+  #ui-layer .ui-panel-atlas .pet-detail-panel,
+  #ui-layer .ui-panel-atlas .pet-storage-panel {
+    border-radius: 18px !important;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 560px) and (max-width: 920px) {
+  #ui-layer .inv2-root.ui-panel-atlas .inv2-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #ui-layer .sys-root.ui-panel-atlas .sys-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #ui-layer .sys-root.ui-panel-atlas .sys-overview-main {
+    grid-column: 1 / -1;
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-hero-main {
+    grid-template-columns: 60px minmax(0, 1fr);
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-radar-card {
+    grid-column: 1 / -1;
+    justify-self: start;
+    max-width: 176px;
+  }
+}

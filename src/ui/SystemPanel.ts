@@ -1,6 +1,7 @@
 import dataHealthRaw from '../data/runtime/data.health.json';
 import { listRuntimeHeroTemplates, type RuntimeHeroTemplate } from '../data/runtime/RuntimeProgression';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
+import { renderUiIcon } from './UiIconCatalog';
 
 type SysTabId = 'controls' | 'account' | 'data' | 'about';
 
@@ -100,10 +101,17 @@ export class SystemPanel {
             const validation = DATA_HEALTH.validation ?? {};
             const passedChecks = Number(validation.passedChecks ?? 0);
             const totalChecks = Number(validation.totalChecks ?? 0);
+            const headerMeta = this._panelSubtitle();
+            const headerSummary = this._panelSummary(account, passedChecks, totalChecks);
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        控制中心
-                        <span class="panel-close" id="sys-close">✕</span>
+                        <div class="atlas-title-copy">
+                              <span class="atlas-kicker">Command Ledger</span>
+                              <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>控制中心</span></span>
+                              <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
+                        </div>
+                        <span class="atlas-header-pill sys-header-pill">${this._escapeHtml(headerSummary)}</span>
+                        <button type="button" class="panel-close" id="sys-close" aria-label="關閉控制中心">✕</button>
                   </div>
                   <div class="sys-header">
                         <div class="sys-overview">
@@ -152,6 +160,34 @@ export class SystemPanel {
             }
 
             this._scheduleFit();
+      }
+
+      private _panelSubtitle(): string {
+            switch (this._tab) {
+                  case 'account':
+                        return '本機資料、角色模板與後續服務邊界整理';
+                  case 'data':
+                        return 'runtime 建置摘要、來源對應與輸出統計';
+                  case 'about':
+                        return '專案定位、版本狀態與工作入口';
+                  case 'controls':
+                  default:
+                        return '搖桿、視角與戰鬥輔助只保留目前已接線項';
+            }
+      }
+
+      private _panelSummary(account: SystemPanelAccountView, passedChecks: number, totalChecks: number): string {
+            switch (this._tab) {
+                  case 'account':
+                        return account.storageLabel.includes('本機') ? '本機資料模式' : account.storageLabel;
+                  case 'data':
+                        return `驗證 ${passedChecks}/${totalChecks}`;
+                  case 'about':
+                        return 'runtime-aligned';
+                  case 'controls':
+                  default:
+                        return '即時生效';
+            }
       }
 
       private _scheduleFit(): void {

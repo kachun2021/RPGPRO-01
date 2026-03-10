@@ -89,7 +89,7 @@ export class Minimap {
       private _applyResponsiveCollapsedState(): void {
             const width = window.innerWidth || 0;
             const height = window.innerHeight || 0;
-            const shouldCollapse = width > height && width <= 932;
+            const shouldCollapse = width > height && (width <= 932 || height <= 620);
             this._collapsed = shouldCollapse;
             this._syncCollapsedUi();
       }

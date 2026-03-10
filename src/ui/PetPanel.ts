@@ -5,6 +5,7 @@ import { PetEquipSlot } from '../pets/PetEquipment';
 import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
 import { SERIES_ICONS } from '../pets/PetData';
+import { renderUiIcon } from './UiIconCatalog';
 
 const STORAGE_COLS = 2;
 const STORAGE_ROWS = 4;
@@ -96,15 +97,27 @@ export class PetPanel {
 
       private _render(): void {
             const selected = this._sel ?? this._pm.active[0] ?? this._pm.owned[0] ?? null;
+            const inactiveCount = this._pm.owned.filter((pet) => !pet.isActive).length;
+            const headerMeta = this._panelSubtitle(selected);
+            const headerSummary = this._panelSummary(inactiveCount);
             this._sel = selected;
             this._bodyRoot.innerHTML = '';
 
             const title = document.createElement('div');
             title.className = 'sa-panel-title';
-            title.innerHTML = '<span>寵物編成</span>';
-            const closeBtn = document.createElement('span');
+            title.innerHTML = `
+                  <div class="atlas-title-copy">
+                        <span class="atlas-kicker">Companion Roster</span>
+                        <span class="atlas-title-main">${renderUiIcon('pet', 'atlas-title-icon')}<span>寵物編成</span></span>
+                        <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
+                  </div>
+                  <span class="atlas-header-pill pet-header-pill">${this._escapeHtml(headerSummary)}</span>
+            `;
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'panel-close';
             closeBtn.textContent = '✕';
+            closeBtn.setAttribute('aria-label', '關閉寵物編成');
             closeBtn.addEventListener('click', () => this.close());
             title.appendChild(closeBtn);
             this._bodyRoot.appendChild(title);
@@ -124,6 +137,15 @@ export class PetPanel {
             shell.appendChild(this._buildStoragePanel());
             this._bodyRoot.appendChild(shell);
             this._scheduleFit();
+      }
+
+      private _panelSubtitle(selected: Pet | null): string {
+            if (!selected) return '主力編隊、裝備板、Buff 與待命倉庫總覽';
+            return `${selected.displayName || selected.def.name} · Lv.${selected.stats.level} · ${selected.def.series}`;
+      }
+
+      private _panelSummary(inactiveCount: number): string {
+            return `編隊 ${this._pm.active.length}/${this._pm.MAX_ACTIVE} · 待命 ${inactiveCount}`;
       }
 
       private _buildSquadPanel(): HTMLDivElement {

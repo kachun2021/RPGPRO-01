@@ -4,6 +4,7 @@ import { StatAllocation, type BaseStats } from '../systems/StatAllocation';
 import { SkillTree, type SkillTreeNode } from '../systems/SkillTree';
 import { AwakeningSystem } from '../systems/AwakeningSystem';
 import { RebirthSystem } from '../systems/RebirthSystem';
+import { renderUiIcon } from './UiIconCatalog';
 
 type TabId = 'stats' | 'skilltree' | 'growth';
 
@@ -72,11 +73,18 @@ export class CharacterPanel {
             const s = this._player.stats;
             const pts = this._statAlloc.statPoints;
             const sp = this._skillTree.skillPoints;
+            const headerMeta = this._panelSubtitle();
+            const headerSummary = this._panelSummary(pts, sp);
 
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        角色檔案
-                        <span class="panel-close" id="cp-close">×</span>
+                        <div class="atlas-title-copy">
+                              <span class="atlas-kicker">Hero Archive</span>
+                              <span class="atlas-title-main">${renderUiIcon('character', 'atlas-title-icon')}<span>角色檔案</span></span>
+                              <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
+                        </div>
+                        <span class="atlas-header-pill cp-header-pill">${this._escapeHtml(headerSummary)}</span>
+                        <button type="button" class="panel-close" id="cp-close" aria-label="關閉角色檔案">×</button>
                   </div>
                   <div class="cp-tabs">
                         <button class="sa-tag${this._tab === 'stats' ? ' sa-tag-active' : ''}" data-tab="stats">
@@ -109,6 +117,32 @@ export class CharacterPanel {
             }
 
             this._scheduleFit();
+      }
+
+      private _panelSubtitle(): string {
+            switch (this._tab) {
+                  case 'skilltree':
+                        return '三系技能節點、前置條件與技能點分配一頁整理';
+                  case 'growth':
+                        return '覺醒條件、轉生循環與成長節奏總覽';
+                  case 'stats':
+                  default:
+                        return `${this._identity.playerName} · ${this._identity.heroName} · ${this._identity.roleLabel}`;
+            }
+      }
+
+      private _panelSummary(pts: number, sp: number): string {
+            switch (this._tab) {
+                  case 'skilltree':
+                        return `技能點 ${sp}`;
+                  case 'growth': {
+                        const rebirthCount = this._rebirth.getInfo().count;
+                        return `${this._awakening.isAwakened ? '已覺醒' : '未覺醒'} · 轉生 ${rebirthCount}`;
+                  }
+                  case 'stats':
+                  default:
+                        return `配點 ${pts} · 技能 ${sp}`;
+            }
       }
 
       private _scheduleFit(): void {
