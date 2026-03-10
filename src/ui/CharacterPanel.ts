@@ -4,7 +4,7 @@ import { StatAllocation, type BaseStats } from '../systems/StatAllocation';
 import { SkillTree, type SkillTreeNode } from '../systems/SkillTree';
 import { AwakeningSystem } from '../systems/AwakeningSystem';
 import { RebirthSystem } from '../systems/RebirthSystem';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 type TabId = 'stats' | 'skilltree' | 'growth';
 
@@ -70,22 +70,12 @@ export class CharacterPanel {
       // ─── Rendering ───
 
       private _render(): void {
-            const s = this._player.stats;
             const pts = this._statAlloc.statPoints;
             const sp = this._skillTree.skillPoints;
             const headerMeta = this._panelSubtitle();
             const headerSummary = this._panelSummary(pts, sp);
 
             this._el.innerHTML = `
-                  <div class="sa-panel-title">
-                        <div class="atlas-title-copy">
-                              <span class="atlas-kicker">Hero Archive</span>
-                              <span class="atlas-title-main">${renderUiIcon('character', 'atlas-title-icon')}<span>角色檔案</span></span>
-                              <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
-                        </div>
-                        <span class="atlas-header-pill cp-header-pill">${this._escapeHtml(headerSummary)}</span>
-                        <button type="button" class="panel-close" id="cp-close" aria-label="關閉角色檔案">×</button>
-                  </div>
                   <div class="cp-tabs">
                         <button class="sa-tag${this._tab === 'stats' ? ' sa-tag-active' : ''}" data-tab="stats">
                               配點${pts > 0 ? ` <span class="cp-badge">${pts}</span>` : ''}
@@ -100,8 +90,20 @@ export class CharacterPanel {
                   <div class="cp-body" id="cp-body"></div>
             `;
 
+            const { root: title } = createPanelHeader({
+                  icon: 'character',
+                  kicker: 'Hero Archive',
+                  title: '角色檔案',
+                  subtitle: headerMeta,
+                  summaryText: headerSummary,
+                  summaryClassName: 'cp-header-pill',
+                  closeLabel: '關閉角色檔案',
+                  closeId: 'cp-close',
+                  onClose: () => this.hide(),
+            });
+            this._el.prepend(title);
+
             // Tab events
-            this._el.querySelector('#cp-close')?.addEventListener('click', () => this.hide());
             this._el.querySelectorAll('.sa-tag[data-tab]').forEach(btn => {
                   btn.addEventListener('click', () => {
                         this._tab = (btn as HTMLElement).dataset.tab as TabId;
@@ -187,6 +189,9 @@ export class CharacterPanel {
             const primaryPetName = this._getPrimaryPetName?.() ?? this._identity.starterPetNames[0] ?? '未設定';
             const objectiveHint = this._getObjectiveHint?.() ?? this._identity.growthGoal;
             const rebirthLabel = rebirthInfo.count > 0 ? `轉生 ${rebirthInfo.count}` : '初階旅者';
+            const heroBrief = objectiveHint === this._identity.growthGoal
+                  ? objectiveHint
+                  : `${this._identity.growthGoal} · ${objectiveHint}`;
             const metaCards = [
                   { label: '等級', value: `${s.level}` },
                   { label: 'EXP', value: `${expPct}%` },
@@ -224,20 +229,11 @@ export class CharacterPanel {
                                                       </div>
                                                 `).join('')}
                                           </div>
+                                          <div class="cp-hero-brief">${this._escapeHtml(heroBrief)}</div>
                                     </div>
                                     <div class="cp-radar-card">
                                           ${this._renderRadarSVG(bs)}
                                           <div class="cp-radar-note">五維分布</div>
-                                    </div>
-                              </div>
-                              <div class="cp-focus-strip">
-                                    <div class="cp-focus-card">
-                                          <span class="cp-focus-label">成長目標</span>
-                                          <span class="cp-focus-value">${this._escapeHtml(this._identity.growthGoal)}</span>
-                                    </div>
-                                    <div class="cp-focus-card">
-                                          <span class="cp-focus-label">目前引導</span>
-                                          <span class="cp-focus-value">${this._escapeHtml(objectiveHint)}</span>
                                     </div>
                               </div>
                         </section>

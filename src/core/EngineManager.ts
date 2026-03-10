@@ -1,6 +1,7 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { WebGPUEngine } from '@babylonjs/core/Engines/webgpuEngine';
 import { Scene } from '@babylonjs/core/scene';
+import { shouldUseReducedRenderQuality } from './RuntimeLaunchFlags';
 
 export class EngineManager {
       public engine!: Engine | WebGPUEngine;
@@ -8,6 +9,7 @@ export class EngineManager {
       private _scene: Scene | null = null;
 
       async init(): Promise<void> {
+            const reducedRenderMode = shouldUseReducedRenderQuality();
             this.canvas = document.getElementById('renderCanvas') as HTMLCanvasElement;
             if (!this.canvas) {
                   this.canvas = document.createElement('canvas');
@@ -24,24 +26,34 @@ export class EngineManager {
 
             // WebGPU -> WebGL2 fallback
             this.engine = await (async () => {
-                  try {
-                        const gpu = new WebGPUEngine(this.canvas, {
-                              adaptToDeviceRatio: true,
-                              antialias: true,
-                        });
-                        await gpu.initAsync();
-                        console.log('[EngineManager] WebGPU initialized');
-                        return gpu;
-                  } catch {
-                        console.log('[EngineManager] WebGPU unavailable, falling back to WebGL2');
-                        return new Engine(this.canvas, true, {
-                              adaptToDeviceRatio: true,
-                              antialias: true,
-                        });
+                  if (!reducedRenderMode) {
+                        try {
+                              const gpu = new WebGPUEngine(this.canvas, {
+                                    adaptToDeviceRatio: true,
+                                    antialias: true,
+                              });
+                              await gpu.initAsync();
+                              console.log('[EngineManager] WebGPU initialized');
+                              return gpu;
+                        } catch {
+                              console.log('[EngineManager] WebGPU unavailable, falling back to WebGL2');
+                        }
                   }
+
+                  const fallback = new Engine(this.canvas, !reducedRenderMode, {
+                        adaptToDeviceRatio: !reducedRenderMode,
+                        antialias: !reducedRenderMode,
+                  });
+                  if (reducedRenderMode) {
+                        console.log('[EngineManager] Reduced render mode active for automated smoke checks');
+                  }
+                  return fallback;
             })();
 
-            this.engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
+            const scaling = reducedRenderMode
+                  ? Math.max(1.5, window.devicePixelRatio || 1)
+                  : 1 / window.devicePixelRatio;
+            this.engine.setHardwareScalingLevel(scaling);
 
             // Resize handler
             window.addEventListener('resize', () => {

@@ -1,7 +1,7 @@
 import dataHealthRaw from '../data/runtime/data.health.json';
 import { listRuntimeHeroTemplates, type RuntimeHeroTemplate } from '../data/runtime/RuntimeProgression';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 type SysTabId = 'controls' | 'account' | 'data' | 'about';
 
@@ -104,15 +104,6 @@ export class SystemPanel {
             const headerMeta = this._panelSubtitle();
             const headerSummary = this._panelSummary(account, passedChecks, totalChecks);
             this._el.innerHTML = `
-                  <div class="sa-panel-title">
-                        <div class="atlas-title-copy">
-                              <span class="atlas-kicker">Command Ledger</span>
-                              <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>控制中心</span></span>
-                              <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
-                        </div>
-                        <span class="atlas-header-pill sys-header-pill">${this._escapeHtml(headerSummary)}</span>
-                        <button type="button" class="panel-close" id="sys-close" aria-label="關閉控制中心">✕</button>
-                  </div>
                   <div class="sys-header">
                         <div class="sys-overview">
                               <div class="sys-overview-main">
@@ -143,7 +134,19 @@ export class SystemPanel {
                   <div class="sys-body" id="sys-body"></div>
             `;
 
-            this._el.querySelector('#sys-close')?.addEventListener('click', () => this.hide());
+            const { root: title } = createPanelHeader({
+                  icon: 'settings',
+                  kicker: 'Command Ledger',
+                  title: '控制中心',
+                  subtitle: headerMeta,
+                  summaryText: headerSummary,
+                  summaryClassName: 'sys-header-pill',
+                  closeLabel: '關閉控制中心',
+                  closeId: 'sys-close',
+                  closeText: '✕',
+                  onClose: () => this.hide(),
+            });
+            this._el.prepend(title);
             this._el.querySelectorAll('.sa-tag[data-tab]').forEach((btn) => {
                   btn.addEventListener('click', () => {
                         this._tab = (btn as HTMLElement).dataset.tab as SysTabId;

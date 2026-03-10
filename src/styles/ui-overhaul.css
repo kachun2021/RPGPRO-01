@@ -20,9 +20,9 @@
   --chrome-border-strong: rgba(126, 212, 199, 0.28);
   --chrome-border-warm: rgba(228, 191, 132, 0.24);
   --chrome-text-strong: #f5f8fc;
-  --chrome-text-main: rgba(227, 235, 245, 0.88);
-  --chrome-text-soft: rgba(185, 198, 216, 0.76);
-  --chrome-text-dim: rgba(133, 149, 173, 0.72);
+  --chrome-text-main: rgba(236, 242, 249, 0.92);
+  --chrome-text-soft: rgba(214, 224, 236, 0.84);
+  --chrome-text-dim: rgba(168, 183, 201, 0.78);
   --chrome-accent: #7ed4c7;
   --chrome-accent-strong: #acf1e7;
   --chrome-accent-alt: #8aa9ff;
@@ -105,11 +105,11 @@ body.ui-panel-focus #ui-layer :is(
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   flex: 0 0 auto;
-  min-height: 82px;
-  padding: 16px 18px !important;
-  padding-right: 72px !important;
+  min-height: 72px;
+  padding: 13px 16px !important;
+  padding-right: 64px !important;
   border-bottom: 1px solid rgba(126, 212, 199, 0.16) !important;
   border-radius: var(--chrome-radius-xl) var(--chrome-radius-xl) 0 0;
   background:
@@ -145,10 +145,10 @@ body.ui-panel-focus #ui-layer :is(
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   min-width: 0;
   font-family: var(--font-display);
-  font-size: clamp(24px, 2vw, 30px);
+  font-size: clamp(21px, 1.55vw, 26px);
   font-weight: 700;
   line-height: 1.05;
   color: var(--chrome-text-strong) !important;
@@ -163,9 +163,9 @@ body.ui-panel-focus #ui-layer :is(
 
 #ui-layer .ui-panel-atlas .atlas-title-icon,
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
   border: 1px solid rgba(126, 212, 199, 0.22);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
@@ -175,17 +175,17 @@ body.ui-panel-focus #ui-layer :is(
 
 #ui-layer .ui-panel-atlas .atlas-title-icon img,
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title-icon img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 #ui-layer .ui-panel-atlas .atlas-title-meta,
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header-subtitle {
-  max-width: min(58vw, 640px);
+  max-width: min(50vw, 560px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.45;
   color: var(--chrome-text-soft) !important;
   border: none !important;
@@ -199,11 +199,11 @@ body.ui-panel-focus #ui-layer :is(
   align-items: center;
   justify-content: center;
   align-self: center;
-  min-height: 38px;
-  max-width: min(26vw, 280px);
+  min-height: 34px;
+  max-width: min(22vw, 220px);
   margin-left: auto;
-  margin-right: 54px;
-  padding: 0 12px;
+  margin-right: 48px;
+  padding: 0 10px;
   border-radius: 999px;
   border: 1px solid rgba(126, 212, 199, 0.22);
   background:
@@ -211,7 +211,7 @@ body.ui-panel-focus #ui-layer :is(
     rgba(12, 20, 34, 0.58);
   color: var(--chrome-text-strong) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.03em;
   white-space: nowrap;
@@ -222,13 +222,13 @@ body.ui-panel-focus #ui-layer :is(
 #ui-layer .ui-panel-atlas .panel-close,
 #ui-layer .book-root.ui-panel-atlas .book-close-btn,
 #ui-layer .fusion-root.ui-panel-atlas .fpo-header-close {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) !important;
@@ -1123,66 +1123,81 @@ body.ui-panel-focus #ui-layer :is(
   #ui-layer .ui-panel-atlas > .sa-panel-title,
   #ui-layer .pet-panel-root.ui-panel-atlas .pet-panel-body > .sa-panel-title,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header {
-    min-height: 68px;
-    padding: 12px 14px !important;
-    padding-right: 58px !important;
+    min-height: 60px;
+    gap: 8px;
+    padding: 10px 12px !important;
+    padding-right: 52px !important;
   }
 
   #ui-layer .ui-panel-atlas .atlas-title-main,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title {
-    font-size: 21px;
+    font-size: 19px;
   }
 
   #ui-layer .ui-panel-atlas .atlas-title-icon,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
   }
 
   #ui-layer .ui-panel-atlas .atlas-title-meta,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header-subtitle {
-    max-width: min(42vw, 300px);
-    font-size: 11px;
+    max-width: min(34vw, 240px);
+    font-size: 10px;
   }
 
   .atlas-header-pill,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header-stats {
-    min-height: 34px;
-    max-width: min(32vw, 196px);
-    margin-right: 44px;
+    min-height: 28px;
+    max-width: min(24vw, 172px);
+    margin-right: 40px;
     font-size: 10px;
-    padding: 0 10px;
+    padding: 0 8px;
   }
 
   #ui-layer .ui-panel-atlas .panel-close,
   #ui-layer .book-root.ui-panel-atlas .book-close-btn,
   #ui-layer .fusion-root.ui-panel-atlas .fpo-header-close {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 12px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   #ui-layer .hud-identity {
     top: calc(env(safe-area-inset-top) + 8px);
     left: calc(env(safe-area-inset-left) + 8px);
-    min-width: 184px;
-    max-width: min(250px, 38vw);
-    padding: 10px 12px;
+    min-width: 168px;
+    max-width: min(220px, 30vw);
+    padding: 8px 10px;
+  }
+
+  .hud-identity-name {
+    font-size: 18px;
+  }
+
+  .hud-identity-meta,
+  .hud-identity-objective,
+  .hud-focus-banner-text {
+    font-size: 11px;
   }
 
   #ui-layer .hud-focus-banner {
     top: calc(env(safe-area-inset-top) + 8px);
-    min-width: min(48vw, 320px);
-    max-width: min(52vw, 360px);
-    padding: 10px 14px;
+    min-width: min(34vw, 220px);
+    max-width: min(38vw, 260px);
+    padding: 8px 10px;
+  }
+
+  .hud-focus-banner-title {
+    font-size: 18px;
   }
 
   .minimap-root {
-    top: calc(env(safe-area-inset-top) + 80px) !important;
+    top: calc(env(safe-area-inset-top) + 68px) !important;
     left: calc(env(safe-area-inset-left) + 8px) !important;
-    width: 166px !important;
+    width: 152px !important;
   }
 
   .minimap-body {
@@ -1192,8 +1207,8 @@ body.ui-panel-focus #ui-layer :is(
   .quest-tracker {
     left: calc(env(safe-area-inset-left) + 8px) !important;
     top: auto !important;
-    bottom: calc(env(safe-area-inset-bottom) + 118px) !important;
-    width: 174px !important;
+    bottom: calc(env(safe-area-inset-bottom) + 106px) !important;
+    width: 160px !important;
     max-height: calc(100vh - 228px);
   }
 
@@ -1201,20 +1216,41 @@ body.ui-panel-focus #ui-layer :is(
     max-height: calc(100vh - 272px);
   }
 
-  .chatbox-root,
-  .guidance-root,
-  .guide-root {
+  .chatbox-root {
     display: none !important;
+  }
+
+  .guidance-root {
+    left: calc(env(safe-area-inset-left) + 8px) !important;
+    top: auto !important;
+    bottom: calc(env(safe-area-inset-bottom) + 108px) !important;
+    width: 188px !important;
+  }
+
+  .guidance-card {
+    padding: 10px 12px !important;
+    gap: 8px;
+  }
+
+  .guidance-title {
+    font-size: 14px;
+  }
+
+  .guidance-text {
+    font-size: 11px;
+    line-height: 1.4;
   }
 
   #ui-layer .hud-top-right {
     top: calc(env(safe-area-inset-top) + 8px);
     right: calc(env(safe-area-inset-right) + 8px);
+    gap: 4px;
+    max-width: 56px;
   }
 
   .skillbar-root {
     right: calc(env(safe-area-inset-right) + 8px) !important;
-    bottom: calc(env(safe-area-inset-bottom) + 64px) !important;
+    bottom: calc(env(safe-area-inset-bottom) + 58px) !important;
   }
 
   .auto-grind-controls {
@@ -1224,43 +1260,45 @@ body.ui-panel-focus #ui-layer :is(
 
   .hud-nav {
     bottom: calc(env(safe-area-inset-bottom) + 8px) !important;
-    width: min(58vw, 440px);
+    width: min(48vw, 308px);
   }
 
   .hud-quick-dock {
-    width: min(52vw, 340px);
+    width: min(44vw, 280px);
   }
 
   .hud-menu-panel {
-    width: min(56vw, 360px);
+    width: min(48vw, 292px);
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hud-nav .sa-nav-btn {
     min-height: 44px;
+    padding: 4px 4px;
+    gap: 2px;
   }
 
   #ui-layer .wmp-root.ui-panel-atlas .wmp-body {
-    grid-template-columns: 232px minmax(0, 1fr);
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: 192px minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
   }
 
   #ui-layer .qp-root.ui-panel-atlas .qp-body {
-    grid-template-columns: 232px minmax(0, 1fr);
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: 192px minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
   }
 
   #ui-layer .shop-root.ui-panel-atlas .shop-layout {
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: 168px minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
   }
 
   #ui-layer .shop-root.ui-panel-atlas .shop-content {
-    grid-template-columns: minmax(0, 1fr) 242px;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 8px;
   }
 
   #ui-layer .inv2-root.ui-panel-atlas .inv2-main {
@@ -1340,8 +1378,8 @@ body.ui-panel-focus #ui-layer :is(
 
   #ui-layer .book-root.ui-panel-atlas .book-unified-root,
   #ui-layer .afk-root.ui-panel-atlas .afk-layout {
-    padding: 10px;
-    gap: 10px;
+    padding: 8px;
+    gap: 8px;
   }
 }
 
@@ -1732,13 +1770,13 @@ body.ui-panel-focus #ui-layer :is(
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-panel-body {
-  padding: 10px 12px 12px;
+  padding: 8px 10px 10px;
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-layout {
   display: grid;
-  grid-template-columns: minmax(248px, 0.82fr) minmax(0, 1.18fr);
-  gap: 12px;
+  grid-template-columns: minmax(224px, 0.76fr) minmax(0, 1.24fr);
+  gap: 10px;
   min-height: 0;
 }
 
@@ -1753,20 +1791,20 @@ body.ui-panel-focus #ui-layer :is(
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-cards-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-card {
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 18px;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 16px;
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-card-icon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
   border-color: rgba(126, 212, 199, 0.18) !important;
 }
 
@@ -1776,15 +1814,15 @@ body.ui-panel-focus #ui-layer :is(
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-card-name {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-card-stats {
-  font-size: 11px;
+  font-size: 10px;
 }
 
 #ui-layer .skill-panel.ui-panel-atlas .skill-card-effect {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.35;
 }
 
@@ -1873,6 +1911,293 @@ body.ui-panel-focus #ui-layer :is(
 
 #ui-layer .dlg-action-label {
   color: var(--chrome-text-strong) !important;
+}
+
+@media (orientation: landscape) and (max-height: 620px) {
+  #ui-layer .hud-focus-banner,
+  .atlas-header-pill,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-stats,
+  #ui-layer .wmp-root.ui-panel-atlas .wmp-note {
+    display: none !important;
+  }
+
+  .hud-identity-kicker,
+  #ui-layer .ui-panel-atlas .atlas-kicker,
+  #ui-layer .fusion-root.ui-panel-atlas .atlas-kicker {
+    display: none !important;
+  }
+
+  #ui-layer .hud-identity {
+    min-width: 150px;
+    max-width: min(184px, 28vw);
+    padding: 7px 9px;
+  }
+
+  .hud-identity-name {
+    font-size: 15px;
+    line-height: 1.05;
+  }
+
+  .hud-identity-meta,
+  .hud-identity-objective {
+    font-size: 10px;
+    line-height: 1.22;
+  }
+
+  .minimap-root {
+    top: calc(env(safe-area-inset-top) + 58px) !important;
+    width: 144px !important;
+  }
+
+  .quest-tracker {
+    width: 154px !important;
+    bottom: calc(env(safe-area-inset-bottom) + 98px) !important;
+    max-height: calc(100vh - 180px);
+  }
+
+  .qt-body {
+    max-height: calc(100vh - 220px);
+  }
+
+  #ui-layer .hud-top-right {
+    gap: 4px;
+    max-width: 50px;
+  }
+
+  .hud-portrait,
+  .hud-portrait-circle,
+  .hud-ring-svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hud-portrait-inner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hud-portrait-text {
+    font-size: 9px;
+  }
+
+  .hud-portrait-text.is-pet {
+    font-size: 7px;
+  }
+
+  .hud-portrait-toggle {
+    width: 18px;
+    min-height: 44px;
+    font-size: 8px;
+  }
+
+  .skillbar-root {
+    grid-template-columns: repeat(2, 44px);
+    grid-auto-rows: 44px;
+    gap: 4px;
+    padding: 5px !important;
+    bottom: calc(env(safe-area-inset-bottom) + 54px) !important;
+  }
+
+  .skill-slot {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+  }
+
+  .auto-grind-controls .auto-grind-btn {
+    width: 60px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .auto-settings-btn {
+    width: 38px;
+  }
+
+  .hud-nav {
+    width: min(44vw, 284px);
+    bottom: calc(env(safe-area-inset-bottom) + 6px) !important;
+  }
+
+  .hud-quick-dock {
+    width: min(42vw, 264px);
+    gap: 4px !important;
+    padding: 5px !important;
+  }
+
+  .hud-menu-panel {
+    width: min(48vw, 286px);
+    gap: 4px !important;
+    padding: 5px !important;
+  }
+
+  .hud-nav .sa-nav-btn {
+    min-height: 44px;
+    padding: 4px;
+    gap: 2px;
+  }
+
+  .hud-nav-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .hud-nav-icon img {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hud-nav-label {
+    font-size: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  #ui-layer .ui-panel-atlas > .sa-panel-title,
+  #ui-layer .pet-panel-root.ui-panel-atlas .pet-panel-body > .sa-panel-title,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header {
+    min-height: 54px;
+    gap: 8px;
+    padding: 8px 10px !important;
+    padding-right: 46px !important;
+  }
+
+  #ui-layer .ui-panel-atlas .atlas-title-main,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title {
+    font-size: 17px;
+    gap: 8px;
+  }
+
+  #ui-layer .ui-panel-atlas .atlas-title-icon,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+  }
+
+  #ui-layer .ui-panel-atlas .atlas-title-icon img,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-title-icon img {
+    width: 16px;
+    height: 16px;
+  }
+
+  #ui-layer .ui-panel-atlas .atlas-title-meta,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-subtitle {
+    max-width: min(42vw, 188px);
+    font-size: 10px;
+  }
+
+  #ui-layer .ui-panel-atlas .panel-close,
+  #ui-layer .book-root.ui-panel-atlas .book-close-btn,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-header-close {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  #ui-layer .wmp-root.ui-panel-atlas .wmp-body {
+    grid-template-columns: 168px minmax(0, 1fr) !important;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  #ui-layer .wmp-root.ui-panel-atlas .wmp-list-controls,
+  #ui-layer .wmp-root.ui-panel-atlas .wmp-zone-list {
+    padding: 4px;
+  }
+
+  #ui-layer .qp-root.ui-panel-atlas .qp-body {
+    grid-template-columns: 172px minmax(0, 1fr) !important;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  #ui-layer .shop-root.ui-panel-atlas .shop-layout {
+    grid-template-columns: 160px minmax(0, 1fr) !important;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  #ui-layer .shop-root.ui-panel-atlas .shop-content {
+    grid-template-columns: minmax(0, 1fr) 204px;
+    gap: 8px;
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-body,
+  #ui-layer .sys-root.ui-panel-atlas .sys-body,
+  #ui-layer .book-root.ui-panel-atlas .book-unified-root,
+  #ui-layer .afk-root.ui-panel-atlas .afk-layout,
+  #ui-layer .skill-panel.ui-panel-atlas .skill-panel-body,
+  #ui-layer .comm-root.ui-panel-atlas .comm-body,
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-body {
+    padding: 8px 10px 10px;
+    gap: 8px;
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-name {
+    font-size: clamp(22px, 2.4vw, 24px);
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-role,
+  #ui-layer .cp-root.ui-panel-atlas .cp-focus-value {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-hero,
+  #ui-layer .cp-root.ui-panel-atlas .cp-board,
+  #ui-layer .cp-root.ui-panel-atlas .cp-focus-card,
+  #ui-layer .cp-root.ui-panel-atlas .cp-meta-card,
+  #ui-layer .cp-root.ui-panel-atlas .cp-radar-card {
+    padding: 10px 12px;
+  }
+
+  #ui-layer .skill-panel.ui-panel-atlas .skill-layout {
+    grid-template-columns: 184px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  #ui-layer .skill-panel.ui-panel-atlas .skill-card {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  #ui-layer .skill-panel.ui-panel-atlas .skill-card-name {
+    font-size: 13px;
+  }
+
+  #ui-layer .skill-panel.ui-panel-atlas :is(.skill-card-stats, .skill-card-effect, .skill-card-runtime) {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  #ui-layer .skill-panel.ui-panel-atlas .skill-up-btn {
+    min-width: 60px;
+  }
+
+  #ui-layer .afk-root.ui-panel-atlas :is(.afk-main-body, .afk-headline, .afk-tab-panel) {
+    padding: 8px 10px;
+  }
+
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-body {
+    max-height: calc(92vh - 98px);
+  }
+
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-recipe-split {
+    grid-template-columns: 184px minmax(0, 1fr);
+    padding: 4px;
+    gap: 4px;
+  }
+
+  #ui-layer .fusion-root.ui-panel-atlas :is(.fpo-filter-row, .fpo-main-head, .fpo-recipe-list) {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  #ui-layer .fusion-root.ui-panel-atlas .fpo-formula-card {
+    padding: 6px 8px !important;
+    gap: 4px !important;
+  }
 }
 
 @media (orientation: landscape) and (max-height: 430px) {
@@ -2015,4 +2340,126 @@ body.ui-panel-focus #ui-layer :is(
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+#ui-layer .wmp-root.ui-panel-atlas .wmp-body {
+  grid-template-columns: minmax(248px, 0.82fr) minmax(0, 1.18fr);
+}
+
+#ui-layer .wmp-root.ui-panel-atlas .wmp-detail-header {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+}
+
+#ui-layer .wmp-root.ui-panel-atlas .wmp-nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 0 2px;
+}
+
+#ui-layer .qp-root.ui-panel-atlas .qp-body {
+  grid-template-columns: minmax(248px, 0.82fr) minmax(0, 1.18fr);
+}
+
+#ui-layer .qp-root.ui-panel-atlas .qp-detail-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+#ui-layer .qp-root.ui-panel-atlas .qp-detail-content {
+  display: grid;
+  gap: 12px;
+}
+
+#ui-layer .qp-root.ui-panel-atlas .qp-detail-progress {
+  margin-top: 0;
+}
+
+#ui-layer .shop-root.ui-panel-atlas .shop-layout {
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+
+#ui-layer .shop-root.ui-panel-atlas .shop-side {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+#ui-layer .shop-root.ui-panel-atlas .shop-main-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+#ui-layer .shop-root.ui-panel-atlas .shop-main-chip {
+  white-space: nowrap;
+}
+
+#ui-layer .inv2-root.ui-panel-atlas .inv2-top {
+  grid-template-columns: minmax(0, 1.16fr) minmax(240px, 0.84fr);
+}
+
+#ui-layer .inv2-root.ui-panel-atlas .inv2-top-panel-quick {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+#ui-layer .inv2-root.ui-panel-atlas .inv2-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#ui-layer .cp-root.ui-panel-atlas .cp-hero-main {
+  align-items: start;
+}
+
+#ui-layer .cp-root.ui-panel-atlas .cp-hero-brief {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(126, 212, 199, 0.14);
+  background: rgba(13, 22, 36, 0.54);
+  color: var(--chrome-text-soft);
+  line-height: 1.5;
+}
+
+@media (orientation: landscape) and (max-height: 620px) {
+  #ui-layer .wmp-root.ui-panel-atlas .wmp-body {
+    grid-template-columns: 156px minmax(0, 1fr) !important;
+  }
+
+  #ui-layer .qp-root.ui-panel-atlas .qp-body {
+    grid-template-columns: 160px minmax(0, 1fr) !important;
+  }
+
+  #ui-layer .shop-root.ui-panel-atlas .shop-layout {
+    grid-template-columns: 144px minmax(0, 1fr) !important;
+  }
+
+  #ui-layer .shop-root.ui-panel-atlas .shop-content {
+    grid-template-columns: minmax(0, 1fr) 184px !important;
+  }
+
+  #ui-layer .shop-root.ui-panel-atlas .shop-main-head {
+    padding: 8px 10px;
+  }
+
+  #ui-layer .inv2-root.ui-panel-atlas .inv2-top-panel-quick {
+    gap: 10px;
+  }
+
+  #ui-layer .cp-root.ui-panel-atlas .cp-hero-brief {
+    margin-top: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
 }

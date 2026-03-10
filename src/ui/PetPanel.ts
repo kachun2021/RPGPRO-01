@@ -5,7 +5,7 @@ import { PetEquipSlot } from '../pets/PetEquipment';
 import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
 import { SERIES_ICONS } from '../pets/PetData';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 const STORAGE_COLS = 2;
 const STORAGE_ROWS = 4;
@@ -103,23 +103,17 @@ export class PetPanel {
             this._sel = selected;
             this._bodyRoot.innerHTML = '';
 
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">Companion Roster</span>
-                        <span class="atlas-title-main">${renderUiIcon('pet', 'atlas-title-icon')}<span>寵物編成</span></span>
-                        <span class="atlas-title-meta">${this._escapeHtml(headerMeta)}</span>
-                  </div>
-                  <span class="atlas-header-pill pet-header-pill">${this._escapeHtml(headerSummary)}</span>
-            `;
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '✕';
-            closeBtn.setAttribute('aria-label', '關閉寵物編成');
-            closeBtn.addEventListener('click', () => this.close());
-            title.appendChild(closeBtn);
+            const { root: title } = createPanelHeader({
+                  icon: 'pet',
+                  kicker: 'Companion Roster',
+                  title: '寵物編成',
+                  subtitle: headerMeta,
+                  summaryText: headerSummary,
+                  summaryClassName: 'pet-header-pill',
+                  closeLabel: '關閉寵物編成',
+                  closeText: '✕',
+                  onClose: () => this.close(),
+            });
             this._bodyRoot.appendChild(title);
 
             if (!selected) {

@@ -2,6 +2,13 @@ param(
     [string]$Url = "http://127.0.0.1:3000",
     [switch]$Headed,
     [int]$StartupTimeoutSec = 90,
+    [ValidateSet('quick', 'core', 'ui', 'landscape', 'full')]
+    [string]$Profile = "quick",
+    [ValidateSet('always', 'on-fail', 'none')]
+    [string]$Artifacts = "",
+    [ValidateSet('lite', 'full')]
+    [string]$RenderMode = "",
+    [int]$PauseMs = 0,
     [string[]]$Scenario = @(),
     [string[]]$Group = @(),
     [switch]$List
@@ -37,9 +44,16 @@ function Wait-HttpUp {
 }
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-$outputRoot = Join-Path $repoRoot "output\web-game\task-smoke"
+$outputRoot = Join-Path $repoRoot ("output\web-game\task-smoke\" + $Profile)
 $runnerScript = Join-Path $repoRoot "scripts\task_smoke_runner.mjs"
 $headlessArg = if ($Headed) { "false" } else { "true" }
+$resolvedArtifacts = if (-not [string]::IsNullOrWhiteSpace($Artifacts)) {
+    $Artifacts
+} elseif ($Headed) {
+    "always"
+} else {
+    ""
+}
 
 if (-not (Test-Path $runnerScript -PathType Leaf)) {
     throw "Missing smoke runner: $runnerScript"
@@ -53,7 +67,16 @@ $runnerArgs = @($runnerScript)
 if ($List) {
     $runnerArgs += "--list"
 } else {
-    $runnerArgs += @("--url", $Url, "--output-dir", $outputRoot, "--headless", $headlessArg)
+    $runnerArgs += @("--url", $Url, "--output-dir", $outputRoot, "--headless", $headlessArg, "--profile", $Profile)
+    if (-not [string]::IsNullOrWhiteSpace($resolvedArtifacts)) {
+        $runnerArgs += @("--artifacts", $resolvedArtifacts)
+    }
+    if (-not [string]::IsNullOrWhiteSpace($RenderMode)) {
+        $runnerArgs += @("--render-mode", $RenderMode)
+    }
+    if ($PauseMs -gt 0) {
+        $runnerArgs += @("--pause-ms", "$PauseMs")
+    }
     foreach ($name in $Scenario) {
         if (-not [string]::IsNullOrWhiteSpace($name)) {
             $runnerArgs += @("--scenario", $name)

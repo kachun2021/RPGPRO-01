@@ -1,5 +1,68 @@
 ﻿Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、回歸檢查）如何自動化使用最佳SKILL?例如TASK完結自動化測試是否正確?
 
+## 2026-03-11 (smoke workflow redesign for faster iterative UI work)
+
+- Reworked smoke runner defaults in `scripts/task_smoke_runner.mjs`:
+  - added smoke profiles: `quick`, `core`, `ui`, `landscape`, `full`
+  - default profile is now `quick` instead of "run every default-enabled scenario"
+  - quick profile targets a small daily-edit set (`move-baseline`, `quest-panel`, `inventory-panel`)
+  - added artifact modes (`always`, `on-fail`, `none`)
+  - added render modes (`lite`, `full`)
+  - summary banner now prints selected profile/render/artifact mode
+- Reduced false positives in smoke expectations:
+  - baseline scenarios no longer assert broad HUD selectors like `.guidance-root` / minimap / quick dock
+  - panel smoke now prefers validating panel root visibility instead of many internal selectors
+- Added reduced-render launch flags:
+  - new `src/core/RuntimeLaunchFlags.ts`
+  - `EngineManager` now skips WebGPU preference and lowers render cost in smoke lite mode
+  - `MainScene` now uses smaller shadows and disables post-process pipeline in lite smoke mode
+  - smoke runner now injects `autotestLite=1`, `renderMode`, and `smokeProfile` query params
+- Updated smoke wrapper and task gate:
+  - `scripts/task_smoke.ps1` now accepts `-Profile`, `-Artifacts`, `-RenderMode`, `-PauseMs`
+  - smoke artifacts now write to `output/web-game/task-smoke/<profile>`
+  - `scripts/task_done.ps1` now defaults to `build` (already includes typecheck); smoke is opt-in via `-WithSmoke`
+- Updated npm scripts in `package.json`:
+  - `test:smoke` now maps to quick profile
+  - added `test:smoke:quick` and `test:smoke:full`
+  - `task:done` no longer forces smoke
+  - added `task:done:smoke` and `task:done:full`
+- Validation:
+  - `node ./scripts/task_smoke_runner.mjs --list` passed
+  - `pwsh -File ./scripts/task_smoke.ps1 -List -Profile quick` passed
+  - `npm run -s typecheck` passed
+  - `npm run -s build` passed
+
+## 2026-03-11 (UI structure cleanup before further visual overhaul)
+
+- Added shared panel header helper: `src/ui/layout/PanelHeader.ts`.
+- Migrated duplicated atlas-style headers in:
+  - `src/ui/InventoryPanel.ts`
+  - `src/ui/WorldMapPanel.ts`
+  - `src/ui/QuestPanel.ts`
+  - `src/ui/CharacterPanel.ts`
+  - `src/ui/ShopPanel.ts`
+  - `src/ui/SystemPanel.ts`
+  - `src/ui/SkillPanel.ts`
+  - `src/ui/PetPanel.ts`
+- Reduced repeated summary/UI noise in major landscape-heavy panels:
+  - Inventory: removed duplicate bag-total block from quick summary; kept one compact "整理重點" note.
+  - WorldMap: removed top note block and duplicated overview card grid in detail view; left header + route/filter/content structure.
+  - Quest: removed overview strip above body and removed duplicated focus card inside detail view; detail now keeps one summary card + reward/action rail.
+  - Character: removed duplicated focus strip from stats hero panel and replaced it with one compact journey brief line.
+  - Shop: removed side-note dashboard block; main head now uses one compact state chip instead of another explanatory paragraph.
+- Added final-pass overrides in `src/styles/ui-overhaul.css` to:
+  - rebalance world-map / quest / shop split columns,
+  - compress detail headers and shop head chrome,
+  - tighten inventory quick summary layout,
+  - add compact hero brief styling,
+  - further reduce side-column width for phone-landscape (`max-height: 620px`).
+- Logic hardening:
+  - Quest detail render now tolerates quests without an objective entry instead of assuming index `0` always exists.
+- Validation:
+  - `npm run -s typecheck` passed.
+  - `npm run -s build` passed.
+  - Did not run smoke per user request due current GPU-heavy / low-signal workflow.
+
 ## 2026-03-05
 
 - Added npm scripts:
@@ -1230,3 +1293,21 @@
     - `npm run -s test:smoke:landscape-grid` passed (`24/24`)
     - `npm run -s ci:guardrails` passed
     - `npm run -s gamedb:check-legacy` passed
+
+## 2026-03-11 (HUD + panel density pass for landscape/mobile readability)
+
+- Adjusted shared chrome in `src/styles/ui-overhaul.css`:
+  - reduced atlas/panel header height, title icon size, close button size, and header pill footprint
+  - tightened skill panel spacing/card density so action content wins over shell chrome
+  - added stronger compact-landscape rules (`max-height: 760px` and `max-height: 620px`) for HUD, world map, shop, skill, AFK, fusion, and shared panel padding
+  - kept onboarding guidance visible for baseline smoke, but reduced its footprint instead of hiding it
+- Adjusted `src/ui/HUD.ts`:
+  - shortened focus banner visibility from `4200ms` to `2200ms` so transient objective chrome does not sit over gameplay for as long
+- Visual outcome from fresh screenshots:
+  - landscape HUD now leaves more center-screen visibility
+  - map panel at `844x390` uses a narrower left rail and smaller header chrome
+  - character / skill / AFK / fusion panels render denser without breaking panel structure
+- Validation:
+  - `npm run -s build` passed
+  - `pwsh -ExecutionPolicy Bypass -File .\scripts\task_smoke.ps1 -Scenario character-panel,skill-panel,afk-panel,fusion-panel,map-panel-landscape` passed
+  - `pwsh -ExecutionPolicy Bypass -File .\scripts\task_smoke.ps1 -Scenario move-baseline` passed

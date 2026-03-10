@@ -3,7 +3,7 @@ import type { SkillBar } from './SkillBar';
 import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
 import { getRuntimeSkillDetail, getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 type SkillTab = 'player' | 'pet';
 
@@ -64,26 +64,17 @@ export class SkillPanel {
       }
 
       private _buildShell(): void {
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">Combat Loadout</span>
-                        <span class="atlas-title-main">${renderUiIcon('skill', 'atlas-title-icon')}<span>技能設定</span></span>
-                        <span class="atlas-title-meta">主角與寵物技能裝配、技能點升級與戰鬥欄位配置</span>
-                  </div>
-            `;
-
-            this._headerSummary = document.createElement('span');
-            this._headerSummary.className = 'atlas-header-pill skill-header-pill';
-            title.appendChild(this._headerSummary);
-
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
+            const { root: title, summaryEl } = createPanelHeader({
+                  icon: 'skill',
+                  kicker: 'Combat Loadout',
+                  title: '技能設定',
+                  subtitle: '主角與寵物技能裝配、技能點升級與戰鬥欄位配置',
+                  summaryText: '',
+                  summaryClassName: 'skill-header-pill',
+                  closeLabel: '關閉技能設定',
+                  onClose: () => this.hide(),
+            });
+            this._headerSummary = summaryEl ?? document.createElement('span');
             this._el.appendChild(title);
 
             const tabBar = document.createElement('div');

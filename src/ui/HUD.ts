@@ -268,7 +268,7 @@ export class HUD {
             this._bannerTimer = window.setTimeout(() => {
                   this._focusBanner.classList.remove('is-visible');
                   this._bannerTimer = 0;
-            }, 4200);
+            }, 2200);
       }
 
       updateStats(stats: PlayerStats): void {

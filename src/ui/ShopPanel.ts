@@ -20,7 +20,7 @@ import {
       getShopRarityLabel,
       iconForItemType,
 } from './shop/ShopPanelTemplates';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 export class ShopPanel {
       readonly panelId = 'shop';
@@ -66,15 +66,6 @@ export class ShopPanel {
 
             const gold = this._inventory.gold;
             this._el.innerHTML = `
-                  <div class="sa-panel-title">
-                        <div class="atlas-title-copy">
-                              <span class="atlas-kicker">Supply Counter</span>
-                              <span class="atlas-title-main">${renderUiIcon('shop', 'atlas-title-icon')}<span>${this._panelTitle()}</span></span>
-                              <span class="atlas-title-meta">${this._panelSubtitle()}</span>
-                        </div>
-                        <span class="shop-gold-badge atlas-header-pill">GP <span class="shop-gold-num">${gold.toLocaleString()}</span></span>
-                        <button type="button" class="panel-close" id="shop-close" aria-label="關閉商店">✕</button>
-                  </div>
                   <div class="shop-layout">
                         <aside class="shop-side">
                               <div class="shop-mode-bar">
@@ -82,17 +73,12 @@ export class ShopPanel {
                                     <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'sell' ? ' active is-active' : ''}" data-mode="sell"><span class="shop-mode-icon">售</span><span class="shop-mode-label">出售</span></button>
                                     <button class="shop-mode-btn rpg-chip rpg-chip-tab${this._mode === 'craft' ? ' active is-active' : ''}" data-mode="craft"><span class="shop-mode-icon">作</span><span class="shop-mode-label">製作</span></button>
                               </div>
-                              <div class="shop-side-note atlas-card">${this._buildModeNote()}</div>
                               ${this._mode === 'buy' ? buildShopCategoryTabs(this._category, this._buyCatalogScope) : ''}
                         </aside>
                         <section class="shop-main">
                               <div class="shop-main-head shop-main-head-grid">
                                     <span class="shop-main-title">${this._mode === 'buy' ? '採買清單' : this._mode === 'sell' ? '背包變現' : '工坊配方'}</span>
-                                    <span class="shop-main-sub">${this._mode === 'buy'
-                                          ? '先選商品，再決定補給數量'
-                                          : this._mode === 'sell'
-                                                ? '先選物品，再確認這次出清'
-                                                : '先選配方，再確認材料與成功率'}</span>
+                                    <span class="sa-tag shop-main-chip">${this._mainHeadChip()}</span>
                               </div>
                               <div class="shop-content">
                                     <div class="shop-list-pane">
@@ -106,7 +92,19 @@ export class ShopPanel {
                   </div>
             `;
 
-            this._el.querySelector('#shop-close')?.addEventListener('click', () => this.hide());
+            const { root: title } = createPanelHeader({
+                  icon: 'shop',
+                  kicker: 'Supply Counter',
+                  title: this._panelTitle(),
+                  subtitle: this._panelSubtitle(),
+                  summaryText: `GP ${gold.toLocaleString()}`,
+                  summaryClassName: 'shop-gold-badge',
+                  closeLabel: '關閉商店',
+                  closeId: 'shop-close',
+                  closeText: '✕',
+                  onClose: () => this.hide(),
+            });
+            this._el.prepend(title);
 
             this._el.querySelectorAll('.shop-mode-btn').forEach((btn) => {
                   btn.addEventListener('click', () => {
@@ -457,14 +455,10 @@ export class ShopPanel {
             return '補給採買、商品比較與即時結算';
       }
 
-      private _buildModeNote(): string {
-            if (this._mode === 'sell') {
-                  return '把背包裡暫時不用的道具集中出售。右側只保留結算與數量確認，不再放大成 dashboard。';
-            }
-            if (this._mode === 'craft') {
-                  return '先選配方，再檢查材料來源與成功率。缺料時會優先提示缺口，不先塞滿一堆空框。';
-            }
-            return '先選商品，再補數量。左側保留類別與目錄切換，主畫面專注在清單與交易確認。';
+      private _mainHeadChip(): string {
+            if (this._mode === 'sell') return '回收估值';
+            if (this._mode === 'craft') return '材料檢核';
+            return this._buyCatalogScope === 'starter' ? '新手精選' : '常規供應';
       }
 
       async show(mode: 'buy' | 'sell' | 'craft' = 'buy'): Promise<void> {

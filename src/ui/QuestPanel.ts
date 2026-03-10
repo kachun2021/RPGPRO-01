@@ -1,6 +1,6 @@
 import type { QuestManager, QuestDef, QuestType, QuestStatus, QuestReward } from '../systems/QuestManager';
 import { Registry } from '../core/Registry';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 type QTab = 'world' | 'general';
 const TAB_LABELS: { id: QTab; label: string; types: QuestType[] }[] = [
@@ -54,25 +54,17 @@ export class QuestPanel {
             this._syncResponsiveMode();
             this._el.innerHTML = '';
 
-            // Title bar
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
             const prog = this._questManager.mainProgress;
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">Adventure Log</span>
-                        <span class="atlas-title-main">${renderUiIcon('quest', 'atlas-title-icon')}<span>任務誌</span></span>
-                        <span class="atlas-title-meta">主線、支線、交付節點與獎勵節奏總覽</span>
-                  </div>
-                  <span class="qp-progress atlas-header-pill">主線 ${prog.current}/${prog.total}</span>
-            `;
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
-            closeBtn.setAttribute('aria-label', '關閉任務誌');
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
+            const { root: title } = createPanelHeader({
+                  icon: 'quest',
+                  kicker: 'Adventure Log',
+                  title: '任務誌',
+                  subtitle: '主線、支線、交付節點與獎勵節奏總覽',
+                  summaryText: `主線 ${prog.current}/${prog.total}`,
+                  summaryClassName: 'qp-progress',
+                  closeLabel: '關閉任務誌',
+                  onClose: () => this.hide(),
+            });
             this._el.appendChild(title);
 
             // Tab bar
@@ -92,7 +84,6 @@ export class QuestPanel {
                   tabBar.appendChild(btn);
             }
             this._el.appendChild(tabBar);
-            this._el.appendChild(this._buildOverviewStrip());
 
             // Get quests for current tab
             const tabDef = TAB_LABELS.find(t => t.id === this._currentTab)!;
@@ -159,8 +150,12 @@ export class QuestPanel {
 
             if (selectedQuest) {
                   const status = this._questManager.getStatus(selectedQuest);
-                  const obj = selectedQuest.objectives[0];
-                  const pct = Math.min(100, Math.round((obj.current / obj.required) * 100));
+                  const obj = selectedQuest.objectives[0] ?? {
+                        label: '目前沒有進度目標',
+                        current: 0,
+                        required: 1,
+                  };
+                  const pct = Math.min(100, Math.round((obj.current / Math.max(1, obj.required)) * 100));
                   const guidance = this._buildGuidanceText(selectedQuest, status);
                   const rewardHtml = this._buildRewardHtml(selectedQuest.rewards);
                   const acceptBtnHtml = status === 'available'
@@ -183,11 +178,6 @@ export class QuestPanel {
                                     <div class="qp-detail-name">${this._escapeHtml(selectedQuest.name)}</div>
                                     <div class="qp-detail-guidance">${this._escapeHtml(guidance)}</div>
                               </div>
-                              <div class="qp-detail-focus-card atlas-card">
-                                    <span class="qp-detail-focus-label">目前目標</span>
-                                    <span class="qp-detail-focus-value">${this._escapeHtml(obj.label)}</span>
-                                    <span class="qp-detail-focus-meta">${obj.current}/${obj.required}</span>
-                              </div>
                               <div class="qp-detail-progress">
                                     <div class="qp-detail-pbar">
                                           <div class="qp-detail-pfill"></div>
@@ -199,16 +189,11 @@ export class QuestPanel {
                               <div class="qp-detail-copy atlas-card">
                                     <div class="qp-detail-section-title">任務摘要</div>
                                     <div class="qp-detail-desc">${this._escapeHtml(selectedQuest.description)}</div>
+                                    <div class="qp-detail-body-copy">${this._escapeHtml(guidance)}</div>
                               </div>
-                              <div class="qp-detail-grid">
-                                    <div class="qp-detail-section atlas-card">
-                                          <div class="qp-detail-section-title">行動提示</div>
-                                          <div class="qp-detail-body-copy">${this._escapeHtml(guidance)}</div>
-                                    </div>
-                                    <div class="qp-detail-section atlas-card">
-                                          <div class="qp-detail-section-title">完成獎勵</div>
-                                          <div class="qp-detail-reward-list">${rewardHtml || '<span class="qp-detail-reward qp-detail-reward-muted">以主線推進與後續節點為主</span>'}</div>
-                                    </div>
+                              <div class="qp-detail-section atlas-card">
+                                    <div class="qp-detail-section-title">完成獎勵</div>
+                                    <div class="qp-detail-reward-list">${rewardHtml || '<span class="qp-detail-reward qp-detail-reward-muted">以主線推進與後續節點為主</span>'}</div>
                               </div>
                               ${turnInNoticeHtml}
                               <div class="qp-detail-action-rail atlas-card">
@@ -247,44 +232,6 @@ export class QuestPanel {
             }
             body.appendChild(detail);
             this._el.appendChild(body);
-      }
-
-      private _buildOverviewStrip(): HTMLDivElement {
-            const summary = document.createElement('div');
-            summary.className = 'qp-overview-strip';
-            const quests = this._questManager.allQuests;
-            const active = quests.filter((quest) => this._questManager.getStatus(quest) === 'active').length;
-            const complete = quests.filter((quest) => ['turn_in', 'complete'].includes(this._questManager.getStatus(quest))).length;
-            const available = quests.filter((quest) => this._questManager.getStatus(quest) === 'available').length;
-            const mainQuest = this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'turn_in')
-                  ?? this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'active')
-                  ?? this._questManager.getByType('main').find((quest) => this._questManager.getStatus(quest) === 'available')
-                  ?? null;
-            const mainQuestStatus = mainQuest ? this._questManager.getStatus(mainQuest) : null;
-            const nextLoopLabel = mainQuest
-                  ? `${mainQuest.name} · ${mainQuestStatus === 'turn_in' ? '回報' : mainQuestStatus === 'active' ? '推進中' : '待接取'}`
-                  : '目前沒有主線節點';
-
-            summary.innerHTML = `
-                  <div class="qp-overview-card qp-overview-card-wide">
-                        <span class="qp-overview-label">下一步</span>
-                        <span class="qp-overview-value">${nextLoopLabel}</span>
-                  </div>
-                  <div class="qp-overview-card">
-                        <span class="qp-overview-label">進行中</span>
-                        <span class="qp-overview-value">${active}</span>
-                  </div>
-                  <div class="qp-overview-card">
-                        <span class="qp-overview-label">可回報</span>
-                        <span class="qp-overview-value">${complete}</span>
-                  </div>
-                  <div class="qp-overview-card">
-                        <span class="qp-overview-label">待接取</span>
-                        <span class="qp-overview-value">${available}</span>
-                  </div>
-            `;
-
-            return summary;
       }
 
       private _buildGuidanceText(quest: QuestDef, status: QuestStatus): string {

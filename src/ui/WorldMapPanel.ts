@@ -13,7 +13,7 @@ import {
       type MapMonsterInfo,
       type MapSummary,
 } from './world-map/WorldMapModel';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 export class WorldMapPanel {
       readonly panelId = 'map';
@@ -95,33 +95,18 @@ export class WorldMapPanel {
       }
 
       private _buildShell(): void {
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">World Navigation</span>
-                        <span class="atlas-title-main">${renderUiIcon('map', 'atlas-title-icon')}<span>世界地圖</span></span>
-                        <span class="atlas-title-meta">怪物分布、掉蛋來源與跨區路線追蹤</span>
-                  </div>
-            `;
-            this._headerSummary = document.createElement('span');
-            this._headerSummary.className = 'atlas-header-pill wmp-header-pill';
-            this._headerSummary.textContent = `共 ${this._mapSummaries.length} 區域`;
-            title.appendChild(this._headerSummary);
-
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
-            closeBtn.setAttribute('aria-label', '關閉世界地圖');
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
+            const { root: title, summaryEl } = createPanelHeader({
+                  icon: 'map',
+                  kicker: 'World Navigation',
+                  title: '世界地圖',
+                  subtitle: '怪物分布、掉蛋來源與跨區路線追蹤',
+                  summaryText: `共 ${this._mapSummaries.length} 區域`,
+                  summaryClassName: 'wmp-header-pill',
+                  closeLabel: '關閉世界地圖',
+                  onClose: () => this.hide(),
+            });
+            this._headerSummary = summaryEl ?? document.createElement('span');
             this._el.appendChild(title);
-
-            const note = document.createElement('div');
-            note.className = 'wmp-note';
-            note.textContent = '依地區、等級與用途快速查怪物、配方來源與路線。';
-            this._el.appendChild(note);
 
             const body = document.createElement('div');
             body.className = 'wmp-body';
@@ -322,24 +307,6 @@ export class WorldMapPanel {
                   <div class="wmp-detail-sub">${this._escapeHtml(summary.region)} · Lv.${summary.minLevel}-${summary.maxLevel} · 怪${monsters.length}/${summary.monsterCount} · 合${targets.length}/${summary.targetCount}</div>
             `;
             sticky.appendChild(header);
-
-            const overview = document.createElement('div');
-            overview.className = 'wmp-overview-grid';
-            overview.innerHTML = `
-                  <div class="wmp-overview-card atlas-card">
-                        <span class="wmp-overview-label">地區</span>
-                        <span class="wmp-overview-value">${this._escapeHtml(summary.region)}</span>
-                  </div>
-                  <div class="wmp-overview-card atlas-card">
-                        <span class="wmp-overview-label">怪物</span>
-                        <span class="wmp-overview-value">${monsters.length}/${summary.monsterCount}</span>
-                  </div>
-                  <div class="wmp-overview-card atlas-card">
-                        <span class="wmp-overview-label">合成</span>
-                        <span class="wmp-overview-value">${targets.length}/${summary.targetCount}</span>
-                  </div>
-            `;
-            sticky.appendChild(overview);
 
             const navRow = document.createElement('div');
             navRow.className = 'wmp-nav-row';

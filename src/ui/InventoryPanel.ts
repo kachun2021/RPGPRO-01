@@ -4,7 +4,7 @@ import type { EquipmentSystem, EquipSlot, EquipDef } from '../systems/EquipmentS
 import { EQUIP_TEMPLATES } from '../systems/EquipmentSystem';
 import type { EnhanceSystem } from '../systems/EnhanceSystem';
 import type { PlayerStats } from '../entities/Player';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
 
 const RARITY_CLASS: Record<ItemRarity, string> = {
       common: 'inv2-rarity-common',
@@ -109,24 +109,16 @@ export class InventoryPanel {
             this._el.innerHTML = '';
             this._el.appendChild(ttSaved);
 
-            // Title
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">Field Loadout</span>
-                        <span class="atlas-title-main">${renderUiIcon('bag', 'atlas-title-icon')}<span>裝備與背包</span></span>
-                        <span class="atlas-title-meta">主裝備、消耗補給、素材與任務道具一頁整理</span>
-                  </div>
-                  <span class="atlas-header-pill inv2-header-pill">收納 ${this._inventory.count} 項</span>
-            `;
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '×';
-            closeBtn.setAttribute('aria-label', '關閉背包');
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
+            const { root: title } = createPanelHeader({
+                  icon: 'bag',
+                  kicker: 'Field Loadout',
+                  title: '裝備與背包',
+                  subtitle: '主裝備、消耗補給、素材與任務道具一頁整理',
+                  summaryText: `收納 ${this._inventory.count} 項`,
+                  summaryClassName: 'inv2-header-pill',
+                  closeLabel: '關閉背包',
+                  onClose: () => this.hide(),
+            });
             this._el.appendChild(title);
 
             const panelMain = document.createElement('div');
@@ -217,15 +209,11 @@ export class InventoryPanel {
                         <div class="inv2-quick-row"><span>任務道具</span><b>${tabCounts.quest}</b></div>
                   </div>
                   <div class="inv2-side-block">
-                        <div class="inv2-side-title">套裝與備註</div>
+                        <div class="inv2-side-title">整理重點</div>
                         <div class="inv2-side-copy">${setBonuses.length > 0
                               ? this._escapeHtml(setBonuses.map((bonus) => `${bonus.set.name}: ${bonus.activeEffects.join(' / ')}`).join(' · '))
                               : '先把主武器、防具與飾品補齊，再追求套裝加成。'}
                         </div>
-                  </div>
-                  <div class="inv2-side-block">
-                        <div class="inv2-side-title">背包總量</div>
-                        <div class="inv2-side-copy">目前共 ${this._inventory.count} 項物品，金幣 ${this._inventory.gold.toLocaleString()} GP。</div>
                   </div>
             `;
             top.appendChild(quickCol);

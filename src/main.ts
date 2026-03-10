@@ -61,6 +61,7 @@ import { LocalSocialService } from './services/adapters/local/LocalSocialService
 import { LocalRoomService } from './services/adapters/local/LocalRoomService';
 import { localKeyValueStore } from './services/adapters/local/LocalStorageKV';
 import { GameSettingsRuntime } from './core/GameSettingsRuntime';
+import { isAutomatedRuntime, shouldForceHeroCreationFromQuery } from './core/RuntimeLaunchFlags';
 import { PanelRegistry } from './ui/PanelRegistry';
 // P9 Quest + NPC
 import { QuestManager, type QuestDef } from './systems/QuestManager';
@@ -161,22 +162,6 @@ function persistHeroProfile(profile: StoredHeroProfile): void {
       authService.saveHeroProfile(payload);
 }
 
-function isAutomatedRun(): boolean {
-      const search = typeof window !== 'undefined'
-            ? new URLSearchParams(window.location.search)
-            : null;
-      if (search?.get('manualtest') === '1') return false;
-      if (search?.get('autotest') === '1') return true;
-      return typeof navigator !== 'undefined' && navigator.webdriver === true;
-}
-
-function shouldForceHeroCreation(): boolean {
-      const search = typeof window !== 'undefined'
-            ? new URLSearchParams(window.location.search)
-            : null;
-      return search?.get('heroCreate') === '1';
-}
-
 async function ensureHeroProfile(
       schedulePanelViewportFit: () => void,
 ): Promise<StoredHeroProfile> {
@@ -191,12 +176,12 @@ async function ensureHeroProfile(
       }
 
       const stored = loadStoredHeroProfile();
-      if (stored && !shouldForceHeroCreation()) {
+      if (stored && !shouldForceHeroCreationFromQuery()) {
             persistHeroProfile(stored);
             return stored;
       }
 
-      if (isAutomatedRun() && !shouldForceHeroCreation()) {
+      if (isAutomatedRuntime() && !shouldForceHeroCreationFromQuery()) {
             const fallback = heroes[0];
             const automatedProfile: StoredHeroProfile = {
                   version: 1,

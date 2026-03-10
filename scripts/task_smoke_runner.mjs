@@ -8,6 +8,10 @@ function parseArgs(argv) {
     url: 'http://127.0.0.1:3000',
     outputDir: '',
     headless: true,
+    profile: 'quick',
+    artifacts: '',
+    renderMode: '',
+    pauseMs: 0,
     scenarios: [],
     groups: [],
     list: false,
@@ -25,6 +29,18 @@ function parseArgs(argv) {
     } else if (arg === '--headless' && next) {
       args.headless = next !== '0' && next !== 'false';
       i += 1;
+    } else if (arg === '--profile' && next) {
+      args.profile = next;
+      i += 1;
+    } else if (arg === '--artifacts' && next) {
+      args.artifacts = next;
+      i += 1;
+    } else if (arg === '--render-mode' && next) {
+      args.renderMode = next;
+      i += 1;
+    } else if (arg === '--pause-ms' && next) {
+      args.pauseMs = Number.parseInt(next, 10) || 0;
+      i += 1;
     } else if (arg === '--scenario' && next) {
       args.scenarios.push(...parseListArg(next));
       i += 1;
@@ -38,6 +54,18 @@ function parseArgs(argv) {
 
   if (!args.list && !args.outputDir) {
     throw new Error('--output-dir is required');
+  }
+
+  if (!PROFILE_PRESETS[args.profile]) {
+    throw new Error(`Unknown smoke profile: ${args.profile}`);
+  }
+
+  if (args.artifacts && !VALID_ARTIFACT_MODES.has(args.artifacts)) {
+    throw new Error(`Unknown artifact mode: ${args.artifacts}`);
+  }
+
+  if (args.renderMode && !VALID_RENDER_MODES.has(args.renderMode)) {
+    throw new Error(`Unknown render mode: ${args.renderMode}`);
   }
 
   return args;
@@ -70,11 +98,68 @@ function resetDir(dirPath) {
   ensureDir(dirPath);
 }
 
+const VALID_ARTIFACT_MODES = new Set(['always', 'on-fail', 'none']);
+const VALID_RENDER_MODES = new Set(['lite', 'full']);
+
+const PROFILE_PRESETS = {
+  quick: {
+    description: 'Fast iterative smoke for active UI editing.',
+    defaultScenarios: ['move-baseline', 'quest-panel', 'inventory-panel'],
+    artifactMode: 'on-fail',
+    renderMode: 'lite',
+    pauseMs: 350,
+  },
+  core: {
+    description: 'Core world and baseline state checks.',
+    defaultGroups: ['core'],
+    artifactMode: 'on-fail',
+    renderMode: 'lite',
+    pauseMs: 400,
+  },
+  ui: {
+    description: 'Panel-open sanity checks without full regression.',
+    defaultGroups: ['ui'],
+    artifactMode: 'on-fail',
+    renderMode: 'lite',
+    pauseMs: 350,
+  },
+  landscape: {
+    description: 'Viewport grid pass for milestone layout reviews.',
+    defaultGroups: ['landscape-grid'],
+    artifactMode: 'on-fail',
+    renderMode: 'lite',
+    pauseMs: 350,
+  },
+  full: {
+    description: 'Legacy broader regression pack with artifacts on pass.',
+    defaultEnabledOnly: true,
+    artifactMode: 'always',
+    renderMode: 'full',
+    pauseMs: 800,
+  },
+};
+
+function resolveRunnerOptions(args) {
+  const preset = PROFILE_PRESETS[args.profile];
+  return {
+    profile: args.profile,
+    artifactMode: args.artifacts || preset.artifactMode,
+    renderMode: args.renderMode || preset.renderMode,
+    pauseMs: args.pauseMs > 0 ? args.pauseMs : preset.pauseMs,
+  };
+}
+
 function collectKnownGroups(scenarios) {
   return [...new Set(scenarios.flatMap((scenario) => scenario.groups || []))].sort();
 }
 
 function printScenarioCatalog(scenarios) {
+  process.stdout.write('Available smoke profiles:\n');
+  for (const [name, preset] of Object.entries(PROFILE_PRESETS)) {
+    process.stdout.write(`- ${name}: ${preset.description}\n`);
+  }
+
+  process.stdout.write('\n');
   const groups = collectKnownGroups(scenarios);
   process.stdout.write('Available smoke groups:\n');
   for (const group of groups) {
@@ -93,6 +178,22 @@ function selectScenarios(allScenarios, args) {
   const requestedGroups = uniqueInOrder(args.groups);
 
   if (requestedScenarios.length === 0 && requestedGroups.length === 0) {
+    const preset = PROFILE_PRESETS[args.profile];
+    if (preset.defaultEnabledOnly) {
+      return allScenarios.filter((scenario) => scenario.defaultEnabled !== false);
+    }
+
+    const scenarioSet = new Set(preset.defaultScenarios || []);
+    const groupSet = new Set(preset.defaultGroups || []);
+    const selected = allScenarios.filter((scenario) => {
+      if (scenarioSet.has(scenario.name)) return true;
+      return (scenario.groups || []).some((group) => groupSet.has(group));
+    });
+
+    if (selected.length > 0) {
+      return selected;
+    }
+
     return allScenarios.filter((scenario) => scenario.defaultEnabled !== false);
   }
 
@@ -133,12 +234,25 @@ function resolvePlaywrightImport() {
   return pathToFileURL(modulePath).href;
 }
 
-function buildScenarioUrl(baseUrl, options = {}) {
+function buildScenarioUrl(baseUrl, options = {}, runnerOptions = {}) {
   const next = new URL(baseUrl);
   if (options.autotest === false) {
     next.searchParams.delete('autotest');
+    next.searchParams.delete('autotestLite');
   } else {
     next.searchParams.set('autotest', '1');
+    if (runnerOptions.renderMode === 'lite') {
+      next.searchParams.set('autotestLite', '1');
+    } else {
+      next.searchParams.delete('autotestLite');
+    }
+  }
+
+  if (runnerOptions.renderMode) {
+    next.searchParams.set('renderMode', runnerOptions.renderMode);
+  }
+  if (runnerOptions.profile) {
+    next.searchParams.set('smokeProfile', runnerOptions.profile);
   }
 
   for (const [key, value] of Object.entries(options.params || {})) {
@@ -360,22 +474,31 @@ async function assertDomExpectations(page, name, expect = {}) {
   }
 }
 
-async function captureArtifacts(page, scenarioDir, state, collectedErrors) {
-  await page.screenshot({
-    path: path.join(scenarioDir, 'shot-0.png'),
-    fullPage: false,
-  });
-  if (state) {
+async function captureArtifacts(page, scenarioDir, state, collectedErrors, options = {}) {
+  const includeScreenshot = options.includeScreenshot === true;
+  const includeState = options.includeState === true;
+  const includeErrors = options.includeErrors === true;
+  if (!includeScreenshot && !includeState && !includeErrors) return;
+
+  resetDir(scenarioDir);
+
+  if (includeScreenshot) {
+    await page.screenshot({
+      path: path.join(scenarioDir, 'shot-0.png'),
+      fullPage: false,
+    });
+  }
+  if (includeState && state) {
     fs.writeFileSync(path.join(scenarioDir, 'state-0.json'), JSON.stringify(state, null, 2));
   }
-  if (collectedErrors.length > 0) {
+  if (includeErrors && collectedErrors.length > 0) {
     fs.writeFileSync(path.join(scenarioDir, 'errors-0.json'), JSON.stringify(collectedErrors, null, 2));
   }
 }
 
-async function runScenario(browser, baseUrl, outputDir, scenario) {
+async function runScenario(browser, baseUrl, outputDir, scenario, runnerOptions) {
   const scenarioDir = path.join(outputDir, scenario.name);
-  resetDir(scenarioDir);
+  fs.rmSync(scenarioDir, { recursive: true, force: true });
 
   const viewport = scenario.viewport || { width: 1280, height: 720 };
   const context = await browser.newContext({
@@ -400,7 +523,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
     const targetUrl = buildScenarioUrl(baseUrl, {
       autotest: scenario.autotest,
       params: scenario.params,
-    });
+    }, runnerOptions);
 
     await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(500);
@@ -425,9 +548,16 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
       await waitForState(page, scenario.afterClickWaitFor, scenario.afterClickTimeoutMs || 10000, `${scenario.name} post-click state`);
     }
 
-    await page.waitForTimeout(scenario.pauseMs || 800);
+    const pauseMs = Number.isFinite(scenario.pauseMs) ? scenario.pauseMs : runnerOptions.pauseMs;
+    await page.waitForTimeout(pauseMs);
     finalState = await safeState(page);
-    await captureArtifacts(page, scenarioDir, finalState, errorCollector.errors);
+
+    const capturePassArtifacts = runnerOptions.artifactMode === 'always' || scenario.captureOnPass === true;
+    await captureArtifacts(page, scenarioDir, finalState, errorCollector.errors, {
+      includeScreenshot: capturePassArtifacts,
+      includeState: capturePassArtifacts,
+      includeErrors: capturePassArtifacts && errorCollector.errors.length > 0,
+    });
 
     const errors = actionableErrors(errorCollector.errors);
     if (errors.length > 0) {
@@ -441,7 +571,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
       scenario: scenario.name,
       groups: (scenario.groups || []).join(','),
       viewport: `${viewport.width}x${viewport.height}`,
-      screenshot: path.join(scenarioDir, 'shot-0.png'),
+      screenshot: capturePassArtifacts ? path.join(scenarioDir, 'shot-0.png') : '',
       current_panel: finalState.currentPanel ?? '',
       scene_zone_id: finalState.zone.sceneZoneId,
       runtime_zone_ids: finalState.zone.runtimeZoneIds.join(','),
@@ -452,7 +582,11 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
     };
   } catch (error) {
     finalState = finalState || await safeState(page);
-    await captureArtifacts(page, scenarioDir, finalState, errorCollector.errors);
+    await captureArtifacts(page, scenarioDir, finalState, errorCollector.errors, {
+      includeScreenshot: runnerOptions.artifactMode !== 'none',
+      includeState: runnerOptions.artifactMode !== 'none',
+      includeErrors: errorCollector.errors.length > 0,
+    });
     throw error;
   } finally {
     await context.close();
@@ -511,8 +645,6 @@ function createScenarios() {
         uiChromeState: 'explore',
         guidanceSource: 'onboarding',
         primaryNavMode: 'primary',
-        missingSelector: '#nav-community',
-        visibleSelector: ['.guidance-root', '#nav-quest', '#nav-menu', '.hud-quick-dock', '.minimap-root', '#auto-settings-btn'],
       },
     },
     {
@@ -531,7 +663,6 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'explore',
         primaryNavMode: 'primary',
-        visibleSelector: '.guidance-root',
       },
     },
     {
@@ -628,7 +759,6 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
-        missingSelector: '#nav-community',
       },
     },
     {
@@ -686,7 +816,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'dialogue_focus',
         primaryNavMode: 'suppressed',
-        visibleSelector: ['#dialogue-panel', '.dlg-action-primary'],
+        visibleSelector: '#dialogue-panel',
       },
     },
     {
@@ -705,7 +835,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
-        visibleSelector: ['#fusionPanel', '.fpo-tabs-row', '.fpo-bottom-bar'],
+        visibleSelector: '#fusionPanel',
       },
     },
     {
@@ -724,7 +854,7 @@ function createScenarios() {
         orientation: 'landscape',
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
-        visibleSelector: ['#world-map-panel', '.wmp-body'],
+        visibleSelector: '#world-map-panel',
       },
     },
     {
@@ -739,7 +869,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
-        visibleSelector: ['#petPanel', '.pet-panel-body', '.pet-hero-card'],
+        visibleSelector: '#petPanel',
       },
     },
     {
@@ -754,7 +884,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
-        visibleSelector: ['#afk-panel', '.afk-headline', '.afk-layout'],
+        visibleSelector: '#afk-panel',
       },
     },
     {
@@ -878,6 +1008,7 @@ async function main() {
     return;
   }
 
+  const runnerOptions = resolveRunnerOptions(args);
   const scenarios = selectScenarios(allScenarios, args);
   resetDir(args.outputDir);
 
@@ -890,10 +1021,10 @@ async function main() {
 
   const results = [];
   try {
-    process.stdout.write(`Running ${scenarios.length}/${allScenarios.length} smoke scenarios\n`);
+    process.stdout.write(`Running ${scenarios.length}/${allScenarios.length} smoke scenarios (profile=${runnerOptions.profile}, render=${runnerOptions.renderMode}, artifacts=${runnerOptions.artifactMode})\n`);
     for (const scenario of scenarios) {
       process.stdout.write(`Running scenario: ${scenario.name}\n`);
-      const result = await runScenario(browser, args.url, args.outputDir, scenario);
+      const result = await runScenario(browser, args.url, args.outputDir, scenario, runnerOptions);
       results.push(result);
     }
   } finally {

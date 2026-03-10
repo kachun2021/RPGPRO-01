@@ -21,6 +21,7 @@ import '@babylonjs/core/Rendering/geometryBufferRendererSceneComponent';
 
 import type { EngineManager } from '../core/EngineManager';
 import { Registry } from '../core/Registry';
+import { getSmokeProfileFromQuery, shouldUseReducedRenderQuality } from '../core/RuntimeLaunchFlags';
 
 export class MainScene {
       public scene!: Scene;
@@ -35,6 +36,8 @@ export class MainScene {
       }
 
       async build(): Promise<void> {
+            const reducedRenderMode = shouldUseReducedRenderQuality();
+            const smokeProfile = getSmokeProfileFromQuery();
             this.scene = new Scene(this._engineManager.engine);
             this.scene.clearColor = new Color4(0.04, 0.055, 0.1, 1); // #0A0E1A
 
@@ -55,9 +58,12 @@ export class MainScene {
             this.sun.diffuse = new Color3(1.0, 0.95, 0.85);
             this.sun.position = new Vector3(30, 50, 30);
 
-            this.shadowGenerator = new ShadowGenerator(2048, this.sun);
-            this.shadowGenerator.usePercentageCloserFiltering = true;
-            this.shadowGenerator.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
+            const shadowMapSize = reducedRenderMode ? 768 : 2048;
+            this.shadowGenerator = new ShadowGenerator(shadowMapSize, this.sun);
+            this.shadowGenerator.usePercentageCloserFiltering = !reducedRenderMode;
+            this.shadowGenerator.filteringQuality = reducedRenderMode
+                  ? ShadowGenerator.QUALITY_LOW
+                  : ShadowGenerator.QUALITY_MEDIUM;
 
             // PBR environment
             this.scene.ambientColor = new Color3(0.25, 0.25, 0.3);
@@ -66,29 +72,34 @@ export class MainScene {
             // ZoneManager.buildInitialZone() must be called after this.
 
             // --- Post-Processing Pipeline ---
-            const pipeline = new DefaultRenderingPipeline('pipeline', true, this.scene, [this.camera]);
+            if (!reducedRenderMode) {
+                  const pipeline = new DefaultRenderingPipeline('pipeline', true, this.scene, [this.camera]);
 
-            // Bloom
-            pipeline.bloomEnabled = true;
-            pipeline.bloomThreshold = 0.7;
-            pipeline.bloomWeight = 0.3;
-            pipeline.bloomKernel = 64;
-
-            // FXAA
-            pipeline.fxaaEnabled = true;
-
-            // Tone Mapping
-            pipeline.imageProcessingEnabled = true;
-            pipeline.imageProcessing.toneMappingEnabled = true;
-            pipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
-            pipeline.imageProcessing.exposure = 1.2;
-            pipeline.imageProcessing.contrast = 1.2;
+                  pipeline.bloomEnabled = true;
+                  pipeline.bloomThreshold = 0.7;
+                  pipeline.bloomWeight = 0.3;
+                  pipeline.bloomKernel = 64;
+                  pipeline.fxaaEnabled = true;
+                  pipeline.imageProcessingEnabled = true;
+                  pipeline.imageProcessing.toneMappingEnabled = true;
+                  pipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
+                  pipeline.imageProcessing.exposure = 1.2;
+                  pipeline.imageProcessing.contrast = 1.2;
+            } else {
+                  this.scene.imageProcessingConfiguration.toneMappingEnabled = false;
+                  this.scene.imageProcessingConfiguration.exposure = 1.0;
+                  this.scene.imageProcessingConfiguration.contrast = 1.0;
+            }
 
             // Register
             Registry.scene = this.scene;
             this._engineManager.scene = this.scene;
 
-            console.log('[MainScene] Scene shell built: camera + shadow + bloom + ACES (terrain via ZoneRenderer)');
+            if (reducedRenderMode) {
+                  console.log(`[MainScene] Reduced render mode active${smokeProfile ? ` (${smokeProfile})` : ''}: light shadow + postprocess disabled`);
+            } else {
+                  console.log('[MainScene] Scene shell built: camera + shadow + bloom + ACES (terrain via ZoneRenderer)');
+            }
       }
 
       private _createSkyGradient(): void {
