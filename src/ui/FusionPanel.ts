@@ -1,7 +1,7 @@
 import type { PetManager } from '../pets/PetManager';
 import { PetFusion } from '../pets/PetFusion';
 import type { FusionMatch } from '../pets/PetFusion';
-import { PET_DEFS, PetSeries, SERIES_EMOJI, SERIES_ICONS, type FusionIngredient, type PetDef } from '../pets/PetData';
+import { PET_DEFS, PetSeries, SERIES_ICONS, type FusionIngredient, type PetDef } from '../pets/PetData';
 import type { Pet } from '../pets/Pet';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
@@ -19,6 +19,7 @@ import {
       type OwnedSnapshot,
       type SeriesFilter,
 } from './fusion/FusionPanelTypes';
+import { renderUiIcon } from './UiIconCatalog';
 
 // 匯出資料存在少量命名差異，統一映射後可正確回填等級與系列資料。
 
@@ -245,13 +246,23 @@ export class FusionPanel {
             const header = document.createElement('div');
             header.className = 'fpo-header';
 
+            const copy = document.createElement('div');
+            copy.className = 'atlas-title-copy fpo-header-copy';
+
+            const kicker = document.createElement('span');
+            kicker.className = 'atlas-kicker';
+            kicker.textContent = 'Adventure Atlas';
+
             const title = document.createElement('span');
-            title.className = 'fpo-header-title';
-            title.textContent = '🔮 合成中心';
+            title.className = 'fpo-header-title atlas-title-main';
+            title.innerHTML = `${renderUiIcon('fusion', 'atlas-title-icon fpo-header-title-icon')}<span class="fpo-header-title-text">合成中心</span>`;
 
             const subtitle = document.createElement('span');
-            subtitle.className = 'fpo-header-subtitle';
+            subtitle.className = 'fpo-header-subtitle atlas-title-meta';
             subtitle.textContent = '資料來源：GAME DB s_mix（runtime）';
+            copy.appendChild(kicker);
+            copy.appendChild(title);
+            copy.appendChild(subtitle);
 
             const craftableCount = this._formulaEntries.filter(entry => this._isEntryCraftable(entry, snapshot)).length;
             const mappedCount = this._formulaEntries.filter(entry => this._isEntryFullyMapped(entry)).length;
@@ -259,13 +270,14 @@ export class FusionPanel {
             stats.className = 'fpo-header-stats';
             stats.textContent = `可直接合成 ${craftableCount}/${this._formulaEntries.length} · 本服可用公式 ${mappedCount}`;
 
-            const closeBtn = document.createElement('span');
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
             closeBtn.className = 'fpo-header-close';
-            closeBtn.textContent = '✕';
+            closeBtn.setAttribute('aria-label', '關閉合成中心');
+            closeBtn.textContent = '×';
             closeBtn.addEventListener('click', () => this.close());
 
-            header.appendChild(title);
-            header.appendChild(subtitle);
+            header.appendChild(copy);
             header.appendChild(stats);
             header.appendChild(closeBtn);
             return header;
@@ -521,8 +533,7 @@ export class FusionPanel {
             row.appendChild(this._createSeriesChip('all', '全部'));
             const seriesValues = Object.values(PetSeries) as PetSeries[];
             for (const series of seriesValues) {
-                  const emoji = SERIES_EMOJI[series] || '🐾';
-                  row.appendChild(this._createSeriesChip(series, `${emoji} ${SERIES_LABELS[series]}`));
+                  row.appendChild(this._createSeriesChip(series, `${this._seriesIconMarkup(series, 'fpo-series-chip-icon')} ${SERIES_LABELS[series]}`));
             }
             return row;
       }
@@ -549,7 +560,7 @@ export class FusionPanel {
                   for (const def of targets) {
                         const option = document.createElement('option');
                         option.value = def.id;
-                        option.textContent = `${SERIES_EMOJI[def.series] || '🐾'} ${def.nameCN} · Lv.${this._getDefDisplayLevel(def)}`;
+                        option.textContent = `${SERIES_LABELS[def.series]} ${def.nameCN} · Lv.${this._getDefDisplayLevel(def)}`;
                         select.appendChild(option);
                   }
                   select.value = this._treeTargetResultId ?? targets[0].id;
@@ -645,7 +656,7 @@ export class FusionPanel {
             const left = document.createElement('div');
             left.className = 'fpo-tree-node-left';
             left.innerHTML = `
-                  <span class="fpo-tree-node-emoji">${SERIES_EMOJI[def.series] || '🐾'}</span>
+                  <span class="fpo-tree-node-emoji">${this._seriesIconMarkup(def.series, 'fpo-tree-node-icon')}</span>
                   <div class="fpo-tree-node-main">
                         <div class="fpo-tree-node-name">${this._escapeHtml(def.nameCN)}</div>
                         <div class="fpo-tree-node-level">Lv.${this._getDefDisplayLevel(def)}</div>
@@ -794,7 +805,7 @@ export class FusionPanel {
       private _createSeriesChip(filter: SeriesFilter, label: string): HTMLButtonElement {
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.textContent = label;
+            btn.innerHTML = label;
             const active = this._seriesFilter === filter;
             btn.className = `fpo-series-chip${active ? ' is-active' : ''}`;
             btn.addEventListener('click', () => {
@@ -1028,14 +1039,13 @@ export class FusionPanel {
                   if (matches.length > 0) {
                         const match = matches[0];
                         const rate = PetFusion.getSuccessRate(this._mainPet, this._subPet, match.resultDef);
-                        const emoji = SERIES_EMOJI[match.resultDef.series] || '🐾';
                         const risk = this._riskInfoFromRate(rate);
                         const riskToneClass = this._toneClassByColor(risk.color);
                         resultBox.innerHTML = `
                               <div class="fpo-result-label">成功率</div>
                               <div class="fpo-result-rate ${riskToneClass}">${rate}%</div>
                               <div class="fpo-result-risk ${riskToneClass}">${risk.label}</div>
-                              <div class="fpo-result-name">${emoji} ${this._escapeHtml(match.resultDef.nameCN)}</div>
+                              <div class="fpo-result-name">${this._seriesIconMarkup(match.resultDef.series, 'fpo-result-icon')} ${this._escapeHtml(match.resultDef.nameCN)}</div>
                               ${matches.length > 1 ? `<div class="fpo-result-more">另有 ${matches.length - 1} 種可用結果</div>` : ''}
                         `;
                   } else {
@@ -1099,7 +1109,7 @@ export class FusionPanel {
                   const row = document.createElement('div');
                   row.className = 'fpo-picker-row';
                   row.innerHTML = `
-                        <span class="fpo-picker-emoji">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
+                        <span class="fpo-picker-emoji">${this._seriesIconMarkup(pet.def.series, 'fpo-picker-icon')}</span>
                         <div class="fpo-picker-main">
                               <div class="fpo-picker-name">${pet.def.nameCN}</div>
                               <div class="fpo-picker-sub">${pet.def.name} · Lv.${pet.stats.level}</div>
@@ -1423,7 +1433,7 @@ export class FusionPanel {
                   ? ` <span class="fpo-ingredient-level">Lv.${Math.max(1, Math.floor(baseLevel!))}</span>`
                   : '';
             if (!def) return `<span class="fpo-ingredient-missing">[資料缺少] ${this._escapeHtml(fallbackName)}</span>${levelTag}`;
-            return `<span class="fpo-ingredient-name">${SERIES_EMOJI[def.series] || '🐾'} ${this._escapeHtml(def.nameCN)}</span>${levelTag}`;
+            return `<span class="fpo-ingredient-name">${this._seriesIconMarkup(def.series, 'fpo-ingredient-icon')} ${this._escapeHtml(def.nameCN)}</span>${levelTag}`;
       }
 
       private _normalizeRecipePanelState(_snapshot: OwnedSnapshot): void {
@@ -1794,9 +1804,12 @@ export class FusionPanel {
                   .replace(/'/g, '&#39;');
       }
 
-      private _seriesIconMarkup(series: PetSeries, size = 24): string {
+      private _seriesIconMarkup(series: PetSeries, sizeOrClass: number | string = 24): string {
             const icon = SERIES_ICONS[series];
-            const sizeClass = size >= 28 ? ' is-lg' : '';
+            if (typeof sizeOrClass === 'string') {
+                  return `<img src="/assets/icons/${icon}" alt="" class="fpo-series-icon-inline ${sizeOrClass}" />`;
+            }
+            const sizeClass = sizeOrClass >= 28 ? ' is-lg' : '';
             return `<img src="/assets/icons/${icon}" alt="" class="fpo-series-icon${sizeClass}" />`;
       }
 
@@ -1916,7 +1929,7 @@ export class FusionPanel {
 
             if (pet) {
                   slotEl.innerHTML = `
-                        <span class="fpo-slot-emoji">${SERIES_EMOJI[pet.def.series] || '🐾'}</span>
+                        <span class="fpo-slot-emoji">${this._seriesIconMarkup(pet.def.series, 'fpo-slot-icon')}</span>
                         <span class="fpo-slot-name">${pet.def.nameCN}</span>
                         <span class="fpo-slot-level">Lv.${pet.stats.level}</span>
                   `;

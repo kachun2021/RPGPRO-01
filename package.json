@@ -17,6 +17,7 @@
     "test:smoke:mobile": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1 -Group mobile",
     "test:smoke:combat": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1 -Group combat",
     "test:smoke:quest": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1 -Group quest",
+    "test:smoke:landscape-grid": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_smoke.ps1 -Group landscape-grid",
     "task:done": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_done.ps1",
     "task:done:headed": "pwsh -ExecutionPolicy Bypass -File ./scripts/task_done.ps1 -Headed",
     "hooks:install": "pwsh -ExecutionPolicy Bypass -File ./scripts/install_git_hooks.ps1",

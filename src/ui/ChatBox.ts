@@ -1,6 +1,3 @@
-/**
- * ChatBox - dark theme, 3 channels.
- */
 export class ChatBox {
       private _el: HTMLDivElement;
       private _messages: HTMLDivElement;
@@ -19,7 +16,11 @@ export class ChatBox {
 
             const header = document.createElement('div');
             header.className = 'chatbox-header';
-            header.textContent = '▼ Chat';
+            header.innerHTML = `
+                  <span class="chatbox-header-kicker">通訊</span>
+                  <span class="chatbox-header-title">隊伍頻道</span>
+                  <span class="chatbox-header-toggle">收合</span>
+            `;
             this._el.appendChild(header);
 
             const body = document.createElement('div');
@@ -27,12 +28,17 @@ export class ChatBox {
 
             const tabs = document.createElement('div');
             tabs.className = 'chatbox-tabs';
-            for (const ch of ['System', 'World', 'Guild']) {
+            const channelLabels: Array<{ id: string; label: string }> = [
+                  { id: 'system', label: '系統' },
+                  { id: 'world', label: '世界' },
+                  { id: 'guild', label: '公會' },
+            ];
+            for (const ch of channelLabels) {
                   const tab = document.createElement('span');
-                  tab.className = `chatbox-tab${ch.toLowerCase() === this._channel ? ' is-active' : ''}`;
-                  tab.textContent = ch;
+                  tab.className = `chatbox-tab${ch.id === this._channel ? ' is-active' : ''}`;
+                  tab.textContent = ch.label;
                   tab.addEventListener('click', () => {
-                        this._channel = ch.toLowerCase();
+                        this._channel = ch.id;
                         tabs.querySelectorAll('.chatbox-tab').forEach((s) => s.classList.remove('is-active'));
                         tab.classList.add('is-active');
                         this._renderMessages();
@@ -50,15 +56,16 @@ export class ChatBox {
 
             this._input = document.createElement('input');
             this._input.type = 'text';
-            this._input.placeholder = 'Type a message...';
+            this._input.placeholder = '輸入訊息...';
             this._input.className = 'dark-chat-input';
             this._input.addEventListener('keydown', (e) => {
                   if (e.key === 'Enter') this._send();
             });
 
-            const sendBtn = document.createElement('div');
+            const sendBtn = document.createElement('button');
+            sendBtn.type = 'button';
             sendBtn.className = 'dark-btn-sm';
-            sendBtn.textContent = 'Send';
+            sendBtn.textContent = '送出';
             sendBtn.addEventListener('click', () => this._send());
 
             inputRow.appendChild(this._input);
@@ -69,14 +76,17 @@ export class ChatBox {
             header.addEventListener('click', () => {
                   this._collapsed = !this._collapsed;
                   this._el.classList.toggle('is-collapsed', this._collapsed);
-                  header.textContent = this._collapsed ? '▼ Chat' : '▲ Chat';
+                  const title = header.querySelector('.chatbox-header-title') as HTMLSpanElement | null;
+                  const toggle = header.querySelector('.chatbox-header-toggle') as HTMLSpanElement | null;
+                  if (title) title.textContent = this._collapsed ? '隊伍頻道' : '頻道視窗';
+                  if (toggle) toggle.textContent = this._collapsed ? '展開' : '收合';
             });
 
             uiLayer.appendChild(this._el);
             this._el.classList.add('is-collapsed');
 
-            this.addMessage('system', 'Welcome to Fantasy Pet Online!');
-            this.addMessage('system', 'Use WASD to move your character');
+            this.addMessage('system', '歡迎來到 Fantasy Pet Online。');
+            this.addMessage('system', '手機橫向建議使用左側搖桿與右側技能列。');
       }
 
       addMessage(channel: string, text: string): void {

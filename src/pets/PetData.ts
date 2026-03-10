@@ -48,18 +48,6 @@ export const SERIES_ICONS: Record<PetSeries, string> = {
       [PetSeries.Bird]: 'series_bird.png',
 };
 
-/** 系列 Emoji (UI fallback) */
-export const SERIES_EMOJI: Record<PetSeries, string> = {
-      [PetSeries.Plant]: '🌿',
-      [PetSeries.Dragon]: '🐉',
-      [PetSeries.Beast]: '🦁',
-      [PetSeries.Insect]: '🐛',
-      [PetSeries.Metal]: '⚙️',
-      [PetSeries.Mystery]: '🔮',
-      [PetSeries.Demon]: '😈',
-      [PetSeries.Bird]: '🦅',
-};
-
 export type Gender = 'male' | 'female';
 
 export interface PetSkillDef {

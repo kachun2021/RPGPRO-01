@@ -93,7 +93,7 @@ function selectScenarios(allScenarios, args) {
   const requestedGroups = uniqueInOrder(args.groups);
 
   if (requestedScenarios.length === 0 && requestedGroups.length === 0) {
-    return allScenarios;
+    return allScenarios.filter((scenario) => scenario.defaultEnabled !== false);
   }
 
   const knownScenarioNames = new Set(allScenarios.map((scenario) => scenario.name));
@@ -202,6 +202,18 @@ async function clickDom(page, selector) {
     }
     target.click();
   }, selector);
+}
+
+async function openHudMenu(page) {
+  const visible = await page.evaluate(() => {
+    const panel = document.querySelector('.hud-menu-panel');
+    if (!(panel instanceof HTMLElement)) return false;
+    const style = window.getComputedStyle(panel);
+    return style.opacity !== '0' && style.visibility !== 'hidden' && style.pointerEvents !== 'none';
+  });
+  if (visible) return;
+  await clickDom(page, '#nav-menu');
+  await page.waitForTimeout(180);
 }
 
 function actionableErrors(collectedErrors) {
@@ -365,8 +377,9 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
   const scenarioDir = path.join(outputDir, scenario.name);
   resetDir(scenarioDir);
 
+  const viewport = scenario.viewport || { width: 1280, height: 720 };
   const context = await browser.newContext({
-    viewport: scenario.viewport || { width: 1280, height: 720 },
+    viewport,
   });
   if (scenario.initScript) {
     await context.addInitScript(scenario.initScript);
@@ -404,7 +417,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
 
     if (scenario.clickSelector) {
       await page.waitForSelector(scenario.clickSelector, { state: 'visible', timeout: 10000 });
-      await page.click(scenario.clickSelector);
+      await clickDom(page, scenario.clickSelector);
       await page.waitForTimeout(250);
     }
 
@@ -427,6 +440,7 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
     return {
       scenario: scenario.name,
       groups: (scenario.groups || []).join(','),
+      viewport: `${viewport.width}x${viewport.height}`,
       screenshot: path.join(scenarioDir, 'shot-0.png'),
       current_panel: finalState.currentPanel ?? '',
       scene_zone_id: finalState.zone.sceneZoneId,
@@ -445,8 +459,29 @@ async function runScenario(browser, baseUrl, outputDir, scenario) {
   }
 }
 
+const LANDSCAPE_GRID_VIEWPORTS = [
+  { key: '844x390', width: 844, height: 390 },
+  { key: '932x430', width: 932, height: 430 },
+  { key: '1024x576', width: 1024, height: 576 },
+  { key: '1280x720', width: 1280, height: 720 },
+];
+
+function createLandscapeVariant(baseScenario, viewportDef, namePrefix = baseScenario.name) {
+  return {
+    ...baseScenario,
+    name: `${namePrefix}-${viewportDef.key}`,
+    viewport: { width: viewportDef.width, height: viewportDef.height },
+    groups: uniqueInOrder([...(baseScenario.groups || []), 'landscape-grid']),
+    expect: {
+      ...(baseScenario.expect || {}),
+      orientation: 'landscape',
+    },
+    defaultEnabled: false,
+  };
+}
+
 function createScenarios() {
-  return [
+  const baseScenarios = [
     {
       name: 'hero-create-bootstrap',
       groups: ['bootstrap', 'core', 'mobile'],
@@ -477,7 +512,7 @@ function createScenarios() {
         guidanceSource: 'onboarding',
         primaryNavMode: 'primary',
         missingSelector: '#nav-community',
-        visibleSelector: '.guidance-root',
+        visibleSelector: ['.guidance-root', '#nav-quest', '#nav-menu', '.hud-quick-dock', '.minimap-root', '#auto-settings-btn'],
       },
     },
     {
@@ -530,6 +565,9 @@ function createScenarios() {
     {
       name: 'skill-panel',
       groups: ['ui', 'panel'],
+      prepare: async (page) => {
+        await openHudMenu(page);
+      },
       clickSelector: '#nav-skill',
       expect: {
         currentPanel: 'skill',
@@ -544,6 +582,9 @@ function createScenarios() {
     {
       name: 'system-panel',
       groups: ['ui', 'panel'],
+      prepare: async (page) => {
+        await openHudMenu(page);
+      },
       clickSelector: '#nav-settings',
       expect: {
         currentPanel: 'settings',
@@ -558,6 +599,9 @@ function createScenarios() {
     {
       name: 'character-panel',
       groups: ['ui', 'panel'],
+      prepare: async (page) => {
+        await openHudMenu(page);
+      },
       clickSelector: '#nav-char',
       expect: {
         currentPanel: 'char',
@@ -590,6 +634,9 @@ function createScenarios() {
     {
       name: 'book-panel',
       groups: ['ui', 'panel'],
+      prepare: async (page) => {
+        await openHudMenu(page);
+      },
       clickSelector: '#nav-book',
       afterClickWaitFor: (state) => state.currentPanel === 'book' && state.openPanels.book === true,
       afterClickTimeoutMs: 15000,
@@ -601,11 +648,15 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#encyclopediaPanel', '.book-filter-row', '.book-detail-pane'],
       },
     },
     {
       name: 'shop-panel',
       groups: ['ui', 'panel'],
+      prepare: async (page) => {
+        await openHudMenu(page);
+      },
       clickSelector: '#nav-shop',
       afterClickWaitFor: (state) => state.currentPanel === 'shop' && state.openPanels.shop === true,
       afterClickTimeoutMs: 15000,
@@ -635,6 +686,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'dialogue_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#dialogue-panel', '.dlg-action-primary'],
       },
     },
     {
@@ -653,6 +705,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#fusionPanel', '.fpo-tabs-row', '.fpo-bottom-bar'],
       },
     },
     {
@@ -671,6 +724,7 @@ function createScenarios() {
         orientation: 'landscape',
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#world-map-panel', '.wmp-body'],
       },
     },
     {
@@ -685,6 +739,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#petPanel', '.pet-panel-body', '.pet-hero-card'],
       },
     },
     {
@@ -699,6 +754,7 @@ function createScenarios() {
         playerDead: false,
         uiChromeState: 'panel_focus',
         primaryNavMode: 'suppressed',
+        visibleSelector: ['#afk-panel', '.afk-headline', '.afk-layout'],
       },
     },
     {
@@ -796,6 +852,21 @@ function createScenarios() {
       },
     },
   ];
+
+  const gridTargets = [
+    { scenario: baseScenarios.find((item) => item.name === 'move-baseline'), namePrefix: 'move-baseline' },
+    { scenario: baseScenarios.find((item) => item.name === 'dialogue-panel'), namePrefix: 'dialogue-panel' },
+    { scenario: baseScenarios.find((item) => item.name === 'fusion-panel'), namePrefix: 'fusion-panel' },
+    { scenario: baseScenarios.find((item) => item.name === 'book-panel'), namePrefix: 'book-panel' },
+    { scenario: baseScenarios.find((item) => item.name === 'afk-panel'), namePrefix: 'afk-panel' },
+    { scenario: baseScenarios.find((item) => item.name === 'map-panel-landscape'), namePrefix: 'map-panel' },
+  ].filter((entry) => entry.scenario);
+
+  const landscapeGridScenarios = gridTargets.flatMap(({ scenario, namePrefix }) =>
+    LANDSCAPE_GRID_VIEWPORTS.map((viewportDef) => createLandscapeVariant(scenario, viewportDef, namePrefix)),
+  );
+
+  return [...baseScenarios, ...landscapeGridScenarios];
 }
 
 async function main() {

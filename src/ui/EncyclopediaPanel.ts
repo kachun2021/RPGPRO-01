@@ -1,9 +1,10 @@
 import { PetEncyclopedia } from '../pets/PetEncyclopedia';
-import { PET_DEFS, PetSeries, SERIES_EMOJI, type PetDef } from '../pets/PetData';
+import { PET_DEFS, PetSeries, SERIES_ICONS, type PetDef } from '../pets/PetData';
 import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
+import { renderUiIcon } from './UiIconCatalog';
 
 type SeriesFilter = 'all' | PetSeries;
 
@@ -138,8 +139,18 @@ export class EncyclopediaPanel {
             const header = document.createElement('div');
             header.className = 'sa-panel-title';
 
+            const copy = document.createElement('div');
+            copy.className = 'atlas-title-copy book-header-copy';
+
+            const kicker = document.createElement('span');
+            kicker.className = 'atlas-kicker';
+            kicker.textContent = 'Adventure Atlas';
+
             const title = document.createElement('span');
-            title.textContent = '📖 寵物圖鑑';
+            title.className = 'book-title atlas-title-main';
+            title.innerHTML = `${renderUiIcon('book', 'book-title-icon')}<span>寵物圖鑑</span>`;
+            copy.appendChild(kicker);
+            copy.appendChild(title);
 
             const progress = document.createElement('span');
             progress.className = 'book-progress';
@@ -147,12 +158,12 @@ export class EncyclopediaPanel {
 
             const closeBtn = document.createElement('button');
             closeBtn.type = 'button';
-            closeBtn.textContent = 'X';
+            closeBtn.textContent = '×';
             closeBtn.setAttribute('aria-label', '關閉圖鑑');
             closeBtn.className = 'book-close-btn';
             closeBtn.addEventListener('click', () => this.close());
 
-            header.appendChild(title);
+            header.appendChild(copy);
             header.appendChild(progress);
             header.appendChild(closeBtn);
             return header;
@@ -166,7 +177,7 @@ export class EncyclopediaPanel {
             filterRow.className = 'book-filter-row';
             filterRow.appendChild(this._buildSeriesFilterChip('all', '全部'));
             for (const series of Object.values(PetSeries) as PetSeries[]) {
-                  filterRow.appendChild(this._buildSeriesFilterChip(series, `${SERIES_EMOJI[series]} ${SERIES_NAMES[series]}`));
+                  filterRow.appendChild(this._buildSeriesFilterChip(series, `${this._seriesIconMarkup(series, 'book-series-filter-icon')}<span>${SERIES_NAMES[series]}</span>`));
             }
 
             const search = document.createElement('input');
@@ -210,12 +221,12 @@ export class EncyclopediaPanel {
             return vw < 700 && vh < 360;
       }
 
-      private _buildSeriesFilterChip(filter: SeriesFilter, label: string): HTMLButtonElement {
+      private _buildSeriesFilterChip(filter: SeriesFilter, labelHtml: string): HTMLButtonElement {
             const active = this._seriesFilter === filter;
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.textContent = label;
             btn.className = `book-chip${active ? ' is-active' : ''}`;
+            btn.innerHTML = labelHtml;
             btn.addEventListener('click', () => {
                   if (this._seriesFilter === filter) return;
                   this._seriesFilter = filter;
@@ -278,7 +289,7 @@ export class EncyclopediaPanel {
             if (this._selectedPetId === def.id) row.classList.add('is-selected');
             if (!discovered) row.classList.add('is-undiscovered');
             row.innerHTML = `
-                  <span class="book-row-icon">${SERIES_EMOJI[def.series]}</span>
+                  <span class="book-row-icon">${this._seriesIconMarkup(def.series, 'book-row-series-icon')}</span>
                   <div class="book-row-main">
                         <div class="book-row-titleline">
                               <span class="book-row-name">${this._escapeHtml(def.nameCN)}</span>
@@ -320,7 +331,7 @@ export class EncyclopediaPanel {
             card.className = 'book-card game-card';
             card.innerHTML = `
                   <div class="book-card-head">
-                        <span class="book-card-icon">${SERIES_EMOJI[def.series]}</span>
+                        <span class="book-card-icon">${this._seriesIconMarkup(def.series, 'book-card-series-icon')}</span>
                         <div class="book-card-main">
                               <div class="book-card-name">${this._escapeHtml(def.nameCN)}</div>
                               <div class="book-card-sub">${SERIES_NAMES[def.series]} · Lv.${level}</div>
@@ -557,6 +568,11 @@ export class EncyclopediaPanel {
       private _dropEggLabel(dropEgg: boolean | null): string {
             if (dropEgg === null) return '\u6389\u86cb\u672a\u77e5';
             return dropEgg ? '\u53ef\u6389\u86cb' : '\u4e0d\u6389\u86cb';
+      }
+
+      private _seriesIconMarkup(series: PetSeries, extraClass = ''): string {
+            const classes = ['book-series-icon-inline', extraClass].filter(Boolean).join(' ');
+            return `<img src="/assets/icons/${SERIES_ICONS[series]}" alt="" class="${classes}">`;
       }
 
       private _escapeHtml(value: string): string {

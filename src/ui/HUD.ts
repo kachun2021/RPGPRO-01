@@ -1,27 +1,63 @@
 import type { PlayerStats } from '../entities/Player';
 import { formatStarterPetSummary, type PlayerIdentitySnapshot } from '../core/PlayerIdentity';
 import type { PetManager } from '../pets/PetManager';
+import { renderUiIcon, type UiIconId } from './UiIconCatalog';
+
+interface HudNavItem {
+      id: string;
+      label: string;
+      icon: UiIconId;
+      primary: boolean;
+}
+
+const NAV_ITEMS: HudNavItem[] = [
+      { id: 'nav-quest', label: '任務', icon: 'quest', primary: true },
+      { id: 'nav-bag', label: '背包', icon: 'bag', primary: true },
+      { id: 'nav-map', label: '地圖', icon: 'map', primary: true },
+      { id: 'nav-pet', label: '寵物', icon: 'pet', primary: true },
+      { id: 'nav-book', label: '圖鑑', icon: 'book', primary: false },
+      { id: 'nav-shop', label: '商店', icon: 'shop', primary: false },
+      { id: 'nav-char', label: '角色', icon: 'character', primary: false },
+      { id: 'nav-skill', label: '技能', icon: 'skill', primary: false },
+      { id: 'nav-settings', label: '系統', icon: 'settings', primary: false },
+];
 
 /**
  * HUD
- * - Top-right portraits (player + 3 pets)
- * - Bottom nav bar
+ * - Top-left profile card
+ * - Top-right party rail
+ * - Bottom quick dock + expandable menu hub
+ * - Transient focus banner for current objective
  */
 export class HUD {
       private _identityBar: HTMLDivElement;
       private _identityName: HTMLDivElement;
       private _identityMeta: HTMLDivElement;
       private _identityObjective: HTMLDivElement;
+      private _focusBanner: HTMLDivElement;
+      private _focusBannerTitle: HTMLDivElement;
+      private _focusBannerText: HTMLDivElement;
       private _topRight: HTMLDivElement;
       private _navBar: HTMLDivElement;
+      private _quickDock: HTMLDivElement;
+      private _menuPanel: HTMLDivElement;
       private _portraits: HTMLDivElement[] = [];
       private _petLabelCache: (string | null)[] = [null, null, null];
       private _collapsed = false;
+      private _menuExpanded = false;
       private _toggleBtn: HTMLDivElement;
+      private _menuToggleBtn: HTMLButtonElement;
       private _identity: PlayerIdentitySnapshot | null = null;
       private _zoneName = '新手草原';
       private _primaryPetName = '未設定';
       private _objectiveHint = '先找村長接主線';
+      private _bannerTimer = 0;
+      private readonly _handleDocPointerDown = (event: PointerEvent): void => {
+            if (!this._menuExpanded) return;
+            const target = event.target as HTMLElement | null;
+            if (target?.closest('.hud-nav')) return;
+            this._setMenuExpanded(false);
+      };
 
       constructor() {
             const uiLayer = document.getElementById('ui-layer')!;
@@ -30,6 +66,9 @@ export class HUD {
             this._identityBar.id = 'hudIdentity';
             this._identityBar.className = 'hud-identity';
             this._identityBar.dataset.chromeGroup = 'identity';
+            this._identityBar.innerHTML = `
+                  <div class="hud-identity-kicker">冒險手冊</div>
+            `;
             this._identityName = document.createElement('div');
             this._identityName.className = 'hud-identity-name';
             this._identityMeta = document.createElement('div');
@@ -40,6 +79,18 @@ export class HUD {
             this._identityBar.appendChild(this._identityMeta);
             this._identityBar.appendChild(this._identityObjective);
             uiLayer.appendChild(this._identityBar);
+
+            this._focusBanner = document.createElement('div');
+            this._focusBanner.className = 'hud-focus-banner';
+            this._focusBanner.dataset.chromeGroup = 'guidance';
+            this._focusBanner.innerHTML = '<div class="hud-focus-banner-kicker">目前目標</div>';
+            this._focusBannerTitle = document.createElement('div');
+            this._focusBannerTitle.className = 'hud-focus-banner-title';
+            this._focusBannerText = document.createElement('div');
+            this._focusBannerText.className = 'hud-focus-banner-text';
+            this._focusBanner.appendChild(this._focusBannerTitle);
+            this._focusBanner.appendChild(this._focusBannerText);
+            uiLayer.appendChild(this._focusBanner);
 
             this._topRight = document.createElement('div');
             this._topRight.id = 'hudPortraits';
@@ -55,7 +106,7 @@ export class HUD {
 
             this._toggleBtn = document.createElement('div');
             this._toggleBtn.className = 'hud-portrait-toggle';
-            this._toggleBtn.textContent = '▼';
+            this._toggleBtn.textContent = '收';
             this._toggleBtn.addEventListener('mouseenter', () => this._toggleBtn.classList.add('is-hover'));
             this._toggleBtn.addEventListener('mouseleave', () => this._toggleBtn.classList.remove('is-hover'));
             this._toggleBtn.addEventListener('click', () => this._togglePortraits());
@@ -67,34 +118,35 @@ export class HUD {
             this._navBar.className = 'interactive hud-nav';
             this._navBar.dataset.chromeGroup = 'navigation';
 
-            const navItems = [
-                  { id: 'nav-book', label: 'BOOK', icon: '📘' },
-                  { id: 'nav-shop', label: '商店', icon: '🛍️' },
-                  { id: 'nav-char', label: '角色', icon: '🧑' },
-                  { id: 'nav-pet', label: '寵物', icon: '🐾' },
-                  { id: 'nav-bag', label: '物品', icon: '🎒' },
-                  { id: 'nav-skill', label: '技能', icon: '⚡' },
-                  { id: 'nav-quest', label: '任務', icon: '📜' },
-                  { id: 'nav-map', label: '地圖', icon: '🗺️' },
-                  { id: 'nav-settings', label: '系統', icon: '⚙️' },
-            ];
+            this._menuPanel = document.createElement('div');
+            this._menuPanel.className = 'hud-menu-panel';
+            this._quickDock = document.createElement('div');
+            this._quickDock.className = 'hud-quick-dock';
 
-            for (const item of navItems) {
-                  const btn = document.createElement('div');
-                  btn.className = 'sa-nav-btn interactive';
-                  btn.id = item.id;
-                  btn.innerHTML = `
-                        <span class="hud-nav-icon">${item.icon}</span>
-                        <span class="hud-nav-label">${item.label}</span>
-                  `;
-                  btn.addEventListener('pointerdown', () => {
-                        btn.classList.add('is-pressed');
-                        setTimeout(() => btn.classList.remove('is-pressed'), 120);
-                  });
-                  this._navBar.appendChild(btn);
+            for (const item of NAV_ITEMS.filter((entry) => entry.primary)) {
+                  this._quickDock.appendChild(this._createNavButton(item));
             }
 
+            this._menuToggleBtn = document.createElement('button');
+            this._menuToggleBtn.type = 'button';
+            this._menuToggleBtn.id = 'nav-menu';
+            this._menuToggleBtn.className = 'sa-nav-btn hud-menu-toggle interactive';
+            this._menuToggleBtn.innerHTML = `
+                  ${renderUiIcon('menu', 'hud-nav-icon')}
+                  <span class="hud-nav-label">選單</span>
+            `;
+            this._menuToggleBtn.addEventListener('click', () => this._setMenuExpanded(!this._menuExpanded));
+            this._quickDock.appendChild(this._menuToggleBtn);
+
+            for (const item of NAV_ITEMS.filter((entry) => !entry.primary)) {
+                  this._menuPanel.appendChild(this._createNavButton(item, true));
+            }
+
+            this._navBar.appendChild(this._menuPanel);
+            this._navBar.appendChild(this._quickDock);
             uiLayer.appendChild(this._navBar);
+
+            document.addEventListener('pointerdown', this._handleDocPointerDown);
             this._renderIdentity();
       }
 
@@ -129,11 +181,11 @@ export class HUD {
             svg.classList.add('hud-ring-svg');
 
             const hpBg = this._arc(cx, cy, r, 180, 360, 'rgba(255,255,255,0.1)', sw);
-            const hpFill = this._arc(cx, cy, r, 180, 360, '#E74C3C', sw);
+            const hpFill = this._arc(cx, cy, r, 180, 360, '#d86f5d', sw);
             hpFill.classList.add('hp-arc');
 
             const mpBg = this._arc(cx, cy, r, 0, 180, 'rgba(255,255,255,0.1)', sw);
-            const mpFill = this._arc(cx, cy, r, 0, 180, '#3498DB', sw);
+            const mpFill = this._arc(cx, cy, r, 0, 180, '#7ea4cc', sw);
             mpFill.classList.add('mp-arc');
 
             svg.appendChild(hpBg);
@@ -145,6 +197,26 @@ export class HUD {
             circleBox.appendChild(inner);
             wrapper.appendChild(circleBox);
             return wrapper;
+      }
+
+      private _createNavButton(item: HudNavItem, isMenuItem = false): HTMLButtonElement {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `sa-nav-btn interactive${isMenuItem ? ' is-menu-item' : ''}`;
+            btn.id = item.id;
+            btn.dataset.navRole = item.primary ? 'primary' : 'secondary';
+            btn.innerHTML = `
+                  ${renderUiIcon(item.icon, 'hud-nav-icon')}
+                  <span class="hud-nav-label">${item.label}</span>
+            `;
+            btn.addEventListener('pointerdown', () => {
+                  btn.classList.add('is-pressed');
+                  setTimeout(() => btn.classList.remove('is-pressed'), 150);
+            });
+            btn.addEventListener('click', () => {
+                  if (!item.primary) this._setMenuExpanded(false);
+            });
+            return btn;
       }
 
       private _arc(cx: number, cy: number, r: number, s: number, e: number, color: string, w: number): SVGPathElement {
@@ -170,6 +242,33 @@ export class HUD {
             const total = (Math.PI * 22 * (e - s)) / 180;
             const fill = total * Math.max(0, Math.min(1, pct));
             arc.setAttribute('stroke-dasharray', `${fill} ${total}`);
+      }
+
+      private _setMenuExpanded(expanded: boolean): void {
+            this._menuExpanded = expanded;
+            this._navBar.classList.toggle('is-menu-open', expanded);
+            this._menuToggleBtn.classList.toggle('is-active', expanded);
+            this._menuToggleBtn.querySelector('.hud-nav-label')!.textContent = expanded ? '收合' : '選單';
+      }
+
+      private _setFocusBannerCopy(title: string, text: string): void {
+            this._focusBannerTitle.textContent = title;
+            this._focusBannerText.textContent = text;
+      }
+
+      private _showFocusBanner(title?: string, text?: string): void {
+            if (title !== undefined || text !== undefined) {
+                  this._setFocusBannerCopy(
+                        title ?? this._focusBannerTitle.textContent ?? '',
+                        text ?? this._focusBannerText.textContent ?? '',
+                  );
+            }
+            this._focusBanner.classList.add('is-visible');
+            if (this._bannerTimer) window.clearTimeout(this._bannerTimer);
+            this._bannerTimer = window.setTimeout(() => {
+                  this._focusBanner.classList.remove('is-visible');
+                  this._bannerTimer = 0;
+            }, 4200);
       }
 
       updateStats(stats: PlayerStats): void {
@@ -223,8 +322,11 @@ export class HUD {
       }
 
       setZoneName(zoneName: string): void {
-            this._zoneName = zoneName || this._zoneName;
+            const nextZone = zoneName || this._zoneName;
+            const changed = nextZone !== this._zoneName;
+            this._zoneName = nextZone;
             this._renderIdentity();
+            if (changed) this._showFocusBanner();
       }
 
       setPrimaryPet(name: string | null): void {
@@ -233,12 +335,21 @@ export class HUD {
       }
 
       setObjectiveHint(text: string | null): void {
-            this._objectiveHint = (text ?? '').trim() || this._objectiveHint;
+            const nextHint = (text ?? '').trim() || this._objectiveHint;
+            const changed = nextHint !== this._objectiveHint;
+            this._objectiveHint = nextHint;
             this._renderIdentity();
+            if (changed) this._showFocusBanner();
+      }
+
+      flashFocusBanner(title: string, text: string): void {
+            const nextTitle = title.trim() || this._focusBannerTitle.textContent || '';
+            const nextText = text.trim() || this._focusBannerText.textContent || '';
+            this._showFocusBanner(nextTitle, nextText);
       }
 
       getNavButton(id: string): HTMLElement | null {
-            return document.getElementById(id);
+            return this._navBar.querySelector(`#${id}`);
       }
 
       getPortrait(index: number): HTMLElement | undefined {
@@ -248,7 +359,7 @@ export class HUD {
       private _togglePortraits(): void {
             this._collapsed = !this._collapsed;
             this._topRight.classList.toggle('is-collapsed', this._collapsed);
-            this._toggleBtn.textContent = this._collapsed ? '▲' : '▼';
+            this._toggleBtn.textContent = this._collapsed ? '展' : '收';
       }
 
       private _renderIdentity(): void {
@@ -259,12 +370,16 @@ export class HUD {
                   ? formatStarterPetSummary(this._identity.starterPetNames, 2)
                   : this._primaryPetName;
 
-            this._identityName.textContent = `${playerName} · ${roleLabel}`;
-            this._identityMeta.textContent = `${heroName} | ${this._zoneName} | 主寵 ${this._primaryPetName || starterPetSummary}`;
-            this._identityObjective.textContent = this._objectiveHint;
+            this._identityName.textContent = `${playerName}`;
+            this._identityMeta.textContent = `${roleLabel} · ${heroName}`;
+            this._identityObjective.textContent = `${this._zoneName} · 主寵 ${this._primaryPetName || starterPetSummary}`;
+            this._setFocusBannerCopy(`${playerName} · ${roleLabel}`, this._objectiveHint);
       }
 
       dispose(): void {
+            if (this._bannerTimer) window.clearTimeout(this._bannerTimer);
+            document.removeEventListener('pointerdown', this._handleDocPointerDown);
+            this._focusBanner.remove();
             this._identityBar.remove();
             this._topRight.remove();
             this._navBar.remove();

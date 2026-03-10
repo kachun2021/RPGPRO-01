@@ -2361,51 +2361,6 @@
         grid-template-columns: 1fr;
       }
 
-      .hud-top-right {
-        right: 10px;
-        top: 10px;
-        gap: 6px;
-        display: grid;
-        justify-items: end;
-        transform: none;
-      }
-
-      .hud-identity {
-        top: 10px;
-        min-width: min(64vw, 420px);
-        max-width: min(72vw, 500px);
-        padding: 9px 12px;
-      }
-
-      .hud-identity-name {
-        font-size: 13px;
-      }
-
-      .hud-identity-meta,
-      .hud-identity-objective {
-        font-size: 11px;
-      }
-
-      .hud-nav {
-        bottom: 8px;
-        width: min(96vw, 760px);
-        transform: translateX(-50%);
-      }
-
-      .sa-nav-btn {
-        min-width: 0;
-        min-height: 48px;
-        padding: 8px 8px;
-      }
-
-      .hud-nav-icon {
-        font-size: 13px;
-      }
-
-      .hud-nav-label {
-        font-size: 8px;
-      }
-
       .skillbar-root {
         top: auto;
         bottom: 64px;

@@ -38,7 +38,7 @@ export class SkillBar {
 
             const playerLabel = document.createElement('div');
             playerLabel.className = 'skillbar-label';
-            playerLabel.textContent = '⚔️ 角色';
+            playerLabel.textContent = '角色技能';
             this._el.appendChild(playerLabel);
 
             for (let i = 0; i < 5; i++) {
@@ -53,7 +53,7 @@ export class SkillBar {
 
             const petLabel = document.createElement('div');
             petLabel.className = 'skillbar-label';
-            petLabel.textContent = '🐾 寵物';
+            petLabel.textContent = '伙伴技能';
             this._el.appendChild(petLabel);
 
             for (let i = 0; i < 3; i++) {

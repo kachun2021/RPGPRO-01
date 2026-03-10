@@ -12,30 +12,12 @@ export class TouchJoystick {
       private _sensitivity = 1;
 
       constructor() {
-            // Container
             this._container = document.createElement('div');
             this._container.id = 'joystick';
-            this._container.className = 'interactive';
-            Object.assign(this._container.style, {
-                  position: 'fixed', left: '16px', bottom: '64px',
-                  width: '120px', height: '120px', borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(20,16,30,0.5) 0%, rgba(20,16,30,0.3) 100%)',
-                  border: '2px solid rgba(232,201,106,0.25)',
-                  boxShadow: '0 0 12px rgba(0,0,0,0.3), inset 0 0 8px rgba(232,201,106,0.05)',
-                  zIndex: '200', touchAction: 'none',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-            });
+            this._container.className = 'interactive touch-joystick';
 
-            // Knob
             this._knob = document.createElement('div');
-            Object.assign(this._knob.style, {
-                  width: '44px', height: '44px', borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(232,201,106,0.35) 0%, rgba(232,201,106,0.12) 100%)',
-                  border: '1.5px solid rgba(232,201,106,0.3)',
-                  boxShadow: '0 0 6px rgba(232,201,106,0.15)',
-                  transition: 'transform 0.05s',
-                  pointerEvents: 'none',
-            });
+            this._knob.className = 'touch-joystick-knob';
             this._container.appendChild(this._knob);
 
             document.getElementById('ui-layer')?.appendChild(this._container);
@@ -55,6 +37,7 @@ export class TouchJoystick {
             this._startX = e.clientX;
             this._startY = e.clientY;
             this._container.setPointerCapture(e.pointerId);
+            this._container.classList.add('is-active');
       }
 
       private _onMove(e: PointerEvent): void {
@@ -85,6 +68,7 @@ export class TouchJoystick {
             this._active = false;
             this._knob.style.transform = 'translate(0, 0)';
             this.direction.set(0, 0, 0);
+            this._container.classList.remove('is-active');
       }
 
       private _onKey(key: string, pressed: boolean): void {

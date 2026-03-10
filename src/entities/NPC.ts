@@ -7,6 +7,7 @@ import type { Scene } from '@babylonjs/core/scene';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { Observer } from '@babylonjs/core/Misc/observable';
 import type { PointerInfo } from '@babylonjs/core/Events/pointerEvents';
+import { getNpcUiIconId, renderUiIcon } from '../ui/UiIconCatalog';
 
 export type NPCType = 'merchant' | 'skill_master' | 'quest' | 'pet_trader';
 
@@ -25,10 +26,6 @@ const NPC_TYPE_COLORS: Record<NPCType, Color3> = {
       skill_master: new Color3(0.3, 0.4, 0.9),
       quest: new Color3(0.9, 0.7, 0.2),
       pet_trader: new Color3(0.8, 0.3, 0.6),
-};
-
-const NPC_TYPE_ICONS: Record<NPCType, string> = {
-      merchant: '🛒', skill_master: '📖', quest: '❗', pet_trader: '🔄',
 };
 
 const NPC_TYPE_LABELS: Record<NPCType, string> = {
@@ -69,8 +66,8 @@ export const NPC_DEFS: NPCDef[] = [
  * NPC — 3D entity with billboard marker + click-to-interact prompt bubble.
  * 
  * Market standard design:
- * - Billboard icon (❗/🛒/📖/🔄) always visible above NPC head
- * - When player is within 3m: show small "💬 對話" prompt bubble near NPC
+ * - Billboard role marker is always visible above NPC head
+ * - When player is within 3m: show small prompt bubble near NPC
  * - Player clicks the prompt bubble OR the NPC mesh to open dialogue
  * - Dialogue does NOT auto-open on proximity
  */
@@ -153,7 +150,7 @@ export class NPC {
             this._marker.dataset.npcType = this.def.type;
             this._marker.innerHTML = `
                   <div class="npc-marker-role">${NPC_TYPE_LABELS[this.def.type]}</div>
-                  <div class="npc-marker-icon">${NPC_TYPE_ICONS[this.def.type]}</div>
+                  <div class="npc-marker-icon">${renderUiIcon(getNpcUiIconId(this.def.type), 'npc-marker-glyph')}</div>
                   <div class="npc-marker-name">${this.def.name}</div>
             `;
             document.getElementById('ui-layer')?.appendChild(this._marker);
@@ -164,7 +161,10 @@ export class NPC {
             this._promptBubble = document.createElement('div');
             this._promptBubble.className = 'npc-prompt';
             this._promptBubble.dataset.npcType = this.def.type;
-            this._promptBubble.innerHTML = `${NPC_TYPE_ICONS[this.def.type]} ${NPC_INTERACT_LABELS[this.def.type]}`;
+            this._promptBubble.innerHTML = `
+                  ${renderUiIcon(getNpcUiIconId(this.def.type), 'npc-prompt-glyph')}
+                  <span>${NPC_INTERACT_LABELS[this.def.type]}</span>
+            `;
             this._promptBubble.classList.add('is-hidden', 'is-clickable');
             document.getElementById('ui-layer')?.appendChild(this._promptBubble);
       }

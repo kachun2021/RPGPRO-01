@@ -25,6 +25,7 @@ import {
       type ItemRarity,
       type TargetPriority,
 } from './afk/AFKPanelConfig';
+import { renderUiIcon } from './UiIconCatalog';
 
 export type { AFKSaveState } from './afk/AFKPanelConfig';
 
@@ -69,7 +70,10 @@ export class AFKPanel {
       private _buildShell(): void {
             this._el.innerHTML = `
                   <div class="sa-panel-title">
-                        ⚙ AFK 控制中心
+                        <div class="atlas-title-copy afk-header-copy">
+                              <span class="atlas-kicker">Adventure Atlas</span>
+                              <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>AFK 控制中心</span></span>
+                        </div>
                         <span class="panel-close" id="afk-close">×</span>
                   </div>
                   <div class="afk-headline">

@@ -1165,3 +1165,68 @@
     - smoke rerun after final inventory/system polish also passed (`21/21`)
   - Next:
     - move to second batch panels (`Quest / Map / Pet / Shop`) so the remaining dark interior sections adopt the same density and hierarchy rules
+
+- 2026-03-10 (Genshin-style mobile landscape consolidation pass):
+  - Scope:
+    - completed the follow-up pass for the remaining high-priority gaps after the first HUD refresh:
+      - fixed old footer/HUD CSS bleed
+      - tightened objective banner replay rules
+      - unified `Fusion / Encyclopedia / AFK` into the same atlas grammar
+      - added dedicated multi-viewport landscape smoke coverage
+  - HUD / chrome cleanup:
+    - `src/styles/ui-refresh.css`
+      - hard-reset `.hud-nav` shell so legacy footer width/background/grid rules no longer leak into the quick dock
+      - re-added collapse behavior in the new layer (`.hud-top-right.is-collapsed .hud-portrait`)
+      - normalized the auto-settings button to asset-driven icon markup/classes
+    - removed obsolete HUD/nav style fragments from:
+      - `src/styles/gameplay.css`
+      - `src/styles/panels/legacy-panels.css`
+      - `src/styles/panels/adventure-atlas.css`
+  - Objective banner logic:
+    - `src/ui/HUD.ts`
+      - banner no longer auto-fires in the constructor
+      - `setZoneName` / `setObjectiveHint` now only replay when the value actually changes
+      - added `flashFocusBanner(...)` for explicit interaction moments
+    - `src/main.ts`
+      - NPC interaction now flashes a transient banner
+      - auto-settings HUD button now uses icon markup instead of emoji text
+  - Panel consistency:
+    - `src/ui/UiIconCatalog.ts`
+      - added `fusion` icon for title/header cleanup
+    - `src/ui/FusionPanel.ts`
+      - rebuilt header into atlas copy + icon + subtitle + close button
+    - `src/ui/EncyclopediaPanel.ts`
+      - rebuilt header into atlas copy and normalized close glyph
+    - `src/ui/AFKPanel.ts`
+      - removed emoji-led title and adopted atlas header structure
+    - `src/styles/ui-refresh.css`
+      - added targeted atlas refinements for Fusion / Book / AFK card chrome, controls, filters, and header hierarchy
+  - Residual/dead code cleanup:
+    - added `#ui-layer [hidden] { display: none !important; }` safety rule to `index.html` so `ci:guardrails` passes again
+    - removed now-unused `SERIES_EMOJI` from `src/pets/PetData.ts`
+  - Smoke / QA:
+    - `scripts/task_smoke_runner.mjs`
+      - summary output now records viewport
+      - added `defaultEnabled: false` extended scenarios for `landscape-grid`
+      - added viewport matrix coverage for:
+        - `move-baseline`
+        - `dialogue-panel`
+        - `fusion-panel`
+        - `book-panel`
+        - `afk-panel`
+        - `map-panel`
+      - viewport set:
+        - `844x390`
+        - `932x430`
+        - `1024x576`
+        - `1280x720`
+      - strengthened DOM assertions for key HUD/panel structure
+    - `package.json`
+      - added `test:smoke:landscape-grid`
+  - Validation:
+    - `npm run -s typecheck` passed
+    - `npm run -s build` passed
+    - `npm run -s test:smoke` passed (`21/21`)
+    - `npm run -s test:smoke:landscape-grid` passed (`24/24`)
+    - `npm run -s ci:guardrails` passed
+    - `npm run -s gamedb:check-legacy` passed

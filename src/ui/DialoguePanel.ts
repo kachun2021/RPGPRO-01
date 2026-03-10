@@ -1,11 +1,8 @@
 import type { NPC } from '../entities/NPC';
+import { getNpcUiIconId, renderUiIcon, type UiIconId } from './UiIconCatalog';
 
 const NPC_TYPE_LABELS: Record<string, string> = {
       merchant: '商人', skill_master: '技能導師', quest: '任務', pet_trader: '寵物商人',
-};
-
-const NPC_TYPE_ICONS: Record<string, string> = {
-      merchant: '😈', skill_master: '🛡️', quest: '❗', pet_trader: '🔄',
 };
 
 export interface DialogueActionSpec {
@@ -70,23 +67,29 @@ export class DialoguePanel {
             const npc = this._currentNpc;
             const c = npc.def.color;
             const rgbStr = `${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}`;
-            const icon = NPC_TYPE_ICONS[npc.def.type] || '👤';
             const typeLabel = NPC_TYPE_LABELS[npc.def.type] || 'NPC';
+            const iconMarkup = renderUiIcon(getNpcUiIconId(npc.def.type), 'dlg-header-glyph');
 
             const actionsHtml = this._actions.map((spec) => `
-                  <button type="button" class="dlg-action${spec.tone === 'close' || spec.action === 'close' ? ' dlg-action-close' : ''}" data-action="${this._escapeAttr(spec.action)}">
-                        ${this._escapeHtml(spec.label)}
+                  <button type="button" class="dlg-action${this._actionToneClass(spec)}" data-action="${this._escapeAttr(spec.action)}">
+                        ${renderUiIcon(this._actionIcon(spec.action), 'dlg-action-icon')}
+                        <span class="dlg-action-copy">
+                              <span class="dlg-action-label">${this._escapeHtml(this._normalizeActionLabel(spec.label))}</span>
+                              <span class="dlg-action-sub">${this._escapeHtml(this._actionSubcopy(spec.action))}</span>
+                        </span>
                   </button>
             `).join('');
 
             this._el.innerHTML = `
-                  <div class="dlg-header">
-                        <span class="dlg-header-icon">${icon}</span>
-                        <span class="dlg-header-name">${npc.def.name}</span>
-                        <span class="dlg-header-type">${typeLabel}</span>
+                  <div class="dlg-header" data-npc-type="${this._escapeAttr(npc.def.type)}">
+                        <div class="dlg-header-icon-wrap">${iconMarkup}</div>
+                        <div class="dlg-header-copy">
+                              <span class="dlg-header-name">${npc.def.name}</span>
+                              <span class="dlg-header-type">${typeLabel}</span>
+                        </div>
                   </div>
                   <div class="dlg-body">
-                        <div class="dlg-watermark">${icon}</div>
+                        <div class="dlg-watermark">${iconMarkup}</div>
                         <div class="dlg-text-area" id="dlg-text"></div>
                   </div>
                   <div class="dlg-actions" id="dlg-actions">
@@ -167,29 +170,74 @@ export class DialoguePanel {
             switch (npc.def.type) {
                   case 'merchant':
                         return [
-                              { action: 'buy', label: '💰 買' },
-                              { action: 'sell', label: '📦 賣' },
+                              { action: 'buy', label: '購買補給' },
+                              { action: 'sell', label: '出售物品' },
                               { action: 'close', label: '結束對話', tone: 'close' },
                         ];
                   case 'skill_master':
                         return [
                               { action: 'why', label: '為什麼要學習技能？' },
-                              { action: 'learn', label: '📖 學習技能' },
+                              { action: 'learn', label: '學習技能' },
                               { action: 'close', label: '結束對話', tone: 'close' },
                         ];
                   case 'quest':
                         return [
-                              { action: 'accept', label: '✅ 接受任務' },
+                              { action: 'accept', label: '接受任務' },
                               { action: 'close', label: '結束對話', tone: 'close' },
                         ];
                   case 'pet_trader':
                         return [
-                              { action: 'trade', label: '🔄 交換寵物' },
-                              { action: 'view', label: '📋 查看列表' },
+                              { action: 'trade', label: '交換寵物' },
+                              { action: 'view', label: '查看列表' },
                               { action: 'close', label: '結束對話', tone: 'close' },
                         ];
                   default:
                         return [{ action: 'close', label: '結束對話', tone: 'close' }];
+            }
+      }
+
+      private _normalizeActionLabel(label: string): string {
+            return String(label ?? '')
+                  .replace(/^[^\p{Script=Han}\p{Letter}\p{Number}]+/u, '')
+                  .trim();
+      }
+
+      private _actionToneClass(spec: DialogueActionSpec): string {
+            if (spec.tone === 'close' || spec.action === 'close') return ' dlg-action-close';
+            if (spec.action === 'accept' || spec.action === 'report' || spec.action === 'buy' || spec.action === 'learn' || spec.action === 'trade') {
+                  return ' dlg-action-primary';
+            }
+            return ' dlg-action-secondary';
+      }
+
+      private _actionIcon(action: string): UiIconId {
+            switch (action) {
+                  case 'accept': return 'accept';
+                  case 'report': return 'report';
+                  case 'buy': return 'shop';
+                  case 'sell': return 'bag';
+                  case 'learn': return 'skill';
+                  case 'trade': return 'pet';
+                  case 'view':
+                  case 'view_quest': return 'quest';
+                  case 'close': return 'settings';
+                  case 'why':
+                  default: return 'character';
+            }
+      }
+
+      private _actionSubcopy(action: string): string {
+            switch (action) {
+                  case 'accept': return '立即加入當前追蹤';
+                  case 'report': return '交付進度並領取回報';
+                  case 'buy': return '補足藥水與新手物資';
+                  case 'sell': return '整理背包內可出售道具';
+                  case 'learn': return '查看目前可裝配技能';
+                  case 'trade': return '切換到換寵流程';
+                  case 'view':
+                  case 'view_quest': return '打開任務面板查看詳情';
+                  case 'close': return '返回探索畫面';
+                  default: return '查看更多資訊';
             }
       }
 

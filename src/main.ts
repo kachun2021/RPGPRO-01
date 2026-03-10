@@ -73,6 +73,7 @@ import { resolveGuidanceState, type GuidanceState } from './ui/GuidanceState';
 import { UiChromeController } from './ui/UiChromeController';
 import { installAdaptivePanelViewportFit } from './ui/layout/AdaptivePanelLayout';
 import { initUiFeedbackSfx } from './ui/layout/UiFeedbackSfx';
+import { renderUiIcon } from './ui/UiIconCatalog';
 // P5 Shop
 import { ShopManager } from './systems/ShopManager';
 // P9 System Settings
@@ -441,8 +442,8 @@ async function bootstrap(): Promise<void> {
                               : '回報後就能領取獎勵，準備推進下一步。',
                   ];
                   const actions: DialogueActionSpec[] = [
-                        { action: 'report', label: '📣 回報任務' },
-                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'report', label: '回報任務' },
+                        { action: 'view_quest', label: '查看任務' },
                         { action: 'close', label: '結束對話', tone: 'close' },
                   ];
                   return { lines, actions };
@@ -455,8 +456,8 @@ async function bootstrap(): Promise<void> {
                         `委託內容：${describeQuestObjective(availableQuest)}`,
                   ];
                   const actions: DialogueActionSpec[] = [
-                        { action: 'accept', label: '✅ 接受任務' },
-                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'accept', label: '接受任務' },
+                        { action: 'view_quest', label: '查看任務' },
                         { action: 'close', label: '結束對話', tone: 'close' },
                   ];
                   return { lines, actions };
@@ -473,7 +474,7 @@ async function bootstrap(): Promise<void> {
                                     : '先把目前目標完成，再回來回報。',
                         ],
                         actions: [
-                              { action: 'view_quest', label: '📜 查看任務' },
+                              { action: 'view_quest', label: '查看任務' },
                               { action: 'close', label: '結束對話', tone: 'close' },
                         ],
                   };
@@ -485,7 +486,7 @@ async function bootstrap(): Promise<void> {
                         '先把手邊目標清乾淨，再回來找我。',
                   ],
                   actions: [
-                        { action: 'view_quest', label: '📜 查看任務' },
+                        { action: 'view_quest', label: '查看任務' },
                         { action: 'close', label: '結束對話', tone: 'close' },
                   ],
             };
@@ -601,7 +602,8 @@ async function bootstrap(): Promise<void> {
       const autoSettingsBtn = document.createElement('button');
       autoSettingsBtn.id = 'auto-settings-btn';
       autoSettingsBtn.className = 'interactive auto-settings-btn';
-      autoSettingsBtn.textContent = '⚙';
+      autoSettingsBtn.setAttribute('aria-label', '打開自動掛機設定');
+      autoSettingsBtn.innerHTML = renderUiIcon('settings', 'auto-settings-icon');
 
       syncAutoUi = (): void => {
             const on = combatLoop.isAutoGrind;
@@ -1094,6 +1096,7 @@ async function bootstrap(): Promise<void> {
 
       npcManager.onInteract = (npc) => {
             closeSubPanels('dialogue');
+            hud.flashFocusBanner(npc.def.name, '互動中');
             dialoguePanel.openForNpc(npc, buildDialogueOptions(npc));
             schedulePanelViewportFit();
       };

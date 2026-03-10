@@ -20,8 +20,9 @@ export class QuestTracker {
             const header = document.createElement('div');
             header.className = 'qt-header';
             header.innerHTML = `
-                  <span class="qt-header-text">📵 任務追蹤</span>
-                  <span class="qt-toggle">▼</span>
+                  <span class="qt-header-kicker">追蹤</span>
+                  <span class="qt-header-text">任務進度</span>
+                  <span class="qt-toggle">收合</span>
             `;
             this._toggle = header.querySelector('.qt-toggle') as HTMLSpanElement;
             header.addEventListener('click', () => this._toggleCollapse());
@@ -41,7 +42,7 @@ export class QuestTracker {
       private _toggleCollapse(): void {
             this._collapsed = !this._collapsed;
             this._body.classList.toggle('collapsed', this._collapsed);
-            this._toggle.textContent = this._collapsed ? '▶' : '▼';
+            this._toggle.textContent = this._collapsed ? '展開' : '收合';
       }
 
       update(): void {
@@ -69,11 +70,16 @@ export class QuestTracker {
                   const status = this._questManager.getStatus(quest);
                   const obj = quest.objectives[0];
                   const pct = Math.min(100, Math.round((obj.current / obj.required) * 100));
+                  const statusLabel = status === 'turn_in' ? '回報' : status === 'complete' ? '完成' : '進行';
 
                   const card = document.createElement('div');
                   card.className = 'qt-quest';
+                  card.dataset.questStatus = status;
                   card.innerHTML = `
-                        <div class="qt-quest-name">${status === 'turn_in' ? '📣' : status === 'complete' ? '✅' : '⚡'} ${quest.name}</div>
+                        <div class="qt-quest-top">
+                              <div class="qt-quest-name">${quest.name}</div>
+                              <span class="qt-status-badge">${statusLabel}</span>
+                        </div>
                         <div class="qt-quest-obj">${obj.label}: ${obj.current}/${obj.required}</div>
                         <div class="qt-pbar">
                               <div class="qt-pfill"></div>
