@@ -1,0 +1,323 @@
+.inv2-root .inv2-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 12px;
+  overflow: auto;
+}
+
+.inv2-root .inv2-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(220px, 0.86fr);
+  gap: 8px;
+}
+
+.inv2-root .inv2-top-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.inv2-root .inv2-sec-title,
+.inv2-root .inv2-side-title {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.inv2-root .inv2-board {
+  display: grid;
+  grid-template-columns: 126px minmax(0, 1fr) 126px;
+  gap: 6px;
+  align-items: start;
+}
+
+.inv2-root .inv2-board-column {
+  display: grid;
+  gap: 8px;
+}
+
+.inv2-root .inv2-board-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+}
+
+.inv2-root .inv2-board-avatar {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 212, 173, 0.96), rgba(255, 161, 133, 0.94));
+  color: #6f4d5b;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.inv2-root .inv2-board-level,
+.inv2-root .inv2-board-title,
+.inv2-root .inv2-board-stat strong,
+.inv2-root .inv2-gold-val {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.inv2-root .inv2-board-note,
+.inv2-root .inv2-side-copy,
+.inv2-root .inv2-eq-title,
+.inv2-root .inv2-eq-state,
+.inv2-root .inv2-bag-summary,
+.inv2-root .inv2-gold-label {
+  font-size: 11px;
+  color: rgba(117, 94, 117, 0.76);
+}
+
+.inv2-root .inv2-eq-slot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 170, 148, 0.24);
+  background: rgba(255, 255, 255, 0.74);
+  cursor: pointer;
+}
+
+.inv2-root .inv2-slot-badge,
+.inv2-root .inv2-eq-state,
+.inv2-root .inv-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 224, 187, 0.92);
+  color: #8a6157;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.inv2-root .inv2-slot-badge.is-empty,
+.inv2-root .inv2-eq-state.is-empty {
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(117, 94, 117, 0.72);
+}
+
+.inv2-root .inv2-eq-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inv2-root .inv2-eq-item {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--chrome-text-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inv2-root .inv2-quick-grid,
+.inv2-root .inv2-board-stats {
+  display: grid;
+  gap: 8px;
+}
+
+.inv2-root .inv2-board-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.inv2-root .inv2-board-stat,
+.inv2-root .inv2-quick-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.inv2-root .inv2-board-stat span,
+.inv2-root .inv2-quick-row span {
+  font-size: 11px;
+  color: rgba(117, 94, 117, 0.72);
+}
+
+.inv2-root .inv2-quick-row b {
+  font-size: 13px;
+  color: var(--chrome-text-strong);
+}
+
+.inv2-root .inv2-side-block {
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.inv2-root .inv2-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inv2-root .inv-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inv2-root .inv-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 164, 141, 0.28);
+  background: rgba(255, 255, 255, 0.82);
+  color: rgba(117, 94, 117, 0.8);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.inv2-root .inv-tab-active {
+  background: linear-gradient(180deg, rgba(255, 224, 187, 0.98), rgba(255, 198, 170, 0.94));
+  color: var(--chrome-text-strong);
+}
+
+.inv2-root .inv2-item-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--inv2-item-cols, 6), minmax(0, 1fr));
+  gap: 6px;
+}
+
+.inv2-root .inv2-item-slot {
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 8px 6px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 170, 148, 0.3);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.inv2-root .inv2-item-filled {
+  border-style: solid;
+  background: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+}
+
+.inv2-root .inv2-item-icon {
+  font-size: 18px;
+}
+
+.inv2-root .inv2-item-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--chrome-text-strong);
+  line-height: 1.35;
+}
+
+.inv2-root .inv2-item-qty {
+  font-size: 11px;
+  color: rgba(117, 94, 117, 0.76);
+}
+
+.inv2-root .inv2-bottom-bar {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+}
+
+.inv2-root .inv2-page-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inv2-root .inv2-page-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 164, 141, 0.26);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--chrome-text-strong);
+  cursor: pointer;
+}
+
+.inv2-root .inv2-page-btn:disabled {
+  opacity: 0.36;
+  cursor: not-allowed;
+}
+
+.inv2-root .inv2-gold-bar {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 241, 202, 0.98), rgba(255, 221, 150, 0.9));
+  color: #8a6230;
+  font-weight: 900;
+}
+
+.inv2-root .inv2-empty-state {
+  grid-column: 1 / -1;
+}
+
+@media (max-height: 430px) {
+  .inv2-root .inv2-main {
+    padding: 7px 9px 9px;
+    gap: 8px;
+  }
+
+  .inv2-root .inv2-top {
+    gap: 8px;
+  }
+
+  .inv2-root .inv2-top-panel {
+    padding: 8px;
+  }
+
+  .inv2-root .inv2-board {
+    grid-template-columns: 108px minmax(0, 1fr) 108px;
+  }
+
+  .inv2-root .inv2-board-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 18px;
+  }
+
+  .inv2-root .inv2-item-slot {
+    min-height: 64px;
+  }
+}
+
+@media (max-width: 860px) {
+  .inv2-root .inv2-top,
+  .inv2-root .inv2-bottom-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .inv2-root .inv2-gold-bar {
+    justify-self: start;
+  }
+}

@@ -20,6 +20,7 @@ import {
       type SeriesFilter,
 } from './fusion/FusionPanelTypes';
 import { renderUiIcon } from './UiIconCatalog';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 // 匯出資料存在少量命名差異，統一映射後可正確回填等級與系列資料。
 
@@ -97,6 +98,21 @@ export class FusionPanel {
 
       get element(): HTMLElement { return this._el; }
       get isVisible(): boolean { return this._visible; }
+
+      getDebugState() {
+            return {
+                  activeTab: this._mainTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        seriesFilter: this._seriesFilter,
+                        trackedOnly: this._recipeTrackedOnly,
+                        recommendedOnly: this._recipeRecommendedOnly,
+                        treeTarget: this._treeTargetResultId,
+                        mainPet: this._mainPet?.displayName ?? this._mainPet?.def.name ?? null,
+                        subPet: this._subPet?.displayName ?? this._subPet?.def.name ?? null,
+                  }),
+            };
+      }
 
       setMapNavigator(handler: ((mapKey: string, petName?: string) => void) | null): void {
             this._onNavigateMap = handler;
@@ -505,9 +521,16 @@ export class FusionPanel {
             return width > height && width <= 1280 && height <= 620;
       }
 
+      private _isCompactLandscapeMode(): boolean {
+            const width = window.innerWidth || this._el.clientWidth || 0;
+            const height = window.innerHeight || 0;
+            return width > height && height <= 430;
+      }
+
       private _syncResponsiveMode(): void {
             this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
             this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
+            this._el.classList.toggle('is-compact-landscape', this._isCompactLandscapeMode());
       }
 
       private _buildFormulaListHeader(): HTMLDivElement {

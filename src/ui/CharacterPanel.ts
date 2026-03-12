@@ -5,6 +5,7 @@ import { SkillTree, type SkillTreeNode } from '../systems/SkillTree';
 import { AwakeningSystem } from '../systems/AwakeningSystem';
 import { RebirthSystem } from '../systems/RebirthSystem';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type TabId = 'stats' | 'skilltree' | 'growth';
 
@@ -155,6 +156,20 @@ export class CharacterPanel {
       }
 
       get isVisible(): boolean { return this._visible; }
+
+      getDebugState() {
+            return {
+                  activeTab: this._tab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        level: this._player.stats.level,
+                        statPoints: this._statAlloc.statPoints,
+                        skillPoints: this._skillTree.skillPoints,
+                        rebirthCount: this._rebirth.getInfo().count,
+                        awakened: this._awakening.isAwakened,
+                  }),
+            };
+      }
 
       private _fitPanelScale(): void {
             if (this._el.classList.contains('ui-panel-atlas')) {

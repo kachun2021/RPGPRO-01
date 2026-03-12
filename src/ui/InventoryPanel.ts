@@ -5,6 +5,7 @@ import { EQUIP_TEMPLATES } from '../systems/EquipmentSystem';
 import type { EnhanceSystem } from '../systems/EnhanceSystem';
 import type { PlayerStats } from '../entities/Player';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 const RARITY_CLASS: Record<ItemRarity, string> = {
       common: 'inv2-rarity-common',
@@ -92,6 +93,19 @@ export class InventoryPanel {
 
       get isVisible(): boolean { return this._visible; }
 
+      getDebugState() {
+            return {
+                  activeTab: this._currentTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 4),
+                  keyDataSummary: buildDebugSummary({
+                        page: this._page + 1,
+                        gold: this._inventory.gold,
+                        tabCount: this._inventory.getByTab(this._currentTab).length,
+                        equipped: EQUIP_SLOT_ORDER.reduce((count, slot) => count + (this._equipSystem.getSlot(slot) ? 1 : 0), 0),
+                  }),
+            };
+      }
+
       /** Show floating feedback text */
       private _showFeedback(msg: string, tone: 'success' | 'error' | 'info' | 'gold'): void {
             const el = document.createElement('div');
@@ -174,7 +188,7 @@ export class InventoryPanel {
             const equipCol = document.createElement('section');
             equipCol.className = 'inv2-top-panel inv2-top-panel-board atlas-card';
             equipCol.innerHTML = `
-                  <div class="inv2-sec-title">Equipment Board</div>
+                  <div class="inv2-sec-title">主裝備板</div>
                   <div class="inv2-board">
                         <div class="inv2-board-column inv2-board-column-left"></div>
                         <div class="inv2-board-core">
@@ -201,7 +215,7 @@ export class InventoryPanel {
             const quickCol = document.createElement('section');
             quickCol.className = 'inv2-top-panel inv2-top-panel-quick atlas-card';
             quickCol.innerHTML = `
-                  <div class="inv2-sec-title">Loadout Summary</div>
+                  <div class="inv2-sec-title">裝備概覽</div>
                   <div class="inv2-quick-grid">
                         <div class="inv2-quick-row"><span>備用裝備</span><b>${tabCounts.equipment}</b></div>
                         <div class="inv2-quick-row"><span>消耗品</span><b>${tabCounts.consumable}</b></div>
@@ -250,7 +264,7 @@ export class InventoryPanel {
             if (this._page >= totalPages) this._page = totalPages - 1;
             const pageStart = this._page * slotsPerPage;
             const items = allItems.slice(pageStart, pageStart + slotsPerPage);
-            const itemColumns = this._isPhoneLandscapeMode() ? 10 : 8;
+            const itemColumns = this._getItemColumns();
             const renderSlots = this._getRenderSlotCount(items.length, itemColumns, slotsPerPage);
 
             const itemGrid = document.createElement('div');
@@ -261,7 +275,7 @@ export class InventoryPanel {
                   const currentTab = TAB_LABELS.find((tab) => tab.id === this._currentTab);
                   itemGrid.innerHTML = `
                         <div class="inv2-empty-state">
-                              <span class="inv2-empty-kicker">Empty Pocket</span>
+                              <span class="inv2-empty-kicker">空空如也</span>
                               <strong>${this._escapeHtml(currentTab?.emptyTitle ?? '目前沒有物品')}</strong>
                               <p>${this._escapeHtml(currentTab?.emptyText ?? '回到世界探索後再回來整理。')}</p>
                         </div>
@@ -333,12 +347,25 @@ export class InventoryPanel {
             return width > height && width <= 1280 && height <= 620;
       }
 
+      private _isCompactLandscapeMode(): boolean {
+            const width = window.innerWidth || this._el.clientWidth || 0;
+            const height = window.innerHeight || 0;
+            return width > height && height <= 430;
+      }
+
       private _syncResponsiveMode(): void {
             this._el.classList.toggle('is-phone-landscape', this._isPhoneLandscapeMode());
+            this._el.classList.toggle('is-compact-landscape', this._isCompactLandscapeMode());
       }
 
       private _getSlotsPerPage(): number {
-            return this._isPhoneLandscapeMode() ? 20 : 24;
+            if (!this._isPhoneLandscapeMode()) return 24;
+            return this._isCompactLandscapeMode() ? 16 : 18;
+      }
+
+      private _getItemColumns(): number {
+            if (!this._isPhoneLandscapeMode()) return 8;
+            return this._isCompactLandscapeMode() ? 8 : 9;
       }
 
       private _getRenderSlotCount(itemCount: number, columns: number, maxSlots: number): number {

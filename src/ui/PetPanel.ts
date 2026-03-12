@@ -6,6 +6,7 @@ import type { PetBuff } from '../pets/PetBuff';
 import type { Pet } from '../pets/Pet';
 import { SERIES_ICONS } from '../pets/PetData';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 const STORAGE_COLS = 2;
 const STORAGE_ROWS = 4;
@@ -57,6 +58,19 @@ export class PetPanel {
 
       get isVisible(): boolean {
             return this._visible;
+      }
+
+      getDebugState() {
+            return {
+                  activeTab: 'roster',
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        selectedPet: this._sel?.displayName ?? this._sel?.def.name ?? null,
+                        activeCount: this._pm.active.length,
+                        ownedCount: this._pm.owned.length,
+                        storagePage: this._page + 1,
+                  }),
+            };
       }
 
       open(): void {

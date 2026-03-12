@@ -63,6 +63,7 @@ import { localKeyValueStore } from './services/adapters/local/LocalStorageKV';
 import { GameSettingsRuntime } from './core/GameSettingsRuntime';
 import { isAutomatedRuntime, shouldForceHeroCreationFromQuery } from './core/RuntimeLaunchFlags';
 import { PanelRegistry } from './ui/PanelRegistry';
+import { HUD_NAV_ITEMS, type ManagedPanelId } from './ui/PanelManifest';
 // P9 Quest + NPC
 import { QuestManager, type QuestDef } from './systems/QuestManager';
 import { NPCManager, type NPC } from './entities/NPC';
@@ -646,7 +647,7 @@ async function bootstrap(): Promise<void> {
       const petPanel = new PetPanel(petManager, encyclopedia, petEquipment, petBuff);
 
       // 15. Sub-Panels (Fusion / Encyclopedia / Rename / Revival)
-      const renamePanel = new RenamePanel();
+      const renamePanel = new RenamePanel(inventory);
       const revivalPanel = new RevivalPanel(petManager, inventory);
       const playerDeathOverlay = new PlayerDeathOverlay();
 
@@ -717,16 +718,16 @@ async function bootstrap(): Promise<void> {
 
       const panelRegistry = new PanelRegistry();
       Registry.panelManager = panelRegistry;
-      panelRegistry.register(petPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(dialoguePanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
-      panelRegistry.register(renamePanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
-      panelRegistry.register(revivalPanel, { kind: 'modal', layoutKind: 'modal', chromeMode: 'dialogue_focus', blocksGameplayInput: true });
-      panelRegistry.register(questPanel, { kind: 'primary', layoutKind: 'detail_list', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(characterPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(inventoryPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(skillPanel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(resonancePanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
-      panelRegistry.register(afkPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(petPanel);
+      panelRegistry.register(dialoguePanel);
+      panelRegistry.register(renamePanel);
+      panelRegistry.register(revivalPanel);
+      panelRegistry.register(questPanel);
+      panelRegistry.register(characterPanel);
+      panelRegistry.register(inventoryPanel);
+      panelRegistry.register(skillPanel);
+      panelRegistry.register(resonancePanel);
+      panelRegistry.register(afkPanel);
 
       const syncUiChromeState = (): void => {
             if (playerLife.isDeadLike) {
@@ -954,7 +955,7 @@ async function bootstrap(): Promise<void> {
                   void openCommunityPanel();
             },
       });
-      panelRegistry.register(systemPanel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+      panelRegistry.register(systemPanel);
       settingsRuntime.apply(systemPanel.settings);
 
       // Heavy data panels are lazy-loaded on first use to reduce initial startup cost.
@@ -975,7 +976,7 @@ async function bootstrap(): Promise<void> {
             shopPanelLoading = import('./ui/ShopPanel')
                   .then(({ ShopPanel }) => {
                         const panel = new ShopPanel(shopManager, inventory);
-                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        panelRegistry.register(panel);
                         shopPanel = panel;
                         return panel;
                   })
@@ -991,7 +992,7 @@ async function bootstrap(): Promise<void> {
             communityPanelLoading = import('./ui/CommunityPanel')
                   .then(({ CommunityPanel }) => {
                         const panel = new CommunityPanel();
-                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'dashboard', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        panelRegistry.register(panel);
                         communityPanel = panel;
                         return panel;
                   })
@@ -1010,7 +1011,7 @@ async function bootstrap(): Promise<void> {
                         panel.setMapNavigator((mapName, petName) => {
                               void openWorldMapAt(mapName, petName);
                         });
-                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        panelRegistry.register(panel);
                         fusionPanel = panel;
                         return panel;
                   })
@@ -1034,7 +1035,7 @@ async function bootstrap(): Promise<void> {
                                     void openWorldMapAt(mapName, petName);
                               },
                         });
-                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        panelRegistry.register(panel);
                         encyclopediaPanel = panel;
                         return panel;
                   })
@@ -1061,7 +1062,7 @@ async function bootstrap(): Promise<void> {
                                     void openFusionByTarget(targetName, mapName);
                               },
                         });
-                        panelRegistry.register(panel, { kind: 'primary', layoutKind: 'split', chromeMode: 'panel_focus', blocksGameplayInput: true });
+                        panelRegistry.register(panel);
                         worldMapPanel = panel;
                         return panel;
                   })
@@ -1072,18 +1073,22 @@ async function bootstrap(): Promise<void> {
       }
 
       // Global panel rule: opening one sub-panel closes others to avoid overlap.
-      function closeSubPanels(except?: string): void {
-            panelRegistry.hideAllExcept(except);
+      function refreshPanelChrome(): void {
             syncUiChromeState();
             syncAutoUi();
             schedulePanelViewportFit();
+      }
+
+      function closeSubPanels(except?: string): void {
+            panelRegistry.hideAllExcept(except);
+            refreshPanelChrome();
       }
 
       npcManager.onInteract = (npc) => {
             closeSubPanels('dialogue');
             hud.flashFocusBanner(npc.def.name, '互動中');
             dialoguePanel.openForNpc(npc, buildDialogueOptions(npc));
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
 
       function openPetPanel(): void {
@@ -1091,14 +1096,14 @@ async function bootstrap(): Promise<void> {
             petPanel.open();
             petPanel.refresh();
             onboardingManager.mark('open_pet_panel');
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       }
 
       async function openCommunityPanel(): Promise<void> {
             closeSubPanels('community');
             const panel = await ensureCommunityPanel();
             panel.show();
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       }
 
       async function openShopPanel(mode: 'buy' | 'sell' | 'craft' = 'buy'): Promise<void> {
@@ -1107,7 +1112,7 @@ async function bootstrap(): Promise<void> {
                   const panel = await ensureShopPanel();
                   await panel.show(mode);
                   onboardingManager.mark('visit_shop');
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open ShopPanel:', err);
             }
@@ -1120,7 +1125,7 @@ async function bootstrap(): Promise<void> {
                   panel.refresh();
                   panel.open();
                   onboardingManager.mark('view_fusion_goal');
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open FusionPanel:', err);
             }
@@ -1132,7 +1137,7 @@ async function bootstrap(): Promise<void> {
                   const panel = await ensureFusionPanel();
                   panel.openToRecipesByTargetName(targetName, sourceMap);
                   onboardingManager.mark('view_fusion_goal');
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open Fusion by target:', err);
             }
@@ -1144,7 +1149,7 @@ async function bootstrap(): Promise<void> {
                   const panel = await ensureFusionPanel();
                   panel.openToRecipesByIngredientName(ingredientName, sourceMap);
                   onboardingManager.mark('view_fusion_goal');
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open Fusion by ingredient:', err);
             }
@@ -1155,7 +1160,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureEncyclopediaPanel();
                   panel.open();
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open EncyclopediaPanel:', err);
             }
@@ -1166,7 +1171,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureEncyclopediaPanel();
                   panel.openPetByName(petName, mapName);
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open Encyclopedia pet detail:', err);
             }
@@ -1177,7 +1182,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureWorldMapPanel();
                   panel.show();
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open WorldMapPanel:', err);
             }
@@ -1188,7 +1193,7 @@ async function bootstrap(): Promise<void> {
             try {
                   const panel = await ensureWorldMapPanel();
                   panel.openAtMap(mapName, petName);
-                  schedulePanelViewportFit();
+                  refreshPanelChrome();
             } catch (err) {
                   console.error('[UI] Failed to open WorldMap target:', err);
             }
@@ -1200,12 +1205,12 @@ async function bootstrap(): Promise<void> {
       openSkillPanelByDialogue = () => {
             closeSubPanels('skill');
             skillPanel.show();
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
       openQuestPanelByDialogue = (questId?: string) => {
             closeSubPanels('quest');
             questPanel.show(questId);
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
       openPetPanelByDialogue = () => openPetPanel();
       toggleAfkPanelExclusive = () => {
@@ -1215,9 +1220,7 @@ async function bootstrap(): Promise<void> {
                   closeSubPanels('afk');
                   afkPanel.show();
             }
-            syncUiChromeState();
-            syncAutoUi();
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
 
       // Re-wire callbacks with exclusive-open behavior.
@@ -1226,19 +1229,19 @@ async function bootstrap(): Promise<void> {
       petPanel.onOpenRename = (pet) => {
             closeSubPanels('rename');
             renamePanel.openFor(pet, () => petPanel.refresh());
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
       petPanel.onOpenRevival = () => {
             closeSubPanels('revival');
             revivalPanel.open(() => petPanel.refresh());
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       };
 
       // Wire portraits
       hud.getPortrait(0)?.addEventListener('click', () => {
             closeSubPanels('char');
             characterPanel.show();
-            schedulePanelViewportFit();
+            refreshPanelChrome();
       });
       for (let i = 1; i <= 3; i++) {
             hud.getPortrait(i)?.addEventListener('click', () => {
@@ -1246,39 +1249,50 @@ async function bootstrap(): Promise<void> {
             });
       }
 
-      // Wire nav buttons
-      hud.getNavButton('nav-pet')?.addEventListener('click', () => openPetPanel());
-      hud.getNavButton('nav-book')?.addEventListener('click', () => { void openEncyclopediaPanel(); });
-      hud.getNavButton('nav-settings')?.addEventListener('click', () => {
-            closeSubPanels('settings');
-            systemPanel.show();
-            schedulePanelViewportFit();
-      });
-      hud.getNavButton('nav-shop')?.addEventListener('click', () => {
-            void openShopPanel('buy');
-      });
-      hud.getNavButton('nav-quest')?.addEventListener('click', () => {
-            closeSubPanels('quest');
-            questPanel.show();
-            schedulePanelViewportFit();
-      });
-      hud.getNavButton('nav-char')?.addEventListener('click', () => {
-            closeSubPanels('char');
-            characterPanel.show();
-            schedulePanelViewportFit();
-      });
-      hud.getNavButton('nav-bag')?.addEventListener('click', () => {
-            closeSubPanels('bag');
-            inventoryPanel.show();
-            schedulePanelViewportFit();
-      });
-      hud.getNavButton('nav-map')?.addEventListener('click', () => {
-            void openWorldMapPanel();
-      });
-      hud.getNavButton('nav-skill')?.addEventListener('click', () => {
-            closeSubPanels('skill');
-            skillPanel.show();
-            schedulePanelViewportFit();
+      // Wire nav buttons from the shared panel manifest so HUD/order/icons/targets stay synchronized.
+      const hudNavActions: Partial<Record<ManagedPanelId, () => void | Promise<void>>> = {
+            pet: () => openPetPanel(),
+            book: () => openEncyclopediaPanel(),
+            settings: () => {
+                  closeSubPanels('settings');
+                  systemPanel.show();
+                  refreshPanelChrome();
+            },
+            shop: () => openShopPanel('buy'),
+            quest: () => {
+                  closeSubPanels('quest');
+                  questPanel.show();
+                  refreshPanelChrome();
+            },
+            char: () => {
+                  closeSubPanels('char');
+                  characterPanel.show();
+                  refreshPanelChrome();
+            },
+            bag: () => {
+                  closeSubPanels('bag');
+                  inventoryPanel.show();
+                  refreshPanelChrome();
+            },
+            map: () => openWorldMapPanel(),
+            skill: () => {
+                  closeSubPanels('skill');
+                  skillPanel.show();
+                  refreshPanelChrome();
+            },
+      };
+      HUD_NAV_ITEMS.forEach((item) => {
+            const button = hud.getNavButton(item.panelId);
+            const action = hudNavActions[item.panelId];
+            if (!button || !action) {
+                  console.warn(`[UI] Missing HUD nav binding for panelId=${item.panelId}`);
+                  return;
+            }
+            button.addEventListener('click', () => {
+                  void Promise.resolve(action()).catch((error) => {
+                        console.error(`[UI] Failed to run HUD nav action for panelId=${item.panelId}:`, error);
+                  });
+            });
       });
       guidanceWidget.setActionHandler((state) => {
             switch (state.action) {
@@ -1294,13 +1308,13 @@ async function bootstrap(): Promise<void> {
                   case 'character':
                         closeSubPanels('char');
                         characterPanel.show();
-                        schedulePanelViewportFit();
+                        refreshPanelChrome();
                         break;
                   case 'quest':
                   default:
                         closeSubPanels('quest');
                         questPanel.show(state.relatedQuestId ?? undefined);
-                        schedulePanelViewportFit();
+                        refreshPanelChrome();
                         break;
             }
       });
@@ -1309,6 +1323,15 @@ async function bootstrap(): Promise<void> {
       (window as any).render_game_to_text = (): string => {
             const visiblePanels = panelRegistry.getVisibilitySnapshot();
             const starterMainQuest = questManager.getQuest('main_1');
+            const currentPanel = panelRegistry.getCurrentPanel();
+            const currentPanelState = panelRegistry.getCurrentPanelDebugState();
+            const currentPanelMeta = panelRegistry.getCurrentPanelMeta();
+            const modalStack = panelRegistry.getModalStack();
+            const modalStates = modalStack.map((panelId) => ({
+                  panelId,
+                  state: panelRegistry.getPanelDebugState(panelId),
+            }));
+            const activeModal = modalStates[modalStates.length - 1] ?? null;
             const payload = {
                   mode: document.getElementById('loading-screen') ? 'loading' : 'play',
                   viewport: {
@@ -1346,8 +1369,13 @@ async function bootstrap(): Promise<void> {
                         owned: petManager.owned.length,
                         deadCount: petManager.owned.filter((pet) => pet.isDead).length,
                   },
-                  currentPanel: panelRegistry.getCurrentPanel(),
-                  modalStack: panelRegistry.getModalStack(),
+                  currentPanel,
+                  currentPanelMeta,
+                  activeTab: currentPanelState?.activeTab ?? activeModal?.state?.activeTab ?? null,
+                  visiblePrimaryActions: currentPanelState?.visiblePrimaryActions ?? activeModal?.state?.visiblePrimaryActions ?? [],
+                  keyDataSummary: currentPanelState?.keyDataSummary ?? activeModal?.state?.keyDataSummary ?? {},
+                  modalStack,
+                  modalStates,
                   uiChromeState: uiChrome.state,
                   primaryNavMode: uiChrome.snapshot.primaryNavMode,
                   guidanceSource: currentGuidanceState.source,

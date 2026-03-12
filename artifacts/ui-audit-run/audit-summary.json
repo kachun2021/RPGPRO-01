@@ -1,0 +1,608 @@
+[
+  {
+    "capture": "hud",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": null,
+    "modalStack": [],
+    "targetOverflow": {},
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\hud.png"
+  },
+  {
+    "capture": "quest",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "quest",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\quest.png"
+  },
+  {
+    "capture": "inventory",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "bag",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\inventory.png"
+  },
+  {
+    "capture": "map",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "map",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\map.png"
+  },
+  {
+    "capture": "pet",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "pet",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\pet.png"
+  },
+  {
+    "capture": "book",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "book",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\book.png"
+  },
+  {
+    "capture": "shop",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "shop",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\shop.png"
+  },
+  {
+    "capture": "character",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "char",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\character.png"
+  },
+  {
+    "capture": "skill",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "skill",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\skill.png"
+  },
+  {
+    "capture": "settings",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "settings",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\settings.png"
+  },
+  {
+    "capture": "afk",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "afk",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\afk.png"
+  },
+  {
+    "capture": "resonance",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "resonance",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\resonance.png"
+  },
+  {
+    "capture": "fusion",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "fusion",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\fusion.png"
+  },
+  {
+    "capture": "community",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": "community",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\community.png"
+  },
+  {
+    "capture": "dialogue",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": null,
+    "modalStack": [
+      "dialogue"
+    ],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\dialogue.png"
+  },
+  {
+    "capture": "revival",
+    "viewport": {
+      "width": 932,
+      "height": 430
+    },
+    "currentPanel": null,
+    "modalStack": [
+      "revival"
+    ],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-large\\revival.png"
+  },
+  {
+    "capture": "hud",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": null,
+    "modalStack": [],
+    "targetOverflow": {},
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\hud.png"
+  },
+  {
+    "capture": "quest",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "quest",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\quest.png"
+  },
+  {
+    "capture": "inventory",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "bag",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\inventory.png"
+  },
+  {
+    "capture": "map",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "map",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\map.png"
+  },
+  {
+    "capture": "pet",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "pet",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\pet.png"
+  },
+  {
+    "capture": "book",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "book",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\book.png"
+  },
+  {
+    "capture": "shop",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "shop",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\shop.png"
+  },
+  {
+    "capture": "character",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "char",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\character.png"
+  },
+  {
+    "capture": "skill",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "skill",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\skill.png"
+  },
+  {
+    "capture": "settings",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "settings",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\settings.png"
+  },
+  {
+    "capture": "afk",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "afk",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\afk.png"
+  },
+  {
+    "capture": "resonance",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "resonance",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\resonance.png"
+  },
+  {
+    "capture": "fusion",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "fusion",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\fusion.png"
+  },
+  {
+    "capture": "community",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": "community",
+    "modalStack": [],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\community.png"
+  },
+  {
+    "capture": "dialogue",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": null,
+    "modalStack": [
+      "dialogue"
+    ],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\dialogue.png"
+  },
+  {
+    "capture": "revival",
+    "viewport": {
+      "width": 667,
+      "height": 375
+    },
+    "currentPanel": null,
+    "modalStack": [
+      "revival"
+    ],
+    "targetOverflow": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "targetOverflowTotal": 0.0,
+    "overlapCount": 0,
+    "largestOverlap": 0,
+    "image": "D:\\AI-RPGGAME\\artifacts\\ui-audit-run\\landscape-compact\\revival.png"
+  }
+]

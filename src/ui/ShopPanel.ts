@@ -21,6 +21,7 @@ import {
       iconForItemType,
 } from './shop/ShopPanelTemplates';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 export class ShopPanel {
       readonly panelId = 'shop';
@@ -59,6 +60,21 @@ export class ShopPanel {
 
       get isVisible(): boolean {
             return this._visible;
+      }
+
+      getDebugState() {
+            return {
+                  activeTab: this._mode,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        mode: this._mode,
+                        category: this._category,
+                        catalogScope: this._buyCatalogScope,
+                        selectedBuyId: this._selectedBuyId,
+                        selectedSellId: this._selectedSellId,
+                        selectedRecipeId: this._selectedRecipeId,
+                  }),
+            };
       }
 
       private _render(): void {

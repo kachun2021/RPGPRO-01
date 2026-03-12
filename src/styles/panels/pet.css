@@ -1,0 +1,228 @@
+.pet-panel-root .pet-panel-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pet-panel-root .pet-dashboard-shell {
+  display: grid;
+  grid-template-columns: 198px minmax(0, 1fr) 220px;
+  gap: 10px;
+  padding: 10px 14px 14px;
+  overflow: auto;
+}
+
+.pet-panel-root :is(.pet-squad-panel, .pet-detail-panel, .pet-storage-panel) {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pet-panel-root .pet-sec-head,
+.pet-panel-root .pet-sec-head-sub,
+.pet-panel-root .pet-storage-summary-main,
+.pet-panel-root .pet-deploy-bar,
+.pet-panel-root .pet-buff-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pet-panel-root :is(.pet-sec-title, .pet-sec-subtitle, .pet-hero-name, .pet-stat-value, .pet-storage-summary-value) {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.pet-panel-root :is(.pet-sec-meta, .pet-hero-sub, .pet-hero-rail-label, .pet-hero-rail-copy, .pet-stat-label, .pet-storage-summary-label, .pet-storage-summary-meta, .pet-storage-level, .pet-storage-role, .pet-deploy-note, .pet-buff-time, .pet-equip-slot-note) {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+.pet-panel-root .pet-squad-list,
+.pet-panel-root .pet-buff-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pet-panel-root .pet-squad-card,
+.pet-panel-root .pet-storage-slot,
+.pet-panel-root .pet-storage-hint {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.pet-panel-root .pet-squad-card.is-selected,
+.pet-panel-root .pet-storage-slot.is-selected {
+  background: linear-gradient(180deg, rgba(255, 231, 206, 0.98), rgba(255, 210, 187, 0.94));
+  border-color: rgba(255, 148, 125, 0.38);
+}
+
+.pet-panel-root .pet-squad-top,
+.pet-panel-root .pet-squad-footer,
+.pet-panel-root .pet-hero-actions,
+.pet-panel-root .pet-storage-pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pet-panel-root .pet-squad-name,
+.pet-panel-root .pet-storage-name {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.pet-panel-root .pet-squad-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 224, 220, 0.82);
+  overflow: hidden;
+}
+
+.pet-panel-root .pet-squad-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 159, 136, 0.96), rgba(255, 208, 120, 0.94));
+}
+
+.pet-panel-root .pet-squad-action,
+.pet-panel-root .pet-page-btn {
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 164, 141, 0.24);
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--chrome-text-strong);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pet-panel-root .pet-page-btn.is-active {
+  background: linear-gradient(180deg, rgba(255, 224, 187, 0.98), rgba(255, 198, 170, 0.94));
+}
+
+.pet-panel-root .pet-hero-card,
+.pet-panel-root .pet-storage-summary,
+.pet-panel-root .pet-equipment-panel,
+.pet-panel-root .pet-buff-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+.pet-panel-root .pet-hero-main {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) 112px;
+  gap: 10px;
+  align-items: center;
+}
+
+.pet-panel-root .pet-hero-icon {
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 212, 173, 0.96), rgba(255, 161, 133, 0.94));
+}
+
+.pet-panel-root .pet-hero-image,
+.pet-panel-root .pet-storage-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.pet-panel-root .pet-hero-copy,
+.pet-panel-root .pet-hero-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pet-panel-root .pet-chip,
+.pet-panel-root .pet-hero-rail-value {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 224, 187, 0.92);
+  color: #8a6157;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.pet-panel-root .pet-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pet-panel-root .pet-stat-grid,
+.pet-panel-root .pet-equip-grid,
+.pet-panel-root .pet-storage-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.pet-panel-root .pet-stat-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pet-panel-root .pet-stat-card,
+.pet-panel-root .pet-equip-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+}
+
+.pet-panel-root .pet-equip-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pet-panel-root .pet-storage-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-height: 430px) {
+  .pet-panel-root .pet-dashboard-shell {
+    grid-template-columns: 176px minmax(0, 1fr) 196px;
+    padding: 8px 10px 10px;
+    gap: 8px;
+  }
+
+  .pet-panel-root .pet-hero-main {
+    grid-template-columns: 68px minmax(0, 1fr) 92px;
+  }
+
+  .pet-panel-root .pet-hero-icon {
+    width: 68px;
+    height: 68px;
+  }
+
+  .pet-panel-root .pet-stat-grid,
+  .pet-panel-root .pet-equip-grid,
+  .pet-panel-root .pet-storage-grid {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 920px) {
+  .pet-panel-root .pet-dashboard-shell {
+    grid-template-columns: 1fr;
+  }
+}

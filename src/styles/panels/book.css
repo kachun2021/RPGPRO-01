@@ -1,0 +1,169 @@
+.book-root .book-unified-root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 10px 14px 14px;
+  overflow: hidden;
+}
+
+.book-root .book-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.book-root .book-chip {
+  min-height: 30px;
+  padding: 0 12px;
+}
+
+.book-root .book-search-input {
+  min-width: 180px;
+  flex: 1 1 200px;
+  min-height: 32px;
+  padding: 0 12px;
+}
+
+.book-root .book-split {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.book-root .book-split.is-compact {
+  grid-template-columns: 1fr;
+}
+
+.book-root .book-pane {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.book-root .book-pane-head,
+.book-root .book-card-head,
+.book-root .book-row-titleline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.book-root :is(.book-pane-title, .book-card-name, .book-row-name) {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.book-root :is(.book-pane-count, .book-card-sub, .book-row-meta, .book-row-count, .book-row-level, .book-detail-key, .book-detail-value, .book-empty) {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+.book-root .book-pane-list,
+.book-root .book-detail-pane {
+  min-height: 0;
+  overflow: auto;
+}
+
+.book-root .book-pane-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-root .book-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+}
+
+.book-root .book-row.is-selected {
+  background: linear-gradient(180deg, rgba(255, 231, 206, 0.98), rgba(255, 210, 187, 0.94));
+  border-color: rgba(255, 148, 125, 0.38);
+}
+
+.book-root .book-row-icon,
+.book-root .book-card-icon {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 224, 187, 0.52);
+}
+
+.book-root .book-row-main,
+.book-root .book-card-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.book-root .book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+.book-root :is(.book-row.game-card, .book-card.game-card) {
+  border-color: rgba(255, 170, 148, 0.26) !important;
+  background:
+    radial-gradient(140% 190% at 100% -45%, rgba(255, 214, 173, 0.16), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 244, 239, 0.92)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 10px 18px rgba(189, 129, 143, 0.08) !important;
+}
+
+.book-root .book-detail-row {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px dashed rgba(255, 170, 148, 0.22);
+}
+
+.book-root .book-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.book-root .book-action-btn {
+  flex: 1 1 160px;
+}
+
+@media (max-height: 430px) {
+  .book-root .book-unified-root {
+    padding: 8px 10px 10px;
+    gap: 8px;
+  }
+
+  .book-root .book-split {
+    grid-template-columns: 286px minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .book-root .book-split {
+    grid-template-columns: 1fr;
+  }
+}

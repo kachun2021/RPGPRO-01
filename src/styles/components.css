@@ -1,0 +1,315 @@
+/* ══════════════════════════════════════
+   components.css — Buttons, Cards, Chips, 
+   Grids, Tables, and shared primitives
+   Dark Fantasy RPG — Mobile Landscape
+   ══════════════════════════════════════ */
+
+/* ── Universal Icon Constraints (renderUiIcon) ── */
+.ui-icon-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  flex-shrink: 0;
+}
+.ui-icon-glyph img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* Default icon size when parent doesn't set explicit dimensions */
+.ui-icon-glyph:not(.hud-nav-icon):not(.npc-marker-glyph) {
+  width: 24px;
+  height: 24px;
+}
+/* Nav icons must stay within their 16x16 box */
+.hud-nav-icon {
+  width: 16px !important;
+  height: 16px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hud-nav-icon img {
+  width: 16px !important;
+  height: 16px !important;
+  object-fit: contain;
+}
+
+/* ── Crest / Avatar image constraints ── */
+.cp-hero-avatar img,
+.sa-panel img:not(.ui-icon-glyph img) {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Constrain any large images inside panels */
+.sa-panel.ui-panel-atlas img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
+.game-btn {
+  font-family: var(--font-body); font-weight: 700;
+  border-radius: var(--chrome-radius-xl);
+  border: 1px solid rgba(232, 160, 69, 0.3);
+  min-width: 44px; min-height: 28px;
+  padding: 0 12px; font-size: 12px;
+  letter-spacing: 0.2px; cursor: pointer;
+  display: inline-flex; align-items: center;
+  justify-content: center; gap: 4px;
+  transition: transform 0.12s, box-shadow 0.12s, opacity 0.12s;
+}
+.game-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.game-btn:active:not(:disabled) { transform: translateY(0); }
+.game-btn-primary {
+  background: linear-gradient(180deg, #E8A045 0%, #C75040 100%);
+  color: #0A0E1A;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3), 0 0 12px rgba(232, 160, 69, 0.15);
+}
+.game-btn-secondary {
+  background: var(--chrome-card-bg);
+  color: var(--chrome-text-main);
+  border-color: rgba(232, 160, 69, 0.3);
+}
+.game-btn-secondary.is-active {
+  background: rgba(232, 160, 69, 0.25);
+  color: var(--chrome-text-strong);
+  border-color: var(--chrome-border-strong);
+}
+.game-btn-ghost {
+  background: rgba(74, 144, 217, 0.2);
+  color: rgba(143, 208, 245, 0.95);
+  border-color: rgba(74, 144, 217, 0.45);
+}
+.game-btn:disabled {
+  opacity: 0.42; filter: saturate(0.65);
+  cursor: not-allowed; box-shadow: none;
+  transform: none;
+}
+
+/* ── RPG Operation Buttons ── */
+.rpg-op-btn {
+  min-height: var(--op-btn-h); min-width: 44px;
+  padding: 0 var(--op-btn-px);
+  font-size: var(--op-btn-font);
+  font-family: var(--font-body); font-weight: 700;
+  line-height: 1; border-radius: var(--chrome-radius-xl);
+  border: 1px solid var(--op-btn-border);
+  display: inline-flex; align-items: center;
+  justify-content: center; gap: 4px;
+  white-space: nowrap; cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s, border-color 0.12s, opacity 0.12s;
+}
+.rpg-op-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.rpg-op-btn:active:not(:disabled) { transform: translateY(0); }
+.rpg-op-btn-sm {
+  min-height: var(--op-btn-h-sm); padding: 0 var(--op-btn-px-sm);
+  font-size: var(--op-btn-font-sm); min-width: 56px;
+}
+.rpg-op-btn-md { min-height: var(--op-btn-h); }
+.rpg-op-btn-primary {
+  background: linear-gradient(180deg, var(--op-btn-primary-top), var(--op-btn-primary-bot));
+  color: #0A0E1A;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3), 0 0 12px rgba(232, 160, 69, 0.15);
+}
+.rpg-op-btn-secondary {
+  background: linear-gradient(180deg, var(--op-btn-secondary-top), var(--op-btn-secondary-bot));
+  color: var(--chrome-text-main);
+  border-color: rgba(186, 150, 92, 0.42);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
+}
+.rpg-op-btn-danger {
+  background: linear-gradient(180deg, var(--op-btn-danger-top), var(--op-btn-danger-bot));
+  color: rgba(255, 235, 235, 0.95);
+  border-color: var(--op-btn-danger-border);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.24), 0 0 9px rgba(186, 78, 78, 0.24);
+}
+.rpg-op-btn:disabled, .rpg-op-btn.is-disabled {
+  opacity: 0.44; filter: saturate(0.68);
+  cursor: not-allowed; box-shadow: none;
+  transform: none; pointer-events: none;
+}
+
+/* ── Gold / Action Buttons ── */
+.btn-gold {
+  min-width: 44px; min-height: 28px;
+  border: 1px solid rgba(232, 160, 69, 0.35);
+  border-radius: var(--chrome-radius-xl);
+  background: linear-gradient(180deg, #E8A045 0%, #C4993D 100%);
+  color: #1A140A; font-size: 12px;
+  font-weight: 700; padding: 0 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.28);
+  transition: transform 0.12s, box-shadow 0.12s, opacity 0.12s;
+}
+.btn-gold:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(232, 160, 69, 0.28);
+}
+.btn-gold:active:not(:disabled) { transform: translateY(0); }
+.btn-gold:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+.sa-action-btn {
+  min-height: 28px; padding: 0 10px;
+  font-size: 11px; font-weight: 700;
+  border-radius: var(--chrome-radius-xl);
+  border: 1px solid var(--chrome-border);
+  background: var(--chrome-surface-1);
+  color: var(--chrome-text-main);
+  cursor: pointer; transition: all 0.12s;
+}
+.sa-action-btn:hover {
+  border-color: var(--chrome-border-strong);
+  background: rgba(232, 160, 69, 0.15);
+}
+
+/* ── Chips / Tags / Tabs ── */
+.rpg-chip {
+  min-height: var(--chip-h); min-width: 40px;
+  padding: 0 var(--chip-px);
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-family: var(--font-body); font-size: var(--chip-font);
+  font-weight: 700; line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+.rpg-chip:hover {
+  background: var(--chip-bg-hover);
+  border-color: rgba(232, 160, 69, 0.4);
+  color: rgba(220, 215, 200, 0.9);
+}
+.rpg-chip.is-active, .rpg-chip.active {
+  background: var(--chip-bg-active);
+  border-color: var(--chip-border-active);
+  color: var(--chip-text-active);
+}
+.rpg-chip-tab {
+  min-height: var(--chip-h-tab);
+  padding: 0 var(--chip-px-tab);
+  border-radius: 12px;
+  font-size: var(--chip-font-tab);
+}
+
+.sa-tag {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 40px; min-height: 28px;
+  padding: 0 10px; font-size: 12px;
+  font-weight: 600;
+  background: rgba(232, 160, 69, 0.1);
+  border: 1px solid var(--chrome-border);
+  border-radius: var(--chrome-radius-xl);
+  color: var(--chrome-text-soft);
+  cursor: pointer; transition: all 0.12s;
+}
+.sa-tag:hover { background: rgba(232, 160, 69, 0.2); }
+.sa-tag-active {
+  background: rgba(232, 160, 69, 0.25);
+  color: var(--chrome-accent);
+  border-color: var(--chrome-border-strong);
+}
+
+/* ── Panel Sections & Cards ── */
+.sa-panel {
+  pointer-events: auto; overflow: hidden;
+  animation: panelSoftIn var(--ui-time-mid) ease-out;
+  isolation: isolate;
+}
+.sa-panel > * { position: relative; z-index: 1; }
+
+.sa-panel-title {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; padding-right: 44px;
+  background: linear-gradient(180deg, rgba(18, 22, 38, 0.95), rgba(12, 16, 28, 0.95));
+  color: var(--chrome-accent);
+  font-weight: 700; font-size: 15px;
+  border-bottom: 1px solid rgba(232, 160, 69, 0.2);
+  border-radius: var(--chrome-radius-xl) var(--chrome-radius-xl) 0 0;
+  position: relative; flex: 0 0 auto;
+  min-height: 44px;
+}
+
+.panel-close {
+  position: absolute; right: 8px; top: 50%;
+  transform: translateY(-50%);
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+  color: var(--chrome-text-soft); cursor: pointer;
+  border-radius: 4px; transition: all 0.15s; line-height: 1;
+}
+.panel-close:hover {
+  color: var(--chrome-danger);
+  background: rgba(199, 80, 64, 0.15);
+}
+
+.atlas-card, .game-card {
+  padding: 8px; border-radius: var(--chrome-radius-xl);
+  border: 1px solid rgba(232, 160, 69, 0.12);
+  background: var(--chrome-card-bg);
+}
+.atlas-kicker {
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--chrome-accent); opacity: 0.7;
+}
+.atlas-title-copy {
+  display: grid; gap: 1px; min-width: 0; flex: 1 1 auto;
+}
+.atlas-title-main {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 700; color: var(--chrome-text-strong);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.atlas-title-icon { width: 20px; height: 20px; flex-shrink: 0; }
+.atlas-title-meta, .atlas-title-sub {
+  font-size: 10px; color: var(--chrome-text-soft);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.atlas-shell {
+  padding: 8px; display: flex; flex-direction: column;
+  gap: 8px; flex: 1 1 auto; overflow: hidden;
+}
+
+.sa-sec {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(232, 160, 69, 0.08);
+}
+
+/* ── Empty State ── */
+.sa-empty-tip {
+  padding: 24px; text-align: center;
+  font-size: 13px; color: var(--chrome-text-dim);
+}
+
+/* ── Tooltip ── */
+.inv-tooltip {
+  position: fixed; z-index: 9000;
+  background: rgba(12, 16, 28, 0.95);
+  border: 1px solid var(--chrome-border-strong);
+  border-radius: 8px;
+  padding: 8px; max-width: 280px;
+  pointer-events: auto;
+  opacity: 0; transition: opacity 0.15s;
+}
+.inv-tooltip.is-visible { opacity: 1; }
+.inv-tooltip.is-centered {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.inv-tt-name { font-size: 13px; font-weight: 700; color: var(--chrome-text-strong); margin-bottom: 4px; }
+.inv-tt-desc { font-size: 11px; color: var(--chrome-text-soft); margin-bottom: 4px; }
+.inv-tt-rarity { font-size: 10px; color: var(--chrome-accent); margin-bottom: 4px; }
+.inv-tt-actions { display: flex; gap: 6px; margin-top: 6px; }
+.inv-tt-btn { min-height: 28px; padding: 0 10px; font-size: 11px; }
+.inv-tt-protect { font-size: 10px; color: var(--chrome-text-soft); margin: 4px 0; }
+.inv-tt-set { font-size: 10px; color: #4A90D9; margin-bottom: 4px; }

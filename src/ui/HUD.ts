@@ -2,25 +2,23 @@ import type { PlayerStats } from '../entities/Player';
 import { formatStarterPetSummary, type PlayerIdentitySnapshot } from '../core/PlayerIdentity';
 import type { PetManager } from '../pets/PetManager';
 import { renderUiIcon, type UiIconId } from './UiIconCatalog';
+import { HUD_NAV_ITEMS, type HudNavDefinition } from './PanelManifest';
 
 interface HudNavItem {
+      panelId: string;
       id: string;
       label: string;
       icon: UiIconId;
       primary: boolean;
 }
 
-const NAV_ITEMS: HudNavItem[] = [
-      { id: 'nav-quest', label: '任務', icon: 'quest', primary: true },
-      { id: 'nav-bag', label: '背包', icon: 'bag', primary: true },
-      { id: 'nav-map', label: '地圖', icon: 'map', primary: true },
-      { id: 'nav-pet', label: '寵物', icon: 'pet', primary: true },
-      { id: 'nav-book', label: '圖鑑', icon: 'book', primary: false },
-      { id: 'nav-shop', label: '商店', icon: 'shop', primary: false },
-      { id: 'nav-char', label: '角色', icon: 'character', primary: false },
-      { id: 'nav-skill', label: '技能', icon: 'skill', primary: false },
-      { id: 'nav-settings', label: '系統', icon: 'settings', primary: false },
-];
+const NAV_ITEMS: HudNavItem[] = HUD_NAV_ITEMS.map((item: HudNavDefinition) => ({
+      panelId: item.panelId,
+      id: item.navId,
+      label: item.label,
+      icon: item.icon,
+      primary: item.primary,
+}));
 
 /**
  * HUD
@@ -41,6 +39,8 @@ export class HUD {
       private _navBar: HTMLDivElement;
       private _quickDock: HTMLDivElement;
       private _menuPanel: HTMLDivElement;
+      private _navButtons = new Map<string, HTMLButtonElement>();
+      private _navButtonsById = new Map<string, HTMLButtonElement>();
       private _portraits: HTMLDivElement[] = [];
       private _petLabelCache: (string | null)[] = [null, null, null];
       private _collapsed = false;
@@ -204,11 +204,14 @@ export class HUD {
             btn.type = 'button';
             btn.className = `sa-nav-btn interactive${isMenuItem ? ' is-menu-item' : ''}`;
             btn.id = item.id;
+            btn.dataset.panelId = item.panelId;
             btn.dataset.navRole = item.primary ? 'primary' : 'secondary';
             btn.innerHTML = `
                   ${renderUiIcon(item.icon, 'hud-nav-icon')}
                   <span class="hud-nav-label">${item.label}</span>
             `;
+            this._navButtons.set(item.panelId, btn);
+            this._navButtonsById.set(item.id, btn);
             btn.addEventListener('pointerdown', () => {
                   btn.classList.add('is-pressed');
                   setTimeout(() => btn.classList.remove('is-pressed'), 150);
@@ -349,7 +352,7 @@ export class HUD {
       }
 
       getNavButton(id: string): HTMLElement | null {
-            return this._navBar.querySelector(`#${id}`);
+            return this._navButtons.get(id) ?? this._navButtonsById.get(id) ?? null;
       }
 
       getPortrait(index: number): HTMLElement | undefined {

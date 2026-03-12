@@ -1,167 +1,197 @@
-﻿    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    :root {
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-      --font-display: 'Cormorant SC', serif;
-      --atlas-paper-0: rgba(252, 249, 241, 0.985);
-      --atlas-paper-1: rgba(244, 238, 227, 0.975);
-      --atlas-paper-2: rgba(234, 228, 215, 0.965);
-      --atlas-surface: rgba(255, 252, 245, 0.92);
-      --atlas-surface-soft: rgba(242, 236, 224, 0.82);
-      --atlas-surface-muted: rgba(233, 227, 214, 0.68);
-      --atlas-ink: #20344A;
-      --atlas-ink-strong: #16283B;
-      --atlas-ink-soft: rgba(32, 52, 74, 0.72);
-      --atlas-ink-dim: rgba(54, 71, 88, 0.54);
-      --atlas-accent: #D28F2C;
-      --atlas-accent-strong: #B67218;
-      --atlas-accent-soft: rgba(210, 143, 44, 0.14);
-      --atlas-success: #2F7B59;
-      --atlas-success-soft: rgba(47, 123, 89, 0.12);
-      --atlas-danger: #C76757;
-      --atlas-danger-soft: rgba(199, 103, 87, 0.14);
-      --atlas-edge: rgba(116, 128, 140, 0.24);
-      --atlas-edge-strong: rgba(210, 143, 44, 0.42);
-      --ui-bg-0: var(--atlas-paper-0);
-      --ui-bg-1: var(--atlas-paper-1);
-      --ui-bg-2: var(--atlas-paper-2);
-      --ui-edge: var(--atlas-edge);
-      --ui-edge-strong: var(--atlas-edge-strong);
-      --ui-text-main: var(--atlas-ink);
-      --ui-text-sub: var(--atlas-ink-soft);
-      --ui-text-dim: var(--atlas-ink-dim);
-      --ui-accent: var(--atlas-accent);
-      --ui-primary-top: #F4C96A;
-      --ui-primary-bot: #D28F2C;
-      --ui-secondary-bg: rgba(237, 231, 219, 0.92);
-      --ui-ghost-bg: rgba(55, 84, 108, 0.08);
-      --ui-shadow-panel: 0 24px 52px rgba(35, 48, 64, 0.18);
-      --ui-shadow-glow: 0 12px 26px rgba(210, 143, 44, 0.12);
-      --ui-radius-panel: 22px;
-      --ui-radius-card: 18px;
-      --ui-radius-btn: 14px;
-      --ui-time-fast: 0.14s;
-      --ui-time-mid: 0.22s;
-      --touch-target-min: 34px;
-      --touch-target-compact: 32px;
-      --op-btn-h: 36px;
-      --op-btn-h-sm: 34px;
-      --op-btn-px: 14px;
-      --op-btn-px-sm: 12px;
-      --op-btn-font: 13px;
-      --op-btn-font-sm: 12px;
-      --op-btn-border: rgba(116, 128, 140, 0.26);
-      --op-btn-primary-top: #F4C96A;
-      --op-btn-primary-bot: #D28F2C;
-      --op-btn-secondary-top: rgba(255, 252, 245, 0.95);
-      --op-btn-secondary-bot: rgba(236, 230, 217, 0.93);
-      --op-btn-danger-top: rgba(243, 211, 205, 0.92);
-      --op-btn-danger-bot: rgba(225, 188, 181, 0.9);
-      --op-btn-danger-border: rgba(199, 103, 87, 0.4);
-      --chip-h: 34px;
-      --chip-h-tab: 34px;
-      --chip-px: 12px;
-      --chip-px-tab: 14px;
-      --chip-font: 12px;
-      --chip-font-tab: 13px;
-      --chip-bg: rgba(255, 252, 245, 0.82);
-      --chip-bg-hover: rgba(210, 143, 44, 0.12);
-      --chip-bg-active: rgba(210, 143, 44, 0.18);
-      --chip-text: rgba(32, 52, 74, 0.76);
-      --chip-text-active: var(--atlas-ink-strong);
-      --chip-border: rgba(116, 128, 140, 0.22);
-      --chip-border-active: rgba(210, 143, 44, 0.46);
-      --panel-fs-gutter: 10px;
-      --panel-fs-top: calc(env(safe-area-inset-top) + var(--panel-fs-gutter));
-      --panel-fs-right: calc(env(safe-area-inset-right) + var(--panel-fs-gutter));
-      --panel-fs-bottom: calc(env(safe-area-inset-bottom) + var(--panel-fs-gutter));
-      --panel-fs-left: calc(env(safe-area-inset-left) + var(--panel-fs-gutter));
-      --panel-atlas-gutter-inline: clamp(10px, 1.6vw, 22px);
-      --panel-atlas-gutter-block: clamp(10px, 1.8vh, 22px);
-      --panel-atlas-width: 1120px;
-      --panel-atlas-height: 760px;
-    }
+:root {
+  /* ── Typography ── */
+  --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+  --font-display: "Arial Rounded MT Bold", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #0A0E1A;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
-      font-family: var(--font-body);
-    }
+  /* ── Touch targets ── */
+  --touch-target-min: 44px;
+  --touch-target-compact: 32px;
 
-    #renderCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      outline: none;
-      touch-action: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
+  /* ── HUD tokens (Cute / chibi bubble chrome) ── */
+  --hud-surface-0: rgba(255, 247, 242, 0.94);
+  --hud-surface-1: rgba(255, 241, 234, 0.88);
+  --hud-surface-2: rgba(255, 255, 255, 0.72);
+  --hud-edge: rgba(255, 153, 128, 0.35);
+  --hud-edge-soft: rgba(255, 153, 128, 0.16);
+  --hud-text-main: rgba(96, 74, 94, 0.96);
+  --hud-text-sub: rgba(109, 88, 109, 0.8);
+  --hud-text-dim: rgba(128, 106, 128, 0.58);
+  --hud-accent-gold: #ffb66c;
+  --hud-accent-blue: #77c8ff;
+  --hud-accent-jade: #7bd8b4;
+  --hud-danger: #ef7b8c;
+  --hud-shadow: 0 14px 30px rgba(184, 123, 139, 0.18);
 
-    #ui-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 100;
-      color: #ECE8E0;
-      overflow: hidden;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
-    }
+  /* ── Chrome tokens (Cute / chibi bubble chrome) ── */
+  --chrome-shell-bg:
+    radial-gradient(120% 120% at 100% -10%, rgba(255, 224, 173, 0.45), transparent 44%),
+    radial-gradient(140% 140% at -10% 110%, rgba(127, 223, 203, 0.24), transparent 40%),
+    linear-gradient(180deg, rgba(255, 252, 248, 0.96), rgba(255, 239, 233, 0.94));
+  --chrome-surface-0: rgba(255, 252, 248, 0.74);
+  --chrome-surface-1: rgba(255, 246, 242, 0.72);
+  --chrome-surface-2: rgba(255, 239, 236, 0.66);
+  --chrome-surface-3: rgba(255, 232, 231, 0.72);
+  --chrome-card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 244, 240, 0.8));
+  --chrome-card-soft: linear-gradient(180deg, rgba(255, 250, 247, 0.76), rgba(255, 241, 237, 0.68));
+  --chrome-card-quiet: rgba(255, 247, 243, 0.42);
+  --chrome-input-bg: rgba(255, 255, 255, 0.82);
+  --chrome-border: rgba(255, 164, 141, 0.34);
+  --chrome-border-strong: rgba(255, 139, 118, 0.52);
+  --chrome-border-warm: rgba(255, 186, 122, 0.22);
+  --chrome-text-strong: #5f4a5f;
+  --chrome-text-main: rgba(95, 74, 95, 0.92);
+  --chrome-text-soft: rgba(117, 94, 117, 0.82);
+  --chrome-text-dim: rgba(140, 120, 140, 0.62);
+  --chrome-accent: #ff9a7a;
+  --chrome-accent-strong: #ffb55c;
+  --chrome-accent-alt: #7ccbb8;
+  --chrome-accent-warm: #ffd26f;
+  --chrome-danger: #ef7b8c;
+  --chrome-success: #49be8a;
+  --chrome-shadow-lg: 0 22px 44px rgba(189, 129, 143, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.56) inset;
+  --chrome-shadow-md: 0 12px 24px rgba(189, 129, 143, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.48) inset;
+  --chrome-radius-xl: 24px;
+  --chrome-radius-lg: 18px;
+  --chrome-radius-md: 14px;
+  --chrome-radius-sm: 10px;
+  --chrome-blur: 18px;
 
-    #ui-layer [hidden] {
-      display: none !important;
-    }
+  /* ── UI semantic aliases ── */
+  --ui-bg-0: var(--hud-surface-0);
+  --ui-bg-1: var(--hud-surface-1);
+  --ui-bg-2: var(--hud-surface-2);
+  --ui-edge: var(--chrome-border);
+  --ui-edge-strong: var(--chrome-border-strong);
+  --ui-text-main: var(--chrome-text-main);
+  --ui-text-sub: var(--chrome-text-soft);
+  --ui-text-dim: var(--chrome-text-dim);
+  --ui-accent: var(--chrome-accent);
+  --ui-primary-top: #ffbc92;
+  --ui-primary-bot: #ff8f79;
+  --ui-secondary-bg: var(--chrome-card-bg);
+  --ui-ghost-bg: rgba(122, 201, 186, 0.16);
+  --ui-shadow-panel: var(--chrome-shadow-lg);
+  --ui-shadow-glow: 0 0 22px rgba(255, 182, 109, 0.22);
+  --ui-radius-panel: var(--chrome-radius-xl);
+  --ui-radius-card: var(--chrome-radius-lg);
+  --ui-radius-btn: var(--chrome-radius-md);
+  
+  --ui-time-fast: 0.15s;
+  --ui-time-mid: 0.25s;
 
-    .interactive {
-      pointer-events: auto;
-      cursor: pointer;
-    }
+  /* ── Operation buttons (Dense) ── */
+  --op-btn-h: 27px;
+  --op-btn-h-sm: 23px;
+  --op-btn-px: 9px;
+  --op-btn-px-sm: 7px;
+  --op-btn-font: 12px;
+  --op-btn-font-sm: 11px;
+  --op-btn-border: rgba(255, 156, 132, 0.34);
+  --op-btn-primary-top: #ffc58f;
+  --op-btn-primary-bot: #ff9278;
+  --op-btn-secondary-top: rgba(255, 255, 255, 0.96);
+  --op-btn-secondary-bot: rgba(255, 243, 239, 0.92);
+  --op-btn-danger-top: rgba(255, 177, 187, 0.96);
+  --op-btn-danger-bot: rgba(239, 123, 140, 0.92);
+  --op-btn-danger-border: rgba(239, 123, 140, 0.42);
 
-    .quest-tracker,
-    .guide-root,
-    .guidance-root,
-    .minimap-root,
-    .hud-identity,
-    .hud-top-right,
-    .hud-nav,
-    .skillbar-root,
-    .auto-grind-controls,
-    .chatbox-root {
-      transition: opacity 0.16s ease, filter 0.16s ease;
-    }
+  /* ── Chips (Dense) ── */
+  --chip-h: 23px;
+  --chip-h-tab: 24px;
+  --chip-px: 7px;
+  --chip-px-tab: 9px;
+  --chip-font: 11px;
+  --chip-font-tab: 12px;
+  --chip-bg: rgba(255, 255, 255, 0.76);
+  --chip-bg-hover: rgba(255, 226, 191, 0.82);
+  --chip-bg-active: rgba(255, 206, 172, 0.92);
+  --chip-text: var(--chrome-text-soft);
+  --chip-text-active: var(--chrome-text-strong);
+  --chip-border: var(--chrome-border);
+  --chip-border-active: var(--chrome-border-strong);
 
-    body[data-chrome-guidance="hidden"] .quest-tracker,
-    body[data-chrome-guidance="hidden"] .guide-root,
-    body[data-chrome-guidance="hidden"] .guidance-root,
-    body[data-chrome-utility="hidden"] .minimap-root,
-    body[data-chrome-identity="hidden"] .hud-identity,
-    body[data-chrome-combat="hidden"] .hud-top-right,
-    body[data-chrome-navigation="hidden"] .hud-nav,
-    body[data-chrome-combat="hidden"] .skillbar-root,
-    body[data-chrome-combat="hidden"] .auto-grind-controls,
-    body[data-chrome-utility="hidden"] .chatbox-root {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      filter: blur(1px);
-    }
+  /* ── Panel layout (Dense & No-Scroll) ── */
+  --panel-fs-gutter: 6px;
+  --panel-fs-top: calc(env(safe-area-inset-top) + var(--panel-fs-gutter));
+  --panel-fs-right: calc(env(safe-area-inset-right) + var(--panel-fs-gutter));
+  --panel-fs-bottom: calc(env(safe-area-inset-bottom) + var(--panel-fs-gutter));
+  --panel-fs-left: calc(env(safe-area-inset-left) + var(--panel-fs-gutter));
+  --panel-atlas-gutter-inline: 6px;
+  --panel-atlas-gutter-block: 6px;
+  --panel-atlas-width: 1180px;
+  --panel-atlas-height: 760px;
+}
 
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: var(--font-body);
+}
+
+#renderCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+  touch-action: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  color: var(--chrome-text-main);
+  overflow: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+#ui-layer [hidden] {
+  display: none !important;
+}
+
+.interactive {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.quest-tracker, .guide-root, .guidance-root, .minimap-root,
+.hud-identity, .hud-top-right, .hud-nav, .skillbar-root, 
+.auto-grind-controls, .chatbox-root {
+  transition: opacity 0.16s ease, filter 0.16s ease;
+}
+
+body[data-chrome-guidance="hidden"] .quest-tracker,
+body[data-chrome-guidance="hidden"] .guide-root,
+body[data-chrome-guidance="hidden"] .guidance-root,
+body[data-chrome-utility="hidden"] .minimap-root,
+body[data-chrome-identity="hidden"] .hud-identity,
+body[data-chrome-combat="hidden"] .hud-top-right,
+body[data-chrome-navigation="hidden"] .hud-nav,
+body[data-chrome-combat="hidden"] .skillbar-root,
+body[data-chrome-combat="hidden"] .auto-grind-controls,
+body[data-chrome-utility="hidden"] .chatbox-root {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  filter: blur(2px);
+}

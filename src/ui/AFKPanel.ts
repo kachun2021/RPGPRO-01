@@ -25,7 +25,8 @@ import {
       type ItemRarity,
       type TargetPriority,
 } from './afk/AFKPanelConfig';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 export type { AFKSaveState } from './afk/AFKPanelConfig';
 
@@ -67,15 +68,36 @@ export class AFKPanel {
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
+      getDebugState() {
+            return {
+                  activeTab: this._activeTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        autoEnabled: this._autoEnabled,
+                        mode: this._settings.mode,
+                        lootZone: this._selectedLootZoneId || null,
+                        dirty: this._dirty,
+                  }),
+            };
+      }
+
       private _buildShell(): void {
-            this._el.innerHTML = `
-                  <div class="sa-panel-title">
-                        <div class="atlas-title-copy afk-header-copy">
-                              <span class="atlas-kicker">Adventure Atlas</span>
-                              <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>AFK 控制中心</span></span>
-                        </div>
-                        <span class="panel-close" id="afk-close">×</span>
-                  </div>
+            this._el.innerHTML = '';
+            const { root: title } = createPanelHeader({
+                  icon: 'settings',
+                  kicker: 'Auto Patrol',
+                  title: 'AFK 控制中心',
+                  subtitle: '掛機模式、拾取規則與生存策略統一設定',
+                  closeLabel: '關閉 AFK 控制中心',
+                  closeId: 'afk-close',
+                  closeText: '✕',
+                  onClose: () => this.hide(),
+            });
+            this._el.appendChild(title);
+
+            const shell = document.createElement('div');
+            shell.className = 'afk-panel-shell';
+            shell.innerHTML = `
                   <div class="afk-headline">
                         <div class="afk-run-badge" id="afk-run-badge">已停止</div>
                         <label class="afk-mode-select">模式
@@ -279,6 +301,7 @@ export class AFKPanel {
                         <button id="afk-reset" class="afk-btn">重置</button>
                   </div>
             `;
+            this._el.appendChild(shell);
 
             this._el.querySelector('#afk-close')?.addEventListener('click', () => this.hide());
             this._el.querySelector('#afk-toggle-auto')?.addEventListener('click', () => this._handleToggleAuto());

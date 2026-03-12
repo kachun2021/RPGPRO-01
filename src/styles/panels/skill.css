@@ -1,0 +1,166 @@
+.skill-panel .skill-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px 0;
+}
+
+.skill-panel .skill-panel-body {
+  padding: 8px 12px 12px;
+  overflow: auto;
+}
+
+.skill-panel .skill-tab-btn {
+  min-width: 96px;
+}
+
+.skill-panel .skill-layout {
+  display: grid;
+  gap: 8px;
+}
+
+.skill-panel .skill-layout-player {
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.skill-panel .skill-layout-pet {
+  grid-template-columns: 228px minmax(0, 1fr);
+}
+
+.skill-panel .skill-col {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-panel .skill-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-panel .skill-section-title,
+.skill-panel .skill-card-name,
+.skill-panel .skill-sp-value {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.skill-panel .skill-sp-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skill-panel .skill-sp-label,
+.skill-panel :is(.skill-card-stats, .skill-card-effect, .skill-card-runtime, .skill-card-level, .skill-slot-name, .skill-empty-tip, .skill-note) {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+.skill-panel .skill-equip-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.skill-panel .skill-pet-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skill-panel .skill-equip-slot {
+  min-height: 66px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 7px 8px;
+}
+
+.skill-panel .skill-slot-key {
+  font-size: 10px;
+  font-weight: 900;
+  color: rgba(117, 94, 117, 0.62);
+}
+
+.skill-panel .skill-mini-icon,
+.skill-panel .skill-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 224, 187, 0.4);
+}
+
+.skill-panel .skill-mini-icon.is-circle {
+  border-radius: 999px;
+}
+
+.skill-panel .skill-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.skill-panel .skill-card {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  padding: 8px;
+}
+
+.skill-panel .skill-card.game-card {
+  border-color: rgba(255, 170, 148, 0.26) !important;
+  background:
+    radial-gradient(140% 190% at 100% -45%, rgba(255, 214, 173, 0.16), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 244, 239, 0.92)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 10px 18px rgba(189, 129, 143, 0.08) !important;
+}
+
+.skill-panel .skill-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.skill-panel .skill-card-type {
+  font-weight: 800;
+}
+
+.skill-panel .skill-up-btn {
+  align-self: stretch;
+}
+
+@media (max-height: 430px) {
+  .skill-panel .skill-tabs {
+    padding: 7px 9px 0;
+  }
+
+  .skill-panel .skill-panel-body {
+    padding: 7px 9px 9px;
+  }
+
+  .skill-panel .skill-layout-player {
+    grid-template-columns: 248px minmax(0, 1fr);
+  }
+
+  .skill-panel .skill-layout-pet {
+    grid-template-columns: 204px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .skill-panel .skill-layout-player,
+  .skill-panel .skill-layout-pet,
+  .skill-panel .skill-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

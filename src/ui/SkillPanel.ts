@@ -4,6 +4,7 @@ import type { PetManager } from '../pets/PetManager';
 import { PET_DEFS, SERIES_COLORS } from '../pets/PetData';
 import { getRuntimeSkillDetail, getRuntimeSkillUpgradeMeta, resolveRuntimeSkillTuning } from '../data/runtime/RuntimeProgression';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type SkillTab = 'player' | 'pet';
 
@@ -58,6 +59,18 @@ export class SkillPanel {
       }
 
       get isVisible(): boolean { return this._visible; }
+
+      getDebugState() {
+            return {
+                  activeTab: this._activeTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        sp: this._sp,
+                        equippedSlots: this._skillBar.getEquipped().filter(Boolean).length,
+                        activePets: this._petManager?.active.length ?? 0,
+                  }),
+            };
+      }
 
       setPetManager(pm: PetManager): void {
             this._petManager = pm;

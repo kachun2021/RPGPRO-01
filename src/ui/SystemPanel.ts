@@ -2,6 +2,7 @@ import dataHealthRaw from '../data/runtime/data.health.json';
 import { listRuntimeHeroTemplates, type RuntimeHeroTemplate } from '../data/runtime/RuntimeProgression';
 import { localKeyValueStore } from '../services/adapters/local/LocalStorageKV';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type SysTabId = 'controls' | 'account' | 'data' | 'about';
 
@@ -81,6 +82,7 @@ export class SystemPanel {
       private _fitFrameId = 0;
       private _onResize = (): void => {
             if (!this._visible) return;
+            this._syncResponsiveMode();
             this._scheduleFit();
       };
 
@@ -96,21 +98,40 @@ export class SystemPanel {
             window.addEventListener('resize', this._onResize);
       }
 
+      getDebugState() {
+            return {
+                  activeTab: this._tab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 5),
+                  keyDataSummary: buildDebugSummary({
+                        joystickSensitivity: this._settings.joystickSensitivity,
+                        cameraSensitivity: this._settings.cameraSensitivity,
+                        invertCameraY: this._settings.invertCameraY,
+                        autoLockTarget: this._settings.autoLockTarget,
+                  }),
+            };
+      }
+
       private _render(): void {
+            this._syncResponsiveMode();
             const account = this._getAccountView();
             const validation = DATA_HEALTH.validation ?? {};
             const passedChecks = Number(validation.passedChecks ?? 0);
             const totalChecks = Number(validation.totalChecks ?? 0);
             const headerMeta = this._panelSubtitle();
             const headerSummary = this._panelSummary(account, passedChecks, totalChecks);
-            this._el.innerHTML = `
-                  <div class="sys-header">
-                        <div class="sys-overview">
-                              <div class="sys-overview-main">
-                                    <div class="atlas-kicker">Adventure Atlas</div>
-                                    <div class="sys-overview-title">本機控制中心</div>
-                                    <div class="sys-overview-copy">只保留已接線、會立即生效、而且真的存在於目前 build 的設定與服務邊界。</div>
+            const compactOverview = this._isCompactLandscapeMode();
+            const overviewCards = compactOverview
+                  ? `
+                              <div class="sys-overview-card">
+                                    <span>資料模式</span>
+                                    <strong>${this._escapeHtml(account.storageLabel)}</strong>
                               </div>
+                              <div class="sys-overview-card">
+                                    <span>資料檢核</span>
+                                    <strong>${passedChecks}/${totalChecks}</strong>
+                              </div>
+                        `
+                  : `
                               <div class="sys-overview-card">
                                     <span>資料模式</span>
                                     <strong>${this._escapeHtml(account.storageLabel)}</strong>
@@ -120,9 +141,14 @@ export class SystemPanel {
                                     <strong>即時生效</strong>
                               </div>
                               <div class="sys-overview-card">
-                                    <span>Validation</span>
+                                    <span>資料檢核</span>
                                     <strong>${passedChecks}/${totalChecks}</strong>
                               </div>
+                        `;
+            this._el.innerHTML = `
+                  <div class="sys-header">
+                        <div class="sys-overview">
+                              ${overviewCards}
                         </div>
                         <div class="sys-tabs">
                               <button class="sa-tag${this._tab === 'controls' ? ' sa-tag-active' : ''}" data-tab="controls">操作</button>
@@ -137,11 +163,11 @@ export class SystemPanel {
             const { root: title } = createPanelHeader({
                   icon: 'settings',
                   kicker: 'Command Ledger',
-                  title: '控制中心',
+                  title: '系統設定',
                   subtitle: headerMeta,
                   summaryText: headerSummary,
                   summaryClassName: 'sys-header-pill',
-                  closeLabel: '關閉控制中心',
+                  closeLabel: '關閉系統設定',
                   closeId: 'sys-close',
                   closeText: '✕',
                   onClose: () => this.hide(),
@@ -163,6 +189,16 @@ export class SystemPanel {
             }
 
             this._scheduleFit();
+      }
+
+      private _isCompactLandscapeMode(): boolean {
+            const width = window.innerWidth || this._el.clientWidth || 0;
+            const height = window.innerHeight || 0;
+            return width > height && height <= 430;
+      }
+
+      private _syncResponsiveMode(): void {
+            this._el.classList.toggle('is-compact-landscape', this._isCompactLandscapeMode());
       }
 
       private _panelSubtitle(): string {
@@ -226,9 +262,9 @@ export class SystemPanel {
                   <div class="atlas-shell sys-shell">
                         <div class="sys-grid">
                               <section class="sys-card">
-                                    <div class="atlas-kicker">Movement</div>
+                                    <div class="atlas-kicker">移動</div>
                                     <div class="sys-card-title">移動手感</div>
-                                    <div class="sys-card-copy">針對手機橫向調整搖桿速度，變更後立即套用。</div>
+                                    <div class="sys-card-copy">調整搖桿速度，變更後立即套用。</div>
                                     <div class="sys-row">
                                           <span class="sys-label">搖桿靈敏度</span>
                                           <div class="sys-slider-group">
@@ -239,9 +275,9 @@ export class SystemPanel {
                               </section>
 
                               <section class="sys-card">
-                                    <div class="atlas-kicker">Camera</div>
+                                    <div class="atlas-kicker">鏡頭</div>
                                     <div class="sys-card-title">視角控制</div>
-                                    <div class="sys-card-copy">保留必要的視角微調，避免堆一整頁還沒接線的假設定。</div>
+                                    <div class="sys-card-copy">調整視角靈敏度與方向。</div>
                                     <div class="sys-row">
                                           <span class="sys-label">視角靈敏度</span>
                                           <div class="sys-slider-group">
@@ -259,9 +295,9 @@ export class SystemPanel {
                               </section>
 
                               <section class="sys-card">
-                                    <div class="atlas-kicker">Combat Assist</div>
+                                    <div class="atlas-kicker">戰鬥</div>
                                     <div class="sys-card-title">戰鬥輔助</div>
-                                    <div class="sys-card-copy">目前只保留自動鎖定這個真實存在的 combat helper。</div>
+                                    <div class="sys-card-copy">自動鎖定最近敵人，方便戰鬥操作。</div>
                                     <div class="sys-row">
                                           <span class="sys-label">自動鎖定目標</span>
                                           <label class="sys-toggle-wrap">
@@ -269,11 +305,11 @@ export class SystemPanel {
                                                 <span class="sys-toggle-track"><span class="sys-toggle-thumb"></span></span>
                                           </label>
                                     </div>
-                                    <div class="sys-card-note">畫質、音量、語言等項目仍未接線，因此不再佔用這個面板的空間。</div>
+                                    <div class="sys-card-note">更多設定（畫質、音效、語言等）將在後續版本加入。</div>
                               </section>
 
                               <section class="sys-card sys-card-wide">
-                                    <div class="atlas-kicker">Scope</div>
+                                    <div class="atlas-kicker">進階</div>
                                     <div class="sys-card-title">目前接線範圍</div>
                                     <div class="sys-pill-row">
                                           <span class="sys-pill">joystickSensitivity</span>
@@ -281,7 +317,7 @@ export class SystemPanel {
                                           <span class="sys-pill">invertCameraY</span>
                                           <span class="sys-pill">autoLockTarget</span>
                                     </div>
-                                    <div class="sys-card-note">這四項會直接寫入 runtime settings，其他選項等真的落地後再回到這裡。</div>
+                                    <div class="sys-card-note">以上為目前可調整的設定項目。</div>
                               </section>
                         </div>
                   </div>

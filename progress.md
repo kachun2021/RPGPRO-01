@@ -1,5 +1,68 @@
 ﻿Original prompt: 做 Web 遊戲自動化測試（啟動、操作、UI 流程、回歸檢查）如何自動化使用最佳SKILL?例如TASK完結自動化測試是否正確?
 
+## 2026-03-13 (legacy UI layer deletion + per-panel source-of-truth cleanup)
+
+- Removed the remaining mixed legacy UI layer by deleting `src/styles/gameplay.css` and removing its import from `src/styles/index.css`.
+- Moved still-used non-panel gameplay UI rules out of the deleted file into the correct owners:
+  - `src/styles/base.css`
+    - `zone-transition*`
+    - `gate-label`
+  - `src/styles/hud.css`
+    - quest tracker detail chips (`qt-header-kicker`, `qt-quest-top`, `qt-status-badge`)
+    - skill bar state classes (`skill-pet-name`, `pet-skill-slot`, `is-empty`, `is-on-cooldown`, `is-collapsed`)
+- Tightened AFK panel ownership in `src/styles/panels/afk.css`:
+  - added `afk-panel-shell` as the internal flex container so header / overview / body / footer fit the atlas height cleanly
+  - removed the stray `.auto-grind-controls` rule from AFK CSS so the AFK panel no longer touches HUD layout
+  - compact landscape now uses horizontal AFK tabs, reduced overview strip, hidden low-priority anomaly mini-card, and no toggle descriptions to keep the whole quick tab on one screen
+- Neutralized cross-panel card bleed with scoped panel rules:
+  - `src/styles/panels/world-map.css`
+  - `src/styles/panels/book.css`
+  - `src/styles/panels/skill.css`
+  - goal: prevent shared `game-card` visual overrides from making unrelated panels inherit the wrong chrome
+- Validation:
+  - `npm run -s typecheck`
+  - `npm run -s build`
+  - `pwsh -File ./scripts/run_ui_panel_audit.ps1 -OutputDir D:\\AI-RPGGAME\\output\\ui-audit-clean-panels-r3`
+- Final audit status in `output/ui-audit-clean-panels-r3/audit-summary.json`:
+  - `932x430`: all captures `overlapCount = 0`, all panels `targetScrollY = 0`
+  - `667x375`: all captures `overlapCount = 0`, all panels `targetScrollY = 0`
+  - specifically fixed:
+    - HUD `skillbar` vs `auto_controls` overlap = `0`
+    - AFK large `targetScrollY = 0`
+    - AFK compact `targetScrollY = 0`
+
+## 2026-03-13 (compact landscape readability rebalance)
+
+- Rebalanced shared UI typography and chrome tokens in `src/styles/tokens.css`:
+  - switched `--font-body` from mono-heavy stack to Chinese-friendly sans stack
+  - moved `--font-display` to serif stack that prefers CJK coverage first
+  - restored usable panel radii so cards/chips stop collapsing into razor-thin rectangles
+- Simplified `SystemPanel` structure in `src/ui/SystemPanel.ts`:
+  - removed the duplicated in-panel hero title block below the shared atlas header
+  - kept only compact overview cards + tab strip before the tab body
+  - goal is to bring actual settings cards back onto first screen in phone landscape
+- Tightened `CommunityPanel` copy and structure in `src/ui/CommunityPanel.ts`:
+  - shortened banner, overview, preview, and live-ops description text
+  - replaced the old boundary list with three compact summary cards
+  - removed the visual overlap feel that came from long stacked boundary lines in compact landscape
+- Added final-pass overrides in `src/styles/rpg-premium.css`:
+  - rebalanced `community` card/body spacing and boundary-row layout
+  - reworked `system` overview/header/body density for compact landscape
+  - scaled down `character` hero/stat board typography and controls in compact landscape
+  - replaced ultra-micro compact rules with a more readable compact header/button/card baseline
+- Validation:
+  - `npm run -s typecheck`
+  - `npm run -s build`
+  - `pwsh -File ./scripts/task_smoke.ps1 -Profile landscape -Artifacts always -RenderMode lite`
+  - `pwsh -File ./scripts/run_ui_panel_audit.ps1 -OutputDir D:\\AI-RPGGAME\\output\\ui-audit-step-26`
+  - `npm run -s typecheck`
+  - `npm run -s build`
+  - `pwsh -File ./scripts/run_ui_panel_audit.ps1 -OutputDir D:\\AI-RPGGAME\\output\\ui-audit-step-27`
+- Final compact-landscape status:
+  - `community`, `settings`, `character` all report `overlapCount = 0`
+  - `community`, `settings`, `character` all report `targetScrollY = 0`
+  - updated compact screenshots confirm `community` no longer visually crushes the boundary copy into the preview area
+
 ## 2026-03-11 (smoke workflow redesign for faster iterative UI work)
 
 - Reworked smoke runner defaults in `scripts/task_smoke_runner.mjs`:
@@ -98,6 +161,26 @@
   - `npm run hooks:install` passed and hook path is active.
 
 ## TODO / Next Agent
+
+- 2026-03-11 (UI source-of-truth consolidation + fresh landscape audit):
+  - Added `src/ui/ManagedPanelTypes.ts` to separate shared panel types from registry implementation.
+  - Added `src/ui/PanelManifest.ts` as the canonical panel definition source for:
+    - HUD nav ids / labels / icons / primary-vs-menu placement
+    - default `PanelRegistry` registration meta (`kind`, `layoutKind`, `chromeMode`, `blocksGameplayInput`)
+  - `src/ui/HUD.ts` now renders nav buttons from the shared manifest and caches buttons by both `panelId` and DOM `navId`.
+  - `src/ui/PanelRegistry.ts` now auto-resolves registration defaults from the shared manifest when callers do not pass explicit meta.
+  - `src/main.ts` now:
+    - registers all managed panels via `panelRegistry.register(panel)` instead of repeating per-panel meta blocks,
+    - wires HUD nav actions from the same shared manifest instead of hardcoding nine separate `nav-*` listeners.
+  - Validation:
+    - `npm run -s typecheck` passed.
+    - `npm run -s build` passed.
+    - Fresh UI audit captured under `artifacts/ui-audit-run/` for `932x430` and `667x375`.
+  - Audit findings still worth a follow-up layout pass:
+    - HUD explore mode on `667x375` remains visually crowded on the left/right gameplay edges (identity + focus banner + portrait/skill rails).
+    - `SystemPanel` still has the highest compact-landscape scroll pressure (`scrollY ~= 151px`), caused by a very tall hero statement card before actual controls.
+    - `FusionPanel` bottom CTA rail is oversized in compact landscape and pushes recipe details close to the fold.
+    - `QuestPanel` left directory column remains visually dense in compact landscape even though it no longer overflows the viewport.
 
 - Add a lightweight CI job to run `npm run test:smoke` on PRs.
 - Consider adding `window.advanceTime(ms)` in-game for stricter deterministic stepping (currently shim handles timing).
@@ -1311,3 +1394,32 @@
   - `npm run -s build` passed
   - `pwsh -ExecutionPolicy Bypass -File .\scripts\task_smoke.ps1 -Scenario character-panel,skill-panel,afk-panel,fusion-panel,map-panel-landscape` passed
   - `pwsh -ExecutionPolicy Bypass -File .\scripts\task_smoke.ps1 -Scenario move-baseline` passed
+## 2026-03-12 (UI25 panel consolidation closure + zero-overflow landscape audit)
+
+- Closed the remaining landscape audit failures:
+  - `book` root scroll issue fixed by restoring missing split/pane constraints into `src/styles/panels.css`
+  - `book` icon sizing restored, removing the oversized series-image regression that was inflating panel scroll height
+  - `resonance` rebuilt from old stacked rows into an atlas card grid in `src/ui/ResonancePanel.ts`
+  - `resonance` series label mapping corrected to real `PetSeries` keys
+  - compact HUD overlap (`skillbar` vs `auto_controls` on `667x375`) removed via final `src/styles/rpg-premium.css` positioning pass
+- Added panel observability:
+  - `src/ui/EncyclopediaPanel.ts` now uses shared atlas header helper and exports debug state
+  - `src/ui/ResonancePanel.ts` now uses shared atlas header helper and exports debug state
+- Added automation wrapper:
+  - new `scripts/run_ui_panel_audit.ps1` starts/stops local dev server and runs `scripts/ui_panel_audit.py`
+- Removed dead legacy style files after confirming no remaining imports:
+  - `src/styles/ui-refresh.css`
+  - `src/styles/panels/legacy-panels.css`
+  - `src/styles/panels/adventure-atlas-batch2.css`
+- Added implementation docs:
+  - `scripts/reports/implementation/P45_P49_UI_PANEL_CONSOLIDATION_AND_AUDIT.md`
+  - `scripts/reports/implementation/P50_UI25_BEFORE_AFTER_SUMMARY.md`
+- Validation:
+  - `npm run -s typecheck` passed
+  - `npm run -s build` passed
+  - `pwsh -File ./scripts/task_smoke.ps1 -Profile landscape -Artifacts always -RenderMode lite` passed (`24/24`)
+  - `pwsh -File ./scripts/run_ui_panel_audit.ps1 -OutputDir D:\AI-RPGGAME\output\ui-audit-step-25` passed
+  - Final audit result:
+    - `book` large/compact `targetScrollY = 0`
+    - `resonance` large/compact `targetScrollY = 0`
+    - compact HUD `overlapCount = 0`

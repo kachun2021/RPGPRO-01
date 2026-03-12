@@ -1,6 +1,8 @@
 import type { PetManager } from '../pets/PetManager';
 import { SERIES_ICONS } from '../pets/PetData';
 import type { Inventory } from '../systems/Inventory';
+import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 export class RevivalPanel {
       readonly panelId = 'revival';
@@ -16,7 +18,7 @@ export class RevivalPanel {
             this._inventory = inventory;
             this._el = document.createElement('div');
             this._el.id = 'revivalPanel';
-            this._el.className = 'sa-panel revival-root ui-panel-atlas';
+            this._el.className = 'sa-panel revival-root revival-modal ui-panel-atlas';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
@@ -27,6 +29,20 @@ export class RevivalPanel {
 
       get isVisible(): boolean {
             return this._visible;
+      }
+
+      getDebugState() {
+            const dead = this._pm.owned.filter((pet) => pet.isDead);
+            const totalCost = dead.reduce((sum, pet) => sum + pet.revivalCost, 0);
+            return {
+                  activeTab: null,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 4),
+                  keyDataSummary: buildDebugSummary({
+                        deadCount: dead.length,
+                        totalCost,
+                        availableGold: this._inventory.gold,
+                  }),
+            };
       }
 
       open(onDone?: () => void): void {
@@ -58,14 +74,17 @@ export class RevivalPanel {
             this._el.innerHTML = '';
             const dead = this._pm.owned.filter((p) => p.isDead);
 
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = '<span>💀 寵物復活</span>';
-            const closeBtn = document.createElement('span');
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '✕';
-            closeBtn.addEventListener('click', () => this.close());
-            title.appendChild(closeBtn);
+            const { root: title } = createPanelHeader({
+                  icon: 'pet',
+                  kicker: 'Recovery Ledger',
+                  title: '寵物復活',
+                  subtitle: '死亡寵物清單、費用與快速復活操作',
+                  summaryText: dead.length > 0 ? `${dead.length} 隻待復活` : '目前無需復活',
+                  summaryClassName: 'revival-header-pill',
+                  closeLabel: '關閉寵物復活面板',
+                  closeText: '✕',
+                  onClose: () => this.close(),
+            });
             this._el.appendChild(title);
 
             const body = document.createElement('div');

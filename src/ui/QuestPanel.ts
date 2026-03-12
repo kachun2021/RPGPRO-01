@@ -1,6 +1,7 @@
 import type { QuestManager, QuestDef, QuestType, QuestStatus, QuestReward } from '../systems/QuestManager';
 import { Registry } from '../core/Registry';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type QTab = 'world' | 'general';
 const TAB_LABELS: { id: QTab; label: string; types: QuestType[] }[] = [
@@ -49,6 +50,19 @@ export class QuestPanel {
       }
 
       get isVisible(): boolean { return this._visible; }
+
+      getDebugState() {
+            const selectedQuest = this._questManager.allQuests.find((quest) => quest.id === this._selectedQuestId) ?? null;
+            return {
+                  activeTab: this._currentTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 4),
+                  keyDataSummary: buildDebugSummary({
+                        selectedQuest: selectedQuest?.name ?? null,
+                        selectedQuestStatus: selectedQuest ? this._questManager.getStatus(selectedQuest) : null,
+                        reportableCount: this._questManager.allQuests.filter((quest) => this._questManager.getStatus(quest) === 'turn_in').length,
+                  }),
+            };
+      }
 
       private _render(): void {
             this._syncResponsiveMode();
@@ -306,8 +320,15 @@ export class QuestPanel {
             return w > h && h <= 1080;
       }
 
+      private _isCompactLandscapeMode(): boolean {
+            const w = window.innerWidth || 0;
+            const h = window.innerHeight || 0;
+            return w > h && h <= 430;
+      }
+
       private _syncResponsiveMode(): void {
             this._el.classList.toggle('is-focus-mode', this._isLandscapeFocusMode());
+            this._el.classList.toggle('is-compact-landscape', this._isCompactLandscapeMode());
       }
 
       /** Actually apply reward effects to game systems */

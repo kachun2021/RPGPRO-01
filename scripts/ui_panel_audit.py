@@ -326,15 +326,42 @@ def summarize_reports(reports: list[dict]) -> list[dict]:
         target = report.get("target") or {}
         overflow = (target.get("overflow") or {}) if target else {}
         overflow_total = sum(float(overflow.get(key, 0) or 0) for key in ("left", "top", "right", "bottom"))
+        visible_nodes = report.get("visibleNodes") or []
+        visible_overflow_total = 0.0
+        nodes_with_overflow: list[dict] = []
+        for entry in visible_nodes:
+            node_overflow = entry.get("overflow") or {}
+            node_overflow_total = sum(float(node_overflow.get(key, 0) or 0) for key in ("left", "top", "right", "bottom"))
+            visible_overflow_total += node_overflow_total
+            if node_overflow_total > 0:
+                nodes_with_overflow.append(
+                    {
+                        "name": entry.get("name"),
+                        "selector": entry.get("selector"),
+                        "overflow": node_overflow,
+                        "overflowTotal": node_overflow_total,
+                    }
+                )
+
         overlaps = report.get("overlaps") or []
+        target_scroll_x = max(0, int((target.get("scrollWidth") or 0) - (target.get("clientWidth") or 0))) if target else 0
+        target_scroll_y = max(0, int((target.get("scrollHeight") or 0) - (target.get("clientHeight") or 0))) if target else 0
+        state = report.get("state") or {}
         summary.append(
             {
                 "capture": report["captureName"],
                 "viewport": report["viewport"],
-                "currentPanel": (report.get("state") or {}).get("currentPanel"),
-                "modalStack": (report.get("state") or {}).get("modalStack"),
+                "currentPanel": state.get("currentPanel"),
+                "activeTab": state.get("activeTab"),
+                "visiblePrimaryActions": state.get("visiblePrimaryActions"),
+                "keyDataSummary": state.get("keyDataSummary"),
+                "modalStack": state.get("modalStack"),
                 "targetOverflow": overflow,
                 "targetOverflowTotal": overflow_total,
+                "targetScrollX": target_scroll_x,
+                "targetScrollY": target_scroll_y,
+                "visibleOverflowTotal": round(visible_overflow_total, 2),
+                "visibleOverflowNodes": nodes_with_overflow,
                 "overlapCount": len(overlaps),
                 "largestOverlap": max((entry["area"] for entry in overlaps), default=0),
                 "image": report["image"],

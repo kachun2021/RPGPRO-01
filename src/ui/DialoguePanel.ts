@@ -1,5 +1,7 @@
 import type { NPC } from '../entities/NPC';
 import { getNpcUiIconId, renderUiIcon, type UiIconId } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary } from './layout/PanelDebugState';
 
 const NPC_TYPE_LABELS: Record<string, string> = {
       merchant: '商人', skill_master: '技能導師', quest: '任務', pet_trader: '寵物商人',
@@ -39,13 +41,25 @@ export class DialoguePanel {
       constructor() {
             this._el = document.createElement('div');
             this._el.id = 'dialogue-panel';
-            this._el.className = 'dlg-root';
+            this._el.className = 'sa-panel ui-panel-atlas dialogue-modal dlg-root';
             this._el.hidden = true;
             document.getElementById('ui-layer')?.appendChild(this._el);
       }
 
       get isVisible(): boolean { return this._visible; }
       get visible(): boolean { return this._visible; }
+
+      getDebugState() {
+            return {
+                  activeTab: null,
+                  visiblePrimaryActions: this._actions.map((action) => this._normalizeActionLabel(action.label)).filter(Boolean).slice(0, 5),
+                  keyDataSummary: buildDebugSummary({
+                        npcName: this._currentNpc?.def.name ?? null,
+                        dialogueIndex: this._dialogueIdx,
+                        actionCount: this._actions.length,
+                  }),
+            };
+      }
 
       openForNpc(npc: NPC, options: DialoguePanelOpenOptions = {}): void {
             this._currentNpc = npc;
@@ -68,7 +82,7 @@ export class DialoguePanel {
             const c = npc.def.color;
             const rgbStr = `${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}`;
             const typeLabel = NPC_TYPE_LABELS[npc.def.type] || 'NPC';
-            const iconMarkup = renderUiIcon(getNpcUiIconId(npc.def.type), 'dlg-header-glyph');
+            const iconMarkup = renderUiIcon(getNpcUiIconId(npc.def.type), 'dlg-watermark-glyph');
 
             const actionsHtml = this._actions.map((spec) => `
                   <button type="button" class="dlg-action${this._actionToneClass(spec)}" data-action="${this._escapeAttr(spec.action)}">
@@ -80,14 +94,22 @@ export class DialoguePanel {
                   </button>
             `).join('');
 
-            this._el.innerHTML = `
-                  <div class="dlg-header" data-npc-type="${this._escapeAttr(npc.def.type)}">
-                        <div class="dlg-header-icon-wrap">${iconMarkup}</div>
-                        <div class="dlg-header-copy">
-                              <span class="dlg-header-name">${npc.def.name}</span>
-                              <span class="dlg-header-type">${typeLabel}</span>
-                        </div>
-                  </div>
+            this._el.innerHTML = '';
+            const { root: title } = createPanelHeader({
+                  icon: getNpcUiIconId(npc.def.type),
+                  kicker: 'NPC Dialogue',
+                  title: npc.def.name,
+                  subtitle: '對話內容與互動選項',
+                  summaryText: typeLabel,
+                  summaryClassName: 'dlg-header-pill',
+                  closeLabel: `關閉與 ${npc.def.name} 的對話`,
+                  closeText: '✕',
+                  onClose: () => this.hide(),
+            });
+            title.classList.add('dlg-header');
+            title.dataset.npcType = npc.def.type;
+            this._el.appendChild(title);
+            this._el.insertAdjacentHTML('beforeend', `
                   <div class="dlg-body">
                         <div class="dlg-watermark">${iconMarkup}</div>
                         <div class="dlg-text-area" id="dlg-text"></div>
@@ -95,7 +117,7 @@ export class DialoguePanel {
                   <div class="dlg-actions" id="dlg-actions">
                         ${actionsHtml}
                   </div>
-            `;
+            `);
             this._el.style.setProperty('--dlg-watermark-color', `rgba(${rgbStr},0.08)`);
 
             // Type the current dialogue line

@@ -1,0 +1,200 @@
+.sys-root .sys-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 12px 0;
+}
+
+.sys-root .sys-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.sys-root .sys-overview-card,
+.sys-root .sys-health-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.sys-root .sys-overview-card span,
+.sys-root .sys-health-label,
+.sys-root :is(.sys-label, .sys-info, .sys-card-copy, .sys-card-note, .sys-health-sub, .sys-credit-role, .sys-credit-name) {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+.sys-root .sys-overview-card strong,
+.sys-root .sys-health-value,
+.sys-root .sys-card-title,
+.sys-root .sys-about-title,
+.sys-root .sys-about-version {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.sys-root .sys-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sys-root .sys-body {
+  padding: 8px 12px 12px;
+  overflow: auto;
+}
+
+.sys-root .sys-shell {
+  gap: 8px;
+}
+
+.sys-root :is(.sys-grid, .sys-health-grid) {
+  display: grid;
+  gap: 8px;
+}
+
+.sys-root .sys-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sys-root .sys-grid-data {
+  align-items: start;
+}
+
+.sys-root .sys-health-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sys-root :is(.sys-card, .sys-health-card) {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.sys-root .sys-card-wide,
+.sys-root .sys-card-hero,
+.sys-root .sys-card-table {
+  grid-column: 1 / -1;
+}
+
+.sys-root .sys-row,
+.sys-root .sys-credit-row,
+.sys-root .sys-health-head,
+.sys-root .sys-health-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sys-root .sys-row-stack,
+.sys-root .sys-slider-group,
+.sys-root .sys-btn-group,
+.sys-root .sys-pill-row,
+.sys-root .sys-credits,
+.sys-root .sys-links,
+.sys-root .sys-health-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sys-root .sys-slider-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+.sys-root .sys-slider {
+  flex: 1 1 auto;
+  accent-color: var(--chrome-accent);
+}
+
+.sys-root .sys-toggle-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sys-root .sys-toggle-track {
+  width: 44px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(255, 225, 220, 0.82);
+}
+
+.sys-root .sys-toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 199, 148, 0.98), rgba(255, 145, 121, 0.96));
+  box-shadow: 0 4px 10px rgba(255, 165, 123, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.sys-root .sys-toggle-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sys-root .sys-toggle-input:checked + .sys-toggle-track .sys-toggle-thumb {
+  transform: translateX(20px);
+}
+
+.sys-root :is(.sys-pill, .sys-health-out, .sys-health-stat) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(117, 94, 117, 0.82);
+}
+
+.sys-root .sys-select,
+.sys-root .sys-link {
+  width: 100%;
+}
+
+.sys-root .sys-about-subtitle,
+.sys-root .sys-link {
+  font-size: 12px;
+  color: rgba(117, 94, 117, 0.82);
+}
+
+@media (max-height: 430px) {
+  .sys-root .sys-header {
+    padding: 7px 9px 0;
+  }
+
+  .sys-root .sys-body {
+    padding: 7px 9px 9px;
+  }
+
+  .sys-root .sys-overview,
+  .sys-root .sys-health-grid,
+  .sys-root .sys-grid {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 860px) {
+  .sys-root .sys-overview,
+  .sys-root .sys-grid,
+  .sys-root .sys-health-grid {
+    grid-template-columns: 1fr;
+  }
+}

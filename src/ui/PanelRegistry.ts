@@ -1,19 +1,11 @@
-export type ManagedPanelKind = 'primary' | 'modal';
-export type ManagedPanelLayoutKind = 'dashboard' | 'split' | 'detail_list' | 'modal';
-export type ManagedPanelChromeMode = 'explore' | 'panel_focus' | 'dialogue_focus';
-
-export interface ManagedPanel {
-      panelId: string;
-      isVisible: boolean;
-      hide(): void;
-}
-
-export interface ManagedPanelRegistration {
-      kind?: ManagedPanelKind;
-      layoutKind?: ManagedPanelLayoutKind;
-      chromeMode?: ManagedPanelChromeMode;
-      blocksGameplayInput?: boolean;
-}
+import { getManagedPanelRegistration } from './PanelManifest';
+import type {
+      ManagedPanel,
+      ManagedPanelChromeMode,
+      ManagedPanelDebugState,
+      ManagedPanelKind,
+      ManagedPanelRegistration,
+} from './ManagedPanelTypes';
 
 interface RegisteredPanel extends Required<ManagedPanelRegistration> {
       panel: ManagedPanel;
@@ -23,10 +15,11 @@ export class PanelRegistry {
       private _panels = new Map<string, RegisteredPanel>();
       private _order: string[] = [];
 
-      register(panel: ManagedPanel, registration: ManagedPanelKind | ManagedPanelRegistration = 'primary'): void {
-            const normalized = typeof registration === 'string'
-                  ? this._normalizeRegistration({ kind: registration })
-                  : this._normalizeRegistration(registration);
+      register(panel: ManagedPanel, registration?: ManagedPanelKind | ManagedPanelRegistration): void {
+            const resolvedRegistration = registration ?? getManagedPanelRegistration(panel.panelId) ?? 'primary';
+            const normalized = typeof resolvedRegistration === 'string'
+                  ? this._normalizeRegistration({ kind: resolvedRegistration })
+                  : this._normalizeRegistration(resolvedRegistration);
             if (this._panels.has(panel.panelId)) {
                   this._panels.set(panel.panelId, { panel, ...normalized });
                   return;
@@ -91,9 +84,22 @@ export class PanelRegistry {
       getActiveChromeMode(): ManagedPanelChromeMode {
             const visibleModal = this.getModalStackMeta();
             if (visibleModal.length > 0) {
-                  return visibleModal[visibleModal.length - 1]?.chromeMode ?? 'dialogue_focus';
-            }
-            return this.getCurrentPanelMeta()?.chromeMode ?? 'explore';
+            return visibleModal[visibleModal.length - 1]?.chromeMode ?? 'dialogue_focus';
+      }
+      return this.getCurrentPanelMeta()?.chromeMode ?? 'explore';
+      }
+
+      getPanel(panelId: string): ManagedPanel | null {
+            return this._panels.get(panelId)?.panel ?? null;
+      }
+
+      getPanelDebugState(panelId: string): ManagedPanelDebugState | null {
+            return this._panels.get(panelId)?.panel.getDebugState?.() ?? null;
+      }
+
+      getCurrentPanelDebugState(): ManagedPanelDebugState | null {
+            const currentPanelId = this.getCurrentPanel();
+            return currentPanelId ? this.getPanelDebugState(currentPanelId) : null;
       }
 
       getVisibilitySnapshot(): Record<string, boolean> {
@@ -112,6 +118,17 @@ export class PanelRegistry {
                   layoutKind: registration.layoutKind ?? (kind === 'modal' ? 'modal' : 'dashboard'),
                   chromeMode: registration.chromeMode ?? (kind === 'modal' ? 'dialogue_focus' : 'panel_focus'),
                   blocksGameplayInput: registration.blocksGameplayInput ?? kind === 'modal',
+                  template: registration.template ?? (kind === 'modal' ? 'modal_overlay' : 'primary_panel'),
+                  densityTier: registration.densityTier ?? 'balanced',
+                  compactLandscapeBudget: registration.compactLandscapeBudget ?? {
+                        targetViewport: '667x375',
+                        maxPrimaryActions: kind === 'modal' ? 2 : 3,
+                        preferNoScroll: true,
+                        notes: kind === 'modal'
+                              ? '模態窗需保留主要決策與關閉操作在首屏。'
+                              : '主面板在手機橫向下應維持無捲動主結構。',
+                  },
+                  primaryActionLabels: registration.primaryActionLabels ?? [],
             };
       }
 }

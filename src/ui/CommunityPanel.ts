@@ -6,7 +6,8 @@ import {
       type RuntimeEventDropMap,
       type RuntimeServerMessage,
 } from '../data/runtime/RuntimeOpsSource';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type CommTab = 'bulletin' | 'preview';
 
@@ -43,6 +44,18 @@ export class CommunityPanel {
             return this._visible;
       }
 
+      getDebugState() {
+            return {
+                  activeTab: this._currentTab,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 4),
+                  keyDataSummary: buildDebugSummary({
+                        bulletinCount: this._bulletinData?.messages.length ?? 0,
+                        eventCount: this._bulletinData?.events.length ?? 0,
+                        loading: this._bulletinLoading,
+                  }),
+            };
+      }
+
       toggle(): void {
             this._visible ? this.hide() : this.show();
       }
@@ -77,22 +90,17 @@ export class CommunityPanel {
                   ? `公告 ${bulletinCount}`
                   : 'Live Ops 邊界';
 
-            const title = document.createElement('div');
-            title.className = 'sa-panel-title';
-            title.innerHTML = `
-                  <div class="atlas-title-copy">
-                        <span class="atlas-kicker">Service Surface</span>
-                        <span class="atlas-title-main">${renderUiIcon('settings', 'atlas-title-icon')}<span>營運與社群</span></span>
-                        <span class="atlas-title-meta">只展示已落地的公告、活動配置與未來多人功能邊界</span>
-                  </div>
-                  <span class="atlas-header-pill comm-header-pill">${headerSummary}</span>
-            `;
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'panel-close';
-            closeBtn.textContent = '✕';
-            closeBtn.addEventListener('click', () => this.hide());
-            title.appendChild(closeBtn);
+            const { root: title } = createPanelHeader({
+                  icon: 'menu',
+                  kicker: 'Service Surface',
+                  title: '營運與社群',
+                  subtitle: '已落地公告、活動倍率與未來多人邊界摘要',
+                  summaryText: headerSummary,
+                  summaryClassName: 'comm-header-pill',
+                  closeLabel: '關閉營運與社群面板',
+                  closeText: '✕',
+                  onClose: () => this.hide(),
+            });
             this._el.appendChild(title);
 
             const tabBar = document.createElement('div');
@@ -116,7 +124,7 @@ export class CommunityPanel {
 
             const banner = document.createElement('div');
             banner.className = 'comm-dev-banner';
-            banner.textContent = '這裡只展示已落地的 live ops 入口與未來多人功能邊界，不再把預告畫成已上線系統。';
+            banner.textContent = '只顯示已接線公告與活動資料；好友、房間與公會仍是預留邊界。';
             this._el.appendChild(banner);
 
             const body = document.createElement('div');
@@ -134,26 +142,26 @@ export class CommunityPanel {
       private _renderPreview(body: HTMLDivElement): void {
             body.innerHTML = `
                   <div class="comm-overview-grid">
-                        ${this._overviewCard('存檔模式', 'Local-first', '角色、背包與進度仍寫入本機。')}
-                        ${this._overviewCard('即時系統', '唯讀公告', '目前只讀活動倍率與公告資料。')}
-                        ${this._overviewCard('多人功能', '未開放', '好友、隊伍、公會仍是設計邊界。')}
+                        ${this._overviewCard('存檔模式', 'Local-first', '角色與進度仍寫入本機。')}
+                        ${this._overviewCard('即時系統', '唯讀公告', '目前只讀公告與活動倍率。')}
+                        ${this._overviewCard('多人功能', '未開放', '好友、隊伍、公會仍屬預留。')}
                   </div>
                   <div class="comm-section-title">目前邊界</div>
-                  <div class="comm-boundary-list atlas-card">
-                        <div class="comm-boundary-row"><span>進度寫入</span><strong>本機存檔，不經伺服器</strong></div>
-                        <div class="comm-boundary-row"><span>好友 / 隊伍 / 公會</span><strong>僅保留資訊入口，不影響角色資料</strong></div>
-                        <div class="comm-boundary-row"><span>未來多人接點</span><strong>會從 System 入口切入，不綁主循環 HUD</strong></div>
+                  <div class="comm-overview-grid">
+                        ${this._overviewCard('進度寫入', '本機存檔', '不經伺服器')}
+                        ${this._overviewCard('好友 / 隊伍 / 公會', '保留入口', '不改角色資料')}
+                        ${this._overviewCard('未來多人接點', 'System 入口', '不綁主 HUD')}
                   </div>
                   <div class="comm-section-title">預覽中的服務</div>
                   <div class="comm-preview-grid">
-                        ${this._previewCard('好友', '尚未上線', '未接即時在線狀態、邀請與追蹤。')}
-                        ${this._previewCard('隊伍', '尚未上線', '未接房間服務、同步戰鬥與掉落規則。')}
-                        ${this._previewCard('公會', '尚未上線', '未接公會資料、公告與權限邏輯。')}
+                        ${this._previewCard('好友', '尚未上線', '尚未接在線狀態與邀請。')}
+                        ${this._previewCard('隊伍', '尚未上線', '尚未接房間與同步掉落。')}
+                        ${this._previewCard('公會', '尚未上線', '尚未接公告與權限邏輯。')}
                   </div>
                   <div class="comm-section-title">已落地內容</div>
                   <div class="comm-live-card atlas-card">
                         <div class="comm-live-title">公告 / 活動倍率 / 掉落配置</div>
-                        <div class="comm-live-copy">目前已能讀取 runtime ops 資料，作為後續 live ops 的唯讀入口與版型基礎。</div>
+                        <div class="comm-live-copy">目前已能讀取 runtime ops，作為 live ops 的唯讀入口。</div>
                   </div>
             `;
       }
@@ -192,9 +200,9 @@ export class CommunityPanel {
             const overview = document.createElement('div');
             overview.className = 'comm-overview-grid';
             overview.innerHTML = `
-                  ${this._overviewCard('公告', `${messages.length}`, '目前載入的系統公告數量')}
-                  ${this._overviewCard('活動檔', `${events.length}`, 'runtime 活動倍率設定')}
-                  ${this._overviewCard('地圖掉落', `${dropMaps.length}`, '活動掉落地圖配置')}
+                  ${this._overviewCard('公告', `${messages.length}`, '目前載入的公告數量')}
+                  ${this._overviewCard('活動檔', `${events.length}`, 'runtime 活動倍率')}
+                  ${this._overviewCard('地圖掉落', `${dropMaps.length}`, '活動掉落配置')}
             `;
             body.appendChild(overview);
 

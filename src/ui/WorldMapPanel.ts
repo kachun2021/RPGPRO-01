@@ -14,6 +14,7 @@ import {
       type MapSummary,
 } from './world-map/WorldMapModel';
 import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 export class WorldMapPanel {
       readonly panelId = 'map';
@@ -72,6 +73,20 @@ export class WorldMapPanel {
             this._buildShell();
             document.getElementById('ui-layer')?.appendChild(this._el);
             window.addEventListener('resize', this._onResize);
+      }
+
+      getDebugState() {
+            const selected = this._mapSummaries.find((map) => map.mapKey === this._selectedMapKey) ?? null;
+            return {
+                  activeTab: this._regionFilter === 'all' ? 'all' : this._regionFilter,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el, 4),
+                  keyDataSummary: buildDebugSummary({
+                        selectedMap: selected?.name ?? null,
+                        levelBand: this._levelBand,
+                        trackedTarget: this._trackedTargetMapKey,
+                        focusedPet: this._focusedPetName,
+                  }),
+            };
       }
 
       setNavigationHandlers(handlers: {
@@ -311,14 +326,16 @@ export class WorldMapPanel {
             const navRow = document.createElement('div');
             navRow.className = 'wmp-nav-row';
             if (compactMode) navRow.classList.add('is-compact');
-            const teleportLabel = sceneZoneId
-                  ? `傳送點：${sceneZoneId}${this._teleportModeSuffix(summary.teleportMode)}`
+            const _zoneName = sceneZoneId
+                  ? (this._mapSummaries.find(m => m.teleportSceneZoneId === sceneZoneId)?.name ?? summary.name)
+                  : null;
+            const teleportLabel = _zoneName
+                  ? `傳送點：${_zoneName}`
                   : '傳送點：無';
             const neighborLabel = summary.neighborMapKeys.length > 0
-                  ? `連接：${summary.neighborMapKeys.length}`
-                  : '連接：0';
+                  ? `相鄰：${summary.neighborMapKeys.length}`
+                  : '相鄰：0';
             navRow.innerHTML = `
-                  <span class="sa-tag">資料：DB</span>
                   <span class="sa-tag">${teleportLabel}</span>
                   <span class="sa-tag">${neighborLabel}</span>
             `;
@@ -625,10 +642,10 @@ export class WorldMapPanel {
       }
 
       private _teleportModeSuffix(mode: RuntimeZoneMatchMode): string {
-            if (mode === 'explicit') return '（顯式映射）';
-            if (mode === 'town') return '（城鎮路由）';
-            if (mode === 'level') return '（等級近似）';
-            if (mode === 'none') return '（未映射）';
+            if (mode === 'explicit') return '';
+            if (mode === 'town') return '（城鎮）';
+            if (mode === 'level') return '（近似）';
+            if (mode === 'none') return '（不可傳送）';
             return '';
       }
 

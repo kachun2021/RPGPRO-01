@@ -63,7 +63,7 @@ function ensureCache(): RuntimeEconomyCommerceCache {
                   category: meta.category,
                   price,
                   icon: iconByCategory(meta.category),
-                  description: `${meta.name}（DB #${itemIdx}）`,
+                  description: meta.name,
                   itemType: meta.itemType,
                   rarity: meta.rarity,
             };

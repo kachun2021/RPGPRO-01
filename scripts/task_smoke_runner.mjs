@@ -353,6 +353,8 @@ function assertScenarioState(name, state, expect = {}) {
   if (!state.identity?.playerName) fail('state.identity.playerName missing');
   if (state.player?.playerDead === undefined) fail('state.player.playerDead missing');
   if (!Array.isArray(state.modalStack)) fail('state.modalStack missing');
+  if (!Array.isArray(state.visiblePrimaryActions)) fail('state.visiblePrimaryActions missing');
+  if (!state.keyDataSummary || typeof state.keyDataSummary !== 'object') fail('state.keyDataSummary missing');
   if (!state.settingsApplied) fail('state.settingsApplied missing');
   if (!state.viewport?.orientation) fail('state.viewport.orientation missing');
   if (state.pets?.deadCount === undefined) fail('state.pets.deadCount missing');
@@ -448,6 +450,22 @@ function assertScenarioState(name, state, expect = {}) {
 
   if (expect.primaryNavMode !== undefined && state.primaryNavMode !== expect.primaryNavMode) {
     fail(`expected primaryNavMode=${expect.primaryNavMode}, actual=${state.primaryNavMode}`);
+  }
+
+  if (expect.activeTab !== undefined) {
+    const actual = state.activeTab ?? null;
+    if (actual !== expect.activeTab) {
+      fail(`expected activeTab=${expect.activeTab}, actual=${actual}`);
+    }
+  }
+
+  if (expect.primaryActionsInclude) {
+    const requiredActions = Array.isArray(expect.primaryActionsInclude) ? expect.primaryActionsInclude : [expect.primaryActionsInclude];
+    for (const label of requiredActions) {
+      if (!state.visiblePrimaryActions.includes(label)) {
+        fail(`expected visiblePrimaryActions to include '${label}', actual=${JSON.stringify(state.visiblePrimaryActions)}`);
+      }
+    }
   }
 }
 
@@ -573,6 +591,9 @@ async function runScenario(browser, baseUrl, outputDir, scenario, runnerOptions)
       viewport: `${viewport.width}x${viewport.height}`,
       screenshot: capturePassArtifacts ? path.join(scenarioDir, 'shot-0.png') : '',
       current_panel: finalState.currentPanel ?? '',
+      active_tab: finalState.activeTab ?? '',
+      visible_primary_actions: (finalState.visiblePrimaryActions || []).join('|'),
+      key_data_summary: JSON.stringify(finalState.keyDataSummary || {}),
       scene_zone_id: finalState.zone.sceneZoneId,
       runtime_zone_ids: finalState.zone.runtimeZoneIds.join(','),
       player_name: finalState.identity.playerName,

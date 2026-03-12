@@ -10,13 +10,23 @@
       overflow: hidden !important;
     }
 
+    .afk-panel-shell {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 0;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
     .afk-headline {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 7px 8px;
       border-bottom: 1px solid rgba(160, 130, 80, 0.18);
       background: rgba(18, 14, 28, 0.6);
+      flex-shrink: 0;
     }
 
     .afk-run-badge {
@@ -60,17 +70,18 @@
     .afk-overview-strip {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      padding: 8px 10px;
+      gap: 5px;
+      padding: 6px 8px;
       border-bottom: 1px solid rgba(160, 130, 80, 0.14);
       background: rgba(14, 11, 22, 0.45);
+      flex-shrink: 0;
     }
 
     .afk-mini-card {
       border: 1px solid rgba(160, 130, 80, 0.18);
       border-radius: 5px;
       background: rgba(20, 16, 30, 0.45);
-      padding: 6px 8px;
+      padding: 5px 7px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -90,8 +101,9 @@
     .afk-layout {
       display: grid;
       grid-template-columns: 168px 1fr;
-      min-height: 320px;
-      max-height: calc(82vh - 170px);
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: none;
     }
 
     .afk-side-nav {
@@ -130,8 +142,9 @@
     }
 
     .afk-main-body {
-      padding: 10px;
+      padding: 8px;
       overflow-y: auto;
+      min-height: 0;
     }
 
     .afk-tab-panel {
@@ -139,14 +152,15 @@
     }
 
     .afk-tab-panel.active {
-      display: block;
+      display: grid;
+      align-content: start;
     }
 
     .afk-panel-title-line {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: rgba(232, 201, 106, 0.86);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-family: var(--font-body);
     }
 
@@ -505,6 +519,7 @@
       padding: 8px 10px;
       border-top: 1px solid rgba(160, 130, 80, 0.12);
       background: rgba(12, 10, 20, 0.52);
+      flex-shrink: 0;
     }
 
     .afk-btn {
@@ -547,11 +562,6 @@
     }
 
     @media (max-width: 780px) {
-      .auto-grind-controls {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
       .afk-overview-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -581,6 +591,156 @@
 
       .afk-filter-lists {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-height: 430px) and (orientation: landscape) {
+      .afk-root {
+        width: min(96vw, 740px) !important;
+        max-height: 78vh !important;
+      }
+
+      .afk-headline {
+        gap: 6px;
+        padding: 6px 8px;
+      }
+
+      .afk-run-badge,
+      .afk-mode-select,
+      .afk-headline .afk-btn {
+        min-height: 30px;
+      }
+
+      .afk-headline .afk-btn {
+        padding: 4px 8px;
+      }
+
+      .afk-overview-strip {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4px;
+        padding: 6px 8px;
+      }
+
+      .afk-overview-strip .afk-mini-card:last-child {
+        display: none;
+      }
+
+      .afk-mini-card {
+        padding: 5px 6px;
+      }
+
+      .afk-mini-card span {
+        font-size: 9px;
+      }
+
+      .afk-mini-card b {
+        font-size: 11px;
+      }
+
+      .afk-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        min-height: 0;
+        max-height: none;
+      }
+
+      .afk-side-nav {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 4px;
+        padding: 6px 8px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(160, 130, 80, 0.14);
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .afk-menu-btn {
+        min-width: 84px;
+        padding: 5px 6px;
+        font-size: 10px;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .afk-main-body {
+        padding: 6px 8px;
+      }
+
+      .afk-panel-title-line {
+        margin-bottom: 2px;
+        font-size: 10px;
+      }
+
+      .afk-toggle-grid:not(.afk-toggle-grid-single) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 4px;
+      }
+
+      .afk-row-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 4px;
+      }
+
+      .afk-toggle-card,
+      .afk-field,
+      .afk-filter-card {
+        padding: 6px;
+      }
+
+      .afk-toggle-card {
+        min-height: 54px;
+      }
+
+      .afk-toggle-title {
+        font-size: 10px;
+      }
+
+      .afk-toggle-desc,
+      .afk-note,
+      .afk-field,
+      .afk-link-btn,
+      .afk-status {
+        font-size: 9px;
+      }
+
+      .afk-toggle-desc {
+        display: none;
+      }
+
+      .afk-toggle-control {
+        gap: 4px;
+      }
+
+      .afk-toggle-state {
+        min-width: 28px;
+        font-size: 9px;
+      }
+
+      .afk-toggle-switch {
+        width: 40px;
+        height: 20px;
+      }
+
+      .afk-toggle-slider::before {
+        width: 14px;
+        height: 14px;
+      }
+
+      .afk-toggle-switch input:checked + .afk-toggle-slider::before {
+        transform: translateX(18px);
+      }
+
+      .afk-footer {
+        padding: 6px 8px;
+      }
+
+      .afk-status {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 

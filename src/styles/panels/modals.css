@@ -1,0 +1,226 @@
+#ui-layer :is(.dialogue-modal, .rename-modal, .revival-modal).ui-panel-atlas:not([hidden]) {
+  width: min(96vw, 560px) !important;
+  max-width: min(96vw, 560px) !important;
+  height: auto !important;
+  max-height: min(76vh, 560px) !important;
+}
+
+#ui-layer .dlg-root.ui-panel-atlas {
+  width: min(96vw, 600px) !important;
+  max-width: min(96vw, 600px) !important;
+}
+
+#ui-layer .dlg-root .dlg-body,
+#ui-layer .rename-root .rename-body,
+#ui-layer .revival-root .revival-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+}
+
+#ui-layer .dlg-root .dlg-body {
+  position: relative;
+  min-height: 170px;
+}
+
+#ui-layer .dlg-root .dlg-watermark {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  width: 96px;
+  height: 96px;
+  color: var(--dlg-watermark-color);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+#ui-layer .dlg-root .dlg-watermark .ui-icon-glyph {
+  width: 100%;
+  height: 100%;
+}
+
+#ui-layer .dlg-root .dlg-text-area {
+  position: relative;
+  z-index: 1;
+  min-height: 120px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--chrome-text-strong);
+  white-space: pre-wrap;
+}
+
+#ui-layer .dlg-root .dlg-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+#ui-layer .dlg-root .dlg-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 170, 148, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+}
+
+#ui-layer .dlg-root .dlg-action-primary {
+  background: linear-gradient(180deg, rgba(255, 231, 206, 0.98), rgba(255, 210, 187, 0.94));
+}
+
+#ui-layer .dlg-root .dlg-action-close {
+  background: rgba(255, 236, 240, 0.88);
+}
+
+#ui-layer .dlg-root .dlg-action-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#ui-layer .dlg-root .dlg-action-label {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+#ui-layer .dlg-root .dlg-action-sub {
+  font-size: 11px;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+#ui-layer .rename-root .rename-current-row,
+#ui-layer .rename-root .rename-input-row,
+#ui-layer .rename-root .rename-btn-row,
+#ui-layer .revival-root .revival-cost,
+#ui-layer .revival-root .revival-actions,
+#ui-layer .revival-root .revival-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#ui-layer .rename-root .rename-input-row {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+#ui-layer .rename-root :is(.rename-label, .rename-label-dim, .rename-cost-row, .rename-status-row, .revival-cost-label, .revival-row-level, .revival-row-cost) {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+#ui-layer .rename-root .rename-current-name,
+#ui-layer .revival-root .revival-cost-value,
+#ui-layer .revival-root .revival-row-name {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+#ui-layer .rename-root .rename-input {
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+#ui-layer .revival-root .revival-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+#ui-layer .revival-root .revival-row-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+#ui-layer .revival-root .revival-row-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 224, 187, 0.52);
+}
+
+#ui-layer .revival-root .revival-row-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  #ui-layer .dlg-root .dlg-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 430px) and (orientation: landscape) {
+  #ui-layer :is(.dialogue-modal, .rename-modal, .revival-modal).ui-panel-atlas:not([hidden]) {
+    max-height: min(72vh, 520px) !important;
+  }
+
+  #ui-layer .dlg-root .dlg-body,
+  #ui-layer .rename-root .rename-body,
+  #ui-layer .revival-root .revival-body {
+    padding: 10px 12px 12px;
+    gap: 8px;
+  }
+
+  #ui-layer .dlg-root .dlg-body {
+    min-height: 126px;
+  }
+
+  #ui-layer .dlg-root .dlg-watermark {
+    width: 72px;
+    height: 72px;
+    right: 12px;
+    top: 10px;
+  }
+
+  #ui-layer .dlg-root .dlg-text-area {
+    min-height: 92px;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  #ui-layer .dlg-root .dlg-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 0 12px 12px;
+  }
+
+  #ui-layer .dlg-root .dlg-action {
+    padding: 8px 10px;
+  }
+
+  #ui-layer .dlg-root .dlg-action-label,
+  #ui-layer .rename-root .rename-current-name,
+  #ui-layer .revival-root .revival-cost-value,
+  #ui-layer .revival-root .revival-row-name {
+    font-size: 12px;
+  }
+
+  #ui-layer .dlg-root .dlg-action-sub,
+  #ui-layer .rename-root :is(.rename-label, .rename-label-dim, .rename-cost-row, .rename-status-row, .revival-cost-label, .revival-row-level, .revival-row-cost) {
+    font-size: 10px;
+  }
+}

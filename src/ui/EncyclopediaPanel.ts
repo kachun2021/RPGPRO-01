@@ -4,7 +4,8 @@ import listPetsRaw from '../data/fusion/list_pets.json';
 import type { ListPetPayload, ListPetRow } from '../data/fusion/types';
 import { canonicalPetName, normalizeFusionNameKey } from '../data/fusion/FusionNameUtils';
 import { getRuntimeFusionGuideEntries, type RuntimeMapRef } from '../data/runtime/RuntimeFusionGuide';
-import { renderUiIcon } from './UiIconCatalog';
+import { createPanelHeader } from './layout/PanelHeader';
+import { buildDebugSummary, collectVisibleButtonLabels } from './layout/PanelDebugState';
 
 type SeriesFilter = 'all' | PetSeries;
 
@@ -113,6 +114,21 @@ export class EncyclopediaPanel {
             if (this._visible) this._render();
       }
 
+      getDebugState() {
+            const selected = this._selectedPetDef();
+            return {
+                  activeTab: this._seriesFilter,
+                  visiblePrimaryActions: collectVisibleButtonLabels(this._el),
+                  keyDataSummary: buildDebugSummary({
+                        selectedPet: selected?.nameCN ?? null,
+                        seriesFilter: this._seriesFilter,
+                        discoveredOnly: this._onlyDiscovered,
+                        fusibleOnly: this._onlyFusible,
+                        dropEggOnly: this._onlyDropEgg,
+                  }),
+            };
+      }
+
       dispose(): void {
             window.removeEventListener('resize', this._onResize);
             this._el.remove();
@@ -120,9 +136,11 @@ export class EncyclopediaPanel {
 
       private _render(): void {
             this._syncResponsiveMode();
+            const defs = this._filteredDefs();
+            this._ensureSelectedPet(defs);
             this._el.innerHTML = '';
             this._el.appendChild(this._buildHeader());
-            this._el.appendChild(this._buildUnifiedView());
+            this._el.appendChild(this._buildUnifiedView(defs));
       }
 
       private _isLandscapeFocusMode(): boolean {
@@ -136,40 +154,24 @@ export class EncyclopediaPanel {
       }
 
       private _buildHeader(): HTMLDivElement {
-            const header = document.createElement('div');
-            header.className = 'sa-panel-title';
-
-            const copy = document.createElement('div');
-            copy.className = 'atlas-title-copy book-header-copy';
-
-            const kicker = document.createElement('span');
-            kicker.className = 'atlas-kicker';
-            kicker.textContent = 'Adventure Atlas';
-
-            const title = document.createElement('span');
-            title.className = 'book-title atlas-title-main';
-            title.innerHTML = `${renderUiIcon('book', 'book-title-icon')}<span>寵物圖鑑</span>`;
-            copy.appendChild(kicker);
-            copy.appendChild(title);
-
-            const progress = document.createElement('span');
-            progress.className = 'book-progress';
-            progress.textContent = `${this._enc.discoveredCount} / ${this._enc.totalCount}`;
-
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.textContent = '×';
-            closeBtn.setAttribute('aria-label', '關閉圖鑑');
-            closeBtn.className = 'book-close-btn';
-            closeBtn.addEventListener('click', () => this.close());
-
-            header.appendChild(copy);
-            header.appendChild(progress);
-            header.appendChild(closeBtn);
-            return header;
+            const selected = this._selectedPetDef();
+            const subtitle = selected
+                  ? `${this._seriesFilterLabel()} · ${selected.nameCN}`
+                  : `${this._seriesFilterLabel()} · 收藏進度`;
+            const { root } = createPanelHeader({
+                  icon: 'book',
+                  kicker: 'Adventure Atlas',
+                  title: '寵物圖鑑',
+                  subtitle,
+                  summaryText: `${this._enc.discoveredCount} / ${this._enc.totalCount}`,
+                  summaryClassName: 'book-header-pill',
+                  closeLabel: '關閉寵物圖鑑',
+                  onClose: () => this.close(),
+            });
+            return root;
       }
 
-      private _buildUnifiedView(): HTMLDivElement {
+      private _buildUnifiedView(defs: PetDef[]): HTMLDivElement {
             const root = document.createElement('div');
             root.className = 'book-unified-root';
 
@@ -208,10 +210,17 @@ export class EncyclopediaPanel {
             const split = document.createElement('div');
             const compact = this._shouldUseStackLayout();
             split.className = `book-split${compact ? ' is-compact' : ''}`;
-            split.appendChild(this._buildPetListPane(compact));
+            split.appendChild(this._buildPetListPane(defs, compact));
             split.appendChild(this._buildDetailPane(compact));
             root.appendChild(split);
             return root;
+      }
+
+      private _ensureSelectedPet(defs: PetDef[]): void {
+            if (!this._selectedPetId || !defs.some((def) => def.id === this._selectedPetId)) {
+                  this._selectedPetId = defs[0]?.id ?? null;
+                  this._selectedSourceMapKey = null;
+            }
       }
 
       private _shouldUseStackLayout(): boolean {
@@ -244,14 +253,9 @@ export class EncyclopediaPanel {
             return btn;
       }
 
-      private _buildPetListPane(compact: boolean): HTMLDivElement {
+      private _buildPetListPane(defs: PetDef[], compact: boolean): HTMLDivElement {
             const pane = document.createElement('div');
             pane.className = `book-pane${compact ? ' is-compact-list' : ''}`;
-
-            const defs = this._filteredDefs();
-            if (!this._selectedPetId || !defs.some((def) => def.id === this._selectedPetId)) {
-                  this._selectedPetId = defs[0]?.id ?? null;
-            }
 
             const head = document.createElement('div');
             head.className = 'book-pane-head';
@@ -419,6 +423,11 @@ export class EncyclopediaPanel {
       private _selectedPetDef(): PetDef | null {
             if (!this._selectedPetId) return PET_DEFS[0] ?? null;
             return PET_DEFS.find((def) => def.id === this._selectedPetId) ?? PET_DEFS[0] ?? null;
+      }
+
+      private _seriesFilterLabel(): string {
+            if (this._seriesFilter === 'all') return '全部系列';
+            return SERIES_NAMES[this._seriesFilter];
       }
 
       private _buildPetDefNameIndex(): void {

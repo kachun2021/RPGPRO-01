@@ -1,0 +1,90 @@
+.reso-root .reso-body {
+  padding: 8px 12px 12px;
+  overflow: auto;
+}
+
+.reso-root .reso-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.reso-root .reso-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-color: color-mix(in srgb, var(--reso-series-color) 40%, rgba(255, 170, 148, 0.22));
+}
+
+.reso-root .reso-card.is-maxed {
+  background: linear-gradient(180deg, rgba(245, 255, 248, 0.94), rgba(230, 250, 241, 0.88));
+}
+
+.reso-root .reso-card-head,
+.reso-root .reso-card-series,
+.reso-root .reso-cost-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.reso-root .reso-series-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--reso-series-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--reso-series-color) 20%, white);
+}
+
+.reso-root .reso-series-name,
+.reso-root .reso-level-pill,
+.reso-root .reso-info {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--chrome-text-strong);
+}
+
+.reso-root .reso-level-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 224, 187, 0.92);
+  color: #8a6157;
+  font-size: 11px;
+}
+
+.reso-root .reso-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.reso-root .reso-dot {
+  flex: 1 1 auto;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 225, 220, 0.82);
+}
+
+.reso-root .reso-dot-active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--reso-series-color) 80%, white), rgba(255, 208, 120, 0.92));
+}
+
+.reso-root .reso-cost-row {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(117, 94, 117, 0.78);
+}
+
+.reso-root .reso-apply-btn {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .reso-root .reso-grid {
+    grid-template-columns: 1fr;
+  }
+}
